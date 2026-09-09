@@ -1,0 +1,204 @@
+{
+  "node": "P0-A",
+  "effective_plan_version": "v2",
+  "recorded_at": "2026-09-08T00:26:06.394818+00:00",
+  "overall": "BLOCKED",
+  "commands": [
+    {
+      "node": "P0-A",
+      "plan_version": "v1",
+      "step": "corepack-enable",
+      "attempt": "01",
+      "argv": [
+        "D:\\Program Files\\PowerShell\\7\\pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $P0ATemp='D:\\Temp_projects\\dsh861-p0-a-baseline'; Set-Location -LiteralPath 'D:\\Projects\\dsh861'; & 'D:\\Program Files\\nodejs\\corepack.cmd' enable --install-directory (Join-Path $P0ATemp 'toolchain\\bin') pnpm; if ($null -ne $LASTEXITCODE) { exit $LASTEXITCODE }"
+      ],
+      "cwd": "D:\\Projects\\dsh861",
+      "started_at": "2026-09-07T23:53:12.894097+00:00",
+      "stdout": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\corepack-enable-01.stdout.log",
+      "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\corepack-enable-01.stderr.log",
+      "removed_environment_names": [
+        "FIRECRAWL_API_KEY",
+        "ZAI_BUSINESS_BASE_URL",
+        "ZAI_OAUTH_CLIENT_ID",
+        "ZAI_OAUTH_ORIGIN",
+        "Z_AI_API_KEY"
+      ],
+      "environment_paths": {
+        "COREPACK_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\corepack",
+        "TEMP": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "TMP": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "TMPDIR": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "npm_config_cache": "D:\\Temp_projects\\dsh861-p0-a-baseline\\npm-cache",
+        "npm_config_devdir": "D:\\Temp_projects\\dsh861-p0-a-baseline\\node-gyp",
+        "DSH_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\dsh-home",
+        "DSH_AGENTS_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\agents-home"
+      },
+      "state": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "pid": 7224,
+      "finished_at": "2026-09-07T23:53:47.897186+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\corepack-enable-01.json",
+      "receipt_sha256": "fd96b508c35954fb041d0b788be04d35fe1a65761dc02a6d9882c705e6af7a60"
+    },
+    {
+      "node": "P0-A",
+      "plan_version": "v1",
+      "step": "pnpm-version",
+      "attempt": "01",
+      "argv": [
+        "D:\\Program Files\\PowerShell\\7\\pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $P0ATemp='D:\\Temp_projects\\dsh861-p0-a-baseline'; Set-Location -LiteralPath 'D:\\Projects\\dsh861'; pnpm.cmd --version; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; Get-Command pnpm.cmd | Select-Object Name,Source; if ($null -ne $LASTEXITCODE) { exit $LASTEXITCODE }"
+      ],
+      "cwd": "D:\\Projects\\dsh861",
+      "started_at": "2026-09-07T23:55:19.123838+00:00",
+      "stdout": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\pnpm-version-01.stdout.log",
+      "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\pnpm-version-01.stderr.log",
+      "removed_environment_names": [
+        "FIRECRAWL_API_KEY",
+        "ZAI_BUSINESS_BASE_URL",
+        "ZAI_OAUTH_CLIENT_ID",
+        "ZAI_OAUTH_ORIGIN",
+        "Z_AI_API_KEY"
+      ],
+      "environment_paths": {
+        "COREPACK_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\corepack",
+        "TEMP": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "TMP": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "TMPDIR": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "npm_config_cache": "D:\\Temp_projects\\dsh861-p0-a-baseline\\npm-cache",
+        "npm_config_devdir": "D:\\Temp_projects\\dsh861-p0-a-baseline\\node-gyp",
+        "DSH_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\dsh-home",
+        "DSH_AGENTS_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\agents-home"
+      },
+      "state": "PASS",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "pid": 5548,
+      "finished_at": "2026-09-07T23:56:24.214207+00:00",
+      "stdout_sha256": "86d7c61f36c471ba7371e6f6cfcfa4a90f98944c1164a1e0015ce33d1cc288ff",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\pnpm-version-01.json",
+      "receipt_sha256": "72b5be943cc0e68b75c84b31e29e7832477dfd4dd8d947835e8cd01ec98c7612"
+    },
+    {
+      "node": "P0-A",
+      "plan_version": "v1",
+      "step": "install-ntfs",
+      "attempt": "01",
+      "argv": [
+        "D:\\Program Files\\PowerShell\\7\\pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-Command",
+        "$ErrorActionPreference='Stop'; $P0ATemp='D:\\Temp_projects\\dsh861-p0-a-baseline'; Set-Location -LiteralPath 'D:\\Projects\\dsh861'; pnpm.cmd install --frozen-lockfile --store-dir (Join-Path $P0ATemp 'pnpm-store'); if ($null -ne $LASTEXITCODE) { exit $LASTEXITCODE }"
+      ],
+      "cwd": "D:\\Projects\\dsh861",
+      "started_at": "2026-09-07T23:58:34.599645+00:00",
+      "stdout": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-01.stdout.log",
+      "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-01.stderr.log",
+      "removed_environment_names": [
+        "FIRECRAWL_API_KEY",
+        "ZAI_BUSINESS_BASE_URL",
+        "ZAI_OAUTH_CLIENT_ID",
+        "ZAI_OAUTH_ORIGIN",
+        "Z_AI_API_KEY"
+      ],
+      "environment_paths": {
+        "COREPACK_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\corepack",
+        "TEMP": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "TMP": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "TMPDIR": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp",
+        "npm_config_cache": "D:\\Temp_projects\\dsh861-p0-a-baseline\\npm-cache",
+        "npm_config_devdir": "D:\\Temp_projects\\dsh861-p0-a-baseline\\node-gyp",
+        "DSH_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\dsh-home",
+        "DSH_AGENTS_HOME": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\agents-home"
+      },
+      "state": "FAIL",
+      "exitCode": 1,
+      "signal": null,
+      "timedOut": false,
+      "pid": 2436,
+      "finished_at": "2026-09-08T00:18:45.899903+00:00",
+      "stdout_sha256": "9c8efee6bd8c2269dbdb0f2bade39e78839b538e0c09e6d863facffacb7c1946",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-01.json",
+      "receipt_sha256": "d5a90f693f2cc75588b3e6057469cd6516fb996ade0920eb322cf90c09883bbd"
+    }
+  ],
+  "pending": [
+    {
+      "step": "focused-unit",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "typecheck",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "pairing",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "test-docs",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "doc-sync",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "lint",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "build",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "hygiene",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "source-help",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "built-version",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "built-tests",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    },
+    {
+      "step": "keyless-smoke",
+      "state": "NOT_RUN",
+      "reason": "Frozen dependency installation failed: fs-ext node-gyp did not find Visual Studio C++ tooling."
+    }
+  ],
+  "hard_review": "NOT_RUN",
+  "product_acceptance_completed": []
+}

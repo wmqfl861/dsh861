@@ -1,0 +1,25 @@
+{
+  "node": "P0-A",
+  "plan_version": "v9",
+  "status": "FAIL",
+  "kind": "rebuilt-html-hash-comparison",
+  "recorded_at": "2026-09-08T18:30:44.209859+00:00",
+  "prior_count": 185,
+  "new_count": 185,
+  "path_sets_equal": true,
+  "same_byte_lengths": 185,
+  "same_sha256": 0,
+  "focus_tests": "480/480 PASS",
+  "docs_build": "PASS, 2590 references valid,197 rawMarkdown+llms.txt",
+  "structured_report_obtained": false,
+  "reason": "Input equality failed before structured inspectSiteFragments invocation; no hash normalization applied. Await source-backed attribution and current-node plan amendment if needed.",
+  "cleanup": {
+    "runner_removed": true,
+    "source_copy": "D:/Temp_projects/dsh861-p0-a-baseline/r01/preservation/validate_site_v9_report.source.txt",
+    "source_sha256": "d9ecde20ea6e41e701f359713e6f7338620ced9b481d7b6b0ef9034b81219711",
+    "temporary_modules_created": 0,
+    "temporary_trees_created": 0
+  },
+  "original_evidence": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v9-full-report.json",
+  "original_sha256": "a25eaa22f90eef40eee8e32f9ff75579b9c1d0a1b6bfaa9286443e03e9be8ae1"
+}

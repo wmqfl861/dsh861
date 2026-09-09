@@ -39,7 +39,7 @@ interface BuiltPage {
   file: string
   route: string
   ids: Set<string>
-  document: Document
+  hrefs: string[]
 }
 
 function posixPath(path: string): string {
@@ -71,6 +71,34 @@ function decodedFragment(hash: string): string {
   }
 }
 
+/** Parse built pages without retaining DOM objects after the environment closes. */
+function readBuiltPages(distRoot: string, files: readonly string[]): BuiltPage[] {
+  const { window } = new JSDOM()
+  try {
+    const parser = new window.DOMParser()
+    return files.map((file) => {
+      const document = parser.parseFromString(readFileSync(resolve(distRoot, file), 'utf8'), 'text/html')
+      const ids = new Set<string>()
+      const hrefs: string[] = []
+      const elements = document.querySelectorAll('*')
+      for (let index = 0; index < elements.length; index++) {
+        const element = elements.item(index)
+        const id = element.getAttribute('id')
+        if (id !== null) ids.add(id)
+        if (element.localName === 'a') {
+          const name = element.getAttribute('name')
+          if (name !== null) ids.add(name)
+          const href = element.getAttribute('href')
+          if (href !== null) hrefs.push(href)
+        }
+      }
+      return { file, route: routeFor(file), ids, hrefs }
+    })
+  } finally {
+    window.close()
+  }
+}
+
 /**
  * Check fragment-bearing links in a VitePress output directory.
  *
@@ -82,16 +110,7 @@ export function inspectSiteFragments(distRoot: string): SiteFragmentReport {
   if (files.length === 0) {
     throw new Error(`verify-doc-site-fragments: no HTML files found under ${distRoot}; run docs:build first.`)
   }
-  const pages: BuiltPage[] = files.map((file) => {
-    const document = new JSDOM(readFileSync(resolve(distRoot, file), 'utf8')).window.document
-    const ids = new Set<string>()
-    for (const element of document.querySelectorAll<HTMLElement>('[id]')) ids.add(element.id)
-    for (const element of document.querySelectorAll<HTMLAnchorElement>('a[name]')) {
-      const name = element.getAttribute('name')
-      if (name !== null) ids.add(name)
-    }
-    return { file, route: routeFor(file), ids, document }
-  })
+  const pages = readBuiltPages(distRoot, files)
 
   const byRoute = new Map<string, BuiltPage>()
   for (const page of pages) {
@@ -110,9 +129,8 @@ export function inspectSiteFragments(distRoot: string): SiteFragmentReport {
   const broken: BrokenSiteFragment[] = []
   let checked = 0
   for (const page of pages) {
-    for (const anchor of page.document.querySelectorAll<HTMLAnchorElement>('a[href]')) {
-      const href = anchor.getAttribute('href')
-      if (href === null || !href.includes('#')) continue
+    for (const href of page.hrefs) {
+      if (!href.includes('#')) continue
       let targetUrl: URL
       try {
         targetUrl = new URL(href, `${origin}${page.route}`)

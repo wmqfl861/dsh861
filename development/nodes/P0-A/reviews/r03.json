@@ -1,0 +1,592 @@
+{
+  "node": "P0-A",
+  "round": "r03",
+  "candidate_sha256": "04bb71cbace30c5fbd2a15f4056d9c3067e76df9e658dd543c93f57c870c39bd",
+  "recorded_at": "2026-09-08T22:51:46.151469+00:00",
+  "verdict": {
+    "node": "P0-A",
+    "plan_versions": [
+      "v1",
+      "v2",
+      "v3",
+      "v4",
+      "v5",
+      "v6",
+      "v7",
+      "v8",
+      "v9",
+      "v10",
+      "v11",
+      "v12",
+      "v13",
+      "v14",
+      "v15"
+    ],
+    "round": "r03",
+    "candidate_sha256": "04bb71cbace30c5fbd2a15f4056d9c3067e76df9e658dd543c93f57c870c39bd",
+    "model": "zhipuai-coding-plan/glm-5.3",
+    "variant": "max",
+    "decision": "PASS",
+    "acceptance": [
+      {
+        "id": "P0A-01",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/evidence/preflight.json:14",
+          ".git/refs/heads/feat/multi-agent-company-nodes:1",
+          "development/nodes/P0-A/candidate.r03.json:22"
+        ],
+        "reason": "preflight 记录分支 feat/multi-agent-company-nodes、HEAD d347e703908d0406b7a7ef80e3a0e594d86b2215、锁 SHA 2c903ab8…；本轮直接读取 .git/HEAD 与分支引用文件核实 HEAD 未变；锁哈希在 preflight、dependencies-installed-02、site-v9-coverage、preexisting-work-v10-preserved 等多份独立证据中一致。"
+      },
+      {
+        "id": "P0A-02",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/evidence/preflight.json:47",
+          "development/nodes/P0-A/evidence/preexisting-work-v10-preserved.json:6"
+        ],
+        "reason": "既有文件有起点哈希与保护副本；preexisting-work-v10-preserved 核验除授权的 AGENTS.md（v4 压缩）与治理状态文件外全部原文未变，index 为空，.env 不存在，无提交/推送（仅 origin/HEAD 远端引用，无本分支远端引用）；负向对照临时文件已清理（scripts/p0a-* 与 website 额外 Markdown 均不存在）。"
+      },
+      {
+        "id": "P0A-03",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/evidence/build-tools-verification-02.json:61",
+          "development/nodes/P0-A/evidence/dependencies-installed-02.json:5",
+          "development/nodes/P0-A/evidence/dependency-resolution-summary.json:5"
+        ],
+        "reason": "局部 pnpm 11.7.0 核验、首轮安装失败保留（install-failure.r01）、Build Tools 17.14.39/17.14.37614.0 精确核验（isComplete、无需重启）、install-ntfs-02 成功且锁文件不变、package.json/pnpm-lock/pnpm-workspace 无差异、hooks 与 pairing driver 来源记录、依赖状态为 installed-and-native-module-loaded。"
+      },
+      {
+        "id": "P0A-04",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/candidate.r03.json:758",
+          "development/nodes/P0-A/candidate.r03.json:778",
+          "development/nodes/P0-A/baseline.md:11"
+        ],
+        "reason": "focused-unit-01（pnpm-invocation + windows-shell 两文件）与 typecheck-01 回执纳入候选并带输出哈希；v6 后 doc-standard 1145 用例（612 元数据+510 结构+23）覆盖核验通过，无必需测试跳过记录。"
+      },
+      {
+        "id": "P0A-05",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/evidence/recovery-v15-validated.json:267",
+          "development/nodes/P0-A/evidence/recovery-v15-validated.json:282",
+          "apps/cli/tests/built-bin.e2e.ts:330",
+          "apps/cli/tests/profiles/headless/tests/keyless-smoke.e2e.ts:17",
+          ".dsh-build/client-build-environment.json:1",
+          "development/nodes/P0-A/evidence/hygiene-v15-completed.json:68"
+        ],
+        "reason": "完整 build-01、hygiene 16/16、source-help、built-version 0.1.3-alpha.1（与 apps/cli/package.json:4 一致）均有回执；五个必选用例标题在仓库测试源码逐一存在（built-bin.e2e.ts:330/346/566/605/657）且 recovery-v15 记录 all_required_passed=true 并绑定 vitest JSON 哈希；keyless smoke 唯一用例（keyless-smoke.e2e.ts:17）passed；范围外 skipped 按计划登记；产物 bin.js 与构建记录本轮实际读取存在并绑定 d347e70。"
+      },
+      {
+        "id": "P0A-06",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/baseline.md:202",
+          "development/nodes/P0-A/baseline.md:27"
+        ],
+        "reason": "baseline.md 提供环境前提、逐命令复现入口、成功判据、失败处理与十主题限定复用清单，逐项给出需求引用、源码/测试位置、证据级别、可复用内容、需新增内容和尚缺运行条件；mock 与服务声明未被写成产品能力，AC 边界明确保留。"
+      },
+      {
+        "id": "P0A-07",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/evidence/doc-sync-v10-completed.json:23",
+          "development/nodes/P0-A/evidence/recovery-v15-validated.json:246",
+          "development/nodes/P0-A/evidence/node-docs-v10-validated.json:5",
+          "development/nodes/P0-A/evidence/lint-v10-failure-01.json:1",
+          "development/nodes/P0-A/evidence/site-v11-validation-failure.json:27"
+        ],
+        "reason": "pairing（含 v6 复验）、doc-budgets、docs:check 480、test:docs 15/15、doc-sync 33/33、正式 lint 通过；lint 诊断闭环完整（v10 七违规→v11 oxlint 失败归因→v12 定稿→lint-02 通过），历次失败证据保留；节点文档专项核对通过（v1–v10 与 baseline；v11–v15 新计划经本轮通读无本地链接、格式一致，见 findings P3 备注）。"
+      },
+      {
+        "id": "P0A-08",
+        "status": "PASS",
+        "evidence": [
+          "development/nodes/P0-A/candidate.r03.json:4",
+          "development/nodes/P0-A/candidate.r03.sha256:1",
+          "development/nodes/P0-A/evidence/opencode-r01-incomplete.json:6"
+        ],
+        "reason": "候选含 v1–v15 全部计划（r01 发现的 plan.v14.md 缺失已修复）、六份既有文档、双 Agent Note 三件套、AGENTS.md 授权修改、全部源码/测试/fixture 修改、全部 evidence、逐命令回执哈希、构建产物哈希与 tracked patch；state/review 记录按规则排除且已声明；清单自身哈希与审核提示一致；关键文件哈希与多份独立证据交叉一致（fixture 67 字节、AGENTS.md、两份 spec、v2 预测的 v1 规范化哈希等）。"
+      },
+      {
+        "id": "P0A-09",
+        "status": "PASS",
+        "evidence": [
+          "development/AGENT_TOOL_VERIFICATION.md:5",
+          "NODE_DEVELOPMENT_RULES.md:13",
+          "development/nodes/P0-A/evidence/opencode-r02-incomplete.json:4"
+        ],
+        "reason": "本次 r03 审核由真实 OpenCode 以 zhipuai-coding-plan/glm-5.3、--variant max、只读 plan agent 执行并绑定候选 r03（SHA 04bb71cb…），给出明确 PASS；工具身份另有 1.18.27 探针与会话导出核验；r01/r02 无结论记录按原样保留未转为通过；本结论需由主执行者落盘为 reviews/r03 回执。模型名称不证明供应商内部路由（见 limitations）。"
+      }
+    ],
+    "findings": [
+      {
+        "severity": "P3",
+        "file": "development/nodes/P0-A/state.json",
+        "line": 21,
+        "issue": "state.json 仍为 implementing/candidate:null，NODE_STATUS.md 仍描述 v10 验收中，均滞后于 v15/r03 现状。",
+        "evidence": "state.json:21-27 显示 status=implementing、candidate=null、blocker 指向 r03 准备；NODE_STATUS.md:10 为 'P0-A v10 验收中'；两文件为候选外可变状态记录。",
+        "required_outcome": "本 PASS 落盘时同步更新 state.json 与 NODE_STATUS.md，绑定 r03 候选哈希与本轮审核结论，不改变已封存候选范围。"
+      },
+      {
+        "severity": "P3",
+        "file": "development/nodes/P0-A/evidence/node-docs-v10-validated.json",
+        "line": 17,
+        "issue": "节点文档专项核对回执覆盖 v1–v10 与 baseline.md，v11–v15 五份新计划无该检查器的重跑记录。",
+        "evidence": "node-docs-v10-validated.json checked_files 仅列 plan.v1–v10 与 baseline；本轮通读 v11–v15 确认无本地作者链接、结尾换行一致，风险极低。",
+        "required_outcome": "后续轮次或状态更新时对 v11–v15 补一次同款专项核对回执（或在状态记录中注明本轮审核已通读核对的替代依据）。"
+      },
+      {
+        "severity": "P3",
+        "file": "development/nodes/P0-A/candidate.r03.json",
+        "line": 24,
+        "issue": "审核方无法在只读环境重算全部 SHA-256，哈希正确性为候选与多份独立 evidence 及当前文件内容的交叉一致性验证。",
+        "evidence": "抽查一致项：fixture 67 字节及内容、AGENTS.md 73d37507…（=preexisting-work-v10 current）、两份 spec 哈希（=v10/v11 evidence 记录）、plan.v1.md 39184/855292…（=v2 预测规范化结果）、bin.js 与构建记录实际存在。",
+        "required_outcome": "保持候选与回执冻结即可；若未来轮次需要独立哈希重算，由主执行者在验证轮次提供逐文件 Get-FileHash 输出。"
+      }
+    ],
+    "uncompleted_product_acceptance": [
+      "AC-01..AC-32"
+    ],
+    "limitations": [
+      "只读 plan agent 审核环境：未重新运行任何安装、测试、构建或门禁命令，全部结论基于仓库内候选清单、结构化 evidence 与当前源码的直接读取。",
+      "未能独立重算候选文件 SHA-256（无 shell/哈希工具）；核对方式为候选哈希与 preflight、v9/v10/v11 evidence、preserved-work 清单及当前文件字节/内容的交叉一致性，含多项抽查全部吻合。",
+      "built-bin 五用例与 keyless smoke 的逐用例状态来自 recovery-v15-validated.json 引用的 vitest JSON 回执（含报告哈希），按审核指示未直接读取临时日志原件。",
+      "本次调用的模型/variant 以真实运行环境与 AGENT_TOOL_VERIFICATION.md 探针/会话导出为据；模型名称与 variant 参数不证明供应商内部路由细节。",
+      "reviews/ 目录尚无 r03 回执文件；本 JSON 由审核者输出，需由主执行者原样封存为 reviews/r03 记录，封存内容不得改动本结论。"
+    ],
+    "conclusion": "PASS：P0A-01 至 P0A-09 全部通过，固定候选 r03（04bb71cb…c39bd）与有效计划 v1–v15 一致，历史失败全部保留、复用证据按计划标注，未发现未解决的阻断或正确性问题；P0-A 节点硬审核通过，可按节点规则进入下一节点的真实 Codex 详细规划。本结论仅为 P0-A 基线节点通过，P0 阶段其余验证与产品 AC-01..AC-32 均未完成。"
+  },
+  "invocation": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r03\\review\\p0-a-r03.receipt.json",
+    "bytes": 1038,
+    "sha256": "e6f93fc62667b827581f53ee9200337f9d11366b39f34c4867a569a5b5af5583"
+  },
+  "stdout": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r03\\review\\p0-a-r03.stdout.jsonl",
+    "bytes": 1293220,
+    "sha256": "f40a5b6f3f31826d0d5912fcef979d550bcb3c63fe2ee9cac850749ce635dd69"
+  },
+  "stderr": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r03\\review\\p0-a-r03.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "session_id": "ses_f7cd3b589ffeagO7ovHD3NdKS2",
+  "session_export": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r03\\review\\p0-a-r03.session.json",
+    "bytes": 171156,
+    "sha256": "9c676aefc4f4162ba8042b4ea1d11fe31f266d9be8e3f9aa2a25c603a85ba045"
+  },
+  "export_stderr": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r03\\review\\p0-a-r03.export.stderr.log",
+    "bytes": 50,
+    "sha256": "65d645a1e3b083fbf08db88d4f34e412299a5e7771b84e8c3e28d19e45f67d9c"
+  },
+  "export_argv": [
+    "C:\\Users\\Administrator\\.opencode\\bin\\opencode.exe",
+    "export",
+    "--pure",
+    "--sanitize",
+    "ses_f7cd3b589ffeagO7ovHD3NdKS2"
+  ],
+  "export_exitCode": 0,
+  "export_reused_existing": true,
+  "session_metadata": [
+    {
+      "role": "user",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832c4b4d0011k1cU3isIsZShb",
+      "model_metadata_source": "message.info.model"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832c53d80026e5W7SfknSs0Qx",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832c7fc8002zZT8tQ4bJ4y3TY",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832c91f9002dTJWB4HdLWlS0v",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832ca303002GkFsUwR8ifZl0R",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832cb325002anLoyWODudH3Sw",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832cc549002zg1iN9z4MG2mus",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832cd88c001EvHf4M05E7S5iE",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832ce7ce002jwR12z8I0tq1yE",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832cf5c1002XaUyr2TvWPFoIR",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832d05f1002i46Pso2LeEbc7C",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832d16b3002z19kRwZfdU3k64",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832d2968002twa3RTeWquEwO6",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832d3b06002ht8HWJgGOPOpr2",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832da5f2002ByMwa1EjLIBg50",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832dd4cd002UjK4QeT2qO3HaA",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832deca0002997T42KOITd25i",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e0161002eMc6af2kJ7FnG2",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e13ab002um6HcVaJy57Lgv",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e2f330021dLCd56CJfrH4D",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e415f0027XVo1oKy9lRxmV",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e5733002uczF1CjzX1wUVd",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e6e040023TNFVCcGpt8PIT",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e82df002KrMVpU5Oa8winj",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832e94ac002UD1sQTS2w22XLq",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832eb0180029VejpxAJEFZcdQ",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832ec7aa002Im7dRtBHXxNDu5",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832edc6f0023smUb7Sr4GUn6N",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832f0e4b002deJZKcD86jeXRQ",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832f3277002iTOd6BZhHgYOlF",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832f5ab3002nJeLI67e7LVXhn",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832f6cba002m7dGzeZYCSpKwG",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832f7e61002167DaDJRAXAlZB",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832fbc38001HgM1WqRT20BJzH",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832fce6a002lnkp0GEB7koOSK",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0832fe8fe002A30fXM67gK7t9B",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_083300a4f002ZJh4oV2G7hD0Ns",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_083301fc7001DxNaZAnB4918hd",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0833037e6002oag44JfELMqZ8G",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_083304ff30027yJU0NxCBCZ48f",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_083307295002f5hFw1VmZXOKoQ",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0833087e2002aMgWHMy3tMkX7D",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_083309e22002swldjazCHMCHdJ",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_08330ae82002t9raSKHFcOTpbw",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_08330c884002OqqC3Qfw2Omhsa",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_08330d96c002lIFzECdL4Xi820",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_083310062002qr8NERca4LO1Gf",
+      "model_metadata_source": "message.info"
+    },
+    {
+      "role": "assistant",
+      "providerID": "zhipuai-coding-plan",
+      "modelID": "glm-5.3",
+      "variant": "max",
+      "id": "msg_0833137df002hiBPSnzXax44OH",
+      "model_metadata_source": "message.info"
+    }
+  ],
+  "candidate_content_reverified_after_review": true,
+  "review_text": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\reviews\\r03.md",
+    "bytes": 13284,
+    "sha256": "27a16569149dacf9bd98a9069964f12ffa78fa673acda72b4b82c3ff94f843a7"
+  },
+  "hard_review_identity_limit": "CLI model/provider/variant and session metadata are observable; provider-internal routing is not independently observable.",
+  "p3_followup": "state.json and NODE_STATUS.md updated to current r03 PASS; NODE_STATUS records OpenCode read-through of v11-v15 as the documented alternative to a new node-docs receipt."
+}

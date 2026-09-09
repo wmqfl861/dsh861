@@ -1,0 +1,36 @@
+{
+  "node": "P0-A",
+  "plan_version": "v10",
+  "status": "PASS",
+  "recorded_at": "2026-09-08T20:06:22.102132+00:00",
+  "commands": [
+    {
+      "step": "docs-check",
+      "receipt": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-02.json",
+      "sha256": "6926253b9d077cee5232ffa321a84031893c42eed75a0c16d3a331fd21338b7a"
+    },
+    {
+      "step": "test-docs",
+      "receipt": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-04.json",
+      "sha256": "bdeb55e44a42edaf267b20171dc794bc9ccc0792f062332eb0b57b33539d8837"
+    },
+    {
+      "step": "doc-sync",
+      "receipt": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-sync-02.json",
+      "sha256": "9aa1bec7e8f7a5bd86ee38c36bd2f1262e37c994833f43a9637260adc7645a31"
+    }
+  ],
+  "aggregate_totals": {
+    "test-docs": [
+      "15",
+      "0",
+      "0"
+    ],
+    "doc-sync": [
+      "33",
+      "0",
+      "0"
+    ]
+  },
+  "scope": "Public docs commands passed; lint/build/hygiene/CLI and hard review remain pending."
+}

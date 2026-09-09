@@ -1,0 +1,947 @@
+{
+  "node": "P0-A",
+  "plan_version": "v9",
+  "started_at": "2026-09-08T18:28:34.625Z",
+  "baseline": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-before-v9-fragments.json",
+    "sha256": "840fcbb62405905c104b0e33e8fa107f53bb49da11f4c0ab6b5b09829f11766c"
+  },
+  "timings_are_acceptance_criteria": false,
+  "html_inputs": [
+    {
+      "path": "404.html",
+      "bytes": 51610,
+      "sha256": "cf409d3efc85e092085727edfd20bd447a06375ca1a3d62afe90ae7d570229d7"
+    },
+    {
+      "path": "develop/basic/config.html",
+      "bytes": 100912,
+      "sha256": "e98995309b8675fb0b03b014078002d6c2c3b94e2e651b4b00953f485c3b203d"
+    },
+    {
+      "path": "develop/basic/index.html",
+      "bytes": 103507,
+      "sha256": "bdbb31159ba0fbdd67227b43b9bab8730094c2e5dfe64f7c4dd7ca0c60f8196e"
+    },
+    {
+      "path": "develop/basic/publish.html",
+      "bytes": 106996,
+      "sha256": "b965b254af707e42bd067c5b494bc12a6f84a61fd6822d444bc1b3e6ddf17c98"
+    },
+    {
+      "path": "develop/basic/tool.html",
+      "bytes": 91024,
+      "sha256": "0a13c661e3de0687153af2b77a6dbb65975042fd7064bade3c30dc88a3be7c24"
+    },
+    {
+      "path": "develop/cordis-tutorial/01-first-plugin.html",
+      "bytes": 95030,
+      "sha256": "1b2bc8c444081df0f189638731a05669ca3ef02bc0ad08f1371ea54c82217fad"
+    },
+    {
+      "path": "develop/cordis-tutorial/02-lifecycle-and-effects.html",
+      "bytes": 96571,
+      "sha256": "61ccd3f5380c31b3273c19e3c164b5171d1fb5fd247baef771463f6c3fa10a06"
+    },
+    {
+      "path": "develop/cordis-tutorial/03-services.html",
+      "bytes": 98343,
+      "sha256": "e65d20bf00c86bb57307da5880013d99ac436a604317af5c13fd3e41efd8179f"
+    },
+    {
+      "path": "develop/cordis-tutorial/04-events.html",
+      "bytes": 113259,
+      "sha256": "84cac4e8d23f5b24737ca21efe38ff1802d0b808f673fc016adc7195e164bfe6"
+    },
+    {
+      "path": "develop/cordis-tutorial/05-config.html",
+      "bytes": 95456,
+      "sha256": "98e98174d61df6205d4b575eb9601fb1ff13ad00e64892cf5402bbfc87b4c384"
+    },
+    {
+      "path": "develop/cordis-tutorial/06-composition-and-hmr.html",
+      "bytes": 101328,
+      "sha256": "4b9d136ed1160538081f8ac4bdb977c9e7f2944fe150c80c75616f59fbbe2110"
+    },
+    {
+      "path": "develop/cordis-tutorial/07-into-the-harness.html",
+      "bytes": 105426,
+      "sha256": "3cddfb71740ea2d2277e719abf9512953ecfa1cfb561f208df45690b9c8a7bdd"
+    },
+    {
+      "path": "develop/cordis-tutorial/index.html",
+      "bytes": 89229,
+      "sha256": "8d31a927f754bce28b8d81e44c2f48cef7ddef075baa6de09eaa7101cf26a556"
+    },
+    {
+      "path": "develop/framework/events.html",
+      "bytes": 109884,
+      "sha256": "36671f3c925c113a3530b3bcd0164a63679cdb8421250ef4c97bd2a9169194b1"
+    },
+    {
+      "path": "develop/framework/index.html",
+      "bytes": 98902,
+      "sha256": "a01122b4fbc9aad3578277d35819ffeefe98ad840ee36696f66f6b28d0dc6f28"
+    },
+    {
+      "path": "develop/framework/service.html",
+      "bytes": 106661,
+      "sha256": "c5e71ff6f80becb1d7857f21d8d26bd2d93f7799fbd1a29a850786178ad91079"
+    },
+    {
+      "path": "develop/practice/dynamic-cordis.html",
+      "bytes": 83837,
+      "sha256": "703f40bea6635ad8cea1f0303c738b969062c56dfbe6a0c1af2a185c6e14d264"
+    },
+    {
+      "path": "develop/practice/index.html",
+      "bytes": 107385,
+      "sha256": "979decc9b81ae4157abcd794e63a0c5dd09d1d97f72de9791978e6825ef4084a"
+    },
+    {
+      "path": "develop/practice/llm-adapter.html",
+      "bytes": 121443,
+      "sha256": "67b13baffa4dea1c1f826af0f52da0f62639b1dd080ef69c8c7f0f424b648662"
+    },
+    {
+      "path": "en/develop/basic/config.html",
+      "bytes": 101150,
+      "sha256": "d39329324b37b64ae414a67f7050369bebc2eefd5e9a49a767c84d1282ddf518"
+    },
+    {
+      "path": "en/develop/basic/index.html",
+      "bytes": 103772,
+      "sha256": "8dcec8881f20c89386ffd6364c94638071fa15171fa4c82ab0408c09461a2d46"
+    },
+    {
+      "path": "en/develop/basic/publish.html",
+      "bytes": 107328,
+      "sha256": "f95f5f8b11e7ece7aa5a4adf78a6db429d1343a2968a10a09d9f32ac9d971aa2"
+    },
+    {
+      "path": "en/develop/basic/tool.html",
+      "bytes": 91138,
+      "sha256": "c576101d335e02f4dc6ff73dfa6aea46ceb5712fb0c3364e1c7ece37744fe0b0"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/01-first-plugin.html",
+      "bytes": 95132,
+      "sha256": "dfd9da8986dbcbd49c78a57381a1200aab05ea73de6a415c54537b2801f96ea4"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/02-lifecycle-and-effects.html",
+      "bytes": 96625,
+      "sha256": "b38ba1d6ed8d803ef83b13a0459c2871cd3168b0860d470aa626168623f0e657"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/03-services.html",
+      "bytes": 98480,
+      "sha256": "9991f059f826e658f29a37d37cf3c87c25a90678d6103b89b2bcc2dc5d295357"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/04-events.html",
+      "bytes": 113412,
+      "sha256": "9427ef9f1572444afc52f3f764ec9d7cea82132ead1be322e46356041fa41575"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/05-config.html",
+      "bytes": 95547,
+      "sha256": "6fb9d6dee5d9a4c3866a8c444d51b6641e3339de6210fd3f85cbfb411eeecb5f"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/06-composition-and-hmr.html",
+      "bytes": 101203,
+      "sha256": "fc2856124246f6467d1d258a3bc754af5372b422c8e339739b2d84f7550a9410"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/07-into-the-harness.html",
+      "bytes": 105510,
+      "sha256": "79a68858643101303398ce69e0664bc8fd137605a64665e454c5d67807ca6870"
+    },
+    {
+      "path": "en/develop/cordis-tutorial/index.html",
+      "bytes": 89336,
+      "sha256": "d5f74b3cf54e1fa6e27c37275bcd25af96221f3baa644e5a500a996ce03d6447"
+    },
+    {
+      "path": "en/develop/framework/events.html",
+      "bytes": 110025,
+      "sha256": "963d25a35a9d8aed8de1a217a4a9cf867b5d3726e202f25810d940a1a8ab5854"
+    },
+    {
+      "path": "en/develop/framework/index.html",
+      "bytes": 99171,
+      "sha256": "970eb61ce270df6936cbf47cf06acd71a6ca9c99d3ae9552a492aba01174f091"
+    },
+    {
+      "path": "en/develop/framework/service.html",
+      "bytes": 106989,
+      "sha256": "e53f1a0a1f4cf875568671afcf7ed4aaa9941230292384c39e926fd328bf3f01"
+    },
+    {
+      "path": "en/develop/practice/dynamic-cordis.html",
+      "bytes": 83937,
+      "sha256": "8cee8adae74af905e2d7b4e97a0f1a9cc0cce221f28a021d25c187f79791b6dd"
+    },
+    {
+      "path": "en/develop/practice/index.html",
+      "bytes": 107775,
+      "sha256": "b762b4506105e505aa33b7269a8fc35a5a3526821b8a910585c6ec4c2d2ffd81"
+    },
+    {
+      "path": "en/develop/practice/llm-adapter.html",
+      "bytes": 121595,
+      "sha256": "47ceac173db2566b4041632ae117df6facd59826d760f0e0cf86bbbdc0fe3f97"
+    },
+    {
+      "path": "en/guide/github-review.html",
+      "bytes": 93054,
+      "sha256": "e3af7a8597439f28aad6857cf41157ee27aea59c8717979894d9766f4be2eb45"
+    },
+    {
+      "path": "en/guide/mcp-memory.html",
+      "bytes": 94432,
+      "sha256": "6ecdeba724b53de38589c21132610097f14c69866b2ffd249a1a40d9f789297c"
+    },
+    {
+      "path": "en/guide/network-proxy.html",
+      "bytes": 90184,
+      "sha256": "7db320e2c432de4d7b064d6f55077e2bbbc9f645be4138da53d1d87aabfb70a2"
+    },
+    {
+      "path": "en/guide/providers.html",
+      "bytes": 111190,
+      "sha256": "7256924ad93d11e7bc9c414cf165fbe22498d6fa37db0953ad2a72543a9e3147"
+    },
+    {
+      "path": "en/guide/python-sdk.html",
+      "bytes": 105723,
+      "sha256": "4b15e3f0c029c8975ab6fd266303dd27636b215b41931eff27c0ff986df939dc"
+    },
+    {
+      "path": "en/guide/quickstart.html",
+      "bytes": 81322,
+      "sha256": "4ac792585ea9056a578781c1070782d8a13bdeca5ef662136f66a38b2a0f82ab"
+    },
+    {
+      "path": "en/guide/schedule.html",
+      "bytes": 82978,
+      "sha256": "f024857825d18f6cadcfea5a271beda729c3371edd186472ca6b256b53a92ec6"
+    },
+    {
+      "path": "en/index.html",
+      "bytes": 55559,
+      "sha256": "a2af7c9d14f3bc2f41f6ed02aeebf2af8318515b5cfaeeab6f2d36a957d4780c"
+    },
+    {
+      "path": "en/reference/agent-lifecycle.html",
+      "bytes": 103152,
+      "sha256": "30a373095f93918a1bd1a50c0bc19b6e1b338d5ef9d6014508b1e4b22575864f"
+    },
+    {
+      "path": "en/reference/api-gateway.html",
+      "bytes": 136724,
+      "sha256": "f269e1d4a372e2bfafb63cdfab6e2c1e6badb30d0a646fc061a90612d80a4316"
+    },
+    {
+      "path": "en/reference/capability-seams.html",
+      "bytes": 161413,
+      "sha256": "47c77a700e28137e56bb204c132e13254a0a0dcd1d46c1db8473c1106b602536"
+    },
+    {
+      "path": "en/reference/config-catalog.html",
+      "bytes": 650157,
+      "sha256": "85e855a00df51f8673de200beba5902c48f3e2e9bd24a1bc1d746f01110e1d43"
+    },
+    {
+      "path": "en/reference/cookbook/adding-a-package.html",
+      "bytes": 122300,
+      "sha256": "d3aa0f9645f817b620838b532b29abb8e05e0e86cc388b0c6a35f168c5cf6293"
+    },
+    {
+      "path": "en/reference/cookbook/adding-a-settings-card.html",
+      "bytes": 128761,
+      "sha256": "02b0e8c6451807b9508cfbf343b72d3e6500375be961e8bca7d9b5c9e5a87e63"
+    },
+    {
+      "path": "en/reference/cookbook/adding-a-tool.html",
+      "bytes": 126313,
+      "sha256": "09e19b395a3ea349c2f6d9dcb2c73f2bc68538f76a0623605bab792079923a68"
+    },
+    {
+      "path": "en/reference/cookbook/adding-an-llm-adapter.html",
+      "bytes": 111350,
+      "sha256": "26910f0f8d263d462e410b2363fb5da319f44136d871e5d404d1c837bcebce37"
+    },
+    {
+      "path": "en/reference/cookbook/extension-cookbook.html",
+      "bytes": 135361,
+      "sha256": "15c7cbd8182e6d2f646284d8929e12be3cef74168b27e178c0f05aca5bb03e2d"
+    },
+    {
+      "path": "en/reference/cordis-api/context.html",
+      "bytes": 152880,
+      "sha256": "c3834fe7b2ce38332fe47e67bff169dd2d3448c05203eab7436582f5c72ddd72"
+    },
+    {
+      "path": "en/reference/cordis-api/events.html",
+      "bytes": 148269,
+      "sha256": "72fdf179f59bb0bf96fb6c05ad392c884b04a50fa9d0427cf281a092e6bbdf25"
+    },
+    {
+      "path": "en/reference/cordis-api/fiber.html",
+      "bytes": 149227,
+      "sha256": "689838f551c5b6e24e6332d10e9fc2a4b83842bf3e4c854fcc5f991f782ac519"
+    },
+    {
+      "path": "en/reference/cordis-api/inherited.html",
+      "bytes": 109876,
+      "sha256": "3f0d672a73794a15d5f5be8bd255bc13139c59770aa929ba2f351592f2a6cac4"
+    },
+    {
+      "path": "en/reference/cordis-api/registry.html",
+      "bytes": 133303,
+      "sha256": "0a0e6f84ad942fc0d0cddc48a61c11ce077c1f2cde0adfd36809b48adb152425"
+    },
+    {
+      "path": "en/reference/cordis-api/service.html",
+      "bytes": 110005,
+      "sha256": "3c0065f3927b549189202880f46b30e68d0af61e646a7674ffb58e7dc3703181"
+    },
+    {
+      "path": "en/reference/cordis-primer.html",
+      "bytes": 106842,
+      "sha256": "0afaf075184d04956a1503377d06e66ab1f8d824cf5ea07e2e60bffa3a0ac0be"
+    },
+    {
+      "path": "en/reference/index.html",
+      "bytes": 122926,
+      "sha256": "fdc9849632894c9cbd6ffa64d53a337a8190c427b4f23f731fdd019a5fdcac80"
+    },
+    {
+      "path": "en/reference/persistence-catalog.html",
+      "bytes": 237836,
+      "sha256": "a8b50bf6c2c851d85657229f585da917b729ab62f4396c658e3055dac23c9d15"
+    },
+    {
+      "path": "en/reference/subsystems/approval.html",
+      "bytes": 129534,
+      "sha256": "659a1e2305056f7506cf887996dcbad575f3c7db3260a4261285b1e26a29130f"
+    },
+    {
+      "path": "en/reference/subsystems/client-modules.html",
+      "bytes": 134228,
+      "sha256": "23f2208b18943bc4cd3dd1f24e4821880efb970f164507f5e1d1fa4de65fb4da"
+    },
+    {
+      "path": "en/reference/subsystems/code-runtime.html",
+      "bytes": 136923,
+      "sha256": "b909f1362ea7301c07e7d0ac19af6d5e6de6793dcedc469f3086b853837832f9"
+    },
+    {
+      "path": "en/reference/subsystems/commands.html",
+      "bytes": 137530,
+      "sha256": "266bfede0c0c9ea8a9e069bb4d60a68806c0a8095aa3e91bd2dc6a6781451cec"
+    },
+    {
+      "path": "en/reference/subsystems/compaction.html",
+      "bytes": 147781,
+      "sha256": "ebe4946f71e54332b5a3024f9ed0b04aff79a82442f5d3aafc79d798bc8212a6"
+    },
+    {
+      "path": "en/reference/subsystems/conversation.html",
+      "bytes": 161129,
+      "sha256": "6a30fd93c83f0ab05aaa298dc0c151d9783315cb739108656ae80636490edd61"
+    },
+    {
+      "path": "en/reference/subsystems/core.html",
+      "bytes": 348198,
+      "sha256": "f6b8e5b8e14d6be6d9e9e0aff771e748352e19620cf60b621254204e308a92dd"
+    },
+    {
+      "path": "en/reference/subsystems/credentials.html",
+      "bytes": 158862,
+      "sha256": "153ab903f05c68f19920be927dc37a3e1864bfb1c1e3ea7585346fd45bae1bb6"
+    },
+    {
+      "path": "en/reference/subsystems/filesystem.html",
+      "bytes": 207240,
+      "sha256": "5838922b60911fb63e4c7d8c67e8f95fabe629f8c63d7a0e3447d24163a089f9"
+    },
+    {
+      "path": "en/reference/subsystems/goal.html",
+      "bytes": 151886,
+      "sha256": "eec594bbd3343a1398eca797a66e645375880bcc397f7e42de77daafa0170739"
+    },
+    {
+      "path": "en/reference/subsystems/index.html",
+      "bytes": 113697,
+      "sha256": "7333192f763ce33f8e96dafd38bd3da35e7c237b5a00f2b4209a6b02cbb1f0eb"
+    },
+    {
+      "path": "en/reference/subsystems/invariants.html",
+      "bytes": 118281,
+      "sha256": "dd8d72d420a817f3cd46c9c932af1af6e624cad19befd8cdacb9277381ab80c5"
+    },
+    {
+      "path": "en/reference/subsystems/jobs.html",
+      "bytes": 154698,
+      "sha256": "f41a208f47c1d6de64a80ec01d4a0ebb17e167b5337ada5c06fc67529ff12f48"
+    },
+    {
+      "path": "en/reference/subsystems/llm-streaming.html",
+      "bytes": 318590,
+      "sha256": "5efa557ce880a165e89220b4be2abafa73f583220306d79b1e29ee3f2ac4de88"
+    },
+    {
+      "path": "en/reference/subsystems/lsp.html",
+      "bytes": 140419,
+      "sha256": "0e9d6f55c0f556d2d9090c760a7de56b276ca62b8de94ce49afb6e89481992f7"
+    },
+    {
+      "path": "en/reference/subsystems/permission-presets.html",
+      "bytes": 123883,
+      "sha256": "b131813583bf9976c5075169aaf8d07ba6e28f697a709c8fa28d72a917471cd7"
+    },
+    {
+      "path": "en/reference/subsystems/persistence.html",
+      "bytes": 184237,
+      "sha256": "d8fe2682daa6fbba5c165773cda92dd78dc24ec0b457db15a819bec798fa20b6"
+    },
+    {
+      "path": "en/reference/subsystems/plan.html",
+      "bytes": 116377,
+      "sha256": "c1f99c93c6b9bdb67df859ddeecd47f5714a13e899ff179242e7784c03cc5988"
+    },
+    {
+      "path": "en/reference/subsystems/sandbox.html",
+      "bytes": 137840,
+      "sha256": "8cc533069bb8cb6ce8baa7b603a6abb70ced6e0bda0674ae8675e41f1b1a19a5"
+    },
+    {
+      "path": "en/reference/subsystems/schedule.html",
+      "bytes": 137401,
+      "sha256": "26fa2927779f7acf5d64cdf45aec052532b156dd384ead8aaee30d493d76b7ff"
+    },
+    {
+      "path": "en/reference/subsystems/scope.html",
+      "bytes": 112254,
+      "sha256": "9a4138bf40429b84fc059c7794d0e16c9de5e39a4e25c3fd4b5d1a0529858a41"
+    },
+    {
+      "path": "en/reference/subsystems/session-projection.html",
+      "bytes": 186702,
+      "sha256": "1c07adec547f0741b2e51c695f5fb7c3a8273c50378ce95fe47a8c70ab7eff4d"
+    },
+    {
+      "path": "en/reference/subsystems/session-query.html",
+      "bytes": 200498,
+      "sha256": "3958595d5998b100f028ff09beba692bda65aeaa1ec2861979dd50edc1064c8a"
+    },
+    {
+      "path": "en/reference/subsystems/session-reference.html",
+      "bytes": 139623,
+      "sha256": "ae1c5bd6a0fe2d82382f2745529167e18c3c6be7198ad3972191a36d034ec86e"
+    },
+    {
+      "path": "en/reference/subsystems/session-telemetry.html",
+      "bytes": 137905,
+      "sha256": "7aacee2e3d5f0ba38bed9c41fe3f62e7c3d29b20c2e679b37c6d46d5eefceac3"
+    },
+    {
+      "path": "en/reference/subsystems/session-title.html",
+      "bytes": 138364,
+      "sha256": "3e0e8d5238a22dd07c76f6f3078e897e3f7f3b080a4c9926406def2722a3f645"
+    },
+    {
+      "path": "en/reference/subsystems/session.html",
+      "bytes": 339252,
+      "sha256": "f71c2291266dd483722ac64bfd1a6ce041fc494d363d3125765a04c4e0a7272c"
+    },
+    {
+      "path": "en/reference/subsystems/settings.html",
+      "bytes": 194283,
+      "sha256": "1b688d3a995f4b82ab392c096d2b7c5ea007a09315c1530e081396532dbedfd2"
+    },
+    {
+      "path": "en/reference/subsystems/shell.html",
+      "bytes": 160200,
+      "sha256": "92d66468b155b7a53309ee4599c464a1e181fcad4663460b0a33e2be02a0fdd3"
+    },
+    {
+      "path": "en/reference/subsystems/skills.html",
+      "bytes": 173664,
+      "sha256": "91b73e397061af7f57131c32bd9da52001bb6057ed1eab4e20d7fc7387752792"
+    },
+    {
+      "path": "en/reference/subsystems/slots.html",
+      "bytes": 125690,
+      "sha256": "b74c4b705de3c2c049101cb112c89aa9894606dff38ef6721d1e3b4ec909df24"
+    },
+    {
+      "path": "en/reference/subsystems/spill.html",
+      "bytes": 120378,
+      "sha256": "29dba2307c2a5bfd0f3dc95010c1d5ff1925853ae47c8b60507688307040143e"
+    },
+    {
+      "path": "en/reference/subsystems/storage.html",
+      "bytes": 154713,
+      "sha256": "10ea74ea9d6261add10384095a2f33e7c966f009cae9164603d28881cdb7957f"
+    },
+    {
+      "path": "en/reference/subsystems/subagent.html",
+      "bytes": 258359,
+      "sha256": "5b79aef14f9eb2cdbc97749df766481645faf4b9f89fe6e30e96b65c8a31f9ba"
+    },
+    {
+      "path": "en/reference/subsystems/subprocess.html",
+      "bytes": 161958,
+      "sha256": "e28b00d90fedea79ef2289eb08096a86b8312470576fd8c3ef3119b8d5d637fd"
+    },
+    {
+      "path": "en/reference/subsystems/system-prompt.html",
+      "bytes": 140616,
+      "sha256": "54eb002dc5d959d91e6bf9608e5948059b9c66b25f039a40456b79a651f68a9b"
+    },
+    {
+      "path": "en/reference/subsystems/terminal.html",
+      "bytes": 138453,
+      "sha256": "8e867aecd93085b6e1f94b344290b4d49412e0654945287641d967bc6604efd0"
+    },
+    {
+      "path": "en/reference/subsystems/token-meter.html",
+      "bytes": 117277,
+      "sha256": "ca7406908c30cea40cc65d5ea16722cf310af662cc8942e1a7cb534985198929"
+    },
+    {
+      "path": "en/reference/subsystems/tools.html",
+      "bytes": 251686,
+      "sha256": "e8d090978ab82cbe7a645849f19da8a43455b76e3333cdb8173adde14d2ee9cb"
+    },
+    {
+      "path": "en/reference/subsystems/typert.html",
+      "bytes": 168911,
+      "sha256": "bcc3d1ac2b6e68aa05587a7ec05d489003fa172e4969de10264b0f433603f42e"
+    },
+    {
+      "path": "en/reference/subsystems/user-questions.html",
+      "bytes": 129106,
+      "sha256": "2c46efd1728492ad7f2f181d7d01b26b4be9cba9ded233deb9776289ff049cfa"
+    },
+    {
+      "path": "en/reference/subsystems/web-client.html",
+      "bytes": 117468,
+      "sha256": "68cae8b6571a4edadf42c0f7fc3f1007ad5a9e46e920bf895c7bf80786367c89"
+    },
+    {
+      "path": "en/reference/subsystems/web-server.html",
+      "bytes": 130370,
+      "sha256": "bd2849dc389cdd42dbac7000134dbcf61b94b13deb5347456b86e9c301fb03b4"
+    },
+    {
+      "path": "en/reference/subsystems/web.html",
+      "bytes": 139392,
+      "sha256": "5fa7bbd8e384e066a2e61ce0a4f56298cda62fb47b70b074d1e68c458659696d"
+    },
+    {
+      "path": "en/reference/subsystems/workflow.html",
+      "bytes": 150472,
+      "sha256": "10ff019c7a43148e9b464589ae413614bfcf5824c9635facda18879c43f9e2eb"
+    },
+    {
+      "path": "en/reference/subsystems/workspace.html",
+      "bytes": 170592,
+      "sha256": "5e1156035ea385d7d098fd863ee494fb075e5d94270c284eec01611a20f3f93b"
+    },
+    {
+      "path": "en/reference/tool-catalog.html",
+      "bytes": 494210,
+      "sha256": "9a43bc5765eb6d66a60eb34919ad272513b6b9fa312456e484a5a9500f77e172"
+    },
+    {
+      "path": "en/reference/tool-execution-pipeline.html",
+      "bytes": 102812,
+      "sha256": "ed72053a478ec72cd46d4381e5fadc19f2648a7eaa41efd4854c75b3fc988018"
+    },
+    {
+      "path": "guide/github-review.html",
+      "bytes": 92667,
+      "sha256": "46a04df3702d0680cb8b748e8a454d69c37cb478059d07ae54772353e628daf9"
+    },
+    {
+      "path": "guide/mcp-memory.html",
+      "bytes": 94175,
+      "sha256": "996959f79c3e40fe5fffb82d5814690f6edd710a449345988a62a9f1a790680f"
+    },
+    {
+      "path": "guide/network-proxy.html",
+      "bytes": 89860,
+      "sha256": "11fad1284922e3024b1e0f91ff0f05d86208e6eda4c706b982d7dd3716c4702f"
+    },
+    {
+      "path": "guide/providers.html",
+      "bytes": 110610,
+      "sha256": "eef421f5b01a774cdb7fa032d1ea4639f94f49d534b13d613a7349373d9dd299"
+    },
+    {
+      "path": "guide/python-sdk.html",
+      "bytes": 105218,
+      "sha256": "90409242e46d47ce9f4e0edb6c496766dbffd75385e476fd8d5fa417b34e55a5"
+    },
+    {
+      "path": "guide/quickstart.html",
+      "bytes": 81234,
+      "sha256": "7d2f2223b6a69499ed78ca1141d5d08ff2c489bb4ca5a021b92d751f511c386d"
+    },
+    {
+      "path": "guide/schedule.html",
+      "bytes": 82635,
+      "sha256": "16ecab0016a74fdf3e4d5f7cc1c141fa17e70d1bdf908f6415a502c5bf61b523"
+    },
+    {
+      "path": "index.html",
+      "bytes": 55556,
+      "sha256": "2ee73eec6963422955bdc14871c496fef49334543838d81210ed244efd098ff9"
+    },
+    {
+      "path": "reference/agent-lifecycle.html",
+      "bytes": 102969,
+      "sha256": "f334783c6b65e18d5ddc9e7041c8e1330b06487c7fde2a8d62d8ff5274ad2b40"
+    },
+    {
+      "path": "reference/api-gateway.html",
+      "bytes": 133950,
+      "sha256": "885f33b14f310e05e5f04716b3f0a636f113626f7f3e0884dc204faf102c47d2"
+    },
+    {
+      "path": "reference/capability-seams.html",
+      "bytes": 160658,
+      "sha256": "54f3ee853a7b44336620f6fba91a0bbb3af2c1398468ea0025dcf7cf0e35d8e7"
+    },
+    {
+      "path": "reference/config-catalog.html",
+      "bytes": 650095,
+      "sha256": "99b38a5bd6cfb5a30d05a81ce5258f2bddf919f2a9da2168d57a45a3ffdfb1b1"
+    },
+    {
+      "path": "reference/cookbook/adding-a-package.html",
+      "bytes": 121107,
+      "sha256": "2e21d80228c07253883d79bb1c79e61e2ee716be85de005c6e961bd17967fb03"
+    },
+    {
+      "path": "reference/cookbook/adding-a-settings-card.html",
+      "bytes": 128240,
+      "sha256": "007d7c87feab4b002af04e970b3fb498810f0eb49de4489fc1f089113ca8082d"
+    },
+    {
+      "path": "reference/cookbook/adding-a-tool.html",
+      "bytes": 125650,
+      "sha256": "f7370d6e269f37e8b99b105be4612f85ec216a550c7e1a2ee6bef7633801bde8"
+    },
+    {
+      "path": "reference/cookbook/adding-an-llm-adapter.html",
+      "bytes": 111167,
+      "sha256": "06e51fd8eb9d64b8e7621ec5536f4d0e6af41f28db0cc6864dffbd24ab3dcbf7"
+    },
+    {
+      "path": "reference/cookbook/extension-cookbook.html",
+      "bytes": 134825,
+      "sha256": "aa82c6e8cdff1efb6ca8f59ed9dd1218edd0d39ffe4a2d1065954ca01cfe89d8"
+    },
+    {
+      "path": "reference/cordis-api/context.html",
+      "bytes": 152469,
+      "sha256": "440bf0367edaca9eab216e3091501ee812f41f2a86c0fafbb81f6befff818bce"
+    },
+    {
+      "path": "reference/cordis-api/events.html",
+      "bytes": 148191,
+      "sha256": "1d036d811ecff7c8a74179d02af096c3c6a720b38f78e6f27cdfab6eb826ac64"
+    },
+    {
+      "path": "reference/cordis-api/fiber.html",
+      "bytes": 149181,
+      "sha256": "ef0207738f4dd4b6bb440c9c0c9ddb8f6e53b6a38c2fde656d5ce5853d8a225d"
+    },
+    {
+      "path": "reference/cordis-api/inherited.html",
+      "bytes": 109520,
+      "sha256": "8e3f8c823602fdf3130dc033b70a040b41a6de78c0882530dfdc8a5fa16cf57a"
+    },
+    {
+      "path": "reference/cordis-api/registry.html",
+      "bytes": 132992,
+      "sha256": "4e618f6452f17038acc67192bd5e07e16875d07dfd8a28df5de4399b53403ad2"
+    },
+    {
+      "path": "reference/cordis-api/service.html",
+      "bytes": 109594,
+      "sha256": "a6a33d41b555e3d7c07f5bdf0cee607feccc93ce7a99925efdfbf99d37457b56"
+    },
+    {
+      "path": "reference/cordis-primer.html",
+      "bytes": 106355,
+      "sha256": "f107681444ebf28d1e8787673509cdfae31b0bac4f2adde24b410896f8893a3b"
+    },
+    {
+      "path": "reference/index.html",
+      "bytes": 122365,
+      "sha256": "531582e462b78f0e0f28feb3dfb62366dd72fa0fcadd179dc32b688c1708b781"
+    },
+    {
+      "path": "reference/persistence-catalog.html",
+      "bytes": 237611,
+      "sha256": "81d3f97672374d2b0155a8f111451d53e41e6557936d1c41a4c122df0da61097"
+    },
+    {
+      "path": "reference/subsystems/approval.html",
+      "bytes": 129110,
+      "sha256": "c7fdb497ee81d35c147eefab53dccb5a0d921733a931eabde4fc87f2b65676f8"
+    },
+    {
+      "path": "reference/subsystems/client-modules.html",
+      "bytes": 133389,
+      "sha256": "00816fde60fc1e6b72ca08ca7fc2b2347fd6671fdd930ef4772d9853a0389ba9"
+    },
+    {
+      "path": "reference/subsystems/code-runtime.html",
+      "bytes": 136435,
+      "sha256": "eab51eefd2b7f590e3fcbab5e0001e24e7c04067852934cde1f6c421e34a15ed"
+    },
+    {
+      "path": "reference/subsystems/commands.html",
+      "bytes": 137082,
+      "sha256": "b7164c41b70798bab2a9f5c973199a4427ce3897cfcb128b00cbfe61e46744cc"
+    },
+    {
+      "path": "reference/subsystems/compaction.html",
+      "bytes": 147047,
+      "sha256": "2f39e3520e0eac234f030f67df60bf44ccfa2a927c1a9a4ab30e4b84dcac2040"
+    },
+    {
+      "path": "reference/subsystems/conversation.html",
+      "bytes": 160145,
+      "sha256": "5743cbe43f3af9c427054c92efadb9d599c1d69904fa253bbb66a8331685ecd8"
+    },
+    {
+      "path": "reference/subsystems/core.html",
+      "bytes": 347322,
+      "sha256": "8410b78f1af08fe0be6e2d08769180e6c44bafbb07ecb35a09692ae8d5bc83b0"
+    },
+    {
+      "path": "reference/subsystems/credentials.html",
+      "bytes": 158285,
+      "sha256": "a6fabcc1286409a48f2062c0935a6a663145a1bfcf549c3e9a2655ca187b02f7"
+    },
+    {
+      "path": "reference/subsystems/filesystem.html",
+      "bytes": 206529,
+      "sha256": "ae480fc2e455ecd3c018a6201afc84894dea2e79c6909e47e1c7f43d4511f7c9"
+    },
+    {
+      "path": "reference/subsystems/goal.html",
+      "bytes": 151410,
+      "sha256": "c214fee43892df8862bd0c2257241b07f4590388d0b62c004947f116cb50b54a"
+    },
+    {
+      "path": "reference/subsystems/index.html",
+      "bytes": 112882,
+      "sha256": "5c41830eb848309b34425c288a9e0975a33464e07a9d3c547d9cabb61eb76d5f"
+    },
+    {
+      "path": "reference/subsystems/invariants.html",
+      "bytes": 117651,
+      "sha256": "0fa5dcb52a78b0d7e3e78da874072a22fe2171f3f2e3f408e7b0c6393d2280b6"
+    },
+    {
+      "path": "reference/subsystems/jobs.html",
+      "bytes": 154282,
+      "sha256": "4f3420d12ae0d1eb9f9614ce6d6c3e71d94e8d4cbfad3448e09d0b9f78a128bd"
+    },
+    {
+      "path": "reference/subsystems/llm-streaming.html",
+      "bytes": 317453,
+      "sha256": "dbf143721413c64e131c8c946539e7bc924ad19aa078d38f28416f8715f7e839"
+    },
+    {
+      "path": "reference/subsystems/lsp.html",
+      "bytes": 140024,
+      "sha256": "29ab4e26c01e4e55108b3da7da275aa7f3f8c9569680377b25b037682c1b05e4"
+    },
+    {
+      "path": "reference/subsystems/permission-presets.html",
+      "bytes": 123347,
+      "sha256": "b5f7faae75591126ad51b24a8774a31bf6ed88accfc79be59ec00c01a839dfd0"
+    },
+    {
+      "path": "reference/subsystems/persistence.html",
+      "bytes": 183194,
+      "sha256": "e644cf55d1e8897a4b77a029507886af31ab146262a7143a354ef504ee8dac02"
+    },
+    {
+      "path": "reference/subsystems/plan.html",
+      "bytes": 115798,
+      "sha256": "bb9b5987e6e56955a9b48365f9154d380255538c68eb2d53d4cd21edbb0b0a11"
+    },
+    {
+      "path": "reference/subsystems/sandbox.html",
+      "bytes": 137263,
+      "sha256": "3f19b4e66142a32ee5db434e1510ccd5f64d0663169b97bcb9716b3a4ed48cd7"
+    },
+    {
+      "path": "reference/subsystems/schedule.html",
+      "bytes": 136740,
+      "sha256": "d4650a820a0a7ad82571eec542e1958b342fbd2d3ce733cef1ed161a767c4cd6"
+    },
+    {
+      "path": "reference/subsystems/scope.html",
+      "bytes": 111940,
+      "sha256": "de390c01d08219d93caeb938e49fa045458918a8dc351757e440871d924d43d3"
+    },
+    {
+      "path": "reference/subsystems/session-projection.html",
+      "bytes": 186218,
+      "sha256": "e20ea519fd92f022359cf77e6ac9fc4ebae2c1f0017d29a0ee2a3f98597372f1"
+    },
+    {
+      "path": "reference/subsystems/session-query.html",
+      "bytes": 200085,
+      "sha256": "9f165aedcad6cb6884e9b66e9782f6b7b88e3020a97841ddf80ab47d3918411c"
+    },
+    {
+      "path": "reference/subsystems/session-reference.html",
+      "bytes": 139112,
+      "sha256": "ec20431f2c89e357e909077767214db1ceeef0f77af779e0c7b776642e53242d"
+    },
+    {
+      "path": "reference/subsystems/session-telemetry.html",
+      "bytes": 137265,
+      "sha256": "4b8e022d6bc566764386e4a92435d758acc65bf36525996b590245c7ff3e36e6"
+    },
+    {
+      "path": "reference/subsystems/session-title.html",
+      "bytes": 137892,
+      "sha256": "a244fa69379ac3132c02dd86860cdef8a80d892da8a2a8582e5fc721a3732f08"
+    },
+    {
+      "path": "reference/subsystems/session.html",
+      "bytes": 338175,
+      "sha256": "63da06e72d4b4cd1b69a8f8bf5b07b535f11ed164c335cc044db1154b2c04433"
+    },
+    {
+      "path": "reference/subsystems/settings.html",
+      "bytes": 193561,
+      "sha256": "dc4cc6a244dcdb2ae9c46b0023879bf8e8c37e8daa70ab052270b97c73bfa697"
+    },
+    {
+      "path": "reference/subsystems/shell.html",
+      "bytes": 159510,
+      "sha256": "0d7407b9add0f41068c056b040ed7ab817bb2eddfc63e578f0dfb50c10611192"
+    },
+    {
+      "path": "reference/subsystems/skills.html",
+      "bytes": 172784,
+      "sha256": "9bc356d80941ab0fa9d9bc224e9e21cc7c23a64936646ba01bce22ad39c09da6"
+    },
+    {
+      "path": "reference/subsystems/slots.html",
+      "bytes": 124677,
+      "sha256": "9b25392fc03fdf44cf6540617e335a3798eb10ae198b15b44c7fbd2916f2ccec"
+    },
+    {
+      "path": "reference/subsystems/spill.html",
+      "bytes": 119905,
+      "sha256": "a3cfc2d86643837a99376e816d467bbf9c1deaf0abad52d90a9f0d7968fc1b0b"
+    },
+    {
+      "path": "reference/subsystems/storage.html",
+      "bytes": 154231,
+      "sha256": "59eec284bdae08baaa2dd2ebd42253b778877121c7b0b46468ccefec1b787697"
+    },
+    {
+      "path": "reference/subsystems/subagent.html",
+      "bytes": 257235,
+      "sha256": "302a0fda08772be42fab853ca6d1138352f2dd8236db24ea76561a2d5d2eb528"
+    },
+    {
+      "path": "reference/subsystems/subprocess.html",
+      "bytes": 161493,
+      "sha256": "cdf2c7b062ac2925846eb2f88beac73fe0018114a171a2cdd72197ddf8eff677"
+    },
+    {
+      "path": "reference/subsystems/system-prompt.html",
+      "bytes": 140238,
+      "sha256": "41a948d8b27f96cb035a4f63d185f6fb7706ac9e0549313da2a28fcc129686b6"
+    },
+    {
+      "path": "reference/subsystems/terminal.html",
+      "bytes": 138008,
+      "sha256": "725c8067046e448ff48783673d904533e1a28040c3dd5caf85ece421757b2b03"
+    },
+    {
+      "path": "reference/subsystems/token-meter.html",
+      "bytes": 116785,
+      "sha256": "f6b374cca680cd5ba66807f97f52de745e48d27b9a83ebbe6e7180221c251edf"
+    },
+    {
+      "path": "reference/subsystems/tools.html",
+      "bytes": 251073,
+      "sha256": "2515e11ad502a579e866e8dfb24443df532bd2fe109f1b20cd86895db3b3af71"
+    },
+    {
+      "path": "reference/subsystems/typert.html",
+      "bytes": 168342,
+      "sha256": "285ebd537aad0970a0bccf56e9d13cbecbfd4de045edab39e9c004d9722d43e3"
+    },
+    {
+      "path": "reference/subsystems/user-questions.html",
+      "bytes": 128601,
+      "sha256": "59e89eb07a7bfae118493483420166dba99cc5a165d7d075ebbc0716d5f0be7a"
+    },
+    {
+      "path": "reference/subsystems/web-client.html",
+      "bytes": 116194,
+      "sha256": "297de0515817fece17bcd5c2d41237b23558d9e2c2ad2394e9957655491263df"
+    },
+    {
+      "path": "reference/subsystems/web-server.html",
+      "bytes": 129882,
+      "sha256": "791bc61858d68e8545b8556f9666cc390dffd52e03e3b5fcd1872d494ee26387"
+    },
+    {
+      "path": "reference/subsystems/web.html",
+      "bytes": 138995,
+      "sha256": "b09d2e19312249d692c97433dcfafc9f94de037f088f0a9a3bba93a1467c0650"
+    },
+    {
+      "path": "reference/subsystems/workflow.html",
+      "bytes": 149893,
+      "sha256": "ee82814d50bc2fa437bf5e6c8acb8a60b01dd47056686cbde55f3095ca6a9cc6"
+    },
+    {
+      "path": "reference/subsystems/workspace.html",
+      "bytes": 170112,
+      "sha256": "ac6e240859733bdfb8b7bced2d4f93898af085eb97217951cd209da36d4ca275"
+    },
+    {
+      "path": "reference/tool-catalog.html",
+      "bytes": 493316,
+      "sha256": "7692d3bb313636504c5cbcf45462a3d9d050bb1ab25d71590fbd76b06cd6d726"
+    },
+    {
+      "path": "reference/tool-execution-pipeline.html",
+      "bytes": 102642,
+      "sha256": "6eaeececc093f6c302c85ff2f6bc35b136f5aead427d4afdedde4cc1783fdaa9"
+    }
+  ],
+  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    {\n      bytes: 51610,\n      path: '404.html',\n+     sha256: 'cf409d3efc85e092085727edfd20bd447a06375ca1a3d62afe90ae7d570229d7'\n-     sha256: '7dfa2c038b326133ccd1d27f1ade8069d53d67a0be728831aea18a9c17c47ebf'\n    },\n    {\n      bytes: 100912,\n      path: 'develop/basic/config.html',\n+     sha256: 'e98995309b8675fb0b03b014078002d6c2c3b94e2e651b4b00953f485c3b203d'\n-     sha256: 'c2bceae3ba7ed7d0365a0c65278cc43c8d91f8d440462d82f667d9c00dba39b9'\n    },\n    {\n      bytes: 103507,\n      path: 'develop/basic/index.html',\n+     sha256: 'bdbb31159ba0fbdd67227b43b9bab8730094c2e5dfe64f7c4dd7ca0c60f8196e'\n-     sha256: 'fe8cce1e3e92367cd81827280899cfd1334e8fa2e3ed8b23cc55f2dfb0e500ce'\n    },\n    {\n      bytes: 106996,\n      path: 'develop/basic/publish.html',\n+     sha256: 'b965b254af707e42bd067c5b494bc12a6f84a61fd6822d444bc1b3e6ddf17c98'\n-     sha256: '5aa4d1509f7da019adf59252a8282970cdc0c6aefbaadbe6dffc3484795b6d87'\n    },\n    {\n      bytes: 91024,\n      path: 'develop/basic/tool.html',\n+     sha256: '0a13c661e3de0687153af2b77a6dbb65975042fd7064bade3c30dc88a3be7c24'\n-     sha256: '251dbeb96ee8867da9d92fd4afaee9c04b1a2f60bd71fbc7b85744367e88e5cf'\n    },\n    {\n      bytes: 95030,\n      path: 'develop/cordis-tutorial/01-first-plugin.html',\n+     sha256: '1b2bc8c444081df0f189638731a05669ca3ef02bc0ad08f1371ea54c82217fad'\n-     sha256: '8213af78ea118cefadc36307fe7cbf2aa19fa248d8272686de166786b66d03a8'\n    },\n    {\n      bytes: 96571,\n      path: 'develop/cordis-tutorial/02-lifecycle-and-effects.html',\n+     sha256: '61ccd3f5380c31b3273c19e3c164b5171d1fb5fd247baef771463f6c3fa10a06'\n-     sha256: '2a22303651fb9882eaed9c0aad71c652608d3b7fa521aa70a74434503202c53d'\n    },\n    {\n      bytes: 98343,\n      path: 'develop/cordis-tutorial/03-services.html',\n+     sha256: 'e65d20bf00c86bb57307da5880013d99ac436a604317af5c13fd3e41efd8179f'\n-     sha256: '453f43c139dc0cbf6fb820fd43c704d028f834ef12e30d79b71eb6815a5de688'\n    },\n    {\n      bytes: 113259,\n      path: 'develop/cordis-tutorial/04-events.html',\n+     sha256: '84cac4e8d23f5b24737ca21efe38ff1802d0b808f673fc016adc7195e164bfe6'\n-     sha256: '528c115291d165abeda8c11e420422af79710ad0934c1991e1cfb362f50f21f9'\n    },\n    {\n      bytes: 95456,\n      path: 'develop/cordis-tutorial/05-config.html',\n+     sha256: '98e98174d61df6205d4b575eb9601fb1ff13ad00e64892cf5402bbfc87b4c384'\n-     sha256: '06c635070684f5c0a62e8ce3527d46ee531b507324b77d29b69e149b6190cad3'\n    },\n    {\n      bytes: 101328,\n      path: 'develop/cordis-tutorial/06-composition-and-hmr.html',\n+     sha256: '4b9d136ed1160538081f8ac4bdb977c9e7f2944fe150c80c75616f59fbbe2110'\n-     sha256: '5d69b977871ad6f4fdfcdb5fcb3da7c3e18a83ab3563b56d5ed02bf579c43f81'\n    },\n    {\n      bytes: 105426,\n      path: 'develop/cordis-tutorial/07-into-the-harness.html',\n+     sha256: '3cddfb71740ea2d2277e719abf9512953ecfa1cfb561f208df45690b9c8a7bdd'\n-     sha256: '3b13063a6c2229a936ebc2c1f538ebd3431d7a522ed297b8cf6912e4d27a6426'\n    },\n    {\n      bytes: 89229,\n      path: 'develop/cordis-tutorial/index.html',\n+     sha256: '8d31a927f754bce28b8d81e44c2f48cef7ddef075baa6de09eaa7101cf26a556'\n-     sha256: '56bc1e6821dddd45ebbe801172668fa2eef64b6fa739a97573dd30e2b5fee9b4'\n    },\n    {\n      bytes: 109884,\n      path: 'develop/framework/events.html',\n+     sha256: '36671f3c925c113a3530b3bcd0164a63679cdb8421250ef4c97bd2a9169194b1'\n-     sha256: 'f34792609c6624db0e751ea05c19c58d4b885990d430c9422622ee4c2923d399'\n    },\n    {\n      bytes: 98902,\n      path: 'develop/framework/index.html',\n+     sha256: 'a01122b4fbc9aad3578277d35819ffeefe98ad840ee36696f66f6b28d0dc6f28'\n-     sha256: '9ade154f6b4504be56716a7ff12d70b48995d7a33b83c5190364557be78324da'\n    },\n    {\n      bytes: 106661,\n      path: 'develop/framework/service.html',\n+     sha256: 'c5e71ff6f80becb1d7857f21d8d26bd2d93f7799fbd1a29a850786178ad91079'\n-     sha256: '733da7b88e8b7de31765fda45e8c27209b257da70385d0e4770ba70b1fb613fe'\n    },\n    {\n      bytes: 83837,\n      path: 'develop/practice/dynamic-cordis.html',\n+     sha256: '703f40bea6635ad8cea1f0303c738b969062c56dfbe6a0c1af2a185c6e14d264'\n-     sha256: 'b2859392e0395e96f3b0d826ab09fe767091ab8e474fe77dd505b665e831bc2b'\n    },\n    {\n      bytes: 107385,\n      path: 'develop/practice/index.html',\n+     sha256: '979decc9b81ae4157abcd794e63a0c5dd09d1d97f72de9791978e6825ef4084a'\n-     sha256: 'f93d691af33a533ada7ed6563a59d69f0bc67c87da4ab232d9108f8ab7540bce'\n    },\n    {\n      bytes: 121443,\n      path: 'develop/practice/llm-adapter.html',\n+     sha256: '67b13baffa4dea1c1f826af0f52da0f62639b1dd080ef69c8c7f0f424b648662'\n-     sha256: 'a2473ededcb8ff95880d2596ea75acb5d3e7bdea5a37c414e4e9938cbf59c38c'\n    },\n    {\n      bytes: 101150,\n      path: 'en/develop/basic/config.html',\n+     sha256: 'd39329324b37b64ae414a67f7050369bebc2eefd5e9a49a767c84d1282ddf518'\n-     sha256: '410e6cb1634b447e2b36120e7109768c0e9cabd718d08f41bd01e66627af7e70'\n    },\n    {\n      bytes: 103772,\n      path: 'en/develop/basic/index.html',\n+     sha256: '8dcec8881f20c89386ffd6364c94638071fa15171fa4c82ab0408c09461a2d46'\n-     sha256: '49789f3d7ed2bb391ea0d9a6e925191c5e499fc19d3545f67aa03a0eea741039'\n    },\n    {\n      bytes: 107328,\n      path: 'en/develop/basic/publish.html',\n+     sha256: 'f95f5f8b11e7ece7aa5a4adf78a6db429d1343a2968a10a09d9f32ac9d971aa2'\n-     sha256: '79754c18f3c0fc236fcae7a9ce7a482b651ba8a20ee49a0261fee226c299494c'\n    },\n    {\n      bytes: 91138,\n      path: 'en/develop/basic/tool.html',\n+     sha256: 'c576101d335e02f4dc6ff73dfa6aea46ceb5712fb0c3364e1c7ece37744fe0b0'\n-     sha256: '4372a3c1523256761552f7d1e28260482160a623622f11ba103277a4d455eaf2'\n    },\n    {\n      bytes: 95132,\n      path: 'en/develop/cordis-tutorial/01-first-plugin.html',\n+     sha256: 'dfd9da8986dbcbd49c78a57381a1200aab05ea73de6a415c54537b2801f96ea4'\n-     sha256: '15bfb87eb954f0d023156245647c16d077d929845ae5b3e56d051f55984c8928'\n    },\n    {\n      bytes: 96625,\n      path: 'en/develop/cordis-tutorial/02-lifecycle-and-effects.html',\n+     sha256: 'b38ba1d6ed8d803ef83b13a0459c2871cd3168b0860d470aa626168623f0e657'\n-     sha256: 'c82a9d2424589bdd9b0698154eddadf3bc7b685e71ed663e6e83f140d3236ce0'\n    },\n    {\n      bytes: 98480,\n      path: 'en/develop/cordis-tutorial/03-services.html',\n+     sha256: '9991f059f826e658f29a37d37cf3c87c25a90678d6103b89b2bcc2dc5d295357'\n-     sha256: '2145c0cdc2e9c57d7de704f0687ce2ee3235c75e3e2e5e56d3bf81d5dc5d8f0e'\n    },\n    {\n      bytes: 113412,\n      path: 'en/develop/cordis-tutorial/04-events.html',\n+     sha256: '9427ef9f1572444afc52f3f764ec9d7cea82132ead1be322e46356041fa41575'\n-     sha256: '062cc5780345d0967365acef4756dba1803cf79c5a85480ab17f4b4af53fc55c'\n    },\n    {\n      bytes: 95547,\n      path: 'en/develop/cordis-tutorial/05-config.html',\n+     sha256: '6fb9d6dee5d9a4c3866a8c444d51b6641e3339de6210fd3f85cbfb411eeecb5f'\n-     sha256: '6e1a7288d72fe24b21c6bb24b84c4fd00784c0564f67da0133603fdb93b2d2bb'\n    },\n    {\n      bytes: 101203,\n      path: 'en/develop/cordis-tutorial/06-composition-and-hmr.html',\n+     sha256: 'fc2856124246f6467d1d258a3bc754af5372b422c8e339739b2d84f7550a9410'\n-     sha256: 'ce19537b2a377966a42c28bbbe5e5454e64658acae29f0e8511c01569527d076'\n    },\n    {\n      bytes: 105510,\n      path: 'en/develop/cordis-tutorial/07-into-the-harness.html',\n+     sha256: '79a68858643101303398ce69e0664bc8fd137605a64665e454c5d67807ca6870'\n-     sha256: '965dc51e626d73af3295a0925f6601f3ed9037e3cc607ba3608bbc628b66cde5'\n    },\n    {\n      bytes: 89336,\n      path: 'en/develop/cordis-tutorial/index.html',\n+     sha256: 'd5f74b3cf54e1fa6e27c37275bcd25af96221f3baa644e5a500a996ce03d6447'\n-     sha256: 'b360221f58c868e048e1fef6e863b311fcab6b70804822c3ce598cb115de059f'\n    },\n    {\n      bytes: 110025,\n      path: 'en/develop/framework/events.html',\n+     sha256: '963d25a35a9d8aed8de1a217a4a9cf867b5d3726e202f25810d940a1a8ab5854'\n-     sha256: 'd6d759a5d9eeba9fef29ded13d938fcdac09eac5a197df31648d5c90d388f3c2'\n    },\n    {\n      bytes: 99171,\n      path: 'en/develop/framework/index.html',\n+     sha256: '970eb61ce270df6936cbf47cf06acd71a6ca9c99d3ae9552a492aba01174f091'\n-     sha256: 'ee1f8e3aee62cb060bee131193a87cee2a667ddebf68498aea117c7f0b181e36'\n    },\n    {\n      bytes: 106989,\n      path: 'en/develop/framework/service.html',\n+     sha256: 'e53f1a0a1f4cf875568671afcf7ed4aaa9941230292384c39e926fd328bf3f01'\n-     sha256: 'd42bc9c6f2adf517c5d2a2ef6f9c2582eb310bdf3d12da22ce2cba4cebfc8fa7'\n    },\n    {\n      bytes: 83937,\n      path: 'en/develop/practice/dynamic-cordis.html',\n+     sha256: '8cee8adae74af905e2d7b4e97a0f1a9cc0cce221f28a021d25c187f79791b6dd'\n-     sha256: 'd6c476035fdebe3f50f46938f6e8706a3edb5b36a8052688e35df079a16edb5b'\n    },\n    {\n      bytes: 107775,\n      path: 'en/develop/practice/index.html',\n+     sha256: 'b762b4506105e505aa33b7269a8fc35a5a3526821b8a910585c6ec4c2d2ffd81'\n-     sha256: '130c8af2de6f23bbe34f3f46a54e6cdd7f06a1356d9a6e8d64decdae2d5fd83f'\n    },\n    {\n      bytes: 121595,\n      path: 'en/develop/practice/llm-adapter.html',\n+     sha256: '47ceac173db2566b4041632ae117df6facd59826d760f0e0cf86bbbdc0fe3f97'\n-     sha256: '94869ffc5b02edeba4396efc76f6a0f059c335022f21485c467ae65aa4d9e896'\n    },\n    {\n      bytes: 93054,\n      path: 'en/guide/github-review.html',\n+     sha256: 'e3af7a8597439f28aad6857cf41157ee27aea59c8717979894d9766f4be2eb45'\n-     sha256: 'f1a37ce9b36a7cebbb98bde27036bc217d9670033a217fcd5b8156f213bb36dd'\n    },\n    {\n      bytes: 94432,\n      path: 'en/guide/mcp-memory.html',\n+     sha256: '6ecdeba724b53de38589c21132610097f14c69866b2ffd249a1a40d9f789297c'\n-     sha256: 'e914e8a777bc19fcd246fde8db48e4740ac60cc9508ef02595287d9788b384e2'\n    },\n    {\n      bytes: 90184,\n      path: 'en/guide/network-proxy.html',\n+     sha256: '7db320e2c432de4d7b064d6f55077e2bbbc9f645be4138da53d1d87aabfb70a2'\n-     sha256: '4bf4a5b34cf8c0b220c7af105f6ff4a7215416f16621e799ec38dee9e7c73a65'\n    },\n    {\n      bytes: 111190,\n      path: 'en/guide/providers.html',\n+     sha256: '7256924ad93d11e7bc9c414cf165fbe22498d6fa37db0953ad2a72543a9e3147'\n-     sha256: 'ed1c3778cb6dd30f309461d22c9184fc3ab1fda043b8e658b88ace552b113222'\n    },\n    {\n      bytes: 105723,\n      path: 'en/guide/python-sdk.html',\n+     sha256: '4b15e3f0c029c8975ab6fd266303dd27636b215b41931eff27c0ff986df939dc'\n-     sha256: '552e32296b41577f52f86bfcfd9f7cdc053d5d12d5e657a0831ec7fc62c5ad63'\n    },\n    {\n      bytes: 81322,\n      path: 'en/guide/quickstart.html',\n+     sha256: '4ac792585ea9056a578781c1070782d8a13bdeca5ef662136f66a38b2a0f82ab'\n-     sha256: 'ed47621a232e457dc569235ac62511c88bf01083e78c605bda00c28f2f984a02'\n    },\n    {\n      bytes: 82978,\n      path: 'en/guide/schedule.html',\n+     sha256: 'f024857825d18f6cadcfea5a271beda729c3371edd186472ca6b256b53a92ec6'\n-     sha256: 'c73255e46f1dc3839c626d2fd2f9c104c2a59ec913279883fd47bcbad90162ff'\n    },\n    {\n      bytes: 55559,\n      path: 'en/index.html',\n+     sha256: 'a2af7c9d14f3bc2f41f6ed02aeebf2af8318515b5cfaeeab6f2d36a957d4780c'\n-     sha256: '48db65fb8b1ead6f2b884913778696ca6edc25cf40453b9dc4788c150ac82c01'\n    },\n    {\n      bytes: 103152,\n      path: 'en/reference/agent-lifecycle.html',\n+     sha256: '30a373095f93918a1bd1a50c0bc19b6e1b338d5ef9d6014508b1e4b22575864f'\n-     sha256: 'a6c6cbbabc8f5b6189ba2856246d4e1618ad09e2828b4e46944c277988559283'\n    },\n    {\n      bytes: 136724,\n      path: 'en/reference/api-gateway.html',\n+     sha256: 'f269e1d4a372e2bfafb63cdfab6e2c1e6badb30d0a646fc061a90612d80a4316'\n-     sha256: '5c32af3f85e04e448c44a4e1831e965a2714091bbc2f815028d66adea9ec0fe5'\n    },\n    {\n      bytes: 161413,\n      path: 'en/reference/capability-seams.html',\n+     sha256: '47c77a700e28137e56bb204c132e13254a0a0dcd1d46c1db8473c1106b602536'\n-     sha256: 'dcf15e203c6e0a9e3473a7a5f5a05c6e7a46230836319ab4efb0d94b400cadfd'\n    },\n    {\n      bytes: 650157,\n      path: 'en/reference/config-catalog.html',\n+     sha256: '85e855a00df51f8673de200beba5902c48f3e2e9bd24a1bc1d746f01110e1d43'\n-     sha256: 'de5bdc04f7ca1923983006e0f1b0258d3d38cb416858cf94f5178d8b02d53328'\n    },\n    {\n      bytes: 122300,\n      path: 'en/reference/cookbook/adding-a-package.html',\n+     sha256: 'd3aa0f9645f817b620838b532b29abb8e05e0e86cc388b0c6a35f168c5cf6293'\n-     sha256: '1ab0db7c29d1c1e89ca76b1cc5365737fb03e448b82fd0b1676c3f6a8b4adcfc'\n    },\n    {\n      bytes: 128761,\n      path: 'en/reference/cookbook/adding-a-settings-card.html',\n+     sha256: '02b0e8c6451807b9508cfbf343b72d3e6500375be961e8bca7d9b5c9e5a87e63'\n-     sha256: 'a8385090bcafec0d6d1fcfaa9942fc72d14ae7db7396ef19a9471a7cd69daa96'\n    },\n    {\n      bytes: 126313,\n      path: 'en/reference/cookbook/adding-a-tool.html',\n+     sha256: '09e19b395a3ea349c2f6d9dcb2c73f2bc68538f76a0623605bab792079923a68'\n-     sha256: 'bfb1218fefc5b56426d03df9fcb9265b2cf064f264d0b23993030523a956d4d3'\n    },\n    {\n      bytes: 111350,\n      path: 'en/reference/cookbook/adding-an-llm-adapter.html',\n+     sha256: '26910f0f8d263d462e410b2363fb5da319f44136d871e5d404d1c837bcebce37'\n-     sha256: 'c1e2d2ab519bc7c8d2b3bada2ed06e397667e6329f798ebb83f0076e985054f2'\n    },\n    {\n      bytes: 135361,\n      path: 'en/reference/cookbook/extension-cookbook.html',\n+     sha256: '15c7cbd8182e6d2f646284d8929e12be3cef74168b27e178c0f05aca5bb03e2d'\n-     sha256: '2931b869a75eb060b7b78ab1c73949f3fa81838f1aca632407522c30b368bef6'\n    },\n    {\n      bytes: 152880,\n      path: 'en/reference/cordis-api/context.html',\n+     sha256: 'c3834fe7b2ce38332fe47e67bff169dd2d3448c05203eab7436582f5c72ddd72'\n-     sha256: 'bf4188d9ef009592f985ed9e3466509d8f503c32941f2e2ff488c3accae649c1'\n    },\n    {\n      bytes: 148269,\n      path: 'en/reference/cordis-api/events.html',\n+     sha256: '72fdf179f59bb0bf96fb6c05ad392c884b04a50fa9d0427cf281a092e6bbdf25'\n-     sha256: '5ab4d1cfaf12615b69e64f4f1859565debfe741045cb12ce4be6a8f82458b6c6'\n    },\n    {\n      bytes: 149227,\n      path: 'en/reference/cordis-api/fiber.html',\n+     sha256: '689838f551c5b6e24e6332d10e9fc2a4b83842bf3e4c854fcc5f991f782ac519'\n-     sha256: '795bee73347758611ca2478db3b86d684c1f71a87803fd39b52101618995a948'\n    },\n    {\n      bytes: 109876,\n      path: 'en/reference/cordis-api/inherited.html',\n+     sha256: '3f0d672a73794a15d5f5be8bd255bc13139c59770aa929ba2f351592f2a6cac4'\n-     sha256: '918b0ecf498d43492717b23943bb7a39e8df370b887e4b4db4aee9ac4c3e9b45'\n    },\n    {\n      bytes: 133303,\n      path: 'en/reference/cordis-api/registry.html',\n+     sha256: '0a0e6f84ad942fc0d0cddc48a61c11ce077c1f2cde0adfd36809b48adb152425'\n-     sha256: 'a718b3febb83114ba6dd9015a7f81bad8429ae8a6e92e6bc984301ee7627dca0'\n    },\n    {\n      bytes: 110005,\n      path: 'en/reference/cordis-api/service.html',\n+     sha256: '3c0065f3927b549189202880f46b30e68d0af61e646a7674ffb58e7dc3703181'\n-     sha256: '4660b3b0042d8a684f235f3f8dc3135f9ab93b98d58ebed43fcae06b576f90bd'\n    },\n    {\n      bytes: 106842,\n      path: 'en/reference/cordis-primer.html',\n+     sha256: '0afaf075184d04956a1503377d06e66ab1f8d824cf5ea07e2e60bffa3a0ac0be'\n-     sha256: 'c0acb10f4199c79d607b8cfd76d53642bef142127e4938247e6f41cdba48888e'\n    },\n    {\n      bytes: 122926,\n      path: 'en/reference/index.html',\n+     sha256: 'fdc9849632894c9cbd6ffa64d53a337a8190c427b4f23f731fdd019a5fdcac80'\n-     sha256: '4389690a74f3d64eb0da447ef5eec8576115b31f88edccb7a0e9b4fdca0520eb'\n    },\n    {\n      bytes: 237836,\n      path: 'en/reference/persistence-catalog.html',\n+     sha256: 'a8b50bf6c2c851d85657229f585da917b729ab62f4396c658e3055dac23c9d15'\n-     sha256: '7f2bf99e151e40f23ff0db72d5e589b928fbe593bd7ce26fdae5b05ab8ba46ec'\n    },\n    {\n      bytes: 129534,\n      path: 'en/reference/subsystems/approval.html',\n+     sha256: '659a1e2305056f7506cf887996dcbad575f3c7db3260a4261285b1e26a29130f'\n-     sha256: '6bc9c553b77c8d7ae447d1c482951db7583d1a4354d310b42a4d3ddd18715ba4'\n    },\n    {\n      bytes: 134228,\n      path: 'en/reference/subsystems/client-modules.html',\n+     sha256: '23f2208b18943bc4cd3dd1f24e4821880efb970f164507f5e1d1fa4de65fb4da'\n-     sha256: '1df7e874338153dc0ff197624dfdb6e565cabe2766958b938d9cc4b01bc01da0'\n    },\n    {\n      bytes: 136923,\n      path: 'en/reference/subsystems/code-runtime.html',\n+     sha256: 'b909f1362ea7301c07e7d0ac19af6d5e6de6793dcedc469f3086b853837832f9'\n-     sha256: '5056db982ebbeb98cef201f51957663b27d289eccc8ebfc1dc21af5d3380755a'\n    },\n    {\n      bytes: 137530,\n      path: 'en/reference/subsystems/commands.html',\n+     sha256: '266bfede0c0c9ea8a9e069bb4d60a68806c0a8095aa3e91bd2dc6a6781451cec'\n-     sha256: 'fb48577d670c744f7e784e68bd9ee9cf7e454139268f6c2d0e09e1e45f82869a'\n    },\n    {\n      bytes: 147781,\n      path: 'en/reference/subsystems/compaction.html',\n+     sha256: 'ebe4946f71e54332b5a3024f9ed0b04aff79a82442f5d3aafc79d798bc8212a6'\n-     sha256: '3d9c8cfda34ed08d59933280e889e6a1ce945bc71319daddcea8ff3ac44ffe20'\n    },\n    {\n      bytes: 161129,\n      path: 'en/reference/subsystems/conversation.html',\n+     sha256: '6a30fd93c83f0ab05aaa298dc0c151d9783315cb739108656ae80636490edd61'\n-     sha256: '56bc4f139bc37247f66f25e0eaba474cd7ca980e381990b77e50eae6fce6ec7b'\n    },\n    {\n      bytes: 348198,\n      path: 'en/reference/subsystems/core.html',\n+     sha256: 'f6b8e5b8e14d6be6d9e9e0aff771e748352e19620cf60b621254204e308a92dd'\n-     sha256: '0d84efbb4290aa349116ac0023ec064c0c516899d1ba6e8cc7992468ef1ae350'\n    },\n    {\n      bytes: 158862,\n      path: 'en/reference/subsystems/credentials.html',\n+     sha256: '153ab903f05c68f19920be927dc37a3e1864bfb1c1e3ea7585346fd45bae1bb6'\n-     sha256: 'd8ab42ab024277197587541604bd55f59c83b61cfd2b92be2e3ff7003f7f39b6'\n    },\n    {\n      bytes: 207240,\n      path: 'en/reference/subsystems/filesystem.html',\n+     sha256: '5838922b60911fb63e4c7d8c67e8f95fabe629f8c63d7a0e3447d24163a089f9'\n-     sha256: 'afe352393448c62d9110811519bcc5992ba46078bbed9c52abf3e7a41d60e7db'\n    },\n    {\n      bytes: 151886,\n      path: 'en/reference/subsystems/goal.html',\n+     sha256: 'eec594bbd3343a1398eca797a66e645375880bcc397f7e42de77daafa0170739'\n-     sha256: 'c70583d6dc84ae4f6454a760419c03b8daf7d085d4fd44eb9cb67cf21b825bc9'\n    },\n    {\n      bytes: 113697,\n      path: 'en/reference/subsystems/index.html',\n+     sha256: '7333192f763ce33f8e96dafd38bd3da35e7c237b5a00f2b4209a6b02cbb1f0eb'\n-     sha256: '44c2f5a2ef1876413f50aed9dc1dc75b948bbd990ec61c09f90acc5a7738c084'\n    },\n    {\n      bytes: 118281,\n      path: 'en/reference/subsystems/invariants.html',\n+     sha256: 'dd8d72d420a817f3cd46c9c932af1af6e624cad19befd8cdacb9277381ab80c5'\n-     sha256: '2cdcf8c88ad0c5a27e52f9ccc7c0a1cdcf6a999deb676e2bd858c2c459416e10'\n    },\n    {\n      bytes: 154698,\n      path: 'en/reference/subsystems/jobs.html',\n+     sha256: 'f41a208f47c1d6de64a80ec01d4a0ebb17e167b5337ada5c06fc67529ff12f48'\n-     sha256: '158e1d2bcfdc3ba8898fe19c183e94fca183ce05f6b8dc976b71b3f815a9af14'\n    },\n    {\n      bytes: 318590,\n      path: 'en/reference/subsystems/llm-streaming.html',\n+     sha256: '5efa557ce880a165e89220b4be2abafa73f583220306d79b1e29ee3f2ac4de88'\n-     sha256: '7798b9a6b43da2019a7f0171f178201795d8551b9556aa05b9ca26dc4b37202c'\n    },\n    {\n      bytes: 140419,\n      path: 'en/reference/subsystems/lsp.html',\n+     sha256: '0e9d6f55c0f556d2d9090c760a7de56b276ca62b8de94ce49afb6e89481992f7'\n-     sha256: 'ead05be54116bf2c3ffa374ac972d49b944fb4f2393c7c05d6bbd9cc461601af'\n    },\n    {\n      bytes: 123883,\n      path: 'en/reference/subsystems/permission-presets.html',\n+     sha256: 'b131813583bf9976c5075169aaf8d07ba6e28f697a709c8fa28d72a917471cd7'\n-     sha256: '2908c83f1d3c460595325b9b19283cbeb83411f34893fcf33c99c6957f690aa1'\n    },\n    {\n      bytes: 184237,\n      path: 'en/reference/subsystems/persistence.html',\n+     sha256: 'd8fe2682daa6fbba5c165773cda92dd78dc24ec0b457db15a819bec798fa20b6'\n-     sha256: '22bcb215054a44ca5993225040107dba0d87076c51ccf5b6ad4f9ae08871175b'\n    },\n    {\n      bytes: 116377,\n      path: 'en/reference/subsystems/plan.html',\n+     sha256: 'c1f99c93c6b9bdb67df859ddeecd47f5714a13e899ff179242e7784c03cc5988'\n-     sha256: 'e07da7515bc4707288f7ac64cf6e1bec1d39a69e16181f3827f028b30dd64868'\n    },\n    {\n      bytes: 137840,\n      path: 'en/reference/subsystems/sandbox.html',\n+     sha256: '8cc533069bb8cb6ce8baa7b603a6abb70ced6e0bda0674ae8675e41f1b1a19a5'\n-     sha256: '316c7bac435544e7a780c37cb053217d62fb2900174a3e62af96de404bb5d287'\n    },\n    {\n      bytes: 137401,\n      path: 'en/reference/subsystems/schedule.html',\n+     sha256: '26fa2927779f7acf5d64cdf45aec052532b156dd384ead8aaee30d493d76b7ff'\n-     sha256: '7714a89c3437bfbb80e7d47510be406f97c5c99748cf60a2e5ffe17f60e576d0'\n    },\n    {\n      bytes: 112254,\n      path: 'en/reference/subsystems/scope.html',\n+     sha256: '9a4138bf40429b84fc059c7794d0e16c9de5e39a4e25c3fd4b5d1a0529858a41'\n-     sha256: '7cdfcb2a2c5a67c6069bd3826ad0f288cbe3e6d1d6f8c6aad5b897712e35261c'\n    },\n    {\n      bytes: 186702,\n      path: 'en/reference/subsystems/session-projection.html',\n+     sha256: '1c07adec547f0741b2e51c695f5fb7c3a8273c50378ce95fe47a8c70ab7eff4d'\n-     sha256: '3a8fdc73f201a85dd550798d1b6045621d494ac8c6535b64b92d64434550168a'\n    },\n    {\n      bytes: 200498,\n      path: 'en/reference/subsystems/session-query.html',\n+     sha256: '3958595d5998b100f028ff09beba692bda65aeaa1ec2861979dd50edc1064c8a'\n-     sha256: 'a269fe0484b9ae87717b248b08825e39daa1b2254e03e39a64c7b1a5cea9ed49'\n    },\n    {\n      bytes: 139623,\n      path: 'en/reference/subsystems/session-reference.html',\n+     sha256: 'ae1c5bd6a0fe2d82382f2745529167e18c3c6be7198ad3972191a36d034ec86e'\n-     sha256: 'dc16687b69c947b32ffce3e32c504c7fd53296987b8edbea5c351475653afd05'\n    },\n    {\n      bytes: 137905,\n      path: 'en/reference/subsystems/session-telemetry.html',\n+     sha256: '7aacee2e3d5f0ba38bed9c41fe3f62e7c3d29b20c2e679b37c6d46d5eefceac3'\n-     sha256: 'ddc7edf82711ce6ee43b25235590f4a93be8fb886c7c5df6c4dfe7bd19e8b490'\n    },\n    {\n      bytes: 138364,\n      path: 'en/reference/subsystems/session-title.html',\n+     sha256: '3e0e8d5238a22dd07c76f6f3078e897e3f7f3b080a4c9926406def2722a3f645'\n-     sha256: '35fd44ee6f952acbbcebcbfcd1dcb6f3fdd126022ebf3f686629a07c3b78ba9a'\n    },\n    {\n      bytes: 339252,\n      path: 'en/reference/subsystems/session.html',\n+     sha256: 'f71c2291266dd483722ac64bfd1a6ce041fc494d363d3125765a04c4e0a7272c'\n-     sha256: 'fd1f4600ef70f3e865c68f8b68e2358d119942d289bffd077996d534e6018e7d'\n    },\n    {\n      bytes: 194283,\n      path: 'en/reference/subsystems/settings.html',\n+     sha256: '1b688d3a995f4b82ab392c096d2b7c5ea007a09315c1530e081396532dbedfd2'\n-     sha256: '8eb398d34e993d54b57b163b0efc3e52cd5fdf8f1ab52d2ce0e24250cf868e38'\n    },\n    {\n      bytes: 160200,\n      path: 'en/reference/subsystems/shell.html',\n+     sha256: '92d66468b155b7a53309ee4599c464a1e181fcad4663460b0a33e2be02a0fdd3'\n-     sha256: '52bce4d6480ce9baec97cea6a89cf920f7db53e600b46197cf08fe3ab47412c1'\n    },\n    {\n      bytes: 173664,\n      path: 'en/reference/subsystems/skills.html',\n+     sha256: '91b73e397061af7f57131c32bd9da52001bb6057ed1eab4e20d7fc7387752792'\n-     sha256: 'e88a2aa2624f238430a86f3162a1cb3fb5b9aada866985262d6dd7f5d8daa496'\n    },\n    {\n      bytes: 125690,\n      path: 'en/reference/subsystems/slots.html',\n+     sha256: 'b74c4b705de3c2c049101cb112c89aa9894606dff38ef6721d1e3b4ec909df24'\n-     sha256: '0cb417ff3b1a722236fd363f8d58171b11b542a9bf57e589ec6fe9290fbf2b7d'\n    },\n    {\n      bytes: 120378,\n      path: 'en/reference/subsystems/spill.html',\n+     sha256: '29dba2307c2a5bfd0f3dc95010c1d5ff1925853ae47c8b60507688307040143e'\n-     sha256: '03f8659e06194f8644904c3c3da446ef3e04e93b7396e8265f54eac12bddff90'\n    },\n    {\n      bytes: 154713,\n      path: 'en/reference/subsystems/storage.html',\n+     sha256: '10ea74ea9d6261add10384095a2f33e7c966f009cae9164603d28881cdb7957f'\n-     sha256: 'd1480d7d2b597fe8171abd44c4677c2f7beb21db72659482cb69389fcf0667fc'\n    },\n    {\n      bytes: 258359,\n      path: 'en/reference/subsystems/subagent.html',\n+     sha256: '5b79aef14f9eb2cdbc97749df766481645faf4b9f89fe6e30e96b65c8a31f9ba'\n-     sha256: '3aa05b5a90203fadaab7d105197d8b8c2de1403f61f9dfe6c49580d52d383752'\n    },\n    {\n      bytes: 161958,\n      path: 'en/reference/subsystems/subprocess.html',\n+     sha256: 'e28b00d90fedea79ef2289eb08096a86b8312470576fd8c3ef3119b8d5d637fd'\n-     sha256: '530e1abd57cc6302f04d1b10ccbc9cc24df2032d3a0e4dbe85e2aadacdfd4c64'\n    },\n    {\n      bytes: 140616,\n      path: 'en/reference/subsystems/system-prompt.html',\n+     sha256: '54eb002dc5d959d91e6bf9608e5948059b9c66b25f039a40456b79a651f68a9b'\n-     sha256: '2735651e28692b08e3d113752863d4b377cbf2527a890c3de2843b0f4363a0be'\n    },\n    {\n      bytes: 138453,\n      path: 'en/reference/subsystems/terminal.html',\n+     sha256: '8e867aecd93085b6e1f94b344290b4d49412e0654945287641d967bc6604efd0'\n-     sha256: 'eedf1d1d0f8fa3b939117f4cb3e4f0f842f30da609ebd3fe2571d104e66b697d'\n    },\n    {\n      bytes: 117277,\n      path: 'en/reference/subsystems/token-meter.html',\n+     sha256: 'ca7406908c30cea40cc65d5ea16722cf310af662cc8942e1a7cb534985198929'\n-     sha256: 'fab548034bc368a33320ecc1c4a5cf86f983287645b561eae5df279d98d4b917'\n    },\n    {\n      bytes: 251686,\n      path: 'en/reference/subsystems/tools.html',\n+     sha256: 'e8d090978ab82cbe7a645849f19da8a43455b76e3333cdb8173adde14d2ee9cb'\n-     sha256: '559cd17185a8f013a41c38a3e360e77d6f8a86f152913ba4c3e1dccfac23d909'\n    },\n    {\n      bytes: 168911,\n      path: 'en/reference/subsystems/typert.html',\n+     sha256: 'bcc3d1ac2b6e68aa05587a7ec05d489003fa172e4969de10264b0f433603f42e'\n-     sha256: '661f9a1ea7014ea95d01bec877613a4c69902519012ca825ac819e6ce812c0af'\n    },\n    {\n      bytes: 129106,\n      path: 'en/reference/subsystems/user-questions.html',\n+     sha256: '2c46efd1728492ad7f2f181d7d01b26b4be9cba9ded233deb9776289ff049cfa'\n-     sha256: '4d78bc14ffbdeb6fcdad27d7cac105862443b6e556e022b007a3003c904dccbc'\n    },\n    {\n      bytes: 117468,\n      path: 'en/reference/subsystems/web-client.html',\n+     sha256: '68cae8b6571a4edadf42c0f7fc3f1007ad5a9e46e920bf895c7bf80786367c89'\n-     sha256: 'd97c5464f9899e84519a693241cef9ccb85c6e7b8c7d40167eb44f87a0640842'\n    },\n    {\n      bytes: 130370,\n      path: 'en/reference/subsystems/web-server.html',\n+     sha256: 'bd2849dc389cdd42dbac7000134dbcf61b94b13deb5347456b86e9c301fb03b4'\n-     sha256: '6bf3f7eda4821a955b46996e6511e817316a8d56261221b2a9a8021aeb094df5'\n    },\n    {\n      bytes: 139392,\n      path: 'en/reference/subsystems/web.html',\n+     sha256: '5fa7bbd8e384e066a2e61ce0a4f56298cda62fb47b70b074d1e68c458659696d'\n-     sha256: 'db2e4f398dad5070ef4b35ac0629a6dd91ef93e7cc7a02324e2aecd0f348e98b'\n    },\n    {\n      bytes: 150472,\n      path: 'en/reference/subsystems/workflow.html',\n+     sha256: '10ff019c7a43148e9b464589ae413614bfcf5824c9635facda18879c43f9e2eb'\n-     sha256: 'ac5da5adb20fd2436ae5883efc3aacc7d35f4c51623b5c5df96d7bbb4b0e313c'\n    },\n    {\n      bytes: 170592,\n      path: 'en/reference/subsystems/workspace.html',\n+     sha256: '5e1156035ea385d7d098fd863ee494fb075e5d94270c284eec01611a20f3f93b'\n-     sha256: '4ec5162f4446c144cccb2a44d35e406e40fc2c258859fdbb25ed95726c3399b0'\n    },\n    {\n      bytes: 494210,\n      path: 'en/reference/tool-catalog.html',\n+     sha256: '9a43bc5765eb6d66a60eb34919ad272513b6b9fa312456e484a5a9500f77e172'\n-     sha256: 'febebf5b78937c6ed1517c34f7a08ca16459f22dc559c6b982d350e43d6cdba4'\n    },\n    {\n      bytes: 102812,\n      path: 'en/reference/tool-execution-pipeline.html',\n+     sha256: 'ed72053a478ec72cd46d4381e5fadc19f2648a7eaa41efd4854c75b3fc988018'\n-     sha256: '4ccf59c1506727d1cccaf051a048315cd407f1c9bac70902cdd719b937384ce5'\n    },\n    {\n      bytes: 92667,\n      path: 'guide/github-review.html',\n+     sha256: '46a04df3702d0680cb8b748e8a454d69c37cb478059d07ae54772353e628daf9'\n-     sha256: '7da9578e4d27a8bf737d107d6b543b326dd3990e59ec0d3f2893c837c10dc737'\n    },\n    {\n      bytes: 94175,\n      path: 'guide/mcp-memory.html',\n+     sha256: '996959f79c3e40fe5fffb82d5814690f6edd710a449345988a62a9f1a790680f'\n-     sha256: '82c523eded825c44ead108674a0304611ef498a8c5fd287e4d710ffeda47c5c4'\n    },\n    {\n      bytes: 89860,\n      path: 'guide/network-proxy.html',\n+     sha256: '11fad1284922e3024b1e0f91ff0f05d86208e6eda4c706b982d7dd3716c4702f'\n-     sha256: '095dce509259dd1e4f625f1a551186487a8ca99754beefd27dc020dde87c95af'\n    },\n    {\n      bytes: 110610,\n      path: 'guide/providers.html',\n+     sha256: 'eef421f5b01a774cdb7fa032d1ea4639f94f49d534b13d613a7349373d9dd299'\n-     sha256: '8295faac266b7de5e4ba0cf2728e10b8d7984f1d8552246a411e01977bf2ab22'\n    },\n    {\n      bytes: 105218,\n      path: 'guide/python-sdk.html',\n+     sha256: '90409242e46d47ce9f4e0edb6c496766dbffd75385e476fd8d5fa417b34e55a5'\n-     sha256: '8d054db9c3d07e664f7e14500ec1cb1366b1c728f39e08ec4dbad42731f86017'\n    },\n    {\n      bytes: 81234,\n      path: 'guide/quickstart.html',\n+     sha256: '7d2f2223b6a69499ed78ca1141d5d08ff2c489bb4ca5a021b92d751f511c386d'\n-     sha256: 'b58bb4a9fab7110f1368251e3d9e47f7764de3667df9661683fe9712a776d1bd'\n    },\n    {\n      bytes: 82635,\n      path: 'guide/schedule.html',\n+     sha256: '16ecab0016a74fdf3e4d5f7cc1c141fa17e70d1bdf908f6415a502c5bf61b523'\n-     sha256: 'b0d4081e3c4d4dafda06bf12b35a13bf831c794ed0c4885e4abc7cca51bc6318'\n    },\n    {\n      bytes: 55556,\n      path: 'index.html',\n+     sha256: '2ee73eec6963422955bdc14871c496fef49334543838d81210ed244efd098ff9'\n-     sha256: '323abcca22ef8482eb37287affe93baa0a25f9c6ae4af03553ec998b66f43cbc'\n    },\n    {\n      bytes: 102969,\n      path: 'reference/agent-lifecycle.html',\n+     sha256: 'f334783c6b65e18d5ddc9e7041c8e1330b06487c7fde2a8d62d8ff5274ad2b40'\n-     sha256: '798a609ea5971953f11663fce0047bf979d4e952fcd2e3b983dfe231603cf4b4'\n    },\n    {\n      bytes: 133950,\n      path: 'reference/api-gateway.html',\n+     sha256: '885f33b14f310e05e5f04716b3f0a636f113626f7f3e0884dc204faf102c47d2'\n-     sha256: '29c7774b91e8f99481d89ea3758a8361f685096e8451b4287861d41c4c5290e9'\n    },\n    {\n      bytes: 160658,\n      path: 'reference/capability-seams.html',\n+     sha256: '54f3ee853a7b44336620f6fba91a0bbb3af2c1398468ea0025dcf7cf0e35d8e7'\n-     sha256: 'a5f885a8935f57eaf299d3f3077cab62b9b6783f27415b3857874733b67c9761'\n    },\n    {\n      bytes: 650095,\n      path: 'reference/config-catalog.html',\n+     sha256: '99b38a5bd6cfb5a30d05a81ce5258f2bddf919f2a9da2168d57a45a3ffdfb1b1'\n-     sha256: 'd30f8829604ca7dc9fe4c69646eaaae23b10f0007f95cdd1f28e975148696756'\n    },\n    {\n      bytes: 121107,\n      path: 'reference/cookbook/adding-a-package.html',\n+     sha256: '2e21d80228c07253883d79bb1c79e61e2ee716be85de005c6e961bd17967fb03'\n-     sha256: 'abf09a388dc1259d5339b3c5d480864f7378f7dd2b6f8056fd5344124341ace9'\n    },\n    {\n      bytes: 128240,\n      path: 'reference/cookbook/adding-a-settings-card.html',\n+     sha256: '007d7c87feab4b002af04e970b3fb498810f0eb49de4489fc1f089113ca8082d'\n-     sha256: 'a81586231b6586ba83828494b098df4e4fe408511af7bbf210a0d3474ae7f226'\n    },\n    {\n      bytes: 125650,\n      path: 'reference/cookbook/adding-a-tool.html',\n+     sha256: 'f7370d6e269f37e8b99b105be4612f85ec216a550c7e1a2ee6bef7633801bde8'\n-     sha256: 'c1577229b0ced6b334f3853f472e18b2f54cdfe8e3314b30e12e727e6851898e'\n    },\n    {\n      bytes: 111167,\n      path: 'reference/cookbook/adding-an-llm-adapter.html',\n+     sha256: '06e51fd8eb9d64b8e7621ec5536f4d0e6af41f28db0cc6864dffbd24ab3dcbf7'\n-     sha256: 'e6648ac87575af7bd7c0f0b5831fe956f0a3774450ede034650c2387bcf44b05'\n    },\n    {\n      bytes: 134825,\n      path: 'reference/cookbook/extension-cookbook.html',\n+     sha256: 'aa82c6e8cdff1efb6ca8f59ed9dd1218edd0d39ffe4a2d1065954ca01cfe89d8'\n-     sha256: 'b51ad489a9c764c3cb1734275c92991ad1097bf9946232a02103823329824874'\n    },\n    {\n      bytes: 152469,\n      path: 'reference/cordis-api/context.html',\n+     sha256: '440bf0367edaca9eab216e3091501ee812f41f2a86c0fafbb81f6befff818bce'\n-     sha256: 'e034815328f4a5dcc7297aea32e12f30fa591bbd9da98afd91865ef37459c648'\n    },\n    {\n      bytes: 148191,\n      path: 'reference/cordis-api/events.html',\n+     sha256: '1d036d811ecff7c8a74179d02af096c3c6a720b38f78e6f27cdfab6eb826ac64'\n-     sha256: '067cd23868c62a45798e9907e8995692638d3e32c3d1f7c153cc2b64275ebfa5'\n    },\n    {\n      bytes: 149181,\n      path: 'reference/cordis-api/fiber.html',\n+     sha256: 'ef0207738f4dd4b6bb440c9c0c9ddb8f6e53b6a38c2fde656d5ce5853d8a225d'\n-     sha256: 'e0aa8c484b8f33618e838791c3d787ff5620119b3af8d5d5093fef52637a64da'\n    },\n    {\n      bytes: 109520,\n      path: 'reference/cordis-api/inherited.html',\n+     sha256: '8e3f8c823602fdf3130dc033b70a040b41a6de78c0882530dfdc8a5fa16cf57a'\n-     sha256: '110eb8d28088eb93901bbfe87347bfab591f70e96df2097c44d5925d410a598e'\n    },\n    {\n      bytes: 132992,\n      path: 'reference/cordis-api/registry.html',\n+     sha256: '4e618f6452f17038acc67192bd5e07e16875d07dfd8a28df5de4399b53403ad2'\n-     sha256: '04bd9fef09e5a18396cde3c0c370b3de8c0e00805822f835b9f2ed4f7d581897'\n    },\n    {\n      bytes: 109594,\n      path: 'reference/cordis-api/service.html',\n+     sha256: 'a6a33d41b555e3d7c07f5bdf0cee607feccc93ce7a99925efdfbf99d37457b56'\n-     sha256: '11456c0ed960bc001d30065ef21f52a3b5bf88bcc8d6d4fc4741b3513e6d363b'\n    },\n    {\n      bytes: 106355,\n      path: 'reference/cordis-primer.html',\n+     sha256: 'f107681444ebf28d1e8787673509cdfae31b0bac4f2adde24b410896f8893a3b'\n-     sha256: 'cf99129967a734e8bca585c2c64bfaf71eca0247acd289e9885c71261cafa4cc'\n    },\n    {\n      bytes: 122365,\n      path: 'reference/index.html',\n+     sha256: '531582e462b78f0e0f28feb3dfb62366dd72fa0fcadd179dc32b688c1708b781'\n-     sha256: '47159c1dcafcd7ea250d24e84f2447c0ed5e41e780d34c3c43373cff7f471362'\n    },\n    {\n      bytes: 237611,\n      path: 'reference/persistence-catalog.html',\n+     sha256: '81d3f97672374d2b0155a8f111451d53e41e6557936d1c41a4c122df0da61097'\n-     sha256: '8b6be24459a1c30efe52146bbffa53abf211a9ba4185be07d3b92ae25b9a0965'\n    },\n    {\n      bytes: 129110,\n      path: 'reference/subsystems/approval.html',\n+     sha256: 'c7fdb497ee81d35c147eefab53dccb5a0d921733a931eabde4fc87f2b65676f8'\n-     sha256: 'dd01a379d9bb2fa6eabf900adadd505ab297e20615abe4bcd0247871c4ea20c3'\n    },\n    {\n      bytes: 133389,\n      path: 'reference/subsystems/client-modules.html',\n+     sha256: '00816fde60fc1e6b72ca08ca7fc2b2347fd6671fdd930ef4772d9853a0389ba9'\n-     sha256: '039b3a602dd56260a8269a733ead2e54c46b0b8a19b5efec4e302a7a5cc55291'\n    },\n    {\n      bytes: 136435,\n      path: 'reference/subsystems/code-runtime.html',\n+     sha256: 'eab51eefd2b7f590e3fcbab5e0001e24e7c04067852934cde1f6c421e34a15ed'\n-     sha256: 'bb67080a3e957b61398a257c7a24a463adcd4c1c936229c4a43290a38528b951'\n    },\n    {\n      bytes: 137082,\n      path: 'reference/subsystems/commands.html',\n+     sha256: 'b7164c41b70798bab2a9f5c973199a4427ce3897cfcb128b00cbfe61e46744cc'\n-     sha256: '36bb40a169784aaa8886743a79e94cb3fd27528f2190c53b675f6e03f5650d65'\n    },\n    {\n      bytes: 147047,\n      path: 'reference/subsystems/compaction.html',\n+     sha256: '2f39e3520e0eac234f030f67df60bf44ccfa2a927c1a9a4ab30e4b84dcac2040'\n-     sha256: '6870c315a3bc6a1a3618379955fb69e6a311af1ba32142d391a751dc51e61f4c'\n    },\n    {\n      bytes: 160145,\n      path: 'reference/subsystems/conversation.html',\n+     sha256: '5743cbe43f3af9c427054c92efadb9d599c1d69904fa253bbb66a8331685ecd8'\n-     sha256: '3b50e5ddec588e2324be5af16bb7267d29e25c7a6ef374734d4ccf9ce31684f5'\n    },\n    {\n      bytes: 347322,\n      path: 'reference/subsystems/core.html',\n+     sha256: '8410b78f1af08fe0be6e2d08769180e6c44bafbb07ecb35a09692ae8d5bc83b0'\n-     sha256: '7be1a6c607a7de11c9909c7114b219bf1d23cefabc98bc0fe1ecd5667910b8e0'\n    },\n    {\n      bytes: 158285,\n      path: 'reference/subsystems/credentials.html',\n+     sha256: 'a6fabcc1286409a48f2062c0935a6a663145a1bfcf549c3e9a2655ca187b02f7'\n-     sha256: '0e56a809421c9d9d7cedeb65cfc6900eb87f02995a4eebd11c733a75da5786d3'\n    },\n    {\n      bytes: 206529,\n      path: 'reference/subsystems/filesystem.html',\n+     sha256: 'ae480fc2e455ecd3c018a6201afc84894dea2e79c6909e47e1c7f43d4511f7c9'\n-     sha256: 'b9bd2b2f7dd3a74f35c4feda22bbd1338c0c7ded28f5ef852796771051b8d40c'\n    },\n    {\n      bytes: 151410,\n      path: 'reference/subsystems/goal.html',\n+     sha256: 'c214fee43892df8862bd0c2257241b07f4590388d0b62c004947f116cb50b54a'\n-     sha256: 'cd5e52d43a86a5dcb68cc16a3ce8565dee353c9666e76c53a1adff4f4d96a35a'\n    },\n    {\n      bytes: 112882,\n      path: 'reference/subsystems/index.html',\n+     sha256: '5c41830eb848309b34425c288a9e0975a33464e07a9d3c547d9cabb61eb76d5f'\n-     sha256: '9606cf6bdd4ab374e6fe5d9fe2bba0e920b9894228648ae9cea2d7a905af9d8c'\n    },\n    {\n      bytes: 117651,\n      path: 'reference/subsystems/invariants.html',\n+     sha256: '0fa5dcb52a78b0d7e3e78da874072a22fe2171f3f2e3f408e7b0c6393d2280b6'\n-     sha256: '3e02fe7f33f71565a8d0645c1868d7a325a4bbcbe5c6ac210e6768103b181183'\n    },\n    {\n      bytes: 154282,\n      path: 'reference/subsystems/jobs.html',\n+     sha256: '4f3420d12ae0d1eb9f9614ce6d6c3e71d94e8d4cbfad3448e09d0b9f78a128bd'\n-     sha256: '9e1121bd4a0688c5018e35d1a32ec1ddccdc5ea2d07731a3c20c856661aa73d4'\n    },\n    {\n      bytes: 317453,\n      path: 'reference/subsystems/llm-streaming.html',\n+     sha256: 'dbf143721413c64e131c8c946539e7bc924ad19aa078d38f28416f8715f7e839'\n-     sha256: '0972609937300b68e89cfc12511cff01b78189bd113abd51fbb437144a9afec1'\n    },\n    {\n      bytes: 140024,\n      path: 'reference/subsystems/lsp.html',\n+     sha256: '29ab4e26c01e4e55108b3da7da275aa7f3f8c9569680377b25b037682c1b05e4'\n-     sha256: '16cbba128aafb12a5af291117eee69b1f1da01f4836c005ad22339d15ee6eb03'\n    },\n    {\n      bytes: 123347,\n      path: 'reference/subsystems/permission-presets.html',\n+     sha256: 'b5f7faae75591126ad51b24a8774a31bf6ed88accfc79be59ec00c01a839dfd0'\n-     sha256: 'd8d04d1b5d9c362aa5eedfa5fc11a5b20bdd82c59a5c32ca80d7c4e294aece0a'\n    },\n    {\n      bytes: 183194,\n      path: 'reference/subsystems/persistence.html',\n+     sha256: 'e644cf55d1e8897a4b77a029507886af31ab146262a7143a354ef504ee8dac02'\n-     sha256: '3d48c07b3d88f80c546a478ad27a44e2168ecd74f7593a8a11faf4383c5bff95'\n    },\n    {\n      bytes: 115798,\n      path: 'reference/subsystems/plan.html',\n+     sha256: 'bb9b5987e6e56955a9b48365f9154d380255538c68eb2d53d4cd21edbb0b0a11'\n-     sha256: '60e131f3db5d7859a26773b4ac78f2f1421b4a25988f6c135de495af1f309d34'\n    },\n    {\n      bytes: 137263,\n      path: 'reference/subsystems/sandbox.html',\n+     sha256: '3f19b4e66142a32ee5db434e1510ccd5f64d0663169b97bcb9716b3a4ed48cd7'\n-     sha256: 'c3ae39a3de9685079b0fa3d2781febc103f934e5b6246e82e4abe9989ce39919'\n    },\n    {\n      bytes: 136740,\n      path: 'reference/subsystems/schedule.html',\n+     sha256: 'd4650a820a0a7ad82571eec542e1958b342fbd2d3ce733cef1ed161a767c4cd6'\n-     sha256: 'dd04de56854b0f951440f790857d44a756d8dfbfeaa0aad0b1a3a7c0e0fdc808'\n    },\n    {\n      bytes: 111940,\n      path: 'reference/subsystems/scope.html',\n+     sha256: 'de390c01d08219d93caeb938e49fa045458918a8dc351757e440871d924d43d3'\n-     sha256: 'd4649b62e856d68b2c0ae0275b8ef1fee526e47e4bcb2e2a0659fee4652144b3'\n    },\n    {\n      bytes: 186218,\n      path: 'reference/subsystems/session-projection.html',\n+     sha256: 'e20ea519fd92f022359cf77e6ac9fc4ebae2c1f0017d29a0ee2a3f98597372f1'\n-     sha256: 'd216c4f2e1d0bc1f4da7bc4d6f29d56791739edecda9b4fe86af2948e377935b'\n    },\n    {\n      bytes: 200085,\n      path: 'reference/subsystems/session-query.html',\n+     sha256: '9f165aedcad6cb6884e9b66e9782f6b7b88e3020a97841ddf80ab47d3918411c'\n-     sha256: 'e8781c61d63b4e46c353334e5f61272a2445d34cad47310a8e24000e14b4416d'\n    },\n    {\n      bytes: 139112,\n      path: 'reference/subsystems/session-reference.html',\n+     sha256: 'ec20431f2c89e357e909077767214db1ceeef0f77af779e0c7b776642e53242d'\n-     sha256: 'c8b40343d4644fbf803dc5fbd184a96c9a86c900be1aea106e84f58a124768a6'\n    },\n    {\n      bytes: 137265,\n      path: 'reference/subsystems/session-telemetry.html',\n+     sha256: '4b8e022d6bc566764386e4a92435d758acc65bf36525996b590245c7ff3e36e6'\n-     sha256: '0f5c03749270afad5b1caf8d8b966f1eb15a9946bd188d6ad7649999e2138004'\n    },\n    {\n      bytes: 137892,\n      path: 'reference/subsystems/session-title.html',\n+     sha256: 'a244fa69379ac3132c02dd86860cdef8a80d892da8a2a8582e5fc721a3732f08'\n-     sha256: 'b26bccbe04f85042c0243257caaeb6803dc7060b09435b8761fca2b538583b12'\n    },\n    {\n      bytes: 338175,\n      path: 'reference/subsystems/session.html',\n+     sha256: '63da06e72d4b4cd1b69a8f8bf5b07b535f11ed164c335cc044db1154b2c04433'\n-     sha256: '8ca0bdb820f6c2ceb1428def885f48505869cec10a410a4876810b1b32699644'\n    },\n    {\n      bytes: 193561,\n      path: 'reference/subsystems/settings.html',\n+     sha256: 'dc4cc6a244dcdb2ae9c46b0023879bf8e8c37e8daa70ab052270b97c73bfa697'\n-     sha256: 'e3e083709671f6df93065cbc526b25f213785ce24cbb784816fdc585d0db6a81'\n    },\n    {\n      bytes: 159510,\n      path: 'reference/subsystems/shell.html',\n+     sha256: '0d7407b9add0f41068c056b040ed7ab817bb2eddfc63e578f0dfb50c10611192'\n-     sha256: '032fa3a8cbf0339deabb044c46275ddfc377a7a01dc58ddbab5c8647356f5d6d'\n    },\n    {\n      bytes: 172784,\n      path: 'reference/subsystems/skills.html',\n+     sha256: '9bc356d80941ab0fa9d9bc224e9e21cc7c23a64936646ba01bce22ad39c09da6'\n-     sha256: '4432fb36877accb6cd7d9742cd719f6b758aed6b66126623a1b8814e4b2cade5'\n    },\n    {\n      bytes: 124677,\n      path: 'reference/subsystems/slots.html',\n+     sha256: '9b25392fc03fdf44cf6540617e335a3798eb10ae198b15b44c7fbd2916f2ccec'\n-     sha256: '4ff64884b70837dd76297041248b1b93d57818588383c6e30051e25fb3b5c48d'\n    },\n    {\n      bytes: 119905,\n      path: 'reference/subsystems/spill.html',\n+     sha256: 'a3cfc2d86643837a99376e816d467bbf9c1deaf0abad52d90a9f0d7968fc1b0b'\n-     sha256: '079855f3af0f738b8923187ba435ca0aba2c724fca6aa1e56efba482b1d5ce5e'\n    },\n    {\n      bytes: 154231,\n      path: 'reference/subsystems/storage.html',\n+     sha256: '59eec284bdae08baaa2dd2ebd42253b778877121c7b0b46468ccefec1b787697'\n-     sha256: 'b77a73dc7edfd98dc8fb06ef735cea146c2ca9d61f97ac8df6fbcaffb9e854aa'\n    },\n    {\n      bytes: 257235,\n      path: 'reference/subsystems/subagent.html',\n+     sha256: '302a0fda08772be42fab853ca6d1138352f2dd8236db24ea76561a2d5d2eb528'\n-     sha256: '9aeb2b9b8f7543b3caf53dda9146f03a027fb5deb695a7fa7b3456ee062df3e6'\n    },\n    {\n      bytes: 161493,\n      path: 'reference/subsystems/subprocess.html',\n+     sha256: 'cdf2c7b062ac2925846eb2f88beac73fe0018114a171a2cdd72197ddf8eff677'\n-     sha256: '54f2a5dccd09d5104f19021bd035ac9138fd4ed0d026a8910cf049c37c49303d'\n    },\n    {\n      bytes: 140238,\n      path: 'reference/subsystems/system-prompt.html',\n+     sha256: '41a948d8b27f96cb035a4f63d185f6fb7706ac9e0549313da2a28fcc129686b6'\n-     sha256: 'b95144d7f008381e039023068e747a7e251beaffb3ff320b68c88721126cddb3'\n    },\n    {\n      bytes: 138008,\n      path: 'reference/subsystems/terminal.html',\n+     sha256: '725c8067046e448ff48783673d904533e1a28040c3dd5caf85ece421757b2b03'\n-     sha256: 'cf97f7945edcf7d76d20793b21b45c547f6319ce7e0acaa6870d03b0f8d52700'\n    },\n    {\n      bytes: 116785,\n      path: 'reference/subsystems/token-meter.html',\n+     sha256: 'f6b374cca680cd5ba66807f97f52de745e48d27b9a83ebbe6e7180221c251edf'\n-     sha256: 'de47d0559bee86428982f4e545c0086edc4697f2756b98554c1701608f01a801'\n    },\n    {\n      bytes: 251073,\n      path: 'reference/subsystems/tools.html',\n+     sha256: '2515e11ad502a579e866e8dfb24443df532bd2fe109f1b20cd86895db3b3af71'\n-     sha256: '083a2820f3a62b09c4f0d24d1413b91bc651f85c97f4950830c8f6a0a3820932'\n    },\n    {\n      bytes: 168342,\n      path: 'reference/subsystems/typert.html',\n+     sha256: '285ebd537aad0970a0bccf56e9d13cbecbfd4de045edab39e9c004d9722d43e3'\n-     sha256: 'ae47ea393524df9ecde06a4f6410044bf522c903022de473dd652a814adb0802'\n    },\n    {\n      bytes: 128601,\n      path: 'reference/subsystems/user-questions.html',\n+     sha256: '59e89eb07a7bfae118493483420166dba99cc5a165d7d075ebbc0716d5f0be7a'\n-     sha256: '27dc2360b624e653907049c6641c1d2a835fd0973948a4dbb66b2ddc7cccb931'\n    },\n    {\n      bytes: 116194,\n      path: 'reference/subsystems/web-client.html',\n+     sha256: '297de0515817fece17bcd5c2d41237b23558d9e2c2ad2394e9957655491263df'\n-     sha256: '800d18a6ba0a153a3dc3196060a0211a7412dee8a3b91a9db8fe0f593c230146'\n    },\n    {\n      bytes: 129882,\n      path: 'reference/subsystems/web-server.html',\n+     sha256: '791bc61858d68e8545b8556f9666cc390dffd52e03e3b5fcd1872d494ee26387'\n-     sha256: '36056aaa39fc803acd08b529820a7a01434e2f48468c03aede257ed31e12bb20'\n    },\n    {\n      bytes: 138995,\n      path: 'reference/subsystems/web.html',\n+     sha256: 'b09d2e19312249d692c97433dcfafc9f94de037f088f0a9a3bba93a1467c0650'\n-     sha256: '3482b19ad6ce26e8427fe6b72a8f8218003188bba8eb5b87f82dae4233c9076c'\n    },\n    {\n      bytes: 149893,\n      path: 'reference/subsystems/workflow.html',\n+     sha256: 'ee82814d50bc2fa437bf5e6c8acb8a60b01dd47056686cbde55f3095ca6a9cc6'\n-     sha256: 'dbf329cdcf1831aad76a528925dcddae30f01289e764b47357964e8ea7de3548'\n    },\n    {\n      bytes: 170112,\n      path: 'reference/subsystems/workspace.html',\n+     sha256: 'ac6e240859733bdfb8b7bced2d4f93898af085eb97217951cd209da36d4ca275'\n-     sha256: '7001acce96f53cd8c1560cad241727d7777e084d404c9739bb3b52731ffb8ca4'\n    },\n    {\n      bytes: 493316,\n      path: 'reference/tool-catalog.html',\n+     sha256: '7692d3bb313636504c5cbcf45462a3d9d050bb1ab25d71590fbd76b06cd6d726'\n-     sha256: 'f174a381f15a176dcf159e1daa96766b02079c8ee4af34cb7274e2c2ff5e53d9'\n    },\n    {\n      bytes: 102642,\n      path: 'reference/tool-execution-pipeline.html',\n+     sha256: '6eaeececc093f6c302c85ff2f6bc35b136f5aead427d4afdedde4cc1783fdaa9'\n-     sha256: '5aa04d0f11312bbc316f08be6748384e7675e759bfda81cb78fb48cc338cb034'\n    }\n  ]\n\n    at <anonymous> (D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\probes\\validate_site_v9_report.mjs:43:10)\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\n    at async node:internal/modules/esm/loader:643:26\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)",
+  "cleanup": {
+    "runner_removed": true,
+    "source_copy": "D:/Temp_projects/dsh861-p0-a-baseline/r01/preservation/validate_site_v9_report.source.txt",
+    "source_sha256": "d9ecde20ea6e41e701f359713e6f7338620ced9b481d7b6b0ef9034b81219711",
+    "temporary_modules_created": 0,
+    "temporary_trees_created": 0
+  },
+  "status": "FAIL",
+  "finished_at": "2026-09-08T18:28:38.437Z"
+}

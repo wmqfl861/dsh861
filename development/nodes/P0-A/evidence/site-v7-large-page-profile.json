@@ -1,0 +1,37 @@
+{
+  "node": "P0-A",
+  "plan_version": "v7",
+  "kind": "temporary-instrumented-profile-not-acceptance",
+  "source_sha256": "2c9971b48d6d1fae39f2f3af1fd160f109ad3c164255fff2598c4e287356f3b5",
+  "instrumented_path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\probes\\project-doc-site.instrumented-v7.ts",
+  "measurements": [
+    {
+      "route": "en/reference/config-catalog.md",
+      "source": "docs/config-catalog.md",
+      "bytes": 148995,
+      "total_ms": 5110.8904,
+      "sourceMapMs": 0.6972999999998137,
+      "parseMs": 3804.8587000000007,
+      "resolveMs": 262.8820999999771,
+      "destinationMs": 7.747800000015559,
+      "linkCount": 275,
+      "visitMs": 599.9032000000007,
+      "replaceMs": 704.5931999999993,
+      "output_sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2"
+    },
+    {
+      "route": "en/reference/tool-catalog.md",
+      "source": "docs/tool-catalog.md",
+      "bytes": 90381,
+      "total_ms": 2224.124899999999,
+      "sourceMapMs": 0.7725000000027649,
+      "parseMs": 2099.8688999999977,
+      "resolveMs": 17.587400000011257,
+      "destinationMs": 1.184000000008382,
+      "linkCount": 64,
+      "visitMs": 102.08090000000084,
+      "replaceMs": 21.001799999998184,
+      "output_sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88"
+    }
+  ]
+}

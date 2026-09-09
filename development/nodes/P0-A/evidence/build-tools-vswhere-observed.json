@@ -1,0 +1,73 @@
+{
+  "argv": [
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\vswhere.exe",
+    "-all",
+    "-products",
+    "Microsoft.VisualStudio.Product.BuildTools",
+    "-version",
+    "[17.14,17.15)",
+    "-requires",
+    "Microsoft.Component.MSBuild",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.Windows11SDK.26100",
+    "-format",
+    "json",
+    "-utf8"
+  ],
+  "exitCode": 0,
+  "instances": [
+    {
+      "instanceId": "8ece8721",
+      "installDate": "2026-09-08T01:04:48Z",
+      "installationName": "VisualStudio/17.14.39+37614.0.-august.2026-",
+      "installationPath": "D:\\BuildTools\\dsh861-p0-a-vs2022",
+      "installationVersion": "17.14.37614.0",
+      "productId": "Microsoft.VisualStudio.Product.BuildTools",
+      "productPath": "D:\\BuildTools\\dsh861-p0-a-vs2022\\Common7\\Tools\\LaunchDevCmd.bat",
+      "state": 4294967295,
+      "isComplete": true,
+      "isLaunchable": true,
+      "isPrerelease": false,
+      "isRebootRequired": false,
+      "displayName": "Visual Studio Build Tools 2022",
+      "description": "The Visual Studio Build Tools allows you to build native and managed MSBuild-based applications without requiring the Visual Studio IDE. There are options to install the Visual C++ compilers and libraries, MFC, ATL, and C++/CLI support.",
+      "channelId": "VisualStudio.17.Release",
+      "channelUri": "https://aka.ms/vs/17/release/channel",
+      "enginePath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\resources\\app\\ServiceHub\\Services\\Microsoft.VisualStudio.Setup.Service",
+      "installChannelUri": "https://aka.ms/vs/17/release/525978853_-560036173/channel",
+      "installedChannelId": "VisualStudio.17.Release",
+      "installedChannelUri": "https://aka.ms/vs/17/release/channel",
+      "releaseNotes": "https://docs.microsoft.com/en-us/visualstudio/releases/2022/release-notes-v17.14#17.14.39",
+      "resolvedInstallationPath": "D:\\BuildTools\\dsh861-p0-a-vs2022",
+      "thirdPartyNotices": "https://go.microsoft.com/fwlink/?LinkId=661288",
+      "updateDate": "2026-09-08T01:04:48.8192796Z",
+      "catalog": {
+        "buildBranch": "d17.14",
+        "buildVersion": "17.14.37614.0",
+        "id": "VisualStudio/17.14.39+37614.0.-august.2026-",
+        "localBuild": "build-lab",
+        "manifestName": "VisualStudio",
+        "manifestType": "installer",
+        "productDisplayVersion": "17.14.39 (August 2026)",
+        "productLine": "Dev17",
+        "productLineVersion": "2022",
+        "productMilestone": "RTW",
+        "productMilestoneIsPreRelease": "False",
+        "productName": "Visual Studio",
+        "productPatchVersion": "39",
+        "productPreReleaseMilestoneSuffix": "1.0",
+        "productReleaseNameSuffix": "(August 2026)",
+        "productSemanticVersion": "17.14.39+37614.0.-august.2026-",
+        "requiredEngineVersion": "3.14.2094.42856"
+      },
+      "properties": {
+        "campaignId": "",
+        "channelManifestId": "VisualStudio.17.Release/17.14.39+37614.0.-august.2026-",
+        "includeRecommended": "0",
+        "nickname": "",
+        "setupEngineFilePath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\Installer\\setup.exe"
+      }
+    }
+  ],
+  "reason": "Preserve actual display suffix after strict v3 check failed."
+}

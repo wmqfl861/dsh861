@@ -1,0 +1,19 @@
+{
+  "node": "P0-A",
+  "plan_version": "v12",
+  "status": "FAIL",
+  "recorded_at": "2026-09-08T21:25:22.215135+00:00",
+  "kind": "hygiene-failure-outside-v12-scope",
+  "command_receipt": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-01.json",
+  "receipt_sha256": "8545a19abe34a87870397773cf09e24e68757ba103f02cf43774d8708003698c",
+  "stdout": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-01.stdout.log",
+  "stdout_sha256": "c50bd7ae7fb9eae25e299b6a498be4712a1f7e926e40ffd237f170693e898260",
+  "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-01.stderr.log",
+  "stderr_sha256": "381ca89e6b182f37b54491d034bc76f9b1bc71d1aa4564ad0f6b04c7106a20fc",
+  "failed_gate": "Cordis config",
+  "diagnostic": "verify-cordis-config: invalid Loader metadata or plugin package resolution: apps\\cli\\tests\\profiles\\acp\\cordis.yml: root must be a Loader entry array",
+  "affected_file": "apps/cli/tests/profiles/acp/cordis.yml",
+  "v12_scope": "Only scripts/verify-doc-site-fragments.ts was allowed; the ACP fixture was not changed.",
+  "prior_passes": "v12 focused tsc, target oxlint, and ordered 480 focused tests passed; docs-check-02 PASS, test-docs-04 15/15 PASS, doc-sync-02 33/33 PASS; complete build-01 PASS.",
+  "downstream": "Hygiene failed, so source-help, built-version, built-tests, keyless-smoke, candidate freeze and hard review did not start."
+}

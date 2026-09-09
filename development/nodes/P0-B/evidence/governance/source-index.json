@@ -1,0 +1,97 @@
+{
+  "node": "P0-B",
+  "plan_version": "v1",
+  "recorded_at": "2026-09-08T23:56:43.626362+00:00",
+  "files": [
+    {
+      "path": "packages/subagent/subagent/src/types.ts",
+      "bytes": 15645,
+      "sha256": "268a9b1e38e268aa16af1bade378fecb62afd9cbcfa8b2870295e1d6ef2f9af0"
+    },
+    {
+      "path": "packages/subagent/subagent/src/index.ts",
+      "bytes": 28269,
+      "sha256": "6d815118ea7fa6f9ca87f7c264d4aa8041a0fede912713918112e29b827d3ce6"
+    },
+    {
+      "path": "packages/subagent/subagent/src/descriptor.ts",
+      "bytes": 13591,
+      "sha256": "00b5dc5d259f78ab9fb66cf7aa4f1c08835f471f2379e6fab79f7e03791c614c"
+    },
+    {
+      "path": "packages/subagent/subagent/src/continuation.ts",
+      "bytes": 75819,
+      "sha256": "22cb04c70071e6b3841c7917bb5d9c6c39f47270687024dba50d2dcdf80e8f17"
+    },
+    {
+      "path": "packages/subagent/subagent-codex/package.json",
+      "bytes": 2224,
+      "sha256": "03c98381d955f7a8b755dc33dda1e1f31e82a4157fe859c75b3b8ec3483b1d95"
+    },
+    {
+      "path": "packages/subagent/subagent-codex/src/index.ts",
+      "bytes": 4606,
+      "sha256": "d4e6ede87b36021584d27af35b920dd035d0d40487eaf42cd3313b1d780dee20"
+    },
+    {
+      "path": "packages/subagent/subagent-codex/src/run.ts",
+      "bytes": 15027,
+      "sha256": "18d7861e60fcc3281bfe696a4e9838d6d2b35e8da296520151e47a39505b2474"
+    },
+    {
+      "path": "packages/subagent/subagent-codex/src/wire.ts",
+      "bytes": 24009,
+      "sha256": "594a4386335bc81b0e56edab764afacedaab1bae157d82b905ca7587af7ab9e4"
+    },
+    {
+      "path": "packages/subagent/subagent-codex/tests/real-product.spec.ts",
+      "bytes": 19296,
+      "sha256": "8d44c5b5fc7be3beeca9417e22e01b9ec52c640416d727a3896e2264e5cc6a6a"
+    },
+    {
+      "path": "packages/subagent/subagent-claude-code/package.json",
+      "bytes": 2295,
+      "sha256": "1b5fa615b9bfefa108b7fc6b5de85f7ed80468263e7ff4aea9c359e6899b59a7"
+    },
+    {
+      "path": "packages/subagent/subagent-claude-code/src/index.ts",
+      "bytes": 5448,
+      "sha256": "b004cd54e84b04d46ad93dd59eef6c7d0c617752654164b8cb9891951aa6a793"
+    },
+    {
+      "path": "packages/subagent/subagent-claude-code/src/run.ts",
+      "bytes": 19095,
+      "sha256": "edcde1a7b134400eb27ee204c5bab510844af9645d0526bc77302e20e3bfe343"
+    },
+    {
+      "path": "packages/subagent/subagent-claude-code/src/process.ts",
+      "bytes": 5054,
+      "sha256": "d079d03b817deeb334ae4c568fd9973384b99ee7cad52786b68b61a08f60c223"
+    },
+    {
+      "path": "packages/subagent/subagent-claude-code/tests/real-product.spec.ts",
+      "bytes": 20375,
+      "sha256": "b806ef7a8facc25473dc3adf33a94166fb1c7bbf5a816cc0f53a5dec5576ab57"
+    },
+    {
+      "path": "packages/subagent/subagent-acp/src/index.ts",
+      "bytes": 9009,
+      "sha256": "a7ae3ecd9ec45fe2b2464114e028f7972e6de129b8932c67acbb187878921bff"
+    },
+    {
+      "path": "packages/subagent/subagent-acp/src/run.ts",
+      "bytes": 25380,
+      "sha256": "60b23a9c23f4a0a48d8c40299761f06ba0082c3f955068d7a51b1427344eacae"
+    },
+    {
+      "path": "packages/mcp/mcp-client/src/index.ts",
+      "bytes": 8263,
+      "sha256": "03b5cd247d801034feca7e7e60097e42805c3198e5eec4ba45ba1c56665496a8"
+    },
+    {
+      "path": "packages/skill/skill/src/index.ts",
+      "bytes": 35945,
+      "sha256": "bdec27a0ba5dc4063f7987dd2989e70e077de58a55a4e37d29a897bd690a6eb0"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "agent": "codex",
+  "executable": "D:\\npm-global\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+  "model": "gpt-6-astra",
+  "reasoning": "max",
+  "cwd": "D:\\Projects\\dsh861",
+  "prompt_file": "D:\\Temp_projects\\dsh861-node-governance\\prompts\\p0-a-plan-v4-doc-budget.md",
+  "prompt_sha256": "1648c32bf79be03ddd0eda9e7addb58cbb475b9d3c7e093e15a571915ce1dc05",
+  "started_at": "2026-09-08T01:25:34.314296+00:00",
+  "status": "completed",
+  "command_without_prompt": [
+    "D:\\npm-global\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "exec",
+    "--model",
+    "gpt-6-astra",
+    "--config",
+    "model_reasoning_effort=\"max\"",
+    "--sandbox",
+    "read-only",
+    "--ephemeral",
+    "--json",
+    "--color",
+    "never",
+    "--cd",
+    "D:\\Projects\\dsh861",
+    "--output-last-message",
+    "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v4-doc-budget.last.md",
+    "-"
+  ],
+  "stdout": "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v4-doc-budget.stdout.jsonl",
+  "stderr": "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v4-doc-budget.stderr.log",
+  "pid": 9896,
+  "exit_code": 0,
+  "finished_at": "2026-09-08T01:35:05.914147+00:00",
+  "original_output": "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v4-doc-budget.last.md",
+  "original_sha256": "a5d84a1ada55567c3958ec4b1c407f2031a2a8c504fbe789829841b77bfb9f70",
+  "display_path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\plan.v4.md",
+  "display_sha256": "cd3c509814f35a08267a4600ab7ede6dc3252ded395ee25ef9b9297c9f87bdc4",
+  "effective_plan": [
+    "plan.v1.md",
+    "plan.v2.md",
+    "plan.v3.md",
+    "plan.v4.md"
+  ],
+  "preserved_agents": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\AGENTS.before-v4.md",
+  "preserved_agents_sha256": "1fc1b5c1f945e92c024ebc3b626891597d8c52c5278404948db52288fdd9ae38",
+  "protected_hashes": {
+    "scripts/doc-budgets.manifest.json": "197bac26a5a8cc50bc6bcc3af69a383ec3aebf35332905fccc16c503fd714566",
+    "scripts/verify-doc-budgets.ts": "0ec5c8fb92f88c504ec4c0fb2d65c9427597250f2a41d9e5e645915f968ace2c",
+    "docs/AGENTS.md": "95870f66dac0986ed2ff83363761ef07d70e265bd39b48c3b39806998b4f4f65",
+    "NODE_DEVELOPMENT_RULES.md": "b9bc64e76da8dc6a2f0137d1edf066b916024c54f736c055295323e363f0d3c3"
+  }
+}

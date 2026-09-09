@@ -1,0 +1,81 @@
+{
+  "node": "P0-B",
+  "planVersion": "v2",
+  "kind": "authorized-isolated-compatibility",
+  "recorded_at": "2026-09-09T04:25:59.816720+00:00",
+  "roles": [
+    {
+      "role": "codex",
+      "status": "COMPATIBILITY_RESPONSE_RECEIVED",
+      "requested": {
+        "provider": "my-gpt",
+        "base_url": "http://154.89.153.24:8080/v1",
+        "model": "gpt-6-astra",
+        "effort": "max"
+      },
+      "result": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\config-v2\\codex\\compatibility-01\\result.json"
+    },
+    {
+      "role": "claude-code",
+      "status": "COMPATIBILITY_RESPONSE_RECEIVED",
+      "requested": {
+        "provider": "my-claude",
+        "base_url": "http://154.89.153.24:8080/",
+        "model": "claude-opus-5",
+        "effort": "max"
+      },
+      "result": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\config-v2\\claude-code\\compatibility-01\\result.json"
+    },
+    {
+      "role": "opencode",
+      "status": "COMPATIBILITY_RESPONSE_RECEIVED",
+      "requested": {
+        "provider": "zhipuai-coding-plan",
+        "model": "glm-5.3",
+        "effort": "max"
+      },
+      "result": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\config-v2\\opencode\\compatibility-01\\result.json"
+    }
+  ],
+  "grok": [
+    {
+      "attempt": "compatibility-01",
+      "status": "BLOCKED",
+      "failureClass": "NATIVE_RESULT_NOT_CONFIRMED",
+      "native_model_usage": null,
+      "result": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\config-v2\\grok\\compatibility-01\\result.json"
+    },
+    {
+      "attempt": "compatibility-02",
+      "status": "BLOCKED",
+      "failureClass": "MODEL_OR_RESULT_NOT_CONFIRMED",
+      "native_model_usage": {
+        "grok-4.6-build": {
+          "inputTokens": 11919,
+          "outputTokens": 52,
+          "cacheReadInputTokens": 0,
+          "cacheCreationInputTokens": 0,
+          "modelCalls": 1,
+          "costUSD": 0.0041055
+        }
+      },
+      "result": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\config-v2\\grok\\compatibility-02\\result.json"
+    }
+  ],
+  "redaction_guarantees": {
+    "secrets_persisted": false,
+    "credential_values_printed": false,
+    "known_secret_scan": true,
+    "isolated_root": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\config-v2"
+  },
+  "model_status": {
+    "codex": "requested gpt-6-astra/max, response received; native metadata warning says model metadata unavailable",
+    "claude-code": "requested claude-opus-5/max, response received; native CLI model claude-opus-5 and usage observed",
+    "opencode": "requested glm-5.3/max, product response received in isolated config; separate from hard-review process",
+    "grok": "requested grok-4.6/xhigh, response received but native modelUsage is grok-4.6-build; BLOCKED exact model compatibility"
+  },
+  "allow_deny": "NOT_RUN",
+  "cancellation": "NOT_RUN",
+  "handoff": "NOT_RUN",
+  "scope": "Compatibility/identity probe only; no tool permission or full harness support claim."
+}

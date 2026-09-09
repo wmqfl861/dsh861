@@ -1,0 +1,28 @@
+{
+  "node": "P0-A",
+  "round": "r01",
+  "status": "INCOMPLETE_NO_VERDICT",
+  "recorded_at": "2026-09-08T22:25:58.999911+00:00",
+  "reason": "Reviewer correctly detected candidate effective_plan referenced missing plan.v14.md, then review ended without required structured verdict. This cannot satisfy P0A-09 and is not converted to PASS/FAIL/BLOCKED.",
+  "candidate": "development/nodes/P0-A/candidate.r01.json",
+  "candidate_sha256": "1cb487f1155abec84089343416d3d740ff6dd20f947bd8c0fb6daae566313d30",
+  "receipt": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\review\\p0-a-r01.receipt.json",
+    "bytes": 1038,
+    "sha256": "16cac8434230ec216e4d07929b666c48a44c2894dd6b1ee32b273c549978377e"
+  },
+  "stdout": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\review\\p0-a-r01.stdout.jsonl",
+    "bytes": 443081,
+    "sha256": "06abd18b6b51a5c1f2890a0e32a83ce6f381359c1402eb16ad591fb47ff2ea52"
+  },
+  "stderr": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\review\\p0-a-r01.stderr.log",
+    "bytes": 244,
+    "sha256": "7f4d2c2f6c67f4f7008bec740a2d8a0ca841e04ec788703110bddecb312d004b"
+  },
+  "model": "zhipuai-coding-plan/glm-5.3",
+  "reasoning": "max",
+  "reviewer_observation": "Missing plan.v14.md in candidate effective_plan",
+  "new_candidate_required": true
+}

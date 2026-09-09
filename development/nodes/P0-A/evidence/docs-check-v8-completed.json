@@ -1,0 +1,34 @@
+{
+  "node": "P0-A",
+  "plan_version": "v8",
+  "status": "PASS",
+  "recorded_at": "2026-09-08T17:32:38.234037+00:00",
+  "kind": "completed-docs-check-not-node-acceptance",
+  "receipt": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-01.json",
+    "sha256": "31a25ed5679c69e506dd06e270c4879b17ffd18ab19045b82eb51705360aa07f",
+    "bytes": 1872
+  },
+  "stdout": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-01.stdout.log",
+    "sha256": "24c233040f406f941cd6d9d612c45af99fda825b3b8ee209feaf6d91b0555fe4",
+    "bytes": 6193
+  },
+  "stderr": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-01.stderr.log",
+    "sha256": "acd5e331b434735bf37c463edde4fb0aa2397202c84b70e9ec9cf387e4ea7756",
+    "bytes": 1746
+  },
+  "tests": 479,
+  "site_build_seconds": 340.71,
+  "internal_fragment_references": 2590,
+  "markdown_files": 197,
+  "llms_txt_present": true,
+  "downstream_checkpoint": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-03.json",
+    "sha256": "fffb945ebb165f012f21d4842e0fcc0434b779fcbe92c0789d7cbdb55d26ca2e",
+    "bytes": 653
+  },
+  "checkpoint_meaning": "test:docs command was not started; sequence runner code 125 is the owned checkpoint and not a failed test execution.",
+  "open_issue": "Measured HTMLCollection full scans remain the subject of pending real Codex v9 plan."
+}

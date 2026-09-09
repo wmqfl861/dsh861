@@ -1,0 +1,18 @@
+{
+  "node": "P0-A",
+  "kind": "bounded-htmlcollection-cost-probe-not-acceptance",
+  "started_at": "2026-09-08T17:27:05.083Z",
+  "input": "D:/Projects/dsh861/website/.dist/en/reference/config-catalog.html",
+  "input_bytes": 650157,
+  "input_sha256": "de5bdc04f7ca1923983006e0f1b0258d3d38cb416858cf94f5178d8b02d53328",
+  "limits": "100 advances only; no production process or on-disk module modified",
+  "parse_ms": 1423.545,
+  "element_count": 9216,
+  "bounded_walk_ms": 1056.0587000000014,
+  "advanced_elements": 100,
+  "named_item_calls": {
+    "length": 100
+  },
+  "lookup_candidate_elements": 921600,
+  "finished_at": "2026-09-08T17:27:07.605Z"
+}

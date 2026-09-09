@@ -1,0 +1,16 @@
+{
+  "node": "P0-A",
+  "plan_version": "v8",
+  "recorded_at": "2026-09-08T17:31:35.158428+00:00",
+  "kind": "in-progress-observation-not-acceptance",
+  "formal_command_state_at_observation": "PASS",
+  "formal_command_exitCode": 0,
+  "formal_receipt_path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-01.json",
+  "formal_receipt_is_still_mutable": false,
+  "observation": "docs:check 479 cases passed; VitePress build completed in 340.71s; whole-site fragment process remains active on 185 HTML files / 27212453 bytes.",
+  "bounded_probe": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v8-fragment-collection-cost.json",
+  "bounded_probe_sha256": "7d3a95554752d082f7c3d89e6bc2c28eff0ee07c769aebd95ca63b01de5aff2b",
+  "formal_process_untouched": true,
+  "downstream_checkpoint": "D:/Temp_projects/dsh861-p0-a-baseline/r01/pause-validation.json",
+  "planning_receipt": "D:/Temp_projects/dsh861-node-governance/runs/p0-a-plan-v9-htmlcollection.receipt.json"
+}

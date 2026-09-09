@@ -1,0 +1,147 @@
+{
+  "node": "P0-A",
+  "effective_plan_version": "v6",
+  "recorded_at": "2026-09-08T08:50:30.396836+00:00",
+  "status": "FAIL",
+  "kind": "isolated-site-test-reproduction",
+  "command": "pnpm exec vitest run scripts/project-doc-site.spec.ts scripts/verify-doc-site-fragments.spec.ts --reporter=default --reporter=json --outputFile.json=...",
+  "counts": {
+    "numTotalTests": 69,
+    "numPassedTests": 64,
+    "numFailedTests": 2,
+    "numPendingTests": 3,
+    "numTodoTests": 0
+  },
+  "nonpassed_tests": [
+    {
+      "name": "website source layout contains no tracked or unignored documentation copies",
+      "status": "failed",
+      "duration_ms": 10005.7998,
+      "failure_messages": [
+        "Error: STACK_TRACE_ERROR\n    at task (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1784:27)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1817:16)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:28)\n    at chain (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at D:/Projects/dsh861/scripts/project-doc-site.spec.ts:60:3\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1889:40\n    at runWithSuite (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2258:8)\n    at Object.collect (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1889:10)\n    at Object.collect (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1893:54)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"
+      ]
+    },
+    {
+      "name": "raw Markdown projection of the published manifest emits every published route and every index alias",
+      "status": "skipped",
+      "duration_ms": null,
+      "failure_messages": []
+    },
+    {
+      "name": "raw Markdown projection of the published manifest emits home pages with their bodies instead of the frontmatter stub",
+      "status": "skipped",
+      "duration_ms": null,
+      "failure_messages": []
+    },
+    {
+      "name": "raw Markdown projection of the published manifest resolves every relative link inside the emitted tree",
+      "status": "skipped",
+      "duration_ms": null,
+      "failure_messages": []
+    },
+    {
+      "name": "inspectSiteFragments resolves clean, encoded, and same-page routes",
+      "status": "failed",
+      "duration_ms": 8118.2455000000045,
+      "failure_messages": [
+        "Error: STACK_TRACE_ERROR\n    at task (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1784:27)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1817:16)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:28)\n    at chain (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at D:/Projects/dsh861/scripts/verify-doc-site-fragments.spec.ts:39:3\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1889:40\n    at runWithSuite (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2258:8)\n    at Object.collect (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1889:10)\n    at Object.collect (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1893:54)\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"
+      ]
+    }
+  ],
+  "hook_failure": "project-doc-site real-manifest beforeAll exceeded its unchanged 60000ms budget; its three tests did not execute.",
+  "all_test_names": [
+    "website source layout rejects Markdown outside the subtree instructions",
+    "website source layout contains no tracked or unignored documentation copies",
+    "documentation site build 'SPA' build removes stale output before writing",
+    "documentation site build 'MPA' build removes stale output before writing",
+    "documentation site build refuses to remove the site root or an outside directory",
+    "documentation site build unlinks a link-shaped output without removing its target",
+    "documentation site build refuses output whose nearest existing parent resolves outside the site root",
+    "publishableImage accepts a regular file inside the repository",
+    "publishableImage refuses a target whose real path escapes the repository",
+    "publishableImage refuses a directory",
+    "resolveRepositoryRef defaults to public master instead of a private workflow SHA",
+    "resolveRepositoryRef accepts an explicit public repository ref",
+    "rewriteMarkdown maps published pages and pins unpublished source links",
+    "rewriteMarkdown selects the published target in the current site locale",
+    "rewriteMarkdown uses raw GitHub content for unpublished images when nothing places them",
+    "rewriteMarkdown hands an image to the placer and uses the URL it returns",
+    "rewriteMarkdown keeps a placed image’s query or fragment",
+    "rewriteMarkdown leaves a published page link to the route even when a placer exists",
+    "rewriteMarkdown does not rewrite Markdown-looking text inside code fences",
+    "rewriteMarkdown replaces the destination token without changing repeated titles or escapes",
+    "rewriteMarkdown routes switchers across locales and explicit locale siblings within their locale",
+    "rewriteMarkdown fails loud when a relative target is missing",
+    "docsPages locale routes redirects both locale roots to their locale-relative quick-start page",
+    "docsPages locale routes publishes every route in both locales and uses every available Chinese counterpart",
+    "docsPages locale routes projects the audited tutorial entry links from explicit locale index pages",
+    "docsPages locale routes indexes every subsystem page in both sides of the folder README",
+    "docsPages locale routes places the shared todo fragment alias on the translated todo section",
+    "docsPages locale routes projects every published subsystem page in Chinese",
+    "docsPages locale routes publishes the Cordis core API under matching locale structures",
+    "docsPages locale routes keeps Cordis inherited on the English fallback in both locales",
+    "docsPages locale routes includes persistence event headings in both locale outlines",
+    "docsPages locale routes projects reviewed generated counterparts into root locale routes",
+    "sidebar ordering places every section a sidebar collection owns",
+    "sidebar ordering refuses a section with no declared placement",
+    "sidebar ordering declares placements per locale rather than in one shared list",
+    "sidebar ordering lands every navigation item on a page the manifest publishes",
+    "sidebar ordering collapses the subsystem groups and leaves the smaller ones open",
+    "sidebar ordering gives each page its own position within a section",
+    "addProjectionFrontmatter adds frontmatter to an ordinary Markdown page",
+    "addProjectionFrontmatter extends existing VitePress frontmatter",
+    "addProjectionFrontmatter adds the page-specific outline depth from the publication manifest",
+    "projectedPageContent omits the source-only body from locale home pages",
+    "projectedPageContent keeps the full body for ordinary pages",
+    "projectedPageContent drops the language switcher the navigation bar already offers",
+    "projectedPageContent drops the repository badge every page links from its footer",
+    "projectedPageContent keeps a switcher-shaped line that is not the page header",
+    "projectedPageContent rejects a locale home source without frontmatter",
+    "rawMarkdownPageContent keeps the home body the rendered site omits and drops the VitePress frontmatter",
+    "rawMarkdownPageContent drops the language switcher and repository badge like the rendered site",
+    "rawMarkdownPageContent rejects unclosed frontmatter and names the page",
+    "emitRawMarkdownPages writes every route with rewritten links, placed images, and no projection frontmatter",
+    "emitRawMarkdownPages emits the full body of a locale home page",
+    "emitRawMarkdownPages emits a parent-level alias for an index route with links recomputed",
+    "emitRawMarkdownPages refuses to overwrite a file the build already carries",
+    "rawMarkdownFiles lists every route plus a parent alias per index route",
+    "raw Markdown projection of the published manifest emits every published route and every index alias",
+    "raw Markdown projection of the published manifest emits home pages with their bodies instead of the frontmatter stub",
+    "raw Markdown projection of the published manifest resolves every relative link inside the emitted tree",
+    "llmsTxt lists every sidebar page as a base-prefixed raw-Markdown link",
+    "llmsTxt groups the two locale trees under their own headings",
+    "llmsTxt carries the site identity and the raw-Markdown convention",
+    "rawMarkdownRoute projects one published route on demand",
+    "rawMarkdownRoute returns undefined for a path the manifest does not publish",
+    "inspectSiteFragments rejects a directory with no built pages",
+    "inspectSiteFragments resolves clean, encoded, and same-page routes",
+    "inspectSiteFragments rejects ambiguous built routes",
+    "inspectSiteFragments rejects malformed fragment hrefs",
+    "inspectSiteFragments reports missing ids and missing built routes",
+    "missingSiteFiles reports the expected files a build did not emit"
+  ],
+  "evidence": [
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-tests-isolated-01.vitest.json",
+      "bytes": 23385,
+      "sha256": "385defd78fa12f0a4d2a04998882bb156385061ef40a3a21779e3a29924506f0"
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-tests-isolated-01.json",
+      "bytes": 2110,
+      "sha256": "afe198cd62e9312b85c6e380c52b5e1fa4036bdbbb3bdd7b63097b54cc6ec8df"
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-tests-isolated-01.stdout.log",
+      "bytes": 7874,
+      "sha256": "45d5ac24533b8d7f8f253b2cd2f191468f8970365b59699272200d5172a47038"
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-tests-isolated-01.stderr.log",
+      "bytes": 3884,
+      "sha256": "c654b20707b1a525c9755bd0df4b249da4a48955bad6c52776d6b77b928ef791"
+    }
+  ],
+  "classification_limit": "The same two case timeouts and corpus setup timeout occur outside doc-sync. No content mismatch was reported; costs need to be handled at the actual owner without dropping coverage.",
+  "plan_revision": "Real Codex gpt-6-astra/max v7 requested for this same P0-A node."
+}

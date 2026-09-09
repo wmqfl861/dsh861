@@ -1,0 +1,30 @@
+{
+  "node": "P0-A",
+  "plan_version": "v7",
+  "kind": "negative-control",
+  "state": "cleaned-awaiting-inspection",
+  "started_at": "2026-09-08T11:41:14.214226+00:00",
+  "source": "D:\\Projects\\dsh861\\scripts\\project-doc-site.spec.ts",
+  "source_sha256": "6499600078efaa1aac38d68a94b7b6893f08d1666caf2a9c4e37c6081fa123fc",
+  "temporary_test": "D:\\Projects\\dsh861\\scripts\\p0a-site-v7-negative.spec.ts",
+  "temporary_test_sha256": "912adce2b9b35b56fad90ef1095d9e8bcb58a0c34f6a29951daf2ecb96dfa7ae",
+  "temporary_website_file": "D:\\Projects\\dsh861\\website\\p0a-v7-negative-中文 copy.md",
+  "temporary_website_sha256": "1939957d13c890490d4196e1d0ce1f3cb6abcb2bbd039e3c262e34b6d5f435b3",
+  "insertion_anchor": "  it.each(routes)('resolves links in the manifest output file: %s', (file) => {",
+  "insertion": "    if (file === routes[0]) {\n      const path = join(outputRoot(), 'en/index.md')\n      writeFileSync(path, `${readFileSync(path, 'utf8')}\\n[negative](./p0a-v7-missing.md)\\n`)\n    }\n",
+  "lock_sha256_before": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383",
+  "created_files": [
+    "D:\\Projects\\dsh861\\scripts\\p0a-site-v7-negative.spec.ts",
+    "D:\\Projects\\dsh861\\website\\p0a-v7-negative-中文 copy.md"
+  ],
+  "argv": [
+    "C:\\Python312\\python.exe",
+    "D:\\Temp_projects\\dsh861-p0-a-baseline\\run_step.py",
+    "site-v7-negative"
+  ],
+  "command_exitCode": 1,
+  "temporary_files_removed": true,
+  "source_unchanged": true,
+  "lock_unchanged": true,
+  "finished_at": "2026-09-08T11:45:01.813264+00:00"
+}

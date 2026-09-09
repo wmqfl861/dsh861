@@ -1,0 +1,23 @@
+{
+  "node": "P0-A",
+  "plan_version": "v8",
+  "recorded_at": "2026-09-08T17:07:51.732262+00:00",
+  "status": "PASS",
+  "kind": "negative-control-validation",
+  "total_tests": 479,
+  "expected_failures": [
+    "website source layout contains no tracked or unignored documentation copies",
+    "raw Markdown projection of the published manifest resolves links in the manifest output file: en/index.md",
+    "raw Markdown projection of the published manifest resolves every relative link inside the emitted tree"
+  ],
+  "other_passes": 476,
+  "temporary_files_removed": true,
+  "source_and_lock_unchanged": true,
+  "original_record": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v8-negative-01.json",
+  "original_record_sha256": "7de95cf778213968a0cfc7f19655a9ed11f6d30959241cd1e62eb97c2cc5c3c7",
+  "report": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v8-negative-01.vitest.json",
+  "report_sha256": "f1661a7e8b1c0003250c956c369a24ef86decbd4fc0253b45a70c021c3b28fd9",
+  "full_stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v8-negative-01.stderr.log",
+  "full_stderr_sha256": "cc2eed2c350af57765638504c8a4ad64896290ccd03c4d308367392b4611a0a8",
+  "validation_method": "JSON verifies exact identities and statuses; complete stderr verifies each expected rejection, avoiding truncated JSON diffs."
+}

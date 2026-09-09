@@ -2,6 +2,11 @@
 
 DeepSeek Harness is an all-plugin Cordis agent harness. Read [docs/architecture.md](docs/architecture.md) before changing `packages/`; follow [docs/AGENTS.md](docs/AGENTS.md) for documentation.
 
+## Project node development
+
+Follow [node development rules](NODE_DEVELOPMENT_RULES.md): real Codex (`gpt-6-astra`, reasoning `max`) plans the current node; ZCode implements it with parallel tasks where independent; real OpenCode (`glm-5.3`, variant `max`) hard-reviews the fixed candidate. Repair and re-review until `PASS`; only then plan the next node. The user explicitly authorized this assignment and ZCode implementation. Never substitute models or use an internal subagent as the named planner or reviewer. Preserve exact plan, test, candidate, and review evidence.
+
+
 ## Pre-stable APIs and released Session data
 
 Public APIs are pre-stable; update every consumer. Released Session JSONL follows [adjacent migration](.agents/notes/implemented/architecture/2026-08-31-released-session-format-migrations.md): body reads may add a version-named successor but never move, overwrite, or delete committed generations; predecessors imply neither fallback nor downgrade support. SQLite domains use monotonic `SCHEMA_VERSION`.
@@ -13,41 +18,6 @@ Public APIs are pre-stable; update every consumer. Released Session JSONL follow
 ```
 vendor/      Vendored Cordis source — manifest + sync procedure in vendor/README.md
 packages/    @deepseek-ai/dsh-<pkg> workspaces at packages/<group>/<pkg>/
-  core/        product API spine: session, system-prompt, tools, agent, agent-loop
-  api/         Remote BFF assembly and Typert RPC gateway
-  typert/      type graph generator, loader, and runtime registry
-  llm/         LLM capability: Service Definition/Consumer + DeepSeek providers
-  e2b/         E2B POC: sandbox + FS/subprocess adapters
-  shell/        bash capability: Service Definition + local/pwsh providers + shell Consumers
-  subprocess/  subprocess capability + local process-tree provider + shared Win32 library
-  terminal/         persistent sessions
-  fs/          filesystem capability + policy
-  lsp/         language-server capability
-  skill/       skill provider registry + local impl + catalog/loader tool
-  web/         web capability: Service Definition + search/fetch providers + tool Consumer
-  compaction/     compaction capability + basic provider
-  context/     request-context plugins
-  subagent/    subagent capability: Service Definition + providers + delegation Consumers
-  bundle/      installable dsh --profile patch-layer bundles
-  workflow/    workflow capability + worker-thread provider + tool Consumer
-  webhook/     webhook ingress
-  todo/        todo_write tool
-  plan/        plan mode as logged state
-  preset/      per-session agent composition from preset cordis.yml files
-  guard/       loop-hygiene + tool-timeout plugins
-  self-modification/  the agent inspects/mounts its own plugins
-  hooks/       Claude Code/Codex hook bridges + wire-protocol library
-  session/     durable session data: persistence, projection, titles, telemetry
-  identity/    anonymous identity
-  settings/    user-settings capability + file provider
-  credentials/ credential/authorization capabilities + env/.env provider
-  acp/         automation-only Agent Client Protocol server
-  interaction/ approval/interaction capabilities, permission, commands, ask-user
-  boot/        shared profile/application boot glue
-  sdk/         JSON-RPC protocol + TypeScript client/server
-  experimental/ private prototypes excluded from official releases
-  support/     dev/test infrastructure
-  util/        zero-dependency utilities
 python/      Python SDK and bundled runtime (see python/README.md)
 native/      @deepseek-ai/node-addon-landlock-run source of record (see native/README.md)
 .agents/     Agent workflows and Agent Notes (`notes/`)
@@ -56,7 +26,7 @@ scripts/     repo gates and generators
 website/     VitePress projection of selected bilingual docs/ sources
 ```
 
-Package groups: [packages/README.md](packages/README.md).
+Package groups: [packages/README.md](packages/README.md). `packages/acp/` provides an automation-only Agent Client Protocol server; `packages/experimental/` contains private prototypes excluded from official releases; `packages/util/` contains zero-dependency utilities.
 
 ## Commands
 

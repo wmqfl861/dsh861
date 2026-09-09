@@ -1,0 +1,42 @@
+{
+  "node": "P0-A",
+  "purpose": "Pre-repair evidence only; no implementation authorized by this capture",
+  "files": [
+    {
+      "path": "scripts/project-doc-site.spec.ts",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v7\\scripts\\project-doc-site.spec.ts",
+      "bytes": 35652,
+      "sha256": "28191f5e8737611f23de5845410a5c4999e25ef7c84538408d66332a19327ffc"
+    },
+    {
+      "path": "scripts/verify-doc-site-fragments.spec.ts",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v7\\scripts\\verify-doc-site-fragments.spec.ts",
+      "bytes": 3252,
+      "sha256": "fe114336248efb4fdcad10bf96749785b864a1bd4f07cb47935b8045a5bcf253"
+    },
+    {
+      "path": "scripts/verify-doc-site-fragments.ts",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v7\\scripts\\verify-doc-site-fragments.ts",
+      "bytes": 6494,
+      "sha256": "f7e542c08af1810f6bf19de03cb846b72efea3b1bef8c0c239ab88a385036eee"
+    },
+    {
+      "path": "scripts/project-doc-site.ts",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v7\\scripts\\project-doc-site.ts",
+      "bytes": 23846,
+      "sha256": "194055dc509b1340506b3af09d1b195b6df520e8fcb32357e2e523e27e6f38b8"
+    },
+    {
+      "path": "website/build.ts",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v7\\website\\build.ts",
+      "bytes": 3368,
+      "sha256": "a6ecc8d85dcf233329ec3d67cb092d4eba8082b21487a3562ceb44cb1d56daba"
+    },
+    {
+      "path": "website/docs.ts",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v7\\website\\docs.ts",
+      "bytes": 22837,
+      "sha256": "56afaaa80931dd596ffb659aa96d2da9a76c1597ae04c110032268ac02cdf8ce"
+    }
+  ]
+}

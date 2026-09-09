@@ -1,0 +1,1944 @@
+{
+  "node": "P0-A",
+  "plan_version": "v9",
+  "registered_at": "2026-09-08T18:17:10.808745+00:00",
+  "registration_before_execution": true,
+  "predecessor": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v8-expected-tests.json",
+  "predecessor_sha256": "fd56dc3dec2303db0adfe6b4cd3551abdb6157ca4cd24276a341a71d5d1560e4",
+  "expected_count": 480,
+  "retained_v8_count": 479,
+  "new_case": {
+    "file": "scripts/verify-doc-site-fragments.spec.ts",
+    "fullName": "inspectSiteFragments preserves duplicate broken fragment order across document, SVG, and noscript elements"
+  },
+  "expected": [
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "website source layout rejects Markdown outside the subtree instructions"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "website source layout contains no tracked or unignored documentation copies"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build 'SPA' build removes stale output before writing"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build 'MPA' build removes stale output before writing"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build refuses to remove the site root or an outside directory"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build unlinks a link-shaped output without removing its target"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build refuses output whose nearest existing parent resolves outside the site root"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "publishableImage accepts a regular file inside the repository"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "publishableImage refuses a target whose real path escapes the repository"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "publishableImage refuses a directory"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "resolveRepositoryRef defaults to public master instead of a private workflow SHA"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "resolveRepositoryRef accepts an explicit public repository ref"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown maps published pages and pins unpublished source links"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown selects the published target in the current site locale"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown uses raw GitHub content for unpublished images when nothing places them"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown hands an image to the placer and uses the URL it returns"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown keeps a placed image’s query or fragment"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown leaves a published page link to the route even when a placer exists"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown does not rewrite Markdown-looking text inside code fences"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown replaces the destination token without changing repeated titles or escapes"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown routes switchers across locales and explicit locale siblings within their locale"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown fails loud when a relative target is missing"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes redirects both locale roots to their locale-relative quick-start page"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes publishes every route in both locales and uses every available Chinese counterpart"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes projects the audited tutorial entry links from explicit locale index pages"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes indexes every subsystem page in both sides of the folder README"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes places the shared todo fragment alias on the translated todo section"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes projects every published subsystem page in Chinese"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes publishes the Cordis core API under matching locale structures"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes keeps Cordis inherited on the English fallback in both locales"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes includes persistence event headings in both locale outlines"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes projects reviewed generated counterparts into root locale routes"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering places every section a sidebar collection owns"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering refuses a section with no declared placement"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering declares placements per locale rather than in one shared list"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering lands every navigation item on a page the manifest publishes"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering collapses the subsystem groups and leaves the smaller ones open"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering gives each page its own position within a section"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "addProjectionFrontmatter adds frontmatter to an ordinary Markdown page"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "addProjectionFrontmatter extends existing VitePress frontmatter"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "addProjectionFrontmatter adds the page-specific outline depth from the publication manifest"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent omits the source-only body from locale home pages"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent keeps the full body for ordinary pages"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent drops the language switcher the navigation bar already offers"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent drops the repository badge every page links from its footer"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent keeps a switcher-shaped line that is not the page header"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent rejects a locale home source without frontmatter"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownPageContent keeps the home body the rendered site omits and drops the VitePress frontmatter"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownPageContent drops the language switcher and repository badge like the rendered site"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownPageContent rejects unclosed frontmatter and names the page"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages writes every route with rewritten links, placed images, and no projection frontmatter"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages emits the full body of a locale home page"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages emits a parent-level alias for an index route with links recomputed"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages refuses to overwrite a file the build already carries"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownFiles lists every route plus a parent alias per index route"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits every published route and every index alias"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits home pages with their bodies instead of the frontmatter stub"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves every relative link inside the emitted tree"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "llmsTxt lists every sidebar page as a base-prefixed raw-Markdown link"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "llmsTxt groups the two locale trees under their own headings"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "llmsTxt carries the site identity and the raw-Markdown convention"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownRoute projects one published route on demand"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownRoute returns undefined for a path the manifest does not publish"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments rejects a directory with no built pages"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments resolves clean, encoded, and same-page routes"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments rejects ambiguous built routes"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments rejects malformed fragment hrefs"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments reports missing ids and missing built routes"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "missingSiteFiles reports the expected files a build did not emit"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps defers writes until advancement and leaves later pages untouched after return"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps retains one image claim when two pages reference the same source"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects same-name images from different sources without replacing the first"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects duplicate routes without replacing their first output"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects an image replacing an earlier page output"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects a page replacing an earlier image output"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects an index alias colliding with a canonical route"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps reports removed alias and image targets from the actual emitted tree"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments resolves ids on html, head, and body elements"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments decodes entities and legacy names while preserving duplicate hrefs"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments ignores template contents and script and comment text as fragment targets"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments parses noscript anchors with scripting disabled"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments resolves SVG ids and anchor hrefs"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments treats zero-byte HTML as a built page"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments keeps ids isolated across pages and consecutive inspections"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/quickstart.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/quickstart.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/providers.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/providers.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/network-proxy.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/network-proxy.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/python-sdk.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/python-sdk.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/github-review.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/github-review.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/mcp-memory.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/mcp-memory.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/publish.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/publish.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice/llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice/llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice/dynamic-cordis.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice/dynamic-cordis.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/01-first-plugin.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/01-first-plugin.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/02-lifecycle-and-effects.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/02-lifecycle-and-effects.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/03-services.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/03-services.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/04-events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/04-events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/05-config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/05-config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/06-composition-and-hmr.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/06-composition-and-hmr.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/07-into-the-harness.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/07-into-the-harness.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-primer.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-primer.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/core.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/core.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/scope.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/scope.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/invariants.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/invariants.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-query.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-query.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-title.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-title.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-projection.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-projection.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/persistence.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/persistence.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/spill.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/spill.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-telemetry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-telemetry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/llm-streaming.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/llm-streaming.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/token-meter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/token-meter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/system-prompt.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/system-prompt.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/compaction.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/compaction.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/tools.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/tools.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/shell.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/shell.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/subprocess.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/subprocess.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/terminal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/terminal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/jobs.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/jobs.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/filesystem.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/filesystem.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/lsp.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/lsp.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/code-runtime.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/code-runtime.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/web.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/web.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/skills.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/skills.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/workflow.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/workflow.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/subagent.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/subagent.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/approval.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/approval.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/permission-presets.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/permission-presets.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/sandbox.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/sandbox.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/plan.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/plan.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/user-questions.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/user-questions.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/commands.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/commands.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/goal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/goal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/web-server.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/web-server.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/web-client.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/web-client.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/client-modules.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/client-modules.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/slots.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/slots.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/conversation.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/conversation.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/typert.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/typert.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/storage.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/storage.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/workspace.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/workspace.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/settings.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/settings.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/credentials.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/credentials.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/capability-seams.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/capability-seams.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/agent-lifecycle.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/agent-lifecycle.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/tool-execution-pipeline.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/tool-execution-pipeline.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/api-gateway.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/api-gateway.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/config-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/config-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/tool-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/tool-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/persistence-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/persistence-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/context.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/context.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/fiber.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/fiber.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/registry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/registry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/inherited.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/inherited.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-a-package.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-a-package.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-a-tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-a-tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-an-llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-an-llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-a-settings-card.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-a-settings-card.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/extension-cookbook.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/extension-cookbook.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/quickstart.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/quickstart.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/providers.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/providers.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/network-proxy.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/network-proxy.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/python-sdk.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/python-sdk.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/github-review.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/github-review.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/mcp-memory.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/mcp-memory.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/publish.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/publish.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice/llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice/llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice/dynamic-cordis.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice/dynamic-cordis.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/01-first-plugin.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/01-first-plugin.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/02-lifecycle-and-effects.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/02-lifecycle-and-effects.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/03-services.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/03-services.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/04-events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/04-events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/05-config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/05-config.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/06-composition-and-hmr.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/06-composition-and-hmr.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/07-into-the-harness.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/07-into-the-harness.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-primer.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-primer.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/core.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/core.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/scope.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/scope.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/invariants.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/invariants.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-query.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-query.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-title.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-title.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-projection.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-projection.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/persistence.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/persistence.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/spill.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/spill.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-telemetry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-telemetry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/llm-streaming.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/llm-streaming.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/token-meter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/token-meter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/system-prompt.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/system-prompt.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/compaction.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/compaction.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/tools.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/tools.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/shell.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/shell.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/subprocess.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/subprocess.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/terminal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/terminal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/jobs.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/jobs.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/filesystem.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/filesystem.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/lsp.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/lsp.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/code-runtime.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/code-runtime.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/web.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/web.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/skills.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/skills.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/workflow.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/workflow.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/subagent.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/subagent.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/approval.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/approval.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/permission-presets.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/permission-presets.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/sandbox.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/sandbox.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/plan.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/plan.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/user-questions.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/user-questions.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/commands.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/commands.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/goal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/goal.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/schedule.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/web-server.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/web-server.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/web-client.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/web-client.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/client-modules.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/client-modules.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/slots.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/slots.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/conversation.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/conversation.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/typert.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/typert.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/storage.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/storage.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/workspace.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/workspace.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/settings.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/settings.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/credentials.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/credentials.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/index.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/capability-seams.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/capability-seams.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/agent-lifecycle.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/agent-lifecycle.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/tool-execution-pipeline.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/tool-execution-pipeline.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/api-gateway.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/api-gateway.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/config-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/config-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/tool-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/tool-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/persistence-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/persistence-catalog.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/context.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/context.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/events.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/fiber.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/fiber.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/registry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/registry.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/service.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/inherited.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/inherited.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-a-package.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-a-package.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-a-tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-a-tool.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-an-llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-an-llm-adapter.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-a-settings-card.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-a-settings-card.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/extension-cookbook.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/extension-cookbook.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference.md"
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown rewrites non-overlapping inline, image, and definition destinations in one source-order pass"
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments preserves duplicate broken fragment order across document, SVG, and noscript elements"
+    }
+  ],
+  "sources": {
+    "scripts/project-doc-site.ts": "e90b68d7d43fd2828dcf90dd05ed09c61638c206cff564d4b887cfdc66b70c9d",
+    "scripts/project-doc-site.spec.ts": "fbbba89bbfa67f6e8d0fac742950a82057b330a353644fe7e729781cc4678918",
+    "scripts/verify-doc-site-fragments.ts": "84655acaed490db3ba2f18e0c44e60bca5416cada76675c047f079bef7c4fc25",
+    "scripts/verify-doc-site-fragments.spec.ts": "3a8e8f44daf8562eeb31b395620882906121e79e7a0231286dc304298c1c6da7",
+    "website/build.ts": "852d516a82bc6eb24d00ad6c9797921279e917498c434b84c1408da76a4a8276",
+    "pnpm-lock.yaml": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "node": "P0-A",
+  "plan_version": "v8",
+  "status": "PASS",
+  "recorded_at": "2026-09-08T17:25:01.717881+00:00",
+  "argv": [
+    "C:\\Python312\\python.exe",
+    "D:\\Temp_projects\\dsh861-p0-a-baseline\\check_node_docs.py"
+  ],
+  "exitCode": 0,
+  "stdout": "NODE_DEVELOPMENT_RULES.md: format, fences and 4 local file targets passed\ndevelopment\\NODE_STATUS.md: format, fences and 21 local file targets passed\ndevelopment\\nodes\\P0-A\\baseline.md: format, fences and 101 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v1.md: format, fences and 3 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v2.md: format, fences and 4 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v3.md: format, fences and 5 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v4.md: format, fences and 0 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v5.md: format, fences and 0 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v6.md: format, fences and 2 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v7.md: format, fences and 0 local file targets passed\ndevelopment\\nodes\\P0-A\\plan.v8.md: format, fences and 5 local file targets passed\nNode JSON evidence parsed.\nOriginal frozen lockfile preserved.\n",
+  "stderr": "",
+  "checker": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\check_node_docs.py",
+    "sha256": "d96da3aa174c63e9faf2179e891eb75cb059fedaf6cb9cefaf448d5d778cd534"
+  },
+  "checked_files": [
+    {
+      "path": "NODE_DEVELOPMENT_RULES.md",
+      "sha256": "b9bc64e76da8dc6a2f0137d1edf066b916024c54f736c055295323e363f0d3c3"
+    },
+    {
+      "path": "development/NODE_STATUS.md",
+      "sha256": "71f666296b3b091465cec701b352786791c943f9f4931a6ada3a9e9011b67a83"
+    },
+    {
+      "path": "development/nodes/P0-A/baseline.md",
+      "sha256": "ed2de905c8bc0b887ad7ce795bfdf39ccd664d59eadab96585109c4c8f8d7d18"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v1.md",
+      "sha256": "8552927515adc430e8e3025f1a8a2eb236bcd42bbf70b3ec7f83c7fc16d3bff7"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v2.md",
+      "sha256": "61e2ce55c711e010b5b1f6bf88fbcf8df3c3a03cf9db94a6d8c7749374a7e9d0"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v3.md",
+      "sha256": "fe4e2063bb2d1f6b81e06e35f015f3eeb67ec54c84a519ba2d67ba021885048c"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v4.md",
+      "sha256": "cd3c509814f35a08267a4600ab7ede6dc3252ded395ee25ef9b9297c9f87bdc4"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v5.md",
+      "sha256": "ce564db16b8c37bce914feed64c0c97b562d2c61fde2bdfa8a1b31c5e6cdf701"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v6.md",
+      "sha256": "846d617229f4d1cc1db39c5c237a55bdaa65044db9b7ac735c4f816f56b0b80d"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v7.md",
+      "sha256": "38fcbb5413f085c98600e10beae5f9631b726bbb0bbfd6aea870ee26d748809d"
+    },
+    {
+      "path": "development/nodes/P0-A/plan.v8.md",
+      "sha256": "77759e807f62224a708f1714821da8a457fdd59c8dfc0ec57156058868cd1120"
+    }
+  ],
+  "scope": "Trailing newline, no trailing spaces, closed fences, existing local authored link paths; inline and fenced code examples excluded. JSON evidence parses; lock hash unchanged. Paragraph authoring reviewed separately."
+}

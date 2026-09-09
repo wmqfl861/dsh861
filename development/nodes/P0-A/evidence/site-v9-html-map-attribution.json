@@ -1,0 +1,43 @@
+{
+  "node": "P0-A",
+  "kind": "source-backed-cross-build-hash-attribution",
+  "recorded_at": "2026-09-08T18:42:20.817378+00:00",
+  "source": "D:\\Projects\\dsh861\\node_modules\\.pnpm\\vitepress@1.6.4_@algolia+cl_784ff5df16a01372c1653a95d54d3e67\\node_modules\\vitepress\\dist\\node\\chunk-D3CUZ4fa.js",
+  "source_sha256": "07d45c356e7c850c2454904949f4b0b95c1d4a2d92119cbdaf4d419ae20dde98",
+  "source_excerpts": [
+    {
+      "start": 45100,
+      "end": 45123,
+      "text": "    generateBundle(_options, bundle) {\n      if (ssr) {\n        this.emitFile({\n          type: \"asset\",\n          fileName: \"package.json\",\n          source: '{ \"private\": true, \"type\": \"module\" }'\n        });\n      } else {\n        for (const name in bundle) {\n          const chunk = bundle[name];\n          if (isPageChunk(chunk)) {\n            const hash = chunk.fileName.match(hashRE)[1];\n            pageToHashMap[chunk.name.toLowerCase()] = hash;\n            bundle[name + \"-lean\"] = {\n              ...chunk,\n              fileName: chunk.fileName.replace(/\\.js$/, \".lean.js\"),\n              preliminaryFileName: chunk.preliminaryFileName.replace(\n                /\\.js$/,\n                \".lean.js\"\n              ),\n              code: chunk.code.replace(staticStripRE, `\"\"`)\n            };\n            chunk.code = chunk.code.replace(staticRestoreRE, \"\");\n          }"
+    },
+    {
+      "start": 45249,
+      "end": 45255,
+      "text": "  const pageToHashMap = /* @__PURE__ */ Object.create(null);\n  const clientJSMap = /* @__PURE__ */ Object.create(null);\n  const input = {};\n  config.pages.forEach((file) => {\n    const alias = config.rewrites.map[file] || file;\n    input[slash(alias).replace(/\\//g, \"_\")] = path$1.resolve(config.srcDir, file);\n  });"
+    },
+    {
+      "start": 45361,
+      "end": 45365,
+      "text": "  const sortedPageToHashMap = /* @__PURE__ */ Object.create(null);\n  Object.keys(pageToHashMap).sort().forEach((key) => {\n    sortedPageToHashMap[key] = pageToHashMap[key];\n  });\n  return { clientResult, serverResult, pageToHashMap: sortedPageToHashMap };"
+    },
+    {
+      "start": 49380,
+      "end": 49383,
+      "text": "  const pageName = sanitizeFileName(page.replace(/\\//g, \"_\"));\n  const pageServerJsFileName = pageName + \".js\";\n  const pageHash = pageToHashMap[pageName.toLowerCase()];\n  const pageClientJsFileName = `${config.assetsDir}/${pageName}.${pageHash}.lean.js`;"
+    },
+    {
+      "start": 49602,
+      "end": 49602,
+      "text": "      const metadataScript = generateMetadataScript(pageToHashMap, siteConfig);"
+    },
+    {
+      "start": 49680,
+      "end": 49690,
+      "text": "function generateMetadataScript(pageToHashMap, config) {\n  if (config.mpa) {\n    return { html: \"\", inHead: false };\n  }\n  const hashMapString = JSON.stringify(JSON.stringify(pageToHashMap));\n  const siteDataString = JSON.stringify(\n    JSON.stringify(serializeFunctions({ ...config.site, head: [] }))\n  );\n  const metadataContent = `window.__VP_HASH_MAP__=JSON.parse(${hashMapString});${siteDataString.includes(\"_vp-fn_\") ? `${deserializeFunctions};window.__VP_SITE_DATA__=deserializeFunctions(JSON.parse(${siteDataString}));` : `window.__VP_SITE_DATA__=JSON.parse(${siteDataString});`}`;\n  if (!config.metaChunk) {\n    return { html: `<script>${metadataContent}<\\/script>`, inHead: false };"
+    }
+  ],
+  "current_html_with_global_map": 185,
+  "established_mechanism": "Every non-MPA HTML embeds the entire pageToHashMap generated from Rollup page chunk filename hashes. A changed map entry propagates to every HTML; this is content-derived metadata, not proof of random generation.",
+  "unproved": "Old HTML and old map bytes were not saved, only SHA and byte lengths. The exact historical changed entry/value and complete cause of this specific cross-build difference cannot be reconstructed from current evidence.",
+  "verifier_scope": "Fragment verifier reads and parses built HTML and does not write site content. No normalization or production change was applied to bypass failed input equality."
+}

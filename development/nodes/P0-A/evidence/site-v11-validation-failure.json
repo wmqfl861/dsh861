@@ -1,0 +1,40 @@
+{
+  "node": "P0-A",
+  "plan_version": "v11",
+  "status": "FAIL",
+  "recorded_at": "2026-09-08T20:49:08.621828+00:00",
+  "kind": "v11-focused-validation",
+  "checks": {
+    "site-v11-typecheck": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-typecheck-01.json",
+      "sha256": "3b5f4ccbeb07f28b3c8aa23163597b2c812a23f25f98c064d848597d23436dee",
+      "state": "PASS",
+      "exitCode": 0
+    },
+    "site-v11-focused": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-focused-01.json",
+      "sha256": "f70f73ef1f381338fc918a63289163215f167765c4c5bacd8a92c4e38bbe1ced",
+      "state": "PASS",
+      "exitCode": 0
+    },
+    "site-v11-oxlint": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-oxlint-01.json",
+      "sha256": "396257f82b0a2042b94e650133c8c25a184011065384e1414d245de411d1b255",
+      "state": "FAIL",
+      "exitCode": 1
+    }
+  },
+  "lint_diagnostic": "\n  x typescript(no-unnecessary-condition): This condition will always return the same value since the types have no overlap.\n    ,-[scripts/verify-doc-site-fragments.ts:86:21]\n 85 |         const element = elements.item(index)\n 86 |         if (element === null) {\n    :             ^^^|^^^ ^^^^^|^^\n    :                |     |   `-- Type: null\n    :                `-- Type: Element\n 87 |           throw new Error(`verify-doc-site-fragments: parsed element index ${index} disappeared.`)\n    `----\n\nFound 0 warnings and 1 error.\nFinished in 61.3s on 2 files with 90 rules using 4 threads.\n",
+  "cause": "The v11 item() null guard is rejected because NodeListOf<Element>.item(index) is statically Element in the repository DOM typings; the condition has no type overlap.",
+  "focused_tests": {
+    "status": "PASS",
+    "tests": 480,
+    "execution_order": "Started concurrently with typecheck and targeted lint by mistake; receipt is retained and not used as ordered-plan evidence."
+  },
+  "out_of_order_batch": true,
+  "source_hashes": {
+    "scripts/verify-doc-site-fragments.ts": "36b3496075e629b0e79f85201c47ea4217e2752b1f8947e394888cca13d3ec39",
+    "scripts/project-doc-site.spec.ts": "adee1f4e66345c0c34ac12f5dd88bb402b64430e78a36267d3812af5c502545c"
+  },
+  "downstream": "Formal lint, build, hygiene, CLI acceptance and OpenCode review not started."
+}

@@ -12,12 +12,16 @@ import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
 import { cleanDocSiteOutput, docSiteBuildOptions } from '../website/build.ts'
 import { docsPages, landingLink, routeLink, sectionSpec, type DocsPage } from '../website/docs.ts'
 import {
-  addProjectionFrontmatter, emitRawMarkdownPages, llmsTxt, projectedPageContent, publishableImage,
+  addProjectionFrontmatter, emitRawMarkdownPages, emitRawMarkdownPageSteps, llmsTxt, projectedPageContent, publishableImage,
   rawMarkdownFiles, rawMarkdownPageContent, rawMarkdownRoute, resolveRepositoryRef, rewriteMarkdown,
 } from './project-doc-site.ts'
 
 const roots: string[] = []
 const repositoryRoot = resolve(import.meta.dirname, '..')
+const websiteFiles = execFileSync(
+  'git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', 'website'],
+  { cwd: repositoryRoot, encoding: 'utf8' },
+).split('\0').filter(file => file !== '')
 
 function unexpectedWebsiteMarkdown(files: readonly string[]): string[] {
   return files.filter(file => file.endsWith('.md') && file !== 'website/AGENTS.md').sort()
@@ -58,11 +62,8 @@ describe('website source layout', () => {
   })
 
   it('contains no tracked or unignored documentation copies', () => {
-    const files = execFileSync(
-      'git',
-      ['ls-files', '--cached', '--others', '--exclude-standard', '--', 'website'],
-      { cwd: repositoryRoot, encoding: 'utf8' },
-    ).split('\n').filter(file => file !== '' && existsSync(resolve(repositoryRoot, file)))
+    const files = websiteFiles.filter(file => existsSync(resolve(repositoryRoot, file)))
+    expect(files).toContain('website/AGENTS.md')
 
     expect(
       unexpectedWebsiteMarkdown(files),
@@ -299,6 +300,32 @@ describe('rewriteMarkdown', () => {
       '[title](./reference/b.md "b.md") '
       + '[escaped](https://github.com/deepseek-ai/deepseek-harness/blob/abc123/docs/x(y).md)\n',
     )
+  })
+
+  it('rewrites non-overlapping inline, image, and definition destinations in one source-order pass', () => {
+    const { root, pages } = fixture()
+    const source = '```md\r\n[ignored](b.md)\r\n```\r\n\r\n'
+      + '[内联](<b.md> "b.md") ![logo](../packages/logo.svg#view) [引用][definition]\r\n\r\n'
+      + '[definition]: x%28y%29.md "x%28y%29.md 标题"\r\n'
+    const placed: string[] = []
+
+    expect(rewriteMarkdown(source, {
+      locale: 'en',
+      sourcePath: 'docs/a.md',
+      route: 'en/a.md',
+      pages,
+      repoRoot: root,
+      repositoryRef: 'abc123',
+      placeImage: (absPath) => {
+        placed.push(absPath)
+        return `./${basename(absPath)}`
+      },
+    })).toBe(
+      '```md\r\n[ignored](b.md)\r\n```\r\n\r\n'
+      + '[内联](<./reference/b.md> "b.md") ![logo](./logo.svg#view) [引用][definition]\r\n\r\n'
+      + '[definition]: https://github.com/deepseek-ai/deepseek-harness/blob/abc123/docs/x(y).md "x%28y%29.md 标题"\r\n',
+    )
+    expect(placed).toEqual([join(root, 'packages/logo.svg')])
   })
 
   it('routes switchers across locales and explicit locale siblings within their locale', () => {
@@ -727,6 +754,128 @@ describe('emitRawMarkdownPages', () => {
   })
 })
 
+describe('emitRawMarkdownPageSteps', () => {
+  it('defers writes until advancement and leaves later pages untouched after return', () => {
+    const { root, pages } = fixture()
+    writeFileSync(join(root, 'docs/b.md'), '![logo](../packages/logo.svg)\n')
+    const out = join(root, 'output')
+    const selected = [pages[0]!, { ...pages[1]!, route: 'b.md' }]
+    const steps = emitRawMarkdownPageSteps(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })
+
+    expect(existsSync(out)).toBe(false)
+    expect(steps.next()).toEqual({ done: false, value: 'a.md' })
+    expect(readFileSync(join(out, 'a.md'), 'utf8')).toBe('# A\n')
+    expect(steps.return()).toEqual({ done: true, value: undefined })
+    expect(existsSync(join(out, 'b.md'))).toBe(false)
+    expect(existsSync(join(out, 'logo.svg'))).toBe(false)
+  })
+
+  it('retains one image claim when two pages reference the same source', () => {
+    const { root, pages } = fixture()
+    writeFileSync(join(root, 'docs/a.md'), '![logo](../packages/logo.svg)\n')
+    writeFileSync(join(root, 'docs/b.md'), '![logo](../packages/logo.svg)\n')
+    const out = join(root, 'output')
+    const selected = [pages[0]!, { ...pages[1]!, route: 'b.md' }]
+
+    expect(Array.from(emitRawMarkdownPageSteps(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })))
+      .toEqual(['a.md', 'b.md'])
+    expect(readFileSync(join(out, 'a.md'), 'utf8')).toBe('![logo](./logo.svg)\n')
+    expect(readFileSync(join(out, 'b.md'), 'utf8')).toBe('![logo](./logo.svg)\n')
+    expect(readFileSync(join(out, 'logo.svg'))).toEqual(readFileSync(join(root, 'packages/logo.svg')))
+  })
+
+  it('rejects same-name images from different sources without replacing the first', () => {
+    const { root, pages } = fixture()
+    writeFileSync(join(root, 'docs/logo.svg'), '<svg>second</svg>\n')
+    writeFileSync(join(root, 'docs/a.md'), '![logo](../packages/logo.svg)\n')
+    writeFileSync(join(root, 'docs/b.md'), '![logo](logo.svg)\n')
+    const out = join(root, 'output')
+    const selected = [pages[0]!, { ...pages[1]!, route: 'b.md' }]
+
+    expect(() => {
+      emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })
+    })
+      .toThrow('project-doc-site: docs/logo.svg and packages/logo.svg both project to logo.svg.')
+    expect(readFileSync(join(out, 'a.md'), 'utf8')).toBe('![logo](./logo.svg)\n')
+    expect(readFileSync(join(out, 'logo.svg'), 'utf8')).toBe('<svg/>\n')
+    expect(existsSync(join(out, 'b.md'))).toBe(false)
+  })
+
+  it('rejects duplicate routes without replacing their first output', () => {
+    const { root, pages } = fixture()
+    const out = join(root, 'output')
+    const selected = [{ ...pages[0]!, route: 'same.md' }, { ...pages[1]!, route: 'same.md' }]
+
+    expect(() => {
+      emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })
+    })
+      .toThrow('project-doc-site: duplicate route "same.md".')
+    expect(readFileSync(join(out, 'same.md'), 'utf8')).toBe('# A\n')
+  })
+
+  it('rejects an image replacing an earlier page output', () => {
+    const { root, pages } = fixture()
+    writeFileSync(join(root, 'docs/b.md'), '![logo](../packages/logo.svg)\n')
+    const out = join(root, 'output')
+    const selected = [{ ...pages[0]!, route: 'logo.svg' }, { ...pages[1]!, route: 'b.md' }]
+
+    expect(() => {
+      emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })
+    })
+      .toThrow('project-doc-site: packages/logo.svg and docs/a.md both project to logo.svg.')
+    expect(readFileSync(join(out, 'logo.svg'), 'utf8')).toBe('# A\n')
+    expect(existsSync(join(out, 'b.md'))).toBe(false)
+  })
+
+  it('rejects a page replacing an earlier image output', () => {
+    const { root, pages } = fixture()
+    writeFileSync(join(root, 'docs/a.md'), '![logo](../packages/logo.svg)\n')
+    const out = join(root, 'output')
+    const selected = [pages[0]!, { ...pages[1]!, route: 'logo.svg' }]
+
+    expect(() => {
+      emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })
+    })
+      .toThrow('project-doc-site: docs/b.md and packages/logo.svg both project to logo.svg.')
+    expect(readFileSync(join(out, 'a.md'), 'utf8')).toBe('![logo](./logo.svg)\n')
+    expect(readFileSync(join(out, 'logo.svg'), 'utf8')).toBe('<svg/>\n')
+  })
+
+  it('rejects an index alias colliding with a canonical route', () => {
+    const { root, pages } = fixture()
+    const out = join(root, 'output')
+    const selected = [{ ...pages[0]!, route: 'guide/index.md' }, { ...pages[1]!, route: 'guide.md' }]
+
+    expect(() => {
+      emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })
+    })
+      .toThrow('project-doc-site: duplicate route "guide.md".')
+    expect(readFileSync(join(out, 'guide/index.md'), 'utf8')).toBe('# A\n')
+    expect(readFileSync(join(out, 'guide.md'), 'utf8')).toBe('# B\n')
+  })
+
+  it('reports removed alias and image targets from the actual emitted tree', () => {
+    const { root, pages } = fixture()
+    writeFileSync(join(root, 'docs/a.md'), '[B](b.md) ![logo](../packages/logo.svg)\n')
+    const out = join(root, 'output')
+    const selected = [{ ...pages[0]!, route: 'index.md' }, { ...pages[1]!, route: 'guide/index.md' }]
+    emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' })
+    const original = readFileSync(join(out, 'index.md'), 'utf8')
+    expect(original).toBe('[B](./guide/index.md) ![logo](./logo.svg)\n')
+    writeFileSync(join(out, 'index.md'), `${original}[alias](./guide.md)\n`)
+    expect(missingProjectionTargets(out, 'index.md')).toEqual([])
+
+    unlinkSync(join(out, 'guide.md'))
+    unlinkSync(join(out, 'logo.svg'))
+
+    expect(missingProjectionTargets(out, 'index.md')).toEqual([
+      'index.md: ./logo.svg',
+      'index.md: ./guide.md',
+    ])
+    expect(readFileSync(join(out, 'guide/index.md'), 'utf8')).toBe('# B\n')
+  })
+})
+
 describe('rawMarkdownFiles', () => {
   it('lists every route plus a parent alias per index route', () => {
     const files = rawMarkdownFiles()
@@ -740,46 +889,90 @@ describe('rawMarkdownFiles', () => {
   })
 })
 
-describe('raw Markdown projection of the published manifest', () => {
-  let mirror: string
+describe('raw Markdown projection of the published manifest', { concurrent: false }, () => {
+  const routes = rawMarkdownFiles(docsPages)
+  let mirror: string | undefined
+  let steps: Generator<string, void, unknown> | undefined
+  const checkedFiles: string[] = []
+  const broken: string[] = []
 
-  // Coverage instrumentation on a loaded CI runner stretches the full-manifest
-  // emission and the 181-file link walk past vitest's 5s default.
   beforeAll(() => {
     mirror = mkdtempSync(join(tmpdir(), 'dsh-doc-mirror-real-'))
-    emitRawMarkdownPages(mirror, { pages: docsPages, repoRoot: repositoryRoot, repositoryRef: 'master' })
-  }, 60_000)
+    steps = emitRawMarkdownPageSteps(mirror, { pages: docsPages, repoRoot: repositoryRoot, repositoryRef: 'master' })
+  })
 
   afterAll(() => {
-    rmSync(mirror, { recursive: true, force: true })
+    try {
+      steps?.return()
+    } finally {
+      if (mirror !== undefined) rmSync(mirror, { recursive: true, force: true })
+    }
   })
+
+  function outputRoot(): string {
+    if (mirror === undefined) throw new Error('Manifest projection did not acquire an output directory.')
+    return mirror
+  }
+
+  const catalogRoutes = new Set([
+    'reference/config-catalog.md',
+    'en/reference/config-catalog.md',
+    'reference/tool-catalog.md',
+    'en/reference/tool-catalog.md',
+  ])
+
+  for (const route of routes) {
+    const emit = () => {
+      expect(steps?.next()).toEqual({ done: false, value: route })
+      expect(existsSync(join(outputRoot(), route)), route).toBe(true)
+    }
+
+    if (catalogRoutes.has(route)) {
+      it(`emits the manifest output file: ${route}`, { timeout: 15_000 }, emit)
+    } else {
+      it(`emits the manifest output file: ${route}`, emit)
+    }
+  }
 
   it('emits every published route and every index alias', () => {
     for (const file of rawMarkdownFiles()) {
-      expect(existsSync(join(mirror, file)), file).toBe(true)
+      expect(existsSync(join(outputRoot(), file)), file).toBe(true)
     }
+    expect(steps?.next()).toEqual({ done: true, value: undefined })
+    expect(routes.length).toBeGreaterThan(0)
+    expect(new Set(routes).size).toBe(routes.length)
+    expect(globSync('**/*.md', { cwd: outputRoot() }).map(file => file.replaceAll('\\', '/')).sort())
+      .toEqual([...routes].sort())
   })
 
   it('emits home pages with their bodies instead of the frontmatter stub', () => {
     for (const route of ['index.md', 'en/index.md']) {
-      const home = readFileSync(join(mirror, route), 'utf8')
+      const home = readFileSync(join(outputRoot(), route), 'utf8')
       expect(home.startsWith('---'), route).toBe(false)
       expect(home, route).toContain('# DeepSeek Harness')
     }
   })
 
-  it('resolves every relative link inside the emitted tree', { timeout: 60_000 }, () => {
-    // Raw pages are read outside the site, so a relative target that only the
-    // rendered site serves would strand every agent following it.
-    const broken: string[] = []
-    for (const file of globSync('**/*.md', { cwd: mirror }).sort()) {
-      for (const target of relativeTargets(readFileSync(join(mirror, file), 'utf8'))) {
-        if (!existsSync(resolve(mirror, dirname(file), target))) broken.push(`${file}: ${target}`)
-      }
-    }
+  it.each(routes)('resolves links in the manifest output file: %s', (file) => {
+    const missing = missingProjectionTargets(outputRoot(), file)
+    checkedFiles.push(file)
+    broken.push(...missing)
+    expect(missing, file).toEqual([])
+  })
+
+  it('resolves every relative link inside the emitted tree', () => {
+    const emitted = globSync('**/*.md', { cwd: outputRoot() }).map(file => file.replaceAll('\\', '/')).sort()
+    expect([...checkedFiles].sort()).toEqual(emitted)
+    expect(emitted).toEqual([...routes].sort())
     expect(broken).toEqual([])
   })
 })
+
+function missingProjectionTargets(mirror: string, file: string): string[] {
+  return relativeTargets(readFileSync(join(mirror, file), 'utf8'))
+    .filter(target => !existsSync(resolve(mirror, dirname(file), target)))
+    .map(target => `${file}: ${target}`)
+}
 
 function relativeTargets(markdown: string): string[] {
   const tree = fromMarkdown(markdown, { extensions: [gfm()], mdastExtensions: [gfmFromMarkdown()] })

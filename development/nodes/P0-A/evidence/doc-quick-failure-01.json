@@ -1,0 +1,75 @@
+{
+  "node": "P0-A",
+  "plan_version": "v5",
+  "recorded_at": "2026-09-08T05:03:49.901497+00:00",
+  "status": "FAIL",
+  "command": "pnpm run test:docs",
+  "receipt": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-01.json",
+    "bytes": 1868,
+    "sha256": "a5a1ab3c2d7220fc59e90aa8b65520e6633271193acb8dfff2391f1dd933d505"
+  },
+  "stdout": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-01.stdout.log",
+    "bytes": 3256,
+    "sha256": "77f4bdc42769c3055220ef4e0071f4abf3d9e35a991b546d5680cb3cc3223aa2"
+  },
+  "stderr": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-01.stderr.log",
+    "bytes": 3050,
+    "sha256": "2d2bcbf26245715e411538f355bc996a68a5a02df16877dd806604df31840e13"
+  },
+  "summary": "14 gates passed, 1 failed, 0 skipped",
+  "failed_gate": "documentation standard tests",
+  "failed_command": "pnpm exec vitest run scripts/doc-standard.spec.ts",
+  "cases": [
+    {
+      "name": "maps package README kinds to their documentation standards",
+      "line": 192,
+      "duration_ms": 20193,
+      "error": "Test timed out in 5000ms."
+    },
+    {
+      "name": "keeps every package README on the summary, contents, and Dev Note skeleton",
+      "line": 214,
+      "duration_ms": 6210,
+      "error": "Test timed out in 5000ms."
+    }
+  ],
+  "diagnosis": "Same unchanged test file is running in isolation with the same timeout and assertions to distinguish contention from deterministic content failure.",
+  "gate_status_lines": [
+    "run-gates: doc-quick running 15 gate(s) with 4 worker(s) from 4 available CPU(s), doc-quick cap 4.",
+    "run-gates: start markdown links",
+    "run-gates: start type equivalence",
+    "run-gates: start translation pairing",
+    "run-gates: start markdown wrap",
+    "run-gates: PASS markdown wrap (1103.01s)",
+    "run-gates: start public repository links",
+    "run-gates: PASS type equivalence (1108.90s)",
+    "run-gates: start doc refs",
+    "run-gates: PASS doc refs (230.17s)",
+    "run-gates: start package README model experience",
+    "run-gates: PASS public repository links (368.89s)",
+    "run-gates: start agent note classification",
+    "run-gates: PASS agent note classification (144.52s)",
+    "run-gates: start agent note format",
+    "run-gates: PASS agent note format (167.29s)",
+    "run-gates: start archived agent notes",
+    "run-gates: PASS markdown links (1878.10s)",
+    "run-gates: start skill invocation metadata",
+    "run-gates: PASS archived agent notes (129.70s)",
+    "run-gates: start translation prompt",
+    "run-gates: PASS package README model experience (599.71s)",
+    "run-gates: start doc budgets",
+    "run-gates: PASS skill invocation metadata (63.89s)",
+    "run-gates: start documentation standard tests",
+    "run-gates: PASS translation prompt (59.61s)",
+    "run-gates: start package README limitations",
+    "run-gates: PASS doc budgets (62.39s)",
+    "run-gates: PASS translation pairing (2001.30s)",
+    "run-gates: PASS package README limitations (425.90s)",
+    "run-gates: 14 passed, 1 failed, 0 skipped in 2399.40s."
+  ],
+  "next_required_steps": "doc-sync, lint, build, hygiene and startup tests NOT_RUN because aggregate stopped.",
+  "hard_review": "NOT_RUN"
+}

@@ -1,0 +1,82 @@
+{
+  "node": "P0-A",
+  "plan_version": "v15",
+  "status": "PASS",
+  "recorded_at": "2026-09-08T21:55:07.321073+00:00",
+  "direct_config_check": {
+    "receipt": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-02.json",
+      "bytes": 1941,
+      "sha256": "172c3e465bb7ce7fbdc1722a8471fc6183e3440efce068e22ac75f1b761ae3f3"
+    },
+    "stdout": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-02.stdout.log",
+      "bytes": 47,
+      "sha256": "eec6f4ee68954054193c47789966ea8baf0a22a5d830fef348268dbc3fd1f723"
+    },
+    "stderr": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-02.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "state": "PASS",
+    "exitCode": 0
+  },
+  "hygiene": {
+    "receipt": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-02.json",
+      "bytes": 1861,
+      "sha256": "74fcda81ed9021daf07154a39761bc09dcbf80aaff1f2d2713184c0d594d242e"
+    },
+    "stdout": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-02.stdout.log",
+      "bytes": 1403,
+      "sha256": "a5d7d1c79f574694965f237220a0be2e23a08be9a9d2321e7f69fa17a5eebd6d"
+    },
+    "stderr": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-02.stderr.log",
+      "bytes": 35,
+      "sha256": "d98c62a35d625aaa5443800d3eb49e749095db2d25fc1f0a5c14d0afbe421a9e"
+    },
+    "state": "PASS",
+    "exitCode": 0
+  },
+  "fixture_after": {
+    "path": "D:\\Projects\\dsh861\\apps\\cli\\tests\\profiles\\acp\\cordis.yml",
+    "bytes": 67,
+    "sha256": "2c9401b55abae7bf700332a0997de3fb96f92c94008c57fe91e3a1936335b921"
+  },
+  "snapshot_after": {
+    "path": "D:\\Projects\\dsh861\\snapshots\\acp\\escalation-approved\\cordis.yml",
+    "bytes": 3117,
+    "sha256": "882f40ae82eb6924a2ff7aacc097c1946b313ba5dbba086a76721054c0997673"
+  },
+  "fixture_change": {
+    "before": {
+      "path": "D:\\Projects\\dsh861\\apps\\cli\\tests\\profiles\\acp\\cordis.yml",
+      "bytes": 61,
+      "sha256": "4703df7d7895f4dcaa292ed5672f1c064792ec2c1368b4499bca5d353a2d85b8",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\acp-fixture-before-v15.yml"
+    },
+    "after": {
+      "path": "D:\\Projects\\dsh861\\apps\\cli\\tests\\profiles\\acp\\cordis.yml",
+      "bytes": 67,
+      "sha256": "2c9401b55abae7bf700332a0997de3fb96f92c94008c57fe91e3a1936335b921"
+    }
+  },
+  "snapshot_unchanged": true,
+  "hygiene_gates": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0
+  },
+  "prior_reused_evidence": [
+    "site-v9-coverage.json",
+    "site-v10-equivalence.json",
+    "docs-check-v8-completed.json",
+    "doc-sync-v10-completed.json",
+    "lint-v12? not used; formal lint-02.json",
+    "build-01.json"
+  ],
+  "cli_acceptance": "pending"
+}

@@ -144,6 +144,13 @@ function packageReadmeStructureErrors(file: string, source: string): string[] {
 }
 
 describe('dsh-doc skill consolidation', () => {
+  const files = packageReadmes()
+  const leafFiles = files.filter(file => file.split('/').length === 4)
+
+  it('finds package READMEs', () => {
+    expect(files.length).toBeGreaterThan(0)
+  })
+
   it('carries no prototype-era language', () => {
     const files = [
       '.agents/skills/dsh-doc/SKILL.md',
@@ -189,15 +196,13 @@ describe('dsh-doc skill consolidation', () => {
     }
   })
 
-  it('maps package README kinds to their documentation standards', () => {
-    const files = packageReadmes()
-    expect(files.length).toBeGreaterThan(0)
-
-    for (const file of files) {
+  it.each(files)(
+    'maps package README kinds to their documentation standards: %s',
+    (file) => {
       const metadata = readFrontmatter(file)
       expect(packageReadmeMetadataErrors(file, metadata), file).toEqual([])
-    }
-  })
+    },
+  )
 
   it('keeps the audited library registry accurate: every entry has a plain module entry and no bundle declaration', () => {
     for (const [dir, reason] of Object.entries(PACKAGE_LIBRARIES)) {
@@ -211,12 +216,49 @@ describe('dsh-doc skill consolidation', () => {
     }
   })
 
-  it('keeps every package README on the summary, contents, and Dev Note skeleton', () => {
-    for (const file of packageReadmes().filter(file => file.split('/').length === 4)) {
+  it.each(leafFiles)(
+    'keeps every package README on the summary, contents, and Dev Note skeleton: %s',
+    (file) => {
       const source = readFileSync(resolve(root, file), 'utf8')
       expect(packageReadmeStructureErrors(file, source), file).toEqual([])
-    }
+    },
+  )
+
+  it.each([
+    { label: 'missing', metadata: { kind: 'package-group' } },
+    { label: 'empty', metadata: { kind: 'package-group', description: '' } },
+    { label: 'whitespace-only', metadata: { kind: 'package-group', description: ' \t ' } },
+    { label: 'numeric', metadata: { kind: 'package-group', description: 42 } },
+  ])('rejects a $label package description', ({ metadata }) => {
+    expect(packageReadmeMetadataErrors('packages/example/README.md', metadata)).toEqual([
+      'description must be a non-empty string',
+    ])
   })
+
+  const structureCases = [
+    {
+      label: 'English',
+      file: 'packages/example/package/README.md',
+      headings: ['Summary', 'Table of Contents', 'Dev Note'],
+    },
+    {
+      label: 'Chinese',
+      file: 'packages/example/package/README.zh.md',
+      headings: ['概述', '目录', '开发备注'],
+    },
+  ]
+
+  for (const { label, file, headings } of structureCases) {
+    const source = `${headings.map(heading => `## ${heading}`).join('\n\n')}\n`
+    it(`accepts complete ${label} package README headings`, () => {
+      expect(packageReadmeStructureErrors(file, source)).toEqual([])
+    })
+    it.each(headings)(`rejects a missing ${label} package README heading: %s`, (heading) => {
+      expect(packageReadmeStructureErrors(file, source.replace(`## ${heading}\n`, ''))).toEqual([
+        `missing ${heading}`,
+      ])
+    })
+  }
 
   it('rejects redundant fields and a kind that does not match the README position', () => {
     expect(packageReadmeMetadataErrors('packages/example/README.md', {

@@ -1,0 +1,18 @@
+{
+  "node": "P0-B",
+  "planVersion": "v1",
+  "status": "BLOCKED_FOUNDATION",
+  "records": {
+    "runner_typecheck": {"status": "PASS", "command": "pnpm.cmd exec tsc -p D:/Temp_projects/dsh861-p0-b-harness-validation/tsconfig.runner.json --pretty false", "exitCode": 0},
+    "runner_ambient_path_attempt": {"status": "FAIL_ENVIRONMENT", "exitCode": 127, "reason": "ambient PATH did not contain pnpm.cmd; no TypeScript execution"},
+    "runner_corrected_imports": {"status": "PASS", "reason": "removed two unused imports after strict compiler diagnostics"},
+    "blocked_controls": {"status": "PASS", "valid_invocations": 4, "all_status": "BLOCKED", "product_processes_started": 0, "invalid_argument_cases": 1, "invalid_exitCode": 1, "invalid_rejected": true, "temporary_root_removed": true}
+  },
+  "real_product_support": {"codex": "NOT_RUN", "claude-code": "NOT_RUN", "opencode": "BLOCKED", "grok": "BLOCKED"},
+  "limitation": "B2 foundation is adapterless and deliberately cannot claim product harness success; B3-B6 require real provider adapters and credentials/protocol evidence.",
+  "source_hashes": {
+    "runner": "scripts/p0-b/validate-harness.ts",
+    "schema": "development/nodes/P0-B/evidence/schema.v1.json",
+    "readme": "development/nodes/P0-B/evidence/README.md"
+  }
+}

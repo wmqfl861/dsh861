@@ -1,0 +1,38 @@
+{
+  "node": "P0-A",
+  "kind": "unsuccessful-plan-invocation",
+  "proposed_plan_version": "v9",
+  "status": "CANCELLED_NO_PLAN",
+  "recorded_at": "2026-09-08T18:08:24.400098+00:00",
+  "model": "gpt-6-astra",
+  "reasoning": "max",
+  "reason": "Repeated upstream stream errors, tool parameter error and self-status inspection; owned process was intentionally stopped after 38 minutes without a plan. All original outputs retained.",
+  "artifacts": [
+    {
+      "path": "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v9-htmlcollection.receipt.json",
+      "bytes": 1388,
+      "sha256": "0e9690f6ecd121b85cf7e452cc1f59e74bee4163cd0d13c624da34bddbc7dd7c"
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v9-htmlcollection.stdout.jsonl",
+      "bytes": 1000076,
+      "sha256": "bb4258bea2b12fb50041a875a2fcaa0b90296d66152930af6d56988751651768"
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v9-htmlcollection.stderr.log",
+      "bytes": 183,
+      "sha256": "5891555025bdff6f83b2dda1b3dd9f0504d547490fe4221976a1757c6947ccd6"
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-node-governance\\prompts\\p0-a-plan-v9-htmlcollection.md",
+      "bytes": 4052,
+      "sha256": "da303cc1ab2d377c870d2785bffc4ac522f34bfafc8079ecf25e737bcdcb26f6"
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-node-governance\\runs\\p0-a-plan-v9-htmlcollection.cancellation.json",
+      "bytes": 1118,
+      "sha256": "be2965895b6c1b39bd2cd1258cb4618954d4cdaca47741e1d82c812e64b69095"
+    }
+  ],
+  "replacement_call": "D:/Temp_projects/dsh861-node-governance/runs/p0-a-plan-v9-htmlcollection-02.receipt.json"
+}

@@ -1,0 +1,29 @@
+{
+  "node": "P0-A",
+  "round": "r02",
+  "status": "INCOMPLETE_NO_VERDICT",
+  "recorded_at": "2026-09-08T22:36:14.324422+00:00",
+  "reason": "OpenCode exited zero without required readable or structured review verdict. Five read tool requests were rejected by the surrounding permission layer; no PASS/FAIL/BLOCKED decision was emitted.",
+  "candidate": "development/nodes/P0-A/candidate.r02.json",
+  "candidate_sha256": "6bcc1dc5672bda7e75928788a77bc6649e1c6ae8d31334f0ffed260987ba7eab",
+  "invocation": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r02\\review\\p0-a-r02.receipt.json",
+    "bytes": 1038,
+    "sha256": "bc18bacfe2c1cd3c1553678d6762d94f966da01c825981504bf8cba074ed6794",
+    "model": "zhipuai-coding-plan/glm-5.3",
+    "reasoning": "max",
+    "exit_code": 0
+  },
+  "stdout": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r02\\review\\p0-a-r02.stdout.jsonl",
+    "bytes": 776925,
+    "sha256": "35d8b203f75b796cb5cd8e9fa34116a53b0c5df0afd0e02df00fd6d022e82859"
+  },
+  "stderr": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r02\\review\\p0-a-r02.stderr.log",
+    "bytes": 620,
+    "sha256": "cc6a19efe9cdfbd6ace13ad776524bec7298bb3b02bfcedc93bd990b9bce5db4"
+  },
+  "denied_read_count": 5,
+  "new_review_round_required": true
+}

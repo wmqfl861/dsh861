@@ -1,0 +1,81 @@
+{
+  "kind": "offline-maintenance-verification",
+  "base_commit": "673ba77593e3100c1245601a53fb36b7f85ddb10",
+  "recorded_at": "2026-09-09T07:49:15.712519+00:00",
+  "actor": "ChatGPT; not designated Codex/ZCode/OpenCode execution",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "typescript": "5.8.3",
+    "jsonschema": "4.26.0",
+    "repository_engine_validation": "NOT_RUN; available Node predates repository minimum"
+  },
+  "focused_typecheck": {
+    "status": "PASS",
+    "scope": "validate-harness.ts only; not pnpm run typecheck",
+    "command": "tsc scripts/p0-b/validate-harness.ts --target ES2022 --module ES2022 --moduleResolution bundler --strict --noUncheckedIndexedAccess --noUnusedLocals --noUnusedParameters --types node --typeRoots /opt/nvm/versions/node/v22.16.0/lib/node_modules/ts-node/node_modules/@types --skipLibCheck --outDir /mnt/data/dsh861-build"
+  },
+  "node_tests": {
+    "status": "PASS",
+    "passed": 31,
+    "failed": 0,
+    "skipped": 0,
+    "command": "P0B_AUDIT_RUNNER_MODULE=/mnt/data/dsh861-build/validate-harness.js node --test scripts/p0-b/audit-controls.test.mjs",
+    "log": "node-tests.r01.tap"
+  },
+  "schema_controls": [
+    {
+      "name": "blocked_record_accepted",
+      "passed": true,
+      "schema_accepted": true
+    },
+    {
+      "name": "false_pass_rejected",
+      "passed": true,
+      "schema_accepted": false
+    },
+    {
+      "name": "empty_reasons_rejected",
+      "passed": true,
+      "schema_accepted": false
+    },
+    {
+      "name": "invented_usage_rejected",
+      "passed": true,
+      "schema_accepted": false
+    },
+    {
+      "name": "deleted_root_claim_rejected",
+      "passed": true,
+      "schema_accepted": false
+    },
+    {
+      "name": "unchanged_v1_false_pass_reproduction",
+      "passed": true,
+      "schema_accepted": true
+    }
+  ],
+  "generated_status": {
+    "status": "PASS",
+    "command": "node scripts/p0-b/sync-node-status.mjs --check"
+  },
+  "not_run": [
+    "Full repository build/typecheck/lint/doc gates",
+    "Repository tsx source or built product composition",
+    "Actual Windows or real product CLI runs",
+    "Real designated Codex plan / OpenCode hard review",
+    "Credential revocation or rotation verification",
+    "Runtime stderr redaction",
+    "PostgreSQL/GBrain and product AC-01..AC-32"
+  ],
+  "source_sha256": {
+    "development/CURRENT_NODE.json": "6b45d1a6da4b3d825166ab9aef4328cc9b007413885b3db9f12c2d5dc0865dcf",
+    "development/NODE_STATUS.md": "0a71abb69c44df3d1f2922d75eece195501918924915ce38df85585857a3db1c",
+    "development/nodes/P0-B/acceptance-map.r01.json": "d9fe19557bf7efe2ed1c67b5c2e77b590ef3a0655e9270cf8292cbb2d674cb28",
+    "development/nodes/P0-B/evidence/schema.foundation.v2.json": "b0d92dd07bb39e7287dd5d0ee18fbeee9098bb5a9b8ff0cb5504ecbfe52a86ce",
+    "scripts/p0-b/audit-controls.mjs": "ef6c3c8f1c2df20e4bf69825be49c8b8126073bb53fab7cba0ec099266c9e553",
+    "scripts/p0-b/audit-controls.test.mjs": "36e80eabfaf9821c363ccfa3a051e8dee3af2691a971c2e7adade5a3f0b2286a",
+    "scripts/p0-b/sync-node-status.mjs": "9ff8c1afe9fa7939928c805f1f4e61cc2fa3cb176028b27d0f30cd06ff01e1ed",
+    "scripts/p0-b/validate-harness.ts": "62419f81ae0c5cc4a97be5b3c16cf64bb41d49f7aa7f93641992b2556e6b65cd"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "node": "P0-A",
+  "plan_version": "v6",
+  "kind": "negative-control",
+  "state": "restored-awaiting-result-inspection",
+  "started_at": "2026-09-08T05:38:34.792737+00:00",
+  "files": {
+    "packages/README.md": {
+      "original_sha256": "eda915e0ecd6855e0dadbbdb25148a9a04ec83ab5ccd4bf8754f97d633a44b79",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\doc-standard-v6-negative-01\\packages\\README.md",
+      "original_bytes": 7926,
+      "mutated_sha256": "9915d9ac5132f8e4ffbb0cca741715554ff9a5e2b079b84aac4bfc885774b8f3",
+      "restored_sha256": "eda915e0ecd6855e0dadbbdb25148a9a04ec83ab5ccd4bf8754f97d633a44b79",
+      "restored_exactly": true
+    },
+    "packages/session/session-persistence-jsonl/README.md": {
+      "original_sha256": "11cc9ced075c1259618010715d38ba4768a1d5507a689d5328b4f89984a585ca",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\doc-standard-v6-negative-01\\packages\\session\\session-persistence-jsonl\\README.md",
+      "original_bytes": 14627,
+      "mutated_sha256": "2ac91aed1b75ffafa4a94a80db49f62d5ecbe58137f6ef427af3deeb7e3e8dc9",
+      "restored_sha256": "11cc9ced075c1259618010715d38ba4768a1d5507a689d5328b4f89984a585ca",
+      "restored_exactly": true
+    },
+    "packages/session/session-persistence-jsonl/README.zh.md": {
+      "original_sha256": "b3d38f483cb6f69bd500c7b82198861ac3469c2a359dd795305c7f2cd9a13c2a",
+      "backup": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\doc-standard-v6-negative-01\\packages\\session\\session-persistence-jsonl\\README.zh.md",
+      "original_bytes": 13017,
+      "mutated_sha256": "7b27d5ed1329b90b297e7b0c85eaba5bac18f4482b71705f4f46584c8d38acef",
+      "restored_sha256": "b3d38f483cb6f69bd500c7b82198861ac3469c2a359dd795305c7f2cd9a13c2a",
+      "restored_exactly": true
+    }
+  },
+  "argv": [
+    "C:\\Python312\\python.exe",
+    "D:\\Temp_projects\\dsh861-p0-a-baseline\\run_step.py",
+    "doc-standard-v6-negative"
+  ],
+  "command_exitCode": 1,
+  "restore_conflicts": [],
+  "restored": true,
+  "finished_at": "2026-09-08T05:41:55.191067+00:00"
+}

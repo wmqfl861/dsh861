@@ -1,0 +1,59 @@
+{
+  "node": "P0-A",
+  "kind": "host-prerequisite",
+  "operation": "pnpm install --frozen-lockfile",
+  "exitCode": 1,
+  "dependency": "fs-ext@2.1.1",
+  "error": "Could not find any Visual Studio installation to use",
+  "verified": {
+    "node": "v24.18.0",
+    "python": "3.12.8",
+    "node_gyp": "12.4.0",
+    "filesystem": "NTFS",
+    "cl_on_path": false,
+    "msbuild_on_path": false,
+    "vswhere_found": false
+  },
+  "source_support": "Downloaded fs-ext.cc contains _WIN32 and LockFileEx branches; no basis to skip the dependency.",
+  "lock_sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383",
+  "post_install_checks": [
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "diff",
+        "--",
+        "package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "config",
+        "--show-origin",
+        "--get",
+        "core.hooksPath"
+      ],
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "config",
+        "--show-origin",
+        "--get",
+        "merge.dsh-translation-pairing.driver"
+      ],
+      "exitCode": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "plan_revision": "Real Codex gpt-6-astra/max requested for current-node toolchain prerequisite; no next node begun."
+}

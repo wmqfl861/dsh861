@@ -1,0 +1,31 @@
+{
+  "node": "P0-A",
+  "plan_version": "v3",
+  "started_at": "2026-09-08T00:38:59.4043581Z",
+  "finished_at": "2026-09-08T00:39:25.9981398Z",
+  "source_url": "https://download.visualstudio.microsoft.com/download/pr/fa619120-9c0e-47e6-bfe0-3ee96fb671b2/236367b68ba9a51708263ab10a1c85546cc4a8eca78b365168811d19c4fb2f29/vs_BuildTools.exe",
+  "downloaded_path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\toolchain\\vs2022-17.14.39\\vs_BuildTools.exe",
+  "sha256": "236367b68ba9a51708263ab10a1c85546cc4a8eca78b365168811d19c4fb2f29",
+  "bytes": 4473936,
+  "signature_status": "Valid",
+  "signature_message": "Signature verified.",
+  "signer_subject": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+  "signer_thumbprint": "AB172913A2960A224809EE8A0C371CD47A079B72",
+  "timestamp_subject": "CN=Microsoft Time-Stamp Service, OU=nShield TSS ESN:E002-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+  "file_version": "17.14.37614.0",
+  "product_version": "17.14.39",
+  "company": "Microsoft Corporation",
+  "signature_passed": true,
+  "requested_release": "17.14.39",
+  "requested_build": "17.14.37614.0",
+  "installation_executed": false,
+  "installation_approval": "not granted",
+  "installation_path": "D:\\BuildTools\\dsh861-p0-a-vs2022",
+  "installation_path_exists": false,
+  "components": [
+    "Microsoft.VisualStudio.Workload.VCTools",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.Windows11SDK.26100"
+  ],
+  "no_automatic_restart": true
+}

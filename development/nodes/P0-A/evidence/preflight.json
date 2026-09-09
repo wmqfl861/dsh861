@@ -1,0 +1,214 @@
+{
+  "node": "P0-A",
+  "recorded_at": "2026-09-07T23:49:23.596447+00:00",
+  "branch": {
+    "argv": [
+      "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+      "branch",
+      "--show-current"
+    ],
+    "exit_code": 0,
+    "stdout": "feat/multi-agent-company-nodes\n",
+    "stderr": ""
+  },
+  "head": {
+    "argv": [
+      "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "stdout": "d347e703908d0406b7a7ef80e3a0e594d86b2215\n",
+    "stderr": ""
+  },
+  "status": {
+    "argv": [
+      "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+      "status",
+      "--short",
+      "--branch",
+      "--untracked-files=all"
+    ],
+    "exit_code": 0,
+    "stdout": "## feat/multi-agent-company-nodes\n M AGENTS.md\n?? GBRAIN_MEMORY_ASSESSMENT.md\n?? MULTI_AGENT_DEVELOPMENT_ROADMAP.md\n?? MULTI_AGENT_REQUIREMENTS.md\n?? MULTI_AGENT_REQUIREMENTS_SUPPLEMENT.md\n?? MULTI_AGENT_WORKFLOW_RESEARCH.md\n?? NODE_DEVELOPMENT_RULES.md\n?? development/AGENT_TOOL_VERIFICATION.md\n?? development/NODE_STATUS.md\n?? development/nodes/P0-A/plan.v1.md\n",
+    "stderr": ""
+  },
+  "index_status": {
+    "argv": [
+      "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+      "diff",
+      "--cached",
+      "--stat"
+    ],
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "existing_files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 17133,
+      "sha256": "1fc1b5c1f945e92c024ebc3b626891597d8c52c5278404948db52288fdd9ae38",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\AGENTS.md"
+    },
+    {
+      "path": "NODE_DEVELOPMENT_RULES.md",
+      "bytes": 9243,
+      "sha256": "b9bc64e76da8dc6a2f0137d1edf066b916024c54f736c055295323e363f0d3c3",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\NODE_DEVELOPMENT_RULES.md"
+    },
+    {
+      "path": "MULTI_AGENT_REQUIREMENTS.md",
+      "bytes": 46013,
+      "sha256": "53a87e7f15b1cee8e42960e1ed32252950cb4ae76e2b4fb1605c316b784fe5f3",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\MULTI_AGENT_REQUIREMENTS.md"
+    },
+    {
+      "path": "MULTI_AGENT_DEVELOPMENT_ROADMAP.md",
+      "bytes": 21366,
+      "sha256": "88ad49bde81a3c40f773e287b8cdf75b186a90824b17624a2742464e05c4f0bf",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\MULTI_AGENT_DEVELOPMENT_ROADMAP.md"
+    },
+    {
+      "path": "MULTI_AGENT_REQUIREMENTS_SUPPLEMENT.md",
+      "bytes": 4965,
+      "sha256": "7138cc548229d1c0719b8df61191ac35ae1562b19a8d027d457818d62bb3ecaf",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\MULTI_AGENT_REQUIREMENTS_SUPPLEMENT.md"
+    },
+    {
+      "path": "MULTI_AGENT_WORKFLOW_RESEARCH.md",
+      "bytes": 9935,
+      "sha256": "2a0d6d60fae29af3cc639aa7f2280043840fe4ce00440817c67b1a363352d57b",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\MULTI_AGENT_WORKFLOW_RESEARCH.md"
+    },
+    {
+      "path": "GBRAIN_MEMORY_ASSESSMENT.md",
+      "bytes": 12864,
+      "sha256": "05dbba7f147054c0f7c87a252c663c4cdbaa23507fa2b6f1a655e5c859917df3",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\GBRAIN_MEMORY_ASSESSMENT.md"
+    },
+    {
+      "path": "development/NODE_STATUS.md",
+      "bytes": 2093,
+      "sha256": "f24dfffb207d6fc70c7afcf0f2b768ef3dfcf6565aa4942867351b61f32ac570",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\development\\NODE_STATUS.md"
+    },
+    {
+      "path": "development/AGENT_TOOL_VERIFICATION.md",
+      "bytes": 1887,
+      "sha256": "71b0c9017da5015778eecb8a10f5969bf06633a7807c897faec8190f4a3f9854",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\development\\AGENT_TOOL_VERIFICATION.md"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 768436,
+      "sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\pnpm-lock.yaml"
+    },
+    {
+      "path": "package.json",
+      "bytes": 11959,
+      "sha256": "7177f05af3a57a4ba6ddb81ce28a686eeede647b9b1b9ccb9ef2fc0892e9c941",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\package.json"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "bytes": 3891,
+      "sha256": "75496d94e73f3aeb97456b56a0f88aedfceb95c5cf5ce4b6d49398bf3e425fe3",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\pnpm-workspace.yaml"
+    }
+  ],
+  "plan_sha256": "a58aea8eb7c54fe08dc3cba40fb697f48e0b5e7da187dee91d49cd10ccbbc572",
+  "root_env_present": false,
+  "node_modules_present": false,
+  "tools": [
+    {
+      "argv": [
+        "D:\\Program Files\\nodejs\\node.EXE",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "v24.18.0\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "git version 2.55.0.windows.2\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:/Python312/python.exe",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "Python 3.12.8\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "D:/Program Files/PowerShell/7/pwsh.exe",
+        "-NoProfile",
+        "-Command",
+        "$PSVersionTable.PSVersion.ToString()"
+      ],
+      "exit_code": 0,
+      "stdout": "7.6.5\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "D:/Program Files/nodejs/node.exe",
+        "D:/Program Files/nodejs/node_modules/corepack/dist/corepack.js",
+        "--version"
+      ],
+      "exit_code": 0,
+      "stdout": "0.35.0\n",
+      "stderr": ""
+    }
+  ],
+  "disk": {
+    "free_bytes": 66519871488
+  },
+  "global_git_config_queries": [
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "config",
+        "--show-origin",
+        "--get",
+        "core.hooksPath"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "config",
+        "--show-origin",
+        "--get",
+        "merge.dsh-translation-pairing.driver"
+      ],
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "volume": {
+    "argv": [
+      "D:/Program Files/PowerShell/7/pwsh.exe",
+      "-NoProfile",
+      "-Command",
+      "Get-Volume -DriveLetter D | Select-Object DriveLetter,FileSystem,SizeRemaining | ConvertTo-Json -Compress"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"DriveLetter\":\"D\",\"FileSystem\":\"NTFS\",\"SizeRemaining\":66519789568}\n",
+    "stderr": ""
+  }
+}

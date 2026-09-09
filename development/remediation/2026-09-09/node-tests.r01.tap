@@ -1,0 +1,196 @@
+TAP version 13
+# Subtest: codex --source: BLOCKED exits 2 and retains evidence
+ok 1 - codex --source: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 42.936053
+  type: 'test'
+  ...
+# Subtest: codex --artifact: BLOCKED exits 2 and retains evidence
+ok 2 - codex --artifact: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 35.78549
+  type: 'test'
+  ...
+# Subtest: claude-code --source: BLOCKED exits 2 and retains evidence
+ok 3 - claude-code --source: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 34.13808
+  type: 'test'
+  ...
+# Subtest: claude-code --artifact: BLOCKED exits 2 and retains evidence
+ok 4 - claude-code --artifact: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 35.754974
+  type: 'test'
+  ...
+# Subtest: opencode --source: BLOCKED exits 2 and retains evidence
+ok 5 - opencode --source: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 33.696321
+  type: 'test'
+  ...
+# Subtest: opencode --artifact: BLOCKED exits 2 and retains evidence
+ok 6 - opencode --artifact: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 34.672738
+  type: 'test'
+  ...
+# Subtest: grok --source: BLOCKED exits 2 and retains evidence
+ok 7 - grok --source: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 38.092383
+  type: 'test'
+  ...
+# Subtest: grok --artifact: BLOCKED exits 2 and retains evidence
+ok 8 - grok --artifact: BLOCKED exits 2 and retains evidence
+  ---
+  duration_ms: 39.339545
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 1
+ok 9 - reject ambiguous/unknown options 1
+  ---
+  duration_ms: 31.494063
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 2
+ok 10 - reject ambiguous/unknown options 2
+  ---
+  duration_ms: 30.390176
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 3
+ok 11 - reject ambiguous/unknown options 3
+  ---
+  duration_ms: 32.531411
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 4
+ok 12 - reject ambiguous/unknown options 4
+  ---
+  duration_ms: 30.783202
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 5
+ok 13 - reject ambiguous/unknown options 5
+  ---
+  duration_ms: 30.975073
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 6
+ok 14 - reject ambiguous/unknown options 6
+  ---
+  duration_ms: 41.246967
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 7
+ok 15 - reject ambiguous/unknown options 7
+  ---
+  duration_ms: 33.202904
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 8
+ok 16 - reject ambiguous/unknown options 8
+  ---
+  duration_ms: 30.148085
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 9
+ok 17 - reject ambiguous/unknown options 9
+  ---
+  duration_ms: 30.139
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 10
+ok 18 - reject ambiguous/unknown options 10
+  ---
+  duration_ms: 29.928201
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 11
+ok 19 - reject ambiguous/unknown options 11
+  ---
+  duration_ms: 29.301826
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 12
+ok 20 - reject ambiguous/unknown options 12
+  ---
+  duration_ms: 32.11168
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 13
+ok 21 - reject ambiguous/unknown options 13
+  ---
+  duration_ms: 34.879532
+  type: 'test'
+  ...
+# Subtest: reject ambiguous/unknown options 14
+ok 22 - reject ambiguous/unknown options 14
+  ---
+  duration_ms: 30.799556
+  type: 'test'
+  ...
+# Subtest: value options accept equals form and legacy records remain v1
+ok 23 - value options accept equals form and legacy records remain v1
+  ---
+  duration_ms: 33.673677
+  type: 'test'
+  ...
+# Subtest: module import has no CLI side effects
+ok 24 - module import has no CLI side effects
+  ---
+  duration_ms: 27.780209
+  type: 'test'
+  ...
+# Subtest: counterfeit PASS and invented observations cannot pass foundation guard
+ok 25 - counterfeit PASS and invented observations cannot pass foundation guard
+  ---
+  duration_ms: 35.354136
+  type: 'test'
+  ...
+# Subtest: foundation CLI separates invalid evidence from valid BLOCKED
+ok 26 - foundation CLI separates invalid evidence from valid BLOCKED
+  ---
+  duration_ms: 96.410939
+  type: 'test'
+  ...
+# Subtest: candidate byte mismatch stays failure even when explained by line endings
+ok 27 - candidate byte mismatch stays failure even when explained by line endings
+  ---
+  duration_ms: 2.302447
+  type: 'test'
+  ...
+# Subtest: candidate rejects outward symlinks and missing files
+ok 28 - candidate rejects outward symlinks and missing files
+  ---
+  duration_ms: 0.672614
+  type: 'test'
+  ...
+# Subtest: Git candidate mode reads frozen blob bytes rather than modified checkout
+ok 29 - Git candidate mode reads frozen blob bytes rather than modified checkout
+  ---
+  duration_ms: 24.106385
+  type: 'test'
+  ...
+# Subtest: status projection is deterministic and cannot silently open a gate
+ok 30 - status projection is deterministic and cannot silently open a gate
+  ---
+  duration_ms: 0.630942
+  type: 'test'
+  ...
+# Subtest: AC map rejects renamed, missing and duplicate acceptance contracts
+ok 31 - AC map rejects renamed, missing and duplicate acceptance contracts
+  ---
+  duration_ms: 0.634026
+  type: 'test'
+  ...
+1..31
+# tests 31
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1040.674768

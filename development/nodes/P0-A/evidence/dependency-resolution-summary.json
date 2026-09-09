@@ -1,0 +1,162 @@
+{
+  "node": "P0-A",
+  "effective_plan_version": "v5",
+  "recorded_at": "2026-09-08T02:57:00.485958+00:00",
+  "dependency_state": "installed-and-native-module-loaded",
+  "node_acceptance": "not assessed",
+  "hard_review": "not run",
+  "toolchain_installation": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\build-tools-install-01.json",
+    "bytes": 1240,
+    "sha256": "dc04387cd73ec5f6502a0fdfa00fe0729e08aa1186e591b2dd6cde2fac060d14"
+  },
+  "toolchain_verification": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\build-tools-verification-02.json",
+    "bytes": 4579,
+    "sha256": "71f7744b615c6b4e5087d6a79dc5b6655c48b5f0aa91c98aed344dc6f43b8b1d"
+  },
+  "authorization": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\dependency-install-authorization.json",
+    "bytes": 1140,
+    "sha256": "ecf4df40f8f25bf191582e34977127f60e840ff0db7f06cb74fe20565d9e8c1b"
+  },
+  "records": [
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\corepack-enable-01.json",
+      "bytes": 1936,
+      "sha256": "fd96b508c35954fb041d0b788be04d35fe1a65761dc02a6d9882c705e6af7a60",
+      "state": "PASS",
+      "exitCode": 0,
+      "related_outputs": [
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\corepack-enable-01.stdout.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\corepack-enable-01.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\pnpm-version-01.json",
+      "bytes": 1931,
+      "sha256": "72b5be943cc0e68b75c84b31e29e7832477dfd4dd8d947835e8cd01ec98c7612",
+      "state": "PASS",
+      "exitCode": 0,
+      "related_outputs": [
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\pnpm-version-01.stdout.log",
+          "bytes": 9,
+          "sha256": "86d7c61f36c471ba7371e6f6cfcfa4a90f98944c1164a1e0015ce33d1cc288ff"
+        },
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\pnpm-version-01.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-01.json",
+      "bytes": 1894,
+      "sha256": "d5a90f693f2cc75588b3e6057469cd6516fb996ade0920eb322cf90c09883bbd",
+      "state": "FAIL",
+      "exitCode": 1,
+      "related_outputs": [
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-01.stdout.log",
+          "bytes": 50933,
+          "sha256": "9c8efee6bd8c2269dbdb0f2bade39e78839b538e0c09e6d863facffacb7c1946"
+        },
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-01.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\toolchain-followup-01.json",
+      "bytes": 837,
+      "sha256": "e423284b46ac69d014816821c17376c677976995746a4bc57a1ccc3097f961af",
+      "state": "failed",
+      "exitCode": null,
+      "related_outputs": []
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\toolchain-followup-02.json",
+      "bytes": 3339,
+      "sha256": "d5c6ac9de91fca18091b7cb9a7a1ea066b16db0c6bda3d1d3cba87329dbb7212",
+      "state": "completed",
+      "exitCode": null,
+      "related_outputs": []
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-02.json",
+      "bytes": 1936,
+      "sha256": "d7fe4fd2644c3474a78dd30609e0227322991559214c265e60549dad83bab616",
+      "state": "PASS",
+      "exitCode": 0,
+      "related_outputs": [
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-02.stdout.log",
+          "bytes": 29668,
+          "sha256": "9e236ff3ca38551da1f673a00d60d8446d2287703ef40999b02bf5700d8863e7"
+        },
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-02.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\load-fs-ext-01.json",
+      "bytes": 2139,
+      "sha256": "6b12422b652db449b43662e7b1308f5ff8240b948eea9c4b836df169268cd97c",
+      "state": "PASS",
+      "exitCode": 0,
+      "related_outputs": [
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\load-fs-ext-01.stdout.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\load-fs-ext-01.stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "preserved_failures": [
+    "install-ntfs-01: missing C++ tooling",
+    "verify-toolchain initial attempt: official display version suffix rejected by exact raw string check; v5 corrected predicate without changing installed version"
+  ],
+  "warnings": [
+    "fs-ext V8 header signed/unsigned comparison warning during successful native build",
+    "Workspace dsh bin links were warned missing before build; final built entry and hygiene checks are still required",
+    "npm devdir environment warning is retained in raw command output"
+  ],
+  "unchanged_dependency_files": [
+    {
+      "path": "D:\\Projects\\dsh861\\package.json",
+      "bytes": 11959,
+      "sha256": "7177f05af3a57a4ba6ddb81ce28a686eeede647b9b1b9ccb9ef2fc0892e9c941"
+    },
+    {
+      "path": "D:\\Projects\\dsh861\\pnpm-lock.yaml",
+      "bytes": 768436,
+      "sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383"
+    },
+    {
+      "path": "D:\\Projects\\dsh861\\pnpm-workspace.yaml",
+      "bytes": 3891,
+      "sha256": "75496d94e73f3aeb97456b56a0f88aedfceb95c5cf5ce4b6d49398bf3e425fe3"
+    }
+  ]
+}
