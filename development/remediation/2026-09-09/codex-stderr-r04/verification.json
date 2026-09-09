@@ -1,0 +1,95 @@
+{
+  "kind": "codex-provider-native-stderr-privacy",
+  "base_commit": "38ed381accc8549886de65e482d99c66506e714e",
+  "recorded_at": "2026-09-09T10:52:46.179391+00:00",
+  "actor": "ChatGPT; repository-only authorized implementation, not designated planner/reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "typescript": "5.8.3",
+    "full_checkout": "unavailable: GitHub DNS resolution failed",
+    "supported_repository_engine": "NOT_RUN"
+  },
+  "source_identity": {
+    "original_index_git_blob": "84005ac8661414aa6cad02b70c33c62a88b4bad6",
+    "original_readme_git_blob": "399f01bd057c3278356a17c04137be6596274866",
+    "original_readme_zh_git_blob": "f2ac1287cc0678822e655b6d06f0b414ebee2b81",
+    "matched_reconstructed_source_bytes": true
+  },
+  "shared_regression": {
+    "status": "PASS",
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "command": "node --test /mnt/data/dsh861-stderr-build/run.test.mjs",
+    "method": "The committed registerPrivateStderrCases and withPrivateCodexStderr were syntax-transpiled to an isolated ESM directory; Node test registered the same case bodies",
+    "log": "tests.r01.tap"
+  },
+  "provider_wiring": {
+    "status": "PASS",
+    "cases": 2,
+    "baseline": "baseline-provider.json",
+    "fixed": "fixed-provider.json",
+    "command": "node --experimental-vm-modules packages/subagent/subagent-codex/tests/private-stderr-provider.fixture.mjs",
+    "baseline_override": "DSH_TEST_CODEX_INDEX selected the byte-verified original index.ts; DSH_TEST_EXPECT_RAW=1",
+    "compiler_override": "DSH_TEST_TYPESCRIPT_PATH=/opt/nvm/versions/node/v22.16.0/lib/node_modules/typescript",
+    "baseline_raw_bytes_per_case": 560000,
+    "fixed_raw_bytes_per_case": 0,
+    "stdout_and_exit_preserved": true,
+    "actual_codex_invoked": false,
+    "mocked": [
+      "schema",
+      "subagent helpers/registry",
+      "internal one-shot runner"
+    ]
+  },
+  "syntax_checks": {
+    "status": "PASS",
+    "typescript_files": 5,
+    "esm_files": 1,
+    "not_typecheck": true
+  },
+  "status_projection": {
+    "status": "PASS",
+    "method": "Unchanged renderStatus with fetched P0-A projection fields and updated P0-B state; deterministic output and closed next-node gate checked",
+    "renderer_git_blob": "e8d9c7019919fb83c8461a345719ee553f5d1ab3"
+  },
+  "secret_handling": {
+    "actual_keys_read_or_used": false,
+    "device_tools_used": false,
+    "new_text_pattern_scan": "no key-shaped values; heuristic only"
+  },
+  "not_run": [
+    "Full dependency-aware typecheck/build/lint/documentation gates",
+    "Vitest wrappers and existing package regression suite",
+    "Full Cordis Loader composition",
+    "Supported Node/Windows/native Codex tests",
+    "Real designated Codex successor planning or OpenCode hard review",
+    "Credential provisioning/rotation and gateway requests",
+    "Complete selective diagnostic capture; other product providers"
+  ],
+  "product_accepted": false,
+  "next_node_allowed": false,
+  "file_sha256": {
+    "development/NODE_STATUS.md": "33a75fc1af365e94d717c06dd33840366b890fc009210c723e395239d27ce042",
+    "packages/subagent/subagent-codex/README.i18n.yaml": "36d13b6c25c95acd222c2400c87d89e6303b65ad19cebd8f1d43e92a213a5db3",
+    "packages/subagent/subagent-codex/README.zh.md": "29eb299deb578fde8275fed6fbd1ef61c5383ab9a25c99c424ae202f499dbac1",
+    "packages/subagent/subagent-codex/README.md": "b69f69d234ac93c6637d6055a717bb2d656b189d9a6e47a1eba29106ef2cbbbc",
+    "packages/subagent/subagent-codex/src/index.ts": "668e77e96f4878ce302cd163088ce3d2e28e4abf5d87e7f04e10d421d5ff71e2",
+    "packages/subagent/subagent-codex/src/private-stderr.ts": "02ed0f1121a793ff4024475cabf93cef0c5c4de0fc3a9a856851f7a1b3bf3c29",
+    "packages/subagent/subagent-codex/tests/private-stderr-provider.spec.ts": "4737dfdb41fd7e1537622485211f928708ecdfab88a2aa84dbb217e8c08120b5",
+    "packages/subagent/subagent-codex/tests/private-stderr.spec.ts": "ce238dbc2549935a5c8f23bd2df7da763484ec9a884e5c6425c0078f2165bb3b",
+    "packages/subagent/subagent-codex/tests/private-stderr-provider.fixture.mjs": "fa19947dd9fabcbf0741c61ebab180f67a7675e66c94924da9069a0d36acb485",
+    "packages/subagent/subagent-codex/tests/private-stderr.cases.ts": "12a58c4408efdf905661c4fd18779c29b3db0a9846fe82becd4ba990df633e6c",
+    "development/remediation/2026-09-09/codex-stderr-r04/baseline-provider.json": "11786d549be16aff213ffd7c33cd65ca5d054bab497a2e62a2a45fb3b5160f86",
+    "development/remediation/2026-09-09/codex-stderr-r04/fixed-provider.stderr.log": "cd71564200ca93e7d5b93821206c6762a240dbb941c9a0b2e94492946738ee49",
+    "development/remediation/2026-09-09/codex-stderr-r04/fixed-provider.json": "8c5491fc21b2ddf82d440215008a4432a47cb6bdfdae467e9a70560c8972d7c5",
+    "development/remediation/2026-09-09/codex-stderr-r04/tests.r01.tap": "c3e800c9e5b8c4b382c736fa169b3c58570e3063fc0d199e90ddfa192552d0b0",
+    "development/remediation/2026-09-09/codex-stderr-r04/README.md": "1c93a1b5da49764e984995c2698111d0b512a48b007af1af1aae0ca1c05fb98a",
+    "development/remediation/2026-09-09/codex-stderr-r04/baseline-provider.stderr.log": "60e8b10138a906a0999472b518a64ca0100d70c0768233958719f93e03790af6",
+    "development/nodes/P0-B/state.json": "6c78e37cb1ff47c3d3797a6be5e0daf05a02c9fcf2e3f1f77ffc807c1d8a8538",
+    ".agents/notes/implemented/architecture/2026-09-09-codex-private-stderr.zh.md": "3055e9633b268005ee410155a8ed83c84fa36a8b2daa1efae45bd460e2e4b74b",
+    ".agents/notes/implemented/architecture/2026-09-09-codex-private-stderr.md": "5e77d42bebf5adba9811fc64b54a8aa5d45c19388c95c349f7b3a0e04eb824e1",
+    ".agents/notes/implemented/architecture/2026-09-09-codex-private-stderr.i18n.yaml": "8f116740c4334d831ff09688fa000ea38002cc6e8a1120a906018884595d963d"
+  }
+}

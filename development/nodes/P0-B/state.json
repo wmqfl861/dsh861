@@ -15,7 +15,7 @@
   "product_acceptance_completed": [],
   "next_node_allowed": false,
   "blocker": "PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.",
-  "current_activity": "PR #1 merged the existing baseline into master. B0 credential leases, streaming redaction, safe output capture and argv/output gates implemented as isolated components; 55 offline tests pass. Product wiring and designated planning/review remain uncompleted. See development/remediation/2026-09-09/security-r02/README.md.",
+  "current_activity": "Repository-only development: the registered Codex Provider now drains native stderr privately before handing the process to its internal runner. 15 shared offline regressions and a two-case Provider wiring fixture pass; full diagnostic capture, supported-engine/Windows/native-product verification and designated planning/review remain outstanding. See development/remediation/2026-09-09/codex-stderr-r04/README.md.",
   "updated_at": "2026-09-09",
   "evidence": [
     "evidence/governance/preconditions.json",
@@ -32,6 +32,8 @@
   "remediation": "../../remediation/2026-09-09/README.md",
   "credential_rotation_status": "UNKNOWN_NOT_VERIFIED",
   "product_calls_using_exposed_credentials_allowed": false,
-  "security_implementation": "ISOLATED_COMPONENTS_ONLY_NOT_WIRED",
-  "security_evidence": "../../remediation/2026-09-09/security-r02/verification.json"
+  "security_implementation": "PARTIAL_CODEX_STDERR_PRIVACY_WIRED_FULL_CAPTURE_PENDING",
+  "security_evidence": "../../remediation/2026-09-09/security-r02/verification.json",
+  "runtime_stderr_policy": "CODEX_REGISTERED_PROVIDER_SUPPRESSION_ONLY",
+  "runtime_stderr_evidence": "../../remediation/2026-09-09/codex-stderr-r04/verification.json"
 }

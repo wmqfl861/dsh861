@@ -13,7 +13,7 @@
 
 历史 approved/PASS 仅对应当时的固定候选，不认证后来提交的整个工作树。
 
-当前活动：PR #1 merged the existing baseline into master. B0 credential leases, streaming redaction, safe output capture and argv/output gates implemented as isolated components; 55 offline tests pass. Product wiring and designated planning/review remain uncompleted. See development/remediation/2026-09-09/security-r02/README.md.
+当前活动：Repository-only development: the registered Codex Provider now drains native stderr privately before handing the process to its internal runner. 15 shared offline regressions and a two-case Provider wiring fixture pass; full diagnostic capture, supported-engine/Windows/native-product verification and designated planning/review remain outstanding. See development/remediation/2026-09-09/codex-stderr-r04/README.md.
 
 当前阻塞：PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.
 

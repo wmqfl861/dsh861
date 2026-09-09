@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: leaves a child without a stderr pipe unchanged
+ok 1 - leaves a child without a stderr pipe unchanged
+  ---
+  duration_ms: 5.376897
+  type: 'test'
+  ...
+# Subtest: does not expose raw stderr or retain split, Unicode, binary and encoded payloads
+ok 2 - does not expose raw stderr or retain split, Unicode, binary and encoded payloads
+  ---
+  duration_ms: 1.499235
+  type: 'test'
+  ...
+# Subtest: keeps stdout, stdin, outcome and collected-reader identities unchanged
+ok 3 - keeps stdout, stdin, outcome and collected-reader identities unchanged
+  ---
+  duration_ms: 0.598327
+  type: 'test'
+  ...
+# Subtest: delegates termination and wait with the original receiver and signal
+ok 4 - delegates termination and wait with the original receiver and signal
+  ---
+  duration_ms: 0.546581
+  type: 'test'
+  ...
+# Subtest: reads changing owner properties instead of freezing a stale copy
+ok 5 - reads changing owner properties instead of freezing a stale copy
+  ---
+  duration_ms: 0.441905
+  type: 'test'
+  ...
+# Subtest: contains diagnostic-stream errors without replacing process outcome
+ok 6 - contains diagnostic-stream errors without replacing process outcome
+  ---
+  duration_ms: 0.893696
+  type: 'test'
+  ...
+# Subtest: preserves process failures instead of converting them to success
+ok 7 - preserves process failures instead of converting them to success
+  ---
+  duration_ms: 0.873096
+  type: 'test'
+  ...
+# Subtest: continues draining after a teardown failure until the raw pipe actually closes
+ok 8 - continues draining after a teardown failure until the raw pipe actually closes
+  ---
+  duration_ms: 0.656524
+  type: 'test'
+  ...
+# Subtest: releases only its own listeners on close and never destroys other pipes
+ok 9 - releases only its own listeners on close and never destroys other pipes
+  ---
+  duration_ms: 1.818828
+  type: 'test'
+  ...
+# Subtest: does not add duplicate drain listeners when an already-private handle is reused
+ok 10 - does not add duplicate drain listeners when an already-private handle is reused
+  ---
+  duration_ms: 0.725196
+  type: 'test'
+  ...
+# Subtest: does not attach listeners to an already closed stream
+ok 11 - does not attach listeners to an already closed stream
+  ---
+  duration_ms: 0.432211
+  type: 'test'
+  ...
+# Subtest: keeps concurrent children and their stdout isolated
+ok 12 - keeps concurrent children and their stdout isolated
+  ---
+  duration_ms: 0.473773
+  type: 'test'
+  ...
+# Subtest: real Node child drains a large private stderr stream without blocking (exit 0)
+ok 13 - real Node child drains a large private stderr stream without blocking (exit 0)
+  ---
+  duration_ms: 32.589751
+  type: 'test'
+  ...
+# Subtest: real Node child drains a large private stderr stream without blocking (exit 7)
+ok 14 - real Node child drains a large private stderr stream without blocking (exit 7)
+  ---
+  duration_ms: 30.704594
+  type: 'test'
+  ...
+# Subtest: delegated cancellation still stops a real fixture process
+ok 15 - delegated cancellation still stops a real fixture process
+  ---
+  duration_ms: 26.545574
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 163.180478

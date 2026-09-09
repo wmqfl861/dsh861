@@ -26,6 +26,7 @@ import {
   type CodexPermissionMode,
   type CodexRunSpec,
 } from './run.ts'
+import { withPrivateCodexStderr } from './private-stderr.ts'
 
 export const name = 'subagent-codex'
 export const inject = ['subagents', 'subprocess']
@@ -98,7 +99,7 @@ class CodexProvider implements SubagentProvider {
       permissionMode: this.config.permissionMode,
       env: this.config.env,
       disposeGraceMs: this.config.disposeGraceMs,
-      spawn: spawnSpec => this.ctx.subprocess.spawn(spawnSpec),
+      spawn: spawnSpec => withPrivateCodexStderr(this.ctx.subprocess.spawn(spawnSpec)),
       onError: (error, stopReason) => {
         this.ctx.logger.warn(
           `subagent-codex "${this.name}": child run failed (${stopReason}): ${error.message}`,
