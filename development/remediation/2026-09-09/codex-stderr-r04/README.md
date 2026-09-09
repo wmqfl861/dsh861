@@ -1,26 +1,28 @@
-# Codex 原生 stderr：仓库内运行时修复与复验
+# Native Codex stderr: repository runtime repair and verification
 
-基线：`38ed381accc8549886de65e482d99c66506e714e`。实施者为本轮 ChatGPT，依据用户停止本机连接并直接在仓库继续开发的授权。未访问本机设备，未调用 Remote Desktop Commander，未读取、导入、使用或提交真实凭据；不是指定 Codex 的新计划或 OpenCode 的硬审核。
+English | [中文](README.zh.md)
 
-## 本轮实际改动
+Baseline: `38ed381accc8549886de65e482d99c66506e714e`. The actor is ChatGPT in this round, authorized by the owner to stop local-device work and continue in the repository. No local device or Remote Desktop Commander was accessed; no real credential was read, imported, used, or committed. This is not a new designated Codex plan or OpenCode hard review.
 
-[正式提供方](../../../../packages/subagent/subagent-codex/src/index.ts)取得 subprocess 句柄后，立即通过 [private-stderr.ts](../../../../packages/subagent/subagent-codex/src/private-stderr.ts) 屏蔽原生 stderr，再把句柄交给内部一次性运行器。屏蔽层持续读取原始管道，但不保留、转发或计算其内容摘要；流关闭后移除自己的监听器。stdout、stdin、实际退出结果、进程终止与等待仍委派原始所有者。
+## Changes in this round
 
-这里采用完整屏蔽而不是将已有选择性脱敏组件直接套在未知原生日志上：原生登录状态可能包含平台未登记的秘密，匹配已知 Key 不能充分保护这些内容。因此本轮牺牲原生排障文本，只保留既有的结构化协议／进程诊断。完整采集器、四种 harness 的全部输出和原生文件保护仍未交付，不能将屏蔽描述为完整审计、已经检测到泄漏或四产品安全验收。
+After obtaining a subprocess handle, the [registered provider](../../../../packages/subagent/subagent-codex/src/index.ts) immediately suppresses native stderr through [private-stderr.ts](../../../../packages/subagent/subagent-codex/src/private-stderr.ts) before passing the handle to the internal one-shot runner. The boundary continuously drains the raw pipe without retaining, forwarding, or hashing its contents, then removes its listeners when the stream closes. stdout, stdin, actual exit facts, termination, and waiting still delegate to the original owner.
 
-内部 [run.ts](../../../../packages/subagent/subagent-codex/src/run.ts)及其原有测试保持不变；直接调用该内部测试接口的人仍须提供安全的进程边界。本轮关闭的是经注册 Codex Provider 进入的原生 stderr 转发路径，不是对任意绕开提供方的内部调用的全局承诺。
+This uses full suppression rather than applying selective redaction to unknown native logs: native login state can contain secrets not registered with the platform, so matching known keys is insufficient. The round therefore sacrifices native diagnostic prose while retaining existing structured protocol/process diagnostics. Complete collectors, all four harnesses' outputs, and native-file protection are not delivered. Suppression cannot be described as full auditing, detection of an actual leak, or four-product safety acceptance.
 
-## 已完成的验证
+Internal [run.ts](../../../../packages/subagent/subagent-codex/src/run.ts) and its existing tests are unchanged. Direct callers of that internal test interface must still provide a safe process boundary. This round closes the native stderr forwarding path reached through the registered Codex Provider, not every internal call that bypasses the provider.
 
-[15 项共享回归](../../../../packages/subagent/subagent-codex/tests/private-stderr.cases.ts)在 Linux / Node 22.16.0 下全部通过，0 失败、0 跳过。包含未知原文、分块、Unicode、二进制、错误事件、并发隔离、方法接收者、失败退出、释放失败后的继续读取、真实 Node 子进程大量输出和取消。它们不调用真实 Codex。
+## Verification completed
 
-[提供方接线夹具](../../../../packages/subagent/subagent-codex/tests/private-stderr-provider.fixture.mjs)执行实际 index.ts，经显式替换的 schema／registry／run 服务取得真实的 spawn 闭包，再运行合成 Node 子进程。原版本在正常与错误退出两种情况下分别向内部运行器暴露 560000 字节 stderr；修复版均为 0，stdout 和退出码不变。夹具不是完整 Cordis Loader、原生 Codex 协议或 Windows 验证。原始结果见 [baseline-provider.json](baseline-provider.json)、[fixed-provider.json](fixed-provider.json) 和 [TAP 日志](tests.r01.tap)。
+All [15 shared regression cases](../../../../packages/subagent/subagent-codex/tests/private-stderr.cases.ts) pass on Linux / Node 22.16.0, with 0 failures and 0 skips. They cover unknown raw text, chunking, Unicode, binary data, error events, concurrent isolation, method receivers, failed exits, continued draining after cleanup failure, high-volume real Node child output, and cancellation. They do not invoke real Codex.
 
-TypeScript 5.8.3 的 transpileModule 仅完成语法转换检查，不是全库或依赖完整的类型检查。完整源码克隆在本轮环境因 DNS 失败；没有安装全仓库依赖。Node 22.16.0 低于仓库支持下限，因此本轮结果不能代替受支持引擎、正式构建、lint、文档门禁及原生测试。详细边界和文件摘要见 [verification.json](verification.json)。
+The [provider-wiring fixture](../../../../packages/subagent/subagent-codex/tests/private-stderr-provider.fixture.mjs) executes actual index.ts with explicitly substituted schema/registry/run services to obtain its real spawn closure, then starts synthetic Node children. For both normal and failed exits, the original version exposes 560000 stderr bytes to the internal runner; the fixed version exposes 0, preserving stdout and exit codes. This is not full Cordis Loader, native Codex protocol, or Windows verification. Original results are in [baseline-provider.json](baseline-provider.json), [fixed-provider.json](fixed-provider.json), and the [TAP log](tests.r01.tap).
 
-## 本地人工复验
+TypeScript 5.8.3 transpileModule checks syntax transformation only, not a full or dependency-complete typecheck. Full cloning failed with DNS errors in this environment; repository dependencies were not installed. Node 22.16.0 is below the supported minimum, so these results do not replace supported-engine checks, production builds, lint, documentation checks, or native tests. See [verification.json](verification.json) for limits and file hashes.
 
-在已安装仓库依赖、Node 满足根 [AGENTS.md](../../../../AGENTS.md) 要求的开发分支工作副本中执行。不要向聊天提交 Key，不要改全局 agent 配置。本组命令不要求提供 Key，也不包含带凭据的 real-deepseek 测试。
+## Manual local verification
+
+Use a development-branch worktree with repository dependencies installed and Node meeting root [AGENTS.md](../../../../AGENTS.md). Do not submit keys in chat or change global agent configuration. These commands require no key and omit credentialed real-deepseek tests.
 
 ```sh
 pnpm exec vitest run packages/subagent/subagent-codex/tests/private-stderr.spec.ts packages/subagent/subagent-codex/tests/private-stderr-provider.spec.ts packages/subagent/subagent-codex/tests/subagent-codex.spec.ts
@@ -30,4 +32,4 @@ pnpm run test:docs
 node scripts/p0-b/sync-node-status.mjs --check
 ```
 
-先保留失败输出，再修复，不扩大 timeout 或删掉断言来获得通过。Windows 和原生产品测试、完整 Loader 组合与指定审核仍需在有效后继计划范围内完成。P0-B 继续 blocked，未新增产品 AC PASS，未开启 P0-C，未合并 master。用户锁定的四套模型声明、provider、Base URL、思考等级、凭据引用、历史计划及候选均不改变。
+Preserve failure output before repair; do not increase timeouts or remove assertions to obtain a pass. Windows/native-product tests, full Loader composition, and designated review still need completion within an effective successor plan. P0-B remains blocked, no product AC PASS or P0-C admission is added, and master is not merged. The four owner-locked model declarations, providers, Base URLs, effort levels, credential references, historical plans, and candidates remain unchanged.

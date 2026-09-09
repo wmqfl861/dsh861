@@ -37,4 +37,4 @@ node scripts/p0-b/model-config.mjs compare-upgrade --candidate path/to/candidate
 
 锁摘要采用 `sha256-sorted-json-v1`：递归排序对象键、序列化为紧凑 JSON、保持数组顺序，再计算 UTF-8 字节的 SHA-256。全部输入必须是验证后的非密钥配置。排版与 LF/CRLF 不影响摘要；该算法不是 RFC 8785，也不替代候选的原始字节摘要。可信的已批准锁必须独立于升级提案保留；同时能修改清单与锁的进程仍可重定义基线。合法模型或路由变更需要所有者授权和新版本，不能自动重新生成锁来放行。
 
-参见[决策记录](../../.agents/notes/implemented/architecture/2026-09-09-owner-model-config-lock.zh.md)及[验证边界](../../development/remediation/2026-09-09/model-config-r03/README.md)。
+参见[决策记录](../../.agents/notes/implemented/architecture/2026-09-09-owner-model-config-lock.zh.md)及[验证边界](../../development/remediation/2026-09-09/model-config-r03/README.zh.md)。
