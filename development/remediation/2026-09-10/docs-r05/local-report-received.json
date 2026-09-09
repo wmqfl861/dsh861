@@ -1,0 +1,65 @@
+{
+  "kind": "owner-relayed-local-validation-summary",
+  "received_date": "2026-09-10",
+  "evidence_level": "USER_REPORTED_NOT_INDEPENDENTLY_VERIFIED",
+  "source": "Owner message in this conversation; original files not received",
+  "local_actor_reported": "ZCode built-in execution subagent",
+  "local_repo": "C:\\Albert\\project\\dsh861",
+  "local_branch_reported": "fix/windows-keyless-validation-20260909",
+  "head_reported": "9060d7113c4f4302b31459d618d66eae1d09f4c7",
+  "uncommitted_tracked_files_reported": 17,
+  "staged_files_reported": 0,
+  "untracked_files_reported": 0,
+  "pushed_reported": false,
+  "candidate_fingerprint_reported": "216f6b85a74f0894de645a3f4c19b5564148526c3642d6e1cf754db63492ce31",
+  "original_receipts_available_to_remote_reviewer": false,
+  "tests_reported": {
+    "models": {
+      "pass": 39,
+      "fail": 0,
+      "skip": 0
+    },
+    "audit_controls_after_repair": {
+      "pass": 31,
+      "fail": 0,
+      "skip": 0
+    },
+    "security_after_repair": {
+      "pass": 56,
+      "fail": 0,
+      "skip": 0
+    },
+    "codex_regressions_after_repair": {
+      "files": 3,
+      "pass": 71,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "checks_reported": {
+    "install": "PASS",
+    "typecheck": "PASS",
+    "lint_aggregate_first_run": "FAIL_46_ERRORS",
+    "lint_contracts_ready_after_repair": "PASS_3098_FILES",
+    "test_docs_aggregate": "FAIL_13_OF_15",
+    "doc_sync_aggregate": "FAIL_30_OF_33",
+    "doc_site_after_repair": "PASS_480_OF_480",
+    "built_loader_registration": "PASS_ZERO_PRODUCT_STARTS"
+  },
+  "unresolved_reported": [
+    "Five missing development README bilingual pairs",
+    "Chinese config README link needs Chinese target",
+    "Node 26/libuv UV_HANDLE_CLOSING cause unknown",
+    "Windows ACL/file symlink coverage insufficient",
+    "Windows descendant cleanup scenario not established",
+    "Real four-product runs NOT_RUN",
+    "Designated real Codex successor plan and OpenCode review NOT_RUN"
+  ],
+  "handoff_counts_reported": {
+    "command_records": 57,
+    "modified_file_snapshots": 17,
+    "file_hash_entries": 157
+  },
+  "remote_product_acceptance_granted": false,
+  "next_node_allowed": false
+}

@@ -1,23 +1,25 @@
-# 四套模型配置入库与验证记录
+# Four-model configuration recording and verification
 
-本轮根据所有者 2026-09-09 明确提供的四套配置进行非密钥配置入库，起点为 `f8702fd888292d2cc79cc0297e309b060ac7984b`。实施身份是 ChatGPT，不是指定 Codex 计划、ZCode 调用或 OpenCode 硬审核。
+English | [中文](README.zh.md)
 
-## 已写入
+This round records the four non-secret configurations explicitly provided by the owner on 2026-09-09, starting from `f8702fd888292d2cc79cc0297e309b060ac7984b`. The implementation actor is ChatGPT, not a designated Codex plan, ZCode invocation, or OpenCode hard review.
 
-[正式期望配置](../../../../config/agents/models.v1.json)原样记录 Codex `my-gpt / gpt-6-astra / max`、Claude Code `my-claude / claude-opus-5 / max`、Grok `my-grok / grok-4.6 / xhigh`，以及 OpenCode 内置 `zhipuai-coding-plan / glm-5.3 / max`。三条 Base URL 的端口、路径和结尾斜线均保留；OpenCode 没有填写未知的覆盖地址。
+## Recorded configuration
 
-四个 API Key 没有传入任何工具、复制到本地文件、日志、Git blob、测试或提交；也没有保存片段、加密副本、密钥派生摘要或解密材料。仓库只有四个固定 `credentialRef`，原始聊天不作为可读取的凭据库。所有者发来的 Key 已在聊天中暴露，轮换尚未核实，替换后的 Key 仍需通过安全入口导入私有凭据库。本轮没有完成此项导入。
+The [approved desired configuration](../../../../config/agents/models.v1.json) preserves Codex `my-gpt / gpt-6-astra / max`, Claude Code `my-claude / claude-opus-5 / max`, Grok `my-grok / grok-4.6 / xhigh`, and OpenCode's built-in `zhipuai-coding-plan / glm-5.3 / max`. Ports, paths, and trailing slashes in the three Base URLs are preserved. No unknown OpenCode endpoint override is invented.
 
-新增锁文件与[离线检查器](../../../../scripts/p0-b/model-config.mjs)验证已批准非密钥配置，并拒绝升级提案改变其字段。检查器不会访问网络、启动 CLI、读取环境中的 Key、写全局配置或自动重新生成锁。它不是正式运行时升级器。
+None of the four API keys was sent to tools or copied into local files, logs, Git blobs, tests, or commits. No fragments, encrypted copies, key-derived hashes, or decryption material were stored. The repository holds four fixed `credentialRef` values; the original chat is not a readable credential store. The owner-provided keys were exposed in chat, rotation is unverified, and replacements still need secure provisioning into a private credential store. This round does not perform that provisioning.
 
-## 实际验证
+A new lockfile and [offline checker](../../../../scripts/p0-b/model-config.mjs) validate the approved non-secret configuration and reject field changes in upgrade proposals. The checker does not access the network, start CLIs, read environment keys, write global configuration, or regenerate locks automatically. It is not a production runtime upgrader.
 
-[验证回执](verification.json)、[原始 TAP 日志压缩包](tests.tap.xz)及[配置检查结果](config-check.json)保留本轮执行结果。39 项离线测试通过，0 失败、0 跳过；Node 语法检查通过。测试是配置与比较器测试，不是原生产品接入或模型调用证据。
+## Actual verification
 
-运行环境为 Linux / Node v22.16.0，低于仓库支持的最低版本。没有执行全库构建、类型检查、lint、文档门禁、支持版本矩阵、Windows 或真实 CLI/API 测试。39 项不是完整 CI 覆盖，也不是生产安全认证。未读取或更改真实凭据，未请求 HTTP 中转地址。
+The [verification receipt](verification.json), [original compressed TAP log](tests.tap.xz), and [configuration-check result](config-check.json) retain this round's results. All 39 offline tests passed, with 0 failures and 0 skips; Node syntax checks passed. These test configuration and comparison, not native product integration or model calls.
 
-## 保留的限制
+The environment is Linux / Node v22.16.0, below the repository's minimum supported version. No full build, typecheck, lint, documentation checks, supported-version matrix, Windows verification, or real CLI/API tests ran. The 39 cases are not complete CI coverage or production-safety certification. No real credentials were read or changed, and the HTTP gateway addresses were not contacted.
 
-期望配置尚未接入四个原生 provider 的实际启动路径；固定引用对应的真实凭据也未安全导入。Codex `max` 的实际支持、中转协议、内置 OpenCode 解析结果、HTTP 传输保护和实际有效配置都须在隔离环境验证。不支持时保留明确阻塞，不改成别的模型或等级。公共配置锁可以检测漂移，不能防止同时拥有清单和锁写权限的人改写两者；升级器必须信任独立保留的批准基线。
+## Remaining limitations
 
-P0-B、原有模型授权以外的内容、历史计划、候选、回执和全局 CLI 均未改动。不标记任何产品 AC 为 PASS，也不开放下一节点。凭据存储和原生接入边界详见[配置参考](../../../../config/agents/README.zh.md)。
+The desired configuration is not wired into the actual startup paths of the four native providers, and real credentials behind its references are not securely provisioned. Actual Codex `max` support, gateway protocols, built-in OpenCode resolution, HTTP transport protection, and effective configuration require isolated validation. Unsupported settings remain blocked rather than changing models or effort. A public configuration lock detects drift but cannot stop an actor able to rewrite both the manifest and lock; the upgrader must trust a separately retained approved baseline.
+
+This round leaves P0-B, matters outside the existing model authorization, historical plans, candidates, receipts, and global CLIs unchanged. It grants no product AC PASS or next-node admission. Credential-storage and native-integration boundaries are in the [configuration reference](../../../../config/agents/README.md).
