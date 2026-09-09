@@ -6,7 +6,7 @@
     "plan.v3.md"
   ],
   "plan_version": "v3",
-  "status": "implementing",
+  "status": "blocked",
   "predecessor": "P0-A",
   "predecessor_candidate": "../P0-A/candidate.r03.json",
   "predecessor_candidate_sha256": "04bb71cbace30c5fbd2a15f4056d9c3067e76df9e658dd543c93f57c870c39bd",
@@ -14,9 +14,9 @@
   "hard_review": null,
   "product_acceptance_completed": [],
   "next_node_allowed": false,
-  "blocker": null,
-  "current_activity": "P0-B v3 archived from real Codex gpt-6-astra/max; implementing explicit credentialRef, secret gates, provider adapters and external collectors.",
-  "updated_at": "2026-09-09T06:17:51.705515+00:00",
+  "blocker": "PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.",
+  "current_activity": "User-authorized review remediation is recorded separately. Offline audit controls do not constitute a node PASS, a real Codex plan, or a real OpenCode hard review.",
+  "updated_at": "2026-09-09",
   "evidence": [
     "evidence/governance/preconditions.json",
     "evidence/discovery/index.json",
@@ -26,5 +26,10 @@
     "evidence/b0-b4-source-evidence-index.json",
     "evidence/authorized-isolated-compatibility-v2.json"
   ],
-  "plan_invocation": "D:/Temp_projects/dsh861-node-governance/runs/p0-b-plan-v3-configured-runs.receipt.json"
+  "plan_invocation": "D:/Temp_projects/dsh861-node-governance/runs/p0-b-plan-v3-configured-runs.receipt.json",
+  "plan_revision_pending": "plan-revision-request.r01.md",
+  "acceptance_map": "acceptance-map.r01.json",
+  "remediation": "../../remediation/2026-09-09/README.md",
+  "credential_rotation_status": "UNKNOWN_NOT_VERIFIED",
+  "product_calls_using_exposed_credentials_allowed": false
 }

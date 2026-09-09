@@ -1,0 +1,34 @@
+{
+  "node": "P0-B",
+  "requirementsVersion": "1.0",
+  "source": {
+    "path": "MULTI_AGENT_REQUIREMENTS.md",
+    "reviewedCommit": "673ba77593e3100c1245601a53fb36b7f85ddb10",
+    "gitBlob": "3c1b02299c412311fbc0f333a94f5b7a155cb8a1"
+  },
+  "status": "USER_AUTHORIZED_CORRECTION_PENDING_DESIGNATED_PLAN",
+  "productAcceptanceCompleted": [],
+  "definitions": {
+    "AC-01": "四种 harness 接入",
+    "AC-02": "全局隔离",
+    "AC-03": "配置和模型真实性",
+    "AC-04": "同成员换 harness",
+    "AC-07": "权限实际执行",
+    "AC-10": "Skills 与工具集中提供",
+    "AC-21": "崩溃与交接",
+    "AC-23": "取消与资源所有权",
+    "AC-24": "预算和限流",
+    "AC-31": "控制台和真实性"
+  },
+  "cases": [
+    { "caseId": "P0B-START-01", "productAc": ["AC-01", "AC-03"], "coverage": "PARTIAL", "target": "四种真实程序的最小执行与身份、配置证据；一次响应不等于完整平台接入。" },
+    { "caseId": "P0B-ISOLATION-01", "productAc": ["AC-02", "AC-07"], "coverage": "PARTIAL", "target": "配置发现及原生工具实际读写、进程和网络边界的正反向验证。" },
+    { "caseId": "P0B-CONFIG-01", "productAc": ["AC-03"], "coverage": "PARTIAL", "target": "区分批准配置、实际提交配置、原生可观测值及未知；不改写为 AC-04。" },
+    { "caseId": "P0B-HANDOFF-01", "productAc": ["AC-04", "AC-21"], "coverage": "PARTIAL", "target": "新实例基于固定产物、成员身份、授权和规则版本交接；GBrain 连续性另行验收。" },
+    { "caseId": "P0B-NATIVE-RESUME-01", "productAc": ["AC-21"], "coverage": "PARTIAL", "target": "可选原生续接能力；不支持须声明，不冒充，也不阻塞已验证的产物级交接。" },
+    { "caseId": "P0B-CANCEL-01", "productAc": ["AC-23"], "coverage": "PARTIAL", "target": "取消请求、实际停止、自有子树、监听和副作用状态；不改写为 AC-10。" },
+    { "caseId": "P0B-CENTRAL-BRIDGE-01", "productAc": ["AC-10"], "coverage": "OUT_OF_SCOPE", "target": "P0-B 记录最小连接事实和缺口；完整集中控制面由 P1/P3 的身份及授权能力支撑，不改写为 AC-24。" },
+    { "caseId": "P0B-BUDGET-01", "productAc": ["AC-24"], "coverage": "PARTIAL", "target": "P0-B 仅记录可观测用量及未知；预算和限流的实际执行留待 P1/P5，不宣称已完成。" },
+    { "caseId": "P0B-AUDIT-01", "productAc": ["AC-31"], "coverage": "PARTIAL", "target": "保存可访问、版本化且脱敏的运行证据；不代表公司控制台已交付。" }
+  ]
+}
