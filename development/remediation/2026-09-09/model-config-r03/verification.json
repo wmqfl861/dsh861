@@ -1,0 +1,74 @@
+{
+  "kind": "owner-authorized-non-secret-model-config-verification",
+  "baseCommit": "f8702fd888292d2cc79cc0297e309b060ac7984b",
+  "recordedAt": "2026-09-09T09:32:48.692796+00:00",
+  "actor": "ChatGPT; not designated external planner or reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "scope": "focused files only",
+    "supportedRepositoryEngineValidation": "NOT_RUN"
+  },
+  "tests": {
+    "command": "node --test scripts/p0-b/__tests__/model-config.test.mjs",
+    "passed": 39,
+    "failed": 0,
+    "skipped": 0,
+    "log": "tests.tap (byte-preserved in tests.tap.xz)",
+    "logArchive": "tests.tap.xz",
+    "rawLogSha256": "0b32731f17922b06f5e87f9009703b155b747fd13d10f5f927db19d5dacac34c"
+  },
+  "syntaxChecks": {
+    "status": "PASS",
+    "files": [
+      "scripts/p0-b/model-config.mjs",
+      "scripts/p0-b/__tests__/model-config.test.mjs"
+    ]
+  },
+  "configCheck": {
+    "command": "node scripts/p0-b/model-config.mjs check",
+    "exitCode": 0,
+    "report": "config-check.json",
+    "meaning": "configuration valid only; not native activation"
+  },
+  "secretHandling": {
+    "actualKeysPassedToTools": false,
+    "actualKeysWritten": false,
+    "actualKeysUsedInRequests": false,
+    "keyDerivedHashes": false,
+    "credentialImport": "NOT_PERFORMED",
+    "rotation": "REQUIRED_NOT_VERIFIED",
+    "patternScan": "NO_KEY_SHAPED_VALUES_FOUND_IN_NEW_TEXT; heuristic, not exhaustive DLP"
+  },
+  "notRun": [
+    "Full repository build/typecheck/lint/documentation gates",
+    "Supported-engine/Windows matrix",
+    "Native CLI/provider wiring",
+    "Gateway protocol/HTTP transport validation",
+    "Private credential provisioning/rotation",
+    "Real Codex successor planning and OpenCode hard review",
+    "Automatic upgrade switch/rollback integration"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "fileSha256": {
+    ".agents/notes/implemented/architecture/2026-09-09-owner-model-config-lock.i18n.yaml": "8092ce73e41797f37aa0f07574e78578b1082de2f530cac6d8f92ede0e03a77d",
+    ".agents/notes/implemented/architecture/2026-09-09-owner-model-config-lock.md": "5de9516943fc1ac82379c29eee73e5f5412ab825ea26381add63fa0a08dd1f85",
+    ".agents/notes/implemented/architecture/2026-09-09-owner-model-config-lock.zh.md": "0e99458b4e8f0bd2b349548d9e23359abecd2bbf63e6787b49ab606086dfa78c",
+    "config/agents/.gitignore": "f5163b73cdf0d35e69ad3315445a9703ab0284fa4eb4fd648b3504aaa448139b",
+    "config/agents/README.i18n.yaml": "8a692cb63af0b256a9f733ddca44982f227b686d6ddb7bb529e7cc929faad990",
+    "config/agents/README.md": "a31a4fa3e52f7283e1ba72da9b67bc45c48fefbc7036e0fa8c93d3796268b601",
+    "config/agents/README.zh.md": "a61fc8ebcc0736c50c6c20db01139ec64b3706b8252b1d4366bd33b9806df544",
+    "config/agents/models.v1.json": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f",
+    "config/agents/models.v1.lock.json": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb",
+    "development/remediation/2026-09-09/model-config-r03/README.md": "edf91a437d70fedb79ddb7124eb02a40952a25c3331e0685b9ba67ac71a54670",
+    "development/remediation/2026-09-09/model-config-r03/config-check.json": "31b1c9762348a0e48272124589b930b86066da3eaa038b4fe16cfcf04b3e3e2e",
+    "development/remediation/2026-09-09/model-config-r03/tests.tap.xz": "293afa86d05a1c1d7f35d7defa6dfa9657ecf115683ad965508ec26615da9db3",
+    "scripts/p0-b/__tests__/model-config.test.mjs": "dd0fbda4bd108e986e27236ea906f53e9acfdd5d2f31205fb42085e8e72d73b8",
+    "scripts/p0-b/model-config.mjs": "fa70dd2dd3162f9c3a7c7b19fe569e0317ab8e06898f906b7f2948afdee74fbb"
+  },
+  "uploadedCodeBlobsVerified": {
+    "model-config.mjs": "2c7cce5d541b205b06172750c7565cf71b60652c",
+    "model-config.test.mjs": "fb6eb665833c9ed67de165788e9955a00a20e9fc"
+  }
+}

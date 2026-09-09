@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "dsh861.agent-models.v1",
+  "configurationVersion": "2026-09-09.1",
+  "credentialPolicy": {
+    "storage": "external-secret-reference",
+    "allowValuesInRepository": false,
+    "allowGlobalHarnessImport": false
+  },
+  "upgradePolicy": {
+    "independentOfCliVersion": true,
+    "pinForWorkflow": true,
+    "requireCompatibilityVerification": true,
+    "onIncompatible": "retain-previous-or-block",
+    "allowImplicitModelFallback": false,
+    "allowImplicitReasoningFallback": false,
+    "allowImplicitEndpointChange": false,
+    "allowUnapprovedAuxiliaryModels": false
+  },
+  "agents": {
+    "codex": {
+      "provider": "my-gpt",
+      "providerMode": "custom-gateway",
+      "baseUrl": "http://154.89.153.24:8080/v1",
+      "model": "gpt-6-astra",
+      "reasoningEffort": "max",
+      "credentialRef": "secret-reference:providers/codex"
+    },
+    "claude-code": {
+      "provider": "my-claude",
+      "providerMode": "custom-gateway",
+      "baseUrl": "http://154.89.153.24:8080/",
+      "model": "claude-opus-5",
+      "reasoningEffort": "max",
+      "credentialRef": "secret-reference:providers/claude-code"
+    },
+    "grok": {
+      "provider": "my-grok",
+      "providerMode": "custom-gateway",
+      "baseUrl": "http://154.89.153.24:8080/v1",
+      "model": "grok-4.6",
+      "reasoningEffort": "xhigh",
+      "credentialRef": "secret-reference:providers/grok"
+    },
+    "opencode": {
+      "provider": "zhipuai-coding-plan",
+      "providerMode": "builtin-provider",
+      "baseUrl": null,
+      "model": "glm-5.3",
+      "reasoningEffort": "max",
+      "credentialRef": "secret-reference:providers/opencode"
+    }
+  }
+}
