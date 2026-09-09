@@ -194,11 +194,14 @@ export function rewriteMarkdown(source: string, options: RewriteMarkdownOptions)
   }
   visit(tree)
 
-  let projected = source
-  for (const replacement of replacements.sort((a, b) => b.start - a.start)) {
-    projected = projected.slice(0, replacement.start) + replacement.value + projected.slice(replacement.end)
+  const parts: string[] = []
+  let cursor = 0
+  for (const replacement of replacements.sort((left, right) => left.start - right.start)) {
+    parts.push(source.slice(cursor, replacement.start), replacement.value)
+    cursor = replacement.end
   }
-  return projected
+  parts.push(source.slice(cursor))
+  return parts.join('')
 }
 
 /**
@@ -341,12 +344,12 @@ function defaultProjectionContext(): ProjectionContext {
  * `context.pages`, so an alias entry sharing a source with its index route
  * emits at its own path while links keep targeting canonical routes.
  */
-function projectPagesInto(
+function* projectPagesInto(
   targetRoot: string,
   context: ProjectionContext,
   pageContent: (markdown: string, page: DocsPage) => string,
   entries: DocsPage[] = context.pages,
-): void {
+): Generator<string, void, unknown> {
   const routes = new Set<string>()
   /** Projected path to the repository file that claimed it, pages and images alike. */
   const claimed = new Map<string, string>()
@@ -413,14 +416,15 @@ function projectPagesInto(
       },
     })
     writeFileSync(output, pageContent(projected, page))
+    yield page.route
   }
 }
 
 /** Rebuild the disposable VitePress source tree from the publication manifest. */
 export function projectDocs(): void {
   rmSync(generatedRoot, { recursive: true, force: true })
-  projectPagesInto(generatedRoot, defaultProjectionContext(), (markdown, page) =>
-    addProjectionFrontmatter(projectedPageContent(markdown, page), page))
+  Array.from(projectPagesInto(generatedRoot, defaultProjectionContext(), (markdown, page) =>
+    addProjectionFrontmatter(projectedPageContent(markdown, page), page)))
 }
 
 /**
@@ -492,11 +496,27 @@ export function rawMarkdownFiles(pages: DocsPage[] = docsPages): string[] {
  * @param context Manifest and repository inputs, defaulting to this repository.
  */
 export function emitRawMarkdownPages(outDir: string, context: ProjectionContext = defaultProjectionContext()): void {
+  Array.from(emitRawMarkdownPageSteps(outDir, context))
+}
+
+/**
+ * Emit one raw-Markdown file per advancement, retaining shared route and image claims.
+ * Creation performs no I/O; each advancement yields only after a file is written.
+ * Exhaustion emits every canonical route and then its index aliases. An error or
+ * early return leaves partial output whose cleanup belongs to the caller.
+ * @param outDir - Build output directory owned by the caller.
+ * @param context - Complete manifest and repository inputs, defaulting to this repository.
+ * @returns A synchronous iterator yielding the successfully written site-relative routes.
+ */
+export function* emitRawMarkdownPageSteps(
+  outDir: string,
+  context: ProjectionContext = defaultProjectionContext(),
+): Generator<string, void, unknown> {
   const aliases = context.pages.flatMap((page) => {
     const alias = indexAliasRoute(page.route)
     return alias === undefined ? [] : [{ ...page, route: alias }]
   })
-  projectPagesInto(
+  yield* projectPagesInto(
     outDir,
     context,
     (markdown, page) => rawMarkdownPageContent(markdown, page.source),

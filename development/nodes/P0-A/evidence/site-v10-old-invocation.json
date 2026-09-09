@@ -1,0 +1,32 @@
+{
+  "node": "P0-A",
+  "plan_version": "v10",
+  "label": "old",
+  "argv": [
+    "D:\\Program Files\\nodejs\\node.exe",
+    "--import",
+    "file:///D:/Projects/dsh861/node_modules/tsx/dist/loader.mjs",
+    "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp\\site-v10-verifiers-u5qhvrxi\\report.mjs",
+    "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp\\site-v10-verifiers-u5qhvrxi\\scripts\\verify-doc-site-fragments.ts",
+    "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-after-v9-build",
+    "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v10-old-report.json",
+    "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v10-old-observation.json",
+    "D:\\Projects\\dsh861\\scripts\\project-doc-site.ts"
+  ],
+  "cwd": "D:\\Projects\\dsh861",
+  "source_sha256": "34eab92e5181d95273f2f29758ce63e942f0dcda1cb432c7c4b4f881a507dd4a",
+  "runner_sha256": "f3bd3334e76c587ddefe42806f145bfa11a6f4c89c6ce56e0869c2fc7730b695",
+  "started_at": "2026-09-08T18:48:26.545075+00:00",
+  "stdout": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v10-old-01.stdout.log",
+  "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v10-old-01.stderr.log",
+  "state": "PASS",
+  "timedOut": false,
+  "signal": null,
+  "pid": 8944,
+  "exitCode": 0,
+  "finished_at": "2026-09-08T19:09:54.920132+00:00",
+  "wall_ms": 1288358.9999999967,
+  "stdout_sha256": "d9bf23b284ee4a9671f8fe2a5889c0d1fddfbf50660183acd08227a57c279b77",
+  "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "report_sha256": "6ec4150124d22585cefd11e0819fcf407fddba6495a5df2e91c4b01af18a651f"
+}

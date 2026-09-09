@@ -1,0 +1,45 @@
+{
+  "node": "P0-B",
+  "planVersion": "v1",
+  "task": "B3",
+  "harness": "codex",
+  "status": "BLOCKED",
+  "execution": "NOT_RUN",
+  "source": {
+    "package": "packages/subagent/subagent-codex/package.json",
+    "plugin": "packages/subagent/subagent-codex/src/index.ts",
+    "run": "packages/subagent/subagent-codex/src/run.ts",
+    "wire": "packages/subagent/subagent-codex/src/wire.ts",
+    "tests": "packages/subagent/subagent-codex/tests/real-product.spec.ts"
+  },
+  "observed": {
+    "dshVersion": "0.1.3-alpha.1",
+    "runtimeDependency": "@openai/codex@0.149.1",
+    "startup": "process.execPath package-local-codex-bin app-server --stdio; initialize/initialized/thread-start; ephemeral true",
+    "cwd": "Derived from parent Session header and validated by resolveChildCwd",
+    "permissionModes": ["never", "approve-for-me", "dangerously-bypass-approvals-and-sandbox"],
+    "capabilities": "NO_START_CAPABILITIES; inheritsParentContext=false; no prepareContinuable",
+    "environment": "scrubbed parent environment plus explicit provider env; provider does not create CODEX_HOME/config/cache/session/log roots",
+    "dispose": "wire interrupt, close streams, terminate owned subtree, waitForExit, await done",
+    "parentVisibility": "final text and bounded diagnostic only; native tools, usage, stderr, diff, product session id and argv are not parent result fields"
+  },
+  "existingTests": {
+    "status": "NOT_REAL_PROVIDER_EVIDENCE",
+    "facts": "real package-local binary and protocol are exercised against loopback Responses fixture with fake key and requires_openai_auth=false",
+    "paths": ["packages/subagent/subagent-codex/tests/real-product.spec.ts:74-115", "packages/subagent/subagent-codex/tests/real-product.spec.ts:216-276", "packages/subagent/subagent-codex/tests/real-product.spec.ts:373-534"],
+    "doesNotProve": ["real OpenAI account", "native auth discovery", "production model/network response", "billing/usage bridge", "provider-enforced hermetic config isolation"]
+  },
+  "capabilityMatrix": {
+    "package_and_protocol_discovery": "PASS_SOURCE_ONLY",
+    "real_authenticated_allow": "BLOCKED_NO_AUTHORIZED_CREDENTIAL_OR_NETWORK_RUN",
+    "real_authenticated_deny": "BLOCKED_NO_REAL_PRODUCT_RUN",
+    "provider_enforced_config_isolation": "BLOCKED_UNSUPPORTED_BY_CURRENT_PROVIDER",
+    "system_tool_and_native_trace": "UNKNOWN_PARENT_BRIDGE_ABSENT",
+    "native_resume": "BLOCKED_UNSUPPORTED",
+    "subprocess_tree_cancellation": "PASS_SOURCE_SUPPORTED_NOT_REAL_RUN",
+    "usage_and_billing": "UNKNOWN_NO_PROVIDER_RESPONSE"
+  },
+  "requiredConditions": ["user-authorized OpenAI credentials or native auth", "real provider/network test target", "B2 external filesystem/process observer", "explicit product config isolation decision"],
+  "secretValuesRead": false,
+  "evidenceScope": "Source-backed matrix only; no product PASS claimed."
+}

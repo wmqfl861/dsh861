@@ -1,0 +1,18 @@
+{
+  "node": "P0-A",
+  "plan_version": "v14",
+  "kind": "fixture-preservation-before-edit",
+  "recorded_at": "2026-09-08T21:35:59.834440+00:00",
+  "fixture": {
+    "path": "D:\\Projects\\dsh861\\apps\\cli\\tests\\profiles\\acp\\cordis.yml",
+    "bytes": 59,
+    "sha256": "e66c4cb7a6f5869ab070c7784114815b12e8366ed2a401d969312892aa39a3be",
+    "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\acp-fixture-before-v14.yml"
+  },
+  "snapshot": {
+    "path": "D:\\Projects\\dsh861\\snapshots\\acp\\escalation-approved\\cordis.yml",
+    "bytes": 3117,
+    "sha256": "882f40ae82eb6924a2ff7aacc097c1946b313ba5dbba086a76721054c0997673"
+  },
+  "fixture_content": "../../../../../snapshots/acp/escalation-approved/cordis.yml"
+}

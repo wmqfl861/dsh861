@@ -1,0 +1,37 @@
+{
+  "schema": "p0-b-b1-discovery-summary.v1",
+  "node": "P0-B",
+  "task": "B1",
+  "root": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery",
+  "results": {
+    "opencode_product": {
+      "status": "BLOCKED",
+      "execution": "NOT_RUN",
+      "manifest": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode.json",
+      "reason": "Only the executable associated with the separate hard-review role was discovered; existing global OpenCode config/auth/state/cache directories prevent claiming isolated product readiness."
+    },
+    "opencode_hard_review_role": {
+      "status": "DISCOVERED_ONLY",
+      "execution": "NOT_RUN_IN_B1",
+      "absolute_path": "C:/Users/Administrator/.opencode/bin/opencode.exe",
+      "runtime_version": "1.18.27",
+      "excluded_from_product_support": true
+    },
+    "grok_cli": {
+      "status": "BLOCKED",
+      "execution": "NOT_RUN",
+      "manifest": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok.json",
+      "reason": "npm view resolved @xai-official/grok@1.0.24, but no local package/bin exists; no install, account, protocol, or real run was attempted."
+    }
+  },
+  "guardrails_observed": [
+    "No npm -g installation command was executed.",
+    "No dependency installation was executed.",
+    "No product task or real model/API request was started.",
+    "No project repository file was written by this discovery task.",
+    "Only environment variable names were recorded; secret values were not read or written to manifests."
+  ],
+  "platform": {"os": "Windows 10 build 17763 x64", "node": "v24.18.0", "npm": "11.16.0", "shell": "Git Bash/MSYS2"},
+  "source_manifests": ["D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode.json", "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok.json"],
+  "raw_evidence_indexes": ["D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/raw.sha256", "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/raw.sha256", "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/shared/raw.sha256"]
+}

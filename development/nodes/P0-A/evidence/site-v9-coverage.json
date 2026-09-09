@@ -1,0 +1,2509 @@
+{
+  "node": "P0-A",
+  "plan_version": "v9",
+  "recorded_at": "2026-09-08T18:20:35.416524+00:00",
+  "status": "PASS",
+  "expected_count": 480,
+  "actual_count": 480,
+  "retained_v8_count": 479,
+  "complete_case_array_equal": true,
+  "unchanged_registered_sources": {
+    "scripts/project-doc-site.ts": "e90b68d7d43fd2828dcf90dd05ed09c61638c206cff564d4b887cfdc66b70c9d",
+    "scripts/project-doc-site.spec.ts": "fbbba89bbfa67f6e8d0fac742950a82057b330a353644fe7e729781cc4678918",
+    "scripts/verify-doc-site-fragments.ts": "84655acaed490db3ba2f18e0c44e60bca5416cada76675c047f079bef7c4fc25",
+    "scripts/verify-doc-site-fragments.spec.ts": "3a8e8f44daf8562eeb31b395620882906121e79e7a0231286dc304298c1c6da7",
+    "website/build.ts": "852d516a82bc6eb24d00ad6c9797921279e917498c434b84c1408da76a4a8276",
+    "pnpm-lock.yaml": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383"
+  },
+  "actual_tests": [
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "website source layout rejects Markdown outside the subtree instructions",
+      "duration_ms": 5.346099999999751
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "website source layout contains no tracked or unignored documentation copies",
+      "duration_ms": 2.6530000000002474
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build 'SPA' build removes stale output before writing",
+      "duration_ms": 7.069500000000517
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build 'MPA' build removes stale output before writing",
+      "duration_ms": 3.380199999999604
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build refuses to remove the site root or an outside directory",
+      "duration_ms": 5.262799999999515
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build unlinks a link-shaped output without removing its target",
+      "duration_ms": 4.949300000000221
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "documentation site build refuses output whose nearest existing parent resolves outside the site root",
+      "duration_ms": 67.14590000000044
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "publishableImage accepts a regular file inside the repository",
+      "duration_ms": 5.684900000000198
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "publishableImage refuses a target whose real path escapes the repository",
+      "duration_ms": 9.61700000000019
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "publishableImage refuses a directory",
+      "duration_ms": 5.189900000000307
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "resolveRepositoryRef defaults to public master instead of a private workflow SHA",
+      "duration_ms": 0.45759999999972933
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "resolveRepositoryRef accepts an explicit public repository ref",
+      "duration_ms": 0.24500000000080036
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown maps published pages and pins unpublished source links",
+      "duration_ms": 80.66749999999956
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown selects the published target in the current site locale",
+      "duration_ms": 8.321799999999712
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown uses raw GitHub content for unpublished images when nothing places them",
+      "duration_ms": 7.903800000000047
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown hands an image to the placer and uses the URL it returns",
+      "duration_ms": 7.111000000000786
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown keeps a placed image’s query or fragment",
+      "duration_ms": 76.11830000000009
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown leaves a published page link to the route even when a placer exists",
+      "duration_ms": 5.962800000000243
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown does not rewrite Markdown-looking text inside code fences",
+      "duration_ms": 6.529599999999846
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown replaces the destination token without changing repeated titles or escapes",
+      "duration_ms": 7.982500000000073
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown rewrites non-overlapping inline, image, and definition destinations in one source-order pass",
+      "duration_ms": 14.316800000000512
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown routes switchers across locales and explicit locale siblings within their locale",
+      "duration_ms": 68.26829999999973
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rewriteMarkdown fails loud when a relative target is missing",
+      "duration_ms": 7.734999999999673
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes redirects both locale roots to their locale-relative quick-start page",
+      "duration_ms": 3.618199999999888
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes publishes every route in both locales and uses every available Chinese counterpart",
+      "duration_ms": 94.91449999999986
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes projects the audited tutorial entry links from explicit locale index pages",
+      "duration_ms": 193.03199999999924
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes indexes every subsystem page in both sides of the folder README",
+      "duration_ms": 30.177300000000287
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes places the shared todo fragment alias on the translated todo section",
+      "duration_ms": 4.414499999999862
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes projects every published subsystem page in Chinese",
+      "duration_ms": 58.22649999999976
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes publishes the Cordis core API under matching locale structures",
+      "duration_ms": 2.1179999999994834
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes keeps Cordis inherited on the English fallback in both locales",
+      "duration_ms": 0.9252999999998792
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes includes persistence event headings in both locale outlines",
+      "duration_ms": 1.0770000000002256
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "docsPages locale routes projects reviewed generated counterparts into root locale routes",
+      "duration_ms": 0.7299000000002707
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering places every section a sidebar collection owns",
+      "duration_ms": 19.80029999999988
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering refuses a section with no declared placement",
+      "duration_ms": 0.6242999999994936
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering declares placements per locale rather than in one shared list",
+      "duration_ms": 0.7442000000000917
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering lands every navigation item on a page the manifest publishes",
+      "duration_ms": 2.578400000000329
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering collapses the subsystem groups and leaves the smaller ones open",
+      "duration_ms": 1.0778000000000247
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "sidebar ordering gives each page its own position within a section",
+      "duration_ms": 1.124800000000505
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "addProjectionFrontmatter adds frontmatter to an ordinary Markdown page",
+      "duration_ms": 0.4642999999996391
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "addProjectionFrontmatter extends existing VitePress frontmatter",
+      "duration_ms": 0.3555999999998676
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "addProjectionFrontmatter adds the page-specific outline depth from the publication manifest",
+      "duration_ms": 0.3238000000001193
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent omits the source-only body from locale home pages",
+      "duration_ms": 0.44539999999960855
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent keeps the full body for ordinary pages",
+      "duration_ms": 0.7409000000006927
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent drops the language switcher the navigation bar already offers",
+      "duration_ms": 0.5354999999999563
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent drops the repository badge every page links from its footer",
+      "duration_ms": 0.4576999999999316
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent keeps a switcher-shaped line that is not the page header",
+      "duration_ms": 0.3617000000003827
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "projectedPageContent rejects a locale home source without frontmatter",
+      "duration_ms": 0.6549999999997453
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownPageContent keeps the home body the rendered site omits and drops the VitePress frontmatter",
+      "duration_ms": 1.2663000000002285
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownPageContent drops the language switcher and repository badge like the rendered site",
+      "duration_ms": 0.5475000000005821
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownPageContent rejects unclosed frontmatter and names the page",
+      "duration_ms": 0.5658999999996013
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages writes every route with rewritten links, placed images, and no projection frontmatter",
+      "duration_ms": 163.64879999999994
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages emits the full body of a locale home page",
+      "duration_ms": 23.300100000000384
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages emits a parent-level alias for an index route with links recomputed",
+      "duration_ms": 91.20409999999993
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPages refuses to overwrite a file the build already carries",
+      "duration_ms": 13.07470000000012
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps defers writes until advancement and leaves later pages untouched after return",
+      "duration_ms": 10.270599999999831
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps retains one image claim when two pages reference the same source",
+      "duration_ms": 16.95839999999953
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects same-name images from different sources without replacing the first",
+      "duration_ms": 60.07430000000022
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects duplicate routes without replacing their first output",
+      "duration_ms": 5.835399999999936
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects an image replacing an earlier page output",
+      "duration_ms": 9.933199999999488
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects a page replacing an earlier image output",
+      "duration_ms": 9.268399999999929
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps rejects an index alias colliding with a canonical route",
+      "duration_ms": 58.72869999999966
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "emitRawMarkdownPageSteps reports removed alias and image targets from the actual emitted tree",
+      "duration_ms": 23.998500000000604
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownFiles lists every route plus a parent alias per index route",
+      "duration_ms": 79.51890000000003
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: index.md",
+      "duration_ms": 14.320200000000114
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/index.md",
+      "duration_ms": 6.902100000000246
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/quickstart.md",
+      "duration_ms": 98.51239999999962
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/quickstart.md",
+      "duration_ms": 85.26710000000003
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/providers.md",
+      "duration_ms": 197.75880000000052
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/providers.md",
+      "duration_ms": 316.1175999999996
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/network-proxy.md",
+      "duration_ms": 89.42839999999978
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/network-proxy.md",
+      "duration_ms": 103.56869999999981
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/python-sdk.md",
+      "duration_ms": 89.36059999999998
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/python-sdk.md",
+      "duration_ms": 89.86260000000038
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/github-review.md",
+      "duration_ms": 15.423099999999977
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/github-review.md",
+      "duration_ms": 17.51640000000043
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/schedule.md",
+      "duration_ms": 76.90270000000055
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/schedule.md",
+      "duration_ms": 17.04910000000018
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: guide/mcp-memory.md",
+      "duration_ms": 89.78400000000147
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/guide/mcp-memory.md",
+      "duration_ms": 99.20490000000063
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/index.md",
+      "duration_ms": 18.441999999999098
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/index.md",
+      "duration_ms": 83.93159999999989
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/tool.md",
+      "duration_ms": 9.377800000000207
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/tool.md",
+      "duration_ms": 82.71420000000035
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/config.md",
+      "duration_ms": 14.501000000000204
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/config.md",
+      "duration_ms": 82.21669999999904
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic/publish.md",
+      "duration_ms": 32.09690000000046
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic/publish.md",
+      "duration_ms": 93.59189999999944
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework/index.md",
+      "duration_ms": 86.71559999999954
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework/index.md",
+      "duration_ms": 97.41520000000128
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework/service.md",
+      "duration_ms": 90.26770000000033
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework/service.md",
+      "duration_ms": 18.162899999999354
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework/events.md",
+      "duration_ms": 77.97490000000107
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework/events.md",
+      "duration_ms": 20.32929999999942
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice/index.md",
+      "duration_ms": 86.79919999999947
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice/index.md",
+      "duration_ms": 91.13529999999992
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice/llm-adapter.md",
+      "duration_ms": 19.395399999999427
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice/llm-adapter.md",
+      "duration_ms": 80.71450000000004
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice/dynamic-cordis.md",
+      "duration_ms": 17.478900000000067
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice/dynamic-cordis.md",
+      "duration_ms": 7.21849999999904
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/index.md",
+      "duration_ms": 80.07920000000013
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/index.md",
+      "duration_ms": 29.00120000000061
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/01-first-plugin.md",
+      "duration_ms": 83.21119999999974
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/01-first-plugin.md",
+      "duration_ms": 89.40260000000126
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/02-lifecycle-and-effects.md",
+      "duration_ms": 18.157100000000355
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/02-lifecycle-and-effects.md",
+      "duration_ms": 92.30010000000038
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/03-services.md",
+      "duration_ms": 89.757599999999
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/03-services.md",
+      "duration_ms": 95.89289999999892
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/04-events.md",
+      "duration_ms": 17.04190000000017
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/04-events.md",
+      "duration_ms": 102.02529999999933
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/05-config.md",
+      "duration_ms": 92.08600000000115
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/05-config.md",
+      "duration_ms": 90.63000000000102
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/06-composition-and-hmr.md",
+      "duration_ms": 16.899500000001353
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/06-composition-and-hmr.md",
+      "duration_ms": 95.82999999999993
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial/07-into-the-harness.md",
+      "duration_ms": 90.74339999999938
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial/07-into-the-harness.md",
+      "duration_ms": 103.1786000000011
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-primer.md",
+      "duration_ms": 95.60570000000007
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-primer.md",
+      "duration_ms": 20.97060000000056
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/index.md",
+      "duration_ms": 375.5741999999991
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/index.md",
+      "duration_ms": 220.5526000000009
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/core.md",
+      "duration_ms": 596.5294000000013
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/core.md",
+      "duration_ms": 591.3227999999999
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/scope.md",
+      "duration_ms": 16.654599999999846
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/scope.md",
+      "duration_ms": 87.79349999999977
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/invariants.md",
+      "duration_ms": 86.85540000000037
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/invariants.md",
+      "duration_ms": 97.14149999999972
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session.md",
+      "duration_ms": 413.617400000001
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session.md",
+      "duration_ms": 610.5820000000003
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-query.md",
+      "duration_ms": 296.34370000000126
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-query.md",
+      "duration_ms": 180.3145999999997
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-reference.md",
+      "duration_ms": 21.554399999999077
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-reference.md",
+      "duration_ms": 176.8786999999993
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-title.md",
+      "duration_ms": 99.40240000000085
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-title.md",
+      "duration_ms": 103.22290000000066
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-projection.md",
+      "duration_ms": 120.61160000000018
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-projection.md",
+      "duration_ms": 189.6347999999998
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/persistence.md",
+      "duration_ms": 203.3675000000003
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/persistence.md",
+      "duration_ms": 285.8783000000003
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/spill.md",
+      "duration_ms": 24.539600000000064
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/spill.md",
+      "duration_ms": 96.63160000000062
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/session-telemetry.md",
+      "duration_ms": 97.09709999999905
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session-telemetry.md",
+      "duration_ms": 103.53210000000036
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/llm-streaming.md",
+      "duration_ms": 596.4992999999995
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/llm-streaming.md",
+      "duration_ms": 679.8845000000001
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/token-meter.md",
+      "duration_ms": 16.759399999999005
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/token-meter.md",
+      "duration_ms": 86.8768999999993
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/system-prompt.md",
+      "duration_ms": 104.40009999999893
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/system-prompt.md",
+      "duration_ms": 107.50670000000173
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/compaction.md",
+      "duration_ms": 195.39449999999852
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/compaction.md",
+      "duration_ms": 193.34539999999834
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/tools.md",
+      "duration_ms": 310.72999999999956
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/tools.md",
+      "duration_ms": 398.41400000000067
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/shell.md",
+      "duration_ms": 203.21680000000197
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/shell.md",
+      "duration_ms": 197.2399000000005
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/subprocess.md",
+      "duration_ms": 194.01260000000184
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/subprocess.md",
+      "duration_ms": 205.10529999999926
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/terminal.md",
+      "duration_ms": 94.46149999999761
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/terminal.md",
+      "duration_ms": 96.6833000000006
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/jobs.md",
+      "duration_ms": 104.11100000000079
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/jobs.md",
+      "duration_ms": 210.50930000000153
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/filesystem.md",
+      "duration_ms": 198.1981999999989
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/filesystem.md",
+      "duration_ms": 303.89800000000105
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/lsp.md",
+      "duration_ms": 97.17290000000139
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/lsp.md",
+      "duration_ms": 187.734800000002
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/code-runtime.md",
+      "duration_ms": 103.26150000000052
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/code-runtime.md",
+      "duration_ms": 111.28439999999682
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/web.md",
+      "duration_ms": 178.79969999999958
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/web.md",
+      "duration_ms": 202.67659999999887
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/skills.md",
+      "duration_ms": 198.5461000000032
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/skills.md",
+      "duration_ms": 215.5793999999987
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/workflow.md",
+      "duration_ms": 191.14709999999832
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/workflow.md",
+      "duration_ms": 193.76480000000083
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/subagent.md",
+      "duration_ms": 406.9051999999974
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/subagent.md",
+      "duration_ms": 414.21010000000024
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/approval.md",
+      "duration_ms": 93.5711999999985
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/approval.md",
+      "duration_ms": 97.66140000000087
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/permission-presets.md",
+      "duration_ms": 102.97279999999955
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/permission-presets.md",
+      "duration_ms": 94.7947000000022
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/sandbox.md",
+      "duration_ms": 96.00860000000102
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/sandbox.md",
+      "duration_ms": 105.91909999999916
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/plan.md",
+      "duration_ms": 99.574099999998
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/plan.md",
+      "duration_ms": 110.07990000000063
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/user-questions.md",
+      "duration_ms": 91.76949999999852
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/user-questions.md",
+      "duration_ms": 104.12019999999757
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/commands.md",
+      "duration_ms": 97.1733000000022
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/commands.md",
+      "duration_ms": 104.67799999999988
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/goal.md",
+      "duration_ms": 102.00450000000274
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/goal.md",
+      "duration_ms": 101.08490000000165
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/schedule.md",
+      "duration_ms": 104.86859999999797
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/schedule.md",
+      "duration_ms": 186.45609999999942
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/web-server.md",
+      "duration_ms": 99.01540000000023
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/web-server.md",
+      "duration_ms": 112.70999999999913
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/web-client.md",
+      "duration_ms": 177.78540000000066
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/web-client.md",
+      "duration_ms": 120.55500000000029
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/client-modules.md",
+      "duration_ms": 103.63520000000062
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/client-modules.md",
+      "duration_ms": 188.98579999999856
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/slots.md",
+      "duration_ms": 293.54149999999936
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/slots.md",
+      "duration_ms": 211.47720000000118
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/conversation.md",
+      "duration_ms": 278.02340000000186
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/conversation.md",
+      "duration_ms": 214.81780000000072
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/typert.md",
+      "duration_ms": 284.6996999999974
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/typert.md",
+      "duration_ms": 298.5904999999984
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/storage.md",
+      "duration_ms": 121.20260000000053
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/storage.md",
+      "duration_ms": 288.83510000000024
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/workspace.md",
+      "duration_ms": 193.61219999999958
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/workspace.md",
+      "duration_ms": 202.5485000000008
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/settings.md",
+      "duration_ms": 116.83940000000075
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/settings.md",
+      "duration_ms": 286.4961000000003
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/credentials.md",
+      "duration_ms": 204.47580000000016
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/credentials.md",
+      "duration_ms": 185.85900000000038
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/index.md",
+      "duration_ms": 220.41339999999764
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/index.md",
+      "duration_ms": 279.09419999999955
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/capability-seams.md",
+      "duration_ms": 627.3617000000013
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/capability-seams.md",
+      "duration_ms": 896.104199999998
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/agent-lifecycle.md",
+      "duration_ms": 88.96350000000166
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/agent-lifecycle.md",
+      "duration_ms": 88.42659999999887
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/tool-execution-pipeline.md",
+      "duration_ms": 12.34979999999996
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/tool-execution-pipeline.md",
+      "duration_ms": 12.251299999999901
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/api-gateway.md",
+      "duration_ms": 185.8081999999995
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/api-gateway.md",
+      "duration_ms": 312.7632999999987
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/config-catalog.md",
+      "duration_ms": 1783.2329000000027
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/config-catalog.md",
+      "duration_ms": 1640.8997999999992
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/tool-catalog.md",
+      "duration_ms": 751.1492999999973
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/tool-catalog.md",
+      "duration_ms": 931.0169000000024
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/persistence-catalog.md",
+      "duration_ms": 397.6791000000012
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/persistence-catalog.md",
+      "duration_ms": 377.4225000000006
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/context.md",
+      "duration_ms": 133.1661000000022
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/context.md",
+      "duration_ms": 176.1776000000027
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/events.md",
+      "duration_ms": 95.69169999999576
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/events.md",
+      "duration_ms": 95.4400999999998
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/fiber.md",
+      "duration_ms": 126.00669999999809
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/fiber.md",
+      "duration_ms": 105.47469999999885
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/registry.md",
+      "duration_ms": 74.04499999999825
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/registry.md",
+      "duration_ms": 20.40610000000015
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/service.md",
+      "duration_ms": 71.49809999999707
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/service.md",
+      "duration_ms": 16.718000000000757
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cordis-api/inherited.md",
+      "duration_ms": 97.92639999999665
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cordis-api/inherited.md",
+      "duration_ms": 98.80419999999867
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-a-package.md",
+      "duration_ms": 89.27210000000196
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-a-package.md",
+      "duration_ms": 111.95319999999629
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-a-tool.md",
+      "duration_ms": 100.45509999999922
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-a-tool.md",
+      "duration_ms": 189.443299999999
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-an-llm-adapter.md",
+      "duration_ms": 12.167900000000373
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-an-llm-adapter.md",
+      "duration_ms": 80.55819999999949
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/adding-a-settings-card.md",
+      "duration_ms": 32.02939999999944
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/adding-a-settings-card.md",
+      "duration_ms": 84.29379999999946
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/cookbook/extension-cookbook.md",
+      "duration_ms": 100.26640000000043
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/cookbook/extension-cookbook.md",
+      "duration_ms": 98.61989999999787
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en.md",
+      "duration_ms": 6.6142000000036205
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/basic.md",
+      "duration_ms": 176.16539999999804
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/basic.md",
+      "duration_ms": 23.17740000000049
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/framework.md",
+      "duration_ms": 87.85269999999582
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/framework.md",
+      "duration_ms": 16.795899999997346
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/practice.md",
+      "duration_ms": 78.80069999999978
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/practice.md",
+      "duration_ms": 24.580900000000838
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: develop/cordis-tutorial.md",
+      "duration_ms": 16.602599999998347
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/develop/cordis-tutorial.md",
+      "duration_ms": 82.4510999999984
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems.md",
+      "duration_ms": 185.81890000000567
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems.md",
+      "duration_ms": 187.3179999999993
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference.md",
+      "duration_ms": 112.59549999999581
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference.md",
+      "duration_ms": 197.72290000000066
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits every published route and every index alias",
+      "duration_ms": 204.62419999999838
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits home pages with their bodies instead of the frontmatter stub",
+      "duration_ms": 1.439299999998184
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: index.md",
+      "duration_ms": 1.4800000000032014
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/index.md",
+      "duration_ms": 1.130700000001525
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/quickstart.md",
+      "duration_ms": 6.0046000000002095
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/quickstart.md",
+      "duration_ms": 9.149399999994785
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/providers.md",
+      "duration_ms": 163.7653999999966
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/providers.md",
+      "duration_ms": 130.94930000000022
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/network-proxy.md",
+      "duration_ms": 82.22980000000098
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/network-proxy.md",
+      "duration_ms": 97.1678000000029
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/python-sdk.md",
+      "duration_ms": 18.825000000004366
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/python-sdk.md",
+      "duration_ms": 85.51690000000235
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/github-review.md",
+      "duration_ms": 13.148099999998522
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/github-review.md",
+      "duration_ms": 89.54349999999977
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/schedule.md",
+      "duration_ms": 5.948899999995774
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/schedule.md",
+      "duration_ms": 84.7638999999981
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: guide/mcp-memory.md",
+      "duration_ms": 18.299299999998766
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/guide/mcp-memory.md",
+      "duration_ms": 99.0801000000065
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/index.md",
+      "duration_ms": 80.78070000000298
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/index.md",
+      "duration_ms": 18.301400000003923
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/tool.md",
+      "duration_ms": 74.17420000000129
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/tool.md",
+      "duration_ms": 11.29819999999745
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/config.md",
+      "duration_ms": 11.947400000004563
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/config.md",
+      "duration_ms": 82.0714999999982
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic/publish.md",
+      "duration_ms": 101.19760000000679
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic/publish.md",
+      "duration_ms": 111.88400000000547
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework/index.md",
+      "duration_ms": 13.760399999999208
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework/index.md",
+      "duration_ms": 87.47219999999652
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework/service.md",
+      "duration_ms": 12.208800000000338
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework/service.md",
+      "duration_ms": 82.22589999999764
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework/events.md",
+      "duration_ms": 16.665899999999965
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework/events.md",
+      "duration_ms": 82.517399999997
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice/index.md",
+      "duration_ms": 14.857300000003306
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice/index.md",
+      "duration_ms": 88.58469999999943
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice/llm-adapter.md",
+      "duration_ms": 88.22539999999572
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice/llm-adapter.md",
+      "duration_ms": 21.014900000001944
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice/dynamic-cordis.md",
+      "duration_ms": 74.76380000000063
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice/dynamic-cordis.md",
+      "duration_ms": 8.640500000001339
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/index.md",
+      "duration_ms": 14.171399999999267
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/index.md",
+      "duration_ms": 84.98189999999886
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/01-first-plugin.md",
+      "duration_ms": 11.767200000002049
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/01-first-plugin.md",
+      "duration_ms": 16.591699999997218
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/02-lifecycle-and-effects.md",
+      "duration_ms": 74.45110000000568
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/02-lifecycle-and-effects.md",
+      "duration_ms": 25.960800000000745
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/03-services.md",
+      "duration_ms": 65.19760000000679
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/03-services.md",
+      "duration_ms": 18.432400000005146
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/04-events.md",
+      "duration_ms": 81.90120000000024
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/04-events.md",
+      "duration_ms": 22.04189999999653
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/05-config.md",
+      "duration_ms": 9.528499999993073
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/05-config.md",
+      "duration_ms": 65.73860000000423
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/06-composition-and-hmr.md",
+      "duration_ms": 13.036700000004203
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/06-composition-and-hmr.md",
+      "duration_ms": 87.10689999999886
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial/07-into-the-harness.md",
+      "duration_ms": 21.58400000000256
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial/07-into-the-harness.md",
+      "duration_ms": 89.1961999999985
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-primer.md",
+      "duration_ms": 87.86779999999999
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-primer.md",
+      "duration_ms": 31.57449999999517
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/index.md",
+      "duration_ms": 170.34169999999722
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/index.md",
+      "duration_ms": 100.72059999999328
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/core.md",
+      "duration_ms": 618.7087000000029
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/core.md",
+      "duration_ms": 595.9831000000049
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/scope.md",
+      "duration_ms": 79.32400000000052
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/scope.md",
+      "duration_ms": 23.658799999997427
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/invariants.md",
+      "duration_ms": 97.16700000000128
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/invariants.md",
+      "duration_ms": 91.40370000000257
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session.md",
+      "duration_ms": 489.96600000000035
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session.md",
+      "duration_ms": 515.3286999999982
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-query.md",
+      "duration_ms": 97.93929999999818
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-query.md",
+      "duration_ms": 206.5219999999972
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-reference.md",
+      "duration_ms": 95.94140000000334
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-reference.md",
+      "duration_ms": 104.57530000000406
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-title.md",
+      "duration_ms": 98.25389999999607
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-title.md",
+      "duration_ms": 94.1333999999988
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-projection.md",
+      "duration_ms": 105.58200000000215
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-projection.md",
+      "duration_ms": 108.56789999999455
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/persistence.md",
+      "duration_ms": 194.3559000000023
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/persistence.md",
+      "duration_ms": 198.78989999999612
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/spill.md",
+      "duration_ms": 90.33780000000115
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/spill.md",
+      "duration_ms": 102.34900000000198
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/session-telemetry.md",
+      "duration_ms": 98.39319999999861
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/session-telemetry.md",
+      "duration_ms": 98.60979999999836
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/llm-streaming.md",
+      "duration_ms": 398.2395999999935
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/llm-streaming.md",
+      "duration_ms": 517.5748999999996
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/token-meter.md",
+      "duration_ms": 83.2505999999994
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/token-meter.md",
+      "duration_ms": 17.671699999998964
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/system-prompt.md",
+      "duration_ms": 89.26220000000467
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/system-prompt.md",
+      "duration_ms": 88.7355000000025
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/compaction.md",
+      "duration_ms": 112.58849999999802
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/compaction.md",
+      "duration_ms": 183.12019999999757
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/tools.md",
+      "duration_ms": 209.04720000000088
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/tools.md",
+      "duration_ms": 310.322699999997
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/shell.md",
+      "duration_ms": 182.93820000000414
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/shell.md",
+      "duration_ms": 114.87490000000253
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/subprocess.md",
+      "duration_ms": 104.59859999999753
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/subprocess.md",
+      "duration_ms": 176.89809999999852
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/terminal.md",
+      "duration_ms": 13.982499999998254
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/terminal.md",
+      "duration_ms": 23.4574999999968
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/jobs.md",
+      "duration_ms": 90.47290000000066
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/jobs.md",
+      "duration_ms": 100.12410000000091
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/filesystem.md",
+      "duration_ms": 188.19870000000083
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/filesystem.md",
+      "duration_ms": 194.60839999999735
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/lsp.md",
+      "duration_ms": 25.627800000002026
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/lsp.md",
+      "duration_ms": 97.38630000000558
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/code-runtime.md",
+      "duration_ms": 80.50140000000101
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/code-runtime.md",
+      "duration_ms": 99.29479999999603
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/web.md",
+      "duration_ms": 105.61850000000413
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/web.md",
+      "duration_ms": 99.35749999999825
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/skills.md",
+      "duration_ms": 98.83660000000236
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/skills.md",
+      "duration_ms": 188.89730000000418
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/workflow.md",
+      "duration_ms": 33.100100000003295
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/workflow.md",
+      "duration_ms": 100.51490000000194
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/subagent.md",
+      "duration_ms": 199.52520000000368
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/subagent.md",
+      "duration_ms": 362.2317000000039
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/approval.md",
+      "duration_ms": 27.932700000004843
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/approval.md",
+      "duration_ms": 88.41919999999664
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/permission-presets.md",
+      "duration_ms": 80.94890000000305
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/permission-presets.md",
+      "duration_ms": 25.618500000004133
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/sandbox.md",
+      "duration_ms": 83.53349999999773
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/sandbox.md",
+      "duration_ms": 100.56420000000071
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/plan.md",
+      "duration_ms": 20.44000000000233
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/plan.md",
+      "duration_ms": 94.85519999999815
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/user-questions.md",
+      "duration_ms": 19.242200000000594
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/user-questions.md",
+      "duration_ms": 81.37650000000576
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/commands.md",
+      "duration_ms": 15.698600000003353
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/commands.md",
+      "duration_ms": 83.8952999999965
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/goal.md",
+      "duration_ms": 91.92530000000261
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/goal.md",
+      "duration_ms": 84.61160000000382
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/schedule.md",
+      "duration_ms": 29.852599999998347
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/schedule.md",
+      "duration_ms": 91.1646000000037
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/web-server.md",
+      "duration_ms": 19.478399999999965
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/web-server.md",
+      "duration_ms": 73.12020000000484
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/web-client.md",
+      "duration_ms": 87.44979999999487
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/web-client.md",
+      "duration_ms": 115.53149999999732
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/client-modules.md",
+      "duration_ms": 85.65350000000035
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/client-modules.md",
+      "duration_ms": 30.270099999994272
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/slots.md",
+      "duration_ms": 75.22140000000218
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/slots.md",
+      "duration_ms": 101.67259999999806
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/conversation.md",
+      "duration_ms": 33.7728999999963
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/conversation.md",
+      "duration_ms": 154.28209999999672
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/typert.md",
+      "duration_ms": 24.61579999999958
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/typert.md",
+      "duration_ms": 93.00589999999647
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/storage.md",
+      "duration_ms": 91.86460000000079
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/storage.md",
+      "duration_ms": 111.16309999999794
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/workspace.md",
+      "duration_ms": 99.27080000000569
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/workspace.md",
+      "duration_ms": 105.17789999999513
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/settings.md",
+      "duration_ms": 111.68830000000162
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/settings.md",
+      "duration_ms": 106.96429999999964
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/credentials.md",
+      "duration_ms": 91.00140000000101
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems/credentials.md",
+      "duration_ms": 91.19440000000031
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/index.md",
+      "duration_ms": 105.22329999999783
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/index.md",
+      "duration_ms": 204.6149000000005
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/capability-seams.md",
+      "duration_ms": 400.79189999999653
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/capability-seams.md",
+      "duration_ms": 388.38000000000466
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/agent-lifecycle.md",
+      "duration_ms": 8.629699999997683
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/agent-lifecycle.md",
+      "duration_ms": 77.75450000000274
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/tool-execution-pipeline.md",
+      "duration_ms": 7.811600000000908
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/tool-execution-pipeline.md",
+      "duration_ms": 12.680099999997765
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/api-gateway.md",
+      "duration_ms": 82.95420000000013
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/api-gateway.md",
+      "duration_ms": 101.37889999999607
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/config-catalog.md",
+      "duration_ms": 806.1480999999985
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/config-catalog.md",
+      "duration_ms": 1582.4763999999996
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/tool-catalog.md",
+      "duration_ms": 820.3780000000042
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/tool-catalog.md",
+      "duration_ms": 1190.7177999999985
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/persistence-catalog.md",
+      "duration_ms": 401.4947000000029
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/persistence-catalog.md",
+      "duration_ms": 490.8579000000027
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/context.md",
+      "duration_ms": 120.15159999999742
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/context.md",
+      "duration_ms": 279.72699999999895
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/events.md",
+      "duration_ms": 19.425300000002608
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/events.md",
+      "duration_ms": 100.71740000000136
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/fiber.md",
+      "duration_ms": 183.51340000000346
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/fiber.md",
+      "duration_ms": 197.47729999999865
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/registry.md",
+      "duration_ms": 15.74720000000525
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/registry.md",
+      "duration_ms": 86.71049999999377
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/service.md",
+      "duration_ms": 7.175699999999779
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/service.md",
+      "duration_ms": 89.26400000000285
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cordis-api/inherited.md",
+      "duration_ms": 96.33580000000075
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cordis-api/inherited.md",
+      "duration_ms": 108.5448000000033
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-a-package.md",
+      "duration_ms": 102.79100000000471
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-a-package.md",
+      "duration_ms": 187.31089999999676
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-a-tool.md",
+      "duration_ms": 107.90989999999874
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-a-tool.md",
+      "duration_ms": 201.37019999999757
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-an-llm-adapter.md",
+      "duration_ms": 8.762399999999616
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-an-llm-adapter.md",
+      "duration_ms": 93.82670000000508
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/adding-a-settings-card.md",
+      "duration_ms": 12.213300000003073
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/adding-a-settings-card.md",
+      "duration_ms": 84.66739999999845
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/cookbook/extension-cookbook.md",
+      "duration_ms": 104.81629999999859
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/cookbook/extension-cookbook.md",
+      "duration_ms": 110.6273000000001
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en.md",
+      "duration_ms": 1.486799999998766
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/basic.md",
+      "duration_ms": 83.80680000000575
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/basic.md",
+      "duration_ms": 18.38220000000001
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/framework.md",
+      "duration_ms": 83.94860000000335
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/framework.md",
+      "duration_ms": 87.54189999999653
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/practice.md",
+      "duration_ms": 11.723799999999756
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/practice.md",
+      "duration_ms": 86.76759999999922
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: develop/cordis-tutorial.md",
+      "duration_ms": 13.896799999994982
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/develop/cordis-tutorial.md",
+      "duration_ms": 98.17480000000069
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems.md",
+      "duration_ms": 107.1898000000001
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/subsystems.md",
+      "duration_ms": 179.97589999999764
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference.md",
+      "duration_ms": 127.46759999999631
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference.md",
+      "duration_ms": 196.33250000000407
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves every relative link inside the emitted tree",
+      "duration_ms": 80.21349999999802
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "llmsTxt lists every sidebar page as a base-prefixed raw-Markdown link",
+      "duration_ms": 8.75800000000163
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "llmsTxt groups the two locale trees under their own headings",
+      "duration_ms": 1.694099999993341
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "llmsTxt carries the site identity and the raw-Markdown convention",
+      "duration_ms": 1.1622000000061234
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownRoute projects one published route on demand",
+      "duration_ms": 7.165999999997439
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "rawMarkdownRoute returns undefined for a path the manifest does not publish",
+      "duration_ms": 73.31930000000284
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments rejects a directory with no built pages",
+      "duration_ms": 96.35350000000108
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments resolves clean, encoded, and same-page routes",
+      "duration_ms": 1307.0917999999983
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments rejects ambiguous built routes",
+      "duration_ms": 195.9252000000015
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments rejects malformed fragment hrefs",
+      "duration_ms": 196.20699999999852
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments reports missing ids and missing built routes",
+      "duration_ms": 100.54290000000037
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments resolves ids on html, head, and body elements",
+      "duration_ms": 108.44759999999951
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments decodes entities and legacy names while preserving duplicate hrefs",
+      "duration_ms": 186.76760000000286
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments ignores template contents and script and comment text as fragment targets",
+      "duration_ms": 113.65689999999813
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments parses noscript anchors with scripting disabled",
+      "duration_ms": 178.01760000000286
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments resolves SVG ids and anchor hrefs",
+      "duration_ms": 112.12000000000262
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments preserves duplicate broken fragment order across document, SVG, and noscript elements",
+      "duration_ms": 190.19870000000083
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments treats zero-byte HTML as a built page",
+      "duration_ms": 122.67009999999937
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments keeps ids isolated across pages and consecutive inspections",
+      "duration_ms": 278.07440000000133
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "missingSiteFiles reports the expected files a build did not emit",
+      "duration_ms": 3.7949999999982538
+    }
+  ],
+  "slowest_cases": [
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/config-catalog.md",
+      "duration_ms": 1783.2329000000027
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/config-catalog.md",
+      "duration_ms": 1640.8997999999992
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/config-catalog.md",
+      "duration_ms": 1582.4763999999996
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "fullName": "inspectSiteFragments resolves clean, encoded, and same-page routes",
+      "duration_ms": 1307.0917999999983
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: en/reference/tool-catalog.md",
+      "duration_ms": 1190.7177999999985
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/tool-catalog.md",
+      "duration_ms": 931.0169000000024
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/capability-seams.md",
+      "duration_ms": 896.104199999998
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/tool-catalog.md",
+      "duration_ms": 820.3780000000042
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/config-catalog.md",
+      "duration_ms": 806.1480999999985
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/tool-catalog.md",
+      "duration_ms": 751.1492999999973
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/llm-streaming.md",
+      "duration_ms": 679.8845000000001
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/capability-seams.md",
+      "duration_ms": 627.3617000000013
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest resolves links in the manifest output file: reference/subsystems/core.md",
+      "duration_ms": 618.7087000000029
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/subsystems/session.md",
+      "duration_ms": 610.5820000000003
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "fullName": "raw Markdown projection of the published manifest emits the manifest output file: reference/subsystems/core.md",
+      "duration_ms": 596.5294000000013
+    }
+  ],
+  "registration": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v9-expected-tests.json",
+    "sha256": "636f9e2939fd3c1473ec9942dba9f8106a8b9cfb468583ed68dcf64591fd9773"
+  },
+  "report": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v9-focused-01.vitest.json",
+    "sha256": "4dd077fbf7df0651f1636aee22d5ce9788b4227a3b42ffd4a27aa9aa1b963c0e"
+  },
+  "receipt": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v9-focused-01.json",
+    "sha256": "bbcc33774921436eb7a3636cd9d39e84235ccf92c05a560ad00109995e4faf03"
+  }
+}

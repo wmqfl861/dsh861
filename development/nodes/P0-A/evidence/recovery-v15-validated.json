@@ -1,0 +1,329 @@
+{
+  "node": "P0-A",
+  "plan_version": "v15",
+  "status": "PASS",
+  "recorded_at": "2026-09-08T22:12:54.431876+00:00",
+  "commands": {
+    "v11_tsc": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-typecheck-02.json",
+        "bytes": 1981,
+        "sha256": "38c69a39fc498dbf51fc5bfbae3715d93b4a1656c6a5fded0c74a608272ba6ea"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-typecheck-02.stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-typecheck-02.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "v11_oxlint": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-oxlint-02.json",
+        "bytes": 1974,
+        "sha256": "ab699a00a2b9ed3328c2752052a8cb4d033ee18d1b69edcc24a33d769d011db9"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-oxlint-02.stdout.log",
+        "bytes": 91,
+        "sha256": "01e6039ca2d0e14b90252cf5731a00fa8b88132e872fb7d2a6bd384e42e23cc5"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-oxlint-02.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "v11_focused": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-focused-02.json",
+        "bytes": 2099,
+        "sha256": "16caaf1c4ff21cc3a1f1e2a20cd826f9ffb2e875318cb446a4ea8492bf541560"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-focused-02.stdout.log",
+        "bytes": 4579,
+        "sha256": "08e92b59ec0cce9764b8ad647d7092ca3710c476681cbf99e4bcd7f1d34d6985"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v11-focused-02.stderr.log",
+        "bytes": 768,
+        "sha256": "af2063effa70875544a7ba0fb2853bd1a59f1621a36a9c604cdac857e350781d"
+      }
+    },
+    "config": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-02.json",
+        "bytes": 1941,
+        "sha256": "172c3e465bb7ce7fbdc1722a8471fc6183e3440efce068e22ac75f1b761ae3f3"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-02.stdout.log",
+        "bytes": 47,
+        "sha256": "eec6f4ee68954054193c47789966ea8baf0a22a5d830fef348268dbc3fd1f723"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-02.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "lint": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\lint-02.json",
+        "bytes": 1849,
+        "sha256": "81cc768d61f171b3f3b80d1851384898c6a1626edc697c84dab075849631ee5d"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\lint-02.stdout.log",
+        "bytes": 118125,
+        "sha256": "a900bc33a9de9d5e553345110ed28a932b334a8aaf6acda1d66a565c2f5d5685"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\lint-02.stderr.log",
+        "bytes": 43735,
+        "sha256": "59e98e22fe7815dc506d118e7fe1d5bd964b788e76f56c889a6ae83d7818123e"
+      }
+    },
+    "build": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\build-01.json",
+        "bytes": 1853,
+        "sha256": "cd3fb3a6bc845a422bc5acb6c3ea54a6cc0cda21cb3719536a12f4d55be8ce72"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\build-01.stdout.log",
+        "bytes": 236960,
+        "sha256": "fe23dc6599fa92e6fa46ae61186479bd68fc69c95fea2b077fbabb6d3164dcac"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\build-01.stderr.log",
+        "bytes": 71492,
+        "sha256": "f2a037764a4be76062cf751b7f156144b38f629852aa6d82b0c77dfe963c15fd"
+      }
+    },
+    "hygiene": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-02.json",
+        "bytes": 1861,
+        "sha256": "74fcda81ed9021daf07154a39761bc09dcbf80aaff1f2d2713184c0d594d242e"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-02.stdout.log",
+        "bytes": 1403,
+        "sha256": "a5d7d1c79f574694965f237220a0be2e23a08be9a9d2321e7f69fa17a5eebd6d"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\hygiene-02.stderr.log",
+        "bytes": 35,
+        "sha256": "d98c62a35d625aaa5443800d3eb49e749095db2d25fc1f0a5c14d0afbe421a9e"
+      }
+    },
+    "source_help": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\source-help-01.json",
+        "bytes": 1872,
+        "sha256": "cfb33d4876098cb9ad8bd40bed294d1f46bac8d86dd6b907c67195b1c81c6b25"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\source-help-01.stdout.log",
+        "bytes": 1647,
+        "sha256": "92370cf0ad4d6a1b991c0cafb249ea574efbe087d6e692a692b264d52bc3a57a"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\source-help-01.stderr.log",
+        "bytes": 53,
+        "sha256": "f78620ef33b01c0b45fb564b8ec41f26f50c46008e58875dfd11e0a347abc60a"
+      }
+    },
+    "built_version": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\built-version-01.json",
+        "bytes": 1899,
+        "sha256": "bc3789a184bfdcdee32b1d6dc06889916b6a2cebb160c3ad8d66cb40e2208c01"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\built-version-01.stdout.log",
+        "bytes": 14,
+        "sha256": "9b36e5e64cab6d4da25e7646821d8836de0db92541a494199dfeb37b998a3b0c"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\built-version-01.stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "built_tests": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\built-tests-01.json",
+        "bytes": 2401,
+        "sha256": "5f10c644c4e6a13ca405bf7115984fc5bb18d9066e18937aa8a2a129f6dccaca"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\built-tests-01.stdout.log",
+        "bytes": 4756,
+        "sha256": "1de017bec2b02a551ba8d1366a84778f86cdd99ed1a74f32d179f7aa32871b28"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\built-tests-01.stderr.log",
+        "bytes": 256,
+        "sha256": "b90e8483106951a0f720e203b8e2f50ece6095e97e1ceb235f53525423accbf3"
+      }
+    },
+    "keyless_smoke": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\keyless-smoke-01.json",
+        "bytes": 2102,
+        "sha256": "31aa8740880be272a6242c8b2882149c09732ccd318a68151105fa2a3cbe7f7a"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\keyless-smoke-01.stdout.log",
+        "bytes": 692,
+        "sha256": "19cd9b41d4fb1c027fe1b676e5a6a6b3665f868a9dd8ebc296e1498bfa3ca122"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\keyless-smoke-01.stderr.log",
+        "bytes": 256,
+        "sha256": "b90e8483106951a0f720e203b8e2f50ece6095e97e1ceb235f53525423accbf3"
+      }
+    },
+    "docs_check": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-02.json",
+        "bytes": 1873,
+        "sha256": "6926253b9d077cee5232ffa321a84031893c42eed75a0c16d3a331fd21338b7a"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-02.stdout.log",
+        "bytes": 5322,
+        "sha256": "5017490c9a0d2f360315b4bccb5954b69580e1fe46ad0b6b1a261f9b5bcf16be"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\docs-check-02.stderr.log",
+        "bytes": 1746,
+        "sha256": "acd5e331b434735bf37c463edde4fb0aa2397202c84b70e9ec9cf387e4ea7756"
+      }
+    },
+    "test_docs": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-04.json",
+        "bytes": 1869,
+        "sha256": "bdeb55e44a42edaf267b20171dc794bc9ccc0792f062332eb0b57b33539d8837"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-04.stdout.log",
+        "bytes": 1407,
+        "sha256": "da0b247ddd40eea37acedfd663f73ad76d6a50f7448fb1af2bfcc8b20136651d"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\test-docs-04.stderr.log",
+        "bytes": 37,
+        "sha256": "3d254d579ad788333528693f5137a0270f1d2280d3841bf00ce2c1bf343ff142"
+      }
+    },
+    "doc_sync": {
+      "receipt": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-sync-02.json",
+        "bytes": 1865,
+        "sha256": "9aa1bec7e8f7a5bd86ee38c36bd2f1262e37c994833f43a9637260adc7645a31"
+      },
+      "stdout": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-sync-02.stdout.log",
+        "bytes": 2786,
+        "sha256": "75a8276b95609ca760743ae245fd2e672844fbfdd015e8fb876491420ee1cb64"
+      },
+      "stderr": {
+        "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-sync-02.stderr.log",
+        "bytes": 36,
+        "sha256": "ce81687127efeec96594ec8333fb784ef221933af1df5650a5f6db283f4771e8"
+      }
+    }
+  },
+  "docs_check": {
+    "tests": 480,
+    "fragment_references": 2590,
+    "raw_markdown_files": 197,
+    "llms_txt": true
+  },
+  "test_docs": {
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0
+  },
+  "doc_sync": {
+    "passed": 33,
+    "failed": 0,
+    "skipped": 0
+  },
+  "hygiene": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0
+  },
+  "built_cases": {
+    "report": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\built-tests-01.vitest.json",
+      "bytes": 7971,
+      "sha256": "ffaf5e6d98eb03084d91a0da7f5d1f714dbd63934a44366d0218442d103cb8c4"
+    },
+    "required_titles": [
+      "requires --profile and rejects removed commands",
+      "routes help and usage errors without activating startup-dependent rows",
+      "runs the headless profile through its app-owned task positional",
+      "fails loud on a nonexistent profile with the plugin-command hint",
+      "reports a patch-overlay boot failure without hanging"
+    ],
+    "all_required_passed": true
+  },
+  "keyless_smoke": {
+    "report": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\keyless-smoke-01.vitest.json",
+      "bytes": 1035,
+      "sha256": "a22c5dad6b47be18ab12e1c2c74e59137ad5b1eff12158338d17a63f2cd6fc8a"
+    },
+    "required_title": "boots the real Loader tree, runs the production shell tool, and persists the turn",
+    "passed": true
+  },
+  "source_help": true,
+  "built_version": "0.1.3-alpha.1",
+  "build_artifacts": {
+    "apps/cli/lib/bin.js": {
+      "path": "D:\\Projects\\dsh861\\apps\\cli\\lib\\bin.js",
+      "bytes": 8021,
+      "sha256": "50aab35c14fc0e7fceaa39b9a0b9a72a52e4e24618661a9a05cca0777471f762"
+    },
+    ".dsh-build/client-build-environment.json": {
+      "path": "D:\\Projects\\dsh861\\.dsh-build\\client-build-environment.json",
+      "bytes": 293,
+      "sha256": "b75777d470ec0cc088f9a70d870a478bfc274677850b2692f9be6eb19be71dc6"
+    }
+  },
+  "fixture": {
+    "path": "D:\\Projects\\dsh861\\apps\\cli\\tests\\profiles\\acp\\cordis.yml",
+    "bytes": 67,
+    "sha256": "2c9401b55abae7bf700332a0997de3fb96f92c94008c57fe91e3a1936335b921"
+  },
+  "fixture_before": {
+    "path": "D:\\Projects\\dsh861\\apps\\cli\\tests\\profiles\\acp\\cordis.yml",
+    "bytes": 61,
+    "sha256": "4703df7d7895f4dcaa292ed5672f1c064792ec2c1368b4499bca5d353a2d85b8",
+    "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\acp-fixture-before-v15.yml"
+  },
+  "snapshot": {
+    "path": "D:\\Projects\\dsh861\\snapshots\\acp\\escalation-approved\\cordis.yml",
+    "bytes": 3117,
+    "sha256": "882f40ae82eb6924a2ff7aacc097c1946b313ba5dbba086a76721054c0997673"
+  },
+  "snapshot_unchanged": true,
+  "reused_evidence": [
+    "site-v9-coverage.json",
+    "site-v10-equivalence.json",
+    "site-v8-large-page-equivalence-02.json",
+    "site-v8-negative-validated.json"
+  ],
+  "scope_limit": "This proves P0-A baseline and current fixture/config/build/CLI behavior; product AC-01..AC-32 remain uncompleted."
+}

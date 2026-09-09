@@ -1,0 +1,23 @@
+{
+  "node": "P0-A",
+  "plan_version": "v7",
+  "recorded_at": "2026-09-08T11:49:05.512800+00:00",
+  "status": "PASS",
+  "kind": "negative-control-validation",
+  "total_tests": 478,
+  "expected_failures": [
+    "website source layout contains no tracked or unignored documentation copies",
+    "raw Markdown projection of the published manifest resolves links in the manifest output file: en/index.md",
+    "raw Markdown projection of the published manifest resolves every relative link inside the emitted tree"
+  ],
+  "other_passes": 475,
+  "temporary_files_removed": true,
+  "source_and_lock_unchanged": true,
+  "original_record": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v7-negative-01.json",
+  "original_record_sha256": "2bccd7519543bd292771bea04dd274c5d883993918d6ae1ce1ac75aec3cbba41",
+  "report": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v7-negative-01.vitest.json",
+  "report_sha256": "0106193f8c100d94208d38863fd92312402dcb112b936f9e131a219897da4c3c",
+  "full_stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v7-negative-01.stderr.log",
+  "full_stderr_sha256": "369defbb7ffda0619a3832371b8c2bc345e797b5843c736814784957fa7eeca7",
+  "parser_correction": "The first inspection required the filename in truncated JSON failureMessages. This validation uses the same run JSON identities/status and its complete reporter diff. The original attempt remains unchanged and was not rerun."
+}

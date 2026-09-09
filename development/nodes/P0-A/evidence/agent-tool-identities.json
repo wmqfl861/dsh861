@@ -1,0 +1,57 @@
+{
+  "node": "P0-A",
+  "recorded_at": "2026-09-08T01:34:22.809819+00:00",
+  "tools": [
+    {
+      "agent": "codex",
+      "executable": "D:\\npm-global\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+      "executable_sha256": "444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b",
+      "version_command": [
+        "D:\\npm-global\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+        "--version"
+      ],
+      "version_exit_code": 0,
+      "version_stdout": "codex-cli 0.153.4\n",
+      "version_stderr": "",
+      "selected_model": "gpt-6-astra",
+      "reasoning": "max",
+      "probe_receipt": "D:\\Temp_projects\\dsh861-node-governance\\runs\\codex-probe-01.receipt.json",
+      "probe_receipt_sha256": "e306268ea31272da0191eaf68730189b2d706189ed6b0ffc5e30a480fca3b540",
+      "probe_stdout": "D:\\Temp_projects\\dsh861-node-governance\\runs\\codex-probe-01.stdout.jsonl",
+      "probe_stdout_sha256": "7136fe8cfc256765140b7573e8809add59034efd5414d869f6f8e275a0d19723",
+      "probe_stderr": "D:\\Temp_projects\\dsh861-node-governance\\runs\\codex-probe-01.stderr.log",
+      "probe_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "agent": "opencode",
+      "executable": "C:\\Users\\Administrator\\.opencode\\bin\\opencode.exe",
+      "executable_sha256": "2aa63d69df0b1fe045dddb4a91b24091b63cc1d0b1f0f33b3633fd324124f468",
+      "version_command": [
+        "C:\\Users\\Administrator\\.opencode\\bin\\opencode.exe",
+        "--version"
+      ],
+      "version_exit_code": 0,
+      "version_stdout": "1.18.27\n",
+      "version_stderr": "",
+      "selected_model": "zhipuai-coding-plan/glm-5.3",
+      "reasoning": "max",
+      "probe_receipt": "D:\\Temp_projects\\dsh861-node-governance\\runs\\opencode-probe-01.receipt.json",
+      "probe_receipt_sha256": "9880405d4429d4c5f5f05dde12e2fb4bed159dafb54cd64c5eef5887e86da204",
+      "probe_stdout": "D:\\Temp_projects\\dsh861-node-governance\\runs\\opencode-probe-01.stdout.jsonl",
+      "probe_stdout_sha256": "805e16ce556c9b71eba13beee3d53f533c3bc03408067c3c466f5b60e15591e1",
+      "probe_stderr": "D:\\Temp_projects\\dsh861-node-governance\\runs\\opencode-probe-01.stderr.log",
+      "probe_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "opencode_client_evidence": [
+    {
+      "path": "C:\\Users\\Administrator\\.zcode\\cli\\exec\\sess_218d64c1-d046-46a7-ab38-f60685ebb38f\\call_hivvHjNxs3Jf6BfPnlQLAy4w-stdout.log",
+      "sha256": "771952cb3bfe9aa510e168d421e465b141f393ca5867340c1dfbe1e38cedd9b9"
+    },
+    {
+      "path": "C:\\Users\\Administrator\\.zcode\\cli\\exec\\sess_218d64c1-d046-46a7-ab38-f60685ebb38f\\call_QH483N5tPxoHL4vfFmP1rsDj-stdout.log",
+      "sha256": "ac5ce605d07375045a0bf2398a28a406f088b6c93229ed4e140d76286548e76d"
+    }
+  ],
+  "evidence_scope": "Actual executables, invocation parameters and client-recorded metadata; no independent proof of provider-internal routing. Probe success is not a node-review PASS."
+}

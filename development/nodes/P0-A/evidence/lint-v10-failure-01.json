@@ -1,0 +1,26 @@
+{
+  "node": "P0-A",
+  "plan_version": "v10",
+  "status": "FAIL",
+  "recorded_at": "2026-09-08T20:22:44.115052+00:00",
+  "kind": "candidate-lint-violations",
+  "errors": 7,
+  "diagnostics": "  x typescript(no-non-null-assertion): Forbidden non-null assertion.\n    ,-[scripts/verify-doc-site-fragments.ts:85:25]\n 84 |       for (let index = 0; index < elements.length; index++) {\n 85 |         const element = elements[index]!\n    :                         ^^^^^^^^^^^^^^^^\n 86 |         const id = element.getAttribute('id')\n    `----\n  note: The non-null assertion operator (`!`) removes `null` and `undefined` from the type. For example, it changes `number | undefined` to `number`.\n\n  x typescript(no-confusing-void-expression): Returning a void expression from an arrow function shorthand is forbidden.\n     ,-[scripts/project-doc-site.spec.ts:795:18]\n 794 | \n 795 |     expect(() => emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' }))\n     :                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n 796 |       .toThrow('project-doc-site: docs/logo.svg and packages/logo.svg both project to logo.svg.')\n     `----\n  help: Add braces to the arrow function.\n\n  x typescript(no-confusing-void-expression): Returning a void expression from an arrow function shorthand is forbidden.\n     ,-[scripts/project-doc-site.spec.ts:807:18]\n 806 | \n 807 |     expect(() => emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' }))\n     :                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n 808 |       .toThrow('project-doc-site: duplicate route \"same.md\".')\n     `----\n  help: Add braces to the arrow function.\n\n  x typescript(no-confusing-void-expression): Returning a void expression from an arrow function shorthand is forbidden.\n     ,-[scripts/project-doc-site.spec.ts:818:18]\n 817 | \n 818 |     expect(() => emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' }))\n     :                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n 819 |       .toThrow('project-doc-site: packages/logo.svg and docs/a.md both project to logo.svg.')\n     `----\n  help: Add braces to the arrow function.\n\n  x typescript(no-confusing-void-expression): Returning a void expression from an arrow function shorthand is forbidden.\n     ,-[scripts/project-doc-site.spec.ts:830:18]\n 829 | \n 830 |     expect(() => emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' }))\n     :                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n 831 |       .toThrow('project-doc-site: docs/b.md and packages/logo.svg both project to logo.svg.')\n     `----\n  help: Add braces to the arrow function.\n\n  x typescript(no-confusing-void-expression): Returning a void expression from an arrow function shorthand is forbidden.\n     ,-[scripts/project-doc-site.spec.ts:841:18]\n 840 | \n 841 |     expect(() => emitRawMarkdownPages(out, { pages: selected, repoRoot: root, repositoryRef: 'abc123' }))\n     :                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n 842 |       .toThrow('project-doc-site: duplicate route \"guide.md\".')\n     `----\n  help: Add braces to the arrow function.\n\n  x typescript(no-deprecated): `sequential` is deprecated. Use `concurrent: false` instead.\n     ,-[scripts/project-doc-site.spec.ts:882:10]\n 881 | \n 882 | describe.sequential('raw Markdown projection of the published manifest', () => {\n     :          ^^^^^^^^^^\n 883 |   const routes = rawMarkdownFiles(docsPages)\n     `----\n\nFound 0 warnings and 7 errors.\nFinished in 771.2s on 3089 files with 90 rules using 4 threads.\n[ELIFECYCLE] Command failed with exit code 1.\n",
+  "violations": {
+    "typescript(no-non-null-assertion)": 1,
+    "typescript(no-confusing-void-expression)": 5,
+    "typescript(no-deprecated)": 1
+  },
+  "command_receipt": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\lint-01.json",
+  "receipt_sha256": "7a134ac824c6f61c1f9a032762ec4b0efb5837fa09733110c04dc4c04970782f",
+  "stdout": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\lint-01.stdout.log",
+  "stdout_sha256": "32f7db8eeaafd9af28e69d77aeb5342d07c2e35b1145e1af3ba7a988d673c25a",
+  "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\lint-01.stderr.log",
+  "stderr_sha256": "de2f006365a1fcfbfce332037c87f8ad1a35e7190c6a2ce478fee82a56e0357d",
+  "prior_gates": "docs-check PASS; test-docs 15/15 PASS; doc-sync 33/33 PASS; same-input full report equivalence PASS",
+  "downstream": "Full build, hygiene, source/built CLI tests and real OpenCode review not started; automatic orchestration stopped.",
+  "source_hashes": {
+    "scripts/project-doc-site.spec.ts": "fbbba89bbfa67f6e8d0fac742950a82057b330a353644fe7e729781cc4678918",
+    "scripts/verify-doc-site-fragments.ts": "84655acaed490db3ba2f18e0c44e60bca5416cada76675c047f079bef7c4fc25"
+  }
+}

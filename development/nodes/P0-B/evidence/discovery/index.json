@@ -1,0 +1,28 @@
+{
+  "node": "P0-B",
+  "planVersion": "v1",
+  "kind": "b1-discovery-archive",
+  "recorded_at": "2026-09-09T00:00:00Z",
+  "sources": [
+    {
+      "source": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\discovery\\opencode.json",
+      "archived": "D:\\Projects\\dsh861\\development\\nodes\\P0-B\\evidence\\discovery\\opencode.json",
+      "bytes": 10718,
+      "sha256": "01ee1f766684d0e3ec1f218fad0bae361a1a8ec090ffce7c3e824d3867a70aaa"
+    },
+    {
+      "source": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\discovery\\grok.json",
+      "archived": "D:\\Projects\\dsh861\\development\\nodes\\P0-B\\evidence\\discovery\\grok.json",
+      "bytes": 5993,
+      "sha256": "440dd7f9abf87360b1bedfe6f49a8fb354fee5763e5c9b7bfaa12f01f9fa9899"
+    },
+    {
+      "source": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\discovery\\summary.json",
+      "archived": "D:\\Projects\\dsh861\\development\\nodes\\P0-B\\evidence\\discovery\\summary.json",
+      "bytes": 2076,
+      "sha256": "8ac47dd59b30506e7514568dc426538f9da6ec437d2e6980189678036343e486"
+    }
+  ],
+  "raw_evidence_root": "D:\\Temp_projects\\dsh861-p0-b-harness-validation\\discovery",
+  "scope": "Original raw command output remains in semantic temporary discovery root; repository copies are the B1 structured decision records."
+}

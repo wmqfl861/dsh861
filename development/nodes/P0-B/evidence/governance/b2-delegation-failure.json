@@ -1,0 +1,17 @@
+{
+  "node": "P0-B",
+  "plan_version": "v1",
+  "task": "B2",
+  "status": "FAILED_NO_FILES_FROM_DELEGATED_AGENT",
+  "recorded_at": "2026-09-09T00:00:00.000Z",
+  "delegate": "internal GLM implementation subagent",
+  "failure": "stream_read_error",
+  "files_written_by_delegate": [],
+  "scope_recovery": "ZCode main executor takes over the same authorized B2 file scope; no product harness success is claimed.",
+  "guardrails": {
+    "repository_source_changed_by_delegate": false,
+    "global_configuration_changed": false,
+    "dependencies_installed": false,
+    "real_harness_started": false
+  }
+}

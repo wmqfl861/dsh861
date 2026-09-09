@@ -1,0 +1,109 @@
+{
+  "node": "P0-A",
+  "plan_version": "v8",
+  "status": "PASS",
+  "recorded_at": "2026-09-08T17:25:00.408641+00:00",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "original_sha256": "1fc1b5c1f945e92c024ebc3b626891597d8c52c5278404948db52288fdd9ae38",
+      "preserved_copy_verified": true,
+      "current_sha256": "73d37507a3ff13a2f93b9e6d3e6603a25da3caad073e9c59d8c3a60308c85838",
+      "unchanged": false,
+      "authorized_current_node_edit": true
+    },
+    {
+      "path": "NODE_DEVELOPMENT_RULES.md",
+      "original_sha256": "b9bc64e76da8dc6a2f0137d1edf066b916024c54f736c055295323e363f0d3c3",
+      "preserved_copy_verified": true,
+      "current_sha256": "b9bc64e76da8dc6a2f0137d1edf066b916024c54f736c055295323e363f0d3c3",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "MULTI_AGENT_REQUIREMENTS.md",
+      "original_sha256": "53a87e7f15b1cee8e42960e1ed32252950cb4ae76e2b4fb1605c316b784fe5f3",
+      "preserved_copy_verified": true,
+      "current_sha256": "53a87e7f15b1cee8e42960e1ed32252950cb4ae76e2b4fb1605c316b784fe5f3",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "MULTI_AGENT_DEVELOPMENT_ROADMAP.md",
+      "original_sha256": "88ad49bde81a3c40f773e287b8cdf75b186a90824b17624a2742464e05c4f0bf",
+      "preserved_copy_verified": true,
+      "current_sha256": "88ad49bde81a3c40f773e287b8cdf75b186a90824b17624a2742464e05c4f0bf",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "MULTI_AGENT_REQUIREMENTS_SUPPLEMENT.md",
+      "original_sha256": "7138cc548229d1c0719b8df61191ac35ae1562b19a8d027d457818d62bb3ecaf",
+      "preserved_copy_verified": true,
+      "current_sha256": "7138cc548229d1c0719b8df61191ac35ae1562b19a8d027d457818d62bb3ecaf",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "MULTI_AGENT_WORKFLOW_RESEARCH.md",
+      "original_sha256": "2a0d6d60fae29af3cc639aa7f2280043840fe4ce00440817c67b1a363352d57b",
+      "preserved_copy_verified": true,
+      "current_sha256": "2a0d6d60fae29af3cc639aa7f2280043840fe4ce00440817c67b1a363352d57b",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "GBRAIN_MEMORY_ASSESSMENT.md",
+      "original_sha256": "05dbba7f147054c0f7c87a252c663c4cdbaa23507fa2b6f1a655e5c859917df3",
+      "preserved_copy_verified": true,
+      "current_sha256": "05dbba7f147054c0f7c87a252c663c4cdbaa23507fa2b6f1a655e5c859917df3",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "development/NODE_STATUS.md",
+      "original_sha256": "f24dfffb207d6fc70c7afcf0f2b768ef3dfcf6565aa4942867351b61f32ac570",
+      "preserved_copy_verified": true,
+      "current_sha256": "71f666296b3b091465cec701b352786791c943f9f4931a6ada3a9e9011b67a83",
+      "unchanged": false,
+      "authorized_current_node_edit": true
+    },
+    {
+      "path": "development/AGENT_TOOL_VERIFICATION.md",
+      "original_sha256": "71b0c9017da5015778eecb8a10f5969bf06633a7807c897faec8190f4a3f9854",
+      "preserved_copy_verified": true,
+      "current_sha256": "71b0c9017da5015778eecb8a10f5969bf06633a7807c897faec8190f4a3f9854",
+      "unchanged": true,
+      "authorized_current_node_edit": true
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "original_sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383",
+      "preserved_copy_verified": true,
+      "current_sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "package.json",
+      "original_sha256": "7177f05af3a57a4ba6ddb81ce28a686eeede647b9b1b9ccb9ef2fc0892e9c941",
+      "preserved_copy_verified": true,
+      "current_sha256": "7177f05af3a57a4ba6ddb81ce28a686eeede647b9b1b9ccb9ef2fc0892e9c941",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "original_sha256": "75496d94e73f3aeb97456b56a0f88aedfceb95c5cf5ce4b6d49398bf3e425fe3",
+      "preserved_copy_verified": true,
+      "current_sha256": "75496d94e73f3aeb97456b56a0f88aedfceb95c5cf5ce4b6d49398bf3e425fe3",
+      "unchanged": true,
+      "authorized_current_node_edit": false
+    }
+  ],
+  "index_empty": true,
+  "head_and_branch_unchanged": true,
+  "root_env_absent": true,
+  "owned_temporary_repository_files_removed": true,
+  "authorization_basis": "Existing requirements preserved exactly; AGENTS compaction was scoped by v4; NODE_STATUS and agent tool metadata are governance records."
+}

@@ -1,0 +1,45 @@
+{
+  "node": "P0-B",
+  "purpose": "Non-secret role model routing template for controlled runs",
+  "secret_policy": {
+    "api_key_values_persisted": false,
+    "api_key_values_logged": false,
+    "required_action": "Rotate any API key that was exposed in chat before using production credentials."
+  },
+  "roles": {
+    "codex": {
+      "provider": "my-gpt",
+      "base_url": "http://154.89.153.24:8080/v1",
+      "api_key_env": "DSH_P0B_CODEX_API_KEY",
+      "model": "gpt-6-astra",
+      "reasoning_effort": "max"
+    },
+    "claude-code": {
+      "provider": "my-claude",
+      "base_url": "http://154.89.153.24:8080/",
+      "api_key_env": "DSH_P0B_CLAUDE_CODE_API_KEY",
+      "model": "claude-opus-5",
+      "reasoning_effort": "max"
+    },
+    "grok": {
+      "provider": "my-grok",
+      "base_url": "http://154.89.153.24:8080/v1",
+      "api_key_env": "DSH_P0B_GROK_API_KEY",
+      "model": "grok-4.6",
+      "reasoning_effort": "xhigh"
+    },
+    "opencode": {
+      "provider": "zhipuai-coding-plan",
+      "api_key_env": "DSH_P0B_OPENCODE_API_KEY",
+      "model": "glm-5.3",
+      "reasoning_effort": "max"
+    }
+  },
+  "runtime_requirements": [
+    "Inject secrets only into a private, per-run child environment.",
+    "Do not put secrets in argv, files, stdout, stderr, Session data, evidence, snapshots, or commits.",
+    "Use isolated config, home, cache, session, log, work, and artifact directories.",
+    "Record only environment variable names, source category, presence, and non-reversible fingerprints.",
+    "Product OpenCode runs must remain separate from OpenCode hard-review runs."
+  ]
+}

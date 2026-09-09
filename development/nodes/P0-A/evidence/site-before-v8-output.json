@@ -1,0 +1,78 @@
+{
+  "node": "P0-A",
+  "version": "pre-v8",
+  "kind": "actual-old-output-equivalence-baseline-not-acceptance",
+  "results": [
+    {
+      "route": "en/reference/config-catalog.md",
+      "source": "docs/config-catalog.md",
+      "input_bytes": 148995,
+      "input_sha256": "19e381e675b099d93872d05bc0e0e3bccf7e7c9f2652b2f5c876b883c0488782",
+      "rewrite_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\en__reference__config-catalog.md.rewritten.md",
+      "rewrite_sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2",
+      "raw_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\en__reference__config-catalog.md.raw.md",
+      "raw_sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2",
+      "elapsed_ms": 5502.5161
+    },
+    {
+      "route": "en/reference/tool-catalog.md",
+      "source": "docs/tool-catalog.md",
+      "input_bytes": 90381,
+      "input_sha256": "dd1c92d0315792a5d5eb22b5c878158e85b2fa101e50d0f3ccef13180e61070c",
+      "rewrite_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\en__reference__tool-catalog.md.rewritten.md",
+      "rewrite_sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88",
+      "raw_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\en__reference__tool-catalog.md.raw.md",
+      "raw_sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88",
+      "elapsed_ms": 3196.0445
+    },
+    {
+      "route": "reference/config-catalog.md",
+      "source": "docs/config-catalog.zh.md",
+      "input_bytes": 149606,
+      "input_sha256": "5f47f713fc864a56c4f39ee0f136778a3ae4209351a9eafc1c7146feb73e2fde",
+      "rewrite_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\reference__config-catalog.md.rewritten.md",
+      "rewrite_sha256": "49e17565633131ae8efa47de45ff480b1229d113728da3f8ca9cf712968c53b5",
+      "raw_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\reference__config-catalog.md.raw.md",
+      "raw_sha256": "bd914fa6a8be8149368a67af85cfcce31f9c024a8d136f9ada17816d8fdbbfa9",
+      "elapsed_ms": 4808.238299999999
+    },
+    {
+      "route": "reference/tool-catalog.md",
+      "source": "docs/tool-catalog.zh.md",
+      "input_bytes": 89908,
+      "input_sha256": "9ccea45a05e7b3f00b0b24323c5f03cb6231bdafa1e084d7292ea903cdf3f2d1",
+      "rewrite_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\reference__tool-catalog.md.rewritten.md",
+      "rewrite_sha256": "0f94156b2172ca5d3eac4eef67887387ede9141b921a017a234caa0a1686b780",
+      "raw_output": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\reference__tool-catalog.md.raw.md",
+      "raw_sha256": "81cf6ce1d68c8e63b48173aef47d73a5a53200a618a3372ab582a7bd67d9e1a9",
+      "elapsed_ms": 1889.204700000002
+    }
+  ],
+  "files": [
+    {
+      "source": "scripts/project-doc-site.ts",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\scripts__project-doc-site.ts",
+      "sha256": "2c9971b48d6d1fae39f2f3af1fd160f109ad3c164255fff2598c4e287356f3b5"
+    },
+    {
+      "source": "scripts/project-doc-site.spec.ts",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\scripts__project-doc-site.spec.ts",
+      "sha256": "6499600078efaa1aac38d68a94b7b6893f08d1666caf2a9c4e37c6081fa123fc"
+    },
+    {
+      "source": "scripts/verify-doc-site-fragments.ts",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\scripts__verify-doc-site-fragments.ts",
+      "sha256": "34eab92e5181d95273f2f29758ce63e942f0dcda1cb432c7c4b4f881a507dd4a"
+    },
+    {
+      "source": "scripts/verify-doc-site-fragments.spec.ts",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\scripts__verify-doc-site-fragments.spec.ts",
+      "sha256": "07fcf0ececa7794bf3895662e2abe368a04ff3eb5e0465f6b6fcc406e2aae13b"
+    },
+    {
+      "source": "website/build.ts",
+      "preserved_at": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\site-before-v8\\website__build.ts",
+      "sha256": "852d516a82bc6eb24d00ad6c9797921279e917498c434b84c1408da76a4a8276"
+    }
+  ]
+}

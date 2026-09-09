@@ -1,0 +1,95 @@
+{
+  "node": "P0-B",
+  "planVersion": "v1",
+  "recorded_at": "2026-09-09T00:00:00Z",
+  "files": [
+    {
+      "path": "scripts/p0-b/validate-harness.ts",
+      "bytes": 8826,
+      "sha256": "7d3a778ae769ca0d23347626a6f5c5c1bbcfd16d77448dc8479e00c9314c01cf"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/schema.v1.json",
+      "bytes": 4491,
+      "sha256": "6a0b7eae51892443483a5532cdf20b1dd71368350995fef3e2a08a915ffa064e"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/README.md",
+      "bytes": 1878,
+      "sha256": "11b19eaf947703e6a5a5ffcf103a6bb6e8b289d50bf7f58547951b0b5b1f18c1"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/b2-validation.json",
+      "bytes": 1285,
+      "sha256": "50d03a0b27fdb526e71ab96b93331baade683b1960a68b638a95bee20f8cba16"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/codex-capability-matrix.json",
+      "bytes": 2873,
+      "sha256": "efa2e1d6e22108e92ad0aadb730d1e84436635ee616ab20250e89e8894f5dda6"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/claude-code-capability-matrix.json",
+      "bytes": 3173,
+      "sha256": "6aef9b4cb958108f87c7b3a2727015ece99008cee93124a7fb5893ba7e60e02a"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/discovery/opencode.json",
+      "bytes": 10718,
+      "sha256": "01ee1f766684d0e3ec1f218fad0bae361a1a8ec090ffce7c3e824d3867a70aaa"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/discovery/grok.json",
+      "bytes": 5993,
+      "sha256": "440dd7f9abf87360b1bedfe6f49a8fb354fee5763e5c9b7bfaa12f01f9fa9899"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/discovery/summary.json",
+      "bytes": 2076,
+      "sha256": "8ac47dd59b30506e7514568dc426538f9da6ec437d2e6980189678036343e486"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/discovery/index.json",
+      "bytes": 1338,
+      "sha256": "4331368779fd3a0aa665237ed57c685aadc35d4827655b39200a6b27ef903fa9"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/governance/preconditions.json",
+      "bytes": 9097,
+      "sha256": "1bcbd1a4abddeb0311c4ca8784b0b31f4cfaf8ad8ab330b43693df67fce1bc7b"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/governance/source-index.json",
+      "bytes": 3479,
+      "sha256": "7cc460ad606d3a21d4ae0c003e32ac02a608921416881c616285dbb90200731b"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/governance/source-index.md",
+      "bytes": 2313,
+      "sha256": "9437ce00e07dc85661fb0a4573f9868438baa512495daf103409722c304a02fc"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/governance/responsibility-matrix.md",
+      "bytes": 942,
+      "sha256": "38907fb9a629fbf25feb9ba7dd31c4316d0a97dfedeb382d94e60e543e801256"
+    },
+    {
+      "path": "development/nodes/P0-B/evidence/governance/b2-delegation-failure.json",
+      "bytes": 598,
+      "sha256": "0342b5cee0792523c39eb7e27a3a81291c917b6ed7b67fbb83a4154d7b0882de"
+    }
+  ],
+  "statuses": {
+    "B0": "PASS",
+    "B1": "BLOCKED for product OpenCode/Grok, discovery complete",
+    "B2": "PASS foundation controls; no product adapter",
+    "B3": "BLOCKED/NOT_RUN real credentialed run; source matrix complete",
+    "B4": "BLOCKED/NOT_RUN real credentialed run; source matrix complete"
+  },
+  "delegated_failures": [
+    "B0 stream_read_error with no files",
+    "B2 initial stream_read_error with no files",
+    "B3/B4 matrix stream_read_error with no files"
+  ],
+  "product_acceptance_claim": "No four-harness product support claimed; P0-B remains incomplete until real adapters/credentials or explicit blocked closure is reviewed."
+}

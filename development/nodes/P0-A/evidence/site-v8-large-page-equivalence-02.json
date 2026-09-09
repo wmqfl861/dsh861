@@ -1,0 +1,5155 @@
+{
+  "node": "P0-A",
+  "plan_version": "v8",
+  "kind": "actual-full-emitter-byte-equivalence",
+  "status": "PASS",
+  "started_at": "2026-09-08T17:03:50.130Z",
+  "baseline": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-before-v8-output.json",
+    "bytes": 4412,
+    "sha256": "ebf5e2c4569a5ddeebac16352750592ed374e6af21e403d986b8549cf6c2de03"
+  },
+  "registration": {
+    "path": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v8-expected-tests.json",
+    "bytes": 97403,
+    "sha256": "fd56dc3dec2303db0adfe6b4cd3551abdb6157ca4cd24276a341a71d5d1560e4"
+  },
+  "runner": {
+    "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\probes\\compare_site_v8_02.mjs",
+    "sha256": "05033a41ea0fdaaee3dd26aefb55f892622a957b8f54ee579f0d2ad3047627a8",
+    "preserved_source": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\compare_site_v8_02.source.txt"
+  },
+  "timings_are_acceptance_criteria": false,
+  "predecessor_failed_attempt": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\site-v8-large-page-equivalence.json",
+  "runner_correction": "Canonical Windows root via path.resolve, matching the production caller and realpath containment check.",
+  "temporary_module": "D:\\Projects\\dsh861\\scripts\\p0a-site-v8-old-0d764296-da95-4d1c-a387-67c0e0c96466.ts",
+  "temporary_root": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp\\site-v8-equivalence-hEuwut",
+  "manifest": [
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/index.zh.md",
+      "route": "index.md",
+      "label": "DeepSeek Harness",
+      "sidebar": null,
+      "section": "首页",
+      "order": 0,
+      "sourceAliases": [
+        "docs/user/index.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/index.md",
+      "route": "en/index.md",
+      "label": "DeepSeek Harness",
+      "sidebar": null,
+      "section": "Home",
+      "order": 0,
+      "sourceAliases": [
+        "docs/user/index.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/guide/index.zh.md",
+      "route": "guide/quickstart.md",
+      "label": "使用 Web UI",
+      "sidebar": "zh-guide",
+      "section": "入门",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide",
+        "docs/user/guide/index.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/guide/index.md",
+      "route": "en/guide/quickstart.md",
+      "label": "Use the Web UI",
+      "sidebar": "en-guide",
+      "section": "Guide",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide",
+        "docs/user/guide/index.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/guide/providers.zh.md",
+      "route": "guide/providers.md",
+      "label": "配置模型",
+      "sidebar": "zh-guide",
+      "section": "入门",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/guide/providers.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/guide/providers.md",
+      "route": "en/guide/providers.md",
+      "label": "Configure models",
+      "sidebar": "en-guide",
+      "section": "Guide",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/guide/providers.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/guide/network-proxy.zh.md",
+      "route": "guide/network-proxy.md",
+      "label": "网络代理",
+      "sidebar": "zh-guide",
+      "section": "入门",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/guide/network-proxy.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/guide/network-proxy.md",
+      "route": "en/guide/network-proxy.md",
+      "label": "Network proxy",
+      "sidebar": "en-guide",
+      "section": "Guide",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/guide/network-proxy.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/guide/python-sdk.zh.md",
+      "route": "guide/python-sdk.md",
+      "label": "Python",
+      "sidebar": "zh-guide",
+      "section": "SDK",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide/python-sdk.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/guide/python-sdk.md",
+      "route": "en/guide/python-sdk.md",
+      "label": "Python",
+      "sidebar": "en-guide",
+      "section": "SDK",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide/python-sdk.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/guide/github-review.zh.md",
+      "route": "guide/github-review.md",
+      "label": "GitHub 评审会话",
+      "sidebar": "zh-guide",
+      "section": "自动化",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide/github-review.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/guide/github-review.md",
+      "route": "en/guide/github-review.md",
+      "label": "GitHub review sessions",
+      "sidebar": "en-guide",
+      "section": "Automation",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide/github-review.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/guide/schedule.zh.md",
+      "route": "guide/schedule.md",
+      "label": "会话内提醒",
+      "sidebar": "zh-guide",
+      "section": "自动化",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/guide/schedule.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/guide/schedule.md",
+      "route": "en/guide/schedule.md",
+      "label": "Session reminders",
+      "sidebar": "en-guide",
+      "section": "Automation",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/guide/schedule.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/guide/mcp-memory.zh.md",
+      "route": "guide/mcp-memory.md",
+      "label": "记忆 MCP",
+      "sidebar": "zh-guide",
+      "section": "集成",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide/mcp-memory.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/guide/mcp-memory.md",
+      "route": "en/guide/mcp-memory.md",
+      "label": "Memory MCP",
+      "sidebar": "en-guide",
+      "section": "Integrations",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/guide/mcp-memory.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/basic/index.zh.md",
+      "route": "develop/basic/index.md",
+      "label": "第一个 Harness 插件",
+      "sidebar": "zh-develop",
+      "section": "基础",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/develop/basic",
+        "docs/user/develop/basic/index.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/basic/index.md",
+      "route": "en/develop/basic/index.md",
+      "label": "Your first Harness plugin",
+      "sidebar": "en-develop",
+      "section": "Basics",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/develop/basic",
+        "docs/user/develop/basic/index.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/basic/tool.zh.md",
+      "route": "develop/basic/tool.md",
+      "label": "开发一个 Tool",
+      "sidebar": "zh-develop",
+      "section": "基础",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/develop/basic/tool.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/basic/tool.md",
+      "route": "en/develop/basic/tool.md",
+      "label": "Build a tool",
+      "sidebar": "en-develop",
+      "section": "Basics",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/develop/basic/tool.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/basic/config.zh.md",
+      "route": "develop/basic/config.md",
+      "label": "插件配置",
+      "sidebar": "zh-develop",
+      "section": "基础",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/develop/basic/config.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/basic/config.md",
+      "route": "en/develop/basic/config.md",
+      "label": "Plugin configuration",
+      "sidebar": "en-develop",
+      "section": "Basics",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/develop/basic/config.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/basic/publish.zh.md",
+      "route": "develop/basic/publish.md",
+      "label": "打包与安装插件",
+      "sidebar": "zh-develop",
+      "section": "基础",
+      "order": 4,
+      "sourceAliases": [
+        "docs/user/develop/basic/publish.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/basic/publish.md",
+      "route": "en/develop/basic/publish.md",
+      "label": "Package and install",
+      "sidebar": "en-develop",
+      "section": "Basics",
+      "order": 4,
+      "sourceAliases": [
+        "docs/user/develop/basic/publish.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/framework/index.zh.md",
+      "route": "develop/framework/index.md",
+      "label": "插件与生命周期",
+      "sidebar": "zh-develop",
+      "section": "框架能力",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/develop/framework",
+        "docs/user/develop/framework/index.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/framework/index.md",
+      "route": "en/develop/framework/index.md",
+      "label": "Plugin lifecycle",
+      "sidebar": "en-develop",
+      "section": "Framework",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/develop/framework",
+        "docs/user/develop/framework/index.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/framework/service.zh.md",
+      "route": "develop/framework/service.md",
+      "label": "服务与依赖",
+      "sidebar": "zh-develop",
+      "section": "框架能力",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/develop/framework/service.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/framework/service.md",
+      "route": "en/develop/framework/service.md",
+      "label": "Services and dependencies",
+      "sidebar": "en-develop",
+      "section": "Framework",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/develop/framework/service.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/framework/events.zh.md",
+      "route": "develop/framework/events.md",
+      "label": "事件系统",
+      "sidebar": "zh-develop",
+      "section": "框架能力",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/develop/framework/events.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/framework/events.md",
+      "route": "en/develop/framework/events.md",
+      "label": "Event system",
+      "sidebar": "en-develop",
+      "section": "Framework",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/develop/framework/events.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/practice/index.zh.md",
+      "route": "develop/practice/index.md",
+      "label": "能力的三层拆分",
+      "sidebar": "zh-develop",
+      "section": "实战",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/develop/practice",
+        "docs/user/develop/practice/index.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/practice/index.md",
+      "route": "en/develop/practice/index.md",
+      "label": "Capability layering",
+      "sidebar": "en-develop",
+      "section": "Practice",
+      "order": 1,
+      "sourceAliases": [
+        "docs/user/develop/practice",
+        "docs/user/develop/practice/index.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/practice/llm-adapter.zh.md",
+      "route": "develop/practice/llm-adapter.md",
+      "label": "LLM 适配器",
+      "sidebar": "zh-develop",
+      "section": "实战",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/develop/practice/llm-adapter.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/practice/llm-adapter.md",
+      "route": "en/develop/practice/llm-adapter.md",
+      "label": "LLM adapter",
+      "sidebar": "en-develop",
+      "section": "Practice",
+      "order": 2,
+      "sourceAliases": [
+        "docs/user/develop/practice/llm-adapter.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/user/develop/practice/dynamic-cordis.zh.md",
+      "route": "develop/practice/dynamic-cordis.md",
+      "label": "运行时 Cordis 工具",
+      "sidebar": "zh-develop",
+      "section": "实战",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/develop/practice/dynamic-cordis.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/user/develop/practice/dynamic-cordis.md",
+      "route": "en/develop/practice/dynamic-cordis.md",
+      "label": "Runtime Cordis tools",
+      "sidebar": "en-develop",
+      "section": "Practice",
+      "order": 3,
+      "sourceAliases": [
+        "docs/user/develop/practice/dynamic-cordis.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/index.zh.md",
+      "route": "develop/cordis-tutorial/index.md",
+      "label": "总览",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 0,
+      "sourceAliases": [
+        "docs/cordis-tutorial",
+        "docs/cordis-tutorial/index.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/index.md",
+      "route": "en/develop/cordis-tutorial/index.md",
+      "label": "Overview",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 0,
+      "sourceAliases": [
+        "docs/cordis-tutorial",
+        "docs/cordis-tutorial/index.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/01-first-plugin.zh.md",
+      "route": "develop/cordis-tutorial/01-first-plugin.md",
+      "label": "1. 第一个插件",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cordis-tutorial/01-first-plugin.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/01-first-plugin.md",
+      "route": "en/develop/cordis-tutorial/01-first-plugin.md",
+      "label": "1. Your first plugin",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cordis-tutorial/01-first-plugin.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/02-lifecycle-and-effects.zh.md",
+      "route": "develop/cordis-tutorial/02-lifecycle-and-effects.md",
+      "label": "2. 生命周期与副作用",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 2,
+      "sourceAliases": [
+        "docs/cordis-tutorial/02-lifecycle-and-effects.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/02-lifecycle-and-effects.md",
+      "route": "en/develop/cordis-tutorial/02-lifecycle-and-effects.md",
+      "label": "2. Lifecycle and effects",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 2,
+      "sourceAliases": [
+        "docs/cordis-tutorial/02-lifecycle-and-effects.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/03-services.zh.md",
+      "route": "develop/cordis-tutorial/03-services.md",
+      "label": "3. 服务",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 3,
+      "sourceAliases": [
+        "docs/cordis-tutorial/03-services.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/03-services.md",
+      "route": "en/develop/cordis-tutorial/03-services.md",
+      "label": "3. Services",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 3,
+      "sourceAliases": [
+        "docs/cordis-tutorial/03-services.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/04-events.zh.md",
+      "route": "develop/cordis-tutorial/04-events.md",
+      "label": "4. 事件",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 4,
+      "sourceAliases": [
+        "docs/cordis-tutorial/04-events.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/04-events.md",
+      "route": "en/develop/cordis-tutorial/04-events.md",
+      "label": "4. Events",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 4,
+      "sourceAliases": [
+        "docs/cordis-tutorial/04-events.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/05-config.zh.md",
+      "route": "develop/cordis-tutorial/05-config.md",
+      "label": "5. 配置",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 5,
+      "sourceAliases": [
+        "docs/cordis-tutorial/05-config.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/05-config.md",
+      "route": "en/develop/cordis-tutorial/05-config.md",
+      "label": "5. Configuration",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 5,
+      "sourceAliases": [
+        "docs/cordis-tutorial/05-config.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/06-composition-and-hmr.zh.md",
+      "route": "develop/cordis-tutorial/06-composition-and-hmr.md",
+      "label": "6. 组合与热重载",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 6,
+      "sourceAliases": [
+        "docs/cordis-tutorial/06-composition-and-hmr.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/06-composition-and-hmr.md",
+      "route": "en/develop/cordis-tutorial/06-composition-and-hmr.md",
+      "label": "6. Composition and HMR",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 6,
+      "sourceAliases": [
+        "docs/cordis-tutorial/06-composition-and-hmr.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-tutorial/07-into-the-harness.zh.md",
+      "route": "develop/cordis-tutorial/07-into-the-harness.md",
+      "label": "7. 进入 Harness",
+      "sidebar": "zh-develop",
+      "section": "Cordis 框架教程",
+      "order": 7,
+      "sourceAliases": [
+        "docs/cordis-tutorial/07-into-the-harness.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-tutorial/07-into-the-harness.md",
+      "route": "en/develop/cordis-tutorial/07-into-the-harness.md",
+      "label": "7. Into the harness",
+      "sidebar": "en-develop",
+      "section": "Cordis framework tutorial",
+      "order": 7,
+      "sourceAliases": [
+        "docs/cordis-tutorial/07-into-the-harness.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-primer.zh.md",
+      "route": "reference/cordis-primer.md",
+      "label": "Cordis 入门",
+      "sidebar": "zh-reference",
+      "section": "概念",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cordis-primer.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-primer.md",
+      "route": "en/reference/cordis-primer.md",
+      "label": "Cordis primer",
+      "sidebar": "en-reference",
+      "section": "Concepts",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cordis-primer.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/README.zh.md",
+      "route": "reference/subsystems/index.md",
+      "label": "子系统",
+      "sidebar": "zh-reference",
+      "section": "总览",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems",
+        "docs/subsystems/README.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/README.md",
+      "route": "en/reference/subsystems/index.md",
+      "label": "Subsystems",
+      "sidebar": "en-reference",
+      "section": "Overview",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems",
+        "docs/subsystems/README.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/core.zh.md",
+      "route": "reference/subsystems/core.md",
+      "label": "核心",
+      "sidebar": "zh-reference",
+      "section": "内核与作用域",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/core.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/core.md",
+      "route": "en/reference/subsystems/core.md",
+      "label": "Core",
+      "sidebar": "en-reference",
+      "section": "Core and scopes",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/core.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/scope.zh.md",
+      "route": "reference/subsystems/scope.md",
+      "label": "作用域",
+      "sidebar": "zh-reference",
+      "section": "内核与作用域",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/scope.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/scope.md",
+      "route": "en/reference/subsystems/scope.md",
+      "label": "Scopes",
+      "sidebar": "en-reference",
+      "section": "Core and scopes",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/scope.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/invariants.zh.md",
+      "route": "reference/subsystems/invariants.md",
+      "label": "运行时不变式",
+      "sidebar": "zh-reference",
+      "section": "内核与作用域",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/invariants.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/invariants.md",
+      "route": "en/reference/subsystems/invariants.md",
+      "label": "Runtime invariants",
+      "sidebar": "en-reference",
+      "section": "Core and scopes",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/invariants.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/session.zh.md",
+      "route": "reference/subsystems/session.md",
+      "label": "会话",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/session.md",
+      "route": "en/reference/subsystems/session.md",
+      "label": "Sessions",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/session-query.zh.md",
+      "route": "reference/subsystems/session-query.md",
+      "label": "会话查询",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-query.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/session-query.md",
+      "route": "en/reference/subsystems/session-query.md",
+      "label": "Session query",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-query.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/session-reference.zh.md",
+      "route": "reference/subsystems/session-reference.md",
+      "label": "会话引用",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-reference.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/session-reference.md",
+      "route": "en/reference/subsystems/session-reference.md",
+      "label": "Session references",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-reference.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/session-title.zh.md",
+      "route": "reference/subsystems/session-title.md",
+      "label": "会话标题",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-title.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/session-title.md",
+      "route": "en/reference/subsystems/session-title.md",
+      "label": "Session titles",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-title.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/session-projection.zh.md",
+      "route": "reference/subsystems/session-projection.md",
+      "label": "会话投影",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-projection.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/session-projection.md",
+      "route": "en/reference/subsystems/session-projection.md",
+      "label": "Session projections",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-projection.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/persistence.zh.md",
+      "route": "reference/subsystems/persistence.md",
+      "label": "会话持久化",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/persistence.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/persistence.md",
+      "route": "en/reference/subsystems/persistence.md",
+      "label": "Session persistence",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/persistence.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/spill.zh.md",
+      "route": "reference/subsystems/spill.md",
+      "label": "Spill 存储",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/spill.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/spill.md",
+      "route": "en/reference/subsystems/spill.md",
+      "label": "Spill storage",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/spill.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/session-telemetry.zh.md",
+      "route": "reference/subsystems/session-telemetry.md",
+      "label": "遥测",
+      "sidebar": "zh-reference",
+      "section": "会话与持久化",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-telemetry.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/session-telemetry.md",
+      "route": "en/reference/subsystems/session-telemetry.md",
+      "label": "SessionTelemetryBackend",
+      "sidebar": "en-reference",
+      "section": "Sessions and persistence",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/session-telemetry.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/llm-streaming.zh.md",
+      "route": "reference/subsystems/llm-streaming.md",
+      "label": "LLM 流式响应",
+      "sidebar": "zh-reference",
+      "section": "模型与上下文",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/llm-streaming.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/llm-streaming.md",
+      "route": "en/reference/subsystems/llm-streaming.md",
+      "label": "LLM streaming",
+      "sidebar": "en-reference",
+      "section": "Model and context",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/llm-streaming.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/token-meter.zh.md",
+      "route": "reference/subsystems/token-meter.md",
+      "label": "Token 计量",
+      "sidebar": "zh-reference",
+      "section": "模型与上下文",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/token-meter.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/token-meter.md",
+      "route": "en/reference/subsystems/token-meter.md",
+      "label": "Token metering",
+      "sidebar": "en-reference",
+      "section": "Model and context",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/token-meter.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/system-prompt.zh.md",
+      "route": "reference/subsystems/system-prompt.md",
+      "label": "系统提示词",
+      "sidebar": "zh-reference",
+      "section": "模型与上下文",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/system-prompt.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/system-prompt.md",
+      "route": "en/reference/subsystems/system-prompt.md",
+      "label": "System prompts",
+      "sidebar": "en-reference",
+      "section": "Model and context",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/system-prompt.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/compaction.zh.md",
+      "route": "reference/subsystems/compaction.md",
+      "label": "上下文压缩",
+      "sidebar": "zh-reference",
+      "section": "模型与上下文",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/compaction.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/compaction.md",
+      "route": "en/reference/subsystems/compaction.md",
+      "label": "Compaction",
+      "sidebar": "en-reference",
+      "section": "Model and context",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/compaction.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/tools.zh.md",
+      "route": "reference/subsystems/tools.md",
+      "label": "工具",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/tools.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/tools.md",
+      "route": "en/reference/subsystems/tools.md",
+      "label": "Tools",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/tools.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/shell.zh.md",
+      "route": "reference/subsystems/shell.md",
+      "label": "Bash 执行",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/shell.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/shell.md",
+      "route": "en/reference/subsystems/shell.md",
+      "label": "Bash execution",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/shell.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/subprocess.zh.md",
+      "route": "reference/subsystems/subprocess.md",
+      "label": "子进程",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/subprocess.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/subprocess.md",
+      "route": "en/reference/subsystems/subprocess.md",
+      "label": "Subprocesses",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/subprocess.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/terminal.zh.md",
+      "route": "reference/subsystems/terminal.md",
+      "label": "PTY 会话",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/terminal.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/terminal.md",
+      "route": "en/reference/subsystems/terminal.md",
+      "label": "PTY sessions",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/terminal.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/jobs.zh.md",
+      "route": "reference/subsystems/jobs.md",
+      "label": "后台任务",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/jobs.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/jobs.md",
+      "route": "en/reference/subsystems/jobs.md",
+      "label": "Background jobs",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/jobs.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/filesystem.zh.md",
+      "route": "reference/subsystems/filesystem.md",
+      "label": "文件系统",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/filesystem.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/filesystem.md",
+      "route": "en/reference/subsystems/filesystem.md",
+      "label": "Filesystem",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/filesystem.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/lsp.zh.md",
+      "route": "reference/subsystems/lsp.md",
+      "label": "LSP 导航",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/lsp.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/lsp.md",
+      "route": "en/reference/subsystems/lsp.md",
+      "label": "LSP navigation",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/lsp.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/code-runtime.zh.md",
+      "route": "reference/subsystems/code-runtime.md",
+      "label": "代码运行时",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/code-runtime.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/code-runtime.md",
+      "route": "en/reference/subsystems/code-runtime.md",
+      "label": "Code runtime",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/code-runtime.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/web.zh.md",
+      "route": "reference/subsystems/web.md",
+      "label": "Web 访问",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 8,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/web.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/web.md",
+      "route": "en/reference/subsystems/web.md",
+      "label": "Web access",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 8,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/web.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/skills.zh.md",
+      "route": "reference/subsystems/skills.md",
+      "label": "技能",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 9,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/skills.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/skills.md",
+      "route": "en/reference/subsystems/skills.md",
+      "label": "Skills",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 9,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/skills.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/workflow.zh.md",
+      "route": "reference/subsystems/workflow.md",
+      "label": "工作流",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 10,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/workflow.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/workflow.md",
+      "route": "en/reference/subsystems/workflow.md",
+      "label": "Workflows",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 10,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/workflow.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/subagent.zh.md",
+      "route": "reference/subsystems/subagent.md",
+      "label": "子代理",
+      "sidebar": "zh-reference",
+      "section": "执行与工具",
+      "order": 11,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/subagent.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/subagent.md",
+      "route": "en/reference/subsystems/subagent.md",
+      "label": "Subagents",
+      "sidebar": "en-reference",
+      "section": "Execution and tools",
+      "order": 11,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/subagent.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/approval.zh.md",
+      "route": "reference/subsystems/approval.md",
+      "label": "审批",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/approval.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/approval.md",
+      "route": "en/reference/subsystems/approval.md",
+      "label": "Approvals",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/approval.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/permission-presets.zh.md",
+      "route": "reference/subsystems/permission-presets.md",
+      "label": "权限预设",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/permission-presets.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/permission-presets.md",
+      "route": "en/reference/subsystems/permission-presets.md",
+      "label": "Permission presets",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/permission-presets.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/sandbox.zh.md",
+      "route": "reference/subsystems/sandbox.md",
+      "label": "沙箱",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/sandbox.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/sandbox.md",
+      "route": "en/reference/subsystems/sandbox.md",
+      "label": "Sandboxing",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/sandbox.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/plan.zh.md",
+      "route": "reference/subsystems/plan.md",
+      "label": "计划模式",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/plan.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/plan.md",
+      "route": "en/reference/subsystems/plan.md",
+      "label": "Plan mode",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/plan.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/user-questions.zh.md",
+      "route": "reference/subsystems/user-questions.md",
+      "label": "用户交互",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/user-questions.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/user-questions.md",
+      "route": "en/reference/subsystems/user-questions.md",
+      "label": "User interaction",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/user-questions.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/commands.zh.md",
+      "route": "reference/subsystems/commands.md",
+      "label": "命令",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/commands.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/commands.md",
+      "route": "en/reference/subsystems/commands.md",
+      "label": "Human commands",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/commands.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/goal.zh.md",
+      "route": "reference/subsystems/goal.md",
+      "label": "目标",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/goal.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/goal.md",
+      "route": "en/reference/subsystems/goal.md",
+      "label": "Goals",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/goal.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/schedule.zh.md",
+      "route": "reference/subsystems/schedule.md",
+      "label": "定时提醒",
+      "sidebar": "zh-reference",
+      "section": "策略与交互",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/schedule.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/schedule.md",
+      "route": "en/reference/subsystems/schedule.md",
+      "label": "Scheduled reminders",
+      "sidebar": "en-reference",
+      "section": "Policy and interaction",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/schedule.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/web-server.zh.md",
+      "route": "reference/subsystems/web-server.md",
+      "label": "HTTP 服务器",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/web-server.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/web-server.md",
+      "route": "en/reference/subsystems/web-server.md",
+      "label": "HTTP server",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 0,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/web-server.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/web-client.zh.md",
+      "route": "reference/subsystems/web-client.md",
+      "label": "Web Client 架构",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/web-client.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/web-client.md",
+      "route": "en/reference/subsystems/web-client.md",
+      "label": "Web Client architecture",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 1,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/web-client.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/client-modules.zh.md",
+      "route": "reference/subsystems/client-modules.md",
+      "label": "客户端模块",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/client-modules.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/client-modules.md",
+      "route": "en/reference/subsystems/client-modules.md",
+      "label": "Client modules",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 2,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/client-modules.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/slots.zh.md",
+      "route": "reference/subsystems/slots.md",
+      "label": "客户端 Slots",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/slots.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/slots.md",
+      "route": "en/reference/subsystems/slots.md",
+      "label": "Client slots",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 3,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/slots.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/conversation.zh.md",
+      "route": "reference/subsystems/conversation.md",
+      "label": "Conversation 组装",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/conversation.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/conversation.md",
+      "route": "en/reference/subsystems/conversation.md",
+      "label": "Conversation assembly",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 4,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/conversation.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/typert.zh.md",
+      "route": "reference/subsystems/typert.md",
+      "label": "Typert",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/typert.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/typert.md",
+      "route": "en/reference/subsystems/typert.md",
+      "label": "Typert",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 5,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/typert.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/storage.zh.md",
+      "route": "reference/subsystems/storage.md",
+      "label": "存储",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/storage.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/storage.md",
+      "route": "en/reference/subsystems/storage.md",
+      "label": "Storage",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 6,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/storage.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/workspace.zh.md",
+      "route": "reference/subsystems/workspace.md",
+      "label": "工作区",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/workspace.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/workspace.md",
+      "route": "en/reference/subsystems/workspace.md",
+      "label": "Workspaces",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 7,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/workspace.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/settings.zh.md",
+      "route": "reference/subsystems/settings.md",
+      "label": "用户设置",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 8,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/settings.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/settings.md",
+      "route": "en/reference/subsystems/settings.md",
+      "label": "User settings",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 8,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/settings.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/subsystems/credentials.zh.md",
+      "route": "reference/subsystems/credentials.md",
+      "label": "用户凭据",
+      "sidebar": "zh-reference",
+      "section": "平台与接入",
+      "order": 9,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/credentials.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/subsystems/credentials.md",
+      "route": "en/reference/subsystems/credentials.md",
+      "label": "User credentials",
+      "sidebar": "en-reference",
+      "section": "Platform and access",
+      "order": 9,
+      "outline": [
+        2,
+        3
+      ],
+      "sourceAliases": [
+        "docs/subsystems/credentials.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/architecture.zh.md",
+      "route": "reference/index.md",
+      "label": "架构",
+      "sidebar": "zh-reference",
+      "section": "概念",
+      "order": 0,
+      "sourceAliases": [
+        "docs/architecture.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/architecture.md",
+      "route": "en/reference/index.md",
+      "label": "Architecture",
+      "sidebar": "en-reference",
+      "section": "Concepts",
+      "order": 0,
+      "sourceAliases": [
+        "docs/architecture.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/capability-seams.zh.md",
+      "route": "reference/capability-seams.md",
+      "label": "能力服务",
+      "sidebar": "zh-reference",
+      "section": "概念",
+      "order": 2,
+      "sourceAliases": [
+        "docs/capability-seams.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/capability-seams.md",
+      "route": "en/reference/capability-seams.md",
+      "label": "Capability services",
+      "sidebar": "en-reference",
+      "section": "Concepts",
+      "order": 2,
+      "sourceAliases": [
+        "docs/capability-seams.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/agent-lifecycle.zh.md",
+      "route": "reference/agent-lifecycle.md",
+      "label": "Agent 生命周期",
+      "sidebar": "zh-reference",
+      "section": "概念",
+      "order": 3,
+      "sourceAliases": [
+        "docs/agent-lifecycle.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/agent-lifecycle.md",
+      "route": "en/reference/agent-lifecycle.md",
+      "label": "Agent lifecycle",
+      "sidebar": "en-reference",
+      "section": "Concepts",
+      "order": 3,
+      "sourceAliases": [
+        "docs/agent-lifecycle.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/tool-execution-pipeline.zh.md",
+      "route": "reference/tool-execution-pipeline.md",
+      "label": "Tool 执行",
+      "sidebar": "zh-reference",
+      "section": "概念",
+      "order": 4,
+      "sourceAliases": [
+        "docs/tool-execution-pipeline.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/tool-execution-pipeline.md",
+      "route": "en/reference/tool-execution-pipeline.md",
+      "label": "Tool execution",
+      "sidebar": "en-reference",
+      "section": "Concepts",
+      "order": 4,
+      "sourceAliases": [
+        "docs/tool-execution-pipeline.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/api-gateway.zh.md",
+      "route": "reference/api-gateway.md",
+      "label": "API Gateway",
+      "sidebar": "zh-reference",
+      "section": "概念",
+      "order": 5,
+      "sourceAliases": [
+        "docs/api-gateway.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/api-gateway.md",
+      "route": "en/reference/api-gateway.md",
+      "label": "API Gateway",
+      "sidebar": "en-reference",
+      "section": "Concepts",
+      "order": 5,
+      "sourceAliases": [
+        "docs/api-gateway.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/config-catalog.zh.md",
+      "route": "reference/config-catalog.md",
+      "label": "插件配置",
+      "sidebar": "zh-reference",
+      "section": "生成参考",
+      "order": 0,
+      "sourceAliases": [
+        "docs/config-catalog.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/config-catalog.md",
+      "route": "en/reference/config-catalog.md",
+      "label": "Plugin configuration",
+      "sidebar": "en-reference",
+      "section": "Generated reference",
+      "order": 0,
+      "sourceAliases": [
+        "docs/config-catalog.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/tool-catalog.zh.md",
+      "route": "reference/tool-catalog.md",
+      "label": "Tool Schema",
+      "sidebar": "zh-reference",
+      "section": "生成参考",
+      "order": 1,
+      "sourceAliases": [
+        "docs/tool-catalog.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/tool-catalog.md",
+      "route": "en/reference/tool-catalog.md",
+      "label": "Tool schemas",
+      "sidebar": "en-reference",
+      "section": "Generated reference",
+      "order": 1,
+      "sourceAliases": [
+        "docs/tool-catalog.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/persistence-catalog.zh.md",
+      "route": "reference/persistence-catalog.md",
+      "label": "持久化事件",
+      "sidebar": "zh-reference",
+      "section": "生成参考",
+      "order": 2,
+      "outline": "deep",
+      "sourceAliases": [
+        "docs/persistence-catalog.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/persistence-catalog.md",
+      "route": "en/reference/persistence-catalog.md",
+      "label": "Persistence events",
+      "sidebar": "en-reference",
+      "section": "Generated reference",
+      "order": 2,
+      "outline": "deep",
+      "sourceAliases": [
+        "docs/persistence-catalog.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-api/context.zh.md",
+      "route": "reference/cordis-api/context.md",
+      "label": "Context",
+      "sidebar": "zh-reference",
+      "section": "Cordis API",
+      "order": 0,
+      "sourceAliases": [
+        "docs/cordis-api/context.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-api/context.md",
+      "route": "en/reference/cordis-api/context.md",
+      "label": "Context",
+      "sidebar": "en-reference",
+      "section": "Cordis Core API",
+      "order": 0,
+      "sourceAliases": [
+        "docs/cordis-api/context.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-api/events.zh.md",
+      "route": "reference/cordis-api/events.md",
+      "label": "Events",
+      "sidebar": "zh-reference",
+      "section": "Cordis API",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cordis-api/events.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-api/events.md",
+      "route": "en/reference/cordis-api/events.md",
+      "label": "Events",
+      "sidebar": "en-reference",
+      "section": "Cordis Core API",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cordis-api/events.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-api/fiber.zh.md",
+      "route": "reference/cordis-api/fiber.md",
+      "label": "Fiber",
+      "sidebar": "zh-reference",
+      "section": "Cordis API",
+      "order": 2,
+      "sourceAliases": [
+        "docs/cordis-api/fiber.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-api/fiber.md",
+      "route": "en/reference/cordis-api/fiber.md",
+      "label": "Fiber",
+      "sidebar": "en-reference",
+      "section": "Cordis Core API",
+      "order": 2,
+      "sourceAliases": [
+        "docs/cordis-api/fiber.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-api/registry.zh.md",
+      "route": "reference/cordis-api/registry.md",
+      "label": "Plugin Registry",
+      "sidebar": "zh-reference",
+      "section": "Cordis API",
+      "order": 3,
+      "sourceAliases": [
+        "docs/cordis-api/registry.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-api/registry.md",
+      "route": "en/reference/cordis-api/registry.md",
+      "label": "Plugin Registry",
+      "sidebar": "en-reference",
+      "section": "Cordis Core API",
+      "order": 3,
+      "sourceAliases": [
+        "docs/cordis-api/registry.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cordis-api/service.zh.md",
+      "route": "reference/cordis-api/service.md",
+      "label": "Service",
+      "sidebar": "zh-reference",
+      "section": "Cordis API",
+      "order": 4,
+      "sourceAliases": [
+        "docs/cordis-api/service.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-api/service.md",
+      "route": "en/reference/cordis-api/service.md",
+      "label": "Service",
+      "sidebar": "en-reference",
+      "section": "Cordis Core API",
+      "order": 4,
+      "sourceAliases": [
+        "docs/cordis-api/service.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-api/inherited.md",
+      "route": "reference/cordis-api/inherited.md",
+      "label": "继承接口面",
+      "sidebar": "zh-reference",
+      "section": "Cordis API",
+      "order": 5
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cordis-api/inherited.md",
+      "route": "en/reference/cordis-api/inherited.md",
+      "label": "Inherited surface",
+      "sidebar": "en-reference",
+      "section": "Cordis Core API",
+      "order": 5
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cookbook/adding-a-package.zh.md",
+      "route": "reference/cookbook/adding-a-package.md",
+      "label": "新增 Package",
+      "sidebar": "zh-reference",
+      "section": "开发手册",
+      "order": 0,
+      "sourceAliases": [
+        "docs/cookbook/adding-a-package.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cookbook/adding-a-package.md",
+      "route": "en/reference/cookbook/adding-a-package.md",
+      "label": "Adding a package",
+      "sidebar": "en-reference",
+      "section": "Cookbook",
+      "order": 0,
+      "sourceAliases": [
+        "docs/cookbook/adding-a-package.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cookbook/adding-a-tool.zh.md",
+      "route": "reference/cookbook/adding-a-tool.md",
+      "label": "新增 Tool",
+      "sidebar": "zh-reference",
+      "section": "开发手册",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cookbook/adding-a-tool.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cookbook/adding-a-tool.md",
+      "route": "en/reference/cookbook/adding-a-tool.md",
+      "label": "Adding a tool",
+      "sidebar": "en-reference",
+      "section": "Cookbook",
+      "order": 1,
+      "sourceAliases": [
+        "docs/cookbook/adding-a-tool.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cookbook/adding-an-llm-adapter.zh.md",
+      "route": "reference/cookbook/adding-an-llm-adapter.md",
+      "label": "新增 LLM Adapter",
+      "sidebar": "zh-reference",
+      "section": "开发手册",
+      "order": 2,
+      "sourceAliases": [
+        "docs/cookbook/adding-an-llm-adapter.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cookbook/adding-an-llm-adapter.md",
+      "route": "en/reference/cookbook/adding-an-llm-adapter.md",
+      "label": "Adding an LLM adapter",
+      "sidebar": "en-reference",
+      "section": "Cookbook",
+      "order": 2,
+      "sourceAliases": [
+        "docs/cookbook/adding-an-llm-adapter.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cookbook/adding-a-settings-card.zh.md",
+      "route": "reference/cookbook/adding-a-settings-card.md",
+      "label": "新增设置卡片",
+      "sidebar": "zh-reference",
+      "section": "开发手册",
+      "order": 3,
+      "sourceAliases": [
+        "docs/cookbook/adding-a-settings-card.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cookbook/adding-a-settings-card.md",
+      "route": "en/reference/cookbook/adding-a-settings-card.md",
+      "label": "Adding a settings card",
+      "sidebar": "en-reference",
+      "section": "Cookbook",
+      "order": 3,
+      "sourceAliases": [
+        "docs/cookbook/adding-a-settings-card.zh.md"
+      ]
+    },
+    {
+      "locale": "root",
+      "contentLocale": "zh-CN",
+      "source": "docs/cookbook/extension-cookbook.zh.md",
+      "route": "reference/cookbook/extension-cookbook.md",
+      "label": "扩展模式",
+      "sidebar": "zh-reference",
+      "section": "开发手册",
+      "order": 4,
+      "sourceAliases": [
+        "docs/cookbook/extension-cookbook.md"
+      ]
+    },
+    {
+      "locale": "en",
+      "contentLocale": "en-US",
+      "source": "docs/cookbook/extension-cookbook.md",
+      "route": "en/reference/cookbook/extension-cookbook.md",
+      "label": "Extension patterns",
+      "sidebar": "en-reference",
+      "section": "Cookbook",
+      "order": 4,
+      "sourceAliases": [
+        "docs/cookbook/extension-cookbook.zh.md"
+      ]
+    }
+  ],
+  "routes": [
+    "index.md",
+    "en/index.md",
+    "guide/quickstart.md",
+    "en/guide/quickstart.md",
+    "guide/providers.md",
+    "en/guide/providers.md",
+    "guide/network-proxy.md",
+    "en/guide/network-proxy.md",
+    "guide/python-sdk.md",
+    "en/guide/python-sdk.md",
+    "guide/github-review.md",
+    "en/guide/github-review.md",
+    "guide/schedule.md",
+    "en/guide/schedule.md",
+    "guide/mcp-memory.md",
+    "en/guide/mcp-memory.md",
+    "develop/basic/index.md",
+    "en/develop/basic/index.md",
+    "develop/basic/tool.md",
+    "en/develop/basic/tool.md",
+    "develop/basic/config.md",
+    "en/develop/basic/config.md",
+    "develop/basic/publish.md",
+    "en/develop/basic/publish.md",
+    "develop/framework/index.md",
+    "en/develop/framework/index.md",
+    "develop/framework/service.md",
+    "en/develop/framework/service.md",
+    "develop/framework/events.md",
+    "en/develop/framework/events.md",
+    "develop/practice/index.md",
+    "en/develop/practice/index.md",
+    "develop/practice/llm-adapter.md",
+    "en/develop/practice/llm-adapter.md",
+    "develop/practice/dynamic-cordis.md",
+    "en/develop/practice/dynamic-cordis.md",
+    "develop/cordis-tutorial/index.md",
+    "en/develop/cordis-tutorial/index.md",
+    "develop/cordis-tutorial/01-first-plugin.md",
+    "en/develop/cordis-tutorial/01-first-plugin.md",
+    "develop/cordis-tutorial/02-lifecycle-and-effects.md",
+    "en/develop/cordis-tutorial/02-lifecycle-and-effects.md",
+    "develop/cordis-tutorial/03-services.md",
+    "en/develop/cordis-tutorial/03-services.md",
+    "develop/cordis-tutorial/04-events.md",
+    "en/develop/cordis-tutorial/04-events.md",
+    "develop/cordis-tutorial/05-config.md",
+    "en/develop/cordis-tutorial/05-config.md",
+    "develop/cordis-tutorial/06-composition-and-hmr.md",
+    "en/develop/cordis-tutorial/06-composition-and-hmr.md",
+    "develop/cordis-tutorial/07-into-the-harness.md",
+    "en/develop/cordis-tutorial/07-into-the-harness.md",
+    "reference/cordis-primer.md",
+    "en/reference/cordis-primer.md",
+    "reference/subsystems/index.md",
+    "en/reference/subsystems/index.md",
+    "reference/subsystems/core.md",
+    "en/reference/subsystems/core.md",
+    "reference/subsystems/scope.md",
+    "en/reference/subsystems/scope.md",
+    "reference/subsystems/invariants.md",
+    "en/reference/subsystems/invariants.md",
+    "reference/subsystems/session.md",
+    "en/reference/subsystems/session.md",
+    "reference/subsystems/session-query.md",
+    "en/reference/subsystems/session-query.md",
+    "reference/subsystems/session-reference.md",
+    "en/reference/subsystems/session-reference.md",
+    "reference/subsystems/session-title.md",
+    "en/reference/subsystems/session-title.md",
+    "reference/subsystems/session-projection.md",
+    "en/reference/subsystems/session-projection.md",
+    "reference/subsystems/persistence.md",
+    "en/reference/subsystems/persistence.md",
+    "reference/subsystems/spill.md",
+    "en/reference/subsystems/spill.md",
+    "reference/subsystems/session-telemetry.md",
+    "en/reference/subsystems/session-telemetry.md",
+    "reference/subsystems/llm-streaming.md",
+    "en/reference/subsystems/llm-streaming.md",
+    "reference/subsystems/token-meter.md",
+    "en/reference/subsystems/token-meter.md",
+    "reference/subsystems/system-prompt.md",
+    "en/reference/subsystems/system-prompt.md",
+    "reference/subsystems/compaction.md",
+    "en/reference/subsystems/compaction.md",
+    "reference/subsystems/tools.md",
+    "en/reference/subsystems/tools.md",
+    "reference/subsystems/shell.md",
+    "en/reference/subsystems/shell.md",
+    "reference/subsystems/subprocess.md",
+    "en/reference/subsystems/subprocess.md",
+    "reference/subsystems/terminal.md",
+    "en/reference/subsystems/terminal.md",
+    "reference/subsystems/jobs.md",
+    "en/reference/subsystems/jobs.md",
+    "reference/subsystems/filesystem.md",
+    "en/reference/subsystems/filesystem.md",
+    "reference/subsystems/lsp.md",
+    "en/reference/subsystems/lsp.md",
+    "reference/subsystems/code-runtime.md",
+    "en/reference/subsystems/code-runtime.md",
+    "reference/subsystems/web.md",
+    "en/reference/subsystems/web.md",
+    "reference/subsystems/skills.md",
+    "en/reference/subsystems/skills.md",
+    "reference/subsystems/workflow.md",
+    "en/reference/subsystems/workflow.md",
+    "reference/subsystems/subagent.md",
+    "en/reference/subsystems/subagent.md",
+    "reference/subsystems/approval.md",
+    "en/reference/subsystems/approval.md",
+    "reference/subsystems/permission-presets.md",
+    "en/reference/subsystems/permission-presets.md",
+    "reference/subsystems/sandbox.md",
+    "en/reference/subsystems/sandbox.md",
+    "reference/subsystems/plan.md",
+    "en/reference/subsystems/plan.md",
+    "reference/subsystems/user-questions.md",
+    "en/reference/subsystems/user-questions.md",
+    "reference/subsystems/commands.md",
+    "en/reference/subsystems/commands.md",
+    "reference/subsystems/goal.md",
+    "en/reference/subsystems/goal.md",
+    "reference/subsystems/schedule.md",
+    "en/reference/subsystems/schedule.md",
+    "reference/subsystems/web-server.md",
+    "en/reference/subsystems/web-server.md",
+    "reference/subsystems/web-client.md",
+    "en/reference/subsystems/web-client.md",
+    "reference/subsystems/client-modules.md",
+    "en/reference/subsystems/client-modules.md",
+    "reference/subsystems/slots.md",
+    "en/reference/subsystems/slots.md",
+    "reference/subsystems/conversation.md",
+    "en/reference/subsystems/conversation.md",
+    "reference/subsystems/typert.md",
+    "en/reference/subsystems/typert.md",
+    "reference/subsystems/storage.md",
+    "en/reference/subsystems/storage.md",
+    "reference/subsystems/workspace.md",
+    "en/reference/subsystems/workspace.md",
+    "reference/subsystems/settings.md",
+    "en/reference/subsystems/settings.md",
+    "reference/subsystems/credentials.md",
+    "en/reference/subsystems/credentials.md",
+    "reference/index.md",
+    "en/reference/index.md",
+    "reference/capability-seams.md",
+    "en/reference/capability-seams.md",
+    "reference/agent-lifecycle.md",
+    "en/reference/agent-lifecycle.md",
+    "reference/tool-execution-pipeline.md",
+    "en/reference/tool-execution-pipeline.md",
+    "reference/api-gateway.md",
+    "en/reference/api-gateway.md",
+    "reference/config-catalog.md",
+    "en/reference/config-catalog.md",
+    "reference/tool-catalog.md",
+    "en/reference/tool-catalog.md",
+    "reference/persistence-catalog.md",
+    "en/reference/persistence-catalog.md",
+    "reference/cordis-api/context.md",
+    "en/reference/cordis-api/context.md",
+    "reference/cordis-api/events.md",
+    "en/reference/cordis-api/events.md",
+    "reference/cordis-api/fiber.md",
+    "en/reference/cordis-api/fiber.md",
+    "reference/cordis-api/registry.md",
+    "en/reference/cordis-api/registry.md",
+    "reference/cordis-api/service.md",
+    "en/reference/cordis-api/service.md",
+    "reference/cordis-api/inherited.md",
+    "en/reference/cordis-api/inherited.md",
+    "reference/cookbook/adding-a-package.md",
+    "en/reference/cookbook/adding-a-package.md",
+    "reference/cookbook/adding-a-tool.md",
+    "en/reference/cookbook/adding-a-tool.md",
+    "reference/cookbook/adding-an-llm-adapter.md",
+    "en/reference/cookbook/adding-an-llm-adapter.md",
+    "reference/cookbook/adding-a-settings-card.md",
+    "en/reference/cookbook/adding-a-settings-card.md",
+    "reference/cookbook/extension-cookbook.md",
+    "en/reference/cookbook/extension-cookbook.md",
+    "en.md",
+    "develop/basic.md",
+    "en/develop/basic.md",
+    "develop/framework.md",
+    "en/develop/framework.md",
+    "develop/practice.md",
+    "en/develop/practice.md",
+    "develop/cordis-tutorial.md",
+    "en/develop/cordis-tutorial.md",
+    "reference/subsystems.md",
+    "en/reference/subsystems.md",
+    "reference.md",
+    "en/reference.md"
+  ],
+  "trees": {
+    "v7": {
+      "root": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp\\site-v8-equivalence-hEuwut\\v7",
+      "files": [
+        {
+          "path": "develop/basic.md",
+          "bytes": 3835,
+          "sha256": "b7fa867a3bafea9580d0631d7d3641cffc6680ee930f8385dd1884c47439b80b"
+        },
+        {
+          "path": "develop/basic/config.md",
+          "bytes": 3083,
+          "sha256": "8f1fbe66130a056239045ba51c05d6a62775ae6c2918f53c97c0fb986fc46d49"
+        },
+        {
+          "path": "develop/basic/index.md",
+          "bytes": 3825,
+          "sha256": "e4887e5703c05a06e1cd28d9fafe4bf789e728f851b60e116627971c6e6ec48a"
+        },
+        {
+          "path": "develop/basic/publish.md",
+          "bytes": 8980,
+          "sha256": "813beefc79da04bcff92076dc2a3aa335f58d4c74df96a32b45f21907a3b0f97"
+        },
+        {
+          "path": "develop/basic/tool.md",
+          "bytes": 1754,
+          "sha256": "8224fdbc979a7872d7f4572ae3538280d1a4ef248e7b9626f25eb581863d194f"
+        },
+        {
+          "path": "develop/cordis-tutorial.md",
+          "bytes": 4364,
+          "sha256": "3d743bf5afc5f2811d42e5ebbebb219481699bd4a92b031daf7c2089a54e3d98"
+        },
+        {
+          "path": "develop/cordis-tutorial/01-first-plugin.md",
+          "bytes": 3266,
+          "sha256": "e7959e43fa9f7c53ded5e959580e8f2d97b5efb050b98ab6fce9c5766e914420"
+        },
+        {
+          "path": "develop/cordis-tutorial/02-lifecycle-and-effects.md",
+          "bytes": 4012,
+          "sha256": "59832df8a3228c8fbbd72e9503198d5e3578feca87eea02ba9fb4996d8420f5b"
+        },
+        {
+          "path": "develop/cordis-tutorial/03-services.md",
+          "bytes": 4016,
+          "sha256": "fed0ad034e9a175c7f89780a9482fab51d27ba64576981ccaf9a64b958bc8c1b"
+        },
+        {
+          "path": "develop/cordis-tutorial/04-events.md",
+          "bytes": 5394,
+          "sha256": "9012dd87e0780fa997d941f7dbce5e2ebc3c98bd80bb9a1112036756e82018a1"
+        },
+        {
+          "path": "develop/cordis-tutorial/05-config.md",
+          "bytes": 2731,
+          "sha256": "fe99f37de834dfeb8b1afa8e9cf56a6524de021bb876b287cace0a171c19d4b9"
+        },
+        {
+          "path": "develop/cordis-tutorial/06-composition-and-hmr.md",
+          "bytes": 4914,
+          "sha256": "e735656d160f712466d66af66c12cc90be59318e09566ab05bd9a31ded04e2fe"
+        },
+        {
+          "path": "develop/cordis-tutorial/07-into-the-harness.md",
+          "bytes": 4712,
+          "sha256": "b15e38d310dc98ecd1a3c13e3dff28b8946f579ad0092b0598219b40f9b3b7f4"
+        },
+        {
+          "path": "develop/cordis-tutorial/index.md",
+          "bytes": 4262,
+          "sha256": "f27622c616d2bd8fc9e58f6d49562b0bbc6d8376c47972f92ab82f0264c1f80c"
+        },
+        {
+          "path": "develop/framework.md",
+          "bytes": 3623,
+          "sha256": "f26407d76a07481c1f01bf0cf47839dca013c3a3918fb199e1d82ae0b4047a1e"
+        },
+        {
+          "path": "develop/framework/events.md",
+          "bytes": 3989,
+          "sha256": "a934911df59d9566b61721a12c8fc6207ce883e07ff693a7c2ba546d4273f642"
+        },
+        {
+          "path": "develop/framework/index.md",
+          "bytes": 3604,
+          "sha256": "48ba4b8414eaa292183045146635fb241e6b9ec205ec01a74cc9cebb599309c7"
+        },
+        {
+          "path": "develop/framework/service.md",
+          "bytes": 3624,
+          "sha256": "9afad82db7c9d7ec508142569999bb6c57f159b659a8cb007cb8dd9f25706530"
+        },
+        {
+          "path": "develop/practice.md",
+          "bytes": 5048,
+          "sha256": "ee318a4c3375a67ceb3520583470528e3bba6e97a78836359f501b367171d3ef"
+        },
+        {
+          "path": "develop/practice/dynamic-cordis.md",
+          "bytes": 785,
+          "sha256": "13e17e57ec5b5ea22ef042817b8e61284d1e8b5db380f9cfbbcf247e1cebc878"
+        },
+        {
+          "path": "develop/practice/index.md",
+          "bytes": 5044,
+          "sha256": "bbaf2f7b6194904d19ec6f2fdfeed9d9175f3bc950a6ab251cd6df6427a0ead9"
+        },
+        {
+          "path": "develop/practice/llm-adapter.md",
+          "bytes": 6508,
+          "sha256": "50300a71a23b9a1892d245a17fc84a548592c7abaa41c81c4bdf78ea05d52a69"
+        },
+        {
+          "path": "en.md",
+          "bytes": 19,
+          "sha256": "c252a8f560c0b8836d8e43bcb08ab60ed80c325ef1f2c01d356abf70c3d65903"
+        },
+        {
+          "path": "en/develop/basic.md",
+          "bytes": 3956,
+          "sha256": "83c047f83f4d37a77f9134b541ef230f73e1f604834fbc8182dd4936e6481715"
+        },
+        {
+          "path": "en/develop/basic/config.md",
+          "bytes": 3128,
+          "sha256": "1ef3482a6a42e522861bc272aea9614e1eba07d7d1cc37fcde80011b9bcbac33"
+        },
+        {
+          "path": "en/develop/basic/index.md",
+          "bytes": 3946,
+          "sha256": "f559ba063c9efe969c71f76afc82098f4829f18a9ea092a64bb3156667130b15"
+        },
+        {
+          "path": "en/develop/basic/publish.md",
+          "bytes": 9089,
+          "sha256": "963a919dc1378b712708c28fd57cd3cee2b6f8b04ba72b53ec2168a680d6a18b"
+        },
+        {
+          "path": "en/develop/basic/tool.md",
+          "bytes": 1790,
+          "sha256": "c72ab9b31d9a3a4dfcd1af9e93e326c7cbc18e3918d938da2a01f1a54ad6129b"
+        },
+        {
+          "path": "en/develop/cordis-tutorial.md",
+          "bytes": 4405,
+          "sha256": "7b67074bb6cb9ad9bab14abbae4d7c47dd3e9f16a8acba475e780e909bdcff30"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/01-first-plugin.md",
+          "bytes": 3278,
+          "sha256": "eac5663ad8e0dc47de50b355b0d6c1bd8e7d9adce19502159e39fa4001a5ae2a"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/02-lifecycle-and-effects.md",
+          "bytes": 3959,
+          "sha256": "2687c12f0da0220ae5e7cdb81dc16d55d18135c44868c61bafa7882f941bbd9f"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/03-services.md",
+          "bytes": 4009,
+          "sha256": "dd4a95b2d96e9d915473d5c7e0f995f167fa5d41e98bc549e7be38482bdf4e90"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/04-events.md",
+          "bytes": 5435,
+          "sha256": "d8060dec853228c88ec6eaee2a64063fe11410c1f70e8a422178e3ad391c9840"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/05-config.md",
+          "bytes": 2696,
+          "sha256": "fb91392420f66fbdc3d7f767370f827ad1585288f64fbb150ec4786908d50a1c"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/06-composition-and-hmr.md",
+          "bytes": 4715,
+          "sha256": "566cfa7137e09aaeeca24dc21d0902f0ba6bf38bc894a3f4463368e4dcc30f38"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/07-into-the-harness.md",
+          "bytes": 4707,
+          "sha256": "74b716cae6a8646307b4df179044b987e46d964cd0d71b40d0ae8ada8e1632a3"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/index.md",
+          "bytes": 4303,
+          "sha256": "54cf4a5a353b8b87fa68f19180c40e291eb258e5e20e520b4dbde2f272ceba23"
+        },
+        {
+          "path": "en/develop/framework.md",
+          "bytes": 3822,
+          "sha256": "ff234b4dbcbbf684c9c8ab60c2862190718ca8d25e4eaa6e014fd55329e11eec"
+        },
+        {
+          "path": "en/develop/framework/events.md",
+          "bytes": 4054,
+          "sha256": "c3680f22878ecd761b0dee3c7ae5e3785dc6951982fca079eea94b1509bd5a2a"
+        },
+        {
+          "path": "en/develop/framework/index.md",
+          "bytes": 3803,
+          "sha256": "061e92a2145098989fac41a20a678954e5702278cd9cb76cec7ecf2dea971825"
+        },
+        {
+          "path": "en/develop/framework/service.md",
+          "bytes": 3728,
+          "sha256": "9c29c92dff032bc59c14c97a8810c6d7058c35267ad2ce3c46da3a0d3c5e2669"
+        },
+        {
+          "path": "en/develop/practice.md",
+          "bytes": 5269,
+          "sha256": "581139c4bfca454df63ef67e66965988a43a46f4849c2d590602c18e0e631b50"
+        },
+        {
+          "path": "en/develop/practice/dynamic-cordis.md",
+          "bytes": 823,
+          "sha256": "2eca48a955eaf0399c0c06ed11b2216de118100ec20b505cbf3b1076604c2a74"
+        },
+        {
+          "path": "en/develop/practice/index.md",
+          "bytes": 5265,
+          "sha256": "135c9ec934ca03bced3fbe23e600a3522f6049f61a6ee78e8b1ceb46df0dd151"
+        },
+        {
+          "path": "en/develop/practice/llm-adapter.md",
+          "bytes": 6499,
+          "sha256": "9eb0cc783a0a0e1be1363538dd6c9e55954736c91cb5e2cbb9dcb9f0fb0342d4"
+        },
+        {
+          "path": "en/guide/github-review.md",
+          "bytes": 4354,
+          "sha256": "134fe04f61fab1c8f6521eb29c23bbf00f94ecd1268ca217994b527eaf541417"
+        },
+        {
+          "path": "en/guide/mcp-memory.md",
+          "bytes": 6708,
+          "sha256": "8c5fc85f319e4b33e44d6559807fd23a4ea19a2d76a3c25b5d9ff070ba9adc07"
+        },
+        {
+          "path": "en/guide/network-proxy.md",
+          "bytes": 6011,
+          "sha256": "6cbd8e5be965440624e138964daaef84bca5ffe0802daeda8ccbcdfafe0ce12d"
+        },
+        {
+          "path": "en/guide/providers-custom-form.png",
+          "bytes": 58692,
+          "sha256": "30aab4cc82cc1f3a91d3c83266219b7b71c29a32bede7c2a27ece0377a9f3f6d"
+        },
+        {
+          "path": "en/guide/providers-models-page.png",
+          "bytes": 75818,
+          "sha256": "fd972de2e7954fca848053cdc9c8242efbb9832b1b7d7c0a67f32432728a39d6"
+        },
+        {
+          "path": "en/guide/providers.md",
+          "bytes": 13573,
+          "sha256": "9bcaec1e6dc46aec16e3a34974735bc1eb654b45e403810f3dedc49e306611a6"
+        },
+        {
+          "path": "en/guide/python-sdk.md",
+          "bytes": 6690,
+          "sha256": "6964b42fe1f4e1dd8a14bb9bf3a3e8f53d1359c4961b4eb66f085548cbb1174e"
+        },
+        {
+          "path": "en/guide/quickstart.md",
+          "bytes": 1395,
+          "sha256": "a5777d362acf5d80d53f1bcc3a7776ecaca8093613405e25530d12a05429e012"
+        },
+        {
+          "path": "en/guide/schedule.md",
+          "bytes": 2978,
+          "sha256": "eda84d6eb7306dd564c7d5ffe2332ed75bb17ee2914867ef0feb6c8befffa40c"
+        },
+        {
+          "path": "en/index.md",
+          "bytes": 19,
+          "sha256": "c252a8f560c0b8836d8e43bcb08ab60ed80c325ef1f2c01d356abf70c3d65903"
+        },
+        {
+          "path": "en/reference.md",
+          "bytes": 16121,
+          "sha256": "7d20cc0133bbc6c5323c15229b2e8c52435eacb4f0f5eb23d2b61caa013afa46"
+        },
+        {
+          "path": "en/reference/agent-lifecycle.md",
+          "bytes": 4897,
+          "sha256": "b81940fd3d3d7b6bf42da192a95e0da61d404b7629338d7c8d6d4955bb4abe6f"
+        },
+        {
+          "path": "en/reference/api-gateway.md",
+          "bytes": 18134,
+          "sha256": "f30802a8c27f7b25792a4524582f82683ec07d80ad404fd63dd0a4cd6b64c5eb"
+        },
+        {
+          "path": "en/reference/capability-seams.md",
+          "bytes": 62240,
+          "sha256": "0ba121523424f0cd4a9eea9ba23c3736c219fe5dff5d4885c2d6004aa93653b2"
+        },
+        {
+          "path": "en/reference/config-catalog.md",
+          "bytes": 164120,
+          "sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2"
+        },
+        {
+          "path": "en/reference/cookbook/adding-a-package.md",
+          "bytes": 12865,
+          "sha256": "e855719154fd3bbb5e86be27e786f98096a8de5e2d0a9523f96ca8789e5ffff8"
+        },
+        {
+          "path": "en/reference/cookbook/adding-a-settings-card.md",
+          "bytes": 5969,
+          "sha256": "d6ed612bb97fe5158e6fb6bdffbbbc5d784566f4e118d9130c19048d50eb4b0b"
+        },
+        {
+          "path": "en/reference/cookbook/adding-a-tool.md",
+          "bytes": 14489,
+          "sha256": "5bffe4a33eebcc70cb836bc62c845a2e4e18b6b4a3b8bc368f40562cdaa0069d"
+        },
+        {
+          "path": "en/reference/cookbook/adding-an-llm-adapter.md",
+          "bytes": 4046,
+          "sha256": "7fbae604a90d814680e08f018ea007c19fc1a12bf7d60f05b55c1e91dfc0d95e"
+        },
+        {
+          "path": "en/reference/cookbook/extension-cookbook.md",
+          "bytes": 11662,
+          "sha256": "1b8ca36a89380a7f8ab6d1f6f4b2742f1b97f317f4b9e45ac1fd8582f6f32865"
+        },
+        {
+          "path": "en/reference/cordis-api/context.md",
+          "bytes": 13275,
+          "sha256": "1542c1a9f8b34b5215404ecb9919160cdd443e74ff5c58aac351cb48102b9b84"
+        },
+        {
+          "path": "en/reference/cordis-api/events.md",
+          "bytes": 7893,
+          "sha256": "601b121e917f44a47ffd9d0c4786519bfbcb8cd343ce55c3935f2a08f7c11a5f"
+        },
+        {
+          "path": "en/reference/cordis-api/fiber.md",
+          "bytes": 12685,
+          "sha256": "a9c9c62548f736e86ff183f980b1bc190598b9ae3d642ef88bc53c9763e3b031"
+        },
+        {
+          "path": "en/reference/cordis-api/inherited.md",
+          "bytes": 6422,
+          "sha256": "444ff302dd6a225d086e4076fd05aa8ee2b75406729787e51d2216874efb2497"
+        },
+        {
+          "path": "en/reference/cordis-api/registry.md",
+          "bytes": 5496,
+          "sha256": "5a911dee48c4278ac45dcf084599d5c5e5cfe9bee7ff354e76e1dc125d1eb708"
+        },
+        {
+          "path": "en/reference/cordis-api/service.md",
+          "bytes": 3163,
+          "sha256": "0d839aeb101159fbaebcab4d46ea9ed60714320a81bb9199a4b52a038fd1f89b"
+        },
+        {
+          "path": "en/reference/cordis-primer.md",
+          "bytes": 4165,
+          "sha256": "dd19c64ba4d4f38d50cdd8a9eaca10c16e750d942c238b43229e7e7d7992b9ea"
+        },
+        {
+          "path": "en/reference/index.md",
+          "bytes": 15912,
+          "sha256": "5cb642f213b267039be34b6f40c21ff2c99b30a4f46a3a7b6e8d94d0074e21b3"
+        },
+        {
+          "path": "en/reference/persistence-catalog.md",
+          "bytes": 41790,
+          "sha256": "a2c7653983237339b9ae7bdd7fabc892131827e2df367d1bf5d90bcd1fb40496"
+        },
+        {
+          "path": "en/reference/subsystems.md",
+          "bytes": 10191,
+          "sha256": "52193314f721700893e843e3838fcd4d3387ab5fd7fb52bbbda65ed7e5165588"
+        },
+        {
+          "path": "en/reference/subsystems/approval.md",
+          "bytes": 9667,
+          "sha256": "27e0c35d15b17e3f0406cd098c08312700966055c0088374d3e1e0b87f6e5254"
+        },
+        {
+          "path": "en/reference/subsystems/client-modules.md",
+          "bytes": 13174,
+          "sha256": "1c0ab5d510e4384beb59f7f386be91d200a4d4c4058304b4af607b8ed9b9bca2"
+        },
+        {
+          "path": "en/reference/subsystems/code-runtime.md",
+          "bytes": 12012,
+          "sha256": "23fe92f6a8853e669bd5fb326ae6e1f9f8ca563e361448a4dabc196dd75f9f68"
+        },
+        {
+          "path": "en/reference/subsystems/commands.md",
+          "bytes": 10195,
+          "sha256": "6fe32da144c2bede3370df62c326c17472630460e209769f3325e4e436d6c23c"
+        },
+        {
+          "path": "en/reference/subsystems/compaction.md",
+          "bytes": 17942,
+          "sha256": "84ea9ae589fddd4dc02dd8073fde6efc732917d3ca17abc6c349bbb327511a20"
+        },
+        {
+          "path": "en/reference/subsystems/conversation.md",
+          "bytes": 17335,
+          "sha256": "d3ee854addb38e90c43e60a6fcd0d66e27484ca0ebd9a7b1b97fce4c418012fe"
+        },
+        {
+          "path": "en/reference/subsystems/core.md",
+          "bytes": 64590,
+          "sha256": "32788be87a2c6e2d530523b278a09766b4a781cbd97e706e7b78b7bbb484d96e"
+        },
+        {
+          "path": "en/reference/subsystems/credentials.md",
+          "bytes": 16961,
+          "sha256": "4ad40377074218b075eb0ee1084c344cb44867abdb0579b03a458928960adafe"
+        },
+        {
+          "path": "en/reference/subsystems/filesystem.md",
+          "bytes": 29963,
+          "sha256": "dc26bd5cea8d8855eba42547ce5f5b32c0fa83d53bf021e6f01d920573893f07"
+        },
+        {
+          "path": "en/reference/subsystems/goal.md",
+          "bytes": 10881,
+          "sha256": "11e388a16903dba1bd4db8050e83b173ce2e10e678a80f270533e5e719d5d920"
+        },
+        {
+          "path": "en/reference/subsystems/index.md",
+          "bytes": 9697,
+          "sha256": "17a759fe0fc0675d464e1cba3fa11bde290044fda4a9a93cd19d49a8b34bb3e9"
+        },
+        {
+          "path": "en/reference/subsystems/invariants.md",
+          "bytes": 7244,
+          "sha256": "39cf5dd3d0ea977ff49a2d3e394ff50b4531ed897a0445a2335b13f6f7c2d189"
+        },
+        {
+          "path": "en/reference/subsystems/jobs.md",
+          "bytes": 14870,
+          "sha256": "39ccdfbcf52fd49668518bd70c1bd30487b2d1bb33f0f7794de188ee1b33fd84"
+        },
+        {
+          "path": "en/reference/subsystems/llm-streaming.md",
+          "bytes": 60654,
+          "sha256": "cd0ecfb67dbbbb274064381b5b2e008f7b2b969a97f9c9a6791358fc31d42351"
+        },
+        {
+          "path": "en/reference/subsystems/lsp.md",
+          "bytes": 10901,
+          "sha256": "4296d280ab05de9423b7d76ad4a440b128c18fe4ef3d71e5544d9e969365cddd"
+        },
+        {
+          "path": "en/reference/subsystems/permission-presets.md",
+          "bytes": 8369,
+          "sha256": "9b8f93299647b083104f8b960372fb28c0542c558cd60ff644965a9ab156726a"
+        },
+        {
+          "path": "en/reference/subsystems/persistence.md",
+          "bytes": 27093,
+          "sha256": "4b8e593d8d3e7876adeda491b21f298a2aa8a54b0cc5827ab14aa0935ef2b288"
+        },
+        {
+          "path": "en/reference/subsystems/plan.md",
+          "bytes": 8209,
+          "sha256": "6ab8e9d2862e1a5681b469cbffa27d8ae3800bc3f1d01481782901629945cbd5"
+        },
+        {
+          "path": "en/reference/subsystems/sandbox.md",
+          "bytes": 13128,
+          "sha256": "e93c1a6e881e5f2b9aedbb60c275a21bbf5ad9ee3c7865e6f37dc4416a058cb1"
+        },
+        {
+          "path": "en/reference/subsystems/schedule.md",
+          "bytes": 12638,
+          "sha256": "09e1656f162f6924547ea1e4f2bc3f619c33c706b2e2a324f7b70bfdb7cb4cf3"
+        },
+        {
+          "path": "en/reference/subsystems/scope.md",
+          "bytes": 4218,
+          "sha256": "0b8c48d924a2ae314591b5b7ccdfb5acd4cc32ed8fbfe1e70e825eb39fa7dfb1"
+        },
+        {
+          "path": "en/reference/subsystems/session-projection.md",
+          "bytes": 22734,
+          "sha256": "8d2c798098b1a1f099d41787031f07134cec4f1b92215cf28601ac8f15ddad7f"
+        },
+        {
+          "path": "en/reference/subsystems/session-query.md",
+          "bytes": 21734,
+          "sha256": "ca92a280a330fffece459b97c5c393054b7dbc2f159c4788c19a7b4b6b52db53"
+        },
+        {
+          "path": "en/reference/subsystems/session-reference.md",
+          "bytes": 10138,
+          "sha256": "8c9af05bb16a198e68f8711c52c24d0a046bbd05fb383e47d620af12b4409004"
+        },
+        {
+          "path": "en/reference/subsystems/session-telemetry.md",
+          "bytes": 13162,
+          "sha256": "3fd02eb1e88b2f5c99bb06d9678ffeb79808676064b7cdfdde0720e17519ba97"
+        },
+        {
+          "path": "en/reference/subsystems/session-title.md",
+          "bytes": 8934,
+          "sha256": "a35cf378fabab36d10cefcc42d3e45ecfbf936047788b57b45db877c7044843d"
+        },
+        {
+          "path": "en/reference/subsystems/session.md",
+          "bytes": 63779,
+          "sha256": "a26f49565e60ae65eddae85b368b34104f9cf4053b54580ae33a3f55a4f6cb0a"
+        },
+        {
+          "path": "en/reference/subsystems/settings.md",
+          "bytes": 22579,
+          "sha256": "1e45e40aee3a85b332b9e81c815cf74d55ff8708c1a05040021fb66d30f044b9"
+        },
+        {
+          "path": "en/reference/subsystems/shell.md",
+          "bytes": 17850,
+          "sha256": "30c8e2e4f85152025783e62ee3f0306ff2ca478127de26cfc780906e940a04e2"
+        },
+        {
+          "path": "en/reference/subsystems/skills.md",
+          "bytes": 25040,
+          "sha256": "db54b6e8f7909e1ff7efeebd0fb246bbb5583f9afcba0f14ea3f851b908095c1"
+        },
+        {
+          "path": "en/reference/subsystems/slots.md",
+          "bytes": 12087,
+          "sha256": "65077939fe7096a3dfeb7dfc02090ca2a520c53a9afba277243634c148168f36"
+        },
+        {
+          "path": "en/reference/subsystems/spill.md",
+          "bytes": 7533,
+          "sha256": "c54c140de9c43784b7053360154c03df8f67213084ab6d6480cede6b92979579"
+        },
+        {
+          "path": "en/reference/subsystems/storage.md",
+          "bytes": 17937,
+          "sha256": "c95b20509a9fc7b4ce4bb863de458c0287a5c6b72a5d807e1330e0eb5c0fc174"
+        },
+        {
+          "path": "en/reference/subsystems/subagent.md",
+          "bytes": 55020,
+          "sha256": "6a1a2b829c48086303569899f7de761d75121a93c948be348c9c91da231e7f2f"
+        },
+        {
+          "path": "en/reference/subsystems/subprocess.md",
+          "bytes": 18267,
+          "sha256": "de73a076cd21285d8990aeb1a94d99475049be7f58b7e6c0f2987243c2045c48"
+        },
+        {
+          "path": "en/reference/subsystems/system-prompt.md",
+          "bytes": 10412,
+          "sha256": "4fe359ffdf88aaec0c549112f0cb7d85ae853cf4048ab37359fc8f5bd54bcf2c"
+        },
+        {
+          "path": "en/reference/subsystems/terminal.md",
+          "bytes": 8580,
+          "sha256": "bd9fd77c76eb85522517b45c315ec3f289e6e04cce641be3bd561c7d5f6b67a5"
+        },
+        {
+          "path": "en/reference/subsystems/token-meter.md",
+          "bytes": 5848,
+          "sha256": "7b90bcc3624c9ca69ae2e0a7a4c641fa6fd3376b06f44b17d697dee8a264e718"
+        },
+        {
+          "path": "en/reference/subsystems/tools.md",
+          "bytes": 43402,
+          "sha256": "7b960d7eb290cfc9affdc7189c106ac4769d59f09d17756ab68393ff1b45d064"
+        },
+        {
+          "path": "en/reference/subsystems/typert.md",
+          "bytes": 15352,
+          "sha256": "fae481f560f63ef1b5a4e2df1f32a35d85fd5fe3c1855954d5d651d0bc2278ed"
+        },
+        {
+          "path": "en/reference/subsystems/user-questions.md",
+          "bytes": 8508,
+          "sha256": "95a929f8acce96db4cc0fc1270b92fd41d5d88125953668b9347429d1bd46e83"
+        },
+        {
+          "path": "en/reference/subsystems/web-client.md",
+          "bytes": 12979,
+          "sha256": "616554b3e8e781ca33fd7db8dc5e9c50206c900b11f813a8c1c83b42ed4210be"
+        },
+        {
+          "path": "en/reference/subsystems/web-server.md",
+          "bytes": 10064,
+          "sha256": "212c12c1ad1409e0b13c23f8e32706bc2eb9ebc17172c6d1504e288f588ca469"
+        },
+        {
+          "path": "en/reference/subsystems/web.md",
+          "bytes": 13300,
+          "sha256": "e7195d2f07c7dc780a68640fd632334f0b7162dfa14ef093a637e9a0ee284787"
+        },
+        {
+          "path": "en/reference/subsystems/workflow.md",
+          "bytes": 16494,
+          "sha256": "845f9a3e54179a25ce9f05a42756909bd4fa3fd8377ab4f15198e6c35c577fa8"
+        },
+        {
+          "path": "en/reference/subsystems/workspace.md",
+          "bytes": 18720,
+          "sha256": "309b1a993386edf8204424620ce10019bb47cf9c717b41a1b0620564830e3f93"
+        },
+        {
+          "path": "en/reference/tool-catalog.md",
+          "bytes": 93974,
+          "sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88"
+        },
+        {
+          "path": "en/reference/tool-execution-pipeline.md",
+          "bytes": 4037,
+          "sha256": "c5609edcd9f56eb1ac510751b0e8a26c1da830bc54460de157d75335254b44fb"
+        },
+        {
+          "path": "guide/github-review.md",
+          "bytes": 4121,
+          "sha256": "21206f0944682fdd2ef44ed750612f95122566aeb3ad152dfd5ccb7b9ae7eb07"
+        },
+        {
+          "path": "guide/mcp-memory.md",
+          "bytes": 6592,
+          "sha256": "86b0060e4e9ef713e6dd2fcfb68ca76ca385d7e1451e38a87b09e11b0eb7933a"
+        },
+        {
+          "path": "guide/network-proxy.md",
+          "bytes": 5773,
+          "sha256": "ce1ccbc47927e87cef0330c56478886a885e0fa1ce4c919ec51707cdaaa3d078"
+        },
+        {
+          "path": "guide/providers-custom-form.zh.png",
+          "bytes": 57720,
+          "sha256": "3f2ffd931ee8776603e0f2fcc3a4b0e57795c05190f643be3989546f4395c63e"
+        },
+        {
+          "path": "guide/providers-models-page.zh.png",
+          "bytes": 70021,
+          "sha256": "6fed6f3796b9a13cb9d5aabb4a71df93fa3747b6f6d558e05a664e7d845d8354"
+        },
+        {
+          "path": "guide/providers.md",
+          "bytes": 13262,
+          "sha256": "b135c2c3b25eb3165417e03b46dff6e5ff20343f00b83a6054817c59406ccffc"
+        },
+        {
+          "path": "guide/python-sdk.md",
+          "bytes": 6406,
+          "sha256": "832c324b2c19c6020c852f9ad0a62e0f5754c6d1fe5cc4c367efb295c34ea869"
+        },
+        {
+          "path": "guide/quickstart.md",
+          "bytes": 1377,
+          "sha256": "5e32fa8a233ecd66d822f76738bcb8be01ef44489f71527a845318217a2cf959"
+        },
+        {
+          "path": "guide/schedule.md",
+          "bytes": 2752,
+          "sha256": "b86b912e5e730de6d8f1986534c70392e4285813261f11b84a40bb47200887f5"
+        },
+        {
+          "path": "index.md",
+          "bytes": 19,
+          "sha256": "c252a8f560c0b8836d8e43bcb08ab60ed80c325ef1f2c01d356abf70c3d65903"
+        },
+        {
+          "path": "reference.md",
+          "bytes": 15989,
+          "sha256": "ecb35b6cdae41f9f34dbd3a093de3e57ea74403ececff9b9b9202c4a11567d32"
+        },
+        {
+          "path": "reference/agent-lifecycle.md",
+          "bytes": 5250,
+          "sha256": "9dbf69a646110c28fb6c4576508a59002e985662f615d322dd6c7e8d5d2563ab"
+        },
+        {
+          "path": "reference/api-gateway.md",
+          "bytes": 15903,
+          "sha256": "f4edc853bbf8012eea18e5021767e4b3838cfae99468fe17c8def7ff38fc0db5"
+        },
+        {
+          "path": "reference/capability-seams.md",
+          "bytes": 62025,
+          "sha256": "81f0ba415ff0b62fcbd1cba7439d88b70919e29d00391b345daebfda148a067b"
+        },
+        {
+          "path": "reference/config-catalog.md",
+          "bytes": 164662,
+          "sha256": "bd914fa6a8be8149368a67af85cfcce31f9c024a8d136f9ada17816d8fdbbfa9"
+        },
+        {
+          "path": "reference/cookbook/adding-a-package.md",
+          "bytes": 12145,
+          "sha256": "065bf440a5ba73384852571d515a863da2f57207209cd83bd5122a133895715d"
+        },
+        {
+          "path": "reference/cookbook/adding-a-settings-card.md",
+          "bytes": 5847,
+          "sha256": "dba460bddc8b671f8c8a5236c03ee12977dce18431cec47d0bed8338102ca001"
+        },
+        {
+          "path": "reference/cookbook/adding-a-tool.md",
+          "bytes": 14318,
+          "sha256": "65ed93650e699ca95c4e5ffa4148fb184b4ecf8fcf0525b152b129f321924cbc"
+        },
+        {
+          "path": "reference/cookbook/adding-an-llm-adapter.md",
+          "bytes": 4201,
+          "sha256": "62e427ea61b0e30cf8d1650f3c94e736532a8305123f968bf4181e7738428d17"
+        },
+        {
+          "path": "reference/cookbook/extension-cookbook.md",
+          "bytes": 11530,
+          "sha256": "208280ca6e309f45ac35bd2539474339b6fe8bddda6caa6982f3171eea7e49e7"
+        },
+        {
+          "path": "reference/cordis-api/context.md",
+          "bytes": 13433,
+          "sha256": "3eef1d7a19772a781114ac25bb318bb62c9263a7d92a2ef9fe0ec62df43aca92"
+        },
+        {
+          "path": "reference/cordis-api/events.md",
+          "bytes": 8361,
+          "sha256": "2b785110da05cbb0d384f97e37426e36f35e205c9a21969dd32258180ae81860"
+        },
+        {
+          "path": "reference/cordis-api/fiber.md",
+          "bytes": 13206,
+          "sha256": "502202666868f6e4fce1a8838f64e028577f4f9eb99ff712caa815f921b82429"
+        },
+        {
+          "path": "reference/cordis-api/inherited.md",
+          "bytes": 6422,
+          "sha256": "444ff302dd6a225d086e4076fd05aa8ee2b75406729787e51d2216874efb2497"
+        },
+        {
+          "path": "reference/cordis-api/registry.md",
+          "bytes": 5725,
+          "sha256": "d820f7509662542e2d925b2fdeaa72daaf6bad48c78a61d14ef5a1ec3bf414b5"
+        },
+        {
+          "path": "reference/cordis-api/service.md",
+          "bytes": 3303,
+          "sha256": "057211530d38522d71e8e999dd7f948666f7427174e517b883920565e4517804"
+        },
+        {
+          "path": "reference/cordis-primer.md",
+          "bytes": 4090,
+          "sha256": "f080793ca2284f901280f809b3ce1e4837008ce1f79ca86fa71cb0d0de8f74fe"
+        },
+        {
+          "path": "reference/index.md",
+          "bytes": 15780,
+          "sha256": "25381190ca8fd2bf3863d9488ec95c8ec36155bbd36bae1f5ce6c84947811199"
+        },
+        {
+          "path": "reference/persistence-catalog.md",
+          "bytes": 42132,
+          "sha256": "c7cb3b68b419eca347d70cf8b887a4ad76f7aa9eeac957b63038a573a40f492a"
+        },
+        {
+          "path": "reference/subsystems.md",
+          "bytes": 9755,
+          "sha256": "cfc4a72d3eb7244f6e8e7c8587aea5699c09020eb5f803c8bcbc3ac724208ee0"
+        },
+        {
+          "path": "reference/subsystems/approval.md",
+          "bytes": 9657,
+          "sha256": "ec157ef003bc729f9c8bbd5f519ca50cf7d26a972dfd5281d9c77039bfd6c53f"
+        },
+        {
+          "path": "reference/subsystems/client-modules.md",
+          "bytes": 12797,
+          "sha256": "bb281c12bd373eafeb175dc8cc5f31e9c316596b8b09190ed7fee611d0808c16"
+        },
+        {
+          "path": "reference/subsystems/code-runtime.md",
+          "bytes": 11930,
+          "sha256": "a3f031d7681c4af8cc079305915c2786e72e385f667d61ea13b87054e2cf041a"
+        },
+        {
+          "path": "reference/subsystems/commands.md",
+          "bytes": 10154,
+          "sha256": "8bf5e498f6ee7d6b881d8f3c6134a4173323380b677231cbbbcac5c286b32d41"
+        },
+        {
+          "path": "reference/subsystems/compaction.md",
+          "bytes": 17561,
+          "sha256": "f2cda49f8085c72cc87cfa51b7a7f2526dcfaf3d7d1589f485ea14c6ab2d9c27"
+        },
+        {
+          "path": "reference/subsystems/conversation.md",
+          "bytes": 16763,
+          "sha256": "d699af1aa012ecaefad9ee55995f7958783ca09193f8367605f0c7b38fc7dac3"
+        },
+        {
+          "path": "reference/subsystems/core.md",
+          "bytes": 64183,
+          "sha256": "a2ae55e51339bd31f2dba7797b4540b8fef2af64839c8b26848c25f7699aea94"
+        },
+        {
+          "path": "reference/subsystems/credentials.md",
+          "bytes": 16785,
+          "sha256": "9ef0e1fadce629ef8edc7af43f2538452890828d8984f5d0b6d8b041ea494f17"
+        },
+        {
+          "path": "reference/subsystems/filesystem.md",
+          "bytes": 29696,
+          "sha256": "f75418f66a6f2f442ecffd1d486e11c1a7adc24728e7251bf742804cd80f3326"
+        },
+        {
+          "path": "reference/subsystems/goal.md",
+          "bytes": 10840,
+          "sha256": "1bc9360e88d6306caa3631eac39f0557a36664a4b694958a5feafd47bbe8b179"
+        },
+        {
+          "path": "reference/subsystems/index.md",
+          "bytes": 9261,
+          "sha256": "e540ff0f87af44072d5fe92e63f1b718cbea00252660592327181601123c6fe0"
+        },
+        {
+          "path": "reference/subsystems/invariants.md",
+          "bytes": 7012,
+          "sha256": "5a057bd2b2fd804b29e66d06a517b0d61db37b17e7b37a095573b919574e35f2"
+        },
+        {
+          "path": "reference/subsystems/jobs.md",
+          "bytes": 14838,
+          "sha256": "66b37b0d11543904cb2caf5b6fdecbf8e5059821397ba87945fc05bf30db706c"
+        },
+        {
+          "path": "reference/subsystems/llm-streaming.md",
+          "bytes": 60035,
+          "sha256": "38ac4ad7039911d692f4df792dba03c96090e3068c5f3a9918083d2746180ba2"
+        },
+        {
+          "path": "reference/subsystems/lsp.md",
+          "bytes": 10926,
+          "sha256": "91d4f7206ec225ada34f3c2abb78b7a444890c4f348546e993b106593db58099"
+        },
+        {
+          "path": "reference/subsystems/permission-presets.md",
+          "bytes": 8291,
+          "sha256": "3509ce4f730fb729e69744c21a481738c4ac9737d814248573d108e9cdd5f9be"
+        },
+        {
+          "path": "reference/subsystems/persistence.md",
+          "bytes": 26642,
+          "sha256": "92cc6b3880b7f3a6e4b1c3f2a176f26e04569bdb87b83f4f6bddda51fc412154"
+        },
+        {
+          "path": "reference/subsystems/plan.md",
+          "bytes": 8081,
+          "sha256": "bbf6fba5c0525025135bb89e2f6bf4ada86d8a8e3aabd3be5cf1e90461544ab8"
+        },
+        {
+          "path": "reference/subsystems/sandbox.md",
+          "bytes": 12954,
+          "sha256": "8883d05940cfbc943e720335a30baf5a983532214e245991d113507ca3070a03"
+        },
+        {
+          "path": "reference/subsystems/schedule.md",
+          "bytes": 12373,
+          "sha256": "63f23bb9e1c004b3ce57366aab94ed22fcb78947cb97a4273a525020a75f5ed7"
+        },
+        {
+          "path": "reference/subsystems/scope.md",
+          "bytes": 4244,
+          "sha256": "1906aa55af6cdaac6d4ba9b5783e80eae6c4629fdeaf80e17c3ad30cb795c87e"
+        },
+        {
+          "path": "reference/subsystems/session-projection.md",
+          "bytes": 22685,
+          "sha256": "3f69a5dc37fcf1ac417c8010fb7d8068a7e67200c627359a731de81d92efbc03"
+        },
+        {
+          "path": "reference/subsystems/session-query.md",
+          "bytes": 21738,
+          "sha256": "f4a7a97a3b7ea695691e93b804ee1877ec199e720828fe82afcc2597994c957b"
+        },
+        {
+          "path": "reference/subsystems/session-reference.md",
+          "bytes": 10019,
+          "sha256": "be3ef1de73d8fa678c5928521fb96af893e7395a28a9cf6413c6dc9057b1b3f7"
+        },
+        {
+          "path": "reference/subsystems/session-telemetry.md",
+          "bytes": 13018,
+          "sha256": "dc8a8c3ff1edffa5e21bd5bf44ee3ca40ae9742c3a934354d78c53a6e18031e4"
+        },
+        {
+          "path": "reference/subsystems/session-title.md",
+          "bytes": 8858,
+          "sha256": "ab83d1dc0739dfbd2d1ad742400c21ed47c5b3499c0cc68218954a402429f644"
+        },
+        {
+          "path": "reference/subsystems/session.md",
+          "bytes": 63392,
+          "sha256": "0a62aebcc4a91ca61ee5d1e7d515a45e707456c2eb5ecfcd372775b41c218773"
+        },
+        {
+          "path": "reference/subsystems/settings.md",
+          "bytes": 22289,
+          "sha256": "0faea0cef9a92484ba4d2dd5db143b68aacd2343d9e1507680b2fe75d64bd12f"
+        },
+        {
+          "path": "reference/subsystems/shell.md",
+          "bytes": 17624,
+          "sha256": "32cad2d7b308164030d5d00f11d1386c9b6b9f1b920c35722386f2f0dab7c563"
+        },
+        {
+          "path": "reference/subsystems/skills.md",
+          "bytes": 24639,
+          "sha256": "7b1f225e75d24d812cdf833a4f8286a275aac42da41b69908f505f28d53e294f"
+        },
+        {
+          "path": "reference/subsystems/slots.md",
+          "bytes": 11539,
+          "sha256": "3f4a7f07e7131ab3a43c5d849822fec33e7c21a91dc81ef3f05edddca0722894"
+        },
+        {
+          "path": "reference/subsystems/spill.md",
+          "bytes": 7479,
+          "sha256": "d51c7e403dac23240d9fcaec987031da1b1575e5a964a989b6f6e3984a2b036d"
+        },
+        {
+          "path": "reference/subsystems/storage.md",
+          "bytes": 17947,
+          "sha256": "3039f14cbf1c0773d0679169de4480156b38e949dbeed3edae8d2c87a6b9c136"
+        },
+        {
+          "path": "reference/subsystems/subagent.md",
+          "bytes": 54511,
+          "sha256": "127a3d4ec119bc18b2eebf2a5a1ccf0c5e01a5fbb659925e49b54f84fa48efe7"
+        },
+        {
+          "path": "reference/subsystems/subprocess.md",
+          "bytes": 18204,
+          "sha256": "e7ca825ec8319448ab1142bd780ebdb4a7235fd207eefe764dd033c5c6459761"
+        },
+        {
+          "path": "reference/subsystems/system-prompt.md",
+          "bytes": 10384,
+          "sha256": "1ba9976cf0024a9705601b4fa29f2b046112bef47b3f0fb6c9f7a93cdb113022"
+        },
+        {
+          "path": "reference/subsystems/terminal.md",
+          "bytes": 8577,
+          "sha256": "4046481d519dc0fbe169c88987d5e633a3b0b22f6ae4a81de13d20f2d32067f7"
+        },
+        {
+          "path": "reference/subsystems/token-meter.md",
+          "bytes": 5711,
+          "sha256": "c3d17d3427e09167f3d0edec07917b55ff8945faf4a6ce2747171fc204ae15f9"
+        },
+        {
+          "path": "reference/subsystems/tools.md",
+          "bytes": 43116,
+          "sha256": "8e206159dc3e5be81d1ad179cf26bd235df9b717a3be0c0ff1bee75570cdff30"
+        },
+        {
+          "path": "reference/subsystems/typert.md",
+          "bytes": 15172,
+          "sha256": "cbd6075d8b2c468c7085e27ccbb264f7fc3230f0664f363d939d36c46a773a27"
+        },
+        {
+          "path": "reference/subsystems/user-questions.md",
+          "bytes": 8422,
+          "sha256": "6071126fc44fd3c42cecb21bee8795e8e92c1a2407d9d491cd7f16b2ee961fa0"
+        },
+        {
+          "path": "reference/subsystems/web-client.md",
+          "bytes": 12157,
+          "sha256": "2ff4a15f1d0994229c7c616f5f89d188b4846ed77638782374cb52ad9fde3f3e"
+        },
+        {
+          "path": "reference/subsystems/web-server.md",
+          "bytes": 9943,
+          "sha256": "a1d24f6f59a7f21f25358b689b4afbb6cd112680b9a3385f1e517e57f8253ff9"
+        },
+        {
+          "path": "reference/subsystems/web.md",
+          "bytes": 13326,
+          "sha256": "7111d230365be3de641480916fa6ae2e612cc81b18e8f42d037ddb76b3a6abb8"
+        },
+        {
+          "path": "reference/subsystems/workflow.md",
+          "bytes": 16349,
+          "sha256": "ba23d8725a1c7f883eddb69827353610b4da568ec209e3e25ac66b3edafe946f"
+        },
+        {
+          "path": "reference/subsystems/workspace.md",
+          "bytes": 18650,
+          "sha256": "77ac2cadea053fb6a69a7320ac9162e50005b12dc8f235f2da26849b4571919d"
+        },
+        {
+          "path": "reference/tool-catalog.md",
+          "bytes": 93461,
+          "sha256": "81cf6ce1d68c8e63b48173aef47d73a5a53200a618a3372ab582a7bd67d9e1a9"
+        },
+        {
+          "path": "reference/tool-execution-pipeline.md",
+          "bytes": 4426,
+          "sha256": "a5882d39c254f64c019366e1485f652b7626276f4742dbb4883be793d7108913"
+        }
+      ],
+      "catalog_next_timings": [
+        {
+          "route": "reference/config-catalog.md",
+          "elapsed_ms": 2022.630600000004
+        },
+        {
+          "route": "en/reference/config-catalog.md",
+          "elapsed_ms": 2493.6182000000044
+        },
+        {
+          "route": "reference/tool-catalog.md",
+          "elapsed_ms": 1219.1955000000016
+        },
+        {
+          "route": "en/reference/tool-catalog.md",
+          "elapsed_ms": 1093.9588000000003
+        }
+      ]
+    },
+    "v8": {
+      "root": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\tmp\\site-v8-equivalence-hEuwut\\v8",
+      "files": [
+        {
+          "path": "develop/basic.md",
+          "bytes": 3835,
+          "sha256": "b7fa867a3bafea9580d0631d7d3641cffc6680ee930f8385dd1884c47439b80b"
+        },
+        {
+          "path": "develop/basic/config.md",
+          "bytes": 3083,
+          "sha256": "8f1fbe66130a056239045ba51c05d6a62775ae6c2918f53c97c0fb986fc46d49"
+        },
+        {
+          "path": "develop/basic/index.md",
+          "bytes": 3825,
+          "sha256": "e4887e5703c05a06e1cd28d9fafe4bf789e728f851b60e116627971c6e6ec48a"
+        },
+        {
+          "path": "develop/basic/publish.md",
+          "bytes": 8980,
+          "sha256": "813beefc79da04bcff92076dc2a3aa335f58d4c74df96a32b45f21907a3b0f97"
+        },
+        {
+          "path": "develop/basic/tool.md",
+          "bytes": 1754,
+          "sha256": "8224fdbc979a7872d7f4572ae3538280d1a4ef248e7b9626f25eb581863d194f"
+        },
+        {
+          "path": "develop/cordis-tutorial.md",
+          "bytes": 4364,
+          "sha256": "3d743bf5afc5f2811d42e5ebbebb219481699bd4a92b031daf7c2089a54e3d98"
+        },
+        {
+          "path": "develop/cordis-tutorial/01-first-plugin.md",
+          "bytes": 3266,
+          "sha256": "e7959e43fa9f7c53ded5e959580e8f2d97b5efb050b98ab6fce9c5766e914420"
+        },
+        {
+          "path": "develop/cordis-tutorial/02-lifecycle-and-effects.md",
+          "bytes": 4012,
+          "sha256": "59832df8a3228c8fbbd72e9503198d5e3578feca87eea02ba9fb4996d8420f5b"
+        },
+        {
+          "path": "develop/cordis-tutorial/03-services.md",
+          "bytes": 4016,
+          "sha256": "fed0ad034e9a175c7f89780a9482fab51d27ba64576981ccaf9a64b958bc8c1b"
+        },
+        {
+          "path": "develop/cordis-tutorial/04-events.md",
+          "bytes": 5394,
+          "sha256": "9012dd87e0780fa997d941f7dbce5e2ebc3c98bd80bb9a1112036756e82018a1"
+        },
+        {
+          "path": "develop/cordis-tutorial/05-config.md",
+          "bytes": 2731,
+          "sha256": "fe99f37de834dfeb8b1afa8e9cf56a6524de021bb876b287cace0a171c19d4b9"
+        },
+        {
+          "path": "develop/cordis-tutorial/06-composition-and-hmr.md",
+          "bytes": 4914,
+          "sha256": "e735656d160f712466d66af66c12cc90be59318e09566ab05bd9a31ded04e2fe"
+        },
+        {
+          "path": "develop/cordis-tutorial/07-into-the-harness.md",
+          "bytes": 4712,
+          "sha256": "b15e38d310dc98ecd1a3c13e3dff28b8946f579ad0092b0598219b40f9b3b7f4"
+        },
+        {
+          "path": "develop/cordis-tutorial/index.md",
+          "bytes": 4262,
+          "sha256": "f27622c616d2bd8fc9e58f6d49562b0bbc6d8376c47972f92ab82f0264c1f80c"
+        },
+        {
+          "path": "develop/framework.md",
+          "bytes": 3623,
+          "sha256": "f26407d76a07481c1f01bf0cf47839dca013c3a3918fb199e1d82ae0b4047a1e"
+        },
+        {
+          "path": "develop/framework/events.md",
+          "bytes": 3989,
+          "sha256": "a934911df59d9566b61721a12c8fc6207ce883e07ff693a7c2ba546d4273f642"
+        },
+        {
+          "path": "develop/framework/index.md",
+          "bytes": 3604,
+          "sha256": "48ba4b8414eaa292183045146635fb241e6b9ec205ec01a74cc9cebb599309c7"
+        },
+        {
+          "path": "develop/framework/service.md",
+          "bytes": 3624,
+          "sha256": "9afad82db7c9d7ec508142569999bb6c57f159b659a8cb007cb8dd9f25706530"
+        },
+        {
+          "path": "develop/practice.md",
+          "bytes": 5048,
+          "sha256": "ee318a4c3375a67ceb3520583470528e3bba6e97a78836359f501b367171d3ef"
+        },
+        {
+          "path": "develop/practice/dynamic-cordis.md",
+          "bytes": 785,
+          "sha256": "13e17e57ec5b5ea22ef042817b8e61284d1e8b5db380f9cfbbcf247e1cebc878"
+        },
+        {
+          "path": "develop/practice/index.md",
+          "bytes": 5044,
+          "sha256": "bbaf2f7b6194904d19ec6f2fdfeed9d9175f3bc950a6ab251cd6df6427a0ead9"
+        },
+        {
+          "path": "develop/practice/llm-adapter.md",
+          "bytes": 6508,
+          "sha256": "50300a71a23b9a1892d245a17fc84a548592c7abaa41c81c4bdf78ea05d52a69"
+        },
+        {
+          "path": "en.md",
+          "bytes": 19,
+          "sha256": "c252a8f560c0b8836d8e43bcb08ab60ed80c325ef1f2c01d356abf70c3d65903"
+        },
+        {
+          "path": "en/develop/basic.md",
+          "bytes": 3956,
+          "sha256": "83c047f83f4d37a77f9134b541ef230f73e1f604834fbc8182dd4936e6481715"
+        },
+        {
+          "path": "en/develop/basic/config.md",
+          "bytes": 3128,
+          "sha256": "1ef3482a6a42e522861bc272aea9614e1eba07d7d1cc37fcde80011b9bcbac33"
+        },
+        {
+          "path": "en/develop/basic/index.md",
+          "bytes": 3946,
+          "sha256": "f559ba063c9efe969c71f76afc82098f4829f18a9ea092a64bb3156667130b15"
+        },
+        {
+          "path": "en/develop/basic/publish.md",
+          "bytes": 9089,
+          "sha256": "963a919dc1378b712708c28fd57cd3cee2b6f8b04ba72b53ec2168a680d6a18b"
+        },
+        {
+          "path": "en/develop/basic/tool.md",
+          "bytes": 1790,
+          "sha256": "c72ab9b31d9a3a4dfcd1af9e93e326c7cbc18e3918d938da2a01f1a54ad6129b"
+        },
+        {
+          "path": "en/develop/cordis-tutorial.md",
+          "bytes": 4405,
+          "sha256": "7b67074bb6cb9ad9bab14abbae4d7c47dd3e9f16a8acba475e780e909bdcff30"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/01-first-plugin.md",
+          "bytes": 3278,
+          "sha256": "eac5663ad8e0dc47de50b355b0d6c1bd8e7d9adce19502159e39fa4001a5ae2a"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/02-lifecycle-and-effects.md",
+          "bytes": 3959,
+          "sha256": "2687c12f0da0220ae5e7cdb81dc16d55d18135c44868c61bafa7882f941bbd9f"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/03-services.md",
+          "bytes": 4009,
+          "sha256": "dd4a95b2d96e9d915473d5c7e0f995f167fa5d41e98bc549e7be38482bdf4e90"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/04-events.md",
+          "bytes": 5435,
+          "sha256": "d8060dec853228c88ec6eaee2a64063fe11410c1f70e8a422178e3ad391c9840"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/05-config.md",
+          "bytes": 2696,
+          "sha256": "fb91392420f66fbdc3d7f767370f827ad1585288f64fbb150ec4786908d50a1c"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/06-composition-and-hmr.md",
+          "bytes": 4715,
+          "sha256": "566cfa7137e09aaeeca24dc21d0902f0ba6bf38bc894a3f4463368e4dcc30f38"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/07-into-the-harness.md",
+          "bytes": 4707,
+          "sha256": "74b716cae6a8646307b4df179044b987e46d964cd0d71b40d0ae8ada8e1632a3"
+        },
+        {
+          "path": "en/develop/cordis-tutorial/index.md",
+          "bytes": 4303,
+          "sha256": "54cf4a5a353b8b87fa68f19180c40e291eb258e5e20e520b4dbde2f272ceba23"
+        },
+        {
+          "path": "en/develop/framework.md",
+          "bytes": 3822,
+          "sha256": "ff234b4dbcbbf684c9c8ab60c2862190718ca8d25e4eaa6e014fd55329e11eec"
+        },
+        {
+          "path": "en/develop/framework/events.md",
+          "bytes": 4054,
+          "sha256": "c3680f22878ecd761b0dee3c7ae5e3785dc6951982fca079eea94b1509bd5a2a"
+        },
+        {
+          "path": "en/develop/framework/index.md",
+          "bytes": 3803,
+          "sha256": "061e92a2145098989fac41a20a678954e5702278cd9cb76cec7ecf2dea971825"
+        },
+        {
+          "path": "en/develop/framework/service.md",
+          "bytes": 3728,
+          "sha256": "9c29c92dff032bc59c14c97a8810c6d7058c35267ad2ce3c46da3a0d3c5e2669"
+        },
+        {
+          "path": "en/develop/practice.md",
+          "bytes": 5269,
+          "sha256": "581139c4bfca454df63ef67e66965988a43a46f4849c2d590602c18e0e631b50"
+        },
+        {
+          "path": "en/develop/practice/dynamic-cordis.md",
+          "bytes": 823,
+          "sha256": "2eca48a955eaf0399c0c06ed11b2216de118100ec20b505cbf3b1076604c2a74"
+        },
+        {
+          "path": "en/develop/practice/index.md",
+          "bytes": 5265,
+          "sha256": "135c9ec934ca03bced3fbe23e600a3522f6049f61a6ee78e8b1ceb46df0dd151"
+        },
+        {
+          "path": "en/develop/practice/llm-adapter.md",
+          "bytes": 6499,
+          "sha256": "9eb0cc783a0a0e1be1363538dd6c9e55954736c91cb5e2cbb9dcb9f0fb0342d4"
+        },
+        {
+          "path": "en/guide/github-review.md",
+          "bytes": 4354,
+          "sha256": "134fe04f61fab1c8f6521eb29c23bbf00f94ecd1268ca217994b527eaf541417"
+        },
+        {
+          "path": "en/guide/mcp-memory.md",
+          "bytes": 6708,
+          "sha256": "8c5fc85f319e4b33e44d6559807fd23a4ea19a2d76a3c25b5d9ff070ba9adc07"
+        },
+        {
+          "path": "en/guide/network-proxy.md",
+          "bytes": 6011,
+          "sha256": "6cbd8e5be965440624e138964daaef84bca5ffe0802daeda8ccbcdfafe0ce12d"
+        },
+        {
+          "path": "en/guide/providers-custom-form.png",
+          "bytes": 58692,
+          "sha256": "30aab4cc82cc1f3a91d3c83266219b7b71c29a32bede7c2a27ece0377a9f3f6d"
+        },
+        {
+          "path": "en/guide/providers-models-page.png",
+          "bytes": 75818,
+          "sha256": "fd972de2e7954fca848053cdc9c8242efbb9832b1b7d7c0a67f32432728a39d6"
+        },
+        {
+          "path": "en/guide/providers.md",
+          "bytes": 13573,
+          "sha256": "9bcaec1e6dc46aec16e3a34974735bc1eb654b45e403810f3dedc49e306611a6"
+        },
+        {
+          "path": "en/guide/python-sdk.md",
+          "bytes": 6690,
+          "sha256": "6964b42fe1f4e1dd8a14bb9bf3a3e8f53d1359c4961b4eb66f085548cbb1174e"
+        },
+        {
+          "path": "en/guide/quickstart.md",
+          "bytes": 1395,
+          "sha256": "a5777d362acf5d80d53f1bcc3a7776ecaca8093613405e25530d12a05429e012"
+        },
+        {
+          "path": "en/guide/schedule.md",
+          "bytes": 2978,
+          "sha256": "eda84d6eb7306dd564c7d5ffe2332ed75bb17ee2914867ef0feb6c8befffa40c"
+        },
+        {
+          "path": "en/index.md",
+          "bytes": 19,
+          "sha256": "c252a8f560c0b8836d8e43bcb08ab60ed80c325ef1f2c01d356abf70c3d65903"
+        },
+        {
+          "path": "en/reference.md",
+          "bytes": 16121,
+          "sha256": "7d20cc0133bbc6c5323c15229b2e8c52435eacb4f0f5eb23d2b61caa013afa46"
+        },
+        {
+          "path": "en/reference/agent-lifecycle.md",
+          "bytes": 4897,
+          "sha256": "b81940fd3d3d7b6bf42da192a95e0da61d404b7629338d7c8d6d4955bb4abe6f"
+        },
+        {
+          "path": "en/reference/api-gateway.md",
+          "bytes": 18134,
+          "sha256": "f30802a8c27f7b25792a4524582f82683ec07d80ad404fd63dd0a4cd6b64c5eb"
+        },
+        {
+          "path": "en/reference/capability-seams.md",
+          "bytes": 62240,
+          "sha256": "0ba121523424f0cd4a9eea9ba23c3736c219fe5dff5d4885c2d6004aa93653b2"
+        },
+        {
+          "path": "en/reference/config-catalog.md",
+          "bytes": 164120,
+          "sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2"
+        },
+        {
+          "path": "en/reference/cookbook/adding-a-package.md",
+          "bytes": 12865,
+          "sha256": "e855719154fd3bbb5e86be27e786f98096a8de5e2d0a9523f96ca8789e5ffff8"
+        },
+        {
+          "path": "en/reference/cookbook/adding-a-settings-card.md",
+          "bytes": 5969,
+          "sha256": "d6ed612bb97fe5158e6fb6bdffbbbc5d784566f4e118d9130c19048d50eb4b0b"
+        },
+        {
+          "path": "en/reference/cookbook/adding-a-tool.md",
+          "bytes": 14489,
+          "sha256": "5bffe4a33eebcc70cb836bc62c845a2e4e18b6b4a3b8bc368f40562cdaa0069d"
+        },
+        {
+          "path": "en/reference/cookbook/adding-an-llm-adapter.md",
+          "bytes": 4046,
+          "sha256": "7fbae604a90d814680e08f018ea007c19fc1a12bf7d60f05b55c1e91dfc0d95e"
+        },
+        {
+          "path": "en/reference/cookbook/extension-cookbook.md",
+          "bytes": 11662,
+          "sha256": "1b8ca36a89380a7f8ab6d1f6f4b2742f1b97f317f4b9e45ac1fd8582f6f32865"
+        },
+        {
+          "path": "en/reference/cordis-api/context.md",
+          "bytes": 13275,
+          "sha256": "1542c1a9f8b34b5215404ecb9919160cdd443e74ff5c58aac351cb48102b9b84"
+        },
+        {
+          "path": "en/reference/cordis-api/events.md",
+          "bytes": 7893,
+          "sha256": "601b121e917f44a47ffd9d0c4786519bfbcb8cd343ce55c3935f2a08f7c11a5f"
+        },
+        {
+          "path": "en/reference/cordis-api/fiber.md",
+          "bytes": 12685,
+          "sha256": "a9c9c62548f736e86ff183f980b1bc190598b9ae3d642ef88bc53c9763e3b031"
+        },
+        {
+          "path": "en/reference/cordis-api/inherited.md",
+          "bytes": 6422,
+          "sha256": "444ff302dd6a225d086e4076fd05aa8ee2b75406729787e51d2216874efb2497"
+        },
+        {
+          "path": "en/reference/cordis-api/registry.md",
+          "bytes": 5496,
+          "sha256": "5a911dee48c4278ac45dcf084599d5c5e5cfe9bee7ff354e76e1dc125d1eb708"
+        },
+        {
+          "path": "en/reference/cordis-api/service.md",
+          "bytes": 3163,
+          "sha256": "0d839aeb101159fbaebcab4d46ea9ed60714320a81bb9199a4b52a038fd1f89b"
+        },
+        {
+          "path": "en/reference/cordis-primer.md",
+          "bytes": 4165,
+          "sha256": "dd19c64ba4d4f38d50cdd8a9eaca10c16e750d942c238b43229e7e7d7992b9ea"
+        },
+        {
+          "path": "en/reference/index.md",
+          "bytes": 15912,
+          "sha256": "5cb642f213b267039be34b6f40c21ff2c99b30a4f46a3a7b6e8d94d0074e21b3"
+        },
+        {
+          "path": "en/reference/persistence-catalog.md",
+          "bytes": 41790,
+          "sha256": "a2c7653983237339b9ae7bdd7fabc892131827e2df367d1bf5d90bcd1fb40496"
+        },
+        {
+          "path": "en/reference/subsystems.md",
+          "bytes": 10191,
+          "sha256": "52193314f721700893e843e3838fcd4d3387ab5fd7fb52bbbda65ed7e5165588"
+        },
+        {
+          "path": "en/reference/subsystems/approval.md",
+          "bytes": 9667,
+          "sha256": "27e0c35d15b17e3f0406cd098c08312700966055c0088374d3e1e0b87f6e5254"
+        },
+        {
+          "path": "en/reference/subsystems/client-modules.md",
+          "bytes": 13174,
+          "sha256": "1c0ab5d510e4384beb59f7f386be91d200a4d4c4058304b4af607b8ed9b9bca2"
+        },
+        {
+          "path": "en/reference/subsystems/code-runtime.md",
+          "bytes": 12012,
+          "sha256": "23fe92f6a8853e669bd5fb326ae6e1f9f8ca563e361448a4dabc196dd75f9f68"
+        },
+        {
+          "path": "en/reference/subsystems/commands.md",
+          "bytes": 10195,
+          "sha256": "6fe32da144c2bede3370df62c326c17472630460e209769f3325e4e436d6c23c"
+        },
+        {
+          "path": "en/reference/subsystems/compaction.md",
+          "bytes": 17942,
+          "sha256": "84ea9ae589fddd4dc02dd8073fde6efc732917d3ca17abc6c349bbb327511a20"
+        },
+        {
+          "path": "en/reference/subsystems/conversation.md",
+          "bytes": 17335,
+          "sha256": "d3ee854addb38e90c43e60a6fcd0d66e27484ca0ebd9a7b1b97fce4c418012fe"
+        },
+        {
+          "path": "en/reference/subsystems/core.md",
+          "bytes": 64590,
+          "sha256": "32788be87a2c6e2d530523b278a09766b4a781cbd97e706e7b78b7bbb484d96e"
+        },
+        {
+          "path": "en/reference/subsystems/credentials.md",
+          "bytes": 16961,
+          "sha256": "4ad40377074218b075eb0ee1084c344cb44867abdb0579b03a458928960adafe"
+        },
+        {
+          "path": "en/reference/subsystems/filesystem.md",
+          "bytes": 29963,
+          "sha256": "dc26bd5cea8d8855eba42547ce5f5b32c0fa83d53bf021e6f01d920573893f07"
+        },
+        {
+          "path": "en/reference/subsystems/goal.md",
+          "bytes": 10881,
+          "sha256": "11e388a16903dba1bd4db8050e83b173ce2e10e678a80f270533e5e719d5d920"
+        },
+        {
+          "path": "en/reference/subsystems/index.md",
+          "bytes": 9697,
+          "sha256": "17a759fe0fc0675d464e1cba3fa11bde290044fda4a9a93cd19d49a8b34bb3e9"
+        },
+        {
+          "path": "en/reference/subsystems/invariants.md",
+          "bytes": 7244,
+          "sha256": "39cf5dd3d0ea977ff49a2d3e394ff50b4531ed897a0445a2335b13f6f7c2d189"
+        },
+        {
+          "path": "en/reference/subsystems/jobs.md",
+          "bytes": 14870,
+          "sha256": "39ccdfbcf52fd49668518bd70c1bd30487b2d1bb33f0f7794de188ee1b33fd84"
+        },
+        {
+          "path": "en/reference/subsystems/llm-streaming.md",
+          "bytes": 60654,
+          "sha256": "cd0ecfb67dbbbb274064381b5b2e008f7b2b969a97f9c9a6791358fc31d42351"
+        },
+        {
+          "path": "en/reference/subsystems/lsp.md",
+          "bytes": 10901,
+          "sha256": "4296d280ab05de9423b7d76ad4a440b128c18fe4ef3d71e5544d9e969365cddd"
+        },
+        {
+          "path": "en/reference/subsystems/permission-presets.md",
+          "bytes": 8369,
+          "sha256": "9b8f93299647b083104f8b960372fb28c0542c558cd60ff644965a9ab156726a"
+        },
+        {
+          "path": "en/reference/subsystems/persistence.md",
+          "bytes": 27093,
+          "sha256": "4b8e593d8d3e7876adeda491b21f298a2aa8a54b0cc5827ab14aa0935ef2b288"
+        },
+        {
+          "path": "en/reference/subsystems/plan.md",
+          "bytes": 8209,
+          "sha256": "6ab8e9d2862e1a5681b469cbffa27d8ae3800bc3f1d01481782901629945cbd5"
+        },
+        {
+          "path": "en/reference/subsystems/sandbox.md",
+          "bytes": 13128,
+          "sha256": "e93c1a6e881e5f2b9aedbb60c275a21bbf5ad9ee3c7865e6f37dc4416a058cb1"
+        },
+        {
+          "path": "en/reference/subsystems/schedule.md",
+          "bytes": 12638,
+          "sha256": "09e1656f162f6924547ea1e4f2bc3f619c33c706b2e2a324f7b70bfdb7cb4cf3"
+        },
+        {
+          "path": "en/reference/subsystems/scope.md",
+          "bytes": 4218,
+          "sha256": "0b8c48d924a2ae314591b5b7ccdfb5acd4cc32ed8fbfe1e70e825eb39fa7dfb1"
+        },
+        {
+          "path": "en/reference/subsystems/session-projection.md",
+          "bytes": 22734,
+          "sha256": "8d2c798098b1a1f099d41787031f07134cec4f1b92215cf28601ac8f15ddad7f"
+        },
+        {
+          "path": "en/reference/subsystems/session-query.md",
+          "bytes": 21734,
+          "sha256": "ca92a280a330fffece459b97c5c393054b7dbc2f159c4788c19a7b4b6b52db53"
+        },
+        {
+          "path": "en/reference/subsystems/session-reference.md",
+          "bytes": 10138,
+          "sha256": "8c9af05bb16a198e68f8711c52c24d0a046bbd05fb383e47d620af12b4409004"
+        },
+        {
+          "path": "en/reference/subsystems/session-telemetry.md",
+          "bytes": 13162,
+          "sha256": "3fd02eb1e88b2f5c99bb06d9678ffeb79808676064b7cdfdde0720e17519ba97"
+        },
+        {
+          "path": "en/reference/subsystems/session-title.md",
+          "bytes": 8934,
+          "sha256": "a35cf378fabab36d10cefcc42d3e45ecfbf936047788b57b45db877c7044843d"
+        },
+        {
+          "path": "en/reference/subsystems/session.md",
+          "bytes": 63779,
+          "sha256": "a26f49565e60ae65eddae85b368b34104f9cf4053b54580ae33a3f55a4f6cb0a"
+        },
+        {
+          "path": "en/reference/subsystems/settings.md",
+          "bytes": 22579,
+          "sha256": "1e45e40aee3a85b332b9e81c815cf74d55ff8708c1a05040021fb66d30f044b9"
+        },
+        {
+          "path": "en/reference/subsystems/shell.md",
+          "bytes": 17850,
+          "sha256": "30c8e2e4f85152025783e62ee3f0306ff2ca478127de26cfc780906e940a04e2"
+        },
+        {
+          "path": "en/reference/subsystems/skills.md",
+          "bytes": 25040,
+          "sha256": "db54b6e8f7909e1ff7efeebd0fb246bbb5583f9afcba0f14ea3f851b908095c1"
+        },
+        {
+          "path": "en/reference/subsystems/slots.md",
+          "bytes": 12087,
+          "sha256": "65077939fe7096a3dfeb7dfc02090ca2a520c53a9afba277243634c148168f36"
+        },
+        {
+          "path": "en/reference/subsystems/spill.md",
+          "bytes": 7533,
+          "sha256": "c54c140de9c43784b7053360154c03df8f67213084ab6d6480cede6b92979579"
+        },
+        {
+          "path": "en/reference/subsystems/storage.md",
+          "bytes": 17937,
+          "sha256": "c95b20509a9fc7b4ce4bb863de458c0287a5c6b72a5d807e1330e0eb5c0fc174"
+        },
+        {
+          "path": "en/reference/subsystems/subagent.md",
+          "bytes": 55020,
+          "sha256": "6a1a2b829c48086303569899f7de761d75121a93c948be348c9c91da231e7f2f"
+        },
+        {
+          "path": "en/reference/subsystems/subprocess.md",
+          "bytes": 18267,
+          "sha256": "de73a076cd21285d8990aeb1a94d99475049be7f58b7e6c0f2987243c2045c48"
+        },
+        {
+          "path": "en/reference/subsystems/system-prompt.md",
+          "bytes": 10412,
+          "sha256": "4fe359ffdf88aaec0c549112f0cb7d85ae853cf4048ab37359fc8f5bd54bcf2c"
+        },
+        {
+          "path": "en/reference/subsystems/terminal.md",
+          "bytes": 8580,
+          "sha256": "bd9fd77c76eb85522517b45c315ec3f289e6e04cce641be3bd561c7d5f6b67a5"
+        },
+        {
+          "path": "en/reference/subsystems/token-meter.md",
+          "bytes": 5848,
+          "sha256": "7b90bcc3624c9ca69ae2e0a7a4c641fa6fd3376b06f44b17d697dee8a264e718"
+        },
+        {
+          "path": "en/reference/subsystems/tools.md",
+          "bytes": 43402,
+          "sha256": "7b960d7eb290cfc9affdc7189c106ac4769d59f09d17756ab68393ff1b45d064"
+        },
+        {
+          "path": "en/reference/subsystems/typert.md",
+          "bytes": 15352,
+          "sha256": "fae481f560f63ef1b5a4e2df1f32a35d85fd5fe3c1855954d5d651d0bc2278ed"
+        },
+        {
+          "path": "en/reference/subsystems/user-questions.md",
+          "bytes": 8508,
+          "sha256": "95a929f8acce96db4cc0fc1270b92fd41d5d88125953668b9347429d1bd46e83"
+        },
+        {
+          "path": "en/reference/subsystems/web-client.md",
+          "bytes": 12979,
+          "sha256": "616554b3e8e781ca33fd7db8dc5e9c50206c900b11f813a8c1c83b42ed4210be"
+        },
+        {
+          "path": "en/reference/subsystems/web-server.md",
+          "bytes": 10064,
+          "sha256": "212c12c1ad1409e0b13c23f8e32706bc2eb9ebc17172c6d1504e288f588ca469"
+        },
+        {
+          "path": "en/reference/subsystems/web.md",
+          "bytes": 13300,
+          "sha256": "e7195d2f07c7dc780a68640fd632334f0b7162dfa14ef093a637e9a0ee284787"
+        },
+        {
+          "path": "en/reference/subsystems/workflow.md",
+          "bytes": 16494,
+          "sha256": "845f9a3e54179a25ce9f05a42756909bd4fa3fd8377ab4f15198e6c35c577fa8"
+        },
+        {
+          "path": "en/reference/subsystems/workspace.md",
+          "bytes": 18720,
+          "sha256": "309b1a993386edf8204424620ce10019bb47cf9c717b41a1b0620564830e3f93"
+        },
+        {
+          "path": "en/reference/tool-catalog.md",
+          "bytes": 93974,
+          "sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88"
+        },
+        {
+          "path": "en/reference/tool-execution-pipeline.md",
+          "bytes": 4037,
+          "sha256": "c5609edcd9f56eb1ac510751b0e8a26c1da830bc54460de157d75335254b44fb"
+        },
+        {
+          "path": "guide/github-review.md",
+          "bytes": 4121,
+          "sha256": "21206f0944682fdd2ef44ed750612f95122566aeb3ad152dfd5ccb7b9ae7eb07"
+        },
+        {
+          "path": "guide/mcp-memory.md",
+          "bytes": 6592,
+          "sha256": "86b0060e4e9ef713e6dd2fcfb68ca76ca385d7e1451e38a87b09e11b0eb7933a"
+        },
+        {
+          "path": "guide/network-proxy.md",
+          "bytes": 5773,
+          "sha256": "ce1ccbc47927e87cef0330c56478886a885e0fa1ce4c919ec51707cdaaa3d078"
+        },
+        {
+          "path": "guide/providers-custom-form.zh.png",
+          "bytes": 57720,
+          "sha256": "3f2ffd931ee8776603e0f2fcc3a4b0e57795c05190f643be3989546f4395c63e"
+        },
+        {
+          "path": "guide/providers-models-page.zh.png",
+          "bytes": 70021,
+          "sha256": "6fed6f3796b9a13cb9d5aabb4a71df93fa3747b6f6d558e05a664e7d845d8354"
+        },
+        {
+          "path": "guide/providers.md",
+          "bytes": 13262,
+          "sha256": "b135c2c3b25eb3165417e03b46dff6e5ff20343f00b83a6054817c59406ccffc"
+        },
+        {
+          "path": "guide/python-sdk.md",
+          "bytes": 6406,
+          "sha256": "832c324b2c19c6020c852f9ad0a62e0f5754c6d1fe5cc4c367efb295c34ea869"
+        },
+        {
+          "path": "guide/quickstart.md",
+          "bytes": 1377,
+          "sha256": "5e32fa8a233ecd66d822f76738bcb8be01ef44489f71527a845318217a2cf959"
+        },
+        {
+          "path": "guide/schedule.md",
+          "bytes": 2752,
+          "sha256": "b86b912e5e730de6d8f1986534c70392e4285813261f11b84a40bb47200887f5"
+        },
+        {
+          "path": "index.md",
+          "bytes": 19,
+          "sha256": "c252a8f560c0b8836d8e43bcb08ab60ed80c325ef1f2c01d356abf70c3d65903"
+        },
+        {
+          "path": "reference.md",
+          "bytes": 15989,
+          "sha256": "ecb35b6cdae41f9f34dbd3a093de3e57ea74403ececff9b9b9202c4a11567d32"
+        },
+        {
+          "path": "reference/agent-lifecycle.md",
+          "bytes": 5250,
+          "sha256": "9dbf69a646110c28fb6c4576508a59002e985662f615d322dd6c7e8d5d2563ab"
+        },
+        {
+          "path": "reference/api-gateway.md",
+          "bytes": 15903,
+          "sha256": "f4edc853bbf8012eea18e5021767e4b3838cfae99468fe17c8def7ff38fc0db5"
+        },
+        {
+          "path": "reference/capability-seams.md",
+          "bytes": 62025,
+          "sha256": "81f0ba415ff0b62fcbd1cba7439d88b70919e29d00391b345daebfda148a067b"
+        },
+        {
+          "path": "reference/config-catalog.md",
+          "bytes": 164662,
+          "sha256": "bd914fa6a8be8149368a67af85cfcce31f9c024a8d136f9ada17816d8fdbbfa9"
+        },
+        {
+          "path": "reference/cookbook/adding-a-package.md",
+          "bytes": 12145,
+          "sha256": "065bf440a5ba73384852571d515a863da2f57207209cd83bd5122a133895715d"
+        },
+        {
+          "path": "reference/cookbook/adding-a-settings-card.md",
+          "bytes": 5847,
+          "sha256": "dba460bddc8b671f8c8a5236c03ee12977dce18431cec47d0bed8338102ca001"
+        },
+        {
+          "path": "reference/cookbook/adding-a-tool.md",
+          "bytes": 14318,
+          "sha256": "65ed93650e699ca95c4e5ffa4148fb184b4ecf8fcf0525b152b129f321924cbc"
+        },
+        {
+          "path": "reference/cookbook/adding-an-llm-adapter.md",
+          "bytes": 4201,
+          "sha256": "62e427ea61b0e30cf8d1650f3c94e736532a8305123f968bf4181e7738428d17"
+        },
+        {
+          "path": "reference/cookbook/extension-cookbook.md",
+          "bytes": 11530,
+          "sha256": "208280ca6e309f45ac35bd2539474339b6fe8bddda6caa6982f3171eea7e49e7"
+        },
+        {
+          "path": "reference/cordis-api/context.md",
+          "bytes": 13433,
+          "sha256": "3eef1d7a19772a781114ac25bb318bb62c9263a7d92a2ef9fe0ec62df43aca92"
+        },
+        {
+          "path": "reference/cordis-api/events.md",
+          "bytes": 8361,
+          "sha256": "2b785110da05cbb0d384f97e37426e36f35e205c9a21969dd32258180ae81860"
+        },
+        {
+          "path": "reference/cordis-api/fiber.md",
+          "bytes": 13206,
+          "sha256": "502202666868f6e4fce1a8838f64e028577f4f9eb99ff712caa815f921b82429"
+        },
+        {
+          "path": "reference/cordis-api/inherited.md",
+          "bytes": 6422,
+          "sha256": "444ff302dd6a225d086e4076fd05aa8ee2b75406729787e51d2216874efb2497"
+        },
+        {
+          "path": "reference/cordis-api/registry.md",
+          "bytes": 5725,
+          "sha256": "d820f7509662542e2d925b2fdeaa72daaf6bad48c78a61d14ef5a1ec3bf414b5"
+        },
+        {
+          "path": "reference/cordis-api/service.md",
+          "bytes": 3303,
+          "sha256": "057211530d38522d71e8e999dd7f948666f7427174e517b883920565e4517804"
+        },
+        {
+          "path": "reference/cordis-primer.md",
+          "bytes": 4090,
+          "sha256": "f080793ca2284f901280f809b3ce1e4837008ce1f79ca86fa71cb0d0de8f74fe"
+        },
+        {
+          "path": "reference/index.md",
+          "bytes": 15780,
+          "sha256": "25381190ca8fd2bf3863d9488ec95c8ec36155bbd36bae1f5ce6c84947811199"
+        },
+        {
+          "path": "reference/persistence-catalog.md",
+          "bytes": 42132,
+          "sha256": "c7cb3b68b419eca347d70cf8b887a4ad76f7aa9eeac957b63038a573a40f492a"
+        },
+        {
+          "path": "reference/subsystems.md",
+          "bytes": 9755,
+          "sha256": "cfc4a72d3eb7244f6e8e7c8587aea5699c09020eb5f803c8bcbc3ac724208ee0"
+        },
+        {
+          "path": "reference/subsystems/approval.md",
+          "bytes": 9657,
+          "sha256": "ec157ef003bc729f9c8bbd5f519ca50cf7d26a972dfd5281d9c77039bfd6c53f"
+        },
+        {
+          "path": "reference/subsystems/client-modules.md",
+          "bytes": 12797,
+          "sha256": "bb281c12bd373eafeb175dc8cc5f31e9c316596b8b09190ed7fee611d0808c16"
+        },
+        {
+          "path": "reference/subsystems/code-runtime.md",
+          "bytes": 11930,
+          "sha256": "a3f031d7681c4af8cc079305915c2786e72e385f667d61ea13b87054e2cf041a"
+        },
+        {
+          "path": "reference/subsystems/commands.md",
+          "bytes": 10154,
+          "sha256": "8bf5e498f6ee7d6b881d8f3c6134a4173323380b677231cbbbcac5c286b32d41"
+        },
+        {
+          "path": "reference/subsystems/compaction.md",
+          "bytes": 17561,
+          "sha256": "f2cda49f8085c72cc87cfa51b7a7f2526dcfaf3d7d1589f485ea14c6ab2d9c27"
+        },
+        {
+          "path": "reference/subsystems/conversation.md",
+          "bytes": 16763,
+          "sha256": "d699af1aa012ecaefad9ee55995f7958783ca09193f8367605f0c7b38fc7dac3"
+        },
+        {
+          "path": "reference/subsystems/core.md",
+          "bytes": 64183,
+          "sha256": "a2ae55e51339bd31f2dba7797b4540b8fef2af64839c8b26848c25f7699aea94"
+        },
+        {
+          "path": "reference/subsystems/credentials.md",
+          "bytes": 16785,
+          "sha256": "9ef0e1fadce629ef8edc7af43f2538452890828d8984f5d0b6d8b041ea494f17"
+        },
+        {
+          "path": "reference/subsystems/filesystem.md",
+          "bytes": 29696,
+          "sha256": "f75418f66a6f2f442ecffd1d486e11c1a7adc24728e7251bf742804cd80f3326"
+        },
+        {
+          "path": "reference/subsystems/goal.md",
+          "bytes": 10840,
+          "sha256": "1bc9360e88d6306caa3631eac39f0557a36664a4b694958a5feafd47bbe8b179"
+        },
+        {
+          "path": "reference/subsystems/index.md",
+          "bytes": 9261,
+          "sha256": "e540ff0f87af44072d5fe92e63f1b718cbea00252660592327181601123c6fe0"
+        },
+        {
+          "path": "reference/subsystems/invariants.md",
+          "bytes": 7012,
+          "sha256": "5a057bd2b2fd804b29e66d06a517b0d61db37b17e7b37a095573b919574e35f2"
+        },
+        {
+          "path": "reference/subsystems/jobs.md",
+          "bytes": 14838,
+          "sha256": "66b37b0d11543904cb2caf5b6fdecbf8e5059821397ba87945fc05bf30db706c"
+        },
+        {
+          "path": "reference/subsystems/llm-streaming.md",
+          "bytes": 60035,
+          "sha256": "38ac4ad7039911d692f4df792dba03c96090e3068c5f3a9918083d2746180ba2"
+        },
+        {
+          "path": "reference/subsystems/lsp.md",
+          "bytes": 10926,
+          "sha256": "91d4f7206ec225ada34f3c2abb78b7a444890c4f348546e993b106593db58099"
+        },
+        {
+          "path": "reference/subsystems/permission-presets.md",
+          "bytes": 8291,
+          "sha256": "3509ce4f730fb729e69744c21a481738c4ac9737d814248573d108e9cdd5f9be"
+        },
+        {
+          "path": "reference/subsystems/persistence.md",
+          "bytes": 26642,
+          "sha256": "92cc6b3880b7f3a6e4b1c3f2a176f26e04569bdb87b83f4f6bddda51fc412154"
+        },
+        {
+          "path": "reference/subsystems/plan.md",
+          "bytes": 8081,
+          "sha256": "bbf6fba5c0525025135bb89e2f6bf4ada86d8a8e3aabd3be5cf1e90461544ab8"
+        },
+        {
+          "path": "reference/subsystems/sandbox.md",
+          "bytes": 12954,
+          "sha256": "8883d05940cfbc943e720335a30baf5a983532214e245991d113507ca3070a03"
+        },
+        {
+          "path": "reference/subsystems/schedule.md",
+          "bytes": 12373,
+          "sha256": "63f23bb9e1c004b3ce57366aab94ed22fcb78947cb97a4273a525020a75f5ed7"
+        },
+        {
+          "path": "reference/subsystems/scope.md",
+          "bytes": 4244,
+          "sha256": "1906aa55af6cdaac6d4ba9b5783e80eae6c4629fdeaf80e17c3ad30cb795c87e"
+        },
+        {
+          "path": "reference/subsystems/session-projection.md",
+          "bytes": 22685,
+          "sha256": "3f69a5dc37fcf1ac417c8010fb7d8068a7e67200c627359a731de81d92efbc03"
+        },
+        {
+          "path": "reference/subsystems/session-query.md",
+          "bytes": 21738,
+          "sha256": "f4a7a97a3b7ea695691e93b804ee1877ec199e720828fe82afcc2597994c957b"
+        },
+        {
+          "path": "reference/subsystems/session-reference.md",
+          "bytes": 10019,
+          "sha256": "be3ef1de73d8fa678c5928521fb96af893e7395a28a9cf6413c6dc9057b1b3f7"
+        },
+        {
+          "path": "reference/subsystems/session-telemetry.md",
+          "bytes": 13018,
+          "sha256": "dc8a8c3ff1edffa5e21bd5bf44ee3ca40ae9742c3a934354d78c53a6e18031e4"
+        },
+        {
+          "path": "reference/subsystems/session-title.md",
+          "bytes": 8858,
+          "sha256": "ab83d1dc0739dfbd2d1ad742400c21ed47c5b3499c0cc68218954a402429f644"
+        },
+        {
+          "path": "reference/subsystems/session.md",
+          "bytes": 63392,
+          "sha256": "0a62aebcc4a91ca61ee5d1e7d515a45e707456c2eb5ecfcd372775b41c218773"
+        },
+        {
+          "path": "reference/subsystems/settings.md",
+          "bytes": 22289,
+          "sha256": "0faea0cef9a92484ba4d2dd5db143b68aacd2343d9e1507680b2fe75d64bd12f"
+        },
+        {
+          "path": "reference/subsystems/shell.md",
+          "bytes": 17624,
+          "sha256": "32cad2d7b308164030d5d00f11d1386c9b6b9f1b920c35722386f2f0dab7c563"
+        },
+        {
+          "path": "reference/subsystems/skills.md",
+          "bytes": 24639,
+          "sha256": "7b1f225e75d24d812cdf833a4f8286a275aac42da41b69908f505f28d53e294f"
+        },
+        {
+          "path": "reference/subsystems/slots.md",
+          "bytes": 11539,
+          "sha256": "3f4a7f07e7131ab3a43c5d849822fec33e7c21a91dc81ef3f05edddca0722894"
+        },
+        {
+          "path": "reference/subsystems/spill.md",
+          "bytes": 7479,
+          "sha256": "d51c7e403dac23240d9fcaec987031da1b1575e5a964a989b6f6e3984a2b036d"
+        },
+        {
+          "path": "reference/subsystems/storage.md",
+          "bytes": 17947,
+          "sha256": "3039f14cbf1c0773d0679169de4480156b38e949dbeed3edae8d2c87a6b9c136"
+        },
+        {
+          "path": "reference/subsystems/subagent.md",
+          "bytes": 54511,
+          "sha256": "127a3d4ec119bc18b2eebf2a5a1ccf0c5e01a5fbb659925e49b54f84fa48efe7"
+        },
+        {
+          "path": "reference/subsystems/subprocess.md",
+          "bytes": 18204,
+          "sha256": "e7ca825ec8319448ab1142bd780ebdb4a7235fd207eefe764dd033c5c6459761"
+        },
+        {
+          "path": "reference/subsystems/system-prompt.md",
+          "bytes": 10384,
+          "sha256": "1ba9976cf0024a9705601b4fa29f2b046112bef47b3f0fb6c9f7a93cdb113022"
+        },
+        {
+          "path": "reference/subsystems/terminal.md",
+          "bytes": 8577,
+          "sha256": "4046481d519dc0fbe169c88987d5e633a3b0b22f6ae4a81de13d20f2d32067f7"
+        },
+        {
+          "path": "reference/subsystems/token-meter.md",
+          "bytes": 5711,
+          "sha256": "c3d17d3427e09167f3d0edec07917b55ff8945faf4a6ce2747171fc204ae15f9"
+        },
+        {
+          "path": "reference/subsystems/tools.md",
+          "bytes": 43116,
+          "sha256": "8e206159dc3e5be81d1ad179cf26bd235df9b717a3be0c0ff1bee75570cdff30"
+        },
+        {
+          "path": "reference/subsystems/typert.md",
+          "bytes": 15172,
+          "sha256": "cbd6075d8b2c468c7085e27ccbb264f7fc3230f0664f363d939d36c46a773a27"
+        },
+        {
+          "path": "reference/subsystems/user-questions.md",
+          "bytes": 8422,
+          "sha256": "6071126fc44fd3c42cecb21bee8795e8e92c1a2407d9d491cd7f16b2ee961fa0"
+        },
+        {
+          "path": "reference/subsystems/web-client.md",
+          "bytes": 12157,
+          "sha256": "2ff4a15f1d0994229c7c616f5f89d188b4846ed77638782374cb52ad9fde3f3e"
+        },
+        {
+          "path": "reference/subsystems/web-server.md",
+          "bytes": 9943,
+          "sha256": "a1d24f6f59a7f21f25358b689b4afbb6cd112680b9a3385f1e517e57f8253ff9"
+        },
+        {
+          "path": "reference/subsystems/web.md",
+          "bytes": 13326,
+          "sha256": "7111d230365be3de641480916fa6ae2e612cc81b18e8f42d037ddb76b3a6abb8"
+        },
+        {
+          "path": "reference/subsystems/workflow.md",
+          "bytes": 16349,
+          "sha256": "ba23d8725a1c7f883eddb69827353610b4da568ec209e3e25ac66b3edafe946f"
+        },
+        {
+          "path": "reference/subsystems/workspace.md",
+          "bytes": 18650,
+          "sha256": "77ac2cadea053fb6a69a7320ac9162e50005b12dc8f235f2da26849b4571919d"
+        },
+        {
+          "path": "reference/tool-catalog.md",
+          "bytes": 93461,
+          "sha256": "81cf6ce1d68c8e63b48173aef47d73a5a53200a618a3372ab582a7bd67d9e1a9"
+        },
+        {
+          "path": "reference/tool-execution-pipeline.md",
+          "bytes": 4426,
+          "sha256": "a5882d39c254f64c019366e1485f652b7626276f4742dbb4883be793d7108913"
+        }
+      ],
+      "catalog_next_timings": [
+        {
+          "route": "reference/config-catalog.md",
+          "elapsed_ms": 781.8221000000049
+        },
+        {
+          "route": "en/reference/config-catalog.md",
+          "elapsed_ms": 1010.3142999999982
+        },
+        {
+          "route": "reference/tool-catalog.md",
+          "elapsed_ms": 387.85629999999946
+        },
+        {
+          "route": "en/reference/tool-catalog.md",
+          "elapsed_ms": 404.42959999998857
+        }
+      ]
+    }
+  },
+  "complete_tree_byte_equal": true,
+  "file_count": 201,
+  "direct_catalog_comparisons": [
+    {
+      "route": "en/reference/config-catalog.md",
+      "input_bytes": 148995,
+      "input_sha256": "19e381e675b099d93872d05bc0e0e3bccf7e7c9f2652b2f5c876b883c0488782",
+      "outcomes": {
+        "v7": {
+          "rewritten_bytes": 164120,
+          "rewritten_sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2",
+          "raw_bytes": 164120,
+          "raw_sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2"
+        },
+        "v8": {
+          "rewritten_bytes": 164120,
+          "rewritten_sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2",
+          "raw_bytes": 164120,
+          "raw_sha256": "b1da5aaf60c2773fce8ddeadd739bb56bbb0bbcaffdc5f1095bb48b128da67e2"
+        }
+      }
+    },
+    {
+      "route": "en/reference/tool-catalog.md",
+      "input_bytes": 90381,
+      "input_sha256": "dd1c92d0315792a5d5eb22b5c878158e85b2fa101e50d0f3ccef13180e61070c",
+      "outcomes": {
+        "v7": {
+          "rewritten_bytes": 93974,
+          "rewritten_sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88",
+          "raw_bytes": 93974,
+          "raw_sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88"
+        },
+        "v8": {
+          "rewritten_bytes": 93974,
+          "rewritten_sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88",
+          "raw_bytes": 93974,
+          "raw_sha256": "b5f4d52395f94300b5c6c0085206386f9d5b17a55ac3d38338981c924d5dce88"
+        }
+      }
+    },
+    {
+      "route": "reference/config-catalog.md",
+      "input_bytes": 149606,
+      "input_sha256": "5f47f713fc864a56c4f39ee0f136778a3ae4209351a9eafc1c7146feb73e2fde",
+      "outcomes": {
+        "v7": {
+          "rewritten_bytes": 164717,
+          "rewritten_sha256": "49e17565633131ae8efa47de45ff480b1229d113728da3f8ca9cf712968c53b5",
+          "raw_bytes": 164662,
+          "raw_sha256": "bd914fa6a8be8149368a67af85cfcce31f9c024a8d136f9ada17816d8fdbbfa9"
+        },
+        "v8": {
+          "rewritten_bytes": 164717,
+          "rewritten_sha256": "49e17565633131ae8efa47de45ff480b1229d113728da3f8ca9cf712968c53b5",
+          "raw_bytes": 164662,
+          "raw_sha256": "bd914fa6a8be8149368a67af85cfcce31f9c024a8d136f9ada17816d8fdbbfa9"
+        }
+      }
+    },
+    {
+      "route": "reference/tool-catalog.md",
+      "input_bytes": 89908,
+      "input_sha256": "9ccea45a05e7b3f00b0b24323c5f03cb6231bdafa1e084d7292ea903cdf3f2d1",
+      "outcomes": {
+        "v7": {
+          "rewritten_bytes": 93514,
+          "rewritten_sha256": "0f94156b2172ca5d3eac4eef67887387ede9141b921a017a234caa0a1686b780",
+          "raw_bytes": 93461,
+          "raw_sha256": "81cf6ce1d68c8e63b48173aef47d73a5a53200a618a3372ab582a7bd67d9e1a9"
+        },
+        "v8": {
+          "rewritten_bytes": 93514,
+          "rewritten_sha256": "0f94156b2172ca5d3eac4eef67887387ede9141b921a017a234caa0a1686b780",
+          "raw_bytes": 93461,
+          "raw_sha256": "81cf6ce1d68c8e63b48173aef47d73a5a53200a618a3372ab582a7bd67d9e1a9"
+        }
+      }
+    }
+  ],
+  "direct_catalog_bytes_equal": true,
+  "cleanup": {
+    "temporary_module_removed": true,
+    "output_trees_removed": true,
+    "runner_removed": true,
+    "runner_source_preserved": {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\preservation\\compare_site_v8_02.source.txt",
+      "bytes": 8998,
+      "sha256": "05033a41ea0fdaaee3dd26aefb55f892622a957b8f54ee579f0d2ad3047627a8"
+    }
+  },
+  "sources_after": {
+    "scripts/project-doc-site.ts": "e90b68d7d43fd2828dcf90dd05ed09c61638c206cff564d4b887cfdc66b70c9d",
+    "scripts/project-doc-site.spec.ts": "fbbba89bbfa67f6e8d0fac742950a82057b330a353644fe7e729781cc4678918",
+    "scripts/verify-doc-site-fragments.ts": "34eab92e5181d95273f2f29758ce63e942f0dcda1cb432c7c4b4f881a507dd4a",
+    "scripts/verify-doc-site-fragments.spec.ts": "07fcf0ececa7794bf3895662e2abe368a04ff3eb5e0465f6b6fcc406e2aae13b",
+    "website/build.ts": "852d516a82bc6eb24d00ad6c9797921279e917498c434b84c1408da76a4a8276",
+    "pnpm-lock.yaml": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383"
+  },
+  "sources_and_lock_unchanged": true,
+  "finished_at": "2026-09-08T17:05:04.699Z"
+}

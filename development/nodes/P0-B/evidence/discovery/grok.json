@@ -1,0 +1,51 @@
+{
+  "schema": "p0-b-b1-discovery.v1",
+  "node": "P0-B",
+  "task": "B1",
+  "harness": "grok-cli",
+  "status": "BLOCKED",
+  "execution": "NOT_RUN",
+  "decision": "Grok discovery is blocked. npm registry metadata for the user-specified @xai-official/grok resolved successfully to 1.0.24, but no package/bin is installed locally, no installation was performed, no real account/API key/network execution was attempted, and no executable protocol was confirmed.",
+  "program": {
+    "absolute_path": null,
+    "package_name": "@xai-official/grok",
+    "resolved_registry_version": "1.0.24",
+    "bin": {"grok": "bin/grok"},
+    "engines": {"node": ">=20"},
+    "installed_locally": false,
+    "global_candidate_search": "No @xai-official/grok or Grok bin found in the inspected global npm installation/cache listing."
+  },
+  "package_source": {
+    "source": "npm registry metadata only",
+    "registry": "https://registry.npmjs.org",
+    "dist_tarball": "https://registry.npmjs.org/@xai-official/grok/-/grok-1.0.24.tgz",
+    "dist_integrity": "sha512-zgOGfApEA94h6RcjU3eHdw1IFGamrMprWY2Mzjl9gelZ7b7qrdD1sPrTSEo3Rd0xjkpZoIBqIGLtdop7/y2ToA==",
+    "dist_shasum": "6008ac49b5a494ad96f7dd37c1c8dc7b571b1931",
+    "installation_command_used": null,
+    "npm_global_install_used": false
+  },
+  "commands": [
+    {"argv": ["npm", "view", "@xai-official/grok", "version"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-version.stdout.raw", "stdout_sha256": "5bc492603bd0397497c6e6471fed4bff5fb6542fce5e1a8683133a9a825cdea7", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-version.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["npm", "view", "@xai-official/grok", "name", "version", "description", "bin", "engines", "repository", "dist.tarball", "--json"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-metadata.stdout.raw", "stdout_sha256": "4cb1d4cd7b330378d9039325f7761e9fe1d65dae05c86cb8a3436c2de537da9d", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-metadata.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["npm", "view", "@xai-official/grok", "dist.integrity", "dist.shasum", "files", "homepage", "repository", "keywords", "scripts", "--json"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-extra.stdout.raw", "stdout_sha256": "412c51d5e5e4bb6308a5bce9a6e35ec244f5bc741aa777a2d10ff0eae4e949d0", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-extra.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["npm", "view", "@xai-official/grok", "versions", "dist-tags", "time", "maintainers", "author", "license", "engines", "bin", "repository", "homepage", "--json"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-provenance.stdout.raw", "stdout_sha256": "bc2bef2e4d1ca13922c68b984c29ba176528ff8279dcec14863fc5d7874e9f08", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-provenance.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["npm", "view", "@xai-official/grok@1.0.24", "bin", "engines", "dist.integrity", "dist.shasum", "dist.tarball", "--json"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-fixed-candidate.stdout.raw", "stdout_sha256": "8a30650a52b63cfd28d711c20b289dc3e7a13a7600eda4647b3d44bcc52ca1bc", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-view-fixed-candidate.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["npm", "ls", "-g", "--depth=0"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-global-list.stdout.raw", "stdout_sha256": "877261803051f6a3a2f749a00932f98ddd238085bdce4a3e6c2b0443db6f1e16", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-global-list.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+    {"argv": ["npm", "cache", "ls", "@xai-official/grok"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-cache-list.stdout.raw", "stdout_sha256": "038953635f979317031cd965b7a34a1e4585fd69967896feca9628cf852f9f21", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/grok/npm-cache-list.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+  ],
+  "protocol": {
+    "help_or_executable_output": null,
+    "protocol_confirmed": false,
+    "reason": "No package was installed or launched, so help, executable entry behavior, session protocol, native tools, usage, cancellation, and resume behavior were not observed."
+  },
+  "configuration_auth": {
+    "candidate_variable_names_only": ["XAI_API_KEY", "GROK_API_KEY", "XAI_*", "HOME", "APPDATA", "LOCALAPPDATA", "XDG_CONFIG_HOME"],
+    "secret_values_read": false,
+    "real_account_or_api_key_verified": false,
+    "network_api_called": false,
+    "isolated_install_or_config_verified": false,
+    "missing_conditions": ["package-local installation", "absolute bin path", "help/version from installed bin", "real xAI account/API key authorization", "safe protocol confirmation", "isolated config/home/cache/session/log verification"]
+  },
+  "platform": {"os": "Windows 10 build 17763 x64", "shell": "Git Bash/MSYS2", "node": "v24.18.0", "npm": "11.16.0"},
+  "guardrails": {"model_or_network_api_called": false, "installation_or_configuration_modified": false, "project_repository_modified": false, "secret_values_recorded": false}
+}

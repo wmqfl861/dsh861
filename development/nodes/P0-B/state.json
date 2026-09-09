@@ -1,0 +1,29 @@
+{
+  "node": "P0-B",
+  "plan": [
+    "plan.v1.md",
+    "plan.v2.md"
+  ],
+  "plan_version": "v2",
+  "status": "blocked",
+  "predecessor": "P0-A",
+  "predecessor_candidate": "../P0-A/candidate.r03.json",
+  "predecessor_candidate_sha256": "04bb71cbace30c5fbd2a15f4056d9c3067e76df9e658dd543c93f57c870c39bd",
+  "candidate": null,
+  "hard_review": null,
+  "product_acceptance_completed": [],
+  "next_node_allowed": false,
+  "blocker": "Authorized isolated compatibility: Codex/Claude/OpenCode response received; Grok native modelUsage is grok-4.6-build, not requested grok-4.6. Allow/deny, cancellation, handoff and full product evidence not yet run.",
+  "current_activity": "P0-B v2 compatibility evidence archived; Grok exact model mapping and full allow/deny/isolated observer runs remain blocked.",
+  "updated_at": "2026-09-09T04:25:59.912753+00:00",
+  "evidence": [
+    "evidence/governance/preconditions.json",
+    "evidence/discovery/index.json",
+    "evidence/b2-validation.json",
+    "evidence/codex-capability-matrix.json",
+    "evidence/claude-code-capability-matrix.json",
+    "evidence/b0-b4-source-evidence-index.json",
+    "evidence/authorized-isolated-compatibility-v2.json"
+  ],
+  "plan_invocation": "D:/Temp_projects/dsh861-node-governance/runs/p0-b-plan-v2-config.receipt.json"
+}

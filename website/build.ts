@@ -3,7 +3,7 @@
 import { lstatSync, realpathSync, rmSync, unlinkSync } from 'node:fs'
 import { dirname, isAbsolute, relative, resolve, sep } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { build } from 'vitepress'
+import type { build } from 'vitepress'
 
 const websiteRoot = resolve(import.meta.dirname)
 type DocSiteBuildOptions = NonNullable<Parameters<typeof build>[1]>
@@ -71,6 +71,7 @@ export function docSiteBuildOptions(siteRoot: string, mpa: boolean): DocSiteBuil
 
 async function buildDocSite(siteRoot: string, mpa: boolean): Promise<void> {
   const root = resolve(siteRoot)
+  const { build } = await import('vitepress')
   await build(root, docSiteBuildOptions(root, mpa))
 }
 

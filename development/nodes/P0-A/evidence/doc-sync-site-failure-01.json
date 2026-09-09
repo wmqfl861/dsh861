@@ -1,0 +1,63 @@
+{
+  "node": "P0-A",
+  "plan_version": "v6",
+  "recorded_at": "2026-09-08T08:37:37.378377+00:00",
+  "status": "FAIL",
+  "aggregate": "pnpm run doc-sync",
+  "gates": {
+    "passed": 32,
+    "failed": 1,
+    "skipped": 0
+  },
+  "failed_gate": "documentation site checks",
+  "command": "pnpm exec vitest run scripts/project-doc-site.spec.ts scripts/verify-doc-site-fragments.spec.ts",
+  "test_summary": {
+    "passed": 64,
+    "failed": 2,
+    "skipped": 3,
+    "total": 69
+  },
+  "failures": [
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "line": 748,
+      "kind": "beforeAll-timeout",
+      "name": "raw Markdown projection of the published manifest",
+      "budget_ms": 60000,
+      "consequence": "Three dependent tests did not execute."
+    },
+    {
+      "file": "scripts/project-doc-site.spec.ts",
+      "line": 60,
+      "kind": "test-timeout",
+      "name": "contains no tracked or unignored documentation copies",
+      "budget_ms": 5000
+    },
+    {
+      "file": "scripts/verify-doc-site-fragments.spec.ts",
+      "line": 39,
+      "kind": "test-timeout",
+      "name": "resolves clean, encoded, and same-page routes",
+      "budget_ms": 5000
+    }
+  ],
+  "evidence": [
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-sync-01.json",
+      "sha256": "4ed0bff56e79623d0d849fa9e34109af2d9c62ab403cc9b3ed82619b0d52ead5",
+      "bytes": 1865
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-sync-01.stdout.log",
+      "sha256": "e0fa155af0e5c54b7f672ccb3068df4898d0efcd406204f6a00c26a6162fd80c",
+      "bytes": 10582
+    },
+    {
+      "path": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-sync-01.stderr.log",
+      "sha256": "45f84ec99e4b7802489a8c8e95fa8c54d0e325ba1f74d054586b9fe7b3e2f8e0",
+      "bytes": 4115
+    }
+  ],
+  "next_steps": "Isolated reproduction with identical assertions and existing budgets, followed by current-node Codex revision if required. Lint/build/hygiene/startup remain NOT_RUN.",
+  "hard_review": "NOT_RUN"
+}

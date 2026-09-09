@@ -1,0 +1,47 @@
+{
+  "node": "P0-A",
+  "plan_version": "v3",
+  "recorded_at": "2026-09-08T02:46:20.995125+00:00",
+  "lock_sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383",
+  "install_receipt": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\install-ntfs-02.json",
+  "git_integration": [
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "diff",
+        "--",
+        "package.json",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "config",
+        "--show-origin",
+        "--get",
+        "core.hooksPath"
+      ],
+      "exitCode": 0,
+      "stdout": "file:.git/config.worktree\tD:\\Projects\\dsh861\\.git\\dsh-hooks\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\Program Files\\Git\\mingw64\\bin\\git.EXE",
+        "config",
+        "--show-origin",
+        "--get",
+        "merge.dsh-translation-pairing.driver"
+      ],
+      "exitCode": 0,
+      "stdout": "file:.git/config.worktree\tscripts/merge-translation-pairing-driver.sh %O %A %B %P\n",
+      "stderr": ""
+    }
+  ],
+  "node_modules_present": true
+}

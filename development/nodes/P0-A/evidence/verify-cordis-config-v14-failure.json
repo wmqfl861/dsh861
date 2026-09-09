@@ -1,0 +1,25 @@
+{
+  "node": "P0-A",
+  "plan_version": "v14",
+  "status": "FAIL",
+  "recorded_at": "2026-09-08T21:39:00.115041+00:00",
+  "kind": "fixture-array-string-rejected",
+  "command_receipt": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-01.json",
+  "receipt_sha256": "722be1a59874c37d7c6d0429fc1c14f09e4e241bfe783dfafb48b0c9805a067e",
+  "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\verify-cordis-config-v14-01.stderr.log",
+  "stderr_sha256": "7f10824b1758d506f905fb0aefdbcd8ff3dd219f4efc5aacd3b0745d29dad27f",
+  "diagnostic": "verify-cordis-config: invalid Loader metadata or plugin package resolution: apps\\cli\\tests\\profiles\\acp\\cordis.yml[0]: entry must be an object",
+  "fixture": {
+    "path": "D:\\Projects\\dsh861\\apps\\cli\\tests\\profiles\\acp\\cordis.yml",
+    "bytes": 61,
+    "sha256": "4703df7d7895f4dcaa292ed5672f1c064792ec2c1368b4499bca5d353a2d85b8",
+    "content": "- ../../../../../snapshots/acp/escalation-approved/cordis.yml"
+  },
+  "snapshot": {
+    "path": "D:\\Projects\\dsh861\\snapshots\\acp\\escalation-approved\\cordis.yml",
+    "bytes": 3117,
+    "sha256": "882f40ae82eb6924a2ff7aacc097c1946b313ba5dbba086a76721054c0997673"
+  },
+  "prior_passes": "v12 focused tsc/target oxlint/480 tests/full lint/build; docs-check-02; test-docs-04 15/15; doc-sync-02 33/33; v10 same-input report equivalence; v8/v9 site evidence.",
+  "downstream": "Formal hygiene, source-help, built-version, built-bin cases, keyless smoke, candidate freeze and OpenCode review were not started after v14 failure."
+}

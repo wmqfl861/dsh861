@@ -1,0 +1,34 @@
+{
+  "node": "P0-A",
+  "plan_version": "v7",
+  "recorded_at": "2026-09-08T12:01:52.111941+00:00",
+  "result": "FAIL",
+  "total": 478,
+  "passed": 476,
+  "failed": 2,
+  "pending": 0,
+  "original_69_passed": true,
+  "failures": [
+    {
+      "name": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/config-catalog.md",
+      "duration_ms": 7498.21669999999,
+      "status": "failed",
+      "failure_messages": [
+        "Error: STACK_TRACE_ERROR\n    at task (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1784:27)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1817:16)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:28)\n    at Object.chain (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:7\n    at Array.forEach (<anonymous>)\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2021:10\n    at D:/Projects/dsh861/scripts/project-doc-site.spec.ts:881:17\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1889:40\n    at runWithSuite (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2258:8)"
+      ]
+    },
+    {
+      "name": "raw Markdown projection of the published manifest emits the manifest output file: en/reference/tool-catalog.md",
+      "duration_ms": 8188.366499999989,
+      "status": "failed",
+      "failure_messages": [
+        "Error: STACK_TRACE_ERROR\n    at task (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1784:27)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1817:16)\n    at Object.<anonymous> (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:28)\n    at Object.chain (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2027:7\n    at Array.forEach (<anonymous>)\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2021:10\n    at D:/Projects/dsh861/scripts/project-doc-site.spec.ts:881:17\n    at file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:1889:40\n    at runWithSuite (file:///D:/Projects/dsh861/node_modules/.pnpm/@vitest+runner@4.1.8/node_modules/@vitest/runner/dist/chunk-artifact.js:2258:8)"
+      ]
+    }
+  ],
+  "report": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v7-focused-01.vitest.json",
+  "report_sha256": "1b5c454c7d75e5c7fdcb3e82e79d2129862e9a5be178cf86a8351af02db4fbb5",
+  "stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\site-v7-focused-01.stderr.log",
+  "stderr_sha256": "d54fe8383973d31d17a7e425951ac69be0eafd1c7628c520e0052fb04f7bc55b",
+  "next_action": "Measure large-page owner costs and request real Codex current-node amendment; do not increase timeout or omit pages."
+}

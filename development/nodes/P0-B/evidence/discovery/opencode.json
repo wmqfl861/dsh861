@@ -1,0 +1,72 @@
+{
+  "schema": "p0-b-b1-discovery.v1",
+  "node": "P0-B",
+  "task": "B1",
+  "harness": "opencode",
+  "status": "BLOCKED",
+  "execution": "NOT_RUN",
+  "decision": "Product OpenCode discovery is blocked. A real executable is locatable and reports version/help, but it is the same installation identified for the separate P0-A hard-review role. Product execution was not started. Existing global OpenCode config, auth, state, cache, and database directories prevent claiming isolated product readiness from read-only discovery alone.",
+  "role_separation": {
+    "hard_review_role": "C:\\Users\\Administrator\\.opencode\\bin\\opencode.exe may be the real OpenCode process used for P0-A hard review; that evidence is excluded from product harness support.",
+    "product_role": "No product OpenCode task, model request, network API call, or provider execution was started.",
+    "excluded_substitutes": ["generic ACP", "DSH SDK", "internal GLM subagent", "ordinary shell text"]
+  },
+  "program": {
+    "absolute_path": "C:\\Users\\Administrator\\.opencode\\bin\\opencode.exe",
+    "runtime_version": "1.18.27",
+    "windows_file_version": "1.3.14",
+    "executable_sha256": "2aa63d69df0b1fe045dddb4a91b24091b63cc1d0b1f0f33b3633fd324124f468",
+    "command_receipts": [
+      {"argv": ["opencode.exe", "--version"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/version.stdout.raw", "stdout_sha256": "48edeb78398802dc67e215a817643611307042b0ba8ca0aa3c241e50eed2eef8", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/version.stderr.raw", "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"},
+      {"argv": ["opencode.exe", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/help.stderr.raw", "stderr_sha256": "250e987dcb0fe9b8808ab6c6c1dba216e1c8283f9ce1b44a167be77a8ed9974e"},
+      {"argv": ["opencode.exe", "acp", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/acp-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/acp-help.stderr.raw", "stderr_sha256": "370bca2759c3057bac9f79fe9665d9fd7592bee163d2961d377b2cc12deb8698"},
+      {"argv": ["opencode.exe", "serve", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/serve-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/serve-help.stderr.raw", "stderr_sha256": "6855794f108c83a3a32b03efcc36a9a62c83093d8f065cd740475092f839684e"},
+      {"argv": ["opencode.exe", "run", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/run-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/run-help.stderr.raw", "stderr_sha256": "d62299ebc267afdf5bab2c07fbfe1a6625cc8769cb7073b3bad975e9531c5732"},
+      {"argv": ["opencode.exe", "export", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/export-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/export-help.stderr.raw", "stderr_sha256": "77d31edd5082b35efefa0920aa6a47ef39d5bce8a971f0613074b62db451209c"},
+      {"argv": ["opencode.exe", "session", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/session-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/session-help.stderr.raw", "stderr_sha256": "ebbab45776f63a6043de43cd2fd97ec3fcb8e83d0273c0996aaaa5dadb20d26f"},
+      {"argv": ["opencode.exe", "providers", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/providers-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/providers-help.stderr.raw", "stderr_sha256": "e38715c77e3f569dd7e19f7938d1abc5e580447cc3ed0eb22819d23bfca809d0"},
+      {"argv": ["opencode.exe", "auth", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/auth-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/auth-help.stderr.raw", "stderr_sha256": "f90d8a0f51fc1877c15c1bd73d5decb0db8c7b0daa5d4b9fd8d173361a0f77c"},
+      {"argv": ["opencode.exe", "mcp", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/mcp-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/mcp-help.stderr.raw", "stderr_sha256": "0b3c7a8cc6c0456c49106de9ff87dfe88ec3d9564acb7e7036725064b3e05839"},
+      {"argv": ["opencode.exe", "models", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/models-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/models-help.stderr.raw", "stderr_sha256": "e60d4cd3ebf2a32a7e8b82e65acbc07cd45a191acc274d87c6bf61ca7c188bb1"},
+      {"argv": ["opencode.exe", "stats", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/stats-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/stats-help.stderr.raw", "stderr_sha256": "e50fb5f88b2d01df183f3100ef1669f40426db1321b0bb5841fb49c0f231b3c0"},
+      {"argv": ["opencode.exe", "debug", "--help"], "exit_code": 0, "stdout": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/debug-help.stdout.raw", "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "stderr": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/debug-help.stderr.raw", "stderr_sha256": "31f44ac3c7677fbc3a558e8507b4af554b49d2285bc2626e2d8419145c22d071"}
+    ]
+  },
+  "package_source": {
+    "installation_root": "C:\\Users\\Administrator\\.opencode",
+    "root_manifest": "C:\\Users\\Administrator\\.opencode\\package.json",
+    "root_manifest_fact": "@opencode-ai/plugin@1.18.15",
+    "sdk_manifest": "C:\\Users\\Administrator\\.opencode\\node_modules\\@opencode-ai\\sdk\\package.json",
+    "sdk_version": "1.18.15",
+    "plugin_manifest": "C:\\Users\\Administrator\\.opencode\\node_modules\\@opencode-ai\\plugin\\package.json",
+    "plugin_version": "1.18.15",
+    "protocol_clue_file": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/sdk-protocol-clues.raw",
+    "protocol_clue_sha256": "7c42c5a5253cb74a32320f70ffb8d4c7ab8731d1bd77776cc718d3924e2e8099"
+  },
+  "protocol": {
+    "help_clues": ["acp subcommand", "serve subcommand", "run subcommand", "export session", "session management", "stats"],
+    "local_sdk_clues": ["HTTP-style SDK endpoints", "/event event stream", "session and tool APIs", "session abort endpoint", "permission events"],
+    "safe_product_protocol_confirmed": false,
+    "reason": "Only static help and installed SDK clues were read. No server, ACP session, prompt, permission request, event stream, model call, or network API was started."
+  },
+  "configuration_auth": {
+    "candidate_locations": ["C:\\Users\\Administrator\\.config\\opencode", "C:\\Users\\Administrator\\.local\\share\\opencode", "C:\\Users\\Administrator\\.local\\state\\opencode", "C:\\Users\\Administrator\\.cache\\opencode"],
+    "observed_global_state_names": ["opencode.jsonc", "auth.json", "opencode.log", "opencode.db", "model.json", "prompt-history.jsonl", "models.json"],
+    "candidate_variable_names_only": ["HOME", "APPDATA", "LOCALAPPDATA", "XDG_CONFIG_HOME", "OPENCODE_*", "OPENAI_API_KEY", "ANTHROPIC_API_KEY", "XAI_API_KEY", "GROK_API_KEY", "Z_AI_API_KEY"],
+    "secret_values_read": false,
+    "isolated_config_verified": false,
+    "authentication_verified": false,
+    "reason_blocked": "Global config/auth/state/cache directories are present; no isolated product setup or authenticated product run was performed."
+  },
+  "platform": {"os": "Windows 10 build 17763 x64", "shell": "Git Bash/MSYS2", "node": "v24.18.0", "npm": "11.16.0"},
+  "additional_evidence": [
+    {"path": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/installed-files.stdout.raw", "sha256": "a6b30545f8435cdf60e223916bb9b0bb5105f93857c21e6b08fb7ede118eb002"},
+    {"path": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/manifest-candidates.stdout.raw", "sha256": "8f6ec63b317ab49659e3425412582c31a5822f4429119d3a46060e159b684bf3"},
+    {"path": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/config-location-candidates.stdout.raw", "sha256": "79df0c7f08eaa1f4cc54f03ef9086db01ed2420e54b1dbf53e68f912d05910b9"},
+    {"path": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/candidate-env-names.raw", "sha256": "c27da1bbca2dcd7ff9fca89c4f3db0ec80d6fc554f0538d8a612c69e12be9a4f"},
+    {"path": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/executable-config-auth-clues.raw", "sha256": "03b3304c1b4e31b7bd5eb083effec84204bb6b1428ba3a697c1b4b827d042f57"},
+    {"path": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/exe-file-version.fixed.stdout.raw", "sha256": "18dbf3e3a5c2266d8f8794ef48c7dce29e4511869628df26302041431b5cf43c"},
+    {"path": "D:/Temp_projects/dsh861-p0-b-harness-validation/discovery/opencode/raw.sha256", "sha256": "recorded alongside raw outputs"}
+  ],
+  "guardrails": {"model_or_network_api_called": false, "installation_or_configuration_modified": false, "project_repository_modified": false, "secret_values_recorded": false}
+}

@@ -1,0 +1,22 @@
+{
+  "node": "P0-A",
+  "plan_version": "v6",
+  "kind": "negative-control-validation",
+  "status": "PASS",
+  "command_exitCode": 1,
+  "intended_failures": [
+    "maps package README kinds to their documentation standards: packages/README.md",
+    "maps package README kinds to their documentation standards: packages/session/session-persistence-jsonl/README.md",
+    "keeps every package README on the summary, contents, and Dev Note skeleton: packages/session/session-persistence-jsonl/README.zh.md"
+  ],
+  "registered_tests": 1145,
+  "passed_unmodified_cases": 1142,
+  "files_restored_exactly": true,
+  "parser_correction": "Initial parser searched only truncated JSON failureMessages. This validator uses JSON test identities/status plus each corresponding full stderr assertion block. The original test run was not repeated.",
+  "original_record": "D:\\Projects\\dsh861\\development\\nodes\\P0-A\\evidence\\doc-standard-v6-negative-01.json",
+  "original_record_sha256": "1084c769e3b64f6921775b583f0a5f13cfe7ef42fa5362d6f71baab61caa1597",
+  "vitest_json": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-standard-v6-negative-01.vitest.json",
+  "vitest_json_sha256": "b7f9d96ad0314f8e6174cf3dbeb930148aa53047615a33f3c38dee5251a6235b",
+  "full_stderr": "D:\\Temp_projects\\dsh861-p0-a-baseline\\r01\\logs\\doc-standard-v6-negative-01.stderr.log",
+  "full_stderr_sha256": "9c2c6a8edd3aa4cd19c64ed57fa464eb5fe709ff828204c836302a77f93bc17c"
+}
