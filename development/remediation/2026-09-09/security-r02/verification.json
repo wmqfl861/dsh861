@@ -1,0 +1,92 @@
+{
+  "kind": "p0-b-b0-isolated-security-verification",
+  "recorded_at": "2026-09-09T08:15:27.546055+00:00",
+  "base_commit": "a31d59210790e0e1d35c3d9405d76743f1cc6b60",
+  "actor": "ChatGPT; not designated Codex/ZCode/OpenCode execution",
+  "scope": "Existing P0-B v3 B0 credential and output-safety components; not a successor plan or product acceptance",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "typescript": "5.8.3",
+    "checkout": "focused files only; git clone failed with DNS resolution error",
+    "repository_engine_validation": "NOT_RUN; Node predates supported minimum"
+  },
+  "focused_typecheck": {
+    "status": "PASS",
+    "scope": [
+      "scripts/p0-b/credential-ref.ts",
+      "scripts/p0-b/redaction.ts",
+      "scripts/p0-b/security-gates.ts",
+      "scripts/p0-b/collectors/redacted-stream.ts"
+    ],
+    "command": "tsc scripts/p0-b/credential-ref.ts scripts/p0-b/redaction.ts scripts/p0-b/security-gates.ts scripts/p0-b/collectors/redacted-stream.ts --target ES2022 --module NodeNext --moduleResolution NodeNext --strict --exactOptionalPropertyTypes --noUncheckedIndexedAccess --noUnusedLocals --noUnusedParameters --rewriteRelativeImportExtensions --types node --typeRoots /opt/nvm/versions/node/v22.16.0/lib/node_modules/ts-node/node_modules/@types --skipLibCheck --outDir /mnt/data/dsh861-next-build"
+  },
+  "test_command": "P0B_SECURITY_MODULE_ROOT=/mnt/data/dsh861-next-build node --test scripts/p0-b/__tests__/security.test.mjs",
+  "test_runs": [
+    {
+      "log": "tests.initial.tap",
+      "passed": 51,
+      "failed": 1,
+      "skipped": 0,
+      "failure": "Escaped argv not detected after JSON re-encoding; corrected to inspect each original argument"
+    },
+    {
+      "log": "tests.argv-fixed.tap",
+      "passed": 52,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "log": "tests.final.tap",
+      "passed": 55,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "fixtures": {
+    "credentials": "SYNTHETIC_ONLY",
+    "subprocess": "real local Node child, not product CLI",
+    "seeded_fragmentation_cases": 200,
+    "full_native_cancel_verified": false
+  },
+  "source_sha256": {
+    "scripts/p0-b/credential-ref.ts": "e7b4a2d4e8cbd2f01d239058aade6f528cec4970384c1a1bf1d61bbb8fdf312b",
+    "scripts/p0-b/redaction.ts": "25e4d9f77f5f4c604f054120169dc9023f4e43090eac6f33e3f3648b9ed67276",
+    "scripts/p0-b/security-gates.ts": "1d5b4fe2e1b9bdb096bcef7fc118aaebb47eb01da24ac70a8f25bbe8afac3ab8",
+    "scripts/p0-b/collectors/redacted-stream.ts": "5e9f093b3c89f2caaf3ab4b6fbbb71f3d3447a38b48f1d5a6fe970e1610586b5",
+    "scripts/p0-b/__tests__/security.test.mjs": "d7a2351921e29a98d3fba1aab7084e13c0643a75d345e9dcd6c07f7b82af8729"
+  },
+  "log_sha256": {
+    "tests.argv-fixed.tap": "42e1388c69ad6567cc5619094c676c0bb8f5d9ae02c2ee4875ae4b68ba974752",
+    "tests.final.tap": "0229c3583404b3b327c8048d823eba693742eab3959fec16843aef5fc69ec7d1",
+    "tests.initial.tap": "3fea60e4d4a3acec44f8dc3ad75c6b4bc37cae977544a70c029f5c4fd1d6bdb2"
+  },
+  "not_run": [
+    "Full repository build, typecheck, lint and documentation gates",
+    "Repository tsx source or built product composition",
+    "Supported Node/Windows product verification",
+    "Real Codex successor planning or OpenCode hard review",
+    "Credential revocation/rotation",
+    "Existing Codex provider stderr integration",
+    "Syntax-aware source gate, actual secret service, native harness adapters and collectors",
+    "PostgreSQL/GBrain and product AC acceptance"
+  ],
+  "product_acceptance_completed": [],
+  "node_status": "BLOCKED",
+  "next_node_allowed": false,
+  "logs_archive": "test-logs.tar.xz",
+  "logs_archive_sha256": "f5eb1a025bc02a91e0479794c0c8c57155df3fb1e01dd7c994dd320588fa4abc",
+  "status_projection": {
+    "status": "PASS",
+    "command": "node scripts/p0-b/sync-node-status.mjs --write && node scripts/p0-b/sync-node-status.mjs --check",
+    "scope": "Unchanged renderer verified by Git blob SHA; uses fetched fields of both node records; no P0-A file modification"
+  },
+  "uploaded_source_blobs_verified": {
+    "credential-ref.ts": "001168ae945f95c71e6ebd62fd944867b44eda93",
+    "redaction.ts": "655221ae0657523c5e93235be8219f676f8aa328",
+    "security-gates.ts": "1d67ab9b74cd0ebaca4a3daa97eddbd3cf40c8e8",
+    "collectors/redacted-stream.ts": "24d5ebef3baff03b92c28cdd39efe01539f9f7da",
+    "__tests__/security.test.mjs": "705b0b753a02a69ff610330928f25ba912281a84"
+  },
+  "source_hash_scope": "Final tested sources; intermediate logs retain the historical failure, not an independent certification of final code."
+}

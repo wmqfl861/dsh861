@@ -15,7 +15,7 @@
   "product_acceptance_completed": [],
   "next_node_allowed": false,
   "blocker": "PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.",
-  "current_activity": "User-authorized review remediation is recorded separately. Offline audit controls do not constitute a node PASS, a real Codex plan, or a real OpenCode hard review.",
+  "current_activity": "PR #1 merged the existing baseline into master. B0 credential leases, streaming redaction, safe output capture and argv/output gates implemented as isolated components; 55 offline tests pass. Product wiring and designated planning/review remain uncompleted. See development/remediation/2026-09-09/security-r02/README.md.",
   "updated_at": "2026-09-09",
   "evidence": [
     "evidence/governance/preconditions.json",
@@ -31,5 +31,7 @@
   "acceptance_map": "acceptance-map.r01.json",
   "remediation": "../../remediation/2026-09-09/README.md",
   "credential_rotation_status": "UNKNOWN_NOT_VERIFIED",
-  "product_calls_using_exposed_credentials_allowed": false
+  "product_calls_using_exposed_credentials_allowed": false,
+  "security_implementation": "ISOLATED_COMPONENTS_ONLY_NOT_WIRED",
+  "security_evidence": "../../remediation/2026-09-09/security-r02/verification.json"
 }
