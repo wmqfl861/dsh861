@@ -51,6 +51,8 @@ The owner tracks one launcher and permits exactly one release after its exact li
 
 Disposal requires a valid clean helper close and an observed launcher close. Timeout remains failure; marker files remain while launcher closure is unknown. A replaced directory link is unlinked rather than recursively traversed. The entry records assignment, termination acknowledgement, active count and disposal. Missing assignment, failed termination/disposal, or nonzero/unknown count returns `PROJECTED_PLANNER_CLEANUP_BLOCKED`; invocation failures retain cleanup facts. None of these facts establishes ACLs, authenticates a user or certifies an unobserved descendant.
 
+The entry explicitly maps the job owner's `launchGated`, `releaseGated` and `abortGated` methods to the invocation's `launch`, `release` and `abort` methods. Its adapter requires every `PlannerProcessOwnership` method, so optional wrapper support cannot silently omit gating at this entry. Assignment and termination use the same owner instance. The entry-path regressions in [planner-entry-gate.test.mjs](planner-entry-gate.test.mjs) observe this composition instead of constructing a different adapter inside a test.
+
 ## Verification
 
 Run from the repository with pinned dependencies; leave module-override variables unset for normal verification.
@@ -62,6 +64,7 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs
 ```

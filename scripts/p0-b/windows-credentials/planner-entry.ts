@@ -8,6 +8,7 @@ import {
   PlannerInvocationError,
   type PlannerApproval,
   type PlannerInvocationResult,
+  type PlannerProcessOwnership,
 } from './planner-invocation.ts'
 import type { SealedBridge } from './reader.ts'
 import { createProcessJobOwner, ProcessJobOwnerError, type ProcessJobOwner, type ProcessJobOwnerSpec } from './windows-job-owner.ts'
@@ -112,6 +113,14 @@ export async function invokeProjectedPlannerOnce(spec: ProjectedPlannerEntrySpec
     return { status: 'PROJECTED_PLANNER_REFUSED', code, productAccepted: false }
   }
   const owner: ProcessJobOwner = ownerAttempt.owner
+  // The owner and invocation expose different names; this entry requires all gate operations.
+  const ownership: Required<PlannerProcessOwnership> = {
+    launch: request => owner.launchGated(request),
+    assign: pid => owner.assign(pid),
+    release: () => owner.releaseGated(),
+    abort: () => owner.abortGated(),
+    terminateOwned: () => owner.terminateOwned(),
+  }
   const receipt: ProjectedPlannerOwnershipReceipt = {
     assignmentRequested: false, assigned: false, terminated: false, activeProcessesRemaining: -1, disposed: false,
   }
@@ -131,7 +140,7 @@ export async function invokeProjectedPlannerOnce(spec: ProjectedPlannerEntrySpec
         deadlineMs: spec.bounds.deadlineMs,
         terminationGraceMs: spec.bounds.terminationGraceMs,
         maxChannelBytes: spec.bounds.maxChannelBytes,
-        ownership: owner,
+        ownership,
       },
       redactionLimits: spec.bounds.redactionLimits,
     })

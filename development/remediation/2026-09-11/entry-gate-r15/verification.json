@@ -1,0 +1,195 @@
+{
+  "kind": "entry-gated-adapter-consumer-repair",
+  "round": "r15",
+  "recordedAt": "2026-09-10T23:38:23.899314+00:00",
+  "baseCommit": "ca7f0da03ba1233d1bcae7eec96eed365240aebb",
+  "actor": "ChatGPT; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false,
+    "nodeBelowRepositoryMinimum": true
+  },
+  "finding": {
+    "entryPassed": "ProcessJobOwner unadapted",
+    "ownerMethods": [
+      "launchGated",
+      "releaseGated",
+      "abortGated"
+    ],
+    "consumerMethods": [
+      "launch",
+      "release",
+      "abort"
+    ],
+    "consequence": "invokeProjectedPlannerOnce fell back to direct spawn although the helper gate and manually adapted lower-level test were correct.",
+    "fixed": "Explicit Required<PlannerProcessOwnership> adapter using one owner instance; no changes to helper/gate/invocation implementations."
+  },
+  "sourceGitBlobs": {
+    "scripts/p0-b/credential-ref.ts": "0a599a1940a2b451d875e846b0189aed0b276c67",
+    "scripts/p0-b/model-config.mjs": "2c7cce5d541b205b06172750c7565cf71b60652c",
+    "scripts/p0-b/redaction.ts": "655221ae0657523c5e93235be8219f676f8aa328",
+    "scripts/p0-b/security-gates.ts": "7c086613da3f0388c53d0636e64c69ef5689b3da",
+    "scripts/p0-b/windows-credentials/planner-entry.ts": "30a4e8664de5a61eaa0de5c41a947e96b56069ef",
+    "scripts/p0-b/windows-credentials/planner-invocation.ts": "962eb4d97bcd296589c99e50ba5f0c90077ec184",
+    "scripts/p0-b/windows-credentials/windows-job-owner.ts": "abced4414d14daa01d3968ce3775ef2fd027e57d",
+    "scripts/p0-b/windows-credentials/ownership-failures.test.mjs": "2bf0a5152f59bebb51037c7cb3bf58b116008cb7"
+  },
+  "checks": {
+    "newControls": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs",
+      "baseline": {
+        "passed": 0,
+        "failed": 6,
+        "skipped": 2,
+        "exitCode": 1,
+        "log": "logs/baseline.tap"
+      },
+      "fixed": {
+        "passed": 6,
+        "failed": 0,
+        "skipped": 2,
+        "exitCode": 0,
+        "log": "logs/fixed.tap"
+      },
+      "scope": "Real entry/invocation/lease/redactor source, simulated win32, filesystem, projection and child processes. No manually constructed ownership adapter in tests. Two written native cases skipped on Linux, NOT native passes."
+    },
+    "legacyOwnership": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs",
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "logs/legacy-ownership.tap"
+    },
+    "focusedTypecheck": {
+      "exitCode": 0,
+      "log": "logs/typecheck.log",
+      "scope": "Changed entry and exact local TS dependencies using preinstalled Node types, not repository host/client typecheck."
+    },
+    "requiredAdapterNegative": {
+      "expected": "Missing launch method rejected by Required<PlannerProcessOwnership>",
+      "log": "logs/required-negative.log",
+      "compilerRejected": true
+    },
+    "testSyntax": {
+      "exitCode": 0,
+      "log": "logs/syntax.log"
+    },
+    "documentation": [
+      {
+        "pair": "scripts/p0-b/windows-credentials/README",
+        "headingLevelsAndFences": "PASS",
+        "repositoryPairingCommand": "NOT_RUN",
+        "sidecar": "UNCHANGED_PENDING_LOCAL_RE_RECORD"
+      },
+      {
+        "pair": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge",
+        "headingLevelsAndFences": "PASS",
+        "repositoryPairingCommand": "NOT_RUN",
+        "sidecar": "UNCHANGED_PENDING_LOCAL_RE_RECORD"
+      }
+    ]
+  },
+  "authoring": {
+    "initialLoaderFailure": "VM linker initially linked dependency modules recursively as well as through Node, causing ERR_VM_MODULE_LINK_FAILURE. Fixed test loader links once at the root and caches module promises. Identical final loader used for baseline and fixed runs. Not counted as a product failure.",
+    "log": "authoring/loader-first-failure.tap"
+  },
+  "ci": {
+    "baseCommitActionsRuns": 0,
+    "source": "GitHub GET actions/runs?head_sha=ca7f0da03ba1233d1bcae7eec96eed365240aebb",
+    "result": "NOT_RUN, not PASS",
+    "runnerAvailability": "NOT_VERIFIED; ci.yml names private/enterprise runner labels"
+  },
+  "protectedFiles": "models.v1.json, models.v1.lock.json, pnpm-lock.yaml and state.json not in change set",
+  "notRun": [
+    "Two new Windows native entry tests",
+    "Full repository typecheck/lint/test:docs/doc-sync",
+    "Full source pipeline or CI matrix",
+    "Real credential reads, TLS/gateway/model calls",
+    "Owner authorization, real monetary control or OS sandbox certification",
+    "Designated Codex plan.v4/OpenCode hard review"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 2680,
+    "sha256": "2654fc4f7b98b9a4499926cccfe698d81aab550dfe71f11628d38a61015bf2dd",
+    "members": {
+      "authoring/loader-first-failure.tap": {
+        "bytes": 5351,
+        "sha256": "7b472f587fe16bbf9ff443c6177ae261166b844230e52bc301f128d564b6e77a"
+      },
+      "logs/baseline.tap": {
+        "bytes": 6103,
+        "sha256": "b91ac9b57bccd08d10423c9d578648c1a206f092c7689896d405696517beefa3"
+      },
+      "logs/fixed.tap": {
+        "bytes": 2043,
+        "sha256": "055079998e03f77a91e114fcccc96b5308fbadff87372aa5ebcbe7adf765fc8a"
+      },
+      "logs/legacy-ownership.tap": {
+        "bytes": 5106,
+        "sha256": "8e34cbfd385ec84be71e0b53064cf82034577b780e2719f02c23800f1e19d9d8"
+      },
+      "logs/required-negative.log": {
+        "bytes": 314,
+        "sha256": "ae1c3a63f3b5fc50bec7d23167ab28fb9b6cabe05b1f8a829663601dd69f91ab"
+      },
+      "logs/syntax.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "logs/typecheck.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-entry.ts",
+      "bytes": 7997,
+      "gitBlob": "5f4a28fbb633fad97006577d3aef1843c17d1a5d",
+      "sha256": "64d1aa5e5ed8efbc1882639d69eba3ff77bae6931e5039b0fb0b3d07bdec17ad"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs",
+      "bytes": 15225,
+      "gitBlob": "aa2716370ba0ebfef93be3238088c6b9084a194e",
+      "sha256": "b75382b1914c274f61a6d79b7a9f773ab4b2a63add2c939c7071fa9ab9106074"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 11390,
+      "gitBlob": "2682cc0b7f519348281955d8f3d1ccbb17d4458d",
+      "sha256": "f931b58f8d7c4f3b3ce83be664d3f8f188b12d716ee6783939eb757aceb01890"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 10061,
+      "gitBlob": "5210fd1d4b2c37e84ca137541547f2b7c2ba6b18",
+      "sha256": "afb88a328b30d79b69fb8dba53d36fc25dfdd8019b51406bf9f694d8c90e0a47"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 6407,
+      "gitBlob": "3a36a285dae47e7d08071a74d37719a65c1beee6",
+      "sha256": "aeb7bf5138ef2e3803bd68c08f414966e4dcc22f647491d4c6ba13c3c6ed458a"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 5533,
+      "gitBlob": "142ae43e0f7d909deca946b90f066d0702ca1689",
+      "sha256": "08a46546f25a1805961fdab3f95b48c7122c2da3689e28695bcb16f327f18fd9"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 4353,
+      "gitBlob": "79d9389e5352a4331cc393815549233a57349292",
+      "sha256": "e78103b4bf8a8e771def626d7de24aaff3b2210aec12d8af19b3f560145310da"
+    }
+  ]
+}

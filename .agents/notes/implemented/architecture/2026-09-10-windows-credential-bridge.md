@@ -24,6 +24,8 @@ The entry reserves a fresh run root rather than relying only on exclusive creati
 
 Release authority belongs to the exact live launcher and is lost on abort or owner failure. The owner explicitly stops an unassigned launcher because no job can contain it yet; disposal waits for that launcher's close as well as the helper's acknowledgement and close. An expired wait cannot be revived by a late go marker. The launcher's native failure tests remain separate from the simulated protocol controls.
 
+The entry requires a complete `PlannerProcessOwnership` adapter and explicitly maps the job owner's differently named gated methods. Structural typing accepts a raw owner when launch methods are optional; requiring the adapter and exercising the real entry prevents helper-only tests from certifying an unused launch path.
+
 ## Alternatives considered
 
 Plaintext files and command-line password arguments expand disclosure paths. Plaintext reader stdout makes accidental process logging unsafe. A full platform secret service and public management UI require authorization and deployment contracts beyond this support component; the component does not claim to deliver them.

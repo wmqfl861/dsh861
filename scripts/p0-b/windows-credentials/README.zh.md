@@ -51,6 +51,8 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 
 销毁要求有效的 helper 正常关闭以及被观察到的启动器关闭。超时保持失败；启动器关闭未知时保留标记文件。目录被替换为链接时只解除链接，不递归进入目标。入口记录指派、终止确认、活动计数和销毁。缺失指派、终止／销毁失败或计数非零／未知均返回 `PROJECTED_PLANNER_CLEANUP_BLOCKED`；调用失败保留清理事实。这些事实均不建立 ACL、不认证用户，也不认证未观察到的后代。
 
+入口显式把作业属主的 `launchGated`、`releaseGated`、`abortGated` 映射到调用接口的 `launch`、`release`、`abort`。适配器要求提供全部 `PlannerProcessOwnership` 方法，不能因底层接口可选而在此入口静默遗漏门控。指派与终止仍使用同一个属主实例。[planner-entry-gate.test.mjs](planner-entry-gate.test.mjs) 直接观察这条入口组合，不在测试内另行组装不同的适配器。
+
 ## 验证
 
 使用钉版依赖在仓库运行；正常验证不要设置模块覆盖变量。
@@ -62,6 +64,7 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs
 ```
