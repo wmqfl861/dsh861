@@ -14,7 +14,7 @@ Status: implemented
 
 原生 stdout 只承载用父进程每次新建的 RSA-4096 公钥生成的 RSA-OAEP-SHA256 封装。加密由内置密码实现处理，Windows 负责落盘保护。凭据限制为 384 个可打印 ASCII 字节，超过限制拒绝而不是截断。通道具有显式程序／源码哈希、环境、时限和输出限制；失败丢弃原生诊断内容。
 
-规划进程包装器在等待外部工作前复制可信调用输入，按 UTF-8 字节限制已脱敏的保留输出并覆盖 EOF，输入投递失败则取消。独立的终止宽限期限制继承管道的等待；宽限期后返回明确的未验证清理状态，不声称所有后代已经退出。
+规划进程包装器在等待外部工作前复制可信调用输入，按 UTF-8 字节限制已脱敏的保留输出并覆盖 EOF，输入投递失败则取消。独立的终止宽限期限制继承管道的等待；宽限期后返回明确的未验证清理状态，不声称所有后代已经退出。合成生命周期运行记录了平台差异：POSIX 上后代在直接子进程退出后仍存活；Windows 上 libuv 的 kill-on-close 作业对象在该退出时毫秒级终止全部后代，无论子进程自愿退出还是被终止。包装器两种结果都不观察，持续报告 `NOT_VERIFIED`。
 
 ## 考虑过的替代方案
 
@@ -24,4 +24,4 @@ Status: implemented
 
 ## 影响
 
-安全边界是操作系统账号，不是凭据名称前缀或加密管道。共享该账号的产品 agent 仍需要有效的操作系统隔离。不自动激活模型，不确认 Key 轮换，不授权 HTTPS 或规划调用。[远端 r07 回执](../../../../development/remediation/2026-09-10/credential-store-r07/verification.json)区分合成协议测试与原生 Windows 验证；[本机 r08 回执](../../../../development/remediation/2026-09-10/credential-store-r08/verification.json)记录已执行的 Windows 原生结果、解析兼容修复和尚未完成的接入限制。
+安全边界是操作系统账号，不是凭据名称前缀或加密管道。共享该账号的产品 agent 仍需要有效的操作系统隔离。不自动激活模型，不确认 Key 轮换，不授权 HTTPS 或规划调用。[远端 r07 回执](../../../../development/remediation/2026-09-10/credential-store-r07/verification.json)区分合成协议测试与原生 Windows 验证；[本机 r08 回执](../../../../development/remediation/2026-09-10/credential-store-r08/verification.json)记录已执行的 Windows 原生结果、解析兼容修复和尚未完成的接入限制；[r10 回执](../../../../development/remediation/2026-09-10/planner-windows-r10/verification.json)记录 Windows 规划复验与上述平台差异的生命周期证据。

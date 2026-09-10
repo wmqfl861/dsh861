@@ -236,7 +236,8 @@ function collectProcess(
     let stdioCloseObserved = false
     let forcedPipeClosure = false
     let child: ChildProcessWithoutNullStreams | undefined
-    let deadlineTimer: ReturnType<typeof setTimeout> | undefined
+    // Assigned only after a successful spawn; finish() from the spawn-failure path sees undefined.
+    let deadlineTimer: ReturnType<typeof setTimeout> | undefined = undefined
     let cleanupTimer: ReturnType<typeof setTimeout> | undefined
 
     const terminate = (signal: NodeJS.Signals): void => {
@@ -279,7 +280,7 @@ function collectProcess(
       if (cancellation === undefined) {
         try {
           accept('stdout', stdoutRedactor.finish())
-          if (cancellation === undefined) accept('stderr', stderrRedactor.finish())
+          accept('stderr', stderrRedactor.finish())
         } catch { cancel('STREAM_ERROR') }
       }
       settled = true

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { constants, createHash, createPublicKey, publicEncrypt } from 'node:crypto'
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { setTimeout as delay } from 'node:timers/promises'
@@ -13,16 +13,63 @@ const key = 'SYNTHETIC-BOUNDS-KEY-d79a14'
 const digest = bytes => createHash('sha256').update(bytes).digest('hex')
 const executableHash = digest(readFileSync(process.execPath))
 
+/** Descendant liveness proof that survives pid reuse in this busy runner. */
+function descendantBeating(beatFile) {
+  try {
+    return Date.now() - statSync(beatFile).mtimeMs < 1000
+  } catch {
+    return false
+  }
+}
+
+async function descendantTerminated(beatFile, waitMs) {
+  const end = Date.now() + waitMs
+  while (descendantBeating(beatFile) && Date.now() < end) await delay(50)
+  return !descendantBeating(beatFile)
+}
+
+/** Shared synthetic descendant: files only, no inherited wrapper channels. */
+function descendantProgram() {
+  return [
+    "import { existsSync, utimesSync, writeFileSync } from 'node:fs'",
+    "writeFileSync('descendant.started', '')",
+    "writeFileSync('descendant.pid', String(process.pid))",
+    "const touch = () => { try { const now = new Date(); utimesSync('descendant.beat', now, now) } catch {} }",
+    'touch()',
+    "setInterval(touch, 100)",
+    "const done = () => { writeFileSync('descendant.exiting', ''); process.exit(0) }",
+    "setInterval(() => { if (existsSync('descendant.stop')) done() }, 20)",
+    'setTimeout(done, 8000)',
+  ].join('\n')
+}
+
 function fixture(t, program) {
   const directory = mkdtempSync(join(tmpdir(), 'dsh861-planner-bounds-'))
+  const startedFile = join(directory, 'descendant.started')
+  const exitingFile = join(directory, 'descendant.exiting')
+  const stopFile = join(directory, 'descendant.stop')
+  const beatFile = join(directory, 'descendant.beat')
   t.after(async () => {
-    if (existsSync(join(directory, 'descendant.started'))) {
-      writeFileSync(join(directory, 'descendant.stop'), '')
+    if (existsSync(startedFile)) {
+      writeFileSync(stopFile, '')
       const end = Date.now() + 5000
-      while (!existsSync(join(directory, 'descendant.exiting')) && Date.now() < end) await delay(20)
-      assert.equal(existsSync(join(directory, 'descendant.exiting')), true, 'owned descendant did not acknowledge cleanup')
+      // The descendant either acknowledges the stop file, or Windows already
+      // terminated it in the job object closed when its spawner exited.
+      while (descendantBeating(beatFile) && !existsSync(exitingFile) && Date.now() < end) await delay(20)
+      assert.ok(existsSync(exitingFile) || !descendantBeating(beatFile),
+        'owned descendant neither acknowledged cleanup nor exited')
     }
-    rmSync(directory, { recursive: true, force: true })
+    // A just-terminated descendant releases its working directory asynchronously.
+    const removeEnd = Date.now() + 2000
+    for (;;) {
+      try {
+        rmSync(directory, { recursive: true, force: true })
+        break
+      } catch (error) {
+        if (error?.code !== 'EPERM' || Date.now() > removeEnd) throw error
+        await delay(50)
+      }
+    }
   })
   const promptFile = join(directory, 'input.txt')
   const cliFile = join(directory, 'synthetic.mjs')
@@ -162,21 +209,24 @@ test('failed prompt delivery is not reported as a completed planning input', asy
 })
 
 test('deadline returns with an unverified descendant even when inherited pipes stay open', { timeout: 20000 }, async t => {
+  // POSIX shares pipe file descriptors with descendants, so the direct child
+  // can exit while a descendant still holds the wrapper's channels. Windows
+  // terminates the whole spawn job when the direct child exits, so a descendant
+  // cannot outlive it there; that branch instead keeps the direct child alive
+  // past the deadline holding its own channels and still proves the bounded
+  // return leaves the descendant unverified.
+  const pipesSurviveChildExit = process.platform !== 'win32'
   const { directory, spec } = fixture(t, [
     "import { spawn } from 'node:child_process'",
-    "const child = spawn(process.execPath, ['descendant.mjs'], { stdio: ['ignore', 'inherit', 'inherit', 'ipc'] })",
-    "child.on('message', () => { process.stdin.resume(); process.exit(0) })",
+    "import { existsSync } from 'node:fs'",
+    "const child = spawn(process.execPath, ['descendant.mjs'], { stdio: ['ignore', 1, 2] })",
+    "child.on('error', () => process.exit(1))",
+    pipesSurviveChildExit
+      ? "setInterval(() => { if (existsSync('descendant.started')) { process.stdin.resume(); process.exit(0) } }, 10)"
+      : "setInterval(() => { if (existsSync('descendant.started')) process.stdin.resume() }, 10)",
   ].join('\n'))
-  writeFileSync(join(directory, 'descendant.mjs'), [
-    "import { existsSync, writeFileSync } from 'node:fs'",
-    "writeFileSync('descendant.started', '')",
-    "const done = () => { writeFileSync('descendant.exiting', ''); process.exit(0) }",
-    "process.on('disconnect', () => {})",
-    "process.send('ready')",
-    "setInterval(() => { if (existsSync('descendant.stop')) done() }, 20)",
-    'setTimeout(done, 6000)',
-  ].join('\n'))
-  spec.process.deadlineMs = 1000
+  writeFileSync(join(directory, 'descendant.mjs'), descendantProgram())
+  spec.process.deadlineMs = pipesSurviveChildExit ? 1000 : 5000
   const result = await invokePlannerOnce(spec)
   assert.equal(existsSync(join(directory, 'descendant.started')), true)
   assert.equal(result.status, 'PLANNER_INVOCATION_CANCELLED')
@@ -184,8 +234,52 @@ test('deadline returns with an unverified descendant even when inherited pipes s
   assert.equal(existsSync(join(directory, 'descendant.exiting')), false,
     'wrapper waited for the unrelated pipe holder instead of using the termination bound')
   assert.equal(result.cleanup.directChildExitObserved, true)
-  assert.equal(result.cleanup.forcedPipeClosure, true)
+  if (pipesSurviveChildExit) assert.equal(result.cleanup.forcedPipeClosure, true)
   assert.equal(result.cleanup.descendantState, 'NOT_VERIFIED')
+})
+
+test('normal completion leaves a non-pipe-holding descendant unverified', { timeout: 20000 }, async t => {
+  // The direct child exits voluntarily once the descendant has started. POSIX
+  // then leaves that descendant running past the wrapper's completed return;
+  // Windows terminates it in the job object closed at the direct child's exit.
+  // The wrapper observes neither, so its descendant state stays NOT_VERIFIED.
+  const { directory, spec } = fixture(t, [
+    "import { spawn } from 'node:child_process'",
+    "import { existsSync } from 'node:fs'",
+    "const child = spawn(process.execPath, ['descendant.mjs'], { stdio: 'ignore' })",
+    "child.on('error', () => process.exit(1))",
+    "child.unref()",
+    "setInterval(() => { if (existsSync('descendant.started')) { process.stdin.resume(); process.exit(0) } }, 10)",
+  ].join('\n'))
+  writeFileSync(join(directory, 'descendant.mjs'), descendantProgram())
+  const result = await invokePlannerOnce(spec)
+  assert.equal(result.status, 'PLANNER_INVOCATION_COMPLETED')
+  assert.equal(result.exitCode, 0)
+  assert.equal(result.captureComplete, true)
+  assert.equal(result.cleanup.descendantState, 'NOT_VERIFIED')
+  const beatFile = join(directory, 'descendant.beat')
+  if (process.platform === 'win32') {
+    assert.ok(await descendantTerminated(beatFile, 2000),
+      'Windows job object did not terminate the descendant at the direct child exit')
+  } else {
+    assert.equal(descendantBeating(beatFile), true,
+      'wrapper or the platform terminated a descendant the wrapper never verified')
+  }
+})
+
+test('cancelling one invocation leaves a concurrent unrelated invocation intact', { timeout: 20000 }, async t => {
+  const stalled = fixture(t, 'setInterval(() => {}, 100)\n')
+  stalled.spec.process.deadlineMs = 800
+  const quick = fixture(t, 'process.stdin.resume()\n')
+  const [cancelled, completed] = await Promise.all([
+    invokePlannerOnce(stalled.spec),
+    invokePlannerOnce(quick.spec),
+  ])
+  assert.equal(cancelled.status, 'PLANNER_INVOCATION_CANCELLED')
+  assert.equal(cancelled.cancellationReason, 'DEADLINE_EXCEEDED')
+  assert.equal(completed.status, 'PLANNER_INVOCATION_COMPLETED')
+  assert.equal(completed.exitCode, 0)
+  assert.equal(completed.cleanup.descendantState, 'NOT_VERIFIED')
 })
 
 test('nonzero process completion retains the real exit and never accepts a product', async t => {

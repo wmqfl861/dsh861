@@ -65,7 +65,7 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 
 远端验证边界及实际测试文件哈希见 [r07 回执](../../../development/remediation/2026-09-10/credential-store-r07/verification.json)；Windows 本机原生结果、修复后的解析兼容行布局及本轮文件哈希记录在 [r08 回执](../../../development/remediation/2026-09-10/credential-store-r08/verification.json)。Linux 测试不被描述为隐藏输入或原生凭据存储已经成功。
 
-规划测试使用合成 Node 进程、模拟的密封对端和真实租约／脱敏代码，覆盖 UTF-8 与 EOF 限额、输入失败、异步等待后修改，以及刻意存活的继承管道持有者；该持有者由测试自身停止，不是被包装器清理。确切的本地／远端执行边界见 [r09 回执](../../../development/remediation/2026-09-10/planner-bounds-r09/verification.json)。
+规划测试使用合成 Node 进程、模拟的密封对端和真实租约／脱敏代码，覆盖 UTF-8 与 EOF 限额、输入失败、异步等待后修改、刻意存活的继承管道持有者、正常完成后仍存活的后代，以及一次取消与一个并发不受影响的调用。POSIX 上管道持有者与存活后代会越过包装器的有界返回；Windows 上两种状态都不可构造——libuv 在直接子进程退出时关闭 kill-on-close 作业对象，由操作系统终止其后代——测试改为断言该终止，包装器仍如实报告 `NOT_VERIFIED`，因为它两种结果都不观察。测试自身的后代由测试停止。确切的本地／远端执行边界见 [r09 回执](../../../development/remediation/2026-09-10/planner-bounds-r09/verification.json)与 [r10 回执](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json)。
 
 ## 规划前置条件
 

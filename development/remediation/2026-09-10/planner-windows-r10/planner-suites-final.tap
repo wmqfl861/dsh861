@@ -1,0 +1,34 @@
+✔ bounds stdout by UTF-8 bytes, not UTF-16 length (749.9042ms)
+✔ bounds stderr by UTF-8 bytes, not UTF-16 length (638.3942ms)
+✔ EOF-flushed delayed text cannot bypass the byte bound (782.0388ms)
+✔ discard a violating fragment before retaining it (1218.0985ms)
+✔ replacement-marker expansion counts toward the byte bound and retains detection (433.0504ms)
+✔ exact-bound UTF-8 text survives normal EOF unchanged (1200.8197ms)
+✔ refuses unsafe HTTPS case 1 before reading (6.4187ms)
+✔ refuses unsafe HTTPS case 2 before reading (5.1665ms)
+✔ refuses unsafe HTTPS case 3 before reading (5.1262ms)
+✔ requires an explicit bounded termination grace before reading (6.4331ms)
+✔ rejects NUL argv before reading rather than letting spawn reject after reading (5.2006ms)
+✔ captures a private input snapshot across asynchronous credential resolution (398.9884ms)
+✔ failed prompt delivery is not reported as a completed planning input (739.8541ms)
+✔ deadline returns with an unverified descendant even when inherited pipes stay open (5722.7459ms)
+✔ normal completion leaves a non-pipe-holding descendant unverified (773.2922ms)
+✔ cancelling one invocation leaves a concurrent unrelated invocation intact (1629.3204ms)
+✔ nonzero process completion retains the real exit and never accepts a product (605.5833ms)
+✔ refuses case-insensitive credential environment collisions before reading (7.9118ms)
+✔ rejects a known leased key in argv before spawning and omits the value from errors (303.9485ms)
+✔ refuses the current approved HTTP route before any credential read (126.7138ms)
+✔ refuses a subject that does not match the approval before any credential read (125.5462ms)
+✔ refuses an approval without an owner record before any credential read (126.0265ms)
+✔ refuses a prompt whose bytes do not match the pinned hash (143.9198ms)
+✔ refuses a CLI executable whose bytes do not match the pinned hash (289.8838ms)
+✔ completes a synthetic run with the leased value redacted from every channel (1184.7371ms)
+✔ cancels and kills the direct child when the deadline passes (1085.2122ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15715.4053

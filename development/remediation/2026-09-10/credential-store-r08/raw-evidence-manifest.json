@@ -1,0 +1,228 @@
+{
+  "kind": "r08-raw-evidence-archive",
+  "recordedAt": "2026-09-10",
+  "source": "C:Albertprojectdsh861-local-validation60910-p0b-credential-native-5e29 (machine-local; this archive is the retrievable copy)",
+  "archive": {
+    "file": "raw-evidence.tar.xz",
+    "bytes": 6136,
+    "sha256": "8acba639e169bcf3c34ae27780a73f4f25ba52aae21ad035e4c6bacb7fed03f6"
+  },
+  "sanitization": "Verbatim copies; scanned for account names, machine names, absolute user paths, and credential-shaped strings with zero matches. No production credential target value appears; only dsh861/selftest/<hex> synthetic target names.",
+  "commandIndex": [
+    {
+      "file": "raw-evidence/native-first-failure.txt",
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs",
+      "role": "first failure preserved verbatim (exit 1; WINDOWS_CREDENTIAL_READ_FAILED)"
+    },
+    {
+      "file": "raw-evidence/native-after-fix-pass.txt",
+      "command": "same, after bridge.ps1 line-layout fix",
+      "role": "first post-fix pass"
+    },
+    {
+      "file": "raw-evidence/native-final-pass.txt",
+      "command": "same, final suite (5/5)",
+      "role": "final native pass"
+    },
+    {
+      "file": "raw-evidence/native-post-push.txt",
+      "command": "same, post-push confirmation",
+      "role": "post-push re-run"
+    },
+    {
+      "file": "raw-evidence/reader-after-fix.txt",
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs",
+      "role": "reader pass after lint-only fixes (28 pass + 1 design skip)"
+    },
+    {
+      "file": "raw-evidence/reader-final-pass.txt",
+      "command": "same",
+      "role": "final reader pass"
+    },
+    {
+      "file": "raw-evidence/residue-check-output.txt",
+      "command": "powershell -File residue-check.ps1 (exact-target CredReadW probe)",
+      "role": "residue check r1: all recorded synthetic targets MISSING"
+    },
+    {
+      "file": "raw-evidence/residue-check-r2-output.txt",
+      "command": "powershell -File residue-check-r2.ps1",
+      "role": "residue check r2"
+    },
+    {
+      "file": "raw-evidence/residue-check-r3-output.txt",
+      "command": "powershell -File residue-check-r3.ps1",
+      "role": "residue check r3 (post-push)"
+    },
+    {
+      "file": "raw-evidence/repro-leading.ps1",
+      "command": "powershell -File repro-leading.ps1",
+      "role": "parser repro: leading -or fails on PS 5.1"
+    },
+    {
+      "file": "raw-evidence/repro-trailing.ps1",
+      "command": "powershell -File repro-trailing.ps1",
+      "role": "parser repro: trailing -or parses"
+    },
+    {
+      "file": "raw-evidence/diag-bridge.mjs",
+      "command": "node diag-bridge.mjs",
+      "role": "diagnostic script"
+    },
+    {
+      "file": "raw-evidence/diag-matrix.mjs",
+      "command": "node diag-matrix.mjs",
+      "role": "diagnostic matrix (EncodedCommand CLIXML stderr)"
+    },
+    {
+      "file": "raw-evidence/diag-selfteststore.mjs",
+      "command": "node diag-selfteststore.mjs",
+      "role": "diagnostic script"
+    },
+    {
+      "file": "raw-evidence/commit-output.txt",
+      "command": "git commit (pre-commit lefthook output captured)",
+      "role": "r08 commit evidence 1"
+    },
+    {
+      "file": "raw-evidence/commit-output-2.txt",
+      "command": "git commit (pre-commit lefthook output captured)",
+      "role": "r08 commit evidence 2"
+    },
+    {
+      "file": "raw-evidence/residue-check.ps1",
+      "command": "(script)",
+      "role": "exact-target residue probe script r1"
+    },
+    {
+      "file": "raw-evidence/residue-check-r2.ps1",
+      "command": "(script)",
+      "role": "exact-target residue probe script r2"
+    },
+    {
+      "file": "raw-evidence/residue-check-r3.ps1",
+      "command": "(script)",
+      "role": "exact-target residue probe script r3"
+    }
+  ],
+  "missingRawLogs": [
+    {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs (r08 run, 7/7)",
+      "status": "MISSING: no raw TAP retained under the r08 local evidence root; the r08 verification.json command entry carries the results only"
+    },
+    {
+      "command": "pnpm run typecheck (r08 round)",
+      "status": "MISSING: run separately per the r08 receipt notRun note; no raw log retained under the local evidence root"
+    },
+    {
+      "command": "pnpm run lint (r08 round)",
+      "status": "MISSING: same"
+    },
+    {
+      "command": "pnpm run test:docs (r08 round)",
+      "status": "MISSING: same"
+    },
+    {
+      "command": "pnpm run doc-sync (r08 round)",
+      "status": "MISSING: same"
+    }
+  ],
+  "regeneration": "None of the missing logs was regenerated for this archive; missing entries stay missing.",
+  "members": [
+    {
+      "file": "raw-evidence/commit-output-2.txt",
+      "bytes": 3153,
+      "sha256": "e149b75e5013e2e9a30bf0812f91dc81443d53f97a3f86bc5abdf3b1c6c05f10"
+    },
+    {
+      "file": "raw-evidence/commit-output.txt",
+      "bytes": 4269,
+      "sha256": "699a7f90f0129b879ba85f0d57f6eb67575ee089e95b6088735f6a134a9547b4"
+    },
+    {
+      "file": "raw-evidence/diag-bridge.mjs",
+      "bytes": 2031,
+      "sha256": "0828182527781efa36abdf471b0dd42a36f6bdb66e111dbc3edc24a4eef63ab2"
+    },
+    {
+      "file": "raw-evidence/diag-matrix.mjs",
+      "bytes": 1980,
+      "sha256": "dadb2a1b7caff6716462e9495ec57f599b86f5f26255a4838df0940ba7a49f64"
+    },
+    {
+      "file": "raw-evidence/diag-selfteststore.mjs",
+      "bytes": 2598,
+      "sha256": "1bb1ea6adc7a97ead87b6eaf8de3dee5cd156d1724301121884fea05b6cc1227"
+    },
+    {
+      "file": "raw-evidence/native-after-fix-pass.txt",
+      "bytes": 281,
+      "sha256": "d5c4e74495f63eb8459ce299262fc473d00ab0442b72406a56e9c834c7c968b6"
+    },
+    {
+      "file": "raw-evidence/native-final-pass.txt",
+      "bytes": 743,
+      "sha256": "c4a6a5a85051b2ea84c2bf50e6ad9e52fa9af2574bc967fb6eba67eaf3ab1f25"
+    },
+    {
+      "file": "raw-evidence/native-first-failure.txt",
+      "bytes": 1099,
+      "sha256": "b5a8672d2fea1b7d541268489b1204ac3fc4efb441805168d098b952e14147fb"
+    },
+    {
+      "file": "raw-evidence/native-post-push.txt",
+      "bytes": 743,
+      "sha256": "833af1f260159434c7f448b5a757e1b57cc48a1563fa3e9dd8b852722be07c8c"
+    },
+    {
+      "file": "raw-evidence/reader-after-fix.txt",
+      "bytes": 2388,
+      "sha256": "7a64ae23ab5f33bc854106f893ea28793b3e38568929cbd9ceda53605a38ea0d"
+    },
+    {
+      "file": "raw-evidence/reader-final-pass.txt",
+      "bytes": 2386,
+      "sha256": "df1bbbab03e344b9344ed63d3b82f818ea3bb8184350f772cec5b196ee9e0d05"
+    },
+    {
+      "file": "raw-evidence/repro-leading.ps1",
+      "bytes": 57,
+      "sha256": "4024f667223402e6e4483ee03574f0c0f1199249e27417102bb3ff08f2e85714"
+    },
+    {
+      "file": "raw-evidence/repro-trailing.ps1",
+      "bytes": 58,
+      "sha256": "66d755be0248ae79ca77d345f74bdda53fefbb93f8a69bed25adc71ec8ac2c65"
+    },
+    {
+      "file": "raw-evidence/residue-check-output.txt",
+      "bytes": 244,
+      "sha256": "d005f760b70c502b6787b8d3b2768ebe44c6807cdd3018788befeead02bdd0aa"
+    },
+    {
+      "file": "raw-evidence/residue-check-r2-output.txt",
+      "bytes": 244,
+      "sha256": "0812f046b2b348dd356b7544096f5d2043f5b54b5df3275618f7d90d14601d83"
+    },
+    {
+      "file": "raw-evidence/residue-check-r2.ps1",
+      "bytes": 1672,
+      "sha256": "b23a446078e9acb3c57c9599859ce312391dd27ee1f757910fcdee60297981d8"
+    },
+    {
+      "file": "raw-evidence/residue-check-r3-output.txt",
+      "bytes": 244,
+      "sha256": "ea4f5031ed4809e48b592a89e2f339b3072a7aabadd6d487752cb46e42f80bfe"
+    },
+    {
+      "file": "raw-evidence/residue-check-r3.ps1",
+      "bytes": 1672,
+      "sha256": "44a9f41a4960342834fd7c448ad339f07c67e269067038296a0bf7b14ff0c61e"
+    },
+    {
+      "file": "raw-evidence/residue-check.ps1",
+      "bytes": 1670,
+      "sha256": "b08861a0e3d07bf1096cb41d89b4857ea8fd254c258e825c1a0e70b8ec4284aa"
+    }
+  ]
+}
