@@ -1,0 +1,219 @@
+{
+  "schema": "dsh861-keyless-publication.v1",
+  "createdAt": "2026-09-10T02:30:15.108916+00:00",
+  "repository": "https://github.com/wmqfl861/dsh861",
+  "branch": "fix/windows-keyless-validation-20260909",
+  "publishedValidatedCommit": "ba2dd95e296bdab1e4de4b95c1460342a06f54c7",
+  "remoteHeadVerified": true,
+  "sourceFingerprintSha256": "2ac152aabc551c0a3eafa5c01b4543ad870e1f8cf122ebf2b9388ba41ae87001",
+  "all9299SourceBytesStillMatch": true,
+  "base": "e2a41682e6712648abc339a8cb787dbc6db0f569",
+  "draftPullRequest": {
+    "created": false,
+    "reason": "gh executable unavailable in PATH and standard locations; no PR tool exposed. Owner explicitly permits delivery by pushed branch and SHA.",
+    "compareUrl": "https://github.com/wmqfl861/dsh861/compare/feat/multi-agent-company-nodes...fix/windows-keyless-validation-20260909?expand=1"
+  },
+  "normalPush": {
+    "exitCode": 0,
+    "receipt": "publication.zip:receipts/35-push-repair.json",
+    "log": "publication.zip:logs/35-push-repair.log",
+    "prePushTypecheck": "PASS; normal installed hook; no bypass"
+  },
+  "deletedRefs": {
+    "at": "2026-09-10T02:27:19.612482+00:00",
+    "remoteBase": "e2a41682e6712648abc339a8cb787dbc6db0f569",
+    "localRemoteTrackingBase": "e2a41682e6712648abc339a8cb787dbc6db0f569",
+    "baseIsCurrent": true,
+    "checks": [
+      {
+        "branch": "docs/web-control-console-requirements-20260909",
+        "expected": "f3e7227c2356e0904d9562f52a5b6aea097c884e",
+        "observed": "f3e7227c2356e0904d9562f52a5b6aea097c884e",
+        "tipMatches": true,
+        "ancestorCommand": [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "f3e7227c2356e0904d9562f52a5b6aea097c884e",
+          "origin/feat/multi-agent-company-nodes"
+        ],
+        "ancestorExitCode": 0,
+        "ancestor": true
+      },
+      {
+        "branch": "fix/docs-pairing-and-handoff-20260910",
+        "expected": "ec992aed8b937915b5dd983bdfb3557fa7fac515",
+        "observed": "ec992aed8b937915b5dd983bdfb3557fa7fac515",
+        "tipMatches": true,
+        "ancestorCommand": [
+          "git",
+          "merge-base",
+          "--is-ancestor",
+          "ec992aed8b937915b5dd983bdfb3557fa7fac515",
+          "origin/feat/multi-agent-company-nodes"
+        ],
+        "ancestorExitCode": 0,
+        "ancestor": true
+      }
+    ],
+    "deleteEligible": true
+  },
+  "deletion": {
+    "exitCode": 0,
+    "mode": "atomic deletion with exact expected-OID leases; no history rewriting push",
+    "receipt": "publication.zip:receipts/41-delete-authorized-refs.json",
+    "confirmation": "publication.zip:logs/43-verify-deletion.log",
+    "prePushTypecheck": "PASS; hook repeated automatically for delete-ref push"
+  },
+  "protectedFiles": {
+    "config/agents/models.v1.json": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f",
+    "config/agents/models.v1.lock.json": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb",
+    "pnpm-lock.yaml": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383"
+  },
+  "evidenceOnlyFollowup": "This publication receipt is committed after the verified push. It changes no source files or pair records. Its final remote commit SHA is reported after the follow-up normal push.",
+  "archive": "publication.zip",
+  "archiveSha256": "e4c38be92a331966cc5566bb58a72abdee099585500d66272487d1cb81b4aa12",
+  "files": [
+    {
+      "path": "receipts/30-doc-sync-progress.json",
+      "originalSha256": "4b8338d9b7d9192ef4b1bad1e85210bc53a1f171cf07b8ffbe7c1ecec35c5355",
+      "exportSha256": "4b8338d9b7d9192ef4b1bad1e85210bc53a1f171cf07b8ffbe7c1ecec35c5355"
+    },
+    {
+      "path": "receipts/31-finalize-validation.json",
+      "originalSha256": "4b36d0e359db4ccbf99cf0d0e7eb9d5110ad3f545024ebdc3b478d69a1d2eb92",
+      "exportSha256": "4b36d0e359db4ccbf99cf0d0e7eb9d5110ad3f545024ebdc3b478d69a1d2eb92"
+    },
+    {
+      "path": "receipts/32-final-source-diff.json",
+      "originalSha256": "d55feac0a72861cc14c8944d08a600ead61450e45997d09d699c2f472df89be2",
+      "exportSha256": "d55feac0a72861cc14c8944d08a600ead61450e45997d09d699c2f472df89be2"
+    },
+    {
+      "path": "receipts/33-stage-integration-evidence.json",
+      "originalSha256": "7b1c914d45776348dcf9b7419cd1127167811f65693b1bbe8e0e8ee63125c4c6",
+      "exportSha256": "7b1c914d45776348dcf9b7419cd1127167811f65693b1bbe8e0e8ee63125c4c6"
+    },
+    {
+      "path": "receipts/34-commit-integration-evidence.json",
+      "originalSha256": "f4ee6783a7272f79c4138c3a3ca69b8f6e4ac7779134840485a28b8fa5284f1a",
+      "exportSha256": "f4ee6783a7272f79c4138c3a3ca69b8f6e4ac7779134840485a28b8fa5284f1a"
+    },
+    {
+      "path": "receipts/35-push-repair.json",
+      "originalSha256": "e1c7d853f11b4f83052773f520b15d0c7cc02c9465106178a0d7b099e4448c79",
+      "exportSha256": "e1c7d853f11b4f83052773f520b15d0c7cc02c9465106178a0d7b099e4448c79"
+    },
+    {
+      "path": "receipts/36-final-head.json",
+      "originalSha256": "69587b98541288659682b001c123694314c54f3e76910d98c20626faa2463194",
+      "exportSha256": "69587b98541288659682b001c123694314c54f3e76910d98c20626faa2463194"
+    },
+    {
+      "path": "receipts/37-verify-remote-heads.json",
+      "originalSha256": "bda3fb084c98a7c15abd0c80f1e8f4f0bc6465ceb5d3377f10e5f4a5c9284fe6",
+      "exportSha256": "bda3fb084c98a7c15abd0c80f1e8f4f0bc6465ceb5d3377f10e5f4a5c9284fe6"
+    },
+    {
+      "path": "receipts/38-push-log-result.json",
+      "originalSha256": "16676b392016b00045c191ec99548dd42cdd85804329ddaaed555c085a4e0626",
+      "exportSha256": "16676b392016b00045c191ec99548dd42cdd85804329ddaaed555c085a4e0626"
+    },
+    {
+      "path": "receipts/39-delete-eligibility.json",
+      "originalSha256": "f15f27325ed862f8d0f61a8312ee8bdf96b76137e1e7b3d646c9abbb1c3ac866",
+      "exportSha256": "f15f27325ed862f8d0f61a8312ee8bdf96b76137e1e7b3d646c9abbb1c3ac866"
+    },
+    {
+      "path": "receipts/40-check-deletion.json",
+      "originalSha256": "4c7822486483a562ae9e6903f4ce18a41da3eddb6ca3dc5492554d4bd1803db2",
+      "exportSha256": "4c7822486483a562ae9e6903f4ce18a41da3eddb6ca3dc5492554d4bd1803db2"
+    },
+    {
+      "path": "receipts/41-delete-authorized-refs.json",
+      "originalSha256": "fdb7dceb3f8e5f69cd946b76e924a61500fb3443d795e4649cd6af3e634f553b",
+      "exportSha256": "fdb7dceb3f8e5f69cd946b76e924a61500fb3443d795e4649cd6af3e634f553b"
+    },
+    {
+      "path": "receipts/42-delete-progress.json",
+      "originalSha256": "d9d62b4fcc1b5341184f27f597c9a726df63dbdd8670969817cda5dcabe7013c",
+      "exportSha256": "d9d62b4fcc1b5341184f27f597c9a726df63dbdd8670969817cda5dcabe7013c"
+    },
+    {
+      "path": "receipts/43-verify-deletion.json",
+      "originalSha256": "d93ba304ea8c53c47cfa7bd60c1dbf9f2aa2bb98bb5848a3ae2bdfd7f04552a8",
+      "exportSha256": "d93ba304ea8c53c47cfa7bd60c1dbf9f2aa2bb98bb5848a3ae2bdfd7f04552a8"
+    },
+    {
+      "path": "logs/30-doc-sync-progress.log",
+      "originalSha256": "d022a23f9be3ddfb7b43c8e074ad2047744420c283b7fd6c8ca848c1f5a8aed7",
+      "exportSha256": "d022a23f9be3ddfb7b43c8e074ad2047744420c283b7fd6c8ca848c1f5a8aed7"
+    },
+    {
+      "path": "logs/31-finalize-validation.log",
+      "originalSha256": "9f7b44a02751a5bfffb3c169e57984b2a4ceddbfef721a861a057fb9e77f56ff",
+      "exportSha256": "9f7b44a02751a5bfffb3c169e57984b2a4ceddbfef721a861a057fb9e77f56ff"
+    },
+    {
+      "path": "logs/32-final-source-diff.log",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exportSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/33-stage-integration-evidence.log",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exportSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "logs/34-commit-integration-evidence.log",
+      "originalSha256": "e0b45273dc0eda11797b5b270640550ac31636fd72ed2fcc5aa3633694de3997",
+      "exportSha256": "e0b45273dc0eda11797b5b270640550ac31636fd72ed2fcc5aa3633694de3997"
+    },
+    {
+      "path": "logs/35-push-repair.log",
+      "originalSha256": "e41329f1277fdb44ee501e976b0854037331d6da5059e6da3cdbe1be946aed14",
+      "exportSha256": "e41329f1277fdb44ee501e976b0854037331d6da5059e6da3cdbe1be946aed14"
+    },
+    {
+      "path": "logs/36-final-head.log",
+      "originalSha256": "df154b0c067b46b86758f995252110dc09191171c36e44acdbcc1ec05e2729a5",
+      "exportSha256": "df154b0c067b46b86758f995252110dc09191171c36e44acdbcc1ec05e2729a5"
+    },
+    {
+      "path": "logs/37-verify-remote-heads.log",
+      "originalSha256": "d891a91807ed8968ce0a6f69a61ffff45f713f27bdbb6bf93ce7e3d558a6d22c",
+      "exportSha256": "d891a91807ed8968ce0a6f69a61ffff45f713f27bdbb6bf93ce7e3d558a6d22c"
+    },
+    {
+      "path": "logs/38-push-log-result.log",
+      "originalSha256": "3699b0f60fb92dc10a0e05980759cf48741c7cb47a846ecdd667a755daf45fb4",
+      "exportSha256": "3699b0f60fb92dc10a0e05980759cf48741c7cb47a846ecdd667a755daf45fb4"
+    },
+    {
+      "path": "logs/40-check-deletion.log",
+      "originalSha256": "f5dcdff0b29a178b0120640ebe8a303657bbc8188dbfd4a318783f3e559a7316",
+      "exportSha256": "f5dcdff0b29a178b0120640ebe8a303657bbc8188dbfd4a318783f3e559a7316"
+    },
+    {
+      "path": "logs/41-delete-authorized-refs.log",
+      "originalSha256": "5cd246d103dcd1cf4089301f2984a976f138aca62d70702c09c610c4e304ae8f",
+      "exportSha256": "5cd246d103dcd1cf4089301f2984a976f138aca62d70702c09c610c4e304ae8f"
+    },
+    {
+      "path": "logs/42-delete-progress.log",
+      "originalSha256": "82a8520f4730b6fae62963733f3c8958bd05658da7da0c3a04a37320fb915ce0",
+      "exportSha256": "82a8520f4730b6fae62963733f3c8958bd05658da7da0c3a04a37320fb915ce0"
+    },
+    {
+      "path": "logs/43-verify-deletion.log",
+      "originalSha256": "56dfff89e0cee36b50bf84034c1861a5e91fe2a95938b006766a5916366eccad",
+      "exportSha256": "56dfff89e0cee36b50bf84034c1861a5e91fe2a95938b006766a5916366eccad"
+    },
+    {
+      "path": "logs/44-finalize-publication.log",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exportSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "nodeStatus": "P0-B blocked; P0-C not entered; no designated planner/reviewer or model API invoked."
+}
