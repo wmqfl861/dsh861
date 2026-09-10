@@ -1,3 +1,6 @@
-# Confirmed English/Chinese pair; Git blob hashes, not execution approval.
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write config/agents/README.md
 README.md: 8669c8aa91af155fce11214407976d8eb5cd87a5
 README.zh.md: ae103ccf0cefba3189175f6ba51b5108f4cd6941

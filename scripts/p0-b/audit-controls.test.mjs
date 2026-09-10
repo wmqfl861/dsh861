@@ -62,8 +62,9 @@ for (const [index, extra] of invalid.entries()) {
   test(`reject ambiguous/unknown options ${index + 1}`, t => {
     const root = owned(t)
     const result = run(['--harness', 'codex', '--case', 'allow', '--source', '--root', root, ...extra])
-    assert.notEqual(result.status, 0)
-    assert.notEqual(result.status, 2, result.stderr)
+    assert.equal(result.error, undefined)
+    assert.equal(result.signal, null)
+    assert.equal(result.status, 1, result.stderr)
     assert.equal(result.stdout, '')
   })
 }

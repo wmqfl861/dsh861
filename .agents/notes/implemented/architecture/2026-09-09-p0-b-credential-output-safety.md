@@ -16,7 +16,7 @@ Each output channel has an incremental UTF-8 redactor that retains unresolved pr
 
 The collector applies redaction before persistence, observes backpressure, creates fixed filenames exclusively with POSIX private permissions, enforces a per-call output limit and hashes only sanitized bytes. Interrupted raw suffixes are discarded. The run root and its parents remain the trusted owner's responsibility; this does not establish an OS sandbox or Windows ACL policy.
 
-Arguments are checked individually before launch so a second JSON encoding cannot hide escaped credentials. The output gate distinguishes missing evidence, leakage and successful capture. It never certifies a product or node PASS. These helpers are not yet wired into the existing Codex provider's raw stderr forwarding and do not implement the planned syntax-level source scanner.
+Arguments are checked individually before launch so a second JSON encoding cannot hide escaped credentials. The output gate distinguishes missing evidence, leakage and successful capture. A detected leak produces FAIL even when another channel is missing or malformed, independent of report order; invalid companion evidence cannot erase the leak. It never certifies a product or node PASS. These helpers are not yet wired into the existing Codex provider's raw stderr forwarding and do not implement the planned syntax-level source scanner.
 
 ## Alternatives considered
 
@@ -24,4 +24,4 @@ Regex replacement separately on each chunk misses split secrets. Persisting raw 
 
 ## Consequences
 
-The [implementation and verification record](../../../../development/remediation/2026-09-09/security-r02/README.md) includes focused compilation, synthetic subprocess tests, an initial failing argv regression and its correction. Supported repository-engine checks, real product wiring, designated planning/review and product acceptance remain outstanding. Historical plans and receipts are unchanged.
+The [historical verification record](../../../../development/remediation/2026-09-09/security-r02/verification.json) retains focused compilation, synthetic subprocess tests, an initial failing argv regression and its correction. The [source regressions](../../../../scripts/p0-b/__tests__/security.test.mjs) also exercise malformed companion evidence in both orders on Windows. Real product wiring, designated planning/review and product acceptance remain outstanding. Historical plans and receipts are unchanged.
