@@ -1,0 +1,84 @@
+{
+  "kind": "focused-document-repair-verification",
+  "recorded_at": "2026-09-09T22:46:36.410965+00:00",
+  "source_base_commit": "9060d7113c4f4302b31459d618d66eae1d09f4c7",
+  "branch_parent_commit": "f3e7227c2356e0904d9562f52a5b6aea097c884e",
+  "actor": "ChatGPT; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "repository_dependencies_installed": false
+  },
+  "method": "Python markdown-it token structure, exact fences, localized observed link inventory, raw Git blob hashes; direct translation review. Not the repository pnpm gate.",
+  "command": "python verify_docs.py",
+  "pair_results": [
+    {
+      "source": "development/nodes/P0-B/evidence/README.md",
+      "status": "PASS",
+      "english_blob": "b15e91b959f372338007a94f01632fb0e41ea209",
+      "chinese_blob": "da91a70642bfbbd2700b2f7c93187982857295c0"
+    },
+    {
+      "source": "development/remediation/2026-09-09/README.md",
+      "status": "PASS",
+      "english_blob": "0101007970a3ac043a5cbfde2c3a15a030a635dc",
+      "chinese_blob": "6b212ce9e17812782cccf87fd3b88734296c6460"
+    },
+    {
+      "source": "development/remediation/2026-09-09/model-config-r03/README.md",
+      "status": "PASS",
+      "english_blob": "c421ba17b3106cd3e1e2327206a6d3455cd8059a",
+      "chinese_blob": "b45e2fcbd3445dc1df233328c1a7962b6b6e804e"
+    },
+    {
+      "source": "development/remediation/2026-09-09/security-r02/README.md",
+      "status": "PASS",
+      "english_blob": "ddd25ea3dacf694abe1c93fae8acdc5e09c07065",
+      "chinese_blob": "06dfd8ef08f5dba140b81718adbfa95d314601ba"
+    },
+    {
+      "source": "development/remediation/2026-09-09/codex-stderr-r04/README.md",
+      "status": "PASS",
+      "english_blob": "dcb9fbfad0ea136e6830e7d306958f1e35a88db4",
+      "chinese_blob": "57c11f43f386e9d551b60029131b68038977da85"
+    },
+    {
+      "source": "config/agents/README.md",
+      "status": "PASS",
+      "english_blob": "8669c8aa91af155fce11214407976d8eb5cd87a5",
+      "chinese_blob": "ae103ccf0cefba3189175f6ba51b5108f4cd6941"
+    }
+  ],
+  "negative_controls": {
+    "missing_switcher_rejected": true,
+    "changed_command_rejected": true,
+    "changed_heading_depth_rejected": true,
+    "unknown_link_rejected": true,
+    "wrong_chinese_locale_rejected": true
+  },
+  "original_readme_git_blobs": {
+    "development/nodes/P0-B/evidence/README.md": "43b85b373d97a925dab141d5aa80a7ddc7d85986",
+    "development/remediation/2026-09-09/README.md": "932b933b5290e2beb823be150f9988f33d9c1e22",
+    "development/remediation/2026-09-09/model-config-r03/README.md": "a2691b8ffe03916337bb2bd40d5cec5d6afc32e8",
+    "development/remediation/2026-09-09/security-r02/README.md": "5ebe348f8007c0ed36abe67574a8db4781317d2d",
+    "development/remediation/2026-09-09/codex-stderr-r04/README.md": "b888fd792927953ce26ce65262cd350dc47f770f"
+  },
+  "unmodified_protected_files": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "secret_scan": "No key-shaped text in modified-document workspace; heuristic, not exhaustive DLP",
+  "not_run": [
+    "pnpm run verify-translation-pairing",
+    "pnpm run test:docs",
+    "pnpm run doc-sync",
+    "Windows tests",
+    "17 local code changes and original receipts review",
+    "real Codex/OpenCode invocation"
+  ],
+  "local_windows_report": "USER_REPORTED_NOT_INDEPENDENTLY_VERIFIED",
+  "product_accepted": false,
+  "next_node_allowed": false
+}
