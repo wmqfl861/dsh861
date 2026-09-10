@@ -65,7 +65,7 @@ export async function captureRedactedStream(
   }
   const hash = createHash('sha256')
   let bytes = 0
-  let outputLimit = false
+  let outputLimit = false as boolean
   const filter = new Transform({
     transform(chunk: Buffer, _encoding: BufferEncoding, callback: TransformCallback) {
       try { accept(redactor.push(chunk)); callback() } catch { callback(new Error('CAPTURE_FILTER_FAILED')) }

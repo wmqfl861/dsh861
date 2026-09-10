@@ -119,12 +119,12 @@ function parseArguments(argv: readonly string[]): Arguments {
 }
 
 function directories(runRoot: string): DirectoryRecord {
-  const result: DirectoryRecord = {
+  const result = {
     root: runRoot, config: join(runRoot, 'config'), authReference: join(runRoot, 'auth-reference'),
     home: join(runRoot, 'home'), cache: join(runRoot, 'cache'), session: join(runRoot, 'session'),
     logs: join(runRoot, 'logs'), work: join(runRoot, 'work'), bait: join(runRoot, 'bait'),
     artifacts: join(runRoot, 'artifacts'), process: join(runRoot, 'process'), raw: join(runRoot, 'raw'),
-  }
+  } satisfies DirectoryRecord
   for (const path of Object.values(result)) mkdirSync(path, { recursive: true })
   return result
 }

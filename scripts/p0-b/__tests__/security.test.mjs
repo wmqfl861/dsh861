@@ -350,6 +350,18 @@ test('output gate requires both distinct captures and never returns product PASS
 })
 
 
+test('detected output leaks outrank malformed companion evidence in either order', () => {
+  const leaked = { status: 'CAPTURED', failureClass: null, secretLeakDetected: true,
+    file: 'stderr.redacted.log', bytes: 0, redactedSha256: digest('') }
+  const expected = { status: 'FAIL', failureClass: 'SECRET_LEAK_DETECTED', productAccepted: false }
+  for (const invalid of [null, {}, { ...leaked, secretLeakDetected: false, bytes: -1 }]) {
+    assert.deepEqual(outputSecurityVerdict([invalid, leaked]), expected)
+    assert.deepEqual(outputSecurityVerdict([leaked, invalid]), expected)
+  }
+  assert.deepEqual(outputSecurityVerdict([leaked]), expected)
+  assert.deepEqual(outputSecurityVerdict([null, { failureClass: 'SECRET_LEAK_DETECTED' }]), expected)
+})
+
 test('freezing callback copies cannot prevent lease closure', async () => {
   const lease = await resolveCredentialReferences([binding], [binding], sources)
   await lease.use((environment, values) => { Object.freeze(environment); Object.freeze(values) })

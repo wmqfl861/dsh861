@@ -65,9 +65,9 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
       assert.equal(guarded.collected, f.handle.collected)
       assert.equal(await guarded.done, f.outcome)
       f.stdout.write('protocol-response')
-      assert.equal(f.stdout.read().toString(), 'protocol-response')
+      assert.deepEqual(f.stdout.read(), Buffer.from('protocol-response'))
       f.stdin.write('protocol-request')
-      assert.equal(f.stdin.read().toString(), 'protocol-request')
+      assert.deepEqual(f.stdin.read(), Buffer.from('protocol-request'))
     } finally { await f.cleanup() }
   })
 
@@ -186,7 +186,7 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
       assert.equal(a.stdout, first.stdout)
       assert.equal(b.stdout, second.stdout)
       second.stdout.write('second answer')
-      assert.equal(b.stdout?.read().toString(), 'second answer')
+      assert.deepEqual(b.stdout?.read(), Buffer.from('second answer'))
     } finally { await first.cleanup(); await second.cleanup() }
   })
 
@@ -197,7 +197,7 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
       { stdio: ['pipe', 'pipe', 'pipe'], timeout: 10000, windowsHide: true })
       const done = new Promise<SubprocessOutcome>((resolve, reject) => {
         child.once('error', reject)
-        child.once('close', (code, signal) => resolve({ exitCode: code, signal }))
+        child.once('close', (code, signal) => { resolve({ exitCode: code, signal }) })
       })
       const handle: SubprocessHandle = {
         pid: child.pid ?? -1, stdin: child.stdin, stdout: child.stdout, stderr: child.stderr,
@@ -207,7 +207,7 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
       }
       const guarded = protect(handle)
       let output = ''
-      guarded.stdout?.on('data', chunk => { output += chunk.toString() })
+      guarded.stdout?.on('data', (chunk: Buffer) => { output += chunk.toString() })
       try {
         assert.equal(guarded.stderr, undefined)
         assert.deepEqual(await guarded.done, { exitCode, signal: null })
@@ -227,7 +227,7 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
     { stdio: ['pipe', 'pipe', 'pipe'], timeout: 10000, windowsHide: true })
     const done = new Promise<SubprocessOutcome>((resolve, reject) => {
       child.once('error', reject)
-      child.once('close', (exitCode, signal) => resolve({ exitCode, signal }))
+      child.once('close', (exitCode, signal) => { resolve({ exitCode, signal }) })
     })
     const guarded = protect({
       pid: child.pid ?? -1, stdin: child.stdin, stdout: child.stdout, stderr: child.stderr,

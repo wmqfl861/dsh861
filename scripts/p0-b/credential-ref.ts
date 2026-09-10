@@ -162,7 +162,7 @@ export async function resolveCredentialReferences(
   if (requests.length === 0) throw new CredentialError('CREDENTIAL_MISSING')
   const authorized = new Set(grants.map(bindingKey))
   const targets = new Set<string>()
-  const resolvedBindings = requests.map(request => {
+  const resolvedBindings = requests.map((request: CredentialBinding) => {
     const key = bindingKey(request)
     if (!authorized.has(key) || targets.has(request.targetEnv)) forbidden()
     targets.add(request.targetEnv)

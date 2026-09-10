@@ -10,9 +10,11 @@ it('keeps native stderr private at the actual Provider spawn boundary', async ()
   delete env.DSH_TEST_CODEX_INDEX
   delete env.DSH_TEST_EXPECT_RAW
   delete env.DSH_TEST_TYPESCRIPT_PATH
-  const { stdout } = await execute(process.execPath, ['--experimental-vm-modules',
+  const { stdout, stderr } = await execute(process.execPath, ['--experimental-vm-modules',
     fileURLToPath(new URL('./private-stderr-provider.fixture.mjs', import.meta.url))],
   { env, timeout: 10000, maxBuffer: 1024 * 1024 })
+  expect(stdout).not.toContain('SYNTHETIC_PRIVATE_DIAGNOSTIC')
+  expect(stderr).not.toContain('SYNTHETIC_PRIVATE_DIAGNOSTIC')
   const report = JSON.parse(stdout) as {
     expectPrivate: boolean
     results: Array<{ rawBytesAtRunner: number; stderrPrivate: boolean; stdoutPreserved: boolean }>

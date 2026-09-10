@@ -47,7 +47,7 @@ export function withPrivateCodexStderr(child: SubprocessHandle): SubprocessHandl
     stderr: undefined,
     get collected() { return child.collected },
     get done() { return child.done },
-    terminate: () => child.terminate(),
+    terminate: () => { child.terminate() },
     waitForExit: signal => child.waitForExit(signal),
   }
 }
