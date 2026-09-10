@@ -66,7 +66,8 @@ function writeWriterScript(base, name) {
   return { file, name }
 }
 
-/** PowerShell member that tries to escape via CREATE_BREAKAWAY_FROM_JOB. */
+/** PowerShell member that tries to escape via CREATE_BREAKAWAY_FROM_JOB and
+ * records the kernel-filled identity of the exact process it created. */
 function writeBreakawayAttempt(directory_) {
   const file = join(directory_, 'breakaway-attempt.ps1')
   writeFileSync(file, [
@@ -91,13 +92,78 @@ function writeBreakawayAttempt(directory_) {
     "$offTid = [Runtime.InteropServices.Marshal]::OffsetOf([K+PI], 'dwThreadId').ToInt64()",
     '[IO.File]::WriteAllText("pi-layout", "size=$piSize;pid@$offPid;tid@$offTid")',
     'if ($piSize -ne ($handleBytes + 8) -or $offPid -ne $handleBytes -or $offTid -ne ($handleBytes + 4)) { exit 6 }',
-    '[IO.File]::WriteAllText("escape-writer.cmd", "@echo off`r`necho %PID% > escape.pid`r`necho start > escape.log`r`n:loop`r`necho %TIME% >> escape.log`r`nping -n 1 -w 300 127.0.0.1 > nul`r`ngoto loop")',
+    '[IO.File]::WriteAllText("escape-writer.cmd", "@echo off`r`necho start > escape.log`r`n:loop`r`necho %TIME% >> escape.log`r`nping -n 1 -w 300 127.0.0.1 > nul`r`ngoto loop")',
     '$ok = [K]::CreateProcessW("$env:SystemRoot\\System32\\cmd.exe", \'"%SystemRoot%\\System32\\cmd.exe" /c escape-writer.cmd\', [IntPtr]::Zero, [IntPtr]::Zero, $false, 0x01000000, [IntPtr]::Zero, (Get-Location).Path, [ref]$si, [ref]$pi)',
     'if (-not $ok) { [IO.File]::WriteAllText("escape-refused", [Runtime.InteropServices.Marshal]::GetLastWin32Error().ToString()); exit 5 }',
     'if ($pi.dwProcessId -le 0 -or $pi.dwThreadId -le 0) { [K]::CloseHandle($pi.hP) | Out-Null; [K]::CloseHandle($pi.hT) | Out-Null; [IO.File]::WriteAllText("pi-fields-invalid", "pid=$($pi.dwProcessId);tid=$($pi.dwThreadId)"); exit 7 }',
-    '[K]::CloseHandle($pi.hP) | Out-Null; [K]::CloseHandle($pi.hT) | Out-Null',
+    // The verified layout yields the real kernel identity; a cmd-side %PID%
+    // echo is an undefined cmd variable and was only a placeholder.
+    '[IO.File]::WriteAllText("escape-real.pid", [string]$pi.dwProcessId)',
+    '[IO.File]::WriteAllText("escape-real.tid", [string]$pi.dwThreadId)',
+    // Keep the waitable process handle until this member dies: it pins the
+    // kernel object so the PID cannot be reused while the outside observer
+    // resolves it. The thread handle is not a death handle and is released.
+    '[K]::CloseHandle($pi.hT) | Out-Null',
     'Set-Content -Path escape-holder.pid -Value $PID',
     'while ($true) { Start-Sleep -Milliseconds 250 }',
+  ].join('\n'))
+  return file
+}
+
+/** Outside-the-job observer for the breakaway attempt: a direct child of this
+ * test, so it survives the owned job's teardown. It resolves the kernel-filled
+ * dwProcessId to its own SYNCHRONIZE handle and records the wait verdict for
+ * that exact process. Only WAIT_OBJECT_0 with a readable exit code is a kernel
+ * exit; open failure, WAIT_FAILED, WAIT_TIMEOUT, a missing or unparsable PID
+ * and a refused creation stay distinct modes and never count as death. */
+function writeEscapeObserver(base) {
+  const file = join(base, 'escape-observer.ps1')
+  writeFileSync(file, [
+    'param([string]$WatchPidFile, [string]$RefusedFile, [string]$OutFile, [int]$PollMs, [int]$WaitMs)',
+    "$ErrorActionPreference = 'Stop'",
+    '$src = @"',
+    'using System; using System.Runtime.InteropServices;',
+    'public static class O {',
+    '  [DllImport("kernel32.dll", SetLastError=true)] public static extern IntPtr OpenProcess(uint access, bool inherit, uint pid);',
+    '  [DllImport("kernel32.dll", SetLastError=true)] public static extern uint WaitForSingleObject(IntPtr h, uint ms);',
+    '  [DllImport("kernel32.dll", SetLastError=true)] public static extern bool GetExitCodeProcess(IntPtr h, out uint code);',
+    '  [DllImport("kernel32.dll")] public static extern bool CloseHandle(IntPtr h);',
+    '}',
+    '"@',
+    'Add-Type -TypeDefinition $src',
+    'function Save([string]$text) { [IO.File]::WriteAllText($OutFile, $text); exit 0 }',
+    '$started = [Environment]::TickCount64',
+    '$deadline = $started + $PollMs',
+    '$pidText = $null',
+    'while ([Environment]::TickCount64 -lt $deadline) {',
+    '  if (Test-Path -LiteralPath $RefusedFile) { Save(\'{"mode":"creation-refused"}\') }',
+    '  if (Test-Path -LiteralPath $WatchPidFile) { $pidText = [IO.File]::ReadAllText($WatchPidFile).Trim(); break }',
+    '  Start-Sleep -Milliseconds 20',
+    '}',
+    '$seenAfterMs = [Environment]::TickCount64 - $started',
+    'if ($null -eq $pidText) { Save(\'{"mode":"pid-file-missing"}\') }',
+    '$childPid = [uint32]0',
+    'if (-not [uint32]::TryParse($pidText, [ref]$childPid) -or $childPid -eq 0) { Save(\'{"mode":"pid-invalid"}\') }',
+    '# SYNCHRONIZE | PROCESS_QUERY_LIMITED_INFORMATION',
+    '$h = [O]::OpenProcess(0x00101000, $false, $childPid)',
+    'if ($h -eq [IntPtr]::Zero) { Save((\'{{"mode":"open-failed","pid":{0},"error":{1},"seenAfterMs":{2}}}\' -f $childPid, [Runtime.InteropServices.Marshal]::GetLastWin32Error(), $seenAfterMs)) }',
+    '$aliveCode = [uint32]0',
+    '$aliveAtOpen = [O]::GetExitCodeProcess($h, [ref]$aliveCode) -and $aliveCode -eq 259',
+    '$aliveText = if ($aliveAtOpen) { \'true\' } else { \'false\' }',
+    'try {',
+    '  $waitStart = [Environment]::TickCount64',
+    '  $r = [O]::WaitForSingleObject($h, [uint32]$WaitMs)',
+    '  $elapsed = [Environment]::TickCount64 - $waitStart',
+    '  if ($r -eq 0) {',
+    '    $code = [uint32]0',
+    '    if (-not [O]::GetExitCodeProcess($h, [ref]$code)) { Save((\'{{"mode":"exit-code-failed","pid":{0}}}\' -f $childPid)) }',
+    '    Save((\'{{"mode":"kernel-exit","pid":{0},"exitCode":{1},"waitMsElapsed":{2},"aliveAtOpen":{3},"seenAfterMs":{4}}}\' -f $childPid, $code, $elapsed, $aliveText, $seenAfterMs))',
+    '  } elseif ($r -eq 258) {',
+    '    Save((\'{{"mode":"wait-timeout","pid":{0}}}\' -f $childPid))',
+    '  } else {',
+    '    Save((\'{{"mode":"wait-failed","pid":{0},"error":{1}}}\' -f $childPid, [Runtime.InteropServices.Marshal]::GetLastWin32Error()))',
+    '  }',
+    '} finally { [O]::CloseHandle($h) | Out-Null }',
   ].join('\n'))
   return file
 }
@@ -190,24 +256,6 @@ async function heartbeatFrozen(base, name, waitMs = 2000) {
 
 function pidDead(base, name) {
   const file = join(base, `${name}.pid`)
-  if (!existsSync(file)) return true
-  try { process.kill(Number(readFileSync(file, 'utf8').trim()), 0); return false } catch { return true }
-}
-
-/** True when an existing file's size and mtime stop advancing for the window. */
-async function beatFrozen(directory_, file, waitMs = 2000) {
-  const path = join(directory_, file)
-  const first = statSync(path)
-  const end = performance.now() + waitMs
-  while (performance.now() < end) {
-    await delay(250)
-    const now = statSync(path)
-    if (now.mtimeMs > first.mtimeMs || now.size > first.size) return false
-  }
-  return true
-}
-
-function pidDeadByFile(file) {
   if (!existsSync(file)) return true
   try { process.kill(Number(readFileSync(file, 'utf8').trim()), 0); return false } catch { return true }
 }
@@ -412,8 +460,27 @@ test('normal completion still terminates surviving descendants of the run', { sk
 })
 
 test('explicit breakaway out of the owned job fails closed', { skip: process.platform !== 'win32', timeout: 90000 }, async t => {
-  const { spec, workspace } = deployment(t, { deadlineMs: 4000 })
+  const { base, spec, workspace } = deployment(t, { deadlineMs: 4000 })
   const attempt = writeBreakawayAttempt(workspace)
+  // The observer is this test's direct child, outside the owned job, so it
+  // still works after the job under test terminates. It resolves the exact
+  // kernel identity to its own handle; no name scan, no heartbeat inference.
+  const observerScript = writeEscapeObserver(base)
+  const observedFile = join(base, 'escape-observed.json')
+  const realPidFile = join(workspace, 'escape-real.pid')
+  const refusalFile = join(workspace, 'escape-refused')
+  const observer = spawn(powershellExecutable,
+    ['-NoLogo', '-NoProfile', '-NonInteractive', '-File', observerScript,
+      '-WatchPidFile', realPidFile, '-RefusedFile', refusalFile,
+      '-OutFile', observedFile, '-PollMs', '9000', '-WaitMs', '15000'],
+    { stdio: ['ignore', 'ignore', 'pipe'] })
+  let observerError = ''
+  observer.stderr.on('data', chunk => { observerError += chunk })
+  const observerClosed = new Promise(resolve => observer.once('close', resolve))
+  t.after(async () => {
+    try { observer.kill('SIGKILL') } catch { /* already closed */ }
+    await Promise.race([observerClosed, delay(5000)])
+  })
   writeFileSync(join(workspace, 'exec'), [
     "const { spawn } = require('node:child_process')",
     "const { writeFileSync } = require('node:fs')",
@@ -433,14 +500,28 @@ test('explicit breakaway out of the owned job fails closed', { skip: process.pla
   assert.equal(result.status, 'PROJECTED_PLANNER_CANCELLED')
   assert.equal(result.ownership.terminated, true)
   assert.equal(result.ownership.activeProcessesRemaining, 0)
-  // Containment holds when the escape spawn is refused outright, or when the
-  // spawned writer joined the owned job and was terminated; a live, advancing
-  // escape writer would be a real breakaway hole.
-  const refused = existsSync(join(workspace, 'escape-refused')) && !existsSync(join(workspace, 'escape.log'))
-  const contained = existsSync(join(workspace, 'escape.log'))
-    && await beatFrozen(workspace, 'escape.log') && pidDeadByFile(join(workspace, 'escape.pid'))
+  // Bounded wait for the observer verdict; the job is already gone here.
+  const observedDeadline = performance.now() + 25000
+  while (!existsSync(observedFile) && performance.now() < observedDeadline) await delay(100)
+  assert.equal(existsSync(observedFile), true, `escape observer never reported a verdict; stderr: ${observerError.slice(0, 500)}`)
+  const observed = JSON.parse(readFileSync(observedFile, 'utf8'))
+  assert.equal(typeof observed.mode, 'string')
   const layoutFile = join(workspace, 'pi-layout')
-  if (!existsSync(layoutFile) && !refused && !contained) {
+  const refusalCode = existsSync(refusalFile) ? readFileSync(refusalFile, 'utf8').trim() : 'missing'
+  // Two distinct platform outcomes, never collapsed into one guess: the kernel
+  // refused the breakaway creation, or it created the process.
+  const creationRefused = observed.mode === 'creation-refused'
+    && existsSync(refusalFile) && !existsSync(realPidFile)
+  // The kernel exit proves containment when the exact process ran its writer
+  // payload (escape.log exists) and exited with the job-kill signature: the
+  // owner's helper terminates the job with exit code 1 (job-owner.ps1), and a
+  // process that actually escaped never exits at all — its batch loops until
+  // terminated. Observer liveness fields stay diagnostics because the
+  // observer's own cold start can land on either side of the kill.
+  const kernelExit = observed.mode === 'kernel-exit' && existsSync(realPidFile)
+    && existsSync(join(workspace, 'escape.log')) && Number.isInteger(observed.pid)
+    && observed.exitCode === 1
+  if (!existsSync(layoutFile) && !creationRefused && !kernelExit) {
     // The probe itself never ran: under a host policy that blocks unsigned
     // script files this is an explicit block, never a containment pass.
     const psExit = existsSync(join(workspace, 'breakaway-ps-exit')) ? readFileSync(join(workspace, 'breakaway-ps-exit'), 'utf8') : 'missing'
@@ -459,8 +540,17 @@ test('explicit breakaway out of the owned job fails closed', { skip: process.pla
     assert.equal(size, tidAt + 4, 'struct must end after the two DWORDs')
     assert.equal(existsSync(join(workspace, 'pi-fields-invalid')), false, 'kernel-filled dwProcessId/dwThreadId were absent with the completed struct')
   }
-  t.diagnostic(`breakaway containment mode: ${refused ? 'spawn-refused' : contained ? 'contained-and-terminated' : 'ESCAPED'}`)
-  assert.ok(refused || contained, 'a process broke away from the owned job and stayed alive')
+  // Containment holds only with kernel evidence for the exact process: the
+  // creation refused outright, or the created process observed to exit by a
+  // waiter outside the job. Creation failure elsewhere, open failure,
+  // WAIT_FAILED, WAIT_TIMEOUT or a missing PID is recorded as-is and is not
+  // death proof; a heartbeat freeze or this test's own cleanup never
+  // substitutes for the product's containment or exit ability.
+  const writerBeats = existsSync(join(workspace, 'escape.log'))
+    ? readFileSync(join(workspace, 'escape.log'), 'utf8').split('\n').filter(line => line.length > 0).length : 0
+  t.diagnostic(`breakaway containment mode: ${creationRefused ? 'spawn-refused' : kernelExit ? 'contained-kernel-exit' : 'UNPROVEN'}; observer=${JSON.stringify(observed)}; refusal=${refusalCode}; escape.log beats=${writerBeats}; the job owner terminates with exit code 1`)
+  assert.ok(creationRefused || kernelExit,
+    `breakaway outcome is unproven or escaped: observer=${JSON.stringify(observed)}, refusal=${refusalCode}, realPidFile=${existsSync(realPidFile)}`)
 })
 
 test('helper integrity failure refuses the entry before any credential read', { skip: process.platform !== 'win32' }, async t => {
