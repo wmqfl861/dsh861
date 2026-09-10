@@ -1,0 +1,178 @@
+{
+  "kind": "ownership-failure-hardening-candidate-not-native-acceptance",
+  "round": "r13",
+  "recordedAt": "2026-09-10T13:32:56.197183+00:00",
+  "baseCommit": "92e78809c010841d6c2be7fd830273cadbb01306",
+  "branch": "fix/p0b-windows-credential-store-20260910",
+  "pullRequest": 7,
+  "actor": "ChatGPT in this conversation; not designated Codex planner or OpenCode hard reviewer",
+  "publication": "CONVERSATION_PATCH_ONLY_NOT_PUSHED; current GitHub tools expose read operations only; no gh or network transport available in this runtime",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "typescript": "5.8.3",
+    "repositoryDependenciesInstalled": false,
+    "windowsNativeRun": false
+  },
+  "method": {
+    "controls": "Actual TypeScript modules transpiled in isolated VM contexts; fake child process/Windows platform/files/credential-reader boundaries. No OS job or real secret was used.",
+    "regressions": "Exact dependency/source copies, isolated ESM transpilation with relative .ts to .js rewrite; real Node subprocesses/RSA/lease/redactor, synthetic sealed credential peer."
+  },
+  "findings": [
+    "Failed/rejected/late ownership assignment could still deliver input; early exit could be labelled completed before assignment.",
+    "Disposal acknowledgement or swallowed failure was treated as completed disposal without observing helper close.",
+    "Contradictory helper reply fields, negative counts and unbounded incomplete output were accepted or insufficiently bounded.",
+    "Entry returned completion despite failed/unknown cleanup and lost cleanup facts on refusal; it reused a pre-existing run-root directory."
+  ],
+  "checks": {
+    "baselineControls": {
+      "passed": 3,
+      "failed": 22,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 1,
+      "log": "baseline-controls.tap.xz",
+      "note": "25 adversarial/positive cases, not 22 distinct product defects."
+    },
+    "fixedControls": {
+      "passed": 25,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "controls.tap",
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs"
+    },
+    "existingPlanner": {
+      "passed": 28,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "planner-regressions.tap"
+    },
+    "focusedStrictTypecheck": {
+      "exitCode": 0,
+      "scope": "planner-entry.ts, windows-job-owner.ts, planner-invocation.ts and local dependencies; exact existing declaration; preinstalled Node typings, not full repository programs"
+    },
+    "syntax": {
+      "files": 1,
+      "exitCode": 0
+    },
+    "documentation": {
+      "twoPairsUpdated": true,
+      "repositoryPairingWrite": "NOT_RUN; re-record the two existing pairs using the repository tool after local semantic review"
+    }
+  },
+  "authoringFailures": {
+    "count": 2,
+    "scope": "Initial VM test harness omitted host URLSearchParams/Uint8Array. These attempts cancelled tests before reaching the process fixture and are not product findings. Original logs retained in bundle authoring/. Corrected test is the baseline/final control input."
+  },
+  "sourceBefore": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.ts",
+      "gitBlob": "5c165fdcbcf80cbf1f40ded2246179487167a571",
+      "sha256": "dad5c8ae2ba5ba1d6825fb475d44f080efe42a5307acc0a57cd35b0ef7c32748"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/windows-job-owner.ts",
+      "gitBlob": "c7b18edfd466550f7f2777e40c9be2f4d087179d",
+      "sha256": "2935d643d5728558cb3660a73d9e10c3a9e6abe0dabbd608b9668a4e1252ad43"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-entry.ts",
+      "gitBlob": "094f6586bbafc06d5543f28ac31a1394fa94a798",
+      "sha256": "4efbb6af418f742c17558dc0ac45526c16101d0ba49d392a535decb7ce8c1b9e"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "gitBlob": "885989bb1663f62e4eae7153e626c340542ff4ed",
+      "sha256": "612b3d9a2e6bc9d761017e599b50e4660959a65fe02dd6d6b9adf57210ee14b0"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "gitBlob": "c5a5f44704af32971c76a49a0e486e1b93a417ab",
+      "sha256": "115328b3c489dfa82e7cc96f36c30101ea51602322651c8d87b7ec47012f828b"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "gitBlob": "9187d0b98edc8fe2fb369d9e1efcf9b65d2b398e",
+      "sha256": "18b4f2a3a863273c41fda90a4fc386d78a4c43aaf44011fa67a99df1aeaaf83b"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "gitBlob": "888aa55a1d72ac8c522a47b9ba11c55cd5c49c34",
+      "sha256": "b3c565d19bf2ad59125b352f81eec9767f2235d20f1f5c2a58fd3f2bcc0a5719"
+    }
+  ],
+  "sourceAfter": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.ts",
+      "gitBlob": "64960a6f3fa0b1300db149ab419fcb7caa005492",
+      "sha256": "a7caf46f94ca8ad9dc658896602e32a01112c8483fc0fc319e32dede66b3b811"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/windows-job-owner.ts",
+      "gitBlob": "3fd3a4c7766c31c19dd617f746a2c2fada83051e",
+      "sha256": "229ac621c439f5bab7f16b6d8bedbfe0b72ae25fb42b01a3eb001dedc3b0bf57"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-entry.ts",
+      "gitBlob": "30a4e8664de5a61eaa0de5c41a947e96b56069ef",
+      "sha256": "2498d7065e411dfe621e329b486e5a7de87896e9eff3f601cb296194b2ee8a86"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "gitBlob": "3349c3a4f1c38198a864eb24e17ca4e19daf13f8",
+      "sha256": "73963214b3f717b1f8ad96894627f8d384f3dc1dd7d5e3da48b500513781f824"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "gitBlob": "787cbdf5c4fd36203ef2d38d7c0300c697c35477",
+      "sha256": "7121c7c80c8448a5a932720eff83bd506fc87eee1414f0a2af1aca5aabc1b275"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "gitBlob": "fcc81511e65fb6841793d1e6bd827a62477b2dfe",
+      "sha256": "af37d98afa17a81e9ea3240faab10ed0d82d94ba6f4b3db84cd6866bed88c2db"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "gitBlob": "340aaf730b32163bc2de3e46088c5ce0928daba8",
+      "sha256": "9bc351aaf8d5cd356dca3b4fe800f33921a948453d14a6878ffb82a95e31b464"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/ownership-failures.test.mjs",
+      "gitBlob": "f1942daa1d819e1bb56fb33a97a06f4c5ad2b89b",
+      "sha256": "71c0732f5c5d51c2888b700866b9670e557bb60c4326078419b7ecb2c9b7b437"
+    }
+  ],
+  "protectedFilesNotChanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "notRun": [
+    "Windows PowerShell job-owner/entry integration after this patch",
+    "Full repository typecheck/lint/test:docs/doc-sync",
+    "Atomic containment before target startup",
+    "Real TLS or gateway requests",
+    "Real credentials or key rotation",
+    "Monetary enforcement and owner authorization authentication",
+    "Designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "nativeFollowup": [
+    "Before rerunning breakaway fixture, correct its PROCESS_INFORMATION structure: two handles plus DWORD processId and threadId. Current PI has only two handles. Remove unapproved -ExecutionPolicy Bypass test arguments.",
+    "Post-spawn PID assignment leaves a startup window even with gated stdin. Verify native create-in-job or CREATE_SUSPENDED -> AssignProcessToJobObject -> ResumeThread using exact process/thread handles. Do not claim this patch closes that native window.",
+    "Terminate acknowledgement is not exit proof; retain blocked status unless actual owned-member quiescence and helper close are observed."
+  ],
+  "primaryReferences": [
+    "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_information",
+    "https://learn.microsoft.com/en-us/windows/win32/procthread/process-creation-flags",
+    "https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-assignprocesstojobobject",
+    "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-terminateprocess"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}

@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict'
+import { spawn } from 'node:child_process'
 import { constants, createHash, createPublicKey, publicEncrypt } from 'node:crypto'
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
+import { setTimeout as delay } from 'node:timers/promises'
 import { fileURLToPath } from 'node:url'
 import test from 'node:test'
 import { readFileSync } from 'node:fs'
@@ -178,6 +180,137 @@ test('cancels and kills the direct child when the deadline passes', {
     assert.equal(result.exitCode, null)
     assert.equal(result.redactedStdout.includes(sentinel), false)
     assert.equal(result.secretLeakDetected, false)
+  } finally {
+    rmSync(temporary, { recursive: true, force: true })
+  }
+})
+
+/** Recording owner double: the launch/assign/release/abort order is the contract. */
+function gatedOwner(events, spawnGate, assign) {
+  return {
+    launch: request => {
+      events.push(['launch', request.executable, [...request.args], request.workingDirectory,
+        Object.hasOwn(request.environment, 'DSH_SYNTHETIC_CODEX_KEY'), request.maxWaitMs])
+      return spawnGate()
+    },
+    assign: async pid => { events.push(['assign', pid]); return assign() },
+    release: () => { events.push(['release']) },
+    abort: () => { events.push(['abort']) },
+    terminateOwned: async () => { events.push(['terminate']); return true },
+  }
+}
+
+test('a gated run releases the CLI only after membership and delivers the input then', {
+  timeout: 60000,
+}, async () => {
+  const temporary = mkdtempSync(join(tmpdir(), 'dsh861-planner-gate-'))
+  try {
+    const cli = join(temporary, 'gated-planner.mjs')
+    writeFileSync(cli, [
+      'const chunks = []',
+      "process.stdin.on('data', chunk => chunks.push(chunk))",
+      "process.stdin.on('end', () => {",
+      "  process.stderr.write('gated input chunks: ' + chunks.length + '\\n')",
+      '  process.exit(0)',
+      '})',
+      'setInterval(() => {}, 1000)',
+      '',
+    ].join('\n'))
+    const promptFile = join(temporary, 'plan-input.txt')
+    writeFileSync(promptFile, 'fixed synthetic planning input\n')
+    const events = []
+    const fake = fakeBridge()
+    const result = await invokePlannerOnce(baseSpec(fake.invoke, {
+      prompt: { file: promptFile, sha256: hash(promptFile) },
+      cli: { executable: process.execPath, sha256: hash(process.execPath), args: [cli] },
+      process: { workingDirectory: temporary, environment: {},
+        credentialEnvironmentVariable: 'DSH_SYNTHETIC_CODEX_KEY',
+        deadlineMs: 5000, terminationGraceMs: 300, maxChannelBytes: 65536,
+        ownership: gatedOwner(events,
+          () => spawn(process.execPath, [cli], { cwd: temporary, stdio: ['pipe', 'pipe', 'pipe'] }),
+          async () => { await delay(150); return true }) },
+    }))
+    assert.equal(result.status, 'PLANNER_INVOCATION_COMPLETED')
+    assert.equal(result.exitCode, 0)
+    assert.match(result.redactedStderr, /gated input chunks: 1/)
+    const kinds = events.map(event => event[0])
+    assert.equal(kinds.indexOf('release'), kinds.length - 1, 'release must be the final ownership step of a live run')
+    assert.equal(kinds.includes('abort'), false)
+    assert.equal(events[0][0], 'launch')
+    assert.equal(events[0][1], process.execPath)
+    assert.deepEqual(events[0][2], [cli])
+    assert.equal(events[0][3], temporary)
+    assert.equal(events[0][4], true, 'the leased credential environment must cross into the gate launch')
+    assert.equal(events[0][5], 5000 + 300 + 10_000)
+    assert.equal(result.ownership?.assigned, true)
+  } finally {
+    rmSync(temporary, { recursive: true, force: true })
+  }
+})
+
+test('a gated run aborts the gate and never releases or delivers input without membership', {
+  timeout: 60000,
+}, async () => {
+  const temporary = mkdtempSync(join(tmpdir(), 'dsh861-planner-gate-refused-'))
+  try {
+    const cli = join(temporary, 'stalled-planner.mjs')
+    writeFileSync(cli, 'setInterval(() => {}, 1000)\n')
+    const promptFile = join(temporary, 'plan-input.txt')
+    writeFileSync(promptFile, 'fixed synthetic planning input\n')
+    const events = []
+    const fake = fakeBridge()
+    const result = await invokePlannerOnce(baseSpec(fake.invoke, {
+      prompt: { file: promptFile, sha256: hash(promptFile) },
+      cli: { executable: process.execPath, sha256: hash(process.execPath), args: [cli] },
+      process: { workingDirectory: temporary, environment: {},
+        credentialEnvironmentVariable: 'DSH_SYNTHETIC_CODEX_KEY',
+        deadlineMs: 4000, terminationGraceMs: 300, maxChannelBytes: 65536,
+        ownership: gatedOwner(events,
+          () => spawn(process.execPath, [cli], { cwd: temporary, stdio: ['pipe', 'pipe', 'pipe'] }),
+          async () => false) },
+    }))
+    assert.equal(result.status, 'PLANNER_INVOCATION_CANCELLED')
+    assert.equal(result.cancellationReason, 'OWNERSHIP_FAILED')
+    const kinds = events.map(event => event[0])
+    assert.equal(kinds.includes('release'), false, 'a refused assignment must never start the CLI')
+    assert.equal(kinds.indexOf('abort'), kinds.length - 2, 'abort must precede the termination request')
+    assert.equal(kinds[kinds.length - 1], 'terminate')
+    assert.equal(result.ownership?.assigned, false)
+    assert.equal(result.ownership?.terminationRequested, true)
+  } finally {
+    rmSync(temporary, { recursive: true, force: true })
+  }
+})
+
+test('a late assignment after cancellation aborts the gate instead of starting the CLI', {
+  timeout: 60000,
+}, async () => {
+  const temporary = mkdtempSync(join(tmpdir(), 'dsh861-planner-gate-late-'))
+  try {
+    const cli = join(temporary, 'stalled-planner.mjs')
+    writeFileSync(cli, 'setInterval(() => {}, 1000)\n')
+    const promptFile = join(temporary, 'plan-input.txt')
+    writeFileSync(promptFile, 'fixed synthetic planning input\n')
+    const events = []
+    const fake = fakeBridge()
+    const result = await invokePlannerOnce(baseSpec(fake.invoke, {
+      prompt: { file: promptFile, sha256: hash(promptFile) },
+      cli: { executable: process.execPath, sha256: hash(process.execPath), args: [cli] },
+      process: { workingDirectory: temporary, environment: {},
+        credentialEnvironmentVariable: 'DSH_SYNTHETIC_CODEX_KEY',
+        deadlineMs: 300, terminationGraceMs: 100, maxChannelBytes: 65536,
+        ownership: gatedOwner(events,
+          () => spawn(process.execPath, [cli], { cwd: temporary, stdio: ['pipe', 'pipe', 'pipe'] }),
+          async () => { await delay(600); return true }) },
+    }))
+    await delay(500)
+    assert.equal(result.status, 'PLANNER_INVOCATION_CANCELLED')
+    assert.equal(result.cancellationReason, 'DEADLINE_EXCEEDED')
+    const kinds = events.map(event => event[0])
+    assert.equal(kinds.includes('release'), false, 'an assignment landing after cancellation must never start the CLI')
+    assert.equal(kinds.includes('abort'), true)
+    assert.equal(kinds.includes('terminate'), true)
+    assert.equal(result.ownership?.assigned, false)
   } finally {
     rmSync(temporary, { recursive: true, force: true })
   }

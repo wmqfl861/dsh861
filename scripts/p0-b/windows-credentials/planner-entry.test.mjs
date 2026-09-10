@@ -75,7 +75,7 @@ function writeBreakawayAttempt(directory_) {
     'using System; using System.Runtime.InteropServices;',
     'public static class K {',
     '  [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)] public struct SI { public uint cb; public IntPtr lpReserved; public IntPtr lpDesktop; public IntPtr lpTitle; public uint dwX; public uint dwY; public uint dwXSize; public uint dwYSize; public uint dwXCountChars; public uint dwYCountChars; public uint dwFillAttribute; public uint dwFlags; public short wShowWindow; public short cbReserved2; public IntPtr lpReserved2; public IntPtr hStdInput; public IntPtr hStdOutput; public IntPtr hStdError; }',
-    '  [StructLayout(LayoutKind.Sequential)] public struct PI { public IntPtr hP; public IntPtr hT; }',
+    '  [StructLayout(LayoutKind.Sequential)] public struct PI { public IntPtr hP; public IntPtr hT; public uint dwProcessId; public uint dwThreadId; }',
     '  [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)] public static extern bool CreateProcessW(string app, string cmd, IntPtr pa, IntPtr ta, bool inh, uint fl, IntPtr env, string cwd, ref SI si, ref PI pi);',
     '  [DllImport("kernel32.dll")] public static extern bool CloseHandle(IntPtr h);',
     '}',
@@ -83,9 +83,18 @@ function writeBreakawayAttempt(directory_) {
     'Add-Type -TypeDefinition $src',
     '$si = New-Object K+SI; $si.cb = [Runtime.InteropServices.Marshal]::SizeOf($si)',
     '$pi = New-Object K+PI',
+    // The ABI is verified, not assumed: PROCESS_INFORMATION is two pointers
+    // followed by the dwProcessId and dwThreadId DWORDs the kernel fills.
+    '$handleBytes = [IntPtr]::Size * 2',
+    '$piSize = [Runtime.InteropServices.Marshal]::SizeOf($pi)',
+    "$offPid = [Runtime.InteropServices.Marshal]::OffsetOf([K+PI], 'dwProcessId').ToInt64()",
+    "$offTid = [Runtime.InteropServices.Marshal]::OffsetOf([K+PI], 'dwThreadId').ToInt64()",
+    '[IO.File]::WriteAllText("pi-layout", "size=$piSize;pid@$offPid;tid@$offTid")',
+    'if ($piSize -ne ($handleBytes + 8) -or $offPid -ne $handleBytes -or $offTid -ne ($handleBytes + 4)) { exit 6 }',
     '[IO.File]::WriteAllText("escape-writer.cmd", "@echo off`r`necho %PID% > escape.pid`r`necho start > escape.log`r`n:loop`r`necho %TIME% >> escape.log`r`nping -n 1 -w 300 127.0.0.1 > nul`r`ngoto loop")',
     '$ok = [K]::CreateProcessW("$env:SystemRoot\\System32\\cmd.exe", \'"%SystemRoot%\\System32\\cmd.exe" /c escape-writer.cmd\', [IntPtr]::Zero, [IntPtr]::Zero, $false, 0x01000000, [IntPtr]::Zero, (Get-Location).Path, [ref]$si, [ref]$pi)',
     'if (-not $ok) { [IO.File]::WriteAllText("escape-refused", [Runtime.InteropServices.Marshal]::GetLastWin32Error().ToString()); exit 5 }',
+    'if ($pi.dwProcessId -le 0 -or $pi.dwThreadId -le 0) { [K]::CloseHandle($pi.hP) | Out-Null; [K]::CloseHandle($pi.hT) | Out-Null; [IO.File]::WriteAllText("pi-fields-invalid", "pid=$($pi.dwProcessId);tid=$($pi.dwThreadId)"); exit 7 }',
     '[K]::CloseHandle($pi.hP) | Out-Null; [K]::CloseHandle($pi.hT) | Out-Null',
     'Set-Content -Path escape-holder.pid -Value $PID',
     'while ($true) { Start-Sleep -Milliseconds 250 }',
@@ -122,7 +131,7 @@ function deployment(t, cliOptions = {}) {
   }
   if (cliOptions.breakaway) {
     lines.push(
-      `const attempt = spawn(${JSON.stringify(powershellExecutable)}, ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', ${JSON.stringify(cliOptions.breakaway)}], { stdio: 'ignore' })`,
+      `const attempt = spawn(${JSON.stringify(powershellExecutable)}, ['-NoLogo', '-NoProfile', '-NonInteractive', '-File', ${JSON.stringify(cliOptions.breakaway)}], { stdio: 'ignore' })`,
       "attempt.on('error', () => writeFileSync('breakaway-spawn-error', ''))",
     )
   }
@@ -150,7 +159,8 @@ function deployment(t, cliOptions = {}) {
       redactionLimits: { maxSecrets: 2, maxSecretBytes: 384 } },
     jobOwner: {
       powershellExecutable, directory,
-      sha256: { executable: hash(powershellExecutable), helper: hash(join(directory, 'job-owner.ps1')) },
+      sha256: { executable: hash(powershellExecutable), helper: hash(join(directory, 'job-owner.ps1')),
+        launcher: hash(join(directory, 'launch-gate.mjs')) },
       environment: { SystemRoot: process.env.SystemRoot ?? 'C:\\Windows', TEMP: base, TMP: base },
       replyTimeoutMs: 20000,
     },
@@ -270,6 +280,114 @@ test('cancellation terminates the detached descendant through the owned job', { 
   assert.equal(result.invocation.cleanup.descendantState, 'NOT_VERIFIED')
 })
 
+test('a module-top-level descendant, created before any stdin read, stays contained', { skip: process.platform !== 'win32', timeout: 90000 }, async t => {
+  const { base, workspace, spec } = deployment(t, { deadlineMs: 1500 })
+  const writer = writeWriterScript(base, 'top-level-writer')
+  writeFileSync(join(workspace, 'exec'), [
+    "const { spawn } = require('node:child_process')",
+    "const { writeFileSync } = require('node:fs')",
+    // Module top level: the detached descendant exists before the first stdin
+    // read and before any post-spawn assignment could have landed on this
+    // process, so only containment established before the CLI's first code
+    // runs can own it.
+    `const early = spawn(process.execPath, [${JSON.stringify(writer.file)}], { detached: true, stdio: 'ignore' })`,
+    'early.unref()',
+    "writeFileSync('argv-received.json', JSON.stringify(process.argv.slice(2)))",
+    "writeFileSync('env-received.json', JSON.stringify({ CODEX_HOME: process.env.CODEX_HOME }))",
+    'process.stdin.resume()',
+    "process.stdin.on('end', () => {",
+    "  process.stdout.write('leased echo: ' + process.env.DSH861_CODEX_API_KEY + '\\n')",
+    '})',
+    'setInterval(() => {}, 1000)',
+  ].join('\n'))
+  const bridge = fakeBridge()
+  spec.bridge = bridge.invoke
+  const result = await invokeProjectedPlannerOnce(spec)
+  assert.equal(bridge.observation.reads, 1)
+  assert.equal(result.status, 'PROJECTED_PLANNER_CANCELLED')
+  assert.equal(result.invocation.cancellationReason, 'DEADLINE_EXCEEDED')
+  assert.equal(result.ownership.terminated, true)
+  assert.equal(result.ownership.activeProcessesRemaining, 0)
+  assert.equal(result.ownership.disposed, true)
+  // The target must actually have run: a fix that never starts the CLI would
+  // make every containment assertion below vacuously true.
+  assert.equal(existsSync(join(workspace, 'argv-received.json')), true, 'gated CLI never ran')
+  assert.equal(await heartbeatFrozen(base, 'top-level-writer'), true, 'module-top-level descendant escaped the owned job')
+  assert.equal(pidDead(base, 'top-level-writer'), true)
+})
+
+test('pre-launch containment holds when assignment is slower than CLI startup', { skip: process.platform !== 'win32', timeout: 90000 }, async t => {
+  const base = mkdtempSync(join(tmpdir(), 'dsh861-planner-slowassign-'))
+  const writer = writeWriterScript(base, 'escape-control')
+  const cliScript = join(base, 'cli.mjs')
+  writeFileSync(cliScript, [
+    "import { spawn } from 'node:child_process'",
+    "import { writeFileSync } from 'node:fs'",
+    // Module top level: the detached descendant exists before the first stdin
+    // read. A bare spawn leaves this descendant outside any assignment that
+    // has not landed yet; only creating the CLI after the launcher joined the
+    // owned job contains it.
+    `const early = spawn(process.execPath, [${JSON.stringify(writer.file)}], { detached: true, stdio: 'ignore' })`,
+    'early.unref()',
+    "writeFileSync('cli-ran-marker', 'ran')",
+    "process.stdout.write('leased echo: ' + process.env.DSH_SEAM_KEY + '\\n')",
+    'setInterval(() => {}, 1000)',
+  ].join('\n'))
+  const promptFile = join(base, 'input.txt')
+  writeFileSync(promptFile, 'fixed slow-assignment control input\n')
+  const realOwner = await createProcessJobOwner({
+    powershellExecutable, directory,
+    sha256: { executable: hash(powershellExecutable), helper: hash(join(directory, 'job-owner.ps1')),
+      launcher: hash(join(directory, 'launch-gate.mjs')) },
+    environment: { SystemRoot: process.env.SystemRoot ?? 'C:\\Windows', TEMP: base, TMP: base },
+    replyTimeoutMs: 20000,
+  })
+  // Deterministic race loss: assignment completes 500ms after the process
+  // exists, well past a node module top level, so the gate is the only thing
+  // standing between the early descendant and an unowned escape.
+  const ownership = {
+    launch: request => realOwner.launchGated(request),
+    assign: async pid => { await delay(500); return realOwner.assign(pid) },
+    release: () => realOwner.releaseGated(),
+    abort: () => realOwner.abortGated(),
+    terminateOwned: () => realOwner.terminateOwned(),
+  }
+  const bridge = fakeBridge()
+  try {
+    const result = await invokePlannerOnce({
+      approval: { record: 'r', transportEvidenceRecord: 't', subject: { agent: 'codex', model: 'gpt-6-astra',
+        reasoningEffort: 'max', baseUrl: 'https://approved.example.invalid/v1' } },
+      route: { provider: 'my-gpt', model: 'gpt-6-astra', reasoningEffort: 'max',
+        baseUrl: 'https://approved.example.invalid/v1', credentialRef: 'secret-reference:providers/codex' },
+      prompt: { file: promptFile, sha256: hash(promptFile) },
+      cli: { executable: process.execPath, sha256: hash(process.execPath), args: [cliScript] },
+      bridge: bridge.invoke,
+      process: { workingDirectory: base, environment: { SystemRoot: process.env.SystemRoot ?? 'C:\\Windows' },
+        credentialEnvironmentVariable: 'DSH_SEAM_KEY',
+        deadlineMs: 6000, terminationGraceMs: 300, maxChannelBytes: 4096, ownership },
+      redactionLimits: { maxSecrets: 1, maxSecretBytes: 384 },
+    })
+    assert.equal(bridge.observation.reads, 1)
+    assert.equal(result.status, 'PLANNER_INVOCATION_CANCELLED')
+    assert.equal(result.cancellationReason, 'DEADLINE_EXCEEDED')
+    assert.equal(result.ownership?.assigned, true)
+    assert.equal(result.ownership?.terminationRequested, true)
+    assert.equal(result.redactedStdout.includes(leasedValue), false)
+    // The CLI must actually have run: a gate that never releases would make
+    // every containment assertion below vacuously true.
+    assert.equal(existsSync(join(base, 'cli-ran-marker')), true, 'gated CLI never ran')
+    assert.equal(await heartbeatFrozen(base, 'escape-control'), true, 'module-top-level descendant escaped the owned job')
+    assert.equal(pidDead(base, 'escape-control'), true)
+  } finally {
+    await realOwner.dispose().catch(() => {})
+    // Cleanup retries never mask the verdict: Windows keeps the directory
+    // while a survivor still holds it as its working directory.
+    for (let attempt = 0; attempt < 10; attempt++) {
+      try { rmSync(base, { recursive: true, force: true }); break } catch { await delay(250) }
+    }
+  }
+})
+
 test('normal completion still terminates surviving descendants of the run', { skip: process.platform !== 'win32', timeout: 90000 }, async t => {
   const { base, spec, workspace } = deployment(t, { stall: false, deadlineMs: 20000 })
   const writer = writeWriterScript(base, 'survivor')
@@ -301,8 +419,11 @@ test('explicit breakaway out of the owned job fails closed', { skip: process.pla
     "const { writeFileSync } = require('node:fs')",
     'process.stdin.resume()',
     "process.stdin.on('end', () => {",
-    `  const ps = spawn(${JSON.stringify(powershellExecutable)}, ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', ${JSON.stringify(attempt)}], { stdio: 'ignore' })`,
+    `  const ps = spawn(${JSON.stringify(powershellExecutable)}, ['-NoLogo', '-NoProfile', '-NonInteractive', '-File', ${JSON.stringify(attempt)}], { stdio: ['ignore', 'ignore', 'pipe'] })`,
     "  ps.on('error', () => writeFileSync('breakaway-spawn-error', ''))",
+    "  let psErr = ''",
+    "  ps.stderr.on('data', c => { psErr += c })",
+    "  ps.on('exit', c => { writeFileSync('breakaway-ps-exit', String(c)); if (psErr) writeFileSync('breakaway-ps-stderr', psErr) })",
     '})',
     'setInterval(() => {}, 1000)',
   ].join('\n'))
@@ -318,6 +439,26 @@ test('explicit breakaway out of the owned job fails closed', { skip: process.pla
   const refused = existsSync(join(workspace, 'escape-refused')) && !existsSync(join(workspace, 'escape.log'))
   const contained = existsSync(join(workspace, 'escape.log'))
     && await beatFrozen(workspace, 'escape.log') && pidDeadByFile(join(workspace, 'escape.pid'))
+  const layoutFile = join(workspace, 'pi-layout')
+  if (!existsSync(layoutFile) && !refused && !contained) {
+    // The probe itself never ran: under a host policy that blocks unsigned
+    // script files this is an explicit block, never a containment pass.
+    const psExit = existsSync(join(workspace, 'breakaway-ps-exit')) ? readFileSync(join(workspace, 'breakaway-ps-exit'), 'utf8') : 'missing'
+    const psStderr = existsSync(join(workspace, 'breakaway-ps-stderr')) ? readFileSync(join(workspace, 'breakaway-ps-stderr'), 'utf8') : ''
+    assert.fail(`breakaway probe never ran under the host execution policy (powershell exit=${psExit}): ${psStderr.slice(0, 300)}`)
+  }
+  if (existsSync(layoutFile)) {
+    // PROCESS_INFORMATION: two pointer-width handles, then the two DWORDs.
+    const layout = readFileSync(layoutFile, 'utf8')
+    const size = Number(/size=(\d+)/.exec(layout)?.[1])
+    const pidAt = Number(/pid@(\d+)/.exec(layout)?.[1])
+    const tidAt = Number(/tid@(\d+)/.exec(layout)?.[1])
+    t.diagnostic(`PROCESS_INFORMATION layout: ${layout}`)
+    assert.equal(pidAt, size - 8, 'dwProcessId must sit after both handles')
+    assert.equal(tidAt, pidAt + 4, 'dwThreadId must follow dwProcessId')
+    assert.equal(size, tidAt + 4, 'struct must end after the two DWORDs')
+    assert.equal(existsSync(join(workspace, 'pi-fields-invalid')), false, 'kernel-filled dwProcessId/dwThreadId were absent with the completed struct')
+  }
   t.diagnostic(`breakaway containment mode: ${refused ? 'spawn-refused' : contained ? 'contained-and-terminated' : 'ESCAPED'}`)
   assert.ok(refused || contained, 'a process broke away from the owned job and stayed alive')
 })
@@ -372,7 +513,7 @@ test('owner death is fail-safe: stdin EOF closes the job and kills the tree', { 
     "import { statSync, writeFileSync } from 'node:fs'",
     `const { createProcessJobOwner } = await import(${JSON.stringify('file:///' + join(directory, 'windows-job-owner.ts').replaceAll('\\', '/'))})`,
     `const owner = await createProcessJobOwner({ powershellExecutable: ${JSON.stringify(powershellExecutable)}, directory: ${JSON.stringify(directory.replaceAll('\\', '/'))},`,
-    `  sha256: { executable: ${JSON.stringify(hash(powershellExecutable))}, helper: ${JSON.stringify(hash(join(directory, 'job-owner.ps1')))} },`,
+    `  sha256: { executable: ${JSON.stringify(hash(powershellExecutable))}, helper: ${JSON.stringify(hash(join(directory, 'job-owner.ps1')))}, launcher: ${JSON.stringify(hash(join(directory, 'launch-gate.mjs')))} },`,
     `  environment: { SystemRoot: process.env.SystemRoot, TEMP: ${JSON.stringify(base.replaceAll('\\', '/'))}, TMP: ${JSON.stringify(base.replaceAll('\\', '/'))} }, replyTimeoutMs: 20000 })`,
     `const child = spawn(process.execPath, [${JSON.stringify(writer.file.replaceAll('\\', '/'))}], { detached: true, stdio: 'ignore' })`,
     'child.unref()',
@@ -395,7 +536,8 @@ test('operations after disposal report failure instead of containment', { skip: 
   const base = mkdtempSync(join(tmpdir(), 'dsh861-planner-disposed-'))
   const owner = await createProcessJobOwner({
     powershellExecutable, directory,
-    sha256: { executable: hash(powershellExecutable), helper: hash(join(directory, 'job-owner.ps1')) },
+    sha256: { executable: hash(powershellExecutable), helper: hash(join(directory, 'job-owner.ps1')),
+      launcher: hash(join(directory, 'launch-gate.mjs')) },
     environment: { SystemRoot: process.env.SystemRoot ?? 'C:\\Windows', TEMP: base, TMP: base },
     replyTimeoutMs: 20000,
   })

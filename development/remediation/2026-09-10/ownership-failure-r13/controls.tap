@@ -1,0 +1,162 @@
+TAP version 13
+# (node:657) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: ownership false never delivers the pinned prompt
+ok 1 - ownership false never delivers the pinned prompt
+  ---
+  duration_ms: 172.833781
+  type: 'test'
+  ...
+# Subtest: ownership rejected never delivers the pinned prompt
+ok 2 - ownership rejected never delivers the pinned prompt
+  ---
+  duration_ms: 52.952969
+  type: 'test'
+  ...
+# Subtest: ownership synchronous throw never delivers the pinned prompt
+ok 3 - ownership synchronous throw never delivers the pinned prompt
+  ---
+  duration_ms: 53.360875
+  type: 'test'
+  ...
+# Subtest: ownership success after deadline cannot deliver input
+ok 4 - ownership success after deadline cannot deliver input
+  ---
+  duration_ms: 67.396191
+  type: 'test'
+  ...
+# Subtest: exit before ownership settles cannot report completed input
+ok 5 - exit before ownership settles cannot report completed input
+  ---
+  duration_ms: 41.266573
+  type: 'test'
+  ...
+# Subtest: confirmed ownership delivers once and preserves ordinary completion
+ok 6 - confirmed ownership delivers once and preserves ordinary completion
+  ---
+  duration_ms: 37.64281
+  type: 'test'
+  ...
+# Subtest: throwing termination callback cannot break bounded cancellation
+ok 7 - throwing termination callback cannot break bounded cancellation
+  ---
+  duration_ms: 37.13311
+  type: 'test'
+  ...
+# Subtest: owner assign rejects contradictory ok=false success fields
+ok 8 - owner assign rejects contradictory ok=false success fields
+  ---
+  duration_ms: 16.276767
+  type: 'test'
+  ...
+# Subtest: owner terminate rejects contradictory ok=false success fields
+ok 9 - owner terminate rejects contradictory ok=false success fields
+  ---
+  duration_ms: 16.87503
+  type: 'test'
+  ...
+# Subtest: negative active count is invalid evidence, not a valid count
+ok 10 - negative active count is invalid evidence, not a valid count
+  ---
+  duration_ms: 20.677975
+  type: 'test'
+  ...
+# Subtest: owner protocol refuses oversized incomplete output immediately
+ok 11 - owner protocol refuses oversized incomplete output immediately
+  ---
+  duration_ms: 12.688987
+  type: 'test'
+  ...
+# Subtest: dispose waits for observed helper close, not just an acknowledgement
+ok 12 - dispose waits for observed helper close, not just an acknowledgement
+  ---
+  duration_ms: 13.695454
+  type: 'test'
+  ...
+# Subtest: dispose rejects a helper that acknowledges but does not exit
+ok 13 - dispose rejects a helper that acknowledges but does not exit
+  ---
+  duration_ms: 95.867893
+  type: 'test'
+  ...
+# Subtest: failed disposal reply cannot resolve as successful cleanup
+ok 14 - failed disposal reply cannot resolve as successful cleanup
+  ---
+  duration_ms: 12.725572
+  type: 'test'
+  ...
+# Subtest: prior protocol failure cannot make later disposal report success
+ok 15 - prior protocol failure cannot make later disposal report success
+  ---
+  duration_ms: 11.277057
+  type: 'test'
+  ...
+# Subtest: a valid dispose acknowledgement and clean close allow idempotent disposal
+ok 16 - a valid dispose acknowledgement and clean close allow idempotent disposal
+  ---
+  duration_ms: 11.241533
+  type: 'test'
+  ...
+# Subtest: null protocol reply becomes a fixed error without escaping an event callback
+ok 17 - null protocol reply becomes a fixed error without escaping an event callback
+  ---
+  duration_ms: 11.978906
+  type: 'test'
+  ...
+# Subtest: entry cannot label termination refused as completed cleanup
+ok 18 - entry cannot label termination refused as completed cleanup
+  ---
+  duration_ms: 10.464451
+  type: 'test'
+  ...
+# Subtest: entry cannot label members remain as completed cleanup
+ok 19 - entry cannot label members remain as completed cleanup
+  ---
+  duration_ms: 6.427543
+  type: 'test'
+  ...
+# Subtest: entry cannot label count unknown as completed cleanup
+ok 20 - entry cannot label count unknown as completed cleanup
+  ---
+  duration_ms: 5.927769
+  type: 'test'
+  ...
+# Subtest: entry cannot label disposal failed as completed cleanup
+ok 21 - entry cannot label disposal failed as completed cleanup
+  ---
+  duration_ms: 9.706228
+  type: 'test'
+  ...
+# Subtest: entry preserves cleanup facts when invocation throws
+ok 22 - entry preserves cleanup facts when invocation throws
+  ---
+  duration_ms: 5.819807
+  type: 'test'
+  ...
+# Subtest: entry reserves a fresh run root before creating children
+ok 23 - entry reserves a fresh run root before creating children
+  ---
+  duration_ms: 5.582269
+  type: 'test'
+  ...
+# Subtest: missing approval references refuse before materialization
+ok 24 - missing approval references refuse before materialization
+  ---
+  duration_ms: 5.902832
+  type: 'test'
+  ...
+# Subtest: entry returns completed only with observed assigned and empty disposed job
+ok 25 - entry returns completed only with observed assigned and empty disposed job
+  ---
+  duration_ms: 8.64649
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1152.206725

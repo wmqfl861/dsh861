@@ -44,15 +44,16 @@ export interface ProjectedPlannerEntrySpec {
 /** Containment facts from the owned job; `terminated` false never means success. */
 export interface ProjectedPlannerOwnershipReceipt {
   assignmentRequested: boolean
+  assigned: boolean
   terminated: boolean
   activeProcessesRemaining: number
   disposed: boolean
 }
 
 export type ProjectedPlannerEntryResult =
-  | { status: 'PROJECTED_PLANNER_REFUSED'; code: string; productAccepted: false }
+  | { status: 'PROJECTED_PLANNER_REFUSED'; code: string; ownership?: ProjectedPlannerOwnershipReceipt; productAccepted: false }
   | {
-    status: 'PROJECTED_PLANNER_COMPLETED' | 'PROJECTED_PLANNER_CANCELLED'
+    status: 'PROJECTED_PLANNER_COMPLETED' | 'PROJECTED_PLANNER_CANCELLED' | 'PROJECTED_PLANNER_CLEANUP_BLOCKED'
     invocation: PlannerInvocationResult
     ownership: ProjectedPlannerOwnershipReceipt
     publicConfigSha256: string
@@ -68,6 +69,16 @@ export type ProjectedPlannerEntryResult =
  * @returns a refused result or one invocation plus its ownership receipt.
  */
 export async function invokeProjectedPlannerOnce(spec: ProjectedPlannerEntrySpec): Promise<ProjectedPlannerEntryResult> {
+  spec = { ...spec,
+    input: { ...spec.input, toolDirectories: [...spec.input.toolDirectories] },
+    approval: { ...spec.approval, subject: { ...spec.approval.subject } },
+    prompt: { ...spec.prompt },
+    bounds: { ...spec.bounds, redactionLimits: { ...spec.bounds.redactionLimits } },
+    jobOwner: { ...spec.jobOwner, sha256: { ...spec.jobOwner.sha256 }, environment: { ...spec.jobOwner.environment } },
+  }
+  if (!spec.approval.record.trim() || !spec.approval.transportEvidenceRecord.trim()) {
+    return { status: 'PROJECTED_PLANNER_REFUSED', code: 'PLANNER_APPROVAL_INVALID', productAccepted: false }
+  }
   let projection: CodexLaunchProjection
   try {
     projection = projectCodexLaunch(spec.configuration, spec.trustedLock, spec.input)
@@ -85,8 +96,11 @@ export async function invokeProjectedPlannerOnce(spec: ProjectedPlannerEntrySpec
   // Caller-owned materialization: the projection deliberately writes nothing.
   const runDirectories = ['home', 'codex-home', 'tmp', 'config', 'cache', 'data', 'state']
   try {
-    for (const directory of runDirectories) await mkdir(join(projection.runRoot, directory), { recursive: true })
-    await writeFile(projection.configFile, projection.configToml, { flag: 'wx' })
+    // Reserving the root exclusively rejects reused directories and existing links.
+    // Its parent and Windows ACL still have to be controlled by the trusted caller.
+    await mkdir(projection.runRoot, { mode: 0o700 })
+    for (const directory of runDirectories) await mkdir(join(projection.runRoot, directory), { mode: 0o700 })
+    await writeFile(projection.configFile, projection.configToml, { flag: 'wx', mode: 0o600 })
   } catch {
     return { status: 'PROJECTED_PLANNER_REFUSED', code: 'PROJECTED_PLANNER_RUNROOT_UNAVAILABLE', productAccepted: false }
   }
@@ -99,10 +113,12 @@ export async function invokeProjectedPlannerOnce(spec: ProjectedPlannerEntrySpec
   }
   const owner: ProcessJobOwner = ownerAttempt.owner
   const receipt: ProjectedPlannerOwnershipReceipt = {
-    assignmentRequested: false, terminated: false, activeProcessesRemaining: -1, disposed: false,
+    assignmentRequested: false, assigned: false, terminated: false, activeProcessesRemaining: -1, disposed: false,
   }
+  let result: PlannerInvocationResult | undefined
+  let refusalCode: string | undefined
   try {
-    const result = await invokePlannerOnce({
+    result = await invokePlannerOnce({
       approval: spec.approval,
       route: projection.route,
       prompt: spec.prompt,
@@ -120,24 +136,27 @@ export async function invokeProjectedPlannerOnce(spec: ProjectedPlannerEntrySpec
       redactionLimits: spec.bounds.redactionLimits,
     })
     receipt.assignmentRequested = result.ownership?.assignmentRequested ?? false
-    // Terminate survivors of both completion and cancellation, then count what
-    // the owned job still holds; only the owner can certify its own scope.
-    receipt.terminated = await owner.terminateOwned()
-    receipt.activeProcessesRemaining = await owner.activeProcesses()
-    return {
-      status: result.status === 'PLANNER_INVOCATION_COMPLETED' ? 'PROJECTED_PLANNER_COMPLETED' : 'PROJECTED_PLANNER_CANCELLED',
-      invocation: result,
-      ownership: receipt,
-      publicConfigSha256: projection.publicConfigSha256,
-      productAccepted: false,
-    }
+    receipt.assigned = result.ownership?.assigned ?? false
   } catch (error) {
-    const code = error instanceof PlannerInvocationError ? error.code : 'PLANNER_INVOCATION_FAILED'
-    return { status: 'PROJECTED_PLANNER_REFUSED', code, productAccepted: false }
+    refusalCode = error instanceof PlannerInvocationError ? error.code : 'PLANNER_INVOCATION_FAILED'
   } finally {
-    try {
-      await owner.dispose()
-      receipt.disposed = true
-    } catch { /* disposal failure cannot restore the tree; receipt stays false */ }
+    // Keep all cleanup facts, including invocation failures and unknown job counts.
+    try { receipt.terminated = await owner.terminateOwned() } catch { /* retained false */ }
+    try { receipt.activeProcessesRemaining = await owner.activeProcesses() } catch { /* retained -1 */ }
+    try { await owner.dispose(); receipt.disposed = true } catch { /* retained false; no proof of disposal */ }
+  }
+  if (!result) {
+    return { status: 'PROJECTED_PLANNER_REFUSED', code: refusalCode ?? 'PLANNER_INVOCATION_FAILED',
+      ownership: receipt, productAccepted: false }
+  }
+  const cleanupComplete = receipt.assigned && receipt.terminated
+    && receipt.activeProcessesRemaining === 0 && receipt.disposed
+  return {
+    status: !cleanupComplete ? 'PROJECTED_PLANNER_CLEANUP_BLOCKED'
+      : result.status === 'PLANNER_INVOCATION_COMPLETED' ? 'PROJECTED_PLANNER_COMPLETED' : 'PROJECTED_PLANNER_CANCELLED',
+    invocation: result,
+    ownership: receipt,
+    publicConfigSha256: projection.publicConfigSha256,
+    productAccepted: false,
   }
 }

@@ -77,20 +77,42 @@ export type PlannerCancellationReason =
   | 'OWNERSHIP_FAILED'
 
 /**
- * Explicit process-tree ownership for the spawned CLI. The fixed input is
- * delivered only after assignment settles, so descendants created on input
- * receipt join the owned scope; CLI startup work that spawns before assignment
- * completes may still never join. Callers verify containment through the owner,
- * not this seam.
+ * One CLI start through the caller's owned launcher. The environment carries
+ * the leased credential to the CLI through the launcher; nothing else crosses.
+ */
+export interface PlannerLaunchRequest {
+  executable: string
+  args: readonly string[]
+  workingDirectory: string
+  environment: Readonly<Record<string, string>>
+  /** Bounded pre-release wait handed to the launcher, derived from the run bounds. */
+  maxWaitMs: number
+}
+
+/**
+ * Explicit process-tree ownership for the spawned CLI. With launch(), the CLI
+ * is created by the gated launcher only after assign() confirms the launcher
+ * PID joined the owned scope, so the CLI's first code runs inside containment
+ * and every descendant it creates joins the same scope. Without launch(), the
+ * CLI is spawned directly and the fixed input is still delivered only after
+ * assignment succeeds on a live, uncancelled invocation, but CLI startup work
+ * racing the assignment is not contained. Callers verify containment through
+ * the owner, not this seam.
  */
 export interface PlannerProcessOwnership {
-  /** Join the spawned PID into the caller-owned containment scope. */
+  /** Start the CLI through the owned launcher instead of a bare spawn. */
+  launch?(request: PlannerLaunchRequest): ChildProcessWithoutNullStreams
+  /** Join the spawned launcher PID into the caller-owned containment scope. */
   assign(pid: number): Promise<boolean>
+  /** Allow the gated CLI start; the seam calls this only after assign() succeeded. */
+  release?(): void
+  /** End the gate without creating the CLI; the seam calls this whenever containment was not established. */
+  abort?(): void
   /** Terminate every member of that scope; false means termination was not confirmed. */
   terminateOwned(): Promise<boolean>
 }
 
-/** Ownership facts observed by the wrapper; never a claim of tree-wide verification. */
+/** Ownership facts observed by the wrapper; with launch() they describe the gated launcher PID. */
 export interface PlannerOwnershipReport {
   assignmentRequested: boolean
   assigned: boolean
@@ -284,7 +306,8 @@ function collectProcess(
         // Tree termination runs alongside the direct-child signal; confirmation
         // stays with the owner because this fire-and-forget cannot await it.
         ownership.terminationRequested = true
-        void spec.process.ownership.terminateOwned().then(() => {}, () => {})
+        const owner = spec.process.ownership
+        void Promise.resolve().then(() => owner.terminateOwned()).then(() => {}, () => {})
       }
       cleanupTimer = setTimeout(() => {
         if (settled) return
@@ -310,6 +333,9 @@ function collectProcess(
     }
     const finish = (): void => {
       if (settled) return
+      if (spec.process.ownership && !ownership.assigned && cancellation === undefined) {
+        cancel('OWNERSHIP_FAILED')
+      }
       if (cancellation === undefined) {
         try {
           accept('stdout', stdoutRedactor.finish())
@@ -339,42 +365,26 @@ function collectProcess(
         productAccepted: false,
       })
     }
+    const owner = spec.process.ownership
+    const launch = owner?.launch?.bind(owner)
+    const releaseGate = owner?.release?.bind(owner)
+    const abortGate = owner?.abort?.bind(owner)
     try {
-      child = spawn(spec.cli.executable, [...spec.cli.args], {
-        cwd: spec.process.workingDirectory,
-        env: { ...spec.process.environment, ...environment },
-        stdio: ['pipe', 'pipe', 'pipe'], shell: false, windowsHide: true,
-      })
+      child = launch
+        ? launch({ executable: spec.cli.executable, args: [...spec.cli.args],
+          workingDirectory: spec.process.workingDirectory, environment: { ...spec.process.environment, ...environment },
+          maxWaitMs: spec.process.deadlineMs + spec.process.terminationGraceMs + 10_000 })
+        : spawn(spec.cli.executable, [...spec.cli.args], {
+          cwd: spec.process.workingDirectory,
+          env: { ...spec.process.environment, ...environment },
+          stdio: ['pipe', 'pipe', 'pipe'], shell: false, windowsHide: true,
+        })
     } catch {
       cancellation = 'SPAWN_ERROR'
       finish()
       return
     }
     const processHandle = child
-    const deliverInput = (): void => {
-      try { processHandle.stdin.end(promptBytes) } catch { cancel('INPUT_DELIVERY_FAILED') }
-    }
-    if (spec.process.ownership && processHandle.pid) {
-      ownership.assignmentRequested = true
-      spec.process.ownership.assign(processHandle.pid)
-        .then((value) => {
-          ownership.assigned = value
-          // A live unassigned CLI means containment is not established: refuse.
-          if (!value && !settled && !directChildExitObserved && cancellation === undefined) {
-            cancel('OWNERSHIP_FAILED')
-          }
-          deliverInput()
-        }, () => {
-          ownership.assigned = false
-          if (!settled && !directChildExitObserved && cancellation === undefined) {
-            cancel('OWNERSHIP_FAILED')
-          }
-          deliverInput()
-        })
-    } else {
-      // Without ownership the fixed input still flows immediately.
-      deliverInput()
-    }
     deadlineTimer = setTimeout(() => { cancel('DEADLINE_EXCEEDED') }, spec.process.deadlineMs)
     processHandle.on('error', () => {
       cancel('SPAWN_ERROR')
@@ -397,5 +407,39 @@ function collectProcess(
     processHandle.stderr.on('error', () => { cancel('STREAM_ERROR') })
     processHandle.stdin.on('error', () => { cancel('INPUT_DELIVERY_FAILED') })
     processHandle.on('close', () => { stdioCloseObserved = true; finish() })
+    const deliverInput = (): void => {
+      if (settled || cancellation !== undefined || directChildExitObserved
+        || (spec.process.ownership && !ownership.assigned)) return
+      try { processHandle.stdin.end(promptBytes) } catch { cancel('INPUT_DELIVERY_FAILED') }
+    }
+    if (owner && processHandle.pid) {
+      ownership.assignmentRequested = true
+      const pid = processHandle.pid
+      // The owner may reject synchronously, and assignment can finish after cancellation.
+      void Promise.resolve().then(() => owner.assign(pid)).then((assigned) => {
+        if (settled || cancellation !== undefined || directChildExitObserved) {
+          // The gate was never released, so ending it cannot strand a started CLI.
+          try { abortGate?.() } catch { /* the direct kill still ends the gate */ }
+          if (assigned) {
+            void Promise.resolve().then(() => owner.terminateOwned()).then(() => {}, () => {})
+          }
+          return
+        }
+        ownership.assigned = assigned
+        if (!assigned) {
+          try { abortGate?.() } catch { /* the direct kill still ends the gate */ }
+          cancel('OWNERSHIP_FAILED')
+          return
+        }
+        // With a gate, this release is the membership confirmation that starts the CLI.
+        try { releaseGate?.() } catch { cancel('OWNERSHIP_FAILED'); return }
+        deliverInput()
+      }, () => {
+        try { abortGate?.() } catch { /* the direct kill still ends the gate */ }
+        cancel('OWNERSHIP_FAILED')
+      })
+    } else if (!owner) {
+      deliverInput()
+    }
   })
 }
