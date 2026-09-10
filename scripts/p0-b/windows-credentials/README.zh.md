@@ -49,6 +49,12 @@ Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不
 
 一个 CLI 可以发送多次模型请求；这些边界不是金额或逐请求限额。进程完成，即使退出零，也不等于可用计划、已验证模型身份或产品验收。调用方必须检查终止／采集状态、退出码／信号、泄漏、原生事件、返回计划及所需外部证据。合成测试不包含真实模型调用。
 
+## 无密钥 Codex 启动配置生成
+
+[codex-launch-projection.mjs](codex-launch-projection.mjs)调用实际模型锁校验器，将获准 Codex 路由转换为固定 argv、TOML 配置和显式隔离路径环境。它拒绝 HTTP、锁不匹配、未知输入字段、工作区与运行目录重叠以及不安全路径。提供商、模型、思考等级和凭据引用只来自已批准声明；生成配置只有环境变量名，没有其值。Shell 环境排除密钥，不继承模型进程的环境。
+
+结果为 `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`。该函数不读取凭据、不写配置、不创建目录、不批准请求，也不启动进程。可信调用方必须准备自有目录，并在执行前核验钉版 CLI 的配置发现、原生设置与操作系统强制只读范围。批准引用、HTTPS 字符串、生成的 `CODEX_HOME` 或配置生成成功，都不是授权、证书验证、隔离、金额预算控制或后代静止的证明。生产调用方及这些运行时控制仍需接入；合成 HTTPS fixture 不改变所有者当前的 HTTP 路由。
+
 ## 验证
 
 在已安装仓库钉版依赖的工作副本中运行：
@@ -57,6 +63,7 @@ Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不
 node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
+node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 ```
 
 第一组测试明确模拟原生通道，验证协议、真实 RSA 运算、引用限制和现有租约。可选的 `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` 仅供离线验证选择独立编译的 JavaScript；正常仓库执行不能设置它。
@@ -65,7 +72,7 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 
 远端验证边界及实际测试文件哈希见 [r07 回执](../../../development/remediation/2026-09-10/credential-store-r07/verification.json)；Windows 本机原生结果、修复后的解析兼容行布局及本轮文件哈希记录在 [r08 回执](../../../development/remediation/2026-09-10/credential-store-r08/verification.json)。Linux 测试不被描述为隐藏输入或原生凭据存储已经成功。
 
-规划测试使用合成 Node 进程、模拟的密封对端和真实租约／脱敏代码，覆盖 UTF-8 与 EOF 限额、输入失败、异步等待后修改、刻意存活的继承管道持有者、正常完成后仍存活的后代，以及一次取消与一个并发不受影响的调用。POSIX 上管道持有者与存活后代会越过包装器的有界返回；Windows 上两种状态都不可构造——libuv 在直接子进程退出时关闭 kill-on-close 作业对象，由操作系统终止其后代——测试改为断言该终止，包装器仍如实报告 `NOT_VERIFIED`，因为它两种结果都不观察。测试自身的后代由测试停止。确切的本地／远端执行边界见 [r09 回执](../../../development/remediation/2026-09-10/planner-bounds-r09/verification.json)与 [r10 回执](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json)。
+规划测试使用合成 Node 进程和模拟密封对端。POSIX 保留继承管道断言，包括 `forcedPipeClosure`；detached 后代用于验证直接子进程退出后仍存活的情形。心跳创建后才发布就绪，观察器要求心跳实际推进。心跳缺失、不可读或冻结都不能证明终止。清理要求测试所属进程确认停止，不以过期时间戳替代。包装器保持 `descendantState=NOT_VERIFIED`；fixture 的协作清理不代表产品进程树限制。[r11 回执](../../../development/remediation/2026-09-10/planner-observer-r11/verification.json)限定了保留原样的 [r10 回执](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json)中的生命周期结论。
 
 ## 规划前置条件
 

@@ -13,29 +13,30 @@ const key = 'SYNTHETIC-BOUNDS-KEY-d79a14'
 const digest = bytes => createHash('sha256').update(bytes).digest('hex')
 const executableHash = digest(readFileSync(process.execPath))
 
-/** Descendant liveness proof that survives pid reuse in this busy runner. */
-function descendantBeating(beatFile) {
-  try {
-    return Date.now() - statSync(beatFile).mtimeMs < 1000
-  } catch {
-    return false
+/** Missing/unreadable heartbeat evidence is an error, never proof of process exit. */
+function heartbeatStamp(beatFile) {
+  return statSync(beatFile).mtimeMs
+}
+
+async function assertHeartbeatAdvances(beatFile, waitMs) {
+  const first = heartbeatStamp(beatFile)
+  const end = performance.now() + waitMs
+  while (performance.now() < end) {
+    if (heartbeatStamp(beatFile) > first) return
+    await delay(20)
   }
+  assert.fail('owned descendant heartbeat did not advance; exit is NOT established')
 }
 
-async function descendantTerminated(beatFile, waitMs) {
-  const end = Date.now() + waitMs
-  while (descendantBeating(beatFile) && Date.now() < end) await delay(50)
-  return !descendantBeating(beatFile)
-}
-
-/** Shared synthetic descendant: files only, no inherited wrapper channels. */
+/** Readiness is written only after the heartbeat exists. No heartbeat errors are swallowed. */
 function descendantProgram() {
   return [
     "import { existsSync, utimesSync, writeFileSync } from 'node:fs'",
-    "writeFileSync('descendant.started', '')",
+    "writeFileSync('descendant.beat', '', { flag: 'wx' })",
     "writeFileSync('descendant.pid', String(process.pid))",
-    "const touch = () => { try { const now = new Date(); utimesSync('descendant.beat', now, now) } catch {} }",
+    "const touch = () => { const now = new Date(); utimesSync('descendant.beat', now, now) }",
     'touch()',
+    "writeFileSync('descendant.started', '')",
     "setInterval(touch, 100)",
     "const done = () => { writeFileSync('descendant.exiting', ''); process.exit(0) }",
     "setInterval(() => { if (existsSync('descendant.stop')) done() }, 20)",
@@ -48,18 +49,16 @@ function fixture(t, program) {
   const startedFile = join(directory, 'descendant.started')
   const exitingFile = join(directory, 'descendant.exiting')
   const stopFile = join(directory, 'descendant.stop')
-  const beatFile = join(directory, 'descendant.beat')
   t.after(async () => {
     if (existsSync(startedFile)) {
       writeFileSync(stopFile, '')
-      const end = Date.now() + 5000
-      // The descendant either acknowledges the stop file, or Windows already
-      // terminated it in the job object closed when its spawner exited.
-      while (descendantBeating(beatFile) && !existsSync(exitingFile) && Date.now() < end) await delay(20)
-      assert.ok(existsSync(exitingFile) || !descendantBeating(beatFile),
-        'owned descendant neither acknowledged cleanup nor exited')
+      const end = performance.now() + 5000
+      // Cooperative test-fixture cleanup, NOT a wrapper/OS termination receipt.
+      while (!existsSync(exitingFile) && performance.now() < end) await delay(20)
+      assert.equal(existsSync(exitingFile), true,
+        'owned descendant did not acknowledge test cleanup; preserve its directory')
     }
-    // A just-terminated descendant releases its working directory asynchronously.
+    // Windows may briefly retain file handles after cooperative test cleanup.
     const removeEnd = Date.now() + 2000
     for (;;) {
       try {
@@ -209,17 +208,16 @@ test('failed prompt delivery is not reported as a completed planning input', asy
 })
 
 test('deadline returns with an unverified descendant even when inherited pipes stay open', { timeout: 20000 }, async t => {
-  // POSIX shares pipe file descriptors with descendants, so the direct child
-  // can exit while a descendant still holds the wrapper's channels. Windows
-  // terminates the whole spawn job when the direct child exits, so a descendant
-  // cannot outlive it there; that branch instead keeps the direct child alive
-  // past the deadline holding its own channels and still proves the bounded
-  // return leaves the descendant unverified.
+  // POSIX exercises inherited descriptors after parent exit. Windows exercises
+  // a still-running parent at cancellation and an explicitly detached Node
+  // descendant. Neither case asserts that libuv owns arbitrary product trees.
   const pipesSurviveChildExit = process.platform !== 'win32'
   const { directory, spec } = fixture(t, [
     "import { spawn } from 'node:child_process'",
     "import { existsSync } from 'node:fs'",
-    "const child = spawn(process.execPath, ['descendant.mjs'], { stdio: ['ignore', 1, 2] })",
+    pipesSurviveChildExit
+      ? "const child = spawn(process.execPath, ['descendant.mjs'], { stdio: ['ignore', 1, 2] })"
+      : "const child = spawn(process.execPath, ['descendant.mjs'], { detached: true, stdio: 'ignore' })",
     "child.on('error', () => process.exit(1))",
     pipesSurviveChildExit
       ? "setInterval(() => { if (existsSync('descendant.started')) { process.stdin.resume(); process.exit(0) } }, 10)"
@@ -236,17 +234,17 @@ test('deadline returns with an unverified descendant even when inherited pipes s
   assert.equal(result.cleanup.directChildExitObserved, true)
   if (pipesSurviveChildExit) assert.equal(result.cleanup.forcedPipeClosure, true)
   assert.equal(result.cleanup.descendantState, 'NOT_VERIFIED')
+  await assertHeartbeatAdvances(join(directory, 'descendant.beat'), 1500)
 })
 
 test('normal completion leaves a non-pipe-holding descendant unverified', { timeout: 20000 }, async t => {
-  // The direct child exits voluntarily once the descendant has started. POSIX
-  // then leaves that descendant running past the wrapper's completed return;
-  // Windows terminates it in the job object closed at the direct child's exit.
-  // The wrapper observes neither, so its descendant state stays NOT_VERIFIED.
+  // A detached Node descendant is deliberately outside the spawner's default
+  // libuv job. Its advancing heartbeat must be observed on either platform;
+  // absence or staleness cannot be classified as a successful termination.
   const { directory, spec } = fixture(t, [
     "import { spawn } from 'node:child_process'",
     "import { existsSync } from 'node:fs'",
-    "const child = spawn(process.execPath, ['descendant.mjs'], { stdio: 'ignore' })",
+    "const child = spawn(process.execPath, ['descendant.mjs'], { detached: true, stdio: 'ignore' })",
     "child.on('error', () => process.exit(1))",
     "child.unref()",
     "setInterval(() => { if (existsSync('descendant.started')) { process.stdin.resume(); process.exit(0) } }, 10)",
@@ -257,14 +255,7 @@ test('normal completion leaves a non-pipe-holding descendant unverified', { time
   assert.equal(result.exitCode, 0)
   assert.equal(result.captureComplete, true)
   assert.equal(result.cleanup.descendantState, 'NOT_VERIFIED')
-  const beatFile = join(directory, 'descendant.beat')
-  if (process.platform === 'win32') {
-    assert.ok(await descendantTerminated(beatFile, 2000),
-      'Windows job object did not terminate the descendant at the direct child exit')
-  } else {
-    assert.equal(descendantBeating(beatFile), true,
-      'wrapper or the platform terminated a descendant the wrapper never verified')
-  }
+  await assertHeartbeatAdvances(join(directory, 'descendant.beat'), 1500)
 })
 
 test('cancelling one invocation leaves a concurrent unrelated invocation intact', { timeout: 20000 }, async t => {
@@ -307,4 +298,21 @@ test('rejects a known leased key in argv before spawning and omits the value fro
     && !String(error).includes(key))
   assert.equal(observation.reads, 1)
   assert.equal(existsSync(join(directory, 'spawned')), false)
+})
+
+
+// Negative controls for the observer itself; unavailable observations must fail.
+test('an absent heartbeat cannot certify descendant termination', async t => {
+  const { directory } = fixture(t, 'process.stdin.resume()\n')
+  const beatFile = join(directory, 'never-created.beat')
+  assert.throws(() => heartbeatStamp(beatFile), error => error.code === 'ENOENT')
+  await assert.rejects(assertHeartbeatAdvances(beatFile, 50), error => error.code === 'ENOENT')
+})
+
+test('a frozen heartbeat is inconclusive rather than evidence of exit', async t => {
+  const { directory } = fixture(t, 'process.stdin.resume()\n')
+  const beatFile = join(directory, 'frozen.beat')
+  writeFileSync(beatFile, '')
+  await assert.rejects(assertHeartbeatAdvances(beatFile, 100),
+    /heartbeat did not advance; exit is NOT established/)
 })

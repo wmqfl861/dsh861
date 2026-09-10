@@ -1,13 +1,13 @@
 {
   "kind": "r08-raw-evidence-archive",
   "recordedAt": "2026-09-10",
-  "source": "C:Albertprojectdsh861-local-validation60910-p0b-credential-native-5e29 (machine-local; this archive is the retrievable copy)",
+  "source": "C:/Albert/project/dsh861-local-validation/20260910-p0b-credential-native-5e29 (machine-local; this archive is the retrievable copy)",
   "archive": {
     "file": "raw-evidence.tar.xz",
-    "bytes": 6136,
-    "sha256": "8acba639e169bcf3c34ae27780a73f4f25ba52aae21ad035e4c6bacb7fed03f6"
+    "bytes": 6060,
+    "sha256": "648634ab46fec791ffc210b0a6b2330f200e6146e4ee40da6cf99ef6aeff83bc"
   },
-  "sanitization": "Verbatim copies; scanned for account names, machine names, absolute user paths, and credential-shaped strings with zero matches. No production credential target value appears; only dsh861/selftest/<hex> synthetic target names.",
+  "sanitization": "File payloads are byte-identical to the original archive (19/19 SHA-256 checked). Packaging metadata has zero uid/gid/mtime, empty uname/gname and no PAX metadata. This is not a new execution or an exhaustive secret scan of file payloads; missing logs remain missing.",
   "commandIndex": [
     {
       "file": "raw-evidence/native-first-failure.txt",
@@ -224,5 +224,13 @@
       "bytes": 1670,
       "sha256": "b08861a0e3d07bf1096cb41d89b4857ea8fd254c258e825c1a0e70b8ec4284aa"
     }
-  ]
+  ],
+  "packagingCorrection": {
+    "originalCommit": "21b654b4877748cbf7ac06ae252f7c7438e11996",
+    "originalArchiveSha256": "8acba639e169bcf3c34ae27780a73f4f25ba52aae21ad035e4c6bacb7fed03f6",
+    "originalManifestGitBlob": "8d38ae785ee64072e215505ae8c2d15fcb9c341f",
+    "payloadsUnchanged": true,
+    "fileCount": 19,
+    "directoryCount": 1
+  }
 }

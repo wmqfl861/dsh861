@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: approved HTTP config cannot be projected for a real launch
+ok 1 - approved HTTP config cannot be projected for a real launch
+  ---
+  duration_ms: 3.080572
+  type: 'test'
+  ...
+# Subtest: projects exact routes and read-only native argv without authorizing or reading
+ok 2 - projects exact routes and read-only native argv without authorizing or reading
+  ---
+  duration_ms: 1.054064
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 1
+ok 3 - refuses declaration/path boundary 1
+  ---
+  duration_ms: 0.351128
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 2
+ok 4 - refuses declaration/path boundary 2
+  ---
+  duration_ms: 0.293923
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 3
+ok 5 - refuses declaration/path boundary 3
+  ---
+  duration_ms: 0.330237
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 4
+ok 6 - refuses declaration/path boundary 4
+  ---
+  duration_ms: 0.453639
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 5
+ok 7 - refuses declaration/path boundary 5
+  ---
+  duration_ms: 0.28496
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 6
+ok 8 - refuses declaration/path boundary 6
+  ---
+  duration_ms: 0.294404
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 7
+ok 9 - refuses declaration/path boundary 7
+  ---
+  duration_ms: 0.899205
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 8
+ok 10 - refuses declaration/path boundary 8
+  ---
+  duration_ms: 0.578843
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 9
+ok 11 - refuses declaration/path boundary 9
+  ---
+  duration_ms: 0.292861
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 10
+ok 12 - refuses declaration/path boundary 10
+  ---
+  duration_ms: 0.253313
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 11
+ok 13 - refuses declaration/path boundary 11
+  ---
+  duration_ms: 0.237099
+  type: 'test'
+  ...
+# Subtest: refuses declaration/path boundary 12
+ok 14 - refuses declaration/path boundary 12
+  ---
+  duration_ms: 0.508119
+  type: 'test'
+  ...
+# Subtest: POSIX projection uses explicit isolated paths and keeps shell key forwarding disabled
+ok 15 - POSIX projection uses explicit isolated paths and keeps shell key forwarding disabled
+  ---
+  duration_ms: 0.458887
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 65.793489

@@ -1,0 +1,178 @@
+TAP version 13
+# Subtest: bounds stdout by UTF-8 bytes, not UTF-16 length
+ok 1 - bounds stdout by UTF-8 bytes, not UTF-16 length
+  ---
+  duration_ms: 1314.909175
+  type: 'test'
+  ...
+# Subtest: bounds stderr by UTF-8 bytes, not UTF-16 length
+ok 2 - bounds stderr by UTF-8 bytes, not UTF-16 length
+  ---
+  duration_ms: 1651.976379
+  type: 'test'
+  ...
+# Subtest: EOF-flushed delayed text cannot bypass the byte bound
+ok 3 - EOF-flushed delayed text cannot bypass the byte bound
+  ---
+  duration_ms: 1557.576066
+  type: 'test'
+  ...
+# Subtest: discard a violating fragment before retaining it
+ok 4 - discard a violating fragment before retaining it
+  ---
+  duration_ms: 1072.682954
+  type: 'test'
+  ...
+# Subtest: replacement-marker expansion counts toward the byte bound and retains detection
+ok 5 - replacement-marker expansion counts toward the byte bound and retains detection
+  ---
+  duration_ms: 857.868566
+  type: 'test'
+  ...
+# Subtest: exact-bound UTF-8 text survives normal EOF unchanged
+ok 6 - exact-bound UTF-8 text survives normal EOF unchanged
+  ---
+  duration_ms: 2079.525547
+  type: 'test'
+  ...
+# Subtest: refuses unsafe HTTPS case 1 before reading
+ok 7 - refuses unsafe HTTPS case 1 before reading
+  ---
+  duration_ms: 1.554322
+  type: 'test'
+  ...
+# Subtest: refuses unsafe HTTPS case 2 before reading
+ok 8 - refuses unsafe HTTPS case 2 before reading
+  ---
+  duration_ms: 1.006584
+  type: 'test'
+  ...
+# Subtest: refuses unsafe HTTPS case 3 before reading
+ok 9 - refuses unsafe HTTPS case 3 before reading
+  ---
+  duration_ms: 0.821762
+  type: 'test'
+  ...
+# Subtest: requires an explicit bounded termination grace before reading
+ok 10 - requires an explicit bounded termination grace before reading
+  ---
+  duration_ms: 1.055376
+  type: 'test'
+  ...
+# Subtest: rejects NUL argv before reading rather than letting spawn reject after reading
+ok 11 - rejects NUL argv before reading rather than letting spawn reject after reading
+  ---
+  duration_ms: 0.680563
+  type: 'test'
+  ...
+# Subtest: captures a private input snapshot across asynchronous credential resolution
+ok 12 - captures a private input snapshot across asynchronous credential resolution
+  ---
+  duration_ms: 671.821123
+  type: 'test'
+  ...
+# Subtest: failed prompt delivery is not reported as a completed planning input
+ok 13 - failed prompt delivery is not reported as a completed planning input
+  ---
+  duration_ms: 940.286339
+  type: 'test'
+  ...
+# Subtest: deadline returns with an unverified descendant even when inherited pipes stay open
+ok 14 - deadline returns with an unverified descendant even when inherited pipes stay open
+  ---
+  duration_ms: 2511.885113
+  type: 'test'
+  ...
+# Subtest: normal completion leaves a non-pipe-holding descendant unverified
+ok 15 - normal completion leaves a non-pipe-holding descendant unverified
+  ---
+  duration_ms: 1940.318038
+  type: 'test'
+  ...
+# Subtest: cancelling one invocation leaves a concurrent unrelated invocation intact
+ok 16 - cancelling one invocation leaves a concurrent unrelated invocation intact
+  ---
+  duration_ms: 2791.924558
+  type: 'test'
+  ...
+# Subtest: nonzero process completion retains the real exit and never accepts a product
+ok 17 - nonzero process completion retains the real exit and never accepts a product
+  ---
+  duration_ms: 1524.531989
+  type: 'test'
+  ...
+# Subtest: refuses case-insensitive credential environment collisions before reading
+ok 18 - refuses case-insensitive credential environment collisions before reading
+  ---
+  duration_ms: 1.35664
+  type: 'test'
+  ...
+# Subtest: rejects a known leased key in argv before spawning and omits the value from errors
+ok 19 - rejects a known leased key in argv before spawning and omits the value from errors
+  ---
+  duration_ms: 907.383025
+  type: 'test'
+  ...
+# Subtest: an absent heartbeat cannot certify descendant termination
+ok 20 - an absent heartbeat cannot certify descendant termination
+  ---
+  duration_ms: 0.898825
+  type: 'test'
+  ...
+# Subtest: a frozen heartbeat is inconclusive rather than evidence of exit
+ok 21 - a frozen heartbeat is inconclusive rather than evidence of exit
+  ---
+  duration_ms: 102.736403
+  type: 'test'
+  ...
+# Subtest: refuses the current approved HTTP route before any credential read
+ok 22 - refuses the current approved HTTP route before any credential read
+  ---
+  duration_ms: 169.854055
+  type: 'test'
+  ...
+# Subtest: refuses a subject that does not match the approval before any credential read
+ok 23 - refuses a subject that does not match the approval before any credential read
+  ---
+  duration_ms: 123.60987
+  type: 'test'
+  ...
+# Subtest: refuses an approval without an owner record before any credential read
+ok 24 - refuses an approval without an owner record before any credential read
+  ---
+  duration_ms: 298.122306
+  type: 'test'
+  ...
+# Subtest: refuses a prompt whose bytes do not match the pinned hash
+ok 25 - refuses a prompt whose bytes do not match the pinned hash
+  ---
+  duration_ms: 139.141689
+  type: 'test'
+  ...
+# Subtest: refuses a CLI executable whose bytes do not match the pinned hash
+ok 26 - refuses a CLI executable whose bytes do not match the pinned hash
+  ---
+  duration_ms: 328.729449
+  type: 'test'
+  ...
+# Subtest: completes a synthetic run with the leased value redacted from every channel
+ok 27 - completes a synthetic run with the leased value redacted from every channel
+  ---
+  duration_ms: 2393.512868
+  type: 'test'
+  ...
+# Subtest: cancels and kills the direct child when the deadline passes
+ok 28 - cancels and kills the direct child when the deadline passes
+  ---
+  duration_ms: 2975.969722
+  type: 'test'
+  ...
+1..28
+# tests 28
+# suites 0
+# pass 28
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 20148.365921

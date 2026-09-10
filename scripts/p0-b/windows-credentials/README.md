@@ -49,6 +49,12 @@ Before reading a credential it takes private copies of the invocation inputs, co
 
 One CLI can issue several model requests; these bounds are not a monetary or per-request limit. Process completion, even with exit zero, is not a usable plan, verified model identity, or product acceptance. The caller must check termination/capture status, exit/signal, leakage, native events, the returned plan and the required external evidence. No real model call is part of the synthetic tests.
 
+## Non-secret Codex launch projection
+
+[codex-launch-projection.mjs](codex-launch-projection.mjs) calls the actual model-lock verifier and projects the approved Codex route into fixed argv, a TOML configuration and an explicit isolated-path environment. It rejects HTTP, mismatched locks, unknown input fields, workspace/run-root overlap and unsafe paths. Provider, model, reasoning effort and credential reference come only from the approved declaration; generated configuration contains the environment-variable name, never its value. The shell environment excludes keys and does not inherit the model process environment.
+
+The result is `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`. The function does not read credentials, write configuration, create directories, authorize a request or spawn a process. A trusted caller must provision the owned directories and verify the pinned CLI's configuration discovery, native settings and OS-enforced read-only scope before executing. An approval reference, HTTPS spelling, generated `CODEX_HOME` or a successful projection is not proof of authorization, certificate validation, isolation, monetary budget enforcement or descendant quiescence. The production caller and those runtime controls remain required; synthetic HTTPS fixtures do not alter the owner's current HTTP route.
+
 ## Verification
 
 From the repository with its pinned dependencies:
@@ -57,6 +63,7 @@ From the repository with its pinned dependencies:
 node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
+node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 ```
 
 The first suite exercises the protocol with explicitly simulated native transport, real RSA operations, reference restrictions and the existing lease. An optional `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` selects isolated compiled JavaScript for offline verification only; normal repository runs must leave it unset.
@@ -65,7 +72,7 @@ The second suite runs only on Windows. It parses both PowerShell scripts under t
 
 The remote verification boundary and exact tested-file hashes are in the [r07 receipt](../../../development/remediation/2026-09-10/credential-store-r07/verification.json); local Windows native results, the repaired parser-compatible line layout, and this round's file hashes are recorded in the [r08 receipt](../../../development/remediation/2026-09-10/credential-store-r08/verification.json). No hidden-input or native-store success is claimed from Linux tests.
 
-The planner suites use synthetic Node processes with a simulated sealed peer and real lease/redactor code. They include UTF-8 and EOF limits, input failure, post-await mutation, a deliberately surviving inherited-pipe holder, normal completion with a still-running descendant, and a cancelled invocation running beside an intact concurrent one. On POSIX the pipe holder and the surviving descendant outlive the wrapper's bounded return; on Windows neither state is constructible, because libuv closes a kill-on-close job object when the direct child exits and the operating system terminates its descendants — the tests assert that termination instead, and the wrapper keeps reporting `NOT_VERIFIED` because it observes neither outcome. Test-owned descendants are stopped by the tests themselves. See the [r09 receipt](../../../development/remediation/2026-09-10/planner-bounds-r09/verification.json) and the [r10 receipt](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json) for exact local/remote execution limits.
+The planner suites use synthetic Node processes and a simulated sealed peer. POSIX retains the inherited-pipe assertion, including `forcedPipeClosure`; a detached descendant exercises survival after the direct child exits. Readiness follows creation of the heartbeat, and the observer requires it to advance. Missing, unreadable or frozen heartbeats cannot prove termination. Cleanup requires the test-owned stop acknowledgement, not a stale timestamp. The wrapper retains `descendantState=NOT_VERIFIED`; cooperative fixture cleanup is not product process-tree containment. The [r11 receipt](../../../development/remediation/2026-09-10/planner-observer-r11/verification.json) qualifies the lifecycle claims in the unchanged [r10 receipt](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json).
 
 ## Planning prerequisites
 
