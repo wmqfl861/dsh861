@@ -1,10 +1,12 @@
-import { spawn } from 'node:child_process'
+import { constants as bufferConstants } from 'node:buffer'
+import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 import { isAbsolute } from 'node:path'
 import { SecretRedactor, type RedactionLimits } from '../redaction.ts'
 import { parseCredentialRef, resolveCredentialReferences, type CredentialBinding } from '../credential-ref.ts'
 import { createSealedCredentialReaders, type SealedBridge } from './reader.ts'
+import { assertSecretFreeArguments } from '../security-gates.ts'
 
 /**
  * Owner-issued single-call authorization, passed in by the trusted caller.
@@ -40,6 +42,9 @@ export interface PlannerInvocationSpec {
     environment: Readonly<Record<string, string>>
     credentialEnvironmentVariable: string
     deadlineMs: number
+    /** Additional wait after cancellation; not a promise of descendant termination. */
+    terminationGraceMs: number
+    /** Hard retained UTF-8 byte limit per redacted channel, including EOF flush. */
     maxChannelBytes: number
   }
   redactionLimits: RedactionLimits
@@ -65,6 +70,7 @@ export type PlannerCancellationReason =
   | 'DEADLINE_EXCEEDED'
   | 'OUTPUT_BOUND_EXCEEDED'
   | 'STREAM_ERROR'
+  | 'INPUT_DELIVERY_FAILED'
   | 'SPAWN_ERROR'
 
 /** Every reported string channel is already redacted; a detection must block a pass. */
@@ -76,6 +82,14 @@ export interface PlannerInvocationResult {
   redactedStdout: string
   redactedStderr: string
   secretLeakDetected: boolean
+  captureComplete: boolean
+  capturedBytes: { stdout: number; stderr: number }
+  cleanup: {
+    directChildExitObserved: boolean
+    stdioCloseObserved: boolean
+    forcedPipeClosure: boolean
+    descendantState: 'NOT_VERIFIED'
+  }
   /** One CLI process may issue several model requests; these bounds are not a per-request cost ceiling. */
   costModel: 'wall-clock-and-channel-bounded-not-per-request'
   productAccepted: false
@@ -101,8 +115,14 @@ function validateApproval(approval: PlannerApproval): void {
  * protection evidence, and no HTTP exception is authorized.
  */
 function validateTransport(approval: PlannerApproval, route: PlannerRoute): void {
-  if (approval.subject.baseUrl !== route.baseUrl
-    || !route.baseUrl.startsWith('https://')) refusal('PLANNER_TRANSPORT_NOT_PROVEN')
+  if (approval.subject.baseUrl !== route.baseUrl || /[\u0000-\u0020]/.test(route.baseUrl)) {
+    refusal('PLANNER_TRANSPORT_NOT_PROVEN')
+  }
+  let url: URL
+  try { url = new URL(route.baseUrl) } catch { return refusal('PLANNER_TRANSPORT_NOT_PROVEN') }
+  if (url.protocol !== 'https:' || !url.hostname || url.username || url.password || url.hash) {
+    refusal('PLANNER_TRANSPORT_NOT_PROVEN')
+  }
 }
 
 function validateSubject(approval: PlannerApproval, route: PlannerRoute): void {
@@ -129,35 +149,53 @@ async function hashedFile(path: string, expectedSha256: string): Promise<Buffer 
  * @returns a completed or cancelled result whose text channels are already redacted.
  */
 export async function invokePlannerOnce(spec: PlannerInvocationSpec): Promise<PlannerInvocationResult> {
+  // The private snapshot is the only specification read across asynchronous work.
+  spec = {
+    ...spec,
+    approval: { ...spec.approval, subject: { ...spec.approval.subject } },
+    route: { ...spec.route },
+    prompt: { ...spec.prompt },
+    cli: { ...spec.cli, args: [...spec.cli.args] },
+    process: { ...spec.process, environment: { ...spec.process.environment } },
+    redactionLimits: { ...spec.redactionLimits },
+  }
   validateApproval(spec.approval)
   validateTransport(spec.approval, spec.route)
   validateSubject(spec.approval, spec.route)
   if (!isAbsolute(spec.prompt.file) || !SHA256.test(spec.prompt.sha256)
     || !isAbsolute(spec.cli.executable) || !SHA256.test(spec.cli.sha256)
-    || !Array.isArray(spec.cli.args) || spec.cli.args.some(argument => typeof argument !== 'string')) {
+    || spec.cli.args.some(argument => argument.includes('\0'))) {
     refusal('PLANNER_SPEC_INVALID')
   }
+  validateProcessSpec(spec)
   const promptBytes = await hashedFile(spec.prompt.file, spec.prompt.sha256)
   if (promptBytes === undefined) refusal('PLANNER_INPUT_NOT_FIXED')
   if (await hashedFile(spec.cli.executable, spec.cli.sha256) === undefined) refusal('PLANNER_CLI_NOT_VERIFIED')
-  validateProcessSpec(spec)
   const binding: CredentialBinding = {
     source: parseCredentialRef(spec.route.credentialRef),
     targetEnv: spec.process.credentialEnvironmentVariable,
   }
   const readers = createSealedCredentialReaders(spec.bridge, ['providers/codex'])
   const lease = await resolveCredentialReferences([binding], [binding], readers)
-  return lease.use((environment, redactionValues) =>
-    runPinnedProcess(spec, promptBytes, environment, redactionValues))
+  return lease.use((environment, redactionValues) => {
+    assertSecretFreeArguments([spec.cli.executable, ...spec.cli.args], redactionValues, spec.redactionLimits)
+    return runPinnedProcess(spec, promptBytes, environment, redactionValues)
+  })
 }
 
 function validateProcessSpec(spec: PlannerInvocationSpec): void {
   const bound = spec.process
   if (!isAbsolute(bound.workingDirectory)
     || !Number.isSafeInteger(bound.deadlineMs) || bound.deadlineMs < 1 || bound.deadlineMs > 2147483647
+    || !Number.isSafeInteger(bound.terminationGraceMs) || bound.terminationGraceMs < 1
+    || bound.terminationGraceMs > 2147483647
     || !Number.isSafeInteger(bound.maxChannelBytes) || bound.maxChannelBytes < 1
+    || bound.maxChannelBytes > bufferConstants.MAX_STRING_LENGTH
+    || !Number.isSafeInteger(spec.redactionLimits.maxSecrets) || spec.redactionLimits.maxSecrets < 1
+    || !Number.isSafeInteger(spec.redactionLimits.maxSecretBytes) || spec.redactionLimits.maxSecretBytes < 1
     || !/^[A-Z_][A-Z0-9_]{0,127}$/.test(bound.credentialEnvironmentVariable)
-    || Object.hasOwn(bound.environment, bound.credentialEnvironmentVariable)) {
+    || Object.keys(bound.environment).some(name => name.toUpperCase() === bound.credentialEnvironmentVariable)
+    || Object.entries(bound.environment).some(([name, value]) => /[=\0]/.test(name) || value.includes('\0'))) {
     refusal('PLANNER_SPEC_INVALID')
   }
 }
@@ -169,94 +207,137 @@ async function runPinnedProcess(
   redactionValues: readonly string[],
 ): Promise<PlannerInvocationResult> {
   const stdoutRedactor = new SecretRedactor(redactionValues, spec.redactionLimits)
-  const stderrRedactor = new SecretRedactor(redactionValues, spec.redactionLimits)
-  return await new Promise<PlannerInvocationResult>((resolve) => {
-    let redactedStdout = ''
-    let redactedStderr = ''
+  let stderrRedactor: SecretRedactor | undefined
+  try {
+    stderrRedactor = new SecretRedactor(redactionValues, spec.redactionLimits)
+    return await collectProcess(spec, promptBytes, environment, stdoutRedactor, stderrRedactor)
+  } finally {
+    stdoutRedactor.discard()
+    stderrRedactor?.discard()
+  }
+}
+
+/** Retain only accepted redacted fragments; cancellation never waits indefinitely for inherited pipes. */
+function collectProcess(
+  spec: PlannerInvocationSpec,
+  promptBytes: Buffer,
+  environment: Readonly<Record<string, string>>,
+  stdoutRedactor: SecretRedactor,
+  stderrRedactor: SecretRedactor,
+): Promise<PlannerInvocationResult> {
+  return new Promise<PlannerInvocationResult>((resolve) => {
+    const output = { stdout: '', stderr: '' }
+    const bytes = { stdout: 0, stderr: 0 }
     let cancellation: PlannerCancellationReason | undefined
     let settled = false
-    let closedExitCode: number | null = null
-    let closedSignal: NodeJS.Signals | null = null
-    const child = spawn(spec.cli.executable, [...spec.cli.args], {
-      cwd: spec.process.workingDirectory,
-      env: { ...spec.process.environment, ...environment },
-      stdio: ['pipe', 'pipe', 'pipe'],
-      shell: false,
-      windowsHide: true,
-    })
-    // The deadline terminates the direct child only, not a proven descendant tree.
-    const timer = setTimeout(() => {
-      cancellation ??= 'DEADLINE_EXCEEDED'
-      child.kill()
-    }, spec.process.deadlineMs)
+    let exitCode: number | null = null
+    let exitSignal: NodeJS.Signals | null = null
+    let directChildExitObserved = false
+    let stdioCloseObserved = false
+    let forcedPipeClosure = false
+    let child: ChildProcessWithoutNullStreams | undefined
+    let deadlineTimer: ReturnType<typeof setTimeout> | undefined
+    let cleanupTimer: ReturnType<typeof setTimeout> | undefined
+
+    const terminate = (signal: NodeJS.Signals): void => {
+      // An exited PID must not be signalled again merely because descendants hold a pipe.
+      if (!child?.pid || directChildExitObserved) return
+      try { child.kill(signal) } catch {
+        // Kill failure does not prove termination; the bounded result retains unknown cleanup.
+      }
+    }
+    const cancel = (reason: PlannerCancellationReason): void => {
+      if (settled || cancellation !== undefined) return
+      cancellation = reason
+      stdoutRedactor.discard()
+      stderrRedactor.discard()
+      if (deadlineTimer !== undefined) clearTimeout(deadlineTimer)
+      cleanupTimer = setTimeout(() => {
+        if (settled) return
+        forcedPipeClosure = true
+        terminate('SIGKILL')
+        child?.stdin.destroy()
+        child?.stdout.destroy()
+        child?.stderr.destroy()
+        child?.unref()
+        finish()
+      }, spec.process.terminationGraceMs)
+      terminate('SIGTERM')
+    }
+    const accept = (channel: 'stdout' | 'stderr', text: string): void => {
+      if (settled || cancellation !== undefined) return
+      const size = Buffer.byteLength(text, 'utf8')
+      if (size > spec.process.maxChannelBytes - bytes[channel]) {
+        cancel('OUTPUT_BOUND_EXCEEDED')
+        return
+      }
+      output[channel] += text
+      bytes[channel] += size
+    }
     const finish = (): void => {
       if (settled) return
-      settled = true
-      clearTimeout(timer)
-      const completed = cancellation === undefined
-      if (completed) {
-        redactedStdout += stdoutRedactor.finish()
-        redactedStderr += stderrRedactor.finish()
-      } else {
-        stdoutRedactor.discard()
-        stderrRedactor.discard()
+      if (cancellation === undefined) {
+        try {
+          accept('stdout', stdoutRedactor.finish())
+          if (cancellation === undefined) accept('stderr', stderrRedactor.finish())
+        } catch { cancel('STREAM_ERROR') }
       }
+      settled = true
+      if (deadlineTimer !== undefined) clearTimeout(deadlineTimer)
+      if (cleanupTimer !== undefined) clearTimeout(cleanupTimer)
+      stdoutRedactor.discard()
+      stderrRedactor.discard()
+      const completed = cancellation === undefined
       resolve({
         status: completed ? 'PLANNER_INVOCATION_COMPLETED' : 'PLANNER_INVOCATION_CANCELLED',
         ...(completed ? {} : { cancellationReason: cancellation as PlannerCancellationReason }),
-        exitCode: completed ? closedExitCode : null,
-        signal: closedSignal,
-        redactedStdout,
-        redactedStderr,
+        exitCode: completed ? exitCode : null,
+        signal: exitSignal,
+        redactedStdout: output.stdout,
+        redactedStderr: output.stderr,
         secretLeakDetected: stdoutRedactor.secretLeakDetected || stderrRedactor.secretLeakDetected,
+        captureComplete: completed && stdioCloseObserved,
+        capturedBytes: { ...bytes },
+        cleanup: { directChildExitObserved, stdioCloseObserved, forcedPipeClosure,
+          descendantState: 'NOT_VERIFIED' },
         costModel: 'wall-clock-and-channel-bounded-not-per-request',
         productAccepted: false,
       })
     }
-    child.on('error', () => {
-      cancellation ??= 'SPAWN_ERROR'
+    try {
+      child = spawn(spec.cli.executable, [...spec.cli.args], {
+        cwd: spec.process.workingDirectory,
+        env: { ...spec.process.environment, ...environment },
+        stdio: ['pipe', 'pipe', 'pipe'], shell: false, windowsHide: true,
+      })
+    } catch {
+      cancellation = 'SPAWN_ERROR'
       finish()
+      return
+    }
+    const processHandle = child
+    deadlineTimer = setTimeout(() => { cancel('DEADLINE_EXCEEDED') }, spec.process.deadlineMs)
+    processHandle.on('error', () => {
+      cancel('SPAWN_ERROR')
+      if (!processHandle.pid) finish()
     })
-    child.stdout.on('data', (chunk: Buffer) => {
-      if (settled) return
-      try {
-        redactedStdout += stdoutRedactor.push(chunk)
-        if (redactedStdout.length > spec.process.maxChannelBytes) {
-          cancellation ??= 'OUTPUT_BOUND_EXCEEDED'
-          child.kill()
-        }
-      } catch {
-        cancellation ??= 'STREAM_ERROR'
-        child.kill()
-      }
+    processHandle.on('exit', (code, signal) => {
+      directChildExitObserved = true
+      exitCode = code
+      exitSignal = signal
     })
-    child.stderr.on('data', (chunk: Buffer) => {
-      if (settled) return
-      try {
-        redactedStderr += stderrRedactor.push(chunk)
-        if (redactedStderr.length > spec.process.maxChannelBytes) {
-          cancellation ??= 'OUTPUT_BOUND_EXCEEDED'
-          child.kill()
-        }
-      } catch {
-        cancellation ??= 'STREAM_ERROR'
-        child.kill()
-      }
+    processHandle.stdout.on('data', (chunk: Buffer) => {
+      if (settled || cancellation !== undefined) return
+      try { accept('stdout', stdoutRedactor.push(chunk)) } catch { cancel('STREAM_ERROR') }
     })
-    child.stdout.on('error', () => {
-      cancellation ??= 'STREAM_ERROR'
-      child.kill()
+    processHandle.stderr.on('data', (chunk: Buffer) => {
+      if (settled || cancellation !== undefined) return
+      try { accept('stderr', stderrRedactor.push(chunk)) } catch { cancel('STREAM_ERROR') }
     })
-    child.stderr.on('error', () => {
-      cancellation ??= 'STREAM_ERROR'
-      child.kill()
-    })
-    child.on('close', (code, signal) => {
-      closedExitCode = code
-      closedSignal = signal
-      finish()
-    })
-    child.stdin.on('error', () => { child.stdin.destroy() })
-    child.stdin.end(promptBytes)
+    processHandle.stdout.on('error', () => { cancel('STREAM_ERROR') })
+    processHandle.stderr.on('error', () => { cancel('STREAM_ERROR') })
+    processHandle.stdin.on('error', () => { cancel('INPUT_DELIVERY_FAILED') })
+    processHandle.on('close', () => { stdioCloseObserved = true; finish() })
+    try { processHandle.stdin.end(promptBytes) } catch { cancel('INPUT_DELIVERY_FAILED') }
   })
 }

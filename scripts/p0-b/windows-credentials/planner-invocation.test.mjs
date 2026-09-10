@@ -51,7 +51,7 @@ function baseSpec(bridge, overrides = {}) {
     bridge,
     process: { workingDirectory: root, environment: {},
       credentialEnvironmentVariable: 'DSH_SYNTHETIC_CODEX_KEY',
-      deadlineMs: 30000, maxChannelBytes: 65536 },
+      deadlineMs: 30000, terminationGraceMs: 300, maxChannelBytes: 65536 },
     redactionLimits: { maxSecrets: 4, maxSecretBytes: 384 },
     ...overrides,
   }
@@ -138,7 +138,7 @@ test('completes a synthetic run with the leased value redacted from every channe
       cli: { executable: process.execPath, sha256: hash(process.execPath), args: [cli] },
       process: { workingDirectory: temporary, environment: {},
         credentialEnvironmentVariable: 'DSH_SYNTHETIC_CODEX_KEY',
-        deadlineMs: 25000, maxChannelBytes: 65536 },
+        deadlineMs: 25000, terminationGraceMs: 300, maxChannelBytes: 65536 },
     }))
     assert.equal(fake.observation.calls, 1)
     assert.equal(result.status, 'PLANNER_INVOCATION_COMPLETED')
@@ -171,7 +171,7 @@ test('cancels and kills the direct child when the deadline passes', {
       cli: { executable: process.execPath, sha256: hash(process.execPath), args: [cli] },
       process: { workingDirectory: temporary, environment: {},
         credentialEnvironmentVariable: 'DSH_SYNTHETIC_CODEX_KEY',
-        deadlineMs: 500, maxChannelBytes: 65536 },
+        deadlineMs: 500, terminationGraceMs: 300, maxChannelBytes: 65536 },
     }))
     assert.equal(result.status, 'PLANNER_INVOCATION_CANCELLED')
     assert.equal(result.cancellationReason, 'DEADLINE_EXCEEDED')

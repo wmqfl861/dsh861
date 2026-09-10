@@ -2,7 +2,7 @@
 
 English | [中文](README.zh.md)
 
-This P0-B support component provisions four dedicated Windows Credential Manager targets and supplies the existing [credential lease](../credential-ref.ts) with an explicitly granted reader. It does not launch a model, activate [model configuration](../../../config/agents/README.md), confirm key rotation, implement the public web settings UI, or provide a multi-tenant secret service. Native Windows execution remains a required validation step.
+This P0-B support component provisions four dedicated Windows Credential Manager targets and supplies the existing [credential lease](../credential-ref.ts) with an explicitly granted reader. The management commands do not launch a model or activate [model configuration](../../../config/agents/README.md). The separately invoked planner function can spawn a supplied CLI after its preconditions pass; it is not a rotation attestation, public settings UI, or multi-tenant secret service.
 
 ## Owner-facing operations
 
@@ -39,7 +39,15 @@ The encrypted envelope prevents incidental pipe capture from disclosing the key;
 
 ## Planner invocation wiring
 
-[planner-invocation.ts](planner-invocation.ts) is the minimal single-call wiring between the sealed reader and a planner CLI. Before any credential read it validates the owner approval record (never self-issued), the exact subject against the lock-verified route, an HTTPS-only transport gate, the pinned prompt and executable hashes, and the deadline and channel bounds. The current approved `codex` route is plaintext HTTP, so the wiring refuses it until an owner-approved protected route exists. The credential then reaches only the child environment through the existing one-use lease, and every returned channel is redacted with the lease's values first; one CLI process may issue several model requests, so these bounds are not a per-request cost ceiling. Keyless synthetic-process verification is in `planner-invocation.test.mjs`; no real planner call is made by this wiring.
+[planner-invocation.ts](planner-invocation.ts) connects the sealed reader to a supplied executable. Its trusted caller must authenticate the owner decision, verify the model lock, project the approved route into the actual CLI arguments/configuration, and supply effective sandbox and isolated-home settings. A nonempty approval or transport record name is only a reference, not proof that the record is genuine, TLS was verified, or the CLI used the route. This function is not an untrusted JSON endpoint, an approval service, or a complete Codex adapter.
+
+Before reading a credential it takes private copies of the invocation inputs, compares the supplied subject and route, parses an HTTPS URL without user information or fragments, verifies prompt/executable hashes, and validates explicit process bounds. The currently approved HTTP route remains refused. The existing lease supplies the child environment; the existing argument scanner rejects a known leased value in argv before spawn. Files and the native bridge must remain controlled by the trusted owner; the snapshot does not protect mutable deployment files or a compromised bridge.
+
+`maxChannelBytes` bounds retained UTF-8 bytes independently for stdout and stderr, including delayed redactor output at EOF. A fragment that would exceed the limit is discarded before retention and cancels the invocation; later input is drained without accumulating text. Prompt-delivery errors cancel instead of reporting a completed input. `capturedBytes` reports retained bytes; `captureComplete=false` distinguishes truncated or interrupted output. Leak detection stays latched even when its redacted fragment does not fit.
+
+`deadlineMs` covers the spawned process phase, not pre-launch hashing or credential resolution. Cancellation requests termination of the direct child and waits at most the explicit `terminationGraceMs` for process/stdio closure. If pipes remain open, the wrapper closes its own pipe ends and returns a cancelled result. It does not signal a PID after observing that child's exit. `cleanup` separately records direct-child exit, stdio close, forced pipe closure and `descendantState=NOT_VERIFIED`; a kill request or a bounded return never certifies a quiet descendant tree. A trusted execution owner must separately verify resource ownership and quiescence before treating the run as safely cleaned up.
+
+One CLI can issue several model requests; these bounds are not a monetary or per-request limit. Process completion, even with exit zero, is not a usable plan, verified model identity, or product acceptance. The caller must check termination/capture status, exit/signal, leakage, native events, the returned plan and the required external evidence. No real model call is part of the synthetic tests.
 
 ## Verification
 
@@ -48,6 +56,7 @@ From the repository with its pinned dependencies:
 ```sh
 node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
 ```
 
 The first suite exercises the protocol with explicitly simulated native transport, real RSA operations, reference restrictions and the existing lease. An optional `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` selects isolated compiled JavaScript for offline verification only; normal repository runs must leave it unset.
@@ -55,6 +64,8 @@ The first suite exercises the protocol with explicitly simulated native transpor
 The second suite runs only on Windows. It parses both PowerShell scripts under the in-box Windows PowerShell, verifies helper integrity rejection, walks one unique `dsh861/selftest/` target through implicit-overwrite refusal, explicit replacement, sealing, and verified deletion, refuses a synthetic hidden-input confirmation mismatch through the real store path and then stores the matching synthetic pair, and checks that `Set` refuses redirected input while `Remove -WhatIf` declines without operating. No production reference or real model is used. The exact synthetic targets are printed without their values. Process termination or a host crash can prevent cleanup; inspect only the recorded targets and report any residue. The deadline kills the direct helper, not a proven Windows descendant tree. Interactive masked entry of a real key, persistent-account behavior, ACL isolation and full planner integration still need separate local checks; a non-Windows skip does not prove them.
 
 The remote verification boundary and exact tested-file hashes are in the [r07 receipt](../../../development/remediation/2026-09-10/credential-store-r07/verification.json); local Windows native results, the repaired parser-compatible line layout, and this round's file hashes are recorded in the [r08 receipt](../../../development/remediation/2026-09-10/credential-store-r08/verification.json). No hidden-input or native-store success is claimed from Linux tests.
+
+The planner suites use synthetic Node processes with a simulated sealed peer and real lease/redactor code. They include UTF-8 and EOF limits, input failure, post-await mutation, and a deliberately surviving inherited-pipe holder; that holder is stopped by the test itself, not by the wrapper. See the [r09 receipt](../../../development/remediation/2026-09-10/planner-bounds-r09/verification.json) for exact local/remote execution limits.
 
 ## Planning prerequisites
 

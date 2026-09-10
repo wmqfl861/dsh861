@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-这个 P0-B 支持组件为四个专用 Windows 凭据管理器目标提供录入，并向现有[凭据租约](../credential-ref.ts)提供显式授权的读取器。它不启动模型、不激活[模型配置](../../../config/agents/README.zh.md)、不确认 Key 轮换、不实现公网设置界面，也不是多租户凭据服务。Windows 原生执行仍是必须完成的验证步骤。
+这个 P0-B 支持组件为四个专用 Windows 凭据管理器目标提供录入，并向现有[凭据租约](../credential-ref.ts)提供显式授权的读取器。管理命令不启动模型，也不激活[模型配置](../../../config/agents/README.zh.md)。独立调用的规划函数在前置条件通过后可以启动传入的 CLI；它不是轮换确认、公网设置界面或多租户凭据服务。
 
 ## 所有者操作入口
 
@@ -39,7 +39,15 @@ Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不
 
 ## 规划调用接线
 
-[planner-invocation.ts](planner-invocation.ts) 是密封读取器与规划 CLI 之间的最小单次调用接线。读取任何凭据之前，它校验所有者批准记录（绝不自行签发）、与锁验证路由完全一致的对象、仅 HTTPS 的传输门、固定的提示与可执行文件哈希，以及时限和通道上限。当前批准的 `codex` 路由是明文 HTTP，在存在所有者批准的受保护路由之前，该接线会拒绝它。凭据随后只通过既有一次性租约进入子进程环境；所有返回通道都先用租约值脱敏。一次 CLI 进程可能产生多次模型请求，这些上限不是按请求计的费用上限。无密钥合成进程验证见 `planner-invocation.test.mjs`；本接线不发起真实规划调用。
+[planner-invocation.ts](planner-invocation.ts) 将密封读取器连接到传入的可执行程序。可信调用方必须核验所有者决定、模型锁，将批准路由投影到实际 CLI 参数／配置，并提供有效的沙箱及隔离 home 设置。非空的批准或传输记录名称只是引用，不证明记录真实、TLS 已验证或 CLI 使用了该路由。本函数不是不可信 JSON 接口、批准服务或完整 Codex 适配器。
+
+读取凭据前，函数私有复制调用输入、比较传入的对象与路由、解析不含用户信息或片段的 HTTPS URL、核验提示／程序哈希，并校验显式进程边界。当前批准的 HTTP 路由继续被拒绝。既有租约提供子进程环境；既有参数扫描器在启动前拒绝 argv 中已知的租约值。可信所有者必须持续控制文件及原生桥；输入副本不保护可变部署文件或被攻陷的桥。
+
+`maxChannelBytes` 分别限制 stdout、stderr 保留的 UTF-8 字节，包括 EOF 时脱敏器延迟输出的尾部。可能超限的片段在保存前丢弃并取消调用；后续输入继续排空，不再累积文本。提示写入错误触发取消，不报告输入已完成。`capturedBytes` 记录保留字节；`captureComplete=false` 区分截断或中断输出。即使脱敏片段放不下，泄漏检测仍保持锁存。
+
+`deadlineMs` 限制启动后的进程阶段，不包含启动前哈希或凭据解析。取消请求终止直接子进程，至多按显式的 `terminationGraceMs` 等待进程／stdio 关闭。管道仍打开时，包装器关闭自己持有的管道端并返回取消结果；已经观察到子进程退出后，不再向该 PID 发信号。`cleanup` 分别记录直接子进程退出、stdio 关闭、强制关闭管道及 `descendantState=NOT_VERIFIED`；发出终止请求或有界返回都不能认证后代进程树静止。可信执行所有者必须另行验证资源所有权及静止状态，才能认定运行已安全清理。
+
+一个 CLI 可以发送多次模型请求；这些边界不是金额或逐请求限额。进程完成，即使退出零，也不等于可用计划、已验证模型身份或产品验收。调用方必须检查终止／采集状态、退出码／信号、泄漏、原生事件、返回计划及所需外部证据。合成测试不包含真实模型调用。
 
 ## 验证
 
@@ -48,6 +56,7 @@ Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不
 ```sh
 node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
 ```
 
 第一组测试明确模拟原生通道，验证协议、真实 RSA 运算、引用限制和现有租约。可选的 `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` 仅供离线验证选择独立编译的 JavaScript；正常仓库执行不能设置它。
@@ -55,6 +64,8 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 第二组只在 Windows 执行。它先在内置 Windows PowerShell 下解析两个脚本，验证 helper 完整性拒绝，让一个唯一 `dsh861/selftest/` 目标经历隐式覆盖拒绝、显式替换、封装与核实删除，经真实存储路径拒绝合成的隐藏输入确认不一致、再存入一致的合成值对，并检查 `Set` 拒绝重定向输入、`Remove -WhatIf` 取消而不执行。不使用生产引用或真实模型。日志只打印精确合成目标，不打印值。进程终止或宿主崩溃可能阻止清理；只检查记录的目标并报告残留。时限终止的是直接 helper，不是已验证的 Windows 后代进程树。真实 Key 的交互式隐藏录入、持久账号行为、ACL 隔离与完整规划接线仍需另行本地检查，非 Windows 跳过不能证明它们。
 
 远端验证边界及实际测试文件哈希见 [r07 回执](../../../development/remediation/2026-09-10/credential-store-r07/verification.json)；Windows 本机原生结果、修复后的解析兼容行布局及本轮文件哈希记录在 [r08 回执](../../../development/remediation/2026-09-10/credential-store-r08/verification.json)。Linux 测试不被描述为隐藏输入或原生凭据存储已经成功。
+
+规划测试使用合成 Node 进程、模拟的密封对端和真实租约／脱敏代码，覆盖 UTF-8 与 EOF 限额、输入失败、异步等待后修改，以及刻意存活的继承管道持有者；该持有者由测试自身停止，不是被包装器清理。确切的本地／远端执行边界见 [r09 回执](../../../development/remediation/2026-09-10/planner-bounds-r09/verification.json)。
 
 ## 规划前置条件
 
