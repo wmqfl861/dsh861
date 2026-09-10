@@ -2,10 +2,10 @@
   "schema": "dsh861-sanitized-prior-export.v1",
   "createdAt": "2026-09-10T00:20:29.261435+00:00",
   "archive": "prior-validation.zip",
-  "archiveSha256": "5ff7446528597c054bf64706f54fb5d7a57bcab4fbb4ee51c1527d40450a9e3e",
+  "archiveSha256": "83c2499c6dd6523e0691c1769813fcad2dcd8c66f4aeb05979c16e72451f970e",
   "sourceRun": "20260909-win-keyless-7f42",
   "originalCandidateSha256": "216f6b85a74f0894de645a3f4c19b5564148526c3642d6e1cf754db63492ce31",
-  "sanitization": "Only local user profile path replaced in diagnostic text. Original SHA256SUMS describes original bytes; export hashes below describe downloadable entries. Source snapshots and changes.patch remain byte-identical. High-confidence provider-token, bearer-token, URL-userinfo and private-key marker scan found no matches.",
+  "sanitization": "Only local user profile path replaced in diagnostic text. Original SHA256SUMS describes original bytes; export hashes below describe downloadable entries. Source snapshots and changes.patch remain byte-identical. High-confidence provider-token, bearer-token, URL-userinfo and private-key marker scan found no matches. Local Visual Studio instance identifier is redacted; version, tool paths and original command result remain available.",
   "files": [
     {
       "path": "candidate-manifest.json",
@@ -94,8 +94,9 @@
     {
       "path": "logs/17-vs-inventory.log",
       "originalSha256": "b412f1a95df3baa821c0bb16bcf44a02af211ae89e4412964403c6709d233383",
-      "exportSha256": "b412f1a95df3baa821c0bb16bcf44a02af211ae89e4412964403c6709d233383",
-      "profilePathRedacted": false
+      "exportSha256": "471ef5abc6e4cb03b97319cd36a60f5b6a9edd9beb9bdbf78f6a36168c4878e3",
+      "profilePathRedacted": false,
+      "instanceIdRedacted": true
     },
     {
       "path": "logs/18-node-shasums.log",

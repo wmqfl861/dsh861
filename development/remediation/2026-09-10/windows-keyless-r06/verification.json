@@ -1,0 +1,341 @@
+{
+  "schema": "dsh861-windows-keyless-integration-verification.v1",
+  "createdAt": "2026-09-10T01:29:33.229884+00:00",
+  "repo": "wmqfl861/dsh861",
+  "branch": "fix/windows-keyless-validation-20260909",
+  "base": "e2a41682e6712648abc339a8cb787dbc6db0f569",
+  "integrationCommit": "7dbf9879a050210d9c81cc7556f0c69eee6534e2",
+  "candidateSourceFingerprint": "2ac152aabc551c0a3eafa5c01b4543ad870e1f8cf122ebf2b9388ba41ae87001",
+  "node": "P0-B",
+  "nodeState": "blocked",
+  "nextNodeAllowed": false,
+  "scope": "Preserve 17 existing repairs, merge current documentation handoff, record six bilingual pairs, validate complete documentation/lint aggregates and publish dedicated branch.",
+  "newRuntimeChanges": [],
+  "semanticReview": {
+    "sixPairs": "Read and confirmed; four pairs additionally read by internal read-only subagent. No historical counts, baselines or acceptance conclusions changed.",
+    "terminologySuggestions": "Five optional wording refinements deferred to preserve upstream historical prose.",
+    "recording": "Repository --write on six explicit paths; 12 snapshot refs independently checked against file bytes."
+  },
+  "environment": {
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "pnpmExecutable": "C:\\Albert\\project\\dsh861-local-validation\\20260909-win-keyless-7f42\\tools\\node_modules\\pnpm\\bin\\pnpm.cjs",
+    "dependencyReinstall": false,
+    "temporaryDirectory": "C:\\Albert\\project\\dsh861-local-validation\\20260910-win-integration-b6e1\\tmp",
+    "cacheDirectory": "C:\\Albert\\project\\dsh861-local-validation\\20260910-win-integration-b6e1\\cache",
+    "docAggregates": {
+      "DSH_GATE_VERBOSE": "1",
+      "DSH_DOC_TYPECHECK_USE_BUILD_OUTPUT": "1",
+      "explanation": "Full doc-sync still runs its declared doc-typecheck command including build:lib:host; compilation of Markdown examples then consumes freshly built declarations without root temporary files. All 33 declared leaves ran."
+    }
+  },
+  "results": {
+    "namedPairs": {
+      "passed": 6
+    },
+    "pairSnapshotBlobs": {
+      "passed": 12
+    },
+    "test:docs": {
+      "exitCode": 0,
+      "passedGates": 15,
+      "failedGates": 0,
+      "skippedGates": 0,
+      "durationSeconds": 42.2,
+      "allCorpusPairs": 1147,
+      "docStandardTests": 1145
+    },
+    "doc-sync": {
+      "exitCode": 0,
+      "passedGates": 33,
+      "failedGates": 0,
+      "skippedGates": 0,
+      "durationSeconds": 122.07,
+      "siteProjectionTests": 480,
+      "docStandardTests": 1145
+    },
+    "lint": {
+      "exitCode": 0,
+      "fullAggregateActuallyRun": true
+    }
+  },
+  "checks": [
+    {
+      "id": "11-commit-preserved",
+      "command": [
+        "git",
+        "commit",
+        "-m",
+        "fix: preserve Windows keyless validation repairs and evidence"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T00:26:45.551795+00:00",
+      "finishedAt": "2026-09-10T00:26:57.526114+00:00",
+      "exitCode": 0,
+      "log": "logs/11-commit-preserved.log",
+      "logSha256": "ff4c3c502194e1d5ed4ca1e7a589b67f4207550d98075d805c3ad3b34b2e4bbf",
+      "summaryLines": [
+        "Found 0 warnings and 0 errors."
+      ]
+    },
+    {
+      "id": "13-merge-development",
+      "command": [
+        "git",
+        "merge",
+        "--no-edit",
+        "origin/feat/multi-agent-company-nodes"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T00:27:49.070723+00:00",
+      "finishedAt": "2026-09-10T00:27:57.386413+00:00",
+      "exitCode": 0,
+      "log": "logs/13-merge-development.log",
+      "logSha256": "13a3920d6e47b2a98a974dcd92c1c5655a1e4a19013a3e0ee941a221769908aa",
+      "summaryLines": []
+    },
+    {
+      "id": "17-full-lint",
+      "command": [
+        "C:/Program Files/nodejs/node.exe",
+        "C:\\Albert\\project\\dsh861-local-validation\\20260909-win-keyless-7f42\\tools\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "run",
+        "lint"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T00:41:27.876344+00:00",
+      "finishedAt": "2026-09-10T00:43:39.611028+00:00",
+      "exitCode": 0,
+      "log": "logs/17-full-lint.log",
+      "logSha256": "39c76b2a29d8f9ed310df393df8181c99e138810a4ab7ff9f4026cf7011ea42e",
+      "summaryLines": [
+        "Found 0 warnings and 0 errors."
+      ]
+    },
+    {
+      "id": "18-current-status-projection",
+      "command": [
+        "C:/Program Files/nodejs/node.exe",
+        "scripts/p0-b/sync-node-status.mjs",
+        "--check"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T00:41:57.607874+00:00",
+      "finishedAt": "2026-09-10T00:41:58.123899+00:00",
+      "exitCode": 0,
+      "log": "logs/18-current-status-projection.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "summaryLines": []
+    },
+    {
+      "id": "22-pair-record",
+      "command": [
+        "C:/Program Files/nodejs/node.exe",
+        "C:\\Albert\\project\\dsh861-local-validation\\20260909-win-keyless-7f42\\tools\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "run",
+        "verify-translation-pairing",
+        "--write",
+        "development/nodes/P0-B/evidence/README.md",
+        "development/remediation/2026-09-09/README.md",
+        "development/remediation/2026-09-09/security-r02/README.md",
+        "development/remediation/2026-09-09/model-config-r03/README.md",
+        "development/remediation/2026-09-09/codex-stderr-r04/README.md",
+        "config/agents/README.md"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T01:00:55.796466+00:00",
+      "finishedAt": "2026-09-10T01:00:58.787537+00:00",
+      "exitCode": 0,
+      "log": "logs/22-pair-record.log",
+      "logSha256": "4a24cb63670e93b3861247923b45b23aab339700469072f1a4058605bb6255a6",
+      "summaryLines": []
+    },
+    {
+      "id": "25-six-pairs",
+      "command": [
+        "C:/Program Files/nodejs/node.exe",
+        "C:\\Albert\\project\\dsh861-local-validation\\20260909-win-keyless-7f42\\tools\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "run",
+        "verify-translation-pairing",
+        "development/nodes/P0-B/evidence/README.md",
+        "development/remediation/2026-09-09/README.md",
+        "development/remediation/2026-09-09/security-r02/README.md",
+        "development/remediation/2026-09-09/model-config-r03/README.md",
+        "development/remediation/2026-09-09/codex-stderr-r04/README.md",
+        "config/agents/README.md"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T01:07:09.418621+00:00",
+      "finishedAt": "2026-09-10T01:07:11.303544+00:00",
+      "exitCode": 0,
+      "log": "logs/25-six-pairs.log",
+      "logSha256": "bd8efb383d9c06d6a059719de43e356093cf5fdda409750cab186ccbcda5f085",
+      "summaryLines": []
+    },
+    {
+      "id": "27-test-docs",
+      "command": [
+        "C:/Program Files/nodejs/node.exe",
+        "C:\\Albert\\project\\dsh861-local-validation\\20260909-win-keyless-7f42\\tools\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "run",
+        "test:docs"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T01:08:24.651545+00:00",
+      "finishedAt": "2026-09-10T01:09:08.458508+00:00",
+      "exitCode": 0,
+      "log": "logs/27-test-docs.log",
+      "logSha256": "d80d6bcf232a5ecc199164639990a22217d47dff8f343edbea40ff74efcf9b25",
+      "summaryLines": [
+        "== PASSED markdown wrap (19.49s) ==",
+        "== PASSED type equivalence (19.71s) ==",
+        "== PASSED doc refs (3.12s) ==",
+        "== PASSED public repository links (6.47s) ==",
+        "== PASSED agent note classification (1.04s) ==",
+        "== PASSED agent note format (1.06s) ==",
+        "== PASSED archived agent notes (1.09s) ==",
+        "== PASSED skill invocation metadata (1.05s) ==",
+        "== PASSED translation prompt (0.96s) ==",
+        "== PASSED package README model experience (9.28s) ==",
+        "== PASSED doc budgets (0.99s) ==",
+        "== PASSED documentation standard tests (4.54s) ==",
+        " Test Files  1 passed (1)",
+        "      Tests  1145 passed (1145)",
+        "   Duration  1.47s (transform 437ms, setup 480ms, import 192ms, tests 413ms, environment 0ms)",
+        "== PASSED markdown links (39.25s) ==",
+        "== PASSED translation pairing (41.36s) ==",
+        "== PASSED package README limitations (9.99s) ==",
+        "run-gates: 15 passed, 0 failed, 0 skipped in 42.20s."
+      ]
+    },
+    {
+      "id": "28-pair-snapshots",
+      "command": [
+        "python",
+        "-c",
+        "import sys,json,re; sys.path.insert(0,\"C:/Albert/project/dsh861-local-validation/20260910-win-integration-b6e1\"); from record import *; pairs=[\"development/nodes/P0-B/evidence/README.md\",\"development/remediation/2026-09-09/README.md\",\"development/remediation/2026-09-09/security-r02/README.md\",\"development/remediation/2026-09-09/model-config-r03/README.md\",\"development/remediation/2026-09-09/codex-stderr-r04/README.md\",\"config/agents/README.md\"]; records=[]\nfor p in pairs:\n meta=(ROOT/p).with_suffix(\".i18n.yaml\"); matches=re.findall(r\"^([^#\\n][^:\\n]+): ([0-9a-f]{40})$\",meta.read_text(),re.M)\n for name,oid in matches:\n  data=(meta.parent/name).read_bytes(); stored=git(\"cat-file\",\"blob\",oid); ref=git(\"rev-parse\",\"refs/dsh/translation-pairing/snapshots/\"+oid).decode().strip(); records.append({\"path\":str(meta.parent/name),\"gitBlob\":oid,\"snapshotRefMatches\":ref==oid,\"bytesMatch\":data==stored,\"sha256\":sha(data)})\nprint(json.dumps(records,indent=2)); assert len(records)==12 and all(r[\"snapshotRefMatches\"] and r[\"bytesMatch\"] for r in records)"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T01:08:59.931237+00:00",
+      "finishedAt": "2026-09-10T01:09:01.642905+00:00",
+      "exitCode": 0,
+      "log": "logs/28-pair-snapshots.log",
+      "logSha256": "8df380d836af78d1c249fbc3ecdf9248f3f15982224d3d938477eb81c75e6104",
+      "summaryLines": []
+    },
+    {
+      "id": "29-doc-sync",
+      "command": [
+        "C:/Program Files/nodejs/node.exe",
+        "C:\\Albert\\project\\dsh861-local-validation\\20260909-win-keyless-7f42\\tools\\node_modules\\pnpm\\bin\\pnpm.cjs",
+        "run",
+        "doc-sync"
+      ],
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "startedAt": "2026-09-10T01:20:09.741106+00:00",
+      "finishedAt": "2026-09-10T01:22:13.659075+00:00",
+      "exitCode": 0,
+      "log": "logs/29-doc-sync.log",
+      "logSha256": "9637ff5cc1701b16a56cbafee8d4d69ebf52c873920d2be8fb536c67ae2db884",
+      "summaryLines": [
+        "== PASSED Cordis inspect catalog (18.50s) ==",
+        "== PASSED cordis catalog (35.58s) ==",
+        "== PASSED verify-mermaid (21.65s) ==",
+        "== PASSED client catalog (6.01s) ==",
+        "== PASSED scoped events (30.49s) ==",
+        "== PASSED translation pairing (31.29s) ==",
+        "== PASSED markdown wrap (17.13s) ==",
+        "== PASSED export jsdoc (13.52s) ==",
+        "== PASSED config catalog (3.58s) ==",
+        "== PASSED persistence catalog (3.66s) ==",
+        "== PASSED Session format catalog (1.33s) ==",
+        "== PASSED tool catalog (7.43s) ==",
+        "== PASSED subsystem pages (2.00s) ==",
+        "== PASSED doc refs (3.58s) ==",
+        "== PASSED tsconfig paths (1.48s) ==",
+        "== PASSED config source ownership (1.28s) ==",
+        "== PASSED public repository links (6.35s) ==",
+        "== PASSED agent note classification (1.32s) ==",
+        "== PASSED package paths (5.64s) ==",
+        "== PASSED agent note format (1.45s) ==",
+        "== PASSED archived agent notes (1.53s) ==",
+        "== PASSED skill invocation metadata (1.23s) ==",
+        "== PASSED translation prompt (1.27s) ==",
+        "== PASSED doc budgets (1.28s) ==",
+        "== PASSED package README model experience (9.15s) ==",
+        "== PASSED documentation standard tests (5.28s) ==",
+        " Test Files  1 passed (1)",
+        "      Tests  1145 passed (1145)",
+        "   Duration  1.71s (transform 443ms, setup 498ms, import 207ms, tests 583ms, environment 0ms)",
+        "== PASSED package README limitations (8.86s) ==",
+        "== PASSED documentation site checks (12.02s) ==",
+        " Test Files  2 passed (2)",
+        "      Tests  480 passed (480)",
+        "   Duration  9.39s (transform 1.00s, setup 998ms, import 3.09s, tests 7.95s, environment 0ms)",
+        "run-gates: 33 passed, 0 failed, 0 skipped in 122.07s."
+      ]
+    }
+  ],
+  "historicalEvidence": {
+    "archive": "prior-validation.zip",
+    "exportHashManifest": "prior-export-manifest.json",
+    "originalSHA256SUMS": "prior-validation.zip:SHA256SUMS.json",
+    "commandCount": 57,
+    "statusCounts": {
+      "PASS": 42,
+      "FAIL": 14,
+      "NOT_RUN": 1
+    },
+    "logCount": 56,
+    "receiptCount": 67,
+    "oldCandidate": "216f6b85a74f0894de645a3f4c19b5564148526c3642d6e1cf754db63492ce31",
+    "reusedBehaviorResults": [
+      {
+        "id": "38-B-audit-fixed",
+        "pass": 31
+      },
+      {
+        "id": "39-B-security-fixed",
+        "pass": 56
+      },
+      {
+        "id": "40-C-codex-fixed",
+        "pass": 71
+      }
+    ],
+    "reuseLimit": "Original command receipts bind their own before/after diffs; they are not claimed as freshly executed against the merged candidate. Merge changed only documentation; all 17 repair files remain byte-identical to the delivered candidate. Unaffected behavior tests were not mechanically repeated.",
+    "navigationNotes": [
+      "03-pnpm-version has no completed process and no log; NOT_RUN. Dedicated pnpm version success is 15-local-pnpm-version.",
+      "41-loader-built failed; 41-loader-verdict.json describes subsequent 44-loader-built-complete, not the failed invocation.",
+      "Non-command receipts including 35-restoration.json and 41-loader-verdict.json remain under receipts/ and in the exported SHA manifest.",
+      "29-D-docs and 51-doc-sync historical aggregates failed. Historical 42-lint-fixed is lint:contracts-ready, never renamed to lint."
+    ]
+  },
+  "firstFailuresThisRun": [
+    {
+      "id": "04-gh-version",
+      "result": "Spawn failed because gh executable is unavailable; no command exit code exists. Initial empty log and tool exception retained; standard installation path lookup also negative."
+    },
+    {
+      "id": "24-cache-routing",
+      "exitCode": 1,
+      "cause": "cmd mklink failed creating a local cache junction; old cache was preserved.",
+      "retest": "26-cache-routing-fixed exit 0 using Windows CreateJunction. No dependency packages reinstalled or modified."
+    }
+  ],
+  "protectedFiles": {
+    "config/agents/models.v1.json": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f",
+    "config/agents/models.v1.lock.json": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb",
+    "pnpm-lock.yaml": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383"
+  },
+  "protectedFilesMatchOldOriginalBytes": true,
+  "remainingBlockers": [
+    "P0-B remains blocked. No designated real Codex successor plan or real OpenCode hard review was invoked.",
+    "Real four-product execution and provider/reasoning compatibility, credential rotation, full Loader-driven turn and Windows ACL/descendant-tree quiescence remain unverified.",
+    "Historical Node/libuv UV_HANDLE_CLOSING incident retained; did not recur in these aggregate runs, root cause not established.",
+    "GitHub CLI and PR tools unavailable; per explicit owner exception return pushed branch and SHA without claiming draft PR creation."
+  ],
+  "externalAgentsInvoked": false,
+  "realModelAPIsInvoked": false,
+  "publication": "Pending normal push; later publication receipt binds the actual remote head."
+}
