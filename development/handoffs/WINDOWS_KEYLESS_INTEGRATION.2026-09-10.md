@@ -1,29 +1,29 @@
 # Windows 验证、凭据接入与 P0-B 规划交接
 
-当前仓库仅为 `wmqfl861/dsh861`，本地目录为 `C:\Albert\project\dsh861`。继续在 PR #7 的 `fix/p0b-windows-credential-store-20260910` 分支工作。P0-B 保持 blocked；本页、内置审核 PASS 与局部测试均不是指定 Codex 计划或 OpenCode 硬审核。不合并 master，不进入 P0-C。
+当前仓库仅为 `wmqfl861/dsh861`，本地目录为 `C:\Albert\project\dsh861`。继续使用 PR #7 的 `fix/p0b-windows-credential-store-20260910`。P0-B 保持 blocked，不合并 master，不进入 P0-C；本页和内置子代理审核不是指定 Codex 规划或 OpenCode 硬审核。
 
-## 接收结果与更正
+## 当前输入与已完成部分
 
-保留本地 r10 提交 `21b654b4877748cbf7ac06ae252f7c7438e11996`。其 [r10 回执](../remediation/2026-09-10/planner-windows-r10/verification.json)和原始失败／通过日志不改写；26/26 是那次 Windows 执行记录，不等于后代清理的充分证明。
+接收基线为 `ed8d91461fcdbf68066fa5804d57d06c23c31749`。[r13 Windows 回执](../remediation/2026-09-10/planner-gate-r13/verification.json)记录补丁接收、钉版门控启动器、ABI 探针、31 项规划测试和 12 项原生入口测试。原回执、首失及历史缺失记录保留，不重复执行没有变化的版本、配置发现、凭据存取或归档任务。
 
-[r11 复核](../remediation/2026-09-10/planner-observer-r11/verification.json)在精确 Git blob 的 Linux 转换副本上复现 25/26：后代程序没有创建 `descendant.beat`，`utimesSync` 失败被吞掉；观察器把文件缺失当作停止。因此“心跳证明全部后代退出”和“Windows 不能构造存活后代”不能继续作为验收依据。修正测试在创建心跳后发布就绪，要求真实推进，缺失／冻结都失败；使用 detached 后代，POSIX 继承管道的 `forcedPipeClosure` 断言保留。测试自己的协作停止不等于包装器清理，`descendantState` 仍为 `NOT_VERIFIED`。
+本次 r14 在同一实现上处理 helper 失败时未指派启动器的中止、失效属主放行、销毁等待和过期 go 标记。[r14 回执](../remediation/2026-09-10/gate-abort-r14/verification.json)记录 34 项新控制、10 项既有属主控制和局部类型检查；Linux 执行不代替 Windows 作业或 ACL 证明。源码和使用限制集中在[凭据组件说明](../../scripts/p0-b/windows-credentials/README.zh.md)。
 
-Node 26.4.0 的 libuv 使用进程级共享作业对象，并排除 detached 启动；不能从嵌套 Node 合成用例推导任意 Codex/Rust/PowerShell 后代都会自动退出。参考源码及复核边界记录在 r11，不要求按进程名全局清理。
+## 本地下一步：仅验证新变化
 
-凭据桥的 PS5.1 解析修复、C#、reader、manage 及原生测试没有变化。[r08 原始文件归档](../remediation/2026-09-10/credential-store-r08/raw-evidence-manifest.json)的 19 份文件内容已逐字节校验；仅清理 tar 包装头的账户／时间元数据并更正 source 路径，原归档的提交和 SHA 保留。缺失的 5 份历史日志仍缺失，没有重新生成历史记录。
+安全同步当前候选，不强制覆盖、不自动 stash，不另建平行实现。沿用 Node 26.4.0、专用 pnpm 11.7.0 和已安装依赖。先运行新的门控控制与两项 Windows 原生 fixture，再复验受影响的既有属主控制和原生入口。优先覆盖 helper 在尚未指派与已指派但尚未放行时异常退出，使用测试保留的精确子进程句柄，不按名称杀进程；目标必须没有执行，启动器必须被观察到关闭，异常销毁不能改报成功。
 
-## r12 本机完成的复验与接线
+[gate-owner-native.test.mjs](../../scripts/p0-b/windows-credentials/gate-owner-native.test.mjs)已写好这两项 fixture；在 Windows 上应实际执行。VM 只观察原始 spawn 返回值，不模拟 Windows 或替换 PowerShell。非 Windows 跳过不能计作通过。必要时最小修复并保留首次失败，不能删除断言、追加任意重试或降低宿主策略。
 
-Windows 复跑修正后的两组测试全部通过（planner 28/28、projection 15/15）。钉版 Codex（repo 内 @openai/codex@0.149.1，sha256 与 r01 一致）在独立自有目录验证新投影：投影 argv／TOML 全部原生接受，错误信息点名生成 TOML 的 `env_key`，banner 显示 provider: my-gpt、sandbox: read-only、reasoning effort: max；负控制证明 `[shell_environment_policy]` 被原生枚举校验、`--sandbox` 被原生枚举校验、空 `CODEX_HOME` 报 provider 未找到；全局 `%USERPROFILE%\.codex` 未被触碰，82 个写入全部隔离。shell 环境策略与只读沙箱的 OS 级实际强制仍为 NOT_VERIFIED（无密钥无法驱动工具调用）。
+补齐原 breakaway fixture 的真实进程身份：从已完成布局核验的 `PROCESS_INFORMATION.dwProcessId` 保存实际 PID，并保留进程句柄以等待内核退出；未创建、PID 占位符、无法查询或仅心跳冻结不能证明退出。不要重新编写整套属主。生产代码本轮未修改 C#、PowerShell 凭据或模型配置。
 
-行为探针（源码 + 五场景实测）证明 Node 26.4.0 上“spawn 自动清理全部后代”不成立：libuv 作业带 SILENT_BREAKAWAY，CLI 后代不入 wrapper 的作业，wrapper 退出杀不到它们。因此本轮新增显式所有权接线：[job-owner.ps1](../../scripts/p0-b/windows-credentials/job-owner.ps1)（无脱离标志的专用作业对象，EOF/dispose/terminate 显式 TerminateJobObject，KILL_ON_JOB_CLOSE 后备）、[windows-job-owner.ts](../../scripts/p0-b/windows-credentials/windows-job-owner.ts)（helper 完整性）、planner-invocation.ts 的可选 `ownership` 接缝（assign 失败即 `OWNERSHIP_FAILED`）和 [planner-entry.ts](../../scripts/p0-b/windows-credentials/planner-entry.ts)（argv／环境／CODEX_HOME 全部取自投影的最小调用入口）。入口套件 10/10：取消与正常完成都终止 detached 后代，显式 breakaway 尝试保持成员并被终止，属主死亡失效安全成立，并行无关调用不受影响。期间发现并修复 PowerShell 嵌套值类型字段直接赋值是静默空操作的缺陷（SetInformationJobObject 返回成功但标志未生效），证据在 [r12 回执](../remediation/2026-09-10/planner-entry-r12/verification.json)。
+按实际影响完成类型、lint 和文档验证。两组 README/Agent Note 已同步双语正文，但没有冒充执行原仓库配对程序；点名重录受影响的 `.i18n.yaml`，不用 `--write --all`，不关闭钩子。不重复未变化的 reader/native、版本和配置解析探针。实际执行的完整命令与退出码应有可取回日志，旧缺失文件不得重造。
 
-## 下一步
+正常提交推送同一分支并更新 PR #7；本轮重点是本次修改的 Windows 结果和两个原生失败场景，不再返回“与旧提示词相同、无新工作”。
 
-真实调用前置条件仍不齐：所有者授权记录、轮换确认、HTTPS 路由批准、金额强制点。在它们落地前入口对所有真实声明保持拒绝（当前批准配置为 HTTP，投影即拒），不得读取真实 Key。授权就绪后，用投影入口执行第一次真实 Codex 规划调用，核验证书、请求级预算与网关行为；OS 级 shell 环境策略与只读强制同样需要真实调用验证。随后由真实指定 Codex 产出当前节点后继计划；[r01](../nodes/P0-B/plan-revision-request.r01.md)、[r02](../nodes/P0-B/plan-revision-request.r02.md)和[网页需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)继续作为输入，不自行代写 plan.v4，不把整个公网后台追加为本节点无限前置。
+## 真实调用边界
 
-## 凭据与交付边界
+本轮不用真实 Key，不读写或枚举生产凭据，不读取全局认证，不访问中转、不调用收费模型。模型声明、模型锁、pnpm-lock 和节点状态保持不变。门控哈希由本次受控开发更新，生产批准另行记录；不能将测试时计算的哈希冒充用户生产批准。
 
-本轮无需真实 Key，不接触四个生产凭据目标，不读取全局认证，不请求中转站。旧 Key 的供应商撤销确认、用户本人隐藏录入替代 Codex Key、HTTPS 路由批准仍为实际规划前置；第一次只需 Codex，不要求四套同时配置。模型声明、模型锁、pnpm-lock 保持原字节。
+首次真实规划仍需可核验的所有者授权、用户确认供应商侧撤销旧 Key、本人隐藏录入新的 Codex Key、获批受保护路由，以及实际隔离和费用约束。金额预算的技术强制机制属于实现工作，具体金额和服务商支持条件需要用户决定；不能以一个非空记录名、HTTPS 字符串或单次 CLI 启动替代这些条件。不要求用户现在提供四个 Key，也不要求把任何新 Key 发给聊天或 agent。
 
-正常提交并推送同一分支，交付真实 SHA、复验日志、具体运行条件及未完成项。先闭合可信调用方和系统边界，再进入下一节点。
+指定 Codex 后继计划继续以[请求 r01](../nodes/P0-B/plan-revision-request.r01.md)、[请求 r02](../nodes/P0-B/plan-revision-request.r02.md)和[网页控制台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)为输入。保留多团队和全站助手需求，但不把整个公网后台追加为 P0-B 的无限前置条件。

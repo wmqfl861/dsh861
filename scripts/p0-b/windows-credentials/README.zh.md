@@ -2,11 +2,11 @@
 
 [English](README.md) | 中文
 
-这个 P0-B 支持组件为四个专用 Windows 凭据管理器目标提供录入，并向现有[凭据租约](../credential-ref.ts)提供显式授权的读取器。管理命令不启动模型，也不激活[模型配置](../../../config/agents/README.zh.md)。独立调用的规划函数在前置条件通过后可以启动传入的 CLI；它不是轮换确认、公网设置界面或多租户凭据服务。
+这个 P0-B 支持组件保存 Windows 专用凭据，并连接显式授权的读取器、Codex 配置投影和有属主的进程启动器。它不是公网设置界面、多租户凭据库、用户认证服务或产品验收机制。[模型配置](../../../config/agents/README.zh.md)保持独立版本管理。
 
-## 所有者操作入口
+## 所有者操作
 
-以将来运行可信规划服务的 Windows 账号，在可信本机交互式 PowerShell 中使用 [manage.ps1](manage.ps1)。`Set` 通过 `Read-Host -AsSecureString` 隐藏输入并要求输入两次，不接受值为 Key 的命令行参数。不得把真实 Key 写入 `cmdkey /pass:...`、脚本、agent 消息、终端记录或普通 `.key` 文件。不要为运行脚本而关闭宿主安全策略。
+以运行可信规划服务的 Windows 账号，在可信交互式 PowerShell 中使用 [manage.ps1](manage.ps1)。`Set` 通过两次 `Read-Host -AsSecureString` 提示录入，不接受值为 Key 的参数。不要把 Key 写入聊天、脚本、终端记录、`cmdkey /pass:...` 或普通 `.key` 文件。不要绕过宿主安全策略。
 
 ```powershell
 Set-Location -LiteralPath 'C:\Albert\project\dsh861'
@@ -14,60 +14,46 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 .\scripts\p0-b\windows-credentials\manage.ps1 -Action Set -Provider codex
 ```
 
-输入真实 Key 前先完成原生无密钥测试。`Set` 在写入前要求确认；已有条目必须显式加 `-Replace`。`Remove` 经确认只删除选中的专用条目。录入要求单一写入者：Windows `CredWrite` 是创建或覆盖操作，不是原子比较交换。状态只返回固定目标及存在性／格式状态，不返回值、末尾片段、长度或由 Key 派生的哈希。
+真实录入前完成原生无密钥验证。写入需要确认；替换已有条目需要 `-Replace`。`Remove` 只确认删除选中的目标。录入要求单一写入者：Windows CredWrite 是创建或覆盖，不是比较交换。状态只有目标和存在性／格式信息，不含值、后缀、长度或 Key 派生哈希。
 
-| Provider 参数 | 固定引用 | Windows 目标 |
+| Provider | 固定引用 | Windows 目标 |
 |---|---|---|
 | `codex` | `secret-reference:providers/codex` | `dsh861/providers/codex` |
 | `claude-code` | `secret-reference:providers/claude-code` | `dsh861/providers/claude-code` |
 | `grok` | `secret-reference:providers/grok` | `dsh861/providers/grok` |
 | `opencode` | `secret-reference:providers/opencode` | `dsh861/providers/opencode` |
 
-后端使用应用定义的通用凭据、格式标识和当前 Windows 用户的本机持久化。相同账号在本机后续登录中可以读取，另一个服务账号或机器不会自动继承。用 `cmdkey` 创建的条目格式不同，不静默导入。提供商变更、轮换确认和执行授权仍与存储分开。
+应用定义的通用凭据格式供同一用户在同一机器跨登录持久使用。其他机器和服务账号不继承；cmdkey 条目格式不同，不隐式导入。Key 必须为 1–384 个可打印、非空格 ASCII 字节，不支持时拒绝而不截断。SecureString 和缓冲区清理不保证彻底抹除内存，也不能防御管理员或被攻陷的同用户代码。
 
-Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不支持时拒绝，不截断。这是有明确范围的 API Key 组件，不是任意密码或大令牌的凭据库。SecureString 和临时缓冲区清理减少保留副本，但不能抹除全部操作系统／运行时内存，也不能防御管理员、窃取凭据的代码或运行在同一用户下的被攻陷进程。
+## 可信读取
 
-## 可信读取器接入
+[reader.ts](reader.ts) 把 `createWindowsBridge`、`createSealedCredentialReaders` 与现有[一次性租约](../credential-ref.ts)组合。凭据引用及来源到环境变量的授权均显式提供。不枚举全局凭据、不回退到环境变量，不提供明文导出或面向普通 agent 的通用秘密读取器。
 
-[reader.ts](reader.ts) 将 `createWindowsBridge(spec)` 与 `createSealedCredentialReaders(invoke, allowedIds)` 组合。将结果传给 `resolveCredentialReferences(requests, grants, readers)`；来源到目标变量的授权和引用允许集合都继续生效。不提供环境变量或文件回退。可信调用方提供 PowerShell 的绝对程序路径、helper 目录、该程序及两个 helper 源文件的已批准 SHA-256、自有临时路径和时限。不能从不可信任务可改写的文件推导生产批准。
+可信部署钉扎 PowerShell 绝对路径、[bridge.ps1](bridge.ps1)、[native-credential.cs](native-credential.cs)及其哈希。桥使用 `-NoProfile`、`-NonInteractive`、`shell: false`、私有管道和仅含 `SystemRoot`、`TEMP`、`TMP` 的环境，限制响应大小与时间并丢弃原始诊断。每次读取使用 Node 持有的新 RSA-4096 密钥对：stdin 传公钥参数，原生 stdout 传 RSA-OAEP-SHA256 封装，父进程在内存解密。落盘由 Windows 保护；封装防止管道意外采集明文，不防止同用户窃取凭据。
 
-[bridge.ps1](bridge.ps1) 调用 [native-credential.cs](native-credential.cs)。Node 父进程每次读取时生成新的 RSA-4096 密钥对，stdin 只传公钥参数；原生进程用 RSA-OAEP-SHA256 封装凭据，父进程在内存中解密。明文 Key 不会被有意写入 helper stdout。读取器检查响应身份、大小、格式和密文块长度；缺失保持缺失，错误不包含原始进程输出或异常原因。响应与明文缓冲区在使用后清理。落盘不使用自制加密：存储归 Windows 凭据管理器负责。
+执行期间持续保护部署文件和临时目录的父目录。启动前哈希不消除并发修改竞态；路径隔离或 POSIX 权限位不建立 Windows ACL。不可信 agent 需要独立身份或已验证的操作系统隔离。轮换、存储、传输批准与运行授权是独立事实。
 
-私有通道使用 `-NoProfile`、`-NonInteractive`、`shell: false`、精确 helper 哈希，以及仅含 `SystemRoot`、`TEMP`、`TMP` 的显式环境。不继承全局提供商 Key、不加载 PowerShell profile、不绕过执行策略、不枚举凭据，也不提供明文导出命令。可信所有者必须在执行全过程控制相关文件和临时目录；启动前哈希不能消除并发修改竞态。
+## Codex 投影与调用
 
-加密封装防止偶然采集管道输出时暴露 Key，但不能对同一 Windows 用户实施授权隔离，因为该用户仍可直接调用凭据管理器。因此，不可信产品 agent 仍需要独立执行身份或已验证的操作系统隔离。只有可信服务取得读取器和租约。不得把此 API 暴露成通用 agent 工具，也不得把解密结果写入诊断通道。
+[codex-launch-projection.mjs](codex-launch-projection.mjs) 校验实际模型锁，并生成唯一固定的 argv／TOML／环境参数集。HTTP、锁不匹配、不安全路径、未知输入字段、工作区与运行根目录重叠都会被拒绝。结果为 `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`：投影不读 Key、不建目录、不启动进程。配置只含凭据变量名而非值；工具 Shell 环境排除模型凭据。
 
-## 规划调用接线
+[planner-entry.ts](planner-entry.ts) 独占预留新运行根目录、创建隔离目录并以 `wx` 写配置。已有根目录包括预置链接都会被拒绝；父目录保护仍归调用方负责。入口把投影生成的参数提供给 [planner-invocation.ts](planner-invocation.ts) 和既有凭据租约。空批准引用和主题不匹配会被拒绝，但非空引用不认证背后的所有者决定或传输证据。
 
-[planner-invocation.ts](planner-invocation.ts) 将密封读取器连接到传入的可执行程序。可信调用方必须核验所有者决定、模型锁，将批准路由投影到实际 CLI 参数／配置，并提供有效的沙箱及隔离 home 设置。非空的批准或传输记录名称只是引用，不证明记录真实、TLS 已验证或 CLI 使用了该路由。本函数不是不可信 JSON 接口、批准服务或完整 Codex 适配器。
+包装器私有复制输入，在读取凭据前检查提示／程序哈希和显式限制，并在 spawn 前检查 argv 中的已知租约密钥。两个返回通道均先脱敏。`maxChannelBytes` 限制保留的 UTF-8 字节，包括 EOF 延迟片段及替换标记膨胀；超限片段在保留前丢弃。输入投递失败导致取消，泄漏标记持续锁存，不完整采集保持显式状态。
 
-读取凭据前，函数私有复制调用输入、比较传入的对象与路由、解析不含用户信息或片段的 HTTPS URL、核验提示／程序哈希，并校验显式进程边界。当前批准的 HTTP 路由继续被拒绝。既有租约提供子进程环境；既有参数扫描器在启动前拒绝 argv 中已知的租约值。可信所有者必须持续控制文件及原生桥；输入副本不保护可变部署文件或被攻陷的桥。
+`deadlineMs` 覆盖启动后阶段，不覆盖哈希或凭据解析；`terminationGraceMs` 限制取消等待。强制关闭管道不是进程树退出。结果区分直接子进程退出、管道关闭、保留字节和 `descendantState=NOT_VERIFIED`。一次 CLI 可发起多个模型请求，这些限制不是金额上限。退出零不代表计划可用或产品通过。
 
-`maxChannelBytes` 分别限制 stdout、stderr 保留的 UTF-8 字节，包括 EOF 时脱敏器延迟输出的尾部。可能超限的片段在保存前丢弃并取消调用；后续输入继续排空，不再累积文本。提示写入错误触发取消，不报告输入已完成。`capturedBytes` 记录保留字节；`captureComplete=false` 区分截断或中断输出。即使脱敏片段放不下，泄漏检测仍保持锁存。
+## 有属主的启动与失败生命周期
 
-`deadlineMs` 限制启动后的进程阶段，不包含启动前哈希或凭据解析。取消请求终止直接子进程，至多按显式的 `terminationGraceMs` 等待进程／stdio 关闭。管道仍打开时，包装器关闭自己持有的管道端并返回取消结果；已经观察到子进程退出后，不再向该 PID 发信号。`cleanup` 分别记录直接子进程退出、stdio 关闭、强制关闭管道及 `descendantState=NOT_VERIFIED`；发出终止请求或有界返回都不能认证后代进程树静止。可信执行所有者必须另行验证资源所有权及静止状态，才能认定运行已安全清理。
+[job-owner.ps1](job-owner.ps1) 持有一个不带脱离标志的显式 Windows 作业。[windows-job-owner.ts](windows-job-owner.ts) 核验程序／helper／启动器哈希及有界、与操作匹配的 JSON 回应。钉版 [launch-gate.mjs](launch-gate.mjs) 在创建目标 CLI 前加入作业。标准入口使用该门控；未提供门控启动的可选 ownership 实现仍有启动后指派间隙。
 
-一个 CLI 可以发送多次模型请求；这些边界不是金额或逐请求限额。进程完成，即使退出零，也不等于可用计划、已验证模型身份或产品验收。调用方必须检查终止／采集状态、退出码／信号、泄漏、原生事件、返回计划及所需外部证据。合成测试不包含真实模型调用。
+属主跟踪一个启动器，仅在其精确且存活的 PID 得到成功指派回应后允许放行一次。错误 PID、失败或迟到的指派、取消、helper 退出、协议失败与销毁都不能授权放行。失败会写 abort 标记并请求直接终止，即使门控尚未指派；不按进程名扫描。helper 使用单调等待，取消优先于放行，过期后才首次观察到的 go 标记不能启动目标。错误或超大的启动记录返回固定退出码，不暴露内容。目标 stdio 不用作控制消息通道。
 
-## 无密钥 Codex 启动配置生成
-
-[codex-launch-projection.mjs](codex-launch-projection.mjs)调用实际模型锁校验器，将获准 Codex 路由转换为固定 argv、TOML 配置和显式隔离路径环境。它拒绝 HTTP、锁不匹配、未知输入字段、工作区与运行目录重叠以及不安全路径。提供商、模型、思考等级和凭据引用只来自已批准声明；生成配置只有环境变量名，没有其值。Shell 环境排除密钥，不继承模型进程的环境。
-
-结果为 `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`。该函数不读取凭据、不写配置、不创建目录、不批准请求，也不启动进程。可信调用方必须准备自有目录，并在执行前核验钉版 CLI 的配置发现、原生设置与操作系统强制只读范围。批准引用、HTTPS 字符串、生成的 `CODEX_HOME` 或配置生成成功，都不是授权、证书验证、隔离、金额预算控制或后代静止的证明。生产调用方及这些运行时控制仍需接入；合成 HTTPS fixture 不改变所有者当前的 HTTP 路由。
-
-## 有属主的规划调用入口
-
-[planner-entry.ts](planner-entry.ts) 组合配置投影、凭据租约、进程包装器和经过完整性校验的 Windows 作业 helper。入口先独占创建全新的运行根目录，再创建子目录并用 `wx` 写入 `config.toml`；已有根目录，包括预置链接，都会被拒绝。父目录和 Windows ACL 仍由可信调用方保护。空批准引用和不匹配的主题在物化目录前被拒绝；非空引用字符串并不能认证所有者决定。
-
-可选的 `ownership` 接口在提供 `launch` 时通过钉版门控启动器（[launch-gate.mjs](launch-gate.mjs)）启动 CLI：启动器以 CLI 的确切 stdio、工作目录和环境创建，先经 `assign()` 加入专用作业，仅在 `release()` 确认成员身份后才创建 CLI，因此 CLI 的首条代码在作业内运行，其后创建的所有后代同样加入该作业。启动器从不读取 stdin，在收到 go 标记前不创建任何进程；指派失败、取消后才完成的迟到指派或运行已取消时写入 abort 标记，绝不创建 CLI；提示词只在调用存活、未取消且成员身份确认后投递。未提供 `launch` 的 ownership 接口直接生成 CLI，保留启动代码可能先于按 PID 指派运行的残余间隙。门控启动是启动接线，不是进程树核验；`descendantState` 仍为 `NOT_VERIFIED`。
-
-[job-owner.ps1](job-owner.ps1) 持有不带脱离标志的专用作业，成员创建的每个进程都加入该作业。[windows-job-owner.ts](windows-job-owner.ts) 创建时核验钉版的 PowerShell、helper 与门控启动器哈希，仅接受长度有界、与操作匹配、成功字段一致且进程数非负的 JSON 回应。协议或传输失败会持续锁存，后续销毁不能把失败变成成功。`dispose()` 只有在获得有效确认、并在回应／退出时限内观察到 helper 正常关闭后才完成。终止确认是请求结果，不是所有进程已经退出的证明。
-
-入口在清理后记录 `assigned`、`terminated`、`activeProcessesRemaining` 和 `disposed`。终止失败、计数非零或未知、未成功指派或销毁失败时，返回 `PROJECTED_PLANNER_CLEANUP_BLOCKED`，不再返回完成／取消状态。调用异常仍保留清理回执。作业内进程数为零不能覆盖指派前创建的后代；`descendantState` 仍为 `NOT_VERIFIED`。进程完成仍不认证计划可用、模型身份、全部后代所有权或产品验收。
+销毁要求有效的 helper 正常关闭以及被观察到的启动器关闭。超时保持失败；启动器关闭未知时保留标记文件。目录被替换为链接时只解除链接，不递归进入目标。入口记录指派、终止确认、活动计数和销毁。缺失指派、终止／销毁失败或计数非零／未知均返回 `PROJECTED_PLANNER_CLEANUP_BLOCKED`；调用失败保留清理事实。这些事实均不建立 ACL、不认证用户，也不认证未观察到的后代。
 
 ## 验证
 
-在已安装仓库钉版依赖的工作副本中运行：
+使用钉版依赖在仓库运行；正常验证不要设置模块覆盖变量。
 
 ```sh
 node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
@@ -76,26 +62,18 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs
 ```
 
-第一组测试明确模拟原生通道，验证协议、真实 RSA 运算、引用限制和现有租约。可选的 `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` 仅供离线验证选择独立编译的 JavaScript；正常仓库执行不能设置它。
+读取器测试使用明确的合成对端和真实 RSA／租约代码。可选的 `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` 仅用于有记录的离线编译副本。原生凭据测试使用唯一 `dsh861/selftest/` 目标而非生产 Key；崩溃可能留下残余，只检查记录中的目标。它们不认证真实 Key 交互录入、服务账号持久性或 ACL。
 
-第二组只在 Windows 执行。它先在内置 Windows PowerShell 下解析两个脚本，验证 helper 完整性拒绝，让一个唯一 `dsh861/selftest/` 目标经历隐式覆盖拒绝、显式替换、封装与核实删除，经真实存储路径拒绝合成的隐藏输入确认不一致、再存入一致的合成值对，并检查 `Set` 拒绝重定向输入、`Remove -WhatIf` 取消而不执行。不使用生产引用或真实模型。日志只打印精确合成目标，不打印值。进程终止或宿主崩溃可能阻止清理；只检查记录的目标并报告残留。时限终止的是直接 helper，不是已验证的 Windows 后代进程树。真实 Key 的交互式隐藏录入、持久账号行为、ACL 隔离与完整规划接线仍需另行本地检查，非 Windows 跳过不能证明它们。
+规划测试区分真实 Node fixture 与模拟操作系统接口。心跳缺失或冻结不是退出证明；就绪要求创建并推进，fixture 自行清理不代表产品包含能力。[gate-owner-failures.test.mjs](gate-owner-failures.test.mjs) 使用实际属主源码、模拟子进程和真实标记文件。[launch-gate.test.mjs](launch-gate.test.mjs) 组合真实 Node 运行和确定性时钟控制。[gate-owner-native.test.mjs](gate-owner-native.test.mjs) 观察精确的真实 Windows 子进程句柄，验证 helper 在指派前后死亡。非 Windows 跳过不是原生验收。
 
-远端验证边界及实际测试文件哈希见 [r07 回执](../../../development/remediation/2026-09-10/credential-store-r07/verification.json)；Windows 本机原生结果、修复后的解析兼容行布局及本轮文件哈希记录在 [r08 回执](../../../development/remediation/2026-09-10/credential-store-r08/verification.json)。Linux 测试不被描述为隐藏输入或原生凭据存储已经成功。
+[r13 Windows 回执](../../../development/remediation/2026-09-10/planner-gate-r13/verification.json)保留先前原生结果；[r14 回执](../../../development/remediation/2026-09-10/gate-abort-r14/verification.json)记录当前控制与未执行项。[决策说明](../../../.agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md)链接较早证据及其限定。通过证据只能复用于它实际覆盖且未变化的输入。
 
-规划测试使用合成 Node 进程和模拟密封对端。POSIX 保留继承管道断言，包括 `forcedPipeClosure`；detached 后代用于验证直接子进程退出后仍存活的情形。心跳创建后才发布就绪，观察器要求心跳实际推进。心跳缺失、不可读或冻结都不能证明终止。清理要求测试所属进程确认停止，不以过期时间戳替代。包装器保持 `descendantState=NOT_VERIFIED`；fixture 的协作清理不代表产品进程树限制。[r11 回执](../../../development/remediation/2026-09-10/planner-observer-r11/verification.json)限定了保留原样的 [r10 回执](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json)中的生命周期结论。
+## 生产前置条件
 
-入口套件同样只在 Windows 执行，使用真实 PowerShell 和合成进程检查已加入作业范围内的终止及并行隔离；模块顶层后代控制与延迟指派控制以确定性方式钉住启动前包含边界。门控启动器的原生结果、补全的 `PROCESS_INFORMATION` 布局探针与两处本机测试源修复记录在 [r13 Windows 后继回执](../../../development/remediation/2026-09-10/planner-gate-r13/verification.json)。历史结果与钉版 CLI 的无密钥解析保留在 [r12 回执](../../../development/remediation/2026-09-10/planner-entry-r12/verification.json)；这些输入后才创建后代的用例不证明启动前就已建立包含关系。
+只有所有者能确认提供商侧撤销、私下录入替代值，并批准真实受保护路由和费用限制。首次规划只需 Codex 凭据，不要求四套同时提供。接受 HTTP 风险不是加密证据。具体配置变更得到授权前，保持模型声明及锁不变。
 
-[ownership-failures.test.mjs](ownership-failures.test.mjs) 在隔离 VM 中加载实际 TypeScript 源码，显式模拟进程、Windows 平台接口和文件边界，验证指派失败／迟到、错误回应、有界协议及失败清理状态。它不运行 PowerShell 或凭据存储，也不是 Windows 原生或授权安全证明。[r13 回执](../../../development/remediation/2026-09-10/ownership-failure-r13/verification.json)记录实际执行环境、首次控制失败及未执行项。
-
-## 规划前置条件
-
-凭据绑定包含实现及原生验证工作，不完全是所有者的任务。对伪造 effort 同样回显的 CLI banner 只证明配置层接受，不证明实际请求或网关行为。现有 `WRAPPER_READY` 标签不能证明规划包装器已经执行权限、完整输出脱敏、取消或费用限制。
-
-只有所有者能够确认提供商侧撤销，并批准新的 HTTPS 路由。书面接受 HTTP 风险不是受保护传输证据，本次修改也不提供这种授权。等待决定时保持已批准配置及锁文件不变。第一次获准规划只使用 Codex 凭据，其余提供商可以后续录入。不得为一个规划者要求一次提供全部四个 Key；调用前置条件真正成立前不得读取真实 Key。
-
-## 参考资料
-
-Windows 持久化及通用凭据语义：[CREDENTIALW](https://learn.microsoft.com/en-us/windows/win32/api/wincred/ns-wincred-credentialw)、[CredWriteW](https://learn.microsoft.com/en-us/windows/win32/api/wincred/nf-wincred-credwritew) 和 [CredReadW](https://learn.microsoft.com/en-us/windows/win32/api/wincred/nf-wincred-credreadw)。隐藏输入：[Read-Host](https://github.com/MicrosoftDocs/PowerShell-Docs/blob/main/reference/7.5/Microsoft.PowerShell.Utility/Read-Host.md)。设计依据：[凭据桥决策](../../../.agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md)。
+实现方必须认证授权记录，并落实有效沙箱、输出、生命周期及预算约束；用户确认本身不提供这些机制。CLI banner、HTTPS 字符串或隔离 CODEX_HOME 路径不证明网关行为、证书验证或操作系统强制。真实调用条件满足前，不读生产凭据、不调用模型。本组件不签发指定 Codex 计划或 OpenCode 审核。

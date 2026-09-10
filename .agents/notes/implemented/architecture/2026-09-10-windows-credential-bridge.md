@@ -22,6 +22,8 @@ The minimal caller entry uses the projection's single parameter set and an expli
 
 The entry reserves a fresh run root rather than relying only on exclusive creation of its configuration file. This is not Windows ACL enforcement. Direct post-spawn assignment would leave target startup outside the job, and delaying stdin cannot prevent startup code from creating descendants, so the gated launcher is what establishes membership before the CLI's first code runs. Empty membership after termination certifies neither atomic launch nor a complete process tree.
 
+Release authority belongs to the exact live launcher and is lost on abort or owner failure. The owner explicitly stops an unassigned launcher because no job can contain it yet; disposal waits for that launcher's close as well as the helper's acknowledgement and close. An expired wait cannot be revived by a late go marker. The launcher's native failure tests remain separate from the simulated protocol controls.
+
 ## Alternatives considered
 
 Plaintext files and command-line password arguments expand disclosure paths. Plaintext reader stdout makes accidental process logging unsafe. A full platform secret service and public management UI require authorization and deployment contracts beyond this support component; the component does not claim to deliver them.

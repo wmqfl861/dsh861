@@ -1,32 +1,41 @@
-// Gated CLI launcher for one planner invocation under a caller-owned Windows
-// job. The wrapper spawns this launcher with the CLI's stdio pipes attached;
-// the launcher reads its launch spec, then holds the CLI start until the go
-// marker appears. The wrapper writes that marker only after the launcher PID
-// joined the owned job, so the CLI is created by a confirmed job member and
-// joins the job before its first code runs. The launcher never reads stdin
-// (the CLI owns that pipe), passes its own inherited handles to the CLI, and
-// exits with the CLI's exit code. An abort marker, or the bounded wait ending
-// without a go marker, ends the launcher without ever creating the CLI.
+// Private, integrity-pinned launch helper. The owner supplies non-secret files
+// in its protected directory and releases this process only after assigning it
+// to the invocation's job. Abort takes precedence over release. Waiting uses
+// monotonic time; an expired wait never accepts a newly discovered go marker.
+// stdin/stdout/stderr belong to the target and are not used for control messages.
 import { spawn } from 'node:child_process'
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, statSync } from 'node:fs'
+import { isAbsolute } from 'node:path'
+import { performance } from 'node:perf_hooks'
 
-const [specFile, goFile, abortFile, waitMsText] = process.argv.slice(2)
-if (specFile === undefined || goFile === undefined || abortFile === undefined || waitMsText === undefined) process.exit(2)
+const input = process.argv.slice(2)
+if (input.length !== 4) process.exit(2)
+const [specFile, goFile, abortFile, waitMsText] = input
 const waitMs = Number(waitMsText)
-if (!Number.isInteger(waitMs) || waitMs < 1) process.exit(2)
+if (![specFile, goFile, abortFile].every(isAbsolute)
+  || !Number.isSafeInteger(waitMs) || waitMs < 1 || waitMs > 2147483647) process.exit(2)
 let spec
 try {
+  if (statSync(specFile).size > 1024 * 1024) process.exit(2)
   spec = JSON.parse(readFileSync(specFile, 'utf8'))
 } catch { process.exit(2) }
-if (typeof spec.executable !== 'string' || spec.executable.length === 0 || !Array.isArray(spec.args)
-  || spec.args.some(argument => typeof argument !== 'string') || typeof spec.cwd !== 'string') process.exit(2)
-const waitUntil = Date.now() + waitMs
-while (Date.now() < waitUntil) {
+if (spec === null || typeof spec !== 'object' || Array.isArray(spec)
+  || Object.keys(spec).sort().join(',') !== 'args,cwd,executable'
+  || typeof spec.executable !== 'string' || !isAbsolute(spec.executable) || spec.executable.includes('\0')
+  || !Array.isArray(spec.args) || spec.args.some(argument => typeof argument !== 'string' || argument.includes('\0'))
+  || typeof spec.cwd !== 'string' || !isAbsolute(spec.cwd) || spec.cwd.includes('\0')) process.exit(2)
+
+const start = performance.now()
+let released = false
+while (performance.now() - start < waitMs) {
   if (existsSync(abortFile)) process.exit(4)
-  if (existsSync(goFile)) break
-  await new Promise(resolve => setTimeout(resolve, 15))
+  if (existsSync(goFile)) { released = true; break }
+  await new Promise(resolve => setTimeout(resolve, Math.min(15, waitMs)))
 }
-if (!existsSync(goFile)) process.exit(5)
-const cli = spawn(spec.executable, spec.args, { cwd: spec.cwd, stdio: 'inherit', shell: false, windowsHide: true })
-cli.on('error', () => process.exit(3))
-cli.on('exit', (code, signal) => process.exit(signal === null ? (code ?? 3) : 1))
+if (existsSync(abortFile)) process.exit(4)
+if (!released) process.exit(5)
+try {
+  const cli = spawn(spec.executable, spec.args, { cwd: spec.cwd, stdio: 'inherit', shell: false, windowsHide: true })
+  cli.on('error', () => process.exit(3))
+  cli.on('exit', (code, signal) => process.exit(signal === null ? (code ?? 3) : 1))
+} catch { process.exit(3) }

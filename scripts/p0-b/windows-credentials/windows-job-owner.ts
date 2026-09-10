@@ -1,6 +1,6 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process'
 import { createHash } from 'node:crypto'
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { lstatSync, mkdtempSync, rmSync, unlinkSync, writeFileSync } from 'node:fs'
 import { readFile, realpath } from 'node:fs/promises'
 import { isAbsolute, join } from 'node:path'
 
@@ -24,7 +24,7 @@ export interface ProcessJobOwnerSpec {
   replyTimeoutMs: number
 }
 
-/** One CLI start through the pinned gate launcher; no secrets cross this request. */
+/** One private CLI launch request; environment values remain in memory, never in the launch file. */
 export interface GateLaunchRequest {
   executable: string
   args: readonly string[]
@@ -51,9 +51,9 @@ export interface ProcessJobOwner {
    * code runs already inside the owned job; the job admits no breakaway.
    */
   launchGated(request: GateLaunchRequest): ChildProcessWithoutNullStreams
-  /** Allow the gated CLI start; call only after assign() confirmed the launcher's membership. */
+  /** Release once, only while the exact launcher has confirmed membership and its helper remains healthy. */
   releaseGated(): void
-  /** End the gate without creating the CLI; safe to call whenever containment was not established. */
+  /** Latch abort and request direct launcher termination; a close observation is still required. */
   abortGated(): void
 }
 
@@ -146,12 +146,36 @@ export async function createProcessJobOwner(spec: ProcessJobOwnerSpec): Promise<
   let disposal: Promise<void> | undefined
   let buffer: Buffer = Buffer.alloc(0)
   let notifyClose: () => void = () => {}
-  // One gate per single-invocation owner; `directory` also holds its marker files.
-  let gate: { directory: string; goMarker: string; abortMarker: string } | undefined
+  let launchAttempted = false
+  let gate: {
+    directory: string
+    goMarker: string
+    abortMarker: string
+    child: ChildProcessWithoutNullStreams
+    state: 'waiting' | 'assigning' | 'assigned' | 'released' | 'aborted'
+    exited: boolean
+    closed: boolean
+    closeObserved: Promise<void>
+  } | undefined
+  const abortGate = (): void => {
+    if (!gate) return
+    gate.state = 'aborted'
+    try { writeFileSync(gate.abortMarker, '', { flag: 'wx', mode: 0o600 }) }
+    catch { /* An existing marker or a write failure still requires direct termination. */ }
+    if (!gate.exited && !gate.closed) {
+      try { gate.child.kill('SIGKILL') } catch { /* dispose must still observe close or reject. */ }
+    }
+  }
+  const removeGateDirectory = (directory_: string): void => {
+    // Remove a replaced link itself; never recursively descend through it.
+    if (lstatSync(directory_).isSymbolicLink()) unlinkSync(directory_)
+    else rmSync(directory_, { recursive: true, force: true })
+  }
   const closeObserved = new Promise<void>((resolve) => { notifyClose = resolve })
   const fail = (error: ProcessJobOwnerError): void => {
     if (failure) return
     failure = error
+    abortGate()
     for (const entry of pending.values()) {
       clearTimeout(entry.timer)
       entry.reject(error)
@@ -170,7 +194,10 @@ export async function createProcessJobOwner(spec: ProcessJobOwnerSpec): Promise<
   child.stdin.on('error', () => { fail(new ProcessJobOwnerError('OWNER_HELPER_START_FAILED')) })
   child.stdout.on('error', () => { fail(new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID')) })
   child.stderr.on('error', () => { fail(new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID')) })
-  child.on('exit', () => { exited = true })
+  child.on('exit', () => {
+    exited = true
+    if (!disposing || !disposeAcknowledged) fail(new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID'))
+  })
   child.on('close', (code, signal) => {
     closed = true
     if (!disposing || !disposeAcknowledged || code !== 0 || signal !== null || buffer.length > 0 || pending.size > 0) {
@@ -208,7 +235,7 @@ export async function createProcessJobOwner(spec: ProcessJobOwnerSpec): Promise<
   child.stderr.on('data', () => { fail(new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID')) })
 
   const request = (operation: Operation, extra?: Record<string, unknown>): Promise<HelperReply> => {
-    if (failure || closed || (disposing && operation !== 'dispose')) {
+    if (failure || exited || closed || (disposing && operation !== 'dispose')) {
       return Promise.reject(failure ?? new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID'))
     }
     return new Promise<HelperReply>((resolve, reject) => {
@@ -231,10 +258,26 @@ export async function createProcessJobOwner(spec: ProcessJobOwnerSpec): Promise<
   return {
     async assign(pid: number): Promise<boolean> {
       if (!Number.isSafeInteger(pid) || pid <= 0) return false
-      try { const reply = await request('assign', { pid }); return reply.ok && reply.assigned === true }
-      catch { return false }
+      const current = gate
+      if (current) {
+        if (current.state !== 'waiting' || current.exited || current.closed || current.child.pid !== pid) return false
+        current.state = 'assigning'
+      }
+      try {
+        const reply = await request('assign', { pid })
+        const assigned = reply.ok && reply.assigned === true && !failure && !exited && !closed && !disposing
+        if (current) {
+          if (!assigned || current.state !== 'assigning' || current.exited || current.closed) {
+            abortGate()
+            return false
+          }
+          current.state = 'assigned'
+        }
+        return assigned
+      } catch { abortGate(); return false }
     },
     async terminateOwned(): Promise<boolean> {
+      abortGate()
       try { const reply = await request('terminate'); return reply.ok && reply.terminated === true }
       catch { return false }
     },
@@ -245,33 +288,48 @@ export async function createProcessJobOwner(spec: ProcessJobOwnerSpec): Promise<
     dispose(): Promise<void> {
       if (disposal) return disposal
       disposing = true
+      abortGate()
       disposal = (async () => {
-        const reply = await request('dispose')
-        if (!reply.ok || !reply.disposed) {
-          fail(new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID'))
-          throw failure as ProcessJobOwnerError
+        const waitForClose = async (observed: Promise<void>): Promise<void> => {
+          let timer: ReturnType<typeof setTimeout> | undefined
+          try {
+            await Promise.race([observed, new Promise<void>((_resolve, reject) => {
+              timer = setTimeout(() => {
+                const timeout = new ProcessJobOwnerError('OWNER_REPLY_TIMEOUT')
+                fail(timeout)
+                reject(timeout)
+              }, spec.replyTimeoutMs)
+            })])
+          } finally { if (timer !== undefined) clearTimeout(timer) }
         }
-        try { child.stdin.end() } catch { fail(new ProcessJobOwnerError('OWNER_HELPER_START_FAILED')) }
-        let timer: ReturnType<typeof setTimeout> | undefined
         try {
-          await Promise.race([closeObserved, new Promise<void>((_resolve, reject) => {
-            timer = setTimeout(() => {
-              const timeout = new ProcessJobOwnerError('OWNER_REPLY_TIMEOUT')
-              fail(timeout)
-              reject(timeout)
-            }, spec.replyTimeoutMs)
-          })])
-        } finally { if (timer !== undefined) clearTimeout(timer) }
-        if (failure) throw failure
-        if (gate) {
-          try { rmSync(gate.directory, { recursive: true, force: true }) }
-          catch { /* bounded marker residue under the run's TEMP */ }
+          const reply = await request('dispose')
+          if (!reply.ok || !reply.disposed) {
+            fail(new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID'))
+            throw failure as ProcessJobOwnerError
+          }
+          try { child.stdin.end() } catch { fail(new ProcessJobOwnerError('OWNER_HELPER_START_FAILED')) }
+          await waitForClose(closeObserved)
+        } finally {
+          // A helper without an assigned job cannot kill the waiting launcher.
+          // Keep its markers until its own close is observed, including failure paths.
+          if (gate) {
+            if (!gate.closed) await waitForClose(gate.closeObserved)
+            try { removeGateDirectory(gate.directory) }
+            catch { fail(new ProcessJobOwnerError('OWNER_HELPER_INVALID')) }
+          }
         }
+        if (failure) throw failure
       })()
       return disposal
     },
     launchGated(request: GateLaunchRequest): ChildProcessWithoutNullStreams {
-      if (gate) throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED')
+      if (failure || disposing || exited || closed) throw new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID')
+      if (launchAttempted) throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED')
+      if (!Number.isSafeInteger(request.maxWaitMs) || request.maxWaitMs < 1 || request.maxWaitMs > 2147483647) {
+        throw new ProcessJobOwnerError('OWNER_HELPER_INVALID')
+      }
+      launchAttempted = true
       let gateDirectory: string
       try { gateDirectory = mkdtempSync(join(spec.environment.TEMP, 'dsh861-launch-gate-')) }
       catch { throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED') }
@@ -279,27 +337,37 @@ export async function createProcessJobOwner(spec: ProcessJobOwnerSpec): Promise<
       const goMarker = join(gateDirectory, 'go')
       const abortMarker = join(gateDirectory, 'abort')
       try {
-        // No secrets cross this file: only the pinned executable path, argv and cwd.
-        writeFileSync(specFile, `${JSON.stringify({ executable: request.executable, args: [...request.args], cwd: request.workingDirectory })}\n`)
-      } catch { throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED') }
-      let launcher: ChildProcessWithoutNullStreams
-      try {
-        launcher = spawn(process.execPath,
+        // Only non-secret executable/argv/cwd fields cross this file.
+        writeFileSync(specFile,
+          `${JSON.stringify({ executable: request.executable, args: [...request.args], cwd: request.workingDirectory })}\n`,
+          { flag: 'wx', mode: 0o600 })
+        const launcher = spawn(process.execPath,
           [join(directory, 'launch-gate.mjs'), specFile, goMarker, abortMarker, String(request.maxWaitMs)], {
             cwd: request.workingDirectory, env: { ...request.environment },
             stdio: ['pipe', 'pipe', 'pipe'], shell: false, windowsHide: true,
           })
-      } catch { throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED') }
-      gate = { directory: gateDirectory, goMarker, abortMarker }
-      return launcher
+        let notifyGateClose: () => void = () => {}
+        const current = { directory: gateDirectory, goMarker, abortMarker, child: launcher,
+          state: 'waiting' as 'waiting' | 'assigning' | 'assigned' | 'released' | 'aborted',
+          exited: false, closed: false,
+          closeObserved: new Promise<void>((resolve) => { notifyGateClose = resolve }) }
+        gate = current
+        launcher.on('error', () => { fail(new ProcessJobOwnerError('OWNER_HELPER_START_FAILED')) })
+        launcher.on('exit', () => { current.exited = true })
+        launcher.on('close', () => { current.closed = true; notifyGateClose() })
+        return launcher
+      } catch {
+        try { removeGateDirectory(gateDirectory) } catch { /* no launcher was returned; residue is not success */ }
+        throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED')
+      }
     },
     releaseGated(): void {
-      if (!gate) throw new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID')
-      try { writeFileSync(gate.goMarker, '') } catch { throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED') }
+      if (failure || disposing || exited || closed || !gate || gate.state !== 'assigned'
+        || gate.exited || gate.closed) throw new ProcessJobOwnerError('OWNER_PROTOCOL_INVALID')
+      try { writeFileSync(gate.goMarker, '', { flag: 'wx', mode: 0o600 }) }
+      catch { abortGate(); throw new ProcessJobOwnerError('OWNER_HELPER_START_FAILED') }
+      gate.state = 'released'
     },
-    abortGated(): void {
-      if (!gate) return
-      try { writeFileSync(gate.abortMarker, '') } catch { /* job termination and the direct kill still end the launcher */ }
-    },
+    abortGated(): void { abortGate() },
   }
 }
