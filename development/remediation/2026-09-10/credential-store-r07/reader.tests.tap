@@ -1,0 +1,184 @@
+TAP version 13
+# Subtest: resolves only the granted codex reference through a sealed response
+ok 1 - resolves only the granted codex reference through a sealed response
+  ---
+  duration_ms: 737.841132
+  type: 'test'
+  ...
+# Subtest: resolves only the granted claude-code reference through a sealed response
+ok 2 - resolves only the granted claude-code reference through a sealed response
+  ---
+  duration_ms: 675.108759
+  type: 'test'
+  ...
+# Subtest: resolves only the granted grok reference through a sealed response
+ok 3 - resolves only the granted grok reference through a sealed response
+  ---
+  duration_ms: 698.106648
+  type: 'test'
+  ...
+# Subtest: resolves only the granted opencode reference through a sealed response
+ok 4 - resolves only the granted opencode reference through a sealed response
+  ---
+  duration_ms: 693.02921
+  type: 'test'
+  ...
+# Subtest: denies other providers and foreign namespaces before transport or key generation
+ok 5 - denies other providers and foreign namespaces before transport or key generation
+  ---
+  duration_ms: 1.356095
+  type: 'test'
+  ...
+# Subtest: copies the granted reference set instead of widening after caller mutation
+ok 6 - copies the granted reference set instead of widening after caller mutation
+  ---
+  duration_ms: 0.163223
+  type: 'test'
+  ...
+# Subtest: rejects an invalid grant before creating a reader
+ok 7 - rejects an invalid grant before creating a reader
+  ---
+  duration_ms: 0.178706
+  type: 'test'
+  ...
+# Subtest: retains existing source-to-environment authorization and one-shot lease behavior
+ok 8 - retains existing source-to-environment authorization and one-shot lease behavior
+  ---
+  duration_ms: 1102.656463
+  type: 'test'
+  ...
+# Subtest: missing credential remains missing rather than borrowing environment or another provider
+ok 9 - missing credential remains missing rather than borrowing environment or another provider
+  ---
+  duration_ms: 1229.509649
+  type: 'test'
+  ...
+# Subtest: refuses wrong request identity without echoing untrusted bytes
+ok 10 - refuses wrong request identity without echoing untrusted bytes
+  ---
+  duration_ms: 2103.095721
+  type: 'test'
+  ...
+# Subtest: refuses wrong version without echoing untrusted bytes
+ok 11 - refuses wrong version without echoing untrusted bytes
+  ---
+  duration_ms: 2321.999647
+  type: 'test'
+  ...
+# Subtest: refuses plaintext field without echoing untrusted bytes
+ok 12 - refuses plaintext field without echoing untrusted bytes
+  ---
+  duration_ms: 1209.128484
+  type: 'test'
+  ...
+# Subtest: refuses wrong mode without echoing untrusted bytes
+ok 13 - refuses wrong mode without echoing untrusted bytes
+  ---
+  duration_ms: 1187.225068
+  type: 'test'
+  ...
+# Subtest: refuses invalid ciphertext without echoing untrusted bytes
+ok 14 - refuses invalid ciphertext without echoing untrusted bytes
+  ---
+  duration_ms: 2447.953918
+  type: 'test'
+  ...
+# Subtest: refuses missing with ciphertext without echoing untrusted bytes
+ok 15 - refuses missing with ciphertext without echoing untrusted bytes
+  ---
+  duration_ms: 914.680565
+  type: 'test'
+  ...
+# Subtest: refuses unknown status without echoing untrusted bytes
+ok 16 - refuses unknown status without echoing untrusted bytes
+  ---
+  duration_ms: 975.15489
+  type: 'test'
+  ...
+# Subtest: refuses truncated JSON without echoing untrusted bytes
+ok 17 - refuses truncated JSON without echoing untrusted bytes
+  ---
+  duration_ms: 643.79212
+  type: 'test'
+  ...
+# Subtest: refuses oversized packet without echoing untrusted bytes
+ok 18 - refuses oversized packet without echoing untrusted bytes
+  ---
+  duration_ms: 1207.917
+  type: 'test'
+  ...
+# Subtest: refuses array packet without echoing untrusted bytes
+ok 19 - refuses array packet without echoing untrusted bytes
+  ---
+  duration_ms: 885.511055
+  type: 'test'
+  ...
+# Subtest: rejects empty decrypted credential
+ok 20 - rejects empty decrypted credential
+  ---
+  duration_ms: 1106.909153
+  type: 'test'
+  ...
+# Subtest: rejects newline decrypted credential
+ok 21 - rejects newline decrypted credential
+  ---
+  duration_ms: 639.232808
+  type: 'test'
+  ...
+# Subtest: rejects non-ASCII decrypted credential
+ok 22 - rejects non-ASCII decrypted credential
+  ---
+  duration_ms: 893.074521
+  type: 'test'
+  ...
+# Subtest: rejects too long decrypted credential
+ok 23 - rejects too long decrypted credential
+  ---
+  duration_ms: 1070.975767
+  type: 'test'
+  ...
+# Subtest: accepts the documented maximum without truncation
+ok 24 - accepts the documented maximum without truncation
+  ---
+  duration_ms: 442.09016
+  type: 'test'
+  ...
+# Subtest: native exception content is not attached to the reader failure
+ok 25 - native exception content is not attached to the reader failure
+  ---
+  duration_ms: 3562.363399
+  type: 'test'
+  ...
+# Subtest: synthetic self-test checks ciphertext, replacement value and cleanup acknowledgment
+ok 26 - synthetic self-test checks ciphertext, replacement value and cleanup acknowledgment
+  ---
+  duration_ms: 1088.092812
+  type: 'test'
+  ...
+# Subtest: refuses a self-test that cannot confirm native cleanup
+ok 27 - refuses a self-test that cannot confirm native cleanup
+  ---
+  duration_ms: 1255.707066
+  type: 'test'
+  ...
+# Subtest: management interface contains no key-valued argument or plaintext export mode
+ok 28 - management interface contains no key-valued argument or plaintext export mode
+  ---
+  duration_ms: 0.936168
+  type: 'test'
+  ...
+# Subtest: Windows transport is unavailable on other platforms without running any process
+ok 29 - Windows transport is unavailable on other platforms without running any process
+  ---
+  duration_ms: 0.403973
+  type: 'test'
+  ...
+1..29
+# tests 29
+# suites 0
+# pass 29
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 29157.694025

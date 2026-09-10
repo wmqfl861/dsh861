@@ -1,0 +1,151 @@
+{
+  "kind": "windows-credential-support-candidate-not-native-acceptance",
+  "recordedAt": "2026-09-10T05:15:02.724896+00:00",
+  "baseCommit": "a1f94eab80a109bb19f454620703587c9e630951",
+  "actor": "ChatGPT; owner-authorized P0-B support work, not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullCheckout": "GitHub DNS resolution failed; no full dependencies installed"
+  },
+  "existingLeaseSource": {
+    "path": "scripts/p0-b/credential-ref.ts",
+    "gitBlob": "0a599a1940a2b451d875e846b0189aed0b276c67",
+    "reconstructedBytesMatchRemoteBlob": true,
+    "modified": false
+  },
+  "checks": {
+    "focusedStrictTypecheck": {
+      "exitCode": 0,
+      "command": "tsc --noEmit --strict --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --skipLibCheck --types node --typeRoots /opt/nvm/versions/node/v22.16.0/lib/node_modules/ts-node/node_modules/@types changes/scripts/p0-b/windows-credentials/reader.ts",
+      "scope": "New reader plus exact existing lease interface; container preinstalled Node type declarations, not full repository typecheck"
+    },
+    "readerProtocol": {
+      "command": "P0B_WINDOWS_CREDENTIAL_MODULE_ROOT=/mnt/data/dsh861-r07/build node --test changes/scripts/p0-b/windows-credentials/reader.test.mjs",
+      "exitCode": 0,
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reader.tests.tap",
+      "transport": "Simulated native peer with real RSA operations; exact TS transpiled to isolated ESM directory",
+      "limits": "Does not compile or run PowerShell/C#, touch Windows credentials, or contact models"
+    },
+    "pairedStructure": {
+      "pairs": 2,
+      "method": "markdown-it heading/list/fence structure plus exact git blob sidecars; not repository translation-pairing gate"
+    }
+  },
+  "precheckReview": {
+    "reviewedCommit": "04d283fb0d53e334d7a818fdfa95c39bbae1adde",
+    "scope": "actual commit diff and structured JSON; local raw output not retrieved",
+    "acceptedAs": "config-layer echo only",
+    "wireParameterForwarding": "NOT_VERIFIED",
+    "gatewayHonorsMax": "NOT_VERIFIED",
+    "zeroNetwork": "LOCAL_REPORT_NOT_INDEPENDENTLY_OBSERVED",
+    "wrapperReady": "NOT_PROVEN_BY_PRECHECK",
+    "httpRiskAcceptanceIsTransportEvidence": false,
+    "credentialBindingOwner": "implementation and Windows test by developer; real replacement/rotation decision by owner"
+  },
+  "notRun": [
+    "PowerShell and C# compilation/native Credential Manager roundtrip",
+    "interactive masked input and cross-logon/service-account persistence",
+    "Windows ACL, helper descendant cleanup and whole planner lifecycle",
+    "full repository typecheck/lint/documentation gates",
+    "real credential provisioning/rotation and TLS verification",
+    "real model API, designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "protectedFilesNotModified": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml"
+  ],
+  "fileHashes": [
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml",
+      "bytes": 237,
+      "gitBlob": "8988e8aff48f0451427765d992e6280892d30a0c",
+      "sha256": "727e747f7e769a9f360f4c13c9eea8b872fb48df151b90ad43576bc1da837107"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 2092,
+      "gitBlob": "bd5ba44a2ddd99dce0894f081e035aad13e0c543",
+      "sha256": "41890b3eb63c32a28ee5a14599264dd13c0df42773d922a87939c0379791a97e"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 1780,
+      "gitBlob": "0cf896256a2a1915fd9a29f751fddf22672a9e7c",
+      "sha256": "939b0225a3bac74596be59ce0ea853fe6ced5888ec11da0a06b1d94457fa654f"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 5895,
+      "gitBlob": "05b166c56fa9fb1471b0745c51a6fbd43b1f862d",
+      "sha256": "427b66bcda66021bef9b38dc5dbba48366659432279e34e9edeef93f1db9a5f1"
+    },
+    {
+      "path": "development/remediation/2026-09-10/credential-store-r07/reader.tests.tap",
+      "bytes": 5763,
+      "gitBlob": "1a01c68624f1ce8039fb98f7b61f3bff92e4c4e6",
+      "sha256": "a7e8e3f2e29c81350f27845fc54881bdf57cd20b6d056b623381c192f14e4d0d"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.i18n.yaml",
+      "bytes": 177,
+      "gitBlob": "f9a897cef6ae682b318b04c3a8cd0d7a8b90150f",
+      "sha256": "61cc9891072dba05e9b9e3136b44ef9853632140e5dc8f42598926189eb433b9"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 8183,
+      "gitBlob": "641def40d705ce476f4266589a8954d34594d061",
+      "sha256": "f0cbcdbac58450d78dc08f10c6c5e231cec309f53fb225881caaa0907bdcd87c"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 7294,
+      "gitBlob": "d116a2c03184b3da42b05ae401c5628f774bebb4",
+      "sha256": "1042ab5a999578469c6c8cb050ff78ee290b264f463e1653c057f4dbd0da2c88"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/bridge.ps1",
+      "bytes": 2321,
+      "gitBlob": "849debdad73b3b22e5d7435b7e97f7f9556237c9",
+      "sha256": "1f8535f0e1b01498ee51460f3b6e4caa319ac376649894d326a18be2cf38c91f"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/manage.ps1",
+      "bytes": 2511,
+      "gitBlob": "0eb0226535206f0716962ee2284a7ffda7b321e2",
+      "sha256": "26830addb3fd510e89b5bad2b196c66b48890b3e3d72920b28547c7c208a5f99"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/native-credential.cs",
+      "bytes": 12336,
+      "gitBlob": "8b9cef157e0812bc956d4b2a61f7539bb3396e7d",
+      "sha256": "dc327cfccef78997a175604507180e40b1493d0f6c0422ad25e4694d2dbd3776"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/native.test.mjs",
+      "bytes": 2174,
+      "gitBlob": "caac9532db5cbe366f3f472879c88397cfa1de42",
+      "sha256": "3ccb5787c4e0b076f8c4eddaeb7b720a6431ef442ab73cc508878db1b9b6cf4c"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/reader.test.mjs",
+      "bytes": 9548,
+      "gitBlob": "d0b928c04eeebd42cf4d870f773f1b2d413d5736",
+      "sha256": "0e242ac2883028db5bee55d6bf86dad4cbaa846a425972ee4a1a82af7fccc385"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/reader.ts",
+      "bytes": 10033,
+      "gitBlob": "bf2d6688da15d47417b31d933970a5a5ef483d11",
+      "sha256": "f2abb897e8602252918c4cac9b7dff9b9667f3b430b51423fbc34ba90557d3af"
+    }
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}
