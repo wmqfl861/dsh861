@@ -1,0 +1,134 @@
+{
+  "kind": "designated-planner-keyless-precheck",
+  "node": "P0-B",
+  "round": "r01",
+  "recorded_at": "2026-09-10",
+  "operator": "ZCode built-in implementation subagent (builtin:bigmodel-coding-plan/GLM-5.3); not real Codex, not writing plan.v4",
+  "input_commit": "f1d7ec92ccf52f6a4fff8ff9a5bd1ed253a3d3a3",
+  "input_branch": "fix/windows-keyless-validation-20260909 (fast-forward from 2a62e488856eee00688740a287abc3cceb90d399)",
+  "scope": "Keyless preconditions for the designated real-Codex successor planning call per NODE_DEVELOPMENT_RULES.md and handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md. No credentials read, no gateway network contact, no model request, no product source change.",
+  "local_evidence_root": "C:\\Albert\\project\\dsh861-local-validation\\20260910-codex-plan-precheck-4c17",
+  "proposed_program": {
+    "choice": "repo-pinned package-local binary",
+    "executable": "C:\\Albert\\project\\dsh861\\node_modules\\.pnpm\\@openai+codex@0.149.1-win32-x64\\node_modules\\@openai\\codex\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "version": "0.149.1 (--version output: 'codex-cli 0.149.1')",
+    "sha256": "a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6",
+    "bytes": 297481008,
+    "source_pin": "packages/subagent/subagent-codex/package.json declares \"@openai/codex\": \"0.149.1\"; pnpm-lock.yaml (protected, sha256 2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383 per r06) pins @openai/codex@0.149.1 and @openai/codex@0.149.1-win32-x64"
+  },
+  "alternative_program_recorded_not_proposed": {
+    "executable": "C:\\Users\\Joyce Gu\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "version": "0.153.4 (--version output: 'codex-cli 0.153.4')",
+    "sha256": "444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b",
+    "bytes": 295408944,
+    "note": "User-global personal npm install; recorded for completeness, not proposed because it is outside repo version control and shared with the owner's own Codex usage."
+  },
+  "historical_program_unreachable": {
+    "planning_invocation_record": "development/nodes/P0-B/evidence/planning-invocation.v1.json",
+    "historical_executable": "D:\\npm-global\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "historical_command_without_prompt": ["exec", "--model", "gpt-6-astra", "--config", "model_reasoning_effort=\"max\"", "--sandbox", "read-only", "--ephemeral", "--json", "--color", "never", "--cd", "<repo>", "--output-last-message", "<file>", "-"],
+    "finding": "D: drive no longer exists on this host ('ls D:/' -> No such file or directory). Historical binary, D:\\Temp_projects\\dsh861-node-governance runs (including p0-b-plan-v3-configured-runs.receipt.json) and D:\\Temp_projects\\dsh861-p0-b-harness-validation raw roots are unreachable. Historical receipts inside the repository remain valid records; nothing on this round rewrites them."
+  },
+  "keyless_probes": {
+    "isolation": "Per-binary empty CODEX_HOME under local_evidence_root; no global %USERPROFILE%\\.codex access (its auth.json was never read); cwd = precheck directory; no authorized env var set.",
+    "help_surface": {
+      "commands": ["<exe> --version", "<exe> --help", "<exe> exec --help"],
+      "exit_codes": "all 0 on both binaries",
+      "flags_confirmed_present": ["-m/--model", "-c/--config <key=value>", "-s/--sandbox", "-C/--cd", "--ephemeral", "--ignore-user-config", "-o/--output-last-message <FILE>"],
+      "byte_identical_help": "root and exec help outputs are byte-identical between 0.149.1 and 0.153.4 (exec help sha256 e504bac5a6364566fbe408132dec7993639def9258ece34e8352f51f8d43687c both; root help sha256 e8ecd554e6e3e870a55e540f1a21598c085cfee237f9c735ff9b5ba4ac4cf08a both)",
+      "help_files": ["help/exec-help-repo1491.txt", "help/root-help-repo1491.txt", "help/exec-help-global1534.txt", "help/root-help-global1534.txt"]
+    },
+    "config_layer_probe_exact_approved_spelling": {
+      "binary": "0.149.1 repo-pinned",
+      "config_toml": "[model_providers.my-gpt] name=\"my-gpt\" base_url=\"http://154.89.153.24:8080/v1\" wire_api=\"responses\" env_key=\"DSH_PROBE_NOT_SET_KEY\" (sha256 3153994ad67ea39dbb8bb7d31420dc95001f390f2350d4dfe924ee1fc2219f3e)",
+      "argv": ["<repo-exe>", "exec", "--skip-git-repo-check", "-m", "gpt-6-astra", "-c", "model_provider=\"my-gpt\"", "-c", "model_reasoning_effort=\"max\"", "--sandbox", "read-only", "--ephemeral", "reply OK"],
+      "exit_code": 1,
+      "observed_banner": "provider: my-gpt | model: gpt-6-astra | reasoning effort: max | sandbox: read-only",
+      "stop_point": "ERROR: Missing environment variable: DSH_PROBE_NOT_SET_KEY (local credential-resolution stop; identical to loopback-probe behavior where a connection to 127.0.0.1:9 was never attempted)",
+      "diagnostic": "warning: Model metadata for `gpt-6-astra` not found. Defaulting to fallback metadata (matches plan.v3 expected diagnostic; warning only, does not clear or convert anything)",
+      "output_file": "out/probe-mygpt-exact-repo1491.txt (sha256 579218568d08edd49770d1e210885fc03bb4bc2fd33d3d8b9101de76cf5edc7a)"
+    },
+    "loopback_probe_max": {
+      "setup": "base_url http://127.0.0.1:9/v1 (nothing listening), env_key DSH_PROBE_NOT_SET_KEY not set",
+      "results": {
+        "repo-0.149.1": "exit 1; banner 'reasoning effort: max'; stop at missing env var; out/probe-max-repo1491.txt sha256 cea25e2fccedca0b79e7aaca4527789d7b6d1bbcaa3bee8e43ab61cbc959cbaa",
+        "global-0.153.4": "exit 1; banner 'reasoning effort: max'; stop at missing env var; out/probe-max-global1534.txt sha256 8f1b9b081c0aee55b4741620da5770f9f82a84c677b186873418614391e46034"
+      }
+    },
+    "control_probe_no_enum_validation": {
+      "value": "model_reasoning_effort=\"definitely-bogus\"",
+      "result": "banner echoes 'reasoning effort: definitely-bogus'; proceeds to the same missing-env stop (out/probe-bogus-repo1491.txt sha256 0c24cb79e9a7f4462a5aaadba8007965622a09bf27fbfc01aa2ec50541b66901)",
+      "meaning": "The CLI does not enum-validate the effort string locally; a banner value proves config-layer acceptance and that the value would be carried in requests, NOT that the gateway honors it. Wire-level acceptance of max stays UNVERIFIED until the authorized real call."
+    },
+    "no_residue": "Isolated CODEX_HOME trees contain only CLI-generated state (installation_id, goals sqlite, tmp locks, the probe config.toml). No auth.json, no session files, no credential material anywhere under local_evidence_root."
+  },
+  "compatibility_verdict": {
+    "cli_clearly_unsupported": "none found: both candidates accept --model gpt-6-astra, custom [model_providers.<id>] with wire_api=\"responses\", and model_reasoning_effort=\"max\" at the config layer with the flags the node rules require",
+    "config_layer_accepted": "my-gpt / gpt-6-astra / max all reflected as effective startup values on the proposed 0.149.1 binary (exact-spelling probe)",
+    "not_yet_verified": [
+      "gateway acceptance of Responses wire with effort max",
+      "actual serving model identity (requested gpt-6-astra vs served model)",
+      "gateway TLS availability (probe requests forbidden this round)"
+    ],
+    "basis": "banner echo is the CLI's own rendering of effective config; per handoff it must not be read as a completed real model invocation"
+  },
+  "planning_call_preconditions": [
+    {
+      "item": "explicitly authorized, safely bound dedicated credential reference",
+      "status": "MISSING",
+      "class": "CREDENTIAL_NOT_BOUND",
+      "evidence": [
+        "config/agents/models.v1.json holds stable id secret-reference:providers/codex only",
+        "config/agents/README.md: 'this configuration does not implement or provision that vault'",
+        "scripts/p0-b/credential-ref.ts requires caller-injected grants and readers; no grant exists for this task",
+        "no authorized environment binding was granted in this round's task text"
+      ],
+      "who": "owner",
+      "minimal_action": "provision a rotated key into a protected store outside the repository and grant one binding (e.g. env:<NAME> or secret-reference:providers/codex) for a single planning call"
+    },
+    {
+      "item": "rotation confirmation for the exposed credentials",
+      "status": "UNKNOWN_NOT_VERIFIED",
+      "class": "ROTATION_UNCONFIRMED",
+      "evidence": [
+        "development/nodes/P0-B/state.json credential_rotation_status=UNKNOWN_NOT_VERIFIED, product_calls_using_exposed_credentials_allowed=false (unchanged at f1d7ec9)",
+        "development/remediation/2026-09-09/model-config-r03/verification.json: rotation REQUIRED_NOT_VERIFIED; owner keys were exposed in chat; replacement provisioning never performed",
+        "repository-wide search found no newer rotation record"
+      ],
+      "who": "owner",
+      "minimal_action": "revoke the chat-exposed gateway key, issue a replacement, confirm revocation+replacement so state can move off UNKNOWN_NOT_VERIFIED"
+    },
+    {
+      "item": "transport protection for the approved route",
+      "status": "UNPROVEN",
+      "class": "TRANSPORT_PROTECTION_UNPROVEN",
+      "evidence": [
+        "approved route is http://154.89.153.24:8080/v1 (plaintext HTTP to a public IP; config/agents/models.v1.json)",
+        "config/agents/README.md: 'The three gateway URLs use HTTP. Their credential transport protection has not been verified. Do not send keys over an unprotected public connection'",
+        "this round's task forbids probe requests, so TLS availability was not tested; no endpoint change is authorized anyway"
+      ],
+      "who": "owner",
+      "minimal_action": "either provide an approved HTTPS base URL and authorize the models.v1 update through a new owner-authorized configuration version, or explicitly accept and authorize the current HTTP route for this single call"
+    },
+    {
+      "item": "read scope, budget, output protection",
+      "status": "SATISFIABLE_AT_CALL_TIME",
+      "class": "WRAPPER_READY",
+      "evidence": "invocation wrapper can enforce --sandbox read-only, --cd <repo>, --ephemeral, isolated CODEX_HOME, single-call budget envelope; scripts/p0-b/redaction.ts pipeline and r06 redaction guarantees exist",
+      "who": "implementer (no owner action)",
+      "minimal_action": "none"
+    }
+  ],
+  "decision": "BLOCKED - the three owner-level preconditions (credential binding, rotation confirmation, transport protection) are not met; per the task's own gating the real Codex successor-planning call was NOT made and plan.v4 was NOT written. No degradation, no model substitution, no endpoint change, no max->xhigh rewrite.",
+  "not_run": [
+    "real Codex invocation for plan.v4 (preconditions unmet)",
+    "any network request to the approved gateway or any keyless TLS probe (forbidden probe class)",
+    "reading %USERPROFILE%\\.codex auth.json or any chat-stored key",
+    "OpenCode hard review, P0-C entry, master merge",
+    "product source changes; protected files untouched"
+  ],
+  "reusable_for_next_round": [
+    "program choice + digests (re-verify digest before the real call; re-run probes only if the binary or its digest changed)",
+    "config-layer compatibility evidence (exact my-gpt/gpt-6-astra/max spelling) for the proposed 0.149.1 binary"
+  ]
+}
