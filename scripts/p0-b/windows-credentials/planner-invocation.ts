@@ -46,6 +46,8 @@ export interface PlannerInvocationSpec {
     terminationGraceMs: number
     /** Hard retained UTF-8 byte limit per redacted channel, including EOF flush. */
     maxChannelBytes: number
+    /** Optional caller-owned containment; absence never implies tree control. */
+    ownership?: PlannerProcessOwnership
   }
   redactionLimits: RedactionLimits
 }
@@ -72,6 +74,28 @@ export type PlannerCancellationReason =
   | 'STREAM_ERROR'
   | 'INPUT_DELIVERY_FAILED'
   | 'SPAWN_ERROR'
+  | 'OWNERSHIP_FAILED'
+
+/**
+ * Explicit process-tree ownership for the spawned CLI. The fixed input is
+ * delivered only after assignment settles, so descendants created on input
+ * receipt join the owned scope; CLI startup work that spawns before assignment
+ * completes may still never join. Callers verify containment through the owner,
+ * not this seam.
+ */
+export interface PlannerProcessOwnership {
+  /** Join the spawned PID into the caller-owned containment scope. */
+  assign(pid: number): Promise<boolean>
+  /** Terminate every member of that scope; false means termination was not confirmed. */
+  terminateOwned(): Promise<boolean>
+}
+
+/** Ownership facts observed by the wrapper; never a claim of tree-wide verification. */
+export interface PlannerOwnershipReport {
+  assignmentRequested: boolean
+  assigned: boolean
+  terminationRequested: boolean
+}
 
 /** Every reported string channel is already redacted; a detection must block a pass. */
 export interface PlannerInvocationResult {
@@ -90,6 +114,8 @@ export interface PlannerInvocationResult {
     forcedPipeClosure: boolean
     descendantState: 'NOT_VERIFIED'
   }
+  /** Present only when the caller wired explicit ownership; reports facts, not verification. */
+  ownership?: PlannerOwnershipReport
   /** One CLI process may issue several model requests; these bounds are not a per-request cost ceiling. */
   costModel: 'wall-clock-and-channel-bounded-not-per-request'
   productAccepted: false
@@ -236,6 +262,7 @@ function collectProcess(
     let stdioCloseObserved = false
     let forcedPipeClosure = false
     let child: ChildProcessWithoutNullStreams | undefined
+    const ownership: PlannerOwnershipReport = { assignmentRequested: false, assigned: false, terminationRequested: false }
     // Assigned only after a successful spawn; finish() from the spawn-failure path sees undefined.
     let deadlineTimer: ReturnType<typeof setTimeout> | undefined = undefined
     let cleanupTimer: ReturnType<typeof setTimeout> | undefined
@@ -253,6 +280,12 @@ function collectProcess(
       stdoutRedactor.discard()
       stderrRedactor.discard()
       if (deadlineTimer !== undefined) clearTimeout(deadlineTimer)
+      if (spec.process.ownership && ownership.assignmentRequested) {
+        // Tree termination runs alongside the direct-child signal; confirmation
+        // stays with the owner because this fire-and-forget cannot await it.
+        ownership.terminationRequested = true
+        void spec.process.ownership.terminateOwned().then(() => {}, () => {})
+      }
       cleanupTimer = setTimeout(() => {
         if (settled) return
         forcedPipeClosure = true
@@ -301,6 +334,7 @@ function collectProcess(
         capturedBytes: { ...bytes },
         cleanup: { directChildExitObserved, stdioCloseObserved, forcedPipeClosure,
           descendantState: 'NOT_VERIFIED' },
+        ...(spec.process.ownership ? { ownership: { ...ownership } } : {}),
         costModel: 'wall-clock-and-channel-bounded-not-per-request',
         productAccepted: false,
       })
@@ -317,6 +351,30 @@ function collectProcess(
       return
     }
     const processHandle = child
+    const deliverInput = (): void => {
+      try { processHandle.stdin.end(promptBytes) } catch { cancel('INPUT_DELIVERY_FAILED') }
+    }
+    if (spec.process.ownership && processHandle.pid) {
+      ownership.assignmentRequested = true
+      spec.process.ownership.assign(processHandle.pid)
+        .then((value) => {
+          ownership.assigned = value
+          // A live unassigned CLI means containment is not established: refuse.
+          if (!value && !settled && !directChildExitObserved && cancellation === undefined) {
+            cancel('OWNERSHIP_FAILED')
+          }
+          deliverInput()
+        }, () => {
+          ownership.assigned = false
+          if (!settled && !directChildExitObserved && cancellation === undefined) {
+            cancel('OWNERSHIP_FAILED')
+          }
+          deliverInput()
+        })
+    } else {
+      // Without ownership the fixed input still flows immediately.
+      deliverInput()
+    }
     deadlineTimer = setTimeout(() => { cancel('DEADLINE_EXCEEDED') }, spec.process.deadlineMs)
     processHandle.on('error', () => {
       cancel('SPAWN_ERROR')
@@ -339,6 +397,5 @@ function collectProcess(
     processHandle.stderr.on('error', () => { cancel('STREAM_ERROR') })
     processHandle.stdin.on('error', () => { cancel('INPUT_DELIVERY_FAILED') })
     processHandle.on('close', () => { stdioCloseObserved = true; finish() })
-    try { processHandle.stdin.end(promptBytes) } catch { cancel('INPUT_DELIVERY_FAILED') }
   })
 }

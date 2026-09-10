@@ -1,3 +1,6 @@
-# Confirm semantic parity with the repository pairing command before activation.
-README.md: 96346aec108246002a1b9d366015246cbe2886fa
-README.zh.md: 138c7ce9bdf62bcd14a4b08d765feb255f53030c
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md
+README.md: 885989bb1663f62e4eae7153e626c340542ff4ed
+README.zh.md: c5a5f44704af32971c76a49a0e486e1b93a417ab

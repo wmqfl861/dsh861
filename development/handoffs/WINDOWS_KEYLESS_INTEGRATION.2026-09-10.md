@@ -12,31 +12,18 @@ Node 26.4.0 的 libuv 使用进程级共享作业对象，并排除 detached 启
 
 凭据桥的 PS5.1 解析修复、C#、reader、manage 及原生测试没有变化。[r08 原始文件归档](../remediation/2026-09-10/credential-store-r08/raw-evidence-manifest.json)的 19 份文件内容已逐字节校验；仅清理 tar 包装头的账户／时间元数据并更正 source 路径，原归档的提交和 SHA 保留。缺失的 5 份历史日志仍缺失，没有重新生成历史记录。
 
-## 已新增的无密钥接线基础
+## r12 本机完成的复验与接线
 
-[codex-launch-projection.mjs](../../scripts/p0-b/windows-credentials/codex-launch-projection.mjs)实际调用模型锁校验器，生成固定 Codex argv、TOML 和隔离路径环境。它不读取 Key、不创建目录、不写配置、不启动进程、不签发授权；当前 HTTP 路由仍拒绝。结果明确为 `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`。这补齐了确定性配置生成，不等于可信生产调用方、金额预算或系统隔离已经落地。接口边界见[组件说明](../../scripts/p0-b/windows-credentials/README.zh.md)。
+Windows 复跑修正后的两组测试全部通过（planner 28/28、projection 15/15）。钉版 Codex（repo 内 @openai/codex@0.149.1，sha256 与 r01 一致）在独立自有目录验证新投影：投影 argv／TOML 全部原生接受，错误信息点名生成 TOML 的 `env_key`，banner 显示 provider: my-gpt、sandbox: read-only、reasoning effort: max；负控制证明 `[shell_environment_policy]` 被原生枚举校验、`--sandbox` 被原生枚举校验、空 `CODEX_HOME` 报 provider 未找到；全局 `%USERPROFILE%\.codex` 未被触碰，82 个写入全部隔离。shell 环境策略与只读沙箱的 OS 级实际强制仍为 NOT_VERIFIED（无密钥无法驱动工具调用）。
 
-远端 Linux 检查：原两组测试修复后 28/28；启动配置生成器 15/15。Node22.16.0、局部 TypeScript 转换副本、真实 Node 子进程/RSA，凭据对端明确模拟；不声称本轮 Windows 或完整仓库门禁已执行。
+行为探针（源码 + 五场景实测）证明 Node 26.4.0 上“spawn 自动清理全部后代”不成立：libuv 作业带 SILENT_BREAKAWAY，CLI 后代不入 wrapper 的作业，wrapper 退出杀不到它们。因此本轮新增显式所有权接线：[job-owner.ps1](../../scripts/p0-b/windows-credentials/job-owner.ps1)（无脱离标志的专用作业对象，EOF/dispose/terminate 显式 TerminateJobObject，KILL_ON_JOB_CLOSE 后备）、[windows-job-owner.ts](../../scripts/p0-b/windows-credentials/windows-job-owner.ts)（helper 完整性）、planner-invocation.ts 的可选 `ownership` 接缝（assign 失败即 `OWNERSHIP_FAILED`）和 [planner-entry.ts](../../scripts/p0-b/windows-credentials/planner-entry.ts)（argv／环境／CODEX_HOME 全部取自投影的最小调用入口）。入口套件 10/10：取消与正常完成都终止 detached 后代，显式 breakaway 尝试保持成员并被终止，属主死亡失效安全成立，并行无关调用不受影响。期间发现并修复 PowerShell 嵌套值类型字段直接赋值是静默空操作的缺陷（SetInformationJobObject 返回成功但标志未生效），证据在 [r12 回执](../remediation/2026-09-10/planner-entry-r12/verification.json)。
 
-## 本地下一步：只做受影响复验与明确接线
+## 下一步
 
-安全同步同一候选分支，沿用现有 Node26.4.0、pnpm11.7.0 和依赖；不重装、不重克隆、不强制重置、不自动 stash。运行：
-
-```sh
-node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
-node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
-```
-
-正常运行不设模块覆盖变量。Windows 必须先证明心跳创建且推进，再观察 detached 用例；没有心跳、停止心跳或测试自己清理，均不能签发系统静止证明。检查 Node/libuv 的具体创建标志和作业归属，不再次概括成“所有 spawn 自动清整树”。出现失败保留证据，最小修复，不删断言或重复到偶然通过。
-
-配置生成器的 native argv/TOML 仍须以钉版 Codex 做无密钥解析和隔离配置发现检查。只检查新投影，不重复已核验且未变的 version/help。新增 shell 环境策略必须验证实际原生语义；不以 banner 自述替代请求或权限证据。
-
-随后在当前 P0-B 支持范围连接可信调用方：使用上述投影而非再手写一套参数；从已验证的人类授权取得具体目标、输入版本和预算，使用已证明的进程所有权与只读边界。授权引用非空不是核验，生成目录名不是 ACL，金额限额必须有实际强制点；没有这些条件继续 fail closed。先用合成批准／凭据和进程验证，不替用户签发真实授权。
-
-按源码／文档影响执行必要类型、lint 和文档检查。两组配对点名重录，不用 `--write --all`；不机械重跑未变化的 reader/native 或旧行为套件。原 raw-evidence 内容不修改，只核对新包装元数据及 19 个内容摘要。
+真实调用前置条件仍不齐：所有者授权记录、轮换确认、HTTPS 路由批准、金额强制点。在它们落地前入口对所有真实声明保持拒绝（当前批准配置为 HTTP，投影即拒），不得读取真实 Key。授权就绪后，用投影入口执行第一次真实 Codex 规划调用，核验证书、请求级预算与网关行为；OS 级 shell 环境策略与只读强制同样需要真实调用验证。随后由真实指定 Codex 产出当前节点后继计划；[r01](../nodes/P0-B/plan-revision-request.r01.md)、[r02](../nodes/P0-B/plan-revision-request.r02.md)和[网页需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)继续作为输入，不自行代写 plan.v4，不把整个公网后台追加为本节点无限前置。
 
 ## 凭据与交付边界
 
 本轮无需真实 Key，不接触四个生产凭据目标，不读取全局认证，不请求中转站。旧 Key 的供应商撤销确认、用户本人隐藏录入替代 Codex Key、HTTPS 路由批准仍为实际规划前置；第一次只需 Codex，不要求四套同时配置。模型声明、模型锁、pnpm-lock 保持原字节。
 
-正常提交并推送同一分支，交付真实 SHA、复验日志、具体运行条件及未完成项。先闭合可信调用方和系统边界，再由真实指定 Codex 产出当前节点后继计划；[r01](../nodes/P0-B/plan-revision-request.r01.md)、[r02](../nodes/P0-B/plan-revision-request.r02.md)和[网页需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)继续作为输入，不自行代写 plan.v4，不把整个公网后台追加为本节点无限前置。
+正常提交并推送同一分支，交付真实 SHA、复验日志、具体运行条件及未完成项。先闭合可信调用方和系统边界，再进入下一节点。

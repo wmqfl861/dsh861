@@ -55,6 +55,14 @@ Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不
 
 结果为 `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`。该函数不读取凭据、不写配置、不创建目录、不批准请求，也不启动进程。可信调用方必须准备自有目录，并在执行前核验钉版 CLI 的配置发现、原生设置与操作系统强制只读范围。批准引用、HTTPS 字符串、生成的 `CODEX_HOME` 或配置生成成功，都不是授权、证书验证、隔离、金额预算控制或后代静止的证明。生产调用方及这些运行时控制仍需接入；合成 HTTPS fixture 不改变所有者当前的 HTTP 路由。
 
+## 有属主的规划调用入口
+
+[planner-entry.ts](planner-entry.ts)是最小实际调用入口：argv、TOML、`CODEX_HOME` 和环境只由投影给出，凭据只由既有租约给出，进程由 `invokePlannerOnce` 执行——没有第二套参数。入口自行物化运行目录树，并以独占方式写入生成的 `config.toml`（`wx`，复用旧运行根目录会被拒绝而不是发生偏差）。HTTP 声明、批准主题不符、非 Windows 主机、运行根目录不可用和 helper 完整性失败都返回固定拒绝码，且都发生在任何凭据读取之前。
+
+包含关系来自显式拥有的作业对象，而不是派生进程所在的 Node 进程：在 Node 26.4.0 上实测，libuv 作业允许静默脱离，包装器自身退出根本影响不到 CLI 的后代。[job-owner.ps1](job-owner.ps1) 经 [windows-job-owner.ts](windows-job-owner.ts) 校验完整性，每次调用持有一个不带脱离标志的 Windows 作业对象；实测 detached 后代与显式 `CREATE_BREAKAWAY_FROM_JOB` 尝试仍保持成员身份。`terminate`、`dispose` 和属主死亡（helper stdin EOF）都先调用 `TerminateJobObject` 再关闭句柄，`KILL_ON_JOB_CLOSE` 只是后备层；该标志通过整体结构体赋值设置，因为 PowerShell 对嵌套值类型字段的直接赋值是静默空操作。可选的 `ownership` 接缝指派被派生进程的 PID，存活进程无法加入时以 `OWNERSHIP_FAILED` 取消，且只报告事实：`descendantState` 保持 `NOT_VERIFIED`；固定输入在指派落定后才投递，CLI 启动阶段在指派完成前创建的后代仍可能永远不入作业。
+
+回执返回 `terminated`、`activeProcessesRemaining` 和 `disposed`；任何 false 或未知值都是包含失败，绝不是成功。[planner-entry.test.mjs](planner-entry.test.mjs) 在 Windows 上用真实 PowerShell 和真实合成进程覆盖取消、正常完成后的幸存者、breakaway 尝试、属主死亡、销毁失败与并行无关调用不受影响。
+
 ## 验证
 
 在已安装仓库钉版依赖的工作副本中运行：
@@ -63,6 +71,7 @@ Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不
 node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 ```
 
@@ -73,6 +82,8 @@ node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 远端验证边界及实际测试文件哈希见 [r07 回执](../../../development/remediation/2026-09-10/credential-store-r07/verification.json)；Windows 本机原生结果、修复后的解析兼容行布局及本轮文件哈希记录在 [r08 回执](../../../development/remediation/2026-09-10/credential-store-r08/verification.json)。Linux 测试不被描述为隐藏输入或原生凭据存储已经成功。
 
 规划测试使用合成 Node 进程和模拟密封对端。POSIX 保留继承管道断言，包括 `forcedPipeClosure`；detached 后代用于验证直接子进程退出后仍存活的情形。心跳创建后才发布就绪，观察器要求心跳实际推进。心跳缺失、不可读或冻结都不能证明终止。清理要求测试所属进程确认停止，不以过期时间戳替代。包装器保持 `descendantState=NOT_VERIFIED`；fixture 的协作清理不代表产品进程树限制。[r11 回执](../../../development/remediation/2026-09-10/planner-observer-r11/verification.json)限定了保留原样的 [r10 回执](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json)中的生命周期结论。
+
+入口套件同样只在 Windows 执行：它用真实 Windows PowerShell 和真实合成进程驱动投影入口，证明专用作业对象能包含 detached 后代、breakaway 尝试以及取消与正常完成两种情形下的幸存者，同时并行的无关调用不受影响。其结果与 r12 钉版 CLI 无密钥投影验证记录在 [r12 回执](../../../development/remediation/2026-09-10/planner-entry-r12/verification.json)。
 
 ## 规划前置条件
 

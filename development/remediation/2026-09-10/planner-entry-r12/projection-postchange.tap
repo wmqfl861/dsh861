@@ -1,0 +1,23 @@
+✔ approved HTTP config cannot be projected for a real launch (4.0312ms)
+✔ projects exact routes and read-only native argv without authorizing or reading (1.7593ms)
+✔ refuses declaration/path boundary 1 (0.7446ms)
+✔ refuses declaration/path boundary 2 (0.412ms)
+✔ refuses declaration/path boundary 3 (0.431ms)
+✔ refuses declaration/path boundary 4 (0.5493ms)
+✔ refuses declaration/path boundary 5 (0.4477ms)
+✔ refuses declaration/path boundary 6 (0.3652ms)
+✔ refuses declaration/path boundary 7 (0.356ms)
+✔ refuses declaration/path boundary 8 (0.4989ms)
+✔ refuses declaration/path boundary 9 (0.3263ms)
+✔ refuses declaration/path boundary 10 (0.2631ms)
+✔ refuses declaration/path boundary 11 (0.53ms)
+✔ refuses declaration/path boundary 12 (0.7066ms)
+✔ POSIX projection uses explicit isolated paths and keeps shell key forwarding disabled (0.6719ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 171.3627

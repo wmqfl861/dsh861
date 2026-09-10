@@ -55,6 +55,14 @@ One CLI can issue several model requests; these bounds are not a monetary or per
 
 The result is `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`. The function does not read credentials, write configuration, create directories, authorize a request or spawn a process. A trusted caller must provision the owned directories and verify the pinned CLI's configuration discovery, native settings and OS-enforced read-only scope before executing. An approval reference, HTTPS spelling, generated `CODEX_HOME` or a successful projection is not proof of authorization, certificate validation, isolation, monetary budget enforcement or descendant quiescence. The production caller and those runtime controls remain required; synthetic HTTPS fixtures do not alter the owner's current HTTP route.
 
+## Owned planner entry
+
+[planner-entry.ts](planner-entry.ts) is the minimal actual caller entry: the projection alone supplies the argv, TOML, `CODEX_HOME` and environment, the existing lease supplies the credential, and `invokePlannerOnce` runs the process — there is no second parameter set. The entry materializes the run tree itself and writes the generated `config.toml` exclusively (`wx`, so a reused run root refuses instead of diverging). Fixed refusal codes cover HTTP declarations, approval subject mismatch, non-Windows hosts, unusable run roots and helper integrity failures, each before any credential read.
+
+Containment is an explicitly owned job, not the spawning Node process: measured on Node 26.4.0, libuv jobs allow silent breakaway, so a wrapper's own exit never reaches CLI descendants. [job-owner.ps1](job-owner.ps1), integrity-checked through [windows-job-owner.ts](windows-job-owner.ts), holds one Windows job object per invocation without breakaway flags; detached descendants and explicit `CREATE_BREAKAWAY_FROM_JOB` attempts were measured to stay members. `terminate`, `dispose` and owner death (helper stdin EOF) each call `TerminateJobObject` before closing the handle, with `KILL_ON_JOB_CLOSE` as the backstop layer; the flag is applied by whole-struct assignment because nested value-type field mutation is a silent no-op in PowerShell. The optional `ownership` seam assigns the spawned PID, cancels with `OWNERSHIP_FAILED` when a live process cannot be joined, and reports facts only: `descendantState` stays `NOT_VERIFIED`, the fixed input is delivered after assignment settles, and CLI startup work that spawns before assignment completes may still never join.
+
+The receipt returns `terminated`, `activeProcessesRemaining` and `disposed`; any false or unknown value reports a containment failure, never success. [planner-entry.test.mjs](planner-entry.test.mjs) exercises cancellation, completion-time survivors, breakaway attempts, owner death, disposal failures and concurrent unrelated invocations with real PowerShell and real synthetic processes on Windows.
+
 ## Verification
 
 From the repository with its pinned dependencies:
@@ -63,6 +71,7 @@ From the repository with its pinned dependencies:
 node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 ```
 
@@ -73,6 +82,8 @@ The second suite runs only on Windows. It parses both PowerShell scripts under t
 The remote verification boundary and exact tested-file hashes are in the [r07 receipt](../../../development/remediation/2026-09-10/credential-store-r07/verification.json); local Windows native results, the repaired parser-compatible line layout, and this round's file hashes are recorded in the [r08 receipt](../../../development/remediation/2026-09-10/credential-store-r08/verification.json). No hidden-input or native-store success is claimed from Linux tests.
 
 The planner suites use synthetic Node processes and a simulated sealed peer. POSIX retains the inherited-pipe assertion, including `forcedPipeClosure`; a detached descendant exercises survival after the direct child exits. Readiness follows creation of the heartbeat, and the observer requires it to advance. Missing, unreadable or frozen heartbeats cannot prove termination. Cleanup requires the test-owned stop acknowledgement, not a stale timestamp. The wrapper retains `descendantState=NOT_VERIFIED`; cooperative fixture cleanup is not product process-tree containment. The [r11 receipt](../../../development/remediation/2026-09-10/planner-observer-r11/verification.json) qualifies the lifecycle claims in the unchanged [r10 receipt](../../../development/remediation/2026-09-10/planner-windows-r10/verification.json).
+
+The entry suite also runs only on Windows: it drives the projected entry with real Windows PowerShell and real synthetic processes and proves the owned job contains detached descendants, breakaway attempts and survivors of both cancellation and completion, while an unrelated concurrent invocation stays intact. Its result and the r12 keyless pinned-CLI projection verification are recorded in the [r12 receipt](../../../development/remediation/2026-09-10/planner-entry-r12/verification.json).
 
 ## Planning prerequisites
 
