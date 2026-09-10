@@ -1,51 +1,46 @@
 # Windows 无密钥修复接收与整合交接
 
-更新：2026-09-10。适用仓库仅为 `wmqfl861/dsh861`。本页是当前本地与远端协作入口，不是指定 Codex 节点计划或 OpenCode 硬审核，不授予产品 PASS。
+更新：2026-09-10。适用仓库仅为 `wmqfl861/dsh861`。本页是当前协作入口，不是指定 Codex 节点计划或 OpenCode 硬审核，不授予产品 PASS。
 
-## 唯一开发入口与已完成整合
+## 已接收的修复与唯一开发入口
 
-统一开发分支为 `feat/multi-agent-company-nodes`，向 `master` 的集成入口是 PR #2。PR #4 已以 `76988bf576d556345ef57fa3be985b7bf26a7b4c` 合入开发分支，并包含 PR #3；拉取时以该开发分支实际 HEAD 为准，不另行叠加 PR #3 或 PR #4 补丁。
+统一开发分支为 `feat/multi-agent-company-nodes`，向 `master` 的集成入口仍是 PR #2。Windows 修复分支的提交 `2a62e488856eee00688740a287abc3cceb90d399` 已通过 PR #5 合入开发分支，合并提交为 `c896db947cef531ef0c6f73354f4687bedd09e94`。原 17 处修复提交 `6c4a64fdb1c2c45f5c5c84d1e6ecd3e9d0974e5d` 及失败记录保留。接手时 fetch 并核对实际 HEAD，不把旧提交当作回退目标。
 
-PR #2 评论 `5609931895` 中的另一套文档支持候选与上述修改重复。其五份英文译文及补丁生成 helper 不进入工作树，不再执行下载、生成或应用步骤；保留对象标识作历史追溯。该评论原有“不提交、不推送”要求不再控制本轮交付，按所有者当前授权正常提交并推送专用修复分支。
+本地工作目录为 `C:\Albert\project\dsh861`。不用重新克隆、安装 Node 或重做文档修复；沿用已验证的 Node 26.4.0、专用 pnpm 11.7.0 和现有依赖。远端已核对两个旧文档分支引用不存在。PR #3/#4 已包含在开发分支，评论 `5609931895` 的重复文档候选继续停用，不重新应用其 helper 或补丁。
 
-保留已合入的文档、需求及原始历史记录，不重写 Git 历史，不删除旧失败证据，不通过重建仓库来清理。本轮仅统一文档和交接；运行时代码、模型清单与锁、依赖锁和节点验收状态均不因整合改变。其他仓库的运行报告不能用作本项目的验证材料。
+## 验证事实与可取回证据
 
-## 尚未取得的本地修复
+| 证据 | 能支持的结论 | 不能据此声称 |
+|---|---|---|
+| [Windows 回执](../remediation/2026-09-10/windows-keyless-r06/verification.json) | 本地实际完成六组配对、12 个快照核验、完整 test:docs 15/15、doc-sync 33/33、完整 lint；原行为回归按不变源码复用。 | 当前会话重新运行了 Windows、四种真实 CLI 或所有压缩日志。 |
+| [源码候选](../remediation/2026-09-10/windows-keyless-r06/candidate-manifest.json) | 记录本地源码指纹、受保护文件及原 17 处修复；绑定其说明的代码版本。 | 后续提交自动继承完整验收，或远端已重算全部 9,299 个源文件。 |
+| [发布回执](../remediation/2026-09-10/windows-keyless-r06/publication.json) | 与远端分支及提交读回共同核对发布事实。 | 本地工作区此刻仍干净，或凭据／原生执行已就绪。 |
+| [远端补充复核](../remediation/2026-09-10/windows-keyless-r06/remote-review.json) | 已审查源码差异及可读 JSON 回执；独立复现旧输出判定问题，修复后 1,892 组合与反序检查通过。 | 指定独立硬审核、完整类型检查或 Windows 重跑。 |
 
-本地目录为 `C:\Albert\project\dsh861`，上轮报告分支为 `fix/windows-keyless-validation-20260909`，报告所用基线为 `9060d7113c4f4302b31459d618d66eae1d09f4c7`。用户报告 17 个已跟踪文件修复仍未提交、未推送；原补丁、17 份快照、57 份命令记录及 157 项文件哈希尚未交给远端审查者。
+原始可携带材料为 [prior-validation.zip](../remediation/2026-09-10/windows-keyless-r06/prior-validation.zip)、[validation.zip](../remediation/2026-09-10/windows-keyless-r06/validation.zip) 和 [publication.zip](../remediation/2026-09-10/windows-keyless-r06/publication.zip)，配有各自导出清单；远端纯函数复核的源码、脚本与输出随本次对话交付为 `dsh861_r06_remote_review.zip`，摘要记录在远端补充复核 JSON 中；没有在仓库写入另一份源码实现。本会话无法从网络下载前三份 ZIP，未独立展开或全量重算；已读回的结构化回执不冒充这些操作。
 
-[接收摘要](../remediation/2026-09-10/docs-r05/local-report-received.json)仅为用户转述，不是原始回执。候选指纹 `216f6b85a74f0894de645a3f4c19b5564148526c3642d6e1cf754db63492ce31` 尚未独立重算。不能根据该摘要重写修复代码，也不能把报告中的通过结果视为远端旧代码已通过。
+旧 r05 转述摘要和 r01/r02 中“尚未推送、文档失败”的描述属于当时输入，已由 r06 和本页的接收事实接续；保留旧内容，不再要求本地重复完成这些收尾。旧测试回执绑定其当时源码，不将后续状态／交接文档更新重新标成原完整门禁已运行。
 
-上轮 lint 首次失败与后续 `lint:contracts-ready` 成功是不同执行事实；完整文档检查尚未确认通过。Node/libuv 的 `UV_HANDLE_CLOSING` 偶发退出、Windows ACL、后代进程残留场景、四种真实 CLI 和指定规划／审核仍按实际证据记录，不能因文档合并而闭合。
+## 当前剩余边界
 
-## 已选定的文档与需求
+[P0-B 状态](../nodes/P0-B/state.json)仍为 blocked，正式计划仍为 v3，candidate 与 hard_review 尚为空。模型声明与锁、依赖锁保持原值。Node/libuv 的偶发 `UV_HANDLE_CLOSING` 未复发不等于根因已解决；Windows ACL、父包装进程先退出后的完整后代清理、真实产品与完整 Loader 回合仍未验证。
 
-五组 development README 已形成英文、中文和配对记录，[配置参考](../../config/agents/README.zh.md)的中文链接已修正。维护轮次说明保留各自的历史实现与验证边界；旧执行回执中的哈希仍绑定当时内容，不自动认证后续翻译或修复。
+下一项依赖是[节点规则](../../NODE_DEVELOPMENT_RULES.md)指定的真实 Codex 后继规划及其安全调用前置条件，不是再次全量执行已经通过的安装、文档与无密钥测试。所有者授权的仓库实施、有限修复与正常提交／推送继续适用；具体模型、权限或费用变更不由一般开发授权替代。
 
-[文档专项记录](../remediation/2026-09-10/docs-r05/verification.json)覆盖六组配对与五项负控；本轮重新运行了同一专项检查。它不是原仓库的完整 `verify-translation-pairing`、`test:docs` 或 `doc-sync`。当前环境无法通过网络克隆完整仓库，未重新安装全库依赖或执行 Windows 测试。
+## 本地下一项任务：安全预检与真实后继规划
 
-[网页控制台需求补充](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)保留公网后台、多团队、组织与流程编辑、成员对话、任务状态及全站 Codex 管理助手的要求。[后继计划输入 r02](../nodes/P0-B/plan-revision-request.r02.md)与原[输入 r01](../nodes/P0-B/plan-revision-request.r01.md)供指定规划者使用，不是正式后继计划，不把整个后台变成 P0-B 的新增前置条件。
+先在干净工作区正常整合 `origin/feat/multi-agent-company-nodes`；存在新工作则保留，不自动 stash、强制重置或覆盖。原 Windows 修复分支可保留用于追溯，不需要重新发布同一补丁。新增工作使用当前节点专用分支。
 
-## 本地执行端的下一项任务
+读取[请求 r01](../nodes/P0-B/plan-revision-request.r01.md)、[请求 r02](../nodes/P0-B/plan-revision-request.r02.md)、[主规格](../../MULTI_AGENT_REQUIREMENTS.md)、[配置参考](../../config/agents/README.zh.md)和[控制台补充](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)，以本页及 r06 纠正旧状态。新增网页范围不等于 P0-B 必须实现完整公网后台。
 
-沿用已成功的 Node 26.4.0、专用 pnpm 11.7.0 和现有依赖，不重装、不重新克隆，不调用本机连接插件。先核对实际分支、工作区与原封存清单；若已经应用过另一份文档候选，应先保留差异，逐文件整合，不覆盖或重复应用。
+第一步仅做无密钥预检：确认本次批准的真实 Codex 程序绝对路径、来源、版本和摘要，核对其原生 schema／帮助／源码对指定模型、provider、协议及 `max` 的接受情况。预检使用专用空目录与隔离配置，不读取全局认证、聊天密钥或其他项目配置，不为试探参数先请求模型。不能从 `--help`、配置文件存在或模型自述推断真实调用已成功。
 
-先将 17 处修复及必要的脱敏证据保存成独立提交，然后 fetch 并正常整合 `origin/feat/multi-agent-company-nodes`。只暂存明确文件；禁止无差别暂存、强制重置、自动 stash、强制推送或整体选择冲突的一侧。提交钩子若被旧文档阻塞，不关闭钩子：先保全原字节补丁和快照，再安全整合文档，确实无法继续时报告具体阻塞。
+规划调用还需要：已轮换且明确授权给本次任务的专用凭据引用、可验证的传输保护、所需读取范围、执行预算和输出保护。只检查授权引用的就绪状态，不枚举全部秘密。没有这些条件时生成一次不含秘密的阻塞清单并交回，不尝试旧 Key、不关闭 TLS 检查、不改变端点、不静默映射 `max` 为其他等级。
 
-逐对确认语义后，用仓库原配对程序显式点名本次六组文件执行 `--write`，保存对应 Git 快照并核验；不得使用 `--write --all` 或仅重算错误内容的哈希放行。随后运行受影响配对检查和此前未通过的完整文档检查：
+条件全部成立时，按节点规则调用真实 Codex，以固定输入提交和获准参数编写正式后继计划。保留独立身份、程序、实际请求设置与可观察返回、提示词摘要、时间、退出码及脱敏产物；不可观察字段保留 UNKNOWN。原生不接受配置时停止，实施者不能替它署名编写 plan.v4。
 
-```sh
-pnpm run verify-translation-pairing development/nodes/P0-B/evidence/README.md development/remediation/2026-09-09/README.md development/remediation/2026-09-09/security-r02/README.md development/remediation/2026-09-09/model-config-r03/README.md development/remediation/2026-09-09/codex-stderr-r04/README.md config/agents/README.md
-pnpm run test:docs
-pnpm run doc-sync
-```
+后继计划必须收敛当前节点完成标准：使用原 AC 含义及节点独立用例 ID；分开 nativeResume 与 artifactHandoff；包含四产品真实入口、必要适配和配置兑现、Windows 权限／完整后代清理、取消及外部观察；明确全局工具治理、数据库和完整界面的后续归属。复用已通过且源码未变的检查，不能削弱主规格或无限扩大当前节点。
 
-保存实际命令、环境、退出码、日志和源码版本。纯文档整合不机械重复已通过且未受影响的行为测试；源码冲突或后续修复改变行为时复测对应范围。`lint:contracts-ready` 不改名为 `pnpm run lint`；若最终候选缺少要求的完整 lint 证据，单独完成并记录。偶发崩溃必须保留，不能无限重试到通过再抹掉失败。
+本轮本地交付先到真实计划及其前置证据；不同时改动待审源码并执行最终 OpenCode 硬审核。指定 OpenCode 审核在计划内实施与候选证据齐备后进行。任何节点通过都仍须匹配当时固定候选，不进入 P0-C，不自动合并 master。
 
-核对 `config/agents/models.v1.json`、`config/agents/models.v1.lock.json` 和 `pnpm-lock.yaml` 保持原字节。保留旧候选及回执，对整合结果另建指纹。报告须区分原始通过、后续定向复测与未执行项，不把新候选自动标为已完成所有原生验证。
-
-完成后正常推送专用修复分支，返回分支与提交 SHA，并创建目标为 `feat/multi-agent-company-nodes` 的草稿 PR；没有 PR 工具时返回已推送的分支即可。必要日志、补丁与回执必须能从远端取回，不能只给本机绝对路径。若推送失败，保留本地提交并交付脱敏补丁包，不重新制作修复。
-
-不推送或合并 `master`，不提高 P0-B 状态，不开放 P0-C；不使用聊天中的旧 Key、不读取全局认证、不调用收费模型。真实产品与指定审核待安全凭据、兼容入口和所需运行证据就绪后执行。
-
-最终回报仅需：远端分支、提交 SHA／PR、可取回的证据位置、配对与文档检查结果、额外源码变化及复测、受保护文件是否不变、剩余阻塞。不要再次只返回“未提交、未推送、下一步无”。
+新回报须给出固定输入提交、实际程序和参数证据、真实后继计划或精确阻塞、可取回的脱敏回执，以及正常推送的分支和 SHA。只需补齐真正缺少的前置条件，不再要求用户提供已有的四套非密钥配置或重装已通过的环境。

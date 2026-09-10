@@ -15,8 +15,8 @@
   "product_acceptance_completed": [],
   "next_node_allowed": false,
   "blocker": "PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.",
-  "current_activity": "Repository-only development: the registered Codex Provider now drains native stderr privately before handing the process to its internal runner. 15 shared offline regressions and a two-case Provider wiring fixture pass; full diagnostic capture, supported-engine/Windows/native-product verification and designated planning/review remain outstanding. See development/remediation/2026-09-09/codex-stderr-r04/README.md.",
-  "updated_at": "2026-09-09",
+  "current_activity": "Windows keyless repairs and portable evidence received at 2a62e488856eee00688740a287abc3cceb90d399 and merged through PR #5. Local receipts record test:docs 15/15, doc-sync 33/33 and full lint passed. Remote source/JSON review and 1892 synthetic output-verdict cases completed; native-product acceptance and designated planning/review remain outstanding. Current handoff: [Windows integration](handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md).",
+  "updated_at": "2026-09-10",
   "evidence": [
     "evidence/governance/preconditions.json",
     "evidence/discovery/index.json",
@@ -27,7 +27,7 @@
     "evidence/authorized-isolated-compatibility-v2.json"
   ],
   "plan_invocation": "D:/Temp_projects/dsh861-node-governance/runs/p0-b-plan-v3-configured-runs.receipt.json",
-  "plan_revision_pending": "plan-revision-request.r01.md",
+  "plan_revision_pending": "plan-revision-request.r02.md",
   "acceptance_map": "acceptance-map.r01.json",
   "remediation": "../../remediation/2026-09-09/README.md",
   "credential_rotation_status": "UNKNOWN_NOT_VERIFIED",
@@ -35,5 +35,8 @@
   "security_implementation": "PARTIAL_CODEX_STDERR_PRIVACY_WIRED_FULL_CAPTURE_PENDING",
   "security_evidence": "../../remediation/2026-09-09/security-r02/verification.json",
   "runtime_stderr_policy": "CODEX_REGISTERED_PROVIDER_SUPPRESSION_ONLY",
-  "runtime_stderr_evidence": "../../remediation/2026-09-09/codex-stderr-r04/verification.json"
+  "runtime_stderr_evidence": "../../remediation/2026-09-09/codex-stderr-r04/verification.json",
+  "integrated_validation_commit": "2a62e488856eee00688740a287abc3cceb90d399",
+  "local_validation_evidence": "../../remediation/2026-09-10/windows-keyless-r06/verification.json",
+  "remote_review_evidence": "../../remediation/2026-09-10/windows-keyless-r06/remote-review.json"
 }

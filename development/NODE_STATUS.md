@@ -13,7 +13,7 @@
 
 历史 approved/PASS 仅对应当时的固定候选，不认证后来提交的整个工作树。
 
-当前活动：Repository-only development: the registered Codex Provider now drains native stderr privately before handing the process to its internal runner. 15 shared offline regressions and a two-case Provider wiring fixture pass; full diagnostic capture, supported-engine/Windows/native-product verification and designated planning/review remain outstanding. See development/remediation/2026-09-09/codex-stderr-r04/README.md.
+当前活动：Windows keyless repairs and portable evidence received at 2a62e488856eee00688740a287abc3cceb90d399 and merged through PR #5. Local receipts record test:docs 15/15, doc-sync 33/33 and full lint passed. Remote source/JSON review and 1892 synthetic output-verdict cases completed; native-product acceptance and designated planning/review remain outstanding. Current handoff: [Windows integration](handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md).
 
 当前阻塞：PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.
 

@@ -1,0 +1,69 @@
+{
+  "kind": "remote-integration-review-not-designated-hard-review",
+  "reviewedCommit": "2a62e488856eee00688740a287abc3cceb90d399",
+  "mergeCommit": "c896db947cef531ef0c6f73354f4687bedd09e94",
+  "actor": "ChatGPT in the current conversation",
+  "pullRequest": 5,
+  "reviewId": 5162346377,
+  "scope": "Source diff and readable JSON receipt review; submitted ZIP internals not independently unpacked.",
+  "outputVerdictCheck": {
+    "kind": "independent-focused-output-verdict-review",
+    "timestamp": "2026-09-10T03:39:58.884Z",
+    "base": "e2a41682e6712648abc339a8cb787dbc6db0f569",
+    "head": "2a62e488856eee00688740a287abc3cceb90d399",
+    "environment": {
+      "os": "linux",
+      "node": "v22.16.0",
+      "typescript": "5.8.3"
+    },
+    "sourceGitBlobs": {
+      "baseline": "1d67ab9b74cd0ebaca4a3daa97eddbd3cf40c8e8",
+      "fixed": "7c086613da3f0388c53d0636e64c69ef5689b3da"
+    },
+    "sourceIdentityChecked": true,
+    "fixtures": 1892,
+    "results": {
+      "OUTPUT_CAPTURED": 2,
+      "FAIL": 774,
+      "BLOCKED": 1116
+    },
+    "reverseOrderChecks": 1885,
+    "baselineBugReproduced": true,
+    "noProductAcceptanceReturned": true,
+    "allAssertionsPassed": true,
+    "limits": [
+      "Pure-function AST extraction/transpilation only; not dependency-aware typecheck.",
+      "Does not run Windows, Codex, the complete repository suites or unpack submitted ZIP logs.",
+      "Plain synthetic evidence only; not proof of collector provenance or secrets-service security."
+    ]
+  },
+  "archive": {
+    "path": "dsh861_r06_remote_review.zip",
+    "bytes": 6652,
+    "sha256": "f5149448780f911a91f0fd85859aed9e9509b2fe20a62258a0f7e9e6313a7242",
+    "gitBlobSha": "f48c53f6af8ad79c1ad9fcf2b1dfb4006fb28e7c",
+    "delivery": "Conversation attachment only; not a repository path.",
+    "repositoryUpload": "REJECTED_BLOB_IDENTITY_MISMATCH_NOT_ATTACHED",
+    "rejectedBlobSha": "a514e44259a39dd5960343eaa5a7c75f953e329b"
+  },
+  "statusProjection": {
+    "method": "Unchanged renderStatus and fetched P0-A projection fields plus updated P0-B metadata",
+    "rendererGitBlobSha": "e8d9c7019919fb83c8461a345719ee553f5d1ab3",
+    "deterministic": true,
+    "nextNodeAllowed": false
+  },
+  "handoffCheck": {
+    "relativeLinks": 14,
+    "method": "Targets checked against previously read repository and newly created file inventory; no full pnpm doc gate executed."
+  },
+  "notRun": [
+    "Independent unpack/hash of prior-validation.zip, validation.zip and publication.zip",
+    "Full recomputation of the 9299-file source fingerprint",
+    "Windows and native CLI/model execution",
+    "Full repository lint/typecheck/documentation suites in this remote environment",
+    "Designated Codex successor plan and OpenCode hard review"
+  ],
+  "runtimeFilesChangedByRemoteReview": false,
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}
