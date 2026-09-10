@@ -20,4 +20,4 @@ Status: implemented
 
 ## 影响
 
-安全边界是操作系统账号，不是凭据名称前缀或加密管道。共享该账号的产品 agent 仍需要有效的操作系统隔离。不自动激活模型，不确认 Key 轮换，不授权 HTTPS 或规划调用。[验证回执](../../../../development/remediation/2026-09-10/credential-store-r07/verification.json)区分合成协议测试与原生 Windows 验证，并记录尚未完成的接入限制。
+安全边界是操作系统账号，不是凭据名称前缀或加密管道。共享该账号的产品 agent 仍需要有效的操作系统隔离。不自动激活模型，不确认 Key 轮换，不授权 HTTPS 或规划调用。[远端 r07 回执](../../../../development/remediation/2026-09-10/credential-store-r07/verification.json)区分合成协议测试与原生 Windows 验证；[本机 r08 回执](../../../../development/remediation/2026-09-10/credential-store-r08/verification.json)记录已执行的 Windows 原生结果、解析兼容修复和尚未完成的接入限制。

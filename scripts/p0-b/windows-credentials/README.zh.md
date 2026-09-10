@@ -37,6 +37,10 @@ Key 必须是 1–384 个可打印、非空格 ASCII 字节。长度或字符不
 
 加密封装防止偶然采集管道输出时暴露 Key，但不能对同一 Windows 用户实施授权隔离，因为该用户仍可直接调用凭据管理器。因此，不可信产品 agent 仍需要独立执行身份或已验证的操作系统隔离。只有可信服务取得读取器和租约。不得把此 API 暴露成通用 agent 工具，也不得把解密结果写入诊断通道。
 
+## 规划调用接线
+
+[planner-invocation.ts](planner-invocation.ts) 是密封读取器与规划 CLI 之间的最小单次调用接线。读取任何凭据之前，它校验所有者批准记录（绝不自行签发）、与锁验证路由完全一致的对象、仅 HTTPS 的传输门、固定的提示与可执行文件哈希，以及时限和通道上限。当前批准的 `codex` 路由是明文 HTTP，在存在所有者批准的受保护路由之前，该接线会拒绝它。凭据随后只通过既有一次性租约进入子进程环境；所有返回通道都先用租约值脱敏。一次 CLI 进程可能产生多次模型请求，这些上限不是按请求计的费用上限。无密钥合成进程验证见 `planner-invocation.test.mjs`；本接线不发起真实规划调用。
+
 ## 验证
 
 在已安装仓库钉版依赖的工作副本中运行：
@@ -48,9 +52,9 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 
 第一组测试明确模拟原生通道，验证协议、真实 RSA 运算、引用限制和现有租约。可选的 `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` 仅供离线验证选择独立编译的 JavaScript；正常仓库执行不能设置它。
 
-第二组只在 Windows 执行。它验证 helper 完整性拒绝，创建一个唯一 `dsh861/selftest/` 目标，拒绝隐式覆盖，显式替换合成数据，封装结果，并在接受成功前核实删除。不使用生产引用或真实模型。日志只打印精确合成目标，不打印值。进程终止或宿主崩溃可能阻止清理；只检查记录的那个目标并报告残留。时限终止的是直接 helper，不是已验证的 Windows 后代进程树。交互式隐藏输入、持久账号行为、ACL 隔离与完整规划接线需要另行本地检查，非 Windows 跳过不能证明它们。
+第二组只在 Windows 执行。它先在内置 Windows PowerShell 下解析两个脚本，验证 helper 完整性拒绝，让一个唯一 `dsh861/selftest/` 目标经历隐式覆盖拒绝、显式替换、封装与核实删除，经真实存储路径拒绝合成的隐藏输入确认不一致、再存入一致的合成值对，并检查 `Set` 拒绝重定向输入、`Remove -WhatIf` 取消而不执行。不使用生产引用或真实模型。日志只打印精确合成目标，不打印值。进程终止或宿主崩溃可能阻止清理；只检查记录的目标并报告残留。时限终止的是直接 helper，不是已验证的 Windows 后代进程树。真实 Key 的交互式隐藏录入、持久账号行为、ACL 隔离与完整规划接线仍需另行本地检查，非 Windows 跳过不能证明它们。
 
-远端验证边界及实际测试文件哈希见 [r07 回执](../../../development/remediation/2026-09-10/credential-store-r07/verification.json)。Linux 测试不被描述为隐藏输入或原生凭据存储已经成功。
+远端验证边界及实际测试文件哈希见 [r07 回执](../../../development/remediation/2026-09-10/credential-store-r07/verification.json)；Windows 本机原生结果、修复后的解析兼容行布局及本轮文件哈希记录在 [r08 回执](../../../development/remediation/2026-09-10/credential-store-r08/verification.json)。Linux 测试不被描述为隐藏输入或原生凭据存储已经成功。
 
 ## 规划前置条件
 

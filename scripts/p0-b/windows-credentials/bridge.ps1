@@ -20,8 +20,8 @@ try {
     if (($names -join ',') -ne 'exponent,modulus,requestId,version' -or $request.version -ne 1) {
         throw 'INVALID_REQUEST'
     }
-    if ($request.requestId -cnotmatch '\A[0-9a-f]{32}\z' -or $request.exponent -cne 'AQAB'
-        -or $request.modulus -cnotmatch '\A[A-Za-z0-9+/]{683}=\z') { throw 'INVALID_REQUEST' }
+    if ($request.requestId -cnotmatch '\A[0-9a-f]{32}\z' -or $request.exponent -cne 'AQAB' -or
+        $request.modulus -cnotmatch '\A[A-Za-z0-9+/]{683}=\z') { throw 'INVALID_REQUEST' }
     Add-Type -TypeDefinition (Get-Content -LiteralPath (Join-Path $PSScriptRoot 'native-credential.cs') -Raw -Encoding UTF8) | Out-Null
     $sealed = if ($Action -eq 'Read') {
         [Dsh861.Credentials.NativeCredential]::Seal($Provider, $request.modulus, $request.exponent)

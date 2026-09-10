@@ -160,6 +160,11 @@ namespace Dsh861.Credentials
 
         public static void Store(string provider, SecureString value, SecureString confirmation, bool replace)
         {
+            StoreTarget(Target(provider), value, confirmation, replace);
+        }
+
+        private static void StoreTarget(string target, SecureString value, SecureString confirmation, bool replace)
+        {
             byte[] first = null, second = null;
             try
             {
@@ -168,7 +173,7 @@ namespace Dsh861.Credentials
                 int mismatch = first.Length ^ second.Length;
                 for (int i = 0; i < Math.Min(first.Length, second.Length); i++) mismatch |= first[i] ^ second[i];
                 if (mismatch != 0) throw new InvalidOperationException("CREDENTIAL_CONFIRMATION_MISMATCH");
-                WriteTarget(Target(provider), first, replace);
+                WriteTarget(target, first, replace);
             }
             finally
             {
@@ -258,6 +263,38 @@ namespace Dsh861.Credentials
                 Array.Clear(first, 0, first.Length);
                 Array.Clear(second, 0, second.Length);
                 if (created)
+                {
+                    DeleteTarget(target);
+                    if (StatusTarget(target) != "MISSING")
+                        throw new InvalidOperationException("CREDENTIAL_SELFTEST_CLEANUP_FAILED");
+                }
+            }
+        }
+
+        // Exercises the hidden-input confirmation path on a throwaway selftest target only.
+        public static string SelfTestStore(string requestId, SecureString mismatchFirst, SecureString mismatchSecond,
+            SecureString matching, string modulus, string exponent)
+        {
+            if (!Regex.IsMatch(requestId ?? "", @"\A[0-9a-f]{32}\z"))
+                throw new InvalidOperationException("CREDENTIAL_BRIDGE_REQUEST_INVALID");
+            string target = "dsh861/selftest/" + requestId;
+            try
+            {
+                bool refused = false;
+                try { StoreTarget(target, mismatchFirst, mismatchSecond, false); }
+                catch (InvalidOperationException error)
+                {
+                    if (error.Message != "CREDENTIAL_CONFIRMATION_MISMATCH") throw;
+                    refused = true;
+                }
+                if (!refused || StatusTarget(target) != "MISSING")
+                    throw new InvalidOperationException("CREDENTIAL_SELFTEST_FAILED");
+                StoreTarget(target, matching, matching, false);
+                return SealTarget(target, modulus, exponent);
+            }
+            finally
+            {
+                if (StatusTarget(target) != "MISSING")
                 {
                     DeleteTarget(target);
                     if (StatusTarget(target) != "MISSING")

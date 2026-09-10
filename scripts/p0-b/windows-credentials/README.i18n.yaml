@@ -1,3 +1,6 @@
-# Confirmed paired source bytes; native execution remains unverified.
-README.md: 641def40d705ce476f4266589a8954d34594d061
-README.zh.md: d116a2c03184b3da42b05ae401c5628f774bebb4
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md
+README.md: 6d18bbeb2713374a7b581500e6fdae2701b939b4
+README.zh.md: f521764fb004b28d4248575e8e726f948023a5c9

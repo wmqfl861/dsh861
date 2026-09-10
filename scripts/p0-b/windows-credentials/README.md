@@ -37,6 +37,10 @@ The private transport uses `-NoProfile`, `-NonInteractive`, `shell: false`, exac
 
 The encrypted envelope prevents incidental pipe capture from disclosing the key; it is not authorization against the same Windows user, who can call Credential Manager directly. Untrusted product agents therefore still require separate execution identities or verified OS isolation. Only the trusted service receives the reader and leases. Do not expose this API as a general agent tool or write decrypted results to a diagnostic channel.
 
+## Planner invocation wiring
+
+[planner-invocation.ts](planner-invocation.ts) is the minimal single-call wiring between the sealed reader and a planner CLI. Before any credential read it validates the owner approval record (never self-issued), the exact subject against the lock-verified route, an HTTPS-only transport gate, the pinned prompt and executable hashes, and the deadline and channel bounds. The current approved `codex` route is plaintext HTTP, so the wiring refuses it until an owner-approved protected route exists. The credential then reaches only the child environment through the existing one-use lease, and every returned channel is redacted with the lease's values first; one CLI process may issue several model requests, so these bounds are not a per-request cost ceiling. Keyless synthetic-process verification is in `planner-invocation.test.mjs`; no real planner call is made by this wiring.
+
 ## Verification
 
 From the repository with its pinned dependencies:
@@ -48,9 +52,9 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 
 The first suite exercises the protocol with explicitly simulated native transport, real RSA operations, reference restrictions and the existing lease. An optional `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` selects isolated compiled JavaScript for offline verification only; normal repository runs must leave it unset.
 
-The second suite runs only on Windows. It verifies helper integrity rejection, creates one unique `dsh861/selftest/` target, rejects implicit replacement, replaces synthetic data explicitly, seals the result, and verifies deletion before accepting success. No production reference or real model is used. The exact synthetic target is printed without its value. Process termination or a host crash can prevent cleanup; inspect only that recorded target and report any residue. The deadline kills the direct helper, not a proven Windows descendant tree. Interactive masked input, persistent-account behavior, ACL isolation and full planner integration need separate local checks; a non-Windows skip does not prove them.
+The second suite runs only on Windows. It parses both PowerShell scripts under the in-box Windows PowerShell, verifies helper integrity rejection, walks one unique `dsh861/selftest/` target through implicit-overwrite refusal, explicit replacement, sealing, and verified deletion, refuses a synthetic hidden-input confirmation mismatch through the real store path and then stores the matching synthetic pair, and checks that `Set` refuses redirected input while `Remove -WhatIf` declines without operating. No production reference or real model is used. The exact synthetic targets are printed without their values. Process termination or a host crash can prevent cleanup; inspect only the recorded targets and report any residue. The deadline kills the direct helper, not a proven Windows descendant tree. Interactive masked entry of a real key, persistent-account behavior, ACL isolation and full planner integration still need separate local checks; a non-Windows skip does not prove them.
 
-The remote verification boundary and exact tested-file hashes are in the [r07 receipt](../../../development/remediation/2026-09-10/credential-store-r07/verification.json). No hidden-input or native-store success is claimed from Linux tests.
+The remote verification boundary and exact tested-file hashes are in the [r07 receipt](../../../development/remediation/2026-09-10/credential-store-r07/verification.json); local Windows native results, the repaired parser-compatible line layout, and this round's file hashes are recorded in the [r08 receipt](../../../development/remediation/2026-09-10/credential-store-r08/verification.json). No hidden-input or native-store success is claimed from Linux tests.
 
 ## Planning prerequisites
 

@@ -91,7 +91,7 @@ export function createSealedCredentialReaders(
   const allowed = new Set(allowedIds)
   return {
     readEnv: () => undefined,
-    readSecret: async id => {
+    readSecret: async (id) => {
       const provider = providerFor(id)
       if (!allowed.has(id as ProviderSecretId)) throw new WindowsCredentialError()
       return receive(invoke, 'Read', provider)
@@ -126,7 +126,6 @@ export function createWindowsBridge(spec: WindowsBridgeSpec): SealedBridge {
       if (process.platform !== 'win32' || !isAbsolute(spec.directory)
         || !Number.isSafeInteger(spec.timeoutMs) || spec.timeoutMs < 1
         || spec.timeoutMs > 2147483647) throw new WindowsCredentialError()
-      if (action !== 'Read' && action !== 'SelfTest') throw new WindowsCredentialError()
       if (action === 'Read') providerFor(`providers/${provider}`)
       else if (provider !== undefined) throw new WindowsCredentialError()
       if (!Buffer.isBuffer(request) || request.length > 4096) throw new WindowsCredentialError()
@@ -194,7 +193,8 @@ export function createWindowsBridge(spec: WindowsBridgeSpec): SealedBridge {
  * @returns a keyless transport result, never product acceptance or rotation confirmation.
  */
 export async function checkWindowsCredentialBridge(invoke: SealedBridge): Promise<{
-  status: 'SYNTHETIC_STORE_ROUNDTRIP'; productAccepted: false
+  status: 'SYNTHETIC_STORE_ROUNDTRIP'
+  productAccepted: false
 }> {
   await receive(invoke, 'SelfTest')
   return { status: 'SYNTHETIC_STORE_ROUNDTRIP', productAccepted: false }
