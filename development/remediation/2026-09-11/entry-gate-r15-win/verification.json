@@ -1,0 +1,199 @@
+{
+  "kind": "windows-native-execution-of-r15-entry-gate-controls",
+  "round": "r15-windows",
+  "recordedAt": "2026-09-11T08:16:42+00:00",
+  "baseCommit": "de5fdc26f2ebea17b3a921ce0d428a3585758d18",
+  "baseCommitParent": "ca7f0da03ba1233d1bcae7eec96eed365240aebb",
+  "actor": "ZCode built-in execution subagent on the user's Windows host; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "repositoryDependenciesInstalled": true,
+    "windowsNativeRun": true,
+    "note": "Fast-forward integration of origin de5fdc26 over local ca7f0da; no stash, no force, no reset, no parallel implementation."
+  },
+  "sourceIdentity": {
+    "planner-entry.ts@de5fdc2": "5f4a28fbb633fad97006577d3aef1843c17d1a5d",
+    "planner-entry-gate.test.mjs": "aa2716370ba0ebfef93be3238088c6b9084a194e",
+    "planner-entry.test.mjs": "d99212cb1d6685a79a1f3eca9b7f9f3d814ed97f",
+    "ownership-failures.test.mjs": "2bf0a5152f59bebb51037c7cb3bf58b116008cb7",
+    "planner-invocation.ts": "962eb4d97bcd296589c99e50ba5f0c90077ec184",
+    "windows-job-owner.ts": "abced4414d14daa01d3968ce3775ef2fd027e57d",
+    "launch-gate.mjs": "4893121dc3db51b14d3a9b7b3aebfea17d8a671f",
+    "job-owner.ps1": "cdfe0a6d9775617f5c2cb26d235ea929f854e707",
+    "note": "The first 8/8 entry-gate run executed the remote-recorded de5fdc2 sources verbatim; the adapter lint repair (braces only) came after and every affected suite was re-run on the repaired source."
+  },
+  "checks": {
+    "entryGate8": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "planner-entry-gate-r15.tap",
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Six source-composition controls plus both Windows native consumer paths actually executed (not skipped). The native cases go through the real invokeProjectedPlannerOnce; the host spawned exactly two direct children (job-owner helper powershell.exe, then the pinned launch-gate.mjs node process); the target wrote its real kernel pid/ppid and target.ppid equals the observed gate launcher pid; completion returned PROJECTED_PLANNER_COMPLETED and cancellation PROJECTED_PLANNER_CANCELLED with assigned=true, activeProcessesRemaining=0, disposed=true. No manually assembled ownership adapter inside the tests."
+    },
+    "ownershipLegacy": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "ownership-failures-r15.log",
+      "tests": 25,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Windows confirmation of the existing ownership failure lifecycle controls."
+    },
+    "plannerEntryLegacy": {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "planner-entry-r15.log",
+      "tests": 12,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Windows confirmation of the existing projected-entry suite including the r14 breakaway kernel-identity controls."
+    },
+    "lintRepair": {
+      "firstFailure": {
+        "command": "pnpm run lint",
+        "log": "lint-r15.log",
+        "exitCode": 1,
+        "errors": 2,
+        "detail": "typescript(no-confusing-void-expression) at planner-entry.ts:120 and :121 on the r15 adapter's release/abort arrow shorthands; the r15 authoring receipt ran only a focused typecheck, so repository lint had not seen the change."
+      },
+      "fix": "Added braces to the two void-returning arrow bodies (release: () => { owner.releaseGated() }, abort: () => { owner.abortGated() }); no behavior, spawn, gate or test change.",
+      "fixedRun": {
+        "command": "pnpm run lint",
+        "log": "lint-r15-fixed.log",
+        "exitCode": 0,
+        "warnings": 0,
+        "errors": 0
+      }
+    },
+    "postRepairReRuns": {
+      "entryGate": {
+        "log": "planner-entry-gate-r15-postfix.tap",
+        "tests": 8, "passed": 8, "failed": 0, "skipped": 0, "exitCode": 0
+      },
+      "plannerEntry": {
+        "log": "planner-entry-r15-postfix.log",
+        "tests": 12, "passed": 12, "failed": 0, "skipped": 0, "exitCode": 0
+      },
+      "ownershipLegacy": {
+        "log": "ownership-failures-r15-postfix.log",
+        "tests": 25, "passed": 25, "failed": 0, "skipped": 0, "exitCode": 0
+      },
+      "scope": "All affected suites re-run on the repaired planner-entry.ts source."
+    },
+    "typecheckFull": {
+      "command": "pnpm run typecheck",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "typecheck-r15.log",
+      "exitCode": 0
+    },
+    "pairingWrite": {
+      "command": "pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md; pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-write-readme-r15.log; pairing-write-note-r15.log",
+      "exitCode": 0,
+      "scope": "Named re-record only (no --write --all) of the two pairs left UNCHANGED_PENDING_LOCAL_RE_RECORD by the r15 authoring receipt."
+    },
+    "pairingCheck": {
+      "command": "pnpm run verify-translation-pairing scripts/p0-b/windows-credentials/README.md; pnpm run verify-translation-pairing .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-check-readme-r15.log; pairing-check-note-r15.log",
+      "exitCode": 0,
+      "scope": "Both named pairs consistent after re-record."
+    },
+    "testDocs": {
+      "firstRun": {
+        "command": "pnpm run test:docs",
+        "log": "test-docs-r15.log",
+        "exitCode": 1,
+        "detail": "13 passed, 2 failed: translation pairing (sidecars still pending the named re-record above) and markdown wrap exiting 0xC0000409 after its content check had passed (2296 files, no hard-wrapped prose paragraphs) - a libuv teardown assert (src\\win\\async.c line 94) under the parallel gate run."
+      },
+      "mdWrapStandalone": {
+        "command": "pnpm run verify-md-wrap",
+        "log": "md-wrap-standalone-r15.log",
+        "exitCode": 0
+      },
+      "fixedRun": {
+        "command": "pnpm run test:docs",
+        "log": "test-docs-r15-fixed.log",
+        "exitCode": 0,
+        "passed": 15,
+        "failed": 0,
+        "skipped": 0,
+        "scope": "doc-quick aggregate including corpus-wide translation pairing and markdown wrap."
+      }
+    },
+    "docSync": {
+      "command": "pnpm run doc-sync",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "doc-sync-r15.log",
+      "exitCode": 0,
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 190.51,
+      "scope": "One actual full doc-sync execution on the final candidate (post lint-repair working tree); includes doc-typecheck, documentation build/site checks, corpus-wide pairing, markdown links and all remaining documentation gates. Not a CI claim."
+    }
+  },
+  "impactAnalysis": {
+    "productChange": "scripts/p0-b/windows-credentials/planner-entry.ts lines 120-121 only: braces added to the two void-returning adapter arrows required by lint rule no-confusing-void-expression. Same owner instance, same gated calls, no spawn, gate, helper, credential or test change.",
+    "nonProductChange": "Two i18n sidecar re-records (README.i18n.yaml, 2026-09-10-windows-credential-bridge.i18n.yaml) via the named pairing program.",
+    "evidence": "Every affected suite was re-run on the repaired source: entry gate 8/8, planner-entry 12/12, ownership-failures 25/25, lint 0/0, test:docs 15/15, doc-sync 33/33."
+  },
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 23064,
+    "sha256": "35ae10c3139eddffaa14bb64398cd8482a2ec2c2ac5199299f00d153225b64d5",
+    "members": {
+      "planner-entry-gate-r15.tap": { "bytes": 1007, "sha256": "7e1669258f541b5c5a221b40223f42a7cf82c1b84c7a0e87a63a79c764293fc8" },
+      "planner-entry-gate-r15-postfix.tap": { "bytes": 1007, "sha256": "e6d1f18589991c1ac648864569f8d3fe78d9828b16253fb845819fd68648aad2" },
+      "ownership-failures-r15.log": { "bytes": 2206, "sha256": "d2e93221a330601f7eea0f91f1409e6ef1cbecc600de2fd035efb2bbb3624748" },
+      "ownership-failures-r15-postfix.log": { "bytes": 2207, "sha256": "3afe4d15c96826b069080fe17740f69cca5fbaf4d65b568ccfcb035ea4219453" },
+      "planner-entry-r15.log": { "bytes": 1445, "sha256": "b3ac750620689bdb938f0d11f1fde0570f105379d00d84c0a59f9ff451a52941" },
+      "planner-entry-r15-postfix.log": { "bytes": 1445, "sha256": "bb0d2bf27f6528327f1f10d021b856cb8e3efb3cd40ebff4da6b492553f64a42" },
+      "typecheck-r15.log": { "bytes": 161589, "sha256": "70969b5ffbe749dd2c0c218406b7ad17b2177eb8fe7f53a5d2ff1c331819380d" },
+      "lint-r15.log": { "bytes": 159179, "sha256": "6457dcfe6320319b6eda8d211d1a3811f3d9d3776ced697dfd477eeb3ee2b4f0" },
+      "lint-r15-fixed.log": { "bytes": 162331, "sha256": "841c835af0d3144cb64286ad312f5e1465cb69359173d33652635b39c86d96bc" },
+      "test-docs-r15.log": { "bytes": 3330, "sha256": "53b8a60eb6419a87650560d701750e77022a06be03fb38e70c4d83c13062edc6" },
+      "test-docs-r15-fixed.log": { "bytes": 1429, "sha256": "3197625e492341b4f52a7568c9ffb63b74d0f1fd338e910a58c28f949da802eb" },
+      "md-wrap-standalone-r15.log": { "bytes": 104, "sha256": "749f33e6e6e79af566e78412e492e8f84e7d80f93e1150e8a906afcd6bdc4441" },
+      "pairing-write-readme-r15.log": { "bytes": 272, "sha256": "93aa7fcdf1063430c0bb36696add2ad5ca57dbde2af93d5958adf6c4e8344a58" },
+      "pairing-write-note-r15.log": { "bytes": 344, "sha256": "1288a9ac7e6f91199dab0287f9657231656415e5284e0fafd6455578357b0330" },
+      "pairing-check-readme-r15.log": { "bytes": 191, "sha256": "61e2b391629a168b6a82be50e3efdeb2ae028e2b13ae2717b0ef863aa73ca8e8" },
+      "pairing-check-note-r15.log": { "bytes": 227, "sha256": "a15a162a4a4189eeccef102e28f79252334c3e8b92847dec212c433b73bdb2fe" },
+      "doc-sync-r15.log": { "bytes": 2805, "sha256": "e9b799a78f11091d14302fccc7040bd70bb392d129dc23687202bbc3f5e03121" }
+    }
+  },
+  "notRun": [
+    "34/2 gate-owner + launch-gate, reader/native, gate-owner-native, version-help, configuration-discovery and archive-history probes: their source files are byte-identical to the r14 Windows receipts and unchanged this round",
+    "Real-API e2e: requires DEEPSEEK_API_KEY; none used this round by instruction",
+    "Production credentials, gateway/TLS, model calls, Remote Desktop Commander, monetary-budget enforcement",
+    "GitHub Actions CI for this candidate: not consumed as evidence; base ca7f0da had total_count=0 and runner-label availability remains unverified",
+    "Designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "protectedFilesNotChanged": [
+    { "path": "config/agents/models.v1.json", "bytes": 1656, "sha256": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f", "gitBlob": "5292c7094b84fcb42d15735ca91ccb99123f892c" },
+    { "path": "config/agents/models.v1.lock.json", "bytes": 227, "sha256": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb", "gitBlob": "2ecb11ccba29a748e6eba6f47aeb59284052db26" },
+    { "path": "pnpm-lock.yaml", "bytes": 768436, "sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383", "gitBlob": "a286e8db0adb8a0178b3b845a52e057f4ef9046b" },
+    { "path": "development/nodes/P0-B/state.json", "bytes": 2878, "sha256": "6ec9def1b6e71c33088315e8106cfbb7538fff6d402d8b2148e86b8d34c90103", "gitBlob": "4fa1dd1ab8f34e620a14e83fe4c9c7beea12665f" }
+  ],
+  "fileHashes": [
+    { "path": "scripts/p0-b/windows-credentials/planner-entry.ts", "bytes": 8005, "gitBlob": "ef3b3339a50b9f481315d6bd521faf572ef8ab8e", "sha256": "00c4c99b6f006e3792d52f773dc1bd1342e406ad54eeed1fc5f7a5656b623002" },
+    { "path": "scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs", "bytes": 15225, "gitBlob": "aa2716370ba0ebfef93be3238088c6b9084a194e", "sha256": "b75382b1914c274f61a6d79b7a9f773ab4b2a63add2c939c7071fa9ab9106074" },
+    { "path": "scripts/p0-b/windows-credentials/planner-entry.test.mjs", "bytes": 40468, "gitBlob": "d99212cb1d6685a79a1f3eca9b7f9f3d814ed97f", "sha256": "d78eff7b4b23c64b3abc9bb910ef5c94e00f3a58ff698200686db6b0e8b0906b" },
+    { "path": "scripts/p0-b/windows-credentials/ownership-failures.test.mjs", "bytes": 15858, "gitBlob": "2bf0a5152f59bebb51037c7cb3bf58b116008cb7", "sha256": "e92d9e43e49c51bcdf1c7bfe87cb282d6a8cc203e3e75b03a87ca257a9328db1" },
+    { "path": "scripts/p0-b/windows-credentials/README.i18n.yaml", "bytes": 442, "gitBlob": "7cb3459174f7886d0005a4774c35a4995011f386", "sha256": "d2775404469dc6e8adc9d9d6ee8ed9806f37f8d05bcbb353a3be4e2ffee08437" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml", "bytes": 538, "gitBlob": "22c7bf789a8cf46288bc59ebfee03f534da5670e", "sha256": "6e1d8319920cdd8d9fa9b07c945571411ac46af026a8c994379b559b7081f4b2" }
+  ]
+}

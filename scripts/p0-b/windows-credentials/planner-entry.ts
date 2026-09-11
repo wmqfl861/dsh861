@@ -117,8 +117,8 @@ export async function invokeProjectedPlannerOnce(spec: ProjectedPlannerEntrySpec
   const ownership: Required<PlannerProcessOwnership> = {
     launch: request => owner.launchGated(request),
     assign: pid => owner.assign(pid),
-    release: () => owner.releaseGated(),
-    abort: () => owner.abortGated(),
+    release: () => { owner.releaseGated() },
+    abort: () => { owner.abortGated() },
     terminateOwned: () => owner.terminateOwned(),
   }
   const receipt: ProjectedPlannerOwnershipReceipt = {
