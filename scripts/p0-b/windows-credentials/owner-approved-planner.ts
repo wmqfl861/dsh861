@@ -6,6 +6,7 @@ import { projectCodexLaunch } from './codex-launch-projection.mjs'
 import { invokeProjectedPlannerOnce, type ProjectedPlannerEntryResult, type ProjectedPlannerEntrySpec } from './planner-entry.ts'
 import { PlannerApprovalError, type PlannerApprovalVerifier, type PlannerOwnerDecision } from './planner-approval.mjs'
 import type { SealedBridge } from './reader.ts'
+import type { PlannerTlsReceipt, PlannerTlsVerifier } from './planner-tls.mjs'
 
 /** Preparation contains public data only; credentials and authority come from the service. */
 export interface PreparedPlannerRun {
@@ -33,6 +34,8 @@ export interface PlannerControlLease {
 export interface OwnerApprovedPlannerServices {
   approvals: PlannerApprovalVerifier
   bridge: SealedBridge
+  /** Independent exact-route TLS verifier; handshake evidence does not replace live enforcement. */
+  transport: PlannerTlsVerifier
   /** Must be bounded, fail closed and enforce actual controls, not accept user-supplied success strings. */
   acquireControls(claims: Readonly<PlannerOwnerDecision>, requestSha256: string): Promise<PlannerControlLease>
 }
@@ -45,6 +48,7 @@ export type OwnerApprovedPlannerResult =
     approvalId: string
     requestSha256: string
     result?: ProjectedPlannerEntryResult
+    transport?: Readonly<PlannerTlsReceipt>
     productAccepted: false
   }
 
@@ -106,7 +110,7 @@ function checkLease(lease: PlannerControlLease, claims: Readonly<PlannerOwnerDec
 /**
  * Bind the signed decision and live controls to the existing consumer before one credential read.
  * A consumed decision stays consumed after refusal, crash or cleanup failure; no automatic retry.
- * @param services - independently configured owner verifier, private reader and real control adapter.
+ * @param services - independent owner verifier, private reader, TLS verifier and real control adapter.
  * @returns the admission function; missing enforcement must make acquireControls reject.
  */
 export function createOwnerApprovedPlanner(services: OwnerApprovedPlannerServices) {
@@ -114,6 +118,7 @@ export function createOwnerApprovedPlanner(services: OwnerApprovedPlannerService
   return async (input: PreparedPlannerRun, signedDecision: unknown): Promise<OwnerApprovedPlannerResult> => {
     let lease: PlannerControlLease | undefined
     let result: ProjectedPlannerEntryResult | undefined
+    let transport: Readonly<PlannerTlsReceipt> | undefined
     let approvalId = ''
     let requestSha256 = ''
     let failure: string | undefined
@@ -138,6 +143,11 @@ export function createOwnerApprovedPlanner(services: OwnerApprovedPlannerService
         approvals.inspect(envelope, requestSha256)
         checkLease(activeLease, claims, requestSha256)
         await activeLease.assertActive()
+        // Only the authenticated, consumed attempt can contact its explicitly configured TLS peer.
+        transport = await services.transport.verify(claims.transportRecord, snapshot.projection.route.baseUrl, requestSha256)
+        // The probe is a separate connection. Recheck live enforcement and consent before the actual read.
+        approvals.inspect(envelope, requestSha256)
+        await activeLease.assertActive()
         // Controls can await network or OS work; neither expired consent nor changed files may pass afterward.
         approvals.inspect(envelope, requestSha256)
         await checkReadSet(snapshot.prepared)
@@ -156,9 +166,10 @@ export function createOwnerApprovedPlanner(services: OwnerApprovedPlannerService
       }
     }
     if (cleanupFailed) return { status: 'OWNER_APPROVED_PLANNER_CLEANUP_BLOCKED', approvalId, requestSha256,
-      ...(result ? { result } : {}), productAccepted: false }
+      ...(result ? { result } : {}), ...(transport ? { transport } : {}), productAccepted: false }
     if (failure || !result) return { status: 'OWNER_APPROVED_PLANNER_BLOCKED',
       code: failure ?? 'PLANNER_ADMISSION_OR_CONTROL_FAILED', productAccepted: false }
-    return { status: 'OWNER_APPROVED_PLANNER_ATTEMPTED', approvalId, requestSha256, result, productAccepted: false }
+    return { status: 'OWNER_APPROVED_PLANNER_ATTEMPTED', approvalId, requestSha256, result,
+      ...(transport ? { transport } : {}), productAccepted: false }
   }
 }

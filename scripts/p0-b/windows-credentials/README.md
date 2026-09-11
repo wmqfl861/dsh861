@@ -61,9 +61,19 @@ The entry explicitly maps the job owner's `launchGated`, `releaseGated` and `abo
 
 The service must provide a reviewed, bounded live-control adapter for real transport validation, read-only/scope isolation and financial enforcement. The admission layer verifies that its reservation is bound to the same decision and request, and rechecks validity, file hashes and live controls at the credential-reader boundary. Signature verification and record names do not themselves implement these controls. A missing or failing adapter must reject; a valid signature cannot authorize reading a key in its absence. Control-cleanup failures remain blocked. The original low-level projected entry is a trusted internal component, not a public bypass endpoint.
 
-The signer and its trust enrollment are separate from model API credentials and are not provisioned by the tests. Signed owner confirmation records what the owner attests about key rotation; it does not query or prove provider-side revocation. The source revision is a signed reference, while the deployment remains responsible for its verified checkout and immutable admitted files. Financial accounting, actual TLS and native isolation are not delivered by this module.
+The signer and its trust enrollment are separate from model API credentials and are not provisioned by the tests. Signed owner confirmation records what the owner attests about key rotation; it does not query or prove provider-side revocation. The source revision is a signed reference, while the deployment remains responsible for its verified checkout and immutable admitted files. Financial accounting, native isolation and TLS on the eventual Codex connection are not delivered by the signature module.
 
 Approval tests use real ephemeral signatures and local files. The consumer suite loads actual admission and projection code with simulated native entry, credential peer and external controls; it is not OS evidence. The separate Windows native suite calls the real existing entry and job machinery, but still uses a synthetic signer, sealed peer and enforcement adapter. It proves composition only; its two cases actually ran on Windows. See the [admission receipt](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json) and the [Windows execution receipt](../../../development/remediation/2026-09-11/approval-admission-r17-win/verification.json).
+
+## Credential-free TLS verification
+
+[planner-tls.mjs](planner-tls.mjs) verifies a fresh TLS connection to one independently configured route. The trusted policy fixes the record ID, exact HTTPS base URL, explicit CA certificates, optional SPKI pin, minimum TLS version, handshake deadline and close deadline. Userinfo, queries, fragments, HTTP and validation overrides are rejected. The verifier always checks chain authorization and the route hostname or literal IP; DNS names also send SNI. A key pin is an additional restriction, never a replacement for certificate validation. There are no HTTP requests, credentials, redirects, retries or cached success results.
+
+The owner-admission service requires a transport verifier. After consuming a valid signed attempt and obtaining live controls, its guarded credential reader calls the verifier with the signed record, projected route and request digest. A failed handshake prevents the read; unapproved or replayed requests cannot initiate the probe. Consent, live controls and fixed files are rechecked after the asynchronous TLS check. Successful observations include certificate/SPKI/trust-store hashes and an observed socket close; TLS error messages contain only fixed refusal codes. The returned observation is separate from invocation and control-cleanup results.
+
+A probe certifies only its own connection. It does not protect later Codex requests, establish the model route's business authorization, fetch revocation information or prevent later DNS/certificate changes. The deployed CLI must independently verify its actual HTTPS connection without inherited bypass settings, and the live control adapter must still enforce isolation and the approved financial limit. Trust material and immutable record bindings belong to the protected deployment, never to an unsigned task envelope. No real gateway is contacted by tests or by constructing a verifier.
+
+[planner-tls.test.mjs](planner-tls.test.mjs) uses real TLS on loopback. Its [test certificates](fixtures/planner-tls-certificates.mjs) are synthetic: only the known test server key and public certificates are retained, not the CA private key. Never install that CA or reuse that key in production. Consumer tests combine the real probe with simulated native/financial/isolation services; the native suite combines it with the existing Windows entry. See the [TLS receipt](../../../development/remediation/2026-09-12/planner-tls-r18/verification.json) for the actual platforms and unexecuted checks.
 
 ## Verification
 
@@ -76,6 +86,7 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs

@@ -12,9 +12,12 @@ import ts from 'typescript'
 import * as approval from './planner-approval.mjs'
 import * as projection from './codex-launch-projection.mjs'
 import { publicConfigDigest } from '../model-config.mjs'
+import { createPlannerTlsVerifier } from './planner-tls.mjs'
+import { loopbackTls } from './fixtures/planner-tls-server.mjs'
+import { certificates } from './fixtures/planner-tls-certificates.mjs'
 
-// Actual consumer, projection, signature verifier and local files. Only the already-tested
-// Windows entry/credential transport and deployment's external enforcement ports are simulated.
+// Actual admission, projection, signatures and files. Native entry/credentials/enforcement are simulated.
+// TLS is simulated in existing cases and real on explicit loopback integration cases.
 const keys = generateKeyPairSync('ed25519')
 const publicKeyPem = keys.publicKey.export({ type: 'spki', format: 'pem' })
 const root = fileURLToPath(new URL('../../../', import.meta.url))
@@ -46,7 +49,7 @@ async function load(invokeProjectedPlannerOnce) {
   return module.namespace
 }
 
-async function fixture(t) {
+async function fixture(t, peer) {
   const base = mkdtempSync(path.join(tmpdir(), 'dsh-approved-run-'))
   t.after(() => rmSync(base, { recursive: true, force: true }))
   const workspace = path.join(base, 'work'), ledger = path.join(base, 'spent')
@@ -54,7 +57,7 @@ async function fixture(t) {
   const allowed = path.join(workspace, 'input.md'), promptFile = path.join(base, 'prompt.txt')
   writeFileSync(allowed, 'fixed input\n'); writeFileSync(promptFile, 'fixed prompt\n')
   const configured = structuredClone(configuration)
-  configured.agents.codex.baseUrl = 'https://synthetic.example.invalid/v1'
+  configured.agents.codex.baseUrl = peer?.baseUrl ?? 'https://synthetic.example.invalid/v1'
   const run = {
     configuration: configured, trustedLock: { ...structuredClone(trustedLock), publicConfigSha256: publicConfigDigest(configured) },
     input: { platform: process.platform, workspace, runRoot: path.join(base, 'run'), executable: process.execPath,
@@ -67,7 +70,7 @@ async function fixture(t) {
       environment: { SystemRoot: '/synthetic', TEMP: base, TMP: base }, replyTimeoutMs: 1000 },
   }
   const input = { sourceCommit: 'e'.repeat(40), readSet: [{ path: 'input.md', sha256: hash(readFileSync(allowed)) }], run }
-  const seen = { entries: 0, reads: 0, acquired: 0, active: 0, closed: 0, actual: null }
+  const seen = { entries: 0, reads: 0, acquired: 0, active: 0, closed: 0, tls: 0, actual: null }
   const faults = { acquire: false, active: false, close: false, mismatch: false, beforeEntry: null, duringAcquire: null }
   const api = await load(async actual => {
     seen.entries++; seen.actual = actual
@@ -86,7 +89,15 @@ async function fixture(t) {
   const envelope = { payload, signature: sign(null, approval.plannerDecisionSigningBytes(payload), keys.privateKey).toString('base64url') }
   const approvals = approval.createPlannerApprovalVerifier({ ownerId: claims.ownerId, publicKeyPem,
     spentDirectory: ledger, maxValidityMs: 120000 })
-  const services = { approvals, bridge: async () => { seen.reads++; return Buffer.from('{}') },
+  const services = { approvals, transport: peer ? createPlannerTlsVerifier(peer.policy) : {
+    verify: async (record, baseUrl, requestSha256) => {
+      seen.tls++
+      return { status: 'PLANNER_TLS_PEER_VERIFIED', record, requestSha256, routeSha256: hash(baseUrl),
+        trustStoreSha256: 'f'.repeat(64), peerCertificateSha256: 'f'.repeat(64), peerSpkiSha256: 'f'.repeat(64),
+        protocol: 'TLSv1.3', observedAt: Date.now(), applicationBytesSent: 0, credentialUsed: false,
+        socketCloseObserved: true, scope: 'handshake-only-not-codex-connection' }
+    },
+  }, bridge: async () => { seen.reads++; return Buffer.from('{}') },
     acquireControls: async (decision, requestSha256) => {
       seen.acquired++
       if (faults.acquire) throw new Error('control service unavailable')
@@ -109,7 +120,8 @@ test('signed exact request and live controls reach the existing consumer and rea
   assert.equal(f.seen.entries, 1); assert.equal(f.seen.reads, 1); assert.equal(f.seen.closed, 1)
   assert.equal(f.seen.actual.approval.record, 'synthetic-attempt')
   assert.equal(f.seen.actual.approval.transportEvidenceRecord, 'test/tls')
-  assert.equal(f.seen.active, 2)
+  assert.equal(f.seen.active, 3)
+  assert.equal(f.seen.tls, 1)
   const replay = await f.invoke(f.input, f.envelope)
   assert.equal(replay.code, 'PLANNER_APPROVAL_USED'); assert.equal(f.seen.entries, 1)
 })
@@ -196,4 +208,56 @@ test('concurrent same-decision calls do not reserve budget or invoke twice', asy
   const results = await Promise.all([f.invoke(f.input, f.envelope), f.invoke(f.input, f.envelope)])
   assert.equal(results.filter(value => value.status === 'OWNER_APPROVED_PLANNER_ATTEMPTED').length, 1)
   assert.equal(f.seen.acquired, 1); assert.equal(f.seen.reads, 1)
+})
+
+
+test('actual loopback TLS verification is recorded before the credential read', async t => {
+  const peer = await loopbackTls(t)
+  const f = await fixture(t, peer)
+  const result = await f.invoke(f.input, f.envelope)
+  assert.equal(result.status, 'OWNER_APPROVED_PLANNER_ATTEMPTED')
+  assert.equal(result.transport.status, 'PLANNER_TLS_PEER_VERIFIED')
+  assert.equal(result.transport.requestSha256, result.requestSha256)
+  assert.equal(result.transport.socketCloseObserved, true)
+  assert.equal(f.seen.reads, 1)
+  assert.equal(peer.stats.connections, 1)
+  assert.equal(peer.stats.applicationBytes, 0)
+})
+
+for (const [name, options] of [['wrong hostname', { cert: certificates.wrongHost }], ['expired certificate', { cert: certificates.expired }],
+  ['handshake timeout', { stall: true }]]) {
+  test(`actual TLS ${name} prevents reading and consumes no second attempt`, async t => {
+    const peer = await loopbackTls(t, options)
+    if (options.stall) peer.policy.handshakeTimeoutMs = 80
+    const f = await fixture(t, peer)
+    const result = await f.invoke(f.input, f.envelope)
+    assert.equal(result.result.status, 'PROJECTED_PLANNER_REFUSED')
+    assert.equal(f.seen.reads, 0)
+    assert.equal(f.seen.closed, 1)
+    assert.equal(peer.stats.connections, 1)
+    assert.equal((await f.invoke(f.input, f.envelope)).code, 'PLANNER_APPROVAL_USED')
+    assert.equal(peer.stats.connections, 1)
+  })
+}
+
+test('unapproved input never initiates even a credential-free TLS handshake', async t => {
+  const peer = await loopbackTls(t)
+  const f = await fixture(t, peer)
+  await f.invoke(f.input, null)
+  assert.equal(peer.stats.connections, 0)
+  assert.equal(f.seen.reads, 0)
+})
+
+test('live controls revoked during TLS cannot be hidden by a successful handshake', async t => {
+  const f = await fixture(t)
+  const original = f.services.transport.verify
+  f.services.transport.verify = async (...args) => {
+    const receipt = await original(...args)
+    f.faults.active = true
+    return receipt
+  }
+  const result = await f.invoke(f.input, f.envelope)
+  assert.equal(result.result.status, 'PROJECTED_PLANNER_REFUSED')
+  assert.equal(f.seen.reads, 0)
+  assert.equal(f.seen.closed, 1)
 })

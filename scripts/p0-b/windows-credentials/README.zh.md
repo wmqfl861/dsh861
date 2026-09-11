@@ -61,9 +61,19 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 
 服务必须提供经过审查且有界的在线控制适配器，实际验证传输、只读／范围隔离及金额强制限制。准入层核对预约是否绑定相同决定和请求，并在凭据读取入口再次检查有效期、文件哈希及在线控制。签名验证和记录名称本身不实现这些控制。缺失或失败的适配器必须拒绝；即使签名有效，也不能在缺少控制时读取 Key。控制清理失败继续保持阻塞。原低层投影入口是受信内部组件，不是绕过准入的公共入口。
 
-签署端及信任登记与模型 API 凭据不同，测试不会部署它们。所有者签名只记录其对 Key 轮换的确认，不查询或证明服务商实际撤销。源码版本是签名引用，部署端仍负责已验证的工作副本和不可变的获准文件。本模块不交付真实费用记账、TLS 或原生隔离。
+签署端及信任登记与模型 API 凭据不同，测试不会部署它们。所有者签名只记录其对 Key 轮换的确认，不查询或证明服务商实际撤销。源码版本是签名引用，部署端仍负责已验证的工作副本和不可变的获准文件。签名模块不交付真实费用记账、原生隔离或最终 Codex 连接上的 TLS。
 
 批准测试使用真实临时签名和本地文件。调用方套件加载实际准入与投影代码，模拟原生入口、凭据对端及外部控制，不是操作系统证据。独立的 Windows 原生套件调用实际既有入口及作业机制，但仍使用合成签署者、密封对端和强制适配器，只证明组合接线；两项已在 Windows 实跑。见[准入回执](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json)与[Windows 执行回执](../../../development/remediation/2026-09-11/approval-admission-r17-win/verification.json)。
+
+## 无凭据 TLS 验证
+
+[planner-tls.mjs](planner-tls.mjs) 对独立配置的唯一路由建立新 TLS 连接并验证。可信策略固定记录 ID、精确 HTTPS 地址、显式 CA 证书、可选 SPKI 公钥钉扎、最低 TLS 版本、握手及关闭时限。userinfo、查询参数、片段、HTTP 和验证覆盖选项均被拒绝。验证器始终检查证书链授权及路由主机名或 IP 字面量；DNS 主机名同时发送 SNI。公钥钉扎是附加限制，不替代证书验证。不发 HTTP 请求、不携带凭据、不跟随重定向、不重试、不缓存成功。
+
+所有者准入服务必须提供传输验证器。有效签名的尝试已消费且在线控制已取得后，受保护的凭据读取入口把签名记录、投影路由和请求摘要交给验证器。握手失败阻止读取；未批准或重放的请求不能发起探测。异步 TLS 检查后再次核对同意、在线控制和固定文件。成功观察包含证书／SPKI／信任库摘要及实际 socket 关闭；TLS 错误只返回固定拒绝码。观察结果与调用结果、控制清理结果分别记录。
+
+探测只认证自身连接。它不保护后续 Codex 请求，不建立模型路由的业务授权，不获取证书撤销信息，也不防止之后 DNS 或证书改变。部署的 CLI 必须独立验证实际 HTTPS 连接，不能继承绕过设置；在线控制适配器仍须强制隔离和获准金额上限。信任材料和不可变记录绑定属于受保护部署，不能来自未签署任务信封。测试及创建验证器均不访问真实网关。
+
+[planner-tls.test.mjs](planner-tls.test.mjs) 在回环地址上运行真实 TLS。[测试证书](fixtures/planner-tls-certificates.mjs)为合成材料，只保留已知测试服务器私钥及公开证书，不保留 CA 私钥；不得安装该 CA 或在生产复用测试私钥。调用方测试将真实探测与模拟的原生／费用／隔离服务组合；原生套件将其与既有 Windows 入口组合。实际平台及未执行检查见[TLS 回执](../../../development/remediation/2026-09-12/planner-tls-r18/verification.json)。
 
 ## 验证
 
@@ -76,6 +86,7 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
