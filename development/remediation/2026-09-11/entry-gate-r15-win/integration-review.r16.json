@@ -1,0 +1,104 @@
+{
+  "kind": "keyless-support-integration-closeout-not-node-acceptance",
+  "round": "r16",
+  "recordedAt": "2026-09-11T09:30:48.254817+00:00",
+  "actor": "ChatGPT; source and structured-receipt reception, not designated Codex planner or OpenCode reviewer",
+  "receivedHead": "a136d799ace828d57addb70839043a09103be5a8",
+  "sourceFix": "de5fdc26f2ebea17b3a921ce0d428a3585758d18",
+  "receivedSuccessors": [
+    "5861d0b6099021bb2d2c7837132fbec926d3be6f",
+    "a136d799ace828d57addb70839043a09103be5a8"
+  ],
+  "mergedPullRequest": 7,
+  "mergeTarget": "feat/multi-agent-company-nodes",
+  "mergeCommit": "ff0ca468c3a70b90b855bb079306db56fe88e671",
+  "receivedAndMergedTree": "1eb76ae89a3ea8574c39bb285a227eca590ef863",
+  "treeIdentityVerifiedFromGitHub": true,
+  "reviewedDiff": {
+    "files": 5,
+    "productFiles": 1,
+    "productChange": "Only braces on release/abort void-returning arrows; same Required<PlannerProcessOwnership> adapter and owner instance. Other changes: two i18n records plus receipt/archive.",
+    "newBlockingDefectFoundInReceivedDiff": false
+  },
+  "windowsEvidence": {
+    "receipt": "verification.json",
+    "archive": "logs.tar.xz",
+    "archiveSha256AsDeclared": "445454c3086c599debd25340271d971a005e8e9e91df47c451db05ec5ecc7b00",
+    "archiveBytesAsDeclared": 22988,
+    "archiveMembersAsDeclared": 17,
+    "independentlyUnpackedInThisRound": false,
+    "nativeRunsRepeatedInThisRound": false,
+    "recordedFinalChecks": {
+      "entryGate": {
+        "passed": 8,
+        "skipped": 0
+      },
+      "ownershipFailures": {
+        "passed": 25,
+        "skipped": 0
+      },
+      "plannerEntry": {
+        "passed": 12,
+        "skipped": 0
+      },
+      "typecheck": {
+        "exitCode": 0
+      },
+      "lint": {
+        "exitCode": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      "testDocs": {
+        "passed": 15,
+        "exitCode": 0
+      },
+      "docSync": {
+        "passed": 33,
+        "exitCode": 0
+      }
+    },
+    "interpretation": "Received local execution evidence; not an independent rerun or full production acceptance."
+  },
+  "ci": {
+    "queriedHead": "a136d799ace828d57addb70839043a09103be5a8",
+    "query": "https://api.github.com/repos/wmqfl861/dsh861/actions/runs?head_sha=a136d799ace828d57addb70839043a09103be5a8&per_page=100",
+    "workflowRuns": 0,
+    "status": "NOT_RUN",
+    "branchProtectionOrRunnerSettingsChanged": false
+  },
+  "thisRound": {
+    "runtimeCodeChanged": false,
+    "testsRepeated": false,
+    "newFiles": [
+      "integration-review.r16.json"
+    ],
+    "otherFileUpdated": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+    "protectedFilesChanged": false,
+    "gitHistoryRewritten": false,
+    "sourceBranchDeleted": false
+  },
+  "nodeGate": {
+    "node": "P0-B",
+    "status": "blocked",
+    "productAccepted": false,
+    "nextNodeAllowed": false,
+    "planV4Created": false,
+    "designatedHardReview": "NOT_RUN",
+    "masterMerged": false
+  },
+  "nextStep": "OWNER_INPUTS_AND_BOUNDED_REAL_PLANNER_PREPARATION; do not repeat r15 tests without changed inputs or new failures.",
+  "requiredOwnerInputs": [
+    "Provider-side revocation/rotation confirmation and owner-private Codex credential provisioning; no secret in chat or Git.",
+    "Exact approved HTTPS route or verified protected transport; do not silently alter the existing HTTP declaration.",
+    "Specific one-run purpose/scope/expiry, time limit and monetary limit/currency plus supported enforcement mechanism."
+  ],
+  "remainingExecutionResponsibilities": [
+    "Bind the genuine owner decision to exact input, executable/helper hashes, public config and the existing gated entry.",
+    "Verify effective native read-only/identity/path and transport protections for this invocation, not only configuration spelling.",
+    "Implement or integrate the selected actual spending control; a single process or wall-clock bound does not enforce money.",
+    "Only after prerequisites hold, call the designated real Codex for the successor plan; no substitute plan or self-approved review."
+  ],
+  "scopeRule": "NODE_DEVELOPMENT_RULES.md section 2 distinguishes development-tool CLI use from shipped-product long-term isolation acceptance; no safety exemption is introduced.",
+  "knownUnresolvedDiagnostic": "Prior Node/libuv teardown assertion is not declared fixed merely because later local checks passed."
+}

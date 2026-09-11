@@ -1,29 +1,41 @@
 # Windows 验证、凭据接入与 P0-B 规划交接
 
-仅处理 `wmqfl861/dsh861`，本地目录为 `C:\Albert\project\dsh861`。继续原 PR #7 的 `fix/p0b-windows-credential-store-20260910`，不另建实现。P0-B blocked，不合并 master，不进入 P0-C。本页、局部复核和内置子代理 PASS 均不代替指定 Codex 规划或 OpenCode 硬审核。
+仅处理 `wmqfl861/dsh861`，本地目录为 `C:\Albert\project\dsh861`。PR #7 已合入 `feat/multi-agent-company-nodes`，合并提交为 `ff0ca468c3a70b90b855bb079306db56fe88e671`；该提交与接收的 `a136d799ace828d57addb70839043a09103be5a8` 具有相同 Git tree。后续从开发分支接手，不再向已关闭的 PR #7 追加修改，也不重新应用旧 ZIP。保留原修复分支和所有历史证据，不强推或清理未合并工作。
 
-## 已接收与本次修正
+P0-B 仍为 blocked，master 未合并，不允许进入 P0-C。代码整合、内置子代理 PASS、接收审查与指定 Codex 计划或 OpenCode 硬审核是不同事项。[接收记录](../remediation/2026-09-11/entry-gate-r15-win/integration-review.r16.json)不签发任何运行授权。
 
-基线 `ca7f0da03ba1233d1bcae7eec96eed365240aebb` 的 [Windows 回执](../remediation/2026-09-10/gate-abort-r14-win/verification.json)记录 34/34、2/2、25/25、12/12 和局部／全量类型、lint、test:docs 结果。原 breakaway 内核观察、首失、日志和所有已验证的 helper 实现保留；不重做凭据、进程属主或归档。
+## 无密钥修复轮已结束
 
-[r15 复核](../remediation/2026-09-11/entry-gate-r15/verification.json)发现正式入口传入原属主，但该属主的方法名为 launchGated/releaseGated/abortGated，包装器实际读取 launch/release/abort，因而走到直接 spawn。原延迟指派用例自行完成映射并直接调用 invokePlannerOnce，不覆盖此入口。这个发现不抹除 helper 与内核测试的结果，但这些结果不能认证错误的入口接线。
+[r15 Windows 回执](../remediation/2026-09-11/entry-gate-r15-win/verification.json)记录正式入口 8/8（包括两项原生父 PID 观察）、ownership 25/25、原生入口 12/12、typecheck、修复后的 lint、test:docs 15/15 和完整 doc-sync 33/33。两个 void 箭头补花括号不改变门控适配语义；受影响测试在修复后已复跑。归档元数据整改保留 17 份文件内容，原始日志和首失均可追溯。
 
-本次只修改 planner-entry.ts 的实际适配，使用 Required<PlannerProcessOwnership> 要求全部方法；同一个属主负责启动、指派、放行、中止和终止。新增[入口组合测试](../../scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs)加载真实 entry、invocation、租约与脱敏源码，六项模拟操作系统控制验证无直接 spawn、失败／迟到不放行以及异常传播。两项 Windows 原生消费路径测试已写好：保留真实 PowerShell、作业及启动器，只观察宿主 spawn，要求直接子进程是 helper 与 launch-gate，目标的真实父 PID 必须是该启动器，覆盖正常完成和取消。测试不手工创建另一个 ownership 适配器。
+本轮接收读取了实际源码、提交差异和结构化回执，没有重新运行 Windows，也没有独立解包该归档。查询接收提交的 GitHub Actions 得到 0 次运行；本地 doc-sync 回执不能改称 CI 通过，未运行的平台矩阵继续记为 NOT_RUN。前述证据只覆盖注明的输入和场景，不证明真实模型、网关、OS 只读范围或费用控制已验收。
 
-## 本地只处理新入口与必要集成
+源码、环境和被测输入没有变化，且没有新失败时，不重复入口 8 项、25/12 项回归、安装、版本帮助、配置探针、归档整改或完整文档门禁。仅换提交号或合并同一源码树不是重跑理由。后续更改影响哪一项，就复验对应范围，不用旧 PASS 认证新代码。
 
-安全同步本次提交，沿用现有 Node 26.4.0、pnpm 11.7.0 与依赖。运行新入口测试，在 Windows 应是 8 项实际执行；远端的 6 通过／2 平台跳过不是 8 项原生成功。随后运行受影响的 ownership-failures 与 planner-entry 原有回归；helper、launch-gate、凭据、版本与配置解析源码未变，不机械重复这些独立套件。
+## 下一目标：真实 P0-B 后继规划
 
-若实际入口开始使用门控后揭示 Windows 的 stdio、退出码、清理等差异，先保留新失败，再修真实调用路径；不得退回直接 spawn、只改测试手工适配或删除断言。原生观察必须经过 invokeProjectedPlannerOnce，不能直接调用 invokePlannerOnce 来替代。只清理本轮拥有的资源，不按进程名扫杀。
+按[节点规则](../../NODE_DEVELOPMENT_RULES.md)第 2 节，调用既有 CLI 编写本项目计划属于开发工具使用，交付产品的长期安装隔离仍单独实施与验收。不能在计划产生之前无限扩展公司级权限服务、完整公网后台或通用预算框架；这也不豁免本次开发工具调用的实际凭据、授权、传输、读取范围和费用限制。
 
-按实际影响执行类型、lint、test:docs；核对两个双语对后用原程序点名重录 README 与已有 Agent Note 的 i18n sidecar，不用 --write --all。远端本次未运行原配对程序，sidecar 有意未改。
+正式计划仍由真实 Codex 以 `my-gpt / gpt-6-astra / max` 产生。输入沿用[主规格](../../MULTI_AGENT_REQUIREMENTS.md)、[路线](../../MULTI_AGENT_DEVELOPMENT_ROADMAP.md)、[请求 r01](../nodes/P0-B/plan-revision-request.r01.md)、[请求 r02](../nodes/P0-B/plan-revision-request.r02.md)、[验收映射](../nodes/P0-B/acceptance-map.r01.json)及[网页后台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)。固定实际源码提交和获准读取文件清单；本地 agent 不能自行署名生成 plan.v4，不提前进行最终 OpenCode 硬审核。
 
-已查询基线的 GitHub Actions runs：total_count=0，不能把“由 CI 承接”当作已执行。现有 CI 还引用专用 runner 标签，其可用性未核验。要有可读取的完整 doc-sync 执行结果（现有匹配候选的结果可复用），或显式保留 NOT_RUN；不要为了填补记录重跑无关全平台矩阵，不修改云资源、付费 runner 或 Actions 权限。
+## 需要所有者提供的输入
 
-正常提交推送同一分支，回传 SHA、新 8 项结果、原有受影响回归、必要门禁与可取回日志。保留四套模型声明、模型锁、pnpm-lock、state.json 原字节。无真实 Key、生产凭据或中转请求，不重造历史日志。
+首次规划只需要 Codex，不要求同时配置四个提供商。需要所有者确认旧 Codex Key 已在服务商侧撤销并轮换；替代 Key 由本人通过[本机隐藏录入入口](../../scripts/p0-b/windows-credentials/README.zh.md)保存，不发到聊天、agent、Git、命令参数或普通文件。
 
-## 此后真正的前置条件
+当前批准的公网 HTTP 路由不满足现有传输要求。需要所有者提供并批准实际可用的 HTTPS 路由或可核验的受保护链路；不能只改 URL 前缀、关闭证书检查、猜测地址或把书面接受 HTTP 风险当传输保护。明确新值后才能按授权更新配置和对应锁，未授权的三个提供商及其设置不变。
 
-本轮无需用户发 Key。真实规划仍需要可核验的所有者授权、本人私下录入已轮换的 Codex Key、获批的受保护路由，以及实际隔离和费用约束；非空记录名、HTTPS 字符串和一次 CLI 启动都不能替代这些条件。用户选择具体授权与金额，开发者负责技术执行点，不互相替代。
+需要明确本次操作的目的、读取范围、有效期、时限和费用上限（数值与币种），以及可实施该上限的服务商或受控执行点。单次 CLI 可能发出多次请求，进程数、超时、输出字节限制都不是金额硬上限。不在本交接中预设金额、编造服务商额度功能或替所有者批准费用。
 
-后继指定规划保留[请求 r01](../nodes/P0-B/plan-revision-request.r01.md)、[请求 r02](../nodes/P0-B/plan-revision-request.r02.md)和[网页后台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)作为输入。当前只是入口修复，不把全部公网后台追加为 P0-B 前置，也不代写 plan.v4。
+## 本地执行端的有限责任
+
+下一次只准备或执行这一次真实规划，不再接收旧 r15 测试任务。先从开发分支安全同步；沿用已验证的 Node、pnpm、钉版 Codex、凭据组件与实际门控入口，不新建平行运行器。已有程序哈希和隔离配置解析证据在输入不变时复用。
+
+本地执行端负责把真实所有者决定绑定到固定输入、程序/配置/辅助脚本哈希和实际调用；核实专用身份、路径/只读控制、受保护传输与费用强制点。非空 approval.record 不是认证，配置写着 read-only 不是 OS 强制证明，凭据存在不等于运行已获准。技术约束缺失时精确列出尚需接线或原生验证的部分，不把实现责任全部推给用户一句确认，也不假设现有函数已经实现未提供的能力。
+
+只生成未批准的调用请求或缺项清单时，禁止读取生产凭据、请求中转或调用模型。已有同一输入的请求时直接复用，不造一个新的测试轮。条件全部成立并得到相应授权后，才通过现有真实入口调用 Codex，保存固定输入、参数、原始脱敏输出和结果；不自动重试收费调用、不换模型/等级、不覆盖旧计划/失败回执。任何未满足条件使本次调用停止，而不是扩大范围绕过它。
+
+## 文件与提交纪律
+
+本次接收和交接整理不修改产品源码、四套模型声明、模型锁、pnpm-lock 或 P0-B state.json。后续获得具体路由修改授权后，才修改该路由并记录新配置版本；普通工具升级不改变已批准模型设置。master 仍通过 PR #2 控制，不在本轮合并。
+
+本地 agent 后续确有新代码或证据时，从最新开发分支建立有明确目的的单一任务分支，正常提交并推送，返回 SHA 和可取回结果；没有新代码/证据就不制造提交。未满足所有者条件时只报告缺少的字段和实际技术限制，不重复宣布旧任务完成或再次重跑已通过检查。
