@@ -63,7 +63,7 @@ The service must provide a reviewed, bounded live-control adapter for real trans
 
 The signer and its trust enrollment are separate from model API credentials and are not provisioned by the tests. Signed owner confirmation records what the owner attests about key rotation; it does not query or prove provider-side revocation. The source revision is a signed reference, while the deployment remains responsible for its verified checkout and immutable admitted files. Financial accounting, actual TLS and native isolation are not delivered by this module.
 
-Approval tests use real ephemeral signatures and local files. The consumer suite loads actual admission and projection code with simulated native entry, credential peer and external controls; it is not OS evidence. The separate Windows native suite calls the real existing entry and job machinery, but still uses a synthetic signer, sealed peer and enforcement adapter. It proves composition only. See the [admission receipt](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json).
+Approval tests use real ephemeral signatures and local files. The consumer suite loads actual admission and projection code with simulated native entry, credential peer and external controls; it is not OS evidence. The separate Windows native suite calls the real existing entry and job machinery, but still uses a synthetic signer, sealed peer and enforcement adapter. It proves composition only; its two cases actually ran on Windows. See the [admission receipt](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json) and the [Windows execution receipt](../../../development/remediation/2026-09-11/approval-admission-r17-win/verification.json).
 
 ## Verification
 

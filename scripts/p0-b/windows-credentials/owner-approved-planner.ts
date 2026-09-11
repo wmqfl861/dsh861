@@ -40,8 +40,13 @@ export interface OwnerApprovedPlannerServices {
 /** A local result never marks product or node acceptance. */
 export type OwnerApprovedPlannerResult =
   | { status: 'OWNER_APPROVED_PLANNER_BLOCKED'; code: string; productAccepted: false }
-  | { status: 'OWNER_APPROVED_PLANNER_ATTEMPTED' | 'OWNER_APPROVED_PLANNER_CLEANUP_BLOCKED';
-    approvalId: string; requestSha256: string; result?: ProjectedPlannerEntryResult; productAccepted: false }
+  | {
+    status: 'OWNER_APPROVED_PLANNER_ATTEMPTED' | 'OWNER_APPROVED_PLANNER_CLEANUP_BLOCKED'
+    approvalId: string
+    requestSha256: string
+    result?: ProjectedPlannerEntryResult
+    productAccepted: false
+  }
 
 const hash = (bytes: string | Buffer): string => createHash('sha256').update(bytes).digest('hex')
 const record = (value: string): boolean => /^[A-Za-z0-9][A-Za-z0-9._:/-]{0,255}$/.test(value)
@@ -105,7 +110,7 @@ function checkLease(lease: PlannerControlLease, claims: Readonly<PlannerOwnerDec
  * @returns the admission function; missing enforcement must make acquireControls reject.
  */
 export function createOwnerApprovedPlanner(services: OwnerApprovedPlannerServices) {
-  const { approvals, bridge, acquireControls } = services
+  const { approvals, bridge } = services
   return async (input: PreparedPlannerRun, signedDecision: unknown): Promise<OwnerApprovedPlannerResult> => {
     let lease: PlannerControlLease | undefined
     let result: ProjectedPlannerEntryResult | undefined
@@ -122,7 +127,7 @@ export function createOwnerApprovedPlanner(services: OwnerApprovedPlannerService
       await checkReadSet(snapshot.prepared)
       // Consume before acquiring any externally backed reservation; concurrent replays cannot reserve twice.
       await approvals.consume(envelope, requestSha256)
-      lease = await acquireControls(claims, requestSha256)
+      lease = await services.acquireControls(claims, requestSha256)
       checkLease(lease, claims, requestSha256)
       await lease.assertActive()
       const activeLease = lease

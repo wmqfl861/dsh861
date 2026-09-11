@@ -63,7 +63,7 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 
 签署端及信任登记与模型 API 凭据不同，测试不会部署它们。所有者签名只记录其对 Key 轮换的确认，不查询或证明服务商实际撤销。源码版本是签名引用，部署端仍负责已验证的工作副本和不可变的获准文件。本模块不交付真实费用记账、TLS 或原生隔离。
 
-批准测试使用真实临时签名和本地文件。调用方套件加载实际准入与投影代码，模拟原生入口、凭据对端及外部控制，不是操作系统证据。独立的 Windows 原生套件调用实际既有入口及作业机制，但仍使用合成签署者、密封对端和强制适配器，只证明组合接线。见[准入回执](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json)。
+批准测试使用真实临时签名和本地文件。调用方套件加载实际准入与投影代码，模拟原生入口、凭据对端及外部控制，不是操作系统证据。独立的 Windows 原生套件调用实际既有入口及作业机制，但仍使用合成签署者、密封对端和强制适配器，只证明组合接线；两项已在 Windows 实跑。见[准入回执](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json)与[Windows 执行回执](../../../development/remediation/2026-09-11/approval-admission-r17-win/verification.json)。
 
 ## 验证
 

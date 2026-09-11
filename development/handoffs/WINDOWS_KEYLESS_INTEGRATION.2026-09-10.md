@@ -14,11 +14,11 @@
 
 新增[提示词 r01](../nodes/P0-B/planner-prompt.r01.txt)只是执行者准备的固定输入，不是 plan.v4。应先核对其正文与摘要，再形成完整的可签署请求，不能在批准后才临时改写提示词。原申请的固定读取集若不足以核实目标源码，先提出最小追加清单并重新生成请求，不默许整个仓库和全局配置可读。
 
-[准入回执](../remediation/2026-09-11/approval-admission-r17/verification.json)记录 21 项真实密码学／本地账本测试和 18 项消费路径测试。后者模拟原生入口及部署控制，不是 Windows 或生产认证证据。两项已写好的 Windows 原生组合测试尚未执行，不能用 Linux 或旧 PASS 代替。
+[准入回执](../remediation/2026-09-11/approval-admission-r17/verification.json)记录 21 项真实密码学／本地账本测试和 18 项消费路径测试。后者模拟原生入口及部署控制，不是 Windows 或生产认证证据。两项 Windows 原生组合测试已在实际 Windows 主机实跑通过（[Windows 回执](../remediation/2026-09-11/approval-admission-r17-win/verification.json)），仍只证明组合接线，不认证真实所有者登记、账本 ACL、TLS、费用强制或 OS 隔离。
 
 ## 本地仅验证本轮变化
 
-同步此任务分支，沿用现有 Node 26.4.0、pnpm 11.7.0 及依赖，不重装、不强制覆盖、不自动 stash。执行新增的 `planner-approval.test.mjs`、`owner-approved-planner.test.mjs` 和 `owner-approved-planner-native.test.mjs`；第三组用真实旧入口、PowerShell 和作业，只使用合成签署者、密封对端和费用／隔离适配器。在 Windows 两项必须实跑。重点核实有效签名才到达实际入口、未知签署者或变更输入在建运行目录前拒绝、一次性消费跨进程有效、在线控制在读取前失效会拒绝、关闭控制失败保持 BLOCKED。
+同步此任务分支，沿用现有 Node 26.4.0、pnpm 11.7.0 及依赖，不重装、不强制覆盖、不自动 stash。执行新增的 `planner-approval.test.mjs`、`owner-approved-planner.test.mjs` 和 `owner-approved-planner-native.test.mjs`；第三组用真实旧入口、PowerShell 和作业，只使用合成签署者、密封对端和费用／隔离适配器。三项已在 Windows 实跑通过（21／18／2，含仓库 lint 最小修复后的复跑）。重点核实有效签名才到达实际入口、未知签署者或变更输入在建运行目录前拒绝、一次性消费跨进程有效、在线控制在读取前失效会拒绝、关闭控制失败保持 BLOCKED。
 
 不从测试临时签署者创建生产信任，不导入任何真实 Key，不访问中转或收费模型。签名工具使用的是应用批准身份，不是让用户再提供一种模型 API Key。真实签署界面、私钥保管、受信公钥登记和账本父目录／ACL 尚需部署；本轮只验证合成身份，不由 agent 替所有者点击批准。
 
