@@ -1,46 +1,29 @@
-# Windows 无密钥修复接收与整合交接
+# Windows 验证、凭据接入与 P0-B 规划交接
 
-更新：2026-09-10。适用仓库仅为 `wmqfl861/dsh861`。本页是当前协作入口，不是指定 Codex 节点计划或 OpenCode 硬审核，不授予产品 PASS。
+仅处理 `wmqfl861/dsh861`，本地目录为 `C:\Albert\project\dsh861`。继续原 PR #7 的 `fix/p0b-windows-credential-store-20260910`，不另建实现。P0-B blocked，不合并 master，不进入 P0-C。本页、局部复核和内置子代理 PASS 均不代替指定 Codex 规划或 OpenCode 硬审核。
 
-## 已接收的修复与唯一开发入口
+## 已接收与本次修正
 
-统一开发分支为 `feat/multi-agent-company-nodes`，向 `master` 的集成入口仍是 PR #2。Windows 修复分支的提交 `2a62e488856eee00688740a287abc3cceb90d399` 已通过 PR #5 合入开发分支，合并提交为 `c896db947cef531ef0c6f73354f4687bedd09e94`。原 17 处修复提交 `6c4a64fdb1c2c45f5c5c84d1e6ecd3e9d0974e5d` 及失败记录保留。接手时 fetch 并核对实际 HEAD，不把旧提交当作回退目标。
+基线 `ca7f0da03ba1233d1bcae7eec96eed365240aebb` 的 [Windows 回执](../remediation/2026-09-10/gate-abort-r14-win/verification.json)记录 34/34、2/2、25/25、12/12 和局部／全量类型、lint、test:docs 结果。原 breakaway 内核观察、首失、日志和所有已验证的 helper 实现保留；不重做凭据、进程属主或归档。
 
-本地工作目录为 `C:\Albert\project\dsh861`。不用重新克隆、安装 Node 或重做文档修复；沿用已验证的 Node 26.4.0、专用 pnpm 11.7.0 和现有依赖。远端已核对两个旧文档分支引用不存在。PR #3/#4 已包含在开发分支，评论 `5609931895` 的重复文档候选继续停用，不重新应用其 helper 或补丁。
+[r15 复核](../remediation/2026-09-11/entry-gate-r15/verification.json)发现正式入口传入原属主，但该属主的方法名为 launchGated/releaseGated/abortGated，包装器实际读取 launch/release/abort，因而走到直接 spawn。原延迟指派用例自行完成映射并直接调用 invokePlannerOnce，不覆盖此入口。这个发现不抹除 helper 与内核测试的结果，但这些结果不能认证错误的入口接线。
 
-## 验证事实与可取回证据
+本次只修改 planner-entry.ts 的实际适配，使用 Required<PlannerProcessOwnership> 要求全部方法；同一个属主负责启动、指派、放行、中止和终止。新增[入口组合测试](../../scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs)加载真实 entry、invocation、租约与脱敏源码，六项模拟操作系统控制验证无直接 spawn、失败／迟到不放行以及异常传播。两项 Windows 原生消费路径测试已写好：保留真实 PowerShell、作业及启动器，只观察宿主 spawn，要求直接子进程是 helper 与 launch-gate，目标的真实父 PID 必须是该启动器，覆盖正常完成和取消。测试不手工创建另一个 ownership 适配器。
 
-| 证据 | 能支持的结论 | 不能据此声称 |
-|---|---|---|
-| [Windows 回执](../remediation/2026-09-10/windows-keyless-r06/verification.json) | 本地实际完成六组配对、12 个快照核验、完整 test:docs 15/15、doc-sync 33/33、完整 lint；原行为回归按不变源码复用。 | 当前会话重新运行了 Windows、四种真实 CLI 或所有压缩日志。 |
-| [源码候选](../remediation/2026-09-10/windows-keyless-r06/candidate-manifest.json) | 记录本地源码指纹、受保护文件及原 17 处修复；绑定其说明的代码版本。 | 后续提交自动继承完整验收，或远端已重算全部 9,299 个源文件。 |
-| [发布回执](../remediation/2026-09-10/windows-keyless-r06/publication.json) | 与远端分支及提交读回共同核对发布事实。 | 本地工作区此刻仍干净，或凭据／原生执行已就绪。 |
-| [远端补充复核](../remediation/2026-09-10/windows-keyless-r06/remote-review.json) | 已审查源码差异及可读 JSON 回执；独立复现旧输出判定问题，修复后 1,892 组合与反序检查通过。 | 指定独立硬审核、完整类型检查或 Windows 重跑。 |
+## 本地只处理新入口与必要集成
 
-原始可携带材料为 [prior-validation.zip](../remediation/2026-09-10/windows-keyless-r06/prior-validation.zip)、[validation.zip](../remediation/2026-09-10/windows-keyless-r06/validation.zip) 和 [publication.zip](../remediation/2026-09-10/windows-keyless-r06/publication.zip)，配有各自导出清单；远端纯函数复核的源码、脚本与输出随本次对话交付为 `dsh861_r06_remote_review.zip`，摘要记录在远端补充复核 JSON 中；没有在仓库写入另一份源码实现。本会话无法从网络下载前三份 ZIP，未独立展开或全量重算；已读回的结构化回执不冒充这些操作。
+安全同步本次提交，沿用现有 Node 26.4.0、pnpm 11.7.0 与依赖。运行新入口测试，在 Windows 应是 8 项实际执行；远端的 6 通过／2 平台跳过不是 8 项原生成功。随后运行受影响的 ownership-failures 与 planner-entry 原有回归；helper、launch-gate、凭据、版本与配置解析源码未变，不机械重复这些独立套件。
 
-旧 r05 转述摘要和 r01/r02 中“尚未推送、文档失败”的描述属于当时输入，已由 r06 和本页的接收事实接续；保留旧内容，不再要求本地重复完成这些收尾。旧测试回执绑定其当时源码，不将后续状态／交接文档更新重新标成原完整门禁已运行。
+若实际入口开始使用门控后揭示 Windows 的 stdio、退出码、清理等差异，先保留新失败，再修真实调用路径；不得退回直接 spawn、只改测试手工适配或删除断言。原生观察必须经过 invokeProjectedPlannerOnce，不能直接调用 invokePlannerOnce 来替代。只清理本轮拥有的资源，不按进程名扫杀。
 
-## 当前剩余边界
+按实际影响执行类型、lint、test:docs；核对两个双语对后用原程序点名重录 README 与已有 Agent Note 的 i18n sidecar，不用 --write --all。远端本次未运行原配对程序，sidecar 有意未改。
 
-[P0-B 状态](../nodes/P0-B/state.json)仍为 blocked，正式计划仍为 v3，candidate 与 hard_review 尚为空。模型声明与锁、依赖锁保持原值。Node/libuv 的偶发 `UV_HANDLE_CLOSING` 未复发不等于根因已解决；Windows ACL、父包装进程先退出后的完整后代清理、真实产品与完整 Loader 回合仍未验证。
+已查询基线的 GitHub Actions runs：total_count=0，不能把“由 CI 承接”当作已执行。现有 CI 还引用专用 runner 标签，其可用性未核验。要有可读取的完整 doc-sync 执行结果（现有匹配候选的结果可复用），或显式保留 NOT_RUN；不要为了填补记录重跑无关全平台矩阵，不修改云资源、付费 runner 或 Actions 权限。
 
-下一项依赖是[节点规则](../../NODE_DEVELOPMENT_RULES.md)指定的真实 Codex 后继规划及其安全调用前置条件，不是再次全量执行已经通过的安装、文档与无密钥测试。所有者授权的仓库实施、有限修复与正常提交／推送继续适用；具体模型、权限或费用变更不由一般开发授权替代。
+正常提交推送同一分支，回传 SHA、新 8 项结果、原有受影响回归、必要门禁与可取回日志。保留四套模型声明、模型锁、pnpm-lock、state.json 原字节。无真实 Key、生产凭据或中转请求，不重造历史日志。
 
-## 本地下一项任务：安全预检与真实后继规划
+## 此后真正的前置条件
 
-先在干净工作区正常整合 `origin/feat/multi-agent-company-nodes`；存在新工作则保留，不自动 stash、强制重置或覆盖。原 Windows 修复分支可保留用于追溯，不需要重新发布同一补丁。新增工作使用当前节点专用分支。
+本轮无需用户发 Key。真实规划仍需要可核验的所有者授权、本人私下录入已轮换的 Codex Key、获批的受保护路由，以及实际隔离和费用约束；非空记录名、HTTPS 字符串和一次 CLI 启动都不能替代这些条件。用户选择具体授权与金额，开发者负责技术执行点，不互相替代。
 
-读取[请求 r01](../nodes/P0-B/plan-revision-request.r01.md)、[请求 r02](../nodes/P0-B/plan-revision-request.r02.md)、[主规格](../../MULTI_AGENT_REQUIREMENTS.md)、[配置参考](../../config/agents/README.zh.md)和[控制台补充](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)，以本页及 r06 纠正旧状态。新增网页范围不等于 P0-B 必须实现完整公网后台。
-
-第一步仅做无密钥预检：确认本次批准的真实 Codex 程序绝对路径、来源、版本和摘要，核对其原生 schema／帮助／源码对指定模型、provider、协议及 `max` 的接受情况。预检使用专用空目录与隔离配置，不读取全局认证、聊天密钥或其他项目配置，不为试探参数先请求模型。不能从 `--help`、配置文件存在或模型自述推断真实调用已成功。
-
-规划调用还需要：已轮换且明确授权给本次任务的专用凭据引用、可验证的传输保护、所需读取范围、执行预算和输出保护。只检查授权引用的就绪状态，不枚举全部秘密。没有这些条件时生成一次不含秘密的阻塞清单并交回，不尝试旧 Key、不关闭 TLS 检查、不改变端点、不静默映射 `max` 为其他等级。
-
-条件全部成立时，按节点规则调用真实 Codex，以固定输入提交和获准参数编写正式后继计划。保留独立身份、程序、实际请求设置与可观察返回、提示词摘要、时间、退出码及脱敏产物；不可观察字段保留 UNKNOWN。原生不接受配置时停止，实施者不能替它署名编写 plan.v4。
-
-后继计划必须收敛当前节点完成标准：使用原 AC 含义及节点独立用例 ID；分开 nativeResume 与 artifactHandoff；包含四产品真实入口、必要适配和配置兑现、Windows 权限／完整后代清理、取消及外部观察；明确全局工具治理、数据库和完整界面的后续归属。复用已通过且源码未变的检查，不能削弱主规格或无限扩大当前节点。
-
-本轮本地交付先到真实计划及其前置证据；不同时改动待审源码并执行最终 OpenCode 硬审核。指定 OpenCode 审核在计划内实施与候选证据齐备后进行。任何节点通过都仍须匹配当时固定候选，不进入 P0-C，不自动合并 master。
-
-新回报须给出固定输入提交、实际程序和参数证据、真实后继计划或精确阻塞、可取回的脱敏回执，以及正常推送的分支和 SHA。只需补齐真正缺少的前置条件，不再要求用户提供已有的四套非密钥配置或重装已通过的环境。
+后继指定规划保留[请求 r01](../nodes/P0-B/plan-revision-request.r01.md)、[请求 r02](../nodes/P0-B/plan-revision-request.r02.md)和[网页后台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)作为输入。当前只是入口修复，不把全部公网后台追加为 P0-B 前置，也不代写 plan.v4。

@@ -1,0 +1,309 @@
+{
+  "kind": "windows-native-execution-of-r14-controls-and-breakaway-kernel-identity",
+  "round": "r14-windows",
+  "recordedAt": "2026-09-10T23:14:29.109756+00:00",
+  "baseCommit": "1c15232e39619b62fa839fc3d15ebe5b8c62c814",
+  "baseCommitParent": "ed8d91461fcdbf68066fa5804d57d06c23c31749",
+  "actor": "ZCode built-in execution subagent on the user's Windows host; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "powershell": "5.1.26100.8894",
+    "executionPolicy": "RemoteSigned (CurrentUser scope); no policy bypass used",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "repositoryDependenciesInstalled": true,
+    "windowsNativeRun": true,
+    "note": "Fast-forward integration of origin 1c15232 over local ed8d914; no stash, no force, no overwrite."
+  },
+  "sourceIdentity": {
+    "windows-job-owner.ts": "abced4414d14daa01d3968ce3775ef2fd027e57d",
+    "launch-gate.mjs": "4893121dc3db51b14d3a9b7b3aebfea17d8a671f",
+    "gate-owner-failures.test.mjs": "ddcd2f9f36fa8a710b04203dc3c0e1755cb8b732",
+    "gate-owner-native.test.mjs": "81016ac80f07d1e5a490baf2e679fbd6bfcb707d",
+    "launch-gate.test.mjs": "f504112b1fe348e783b635d3599bbd060b1d7bf8",
+    "ownership-failures.test.mjs": "2bf0a5152f59bebb51037c7cb3bf58b116008cb7",
+    "note": "Git blob IDs at baseCommit match the r14 authoring receipt file-by-file; the exact remote-recorded sources are the ones executed here."
+  },
+  "checks": {
+    "controls34": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "controls-34.tap",
+      "tests": 34,
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Windows confirmation of the r14 gate-owner and launcher controls; the authoring round had passed these on a Linux subset."
+    },
+    "nativeGate": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "native-gate-2.log",
+      "tests": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Real PowerShell helper and real Node launcher, exact captured child handles only. Helper SIGKILLed before assignment and after assignment without release: target marker never appeared, launcher close was actually awaited (bounded 10s; observed under 1.3s, far under the 30s self-timeout), releaseGated threw OWNER_PROTOCOL_INVALID, dispose rejected with OWNER_, gate directories removed. Fills the authoring receipt's nativeFixtures NOT_RUN on Windows."
+    },
+    "ownershipLegacy": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "ownership-failures.log",
+      "tests": 25,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Affected owner protocol/disposal regression after the r14 owner changes."
+    },
+    "plannerEntry": {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "planner-entry-full.log",
+      "tests": 12,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Includes the repaired breakaway fixture with kernel-exit proof."
+    },
+    "syntax": {
+      "files": [
+        "scripts/p0-b/windows-credentials/planner-entry.test.mjs"
+      ],
+      "method": "node --check",
+      "exitCode": 0
+    },
+    "typecheckFocused": {
+      "command": "pnpm exec tsc --ignoreConfig --noEmit --strict --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --skipLibCheck --types node scripts/p0-b/windows-credentials/windows-job-owner.ts",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "typecheck-focused.log",
+      "exitCode": 0,
+      "scope": "The r14-changed TypeScript module on Windows with repository-pinned TypeScript; the authoring round had only a subset typecheck on Node 22/Linux."
+    },
+    "typecheckFull": {
+      "command": "pnpm run typecheck",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "typecheck-full.log",
+      "exitCode": 0,
+      "scope": "Full repository host/client programs; inputs changed since the r13 full run (1c15232 touched windows-job-owner.ts), so not a mechanical repeat."
+    },
+    "lint": {
+      "command": "pnpm run lint",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "lint.log",
+      "exitCode": 0,
+      "scope": "3103 files, 0 warnings, 0 errors."
+    },
+    "pairingWrite": {
+      "command": "pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md; pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-readme.log; pairing-note.log",
+      "exitCode": 0,
+      "scope": "Named re-record only (no --write --all, hooks untouched), filling the authoring round's repositoryPairingCommand NOT_RUN."
+    },
+    "pairingCheck": {
+      "command": "pnpm run verify-translation-pairing scripts/p0-b/windows-credentials/README.md; pnpm run verify-translation-pairing .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-check-readme.log; pairing-check-note.log",
+      "exitCode": 0,
+      "scope": "Both named pairs consistent after re-record."
+    },
+    "testDocs": {
+      "command": "pnpm run test:docs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "test-docs.log",
+      "exitCode": 0,
+      "scope": "doc-quick aggregate: 15 passed, 0 failed, includes corpus-wide translation pairing."
+    }
+  },
+  "breakawayFix": {
+    "file": "scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+    "changes": [
+      "The PowerShell member saves the real dwProcessId/dwThreadId from the ABI-verified PROCESS_INFORMATION (escape-real.pid/.tid); the cmd-side %PID% echo placeholder is removed.",
+      "The waitable process handle hP is retained until the member dies (pins the kernel object against PID reuse); the thread handle is released.",
+      "A test-owned observer outside the owned job (direct child of the test, surviving job teardown) resolves the saved dwProcessId to its own SYNCHRONIZE|PROCESS_QUERY_LIMITED_INFORMATION handle, waits, and records mode/pid/exitCode/waitMsElapsed/aliveAtOpen/seenAfterMs. Modes creation-refused, pid-file-missing, pid-invalid, open-failed, wait-failed (WAIT_FAILED), wait-timeout (WAIT_TIMEOUT) each stay non-proof of death; heartbeat freeze (beatFrozen) and test-cleanup inference (pidDeadByFile) were removed as evidence paths.",
+      "Classification: creationRefused = observer creation-refused + refusal file + no real PID; kernelExit = WAIT_OBJECT_0 + real PID file + escape.log exists + exitCode 1, the job owner's TerminateJobObject(job,1) signature; an actual escapee never exits on its own and records wait-timeout, which fails closed. ABI layout assertions kept; no ExecutionPolicy Bypass; no reimplementation of ownership."
+    ],
+    "observedOutcome": {
+      "platformResult": "created-but-contained (NOT refused): on this host CreateProcessW with CREATE_BREAKAWAY_FROM_JOB succeeds and the created process stays inside the job, terminated by it at the deadline",
+      "runs": [
+        {
+          "pid": 62956,
+          "exitCode": 1,
+          "aliveAtOpen": true,
+          "waitMsElapsed": 0,
+          "escapeLogBeats": 2252,
+          "log": "breakaway-sixth.log"
+        },
+        {
+          "pid": 33460,
+          "exitCode": 1,
+          "aliveAtOpen": true,
+          "waitMsElapsed": 0,
+          "escapeLogBeats": 2042,
+          "log": "breakaway-seventh.log"
+        }
+      ],
+      "evidenceChain": "Verified layout size=24;pid@16;tid@20; kernel-filled dwProcessId pinned by the member's hP; observer confirmed STILL_ACTIVE at open; WaitForSingleObject returned WAIT_OBJECT_0; GetExitCodeProcess = 1, exactly the helper's TerminateJobObject(job,1) exit code; the writer payload had advanced escape.log for two to three seconds (2000+ beats) before the deadline kill. Both platform outcomes (refused vs created-and-contained) are distinguished, neither fabricated."
+    },
+    "firstFailures": [
+      {
+        "log": "breakaway-third.log",
+        "result": "Observer wrote no verdict within 25s (test failed 'escape observer never reported a verdict').",
+        "rootCause": "PowerShell [System.Boolean] has no ToLower() method; with ErrorActionPreference=Stop the script aborted before any Save, and stdio 'ignore' hid the error.",
+        "fix": "Replaced the method call with an if-expression ('true'/'false') and piped observer stderr into the test so a missing-verdict failure now shows the observer's own error. Reproduced standalone in a scratch directory before fixing."
+      },
+      {
+        "log": "breakaway-second.log",
+        "result": "Pass with waitMsElapsed=0 unexplained under the weaker first classification.",
+        "rootCause": "Two concurrent Add-Type compilations (member + observer) put the observer's readiness near the kill moment; seenAfterMs/aliveAtOpen instrumentation was added before any conclusion was drawn.",
+        "fix": "Evidence-based classification on the job-kill exit-code signature instead of observer-side timing."
+      }
+    ]
+  },
+  "impactAnalysis": {
+    "changedFiles": [
+      "scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+      "scripts/p0-b/windows-credentials/README.i18n.yaml",
+      ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml"
+    ],
+    "productCodeChanged": false,
+    "otherPlannerRegressions": "NOT_REQUIRED: planner-invocation, planner-invocation-bounds, reader, native and codex-launch-projection tests reference no windows-job-owner/gate source; their inputs are unchanged this round."
+  },
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 18912,
+    "sha256": "040f2cf9ddfbde8efe3c38b470fdf1153236313a3b34fbefbf4346a8314766bd",
+    "members": {
+      "controls-34.tap": {
+        "bytes": 3021,
+        "sha256": "9e4bbca5fc3f2e4aebd62e430a471e3993680d45afcb96ec2bb1abcd531d0ab9"
+      },
+      "native-gate-2.log": {
+        "bytes": 443,
+        "sha256": "64a18d0266e771b0b17b30b449006a3cf8f42b438fa940624c6abc9705fb7eae"
+      },
+      "ownership-failures.log": {
+        "bytes": 2209,
+        "sha256": "378d9a6c7fc0a853bf54a7b610267aa241ca11a7abb7f4abbd86913bfbefb2d5"
+      },
+      "planner-entry-full.log": {
+        "bytes": 1447,
+        "sha256": "5f5944c70a32b10f77d75635008b0a7a2bd7417af75d59f4cad330b3bf13595d"
+      },
+      "typecheck-focused.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "typecheck-full.log": {
+        "bytes": 161632,
+        "sha256": "06628ed791412f80e439aaf83fcbeae7dba18cbe330b4d9a85659b0c147057da"
+      },
+      "lint.log": {
+        "bytes": 159299,
+        "sha256": "aa4b7068a0739188b71131967376a1e372a953fa3eb593aefd5de205a36839a3"
+      },
+      "pairing-readme.log": {
+        "bytes": 272,
+        "sha256": "93aa7fcdf1063430c0bb36696add2ad5ca57dbde2af93d5958adf6c4e8344a58"
+      },
+      "pairing-check-readme.log": {
+        "bytes": 191,
+        "sha256": "61e2b391629a168b6a82be50e3efdeb2ae028e2b13ae2717b0ef863aa73ca8e8"
+      },
+      "pairing-note.log": {
+        "bytes": 344,
+        "sha256": "1288a9ac7e6f91199dab0287f9657231656415e5284e0fafd6455578357b0330"
+      },
+      "pairing-check-note.log": {
+        "bytes": 227,
+        "sha256": "a15a162a4a4189eeccef102e28f79252334c3e8b92847dec212c433b73bdb2fe"
+      },
+      "test-docs.log": {
+        "bytes": 1430,
+        "sha256": "944e936b2aaa4ed328c9044314754f1143d9532077383ef25f050c45f85dcc95"
+      },
+      "breakaway-first.log": {
+        "bytes": 319,
+        "sha256": "ee8dc3c5d8f76216ab761724e99777fbeeba430ea856d3b660d90ff49450cb00"
+      },
+      "breakaway-second.log": {
+        "bytes": 373,
+        "sha256": "b9a83fb65b70246153ffcbdf5d8a2f8794f09da6d36e336c66ffa827c42e555f"
+      },
+      "breakaway-third.log": {
+        "bytes": 876,
+        "sha256": "f515245cd10347dbe2fdb61b0fc5edfedb357569aef3a13d3571ae205409b9c5"
+      },
+      "breakaway-fourth.log": {
+        "bytes": 373,
+        "sha256": "445999274bbbb6d46be226ec56a058a5c0f48861c7430757cf7a7ba7f97fa804"
+      },
+      "breakaway-fifth.log": {
+        "bytes": 465,
+        "sha256": "6a2258130a29b1e2e9728757bee10391f3ff6db8261b39db7aa7d5f6c3edb27e"
+      },
+      "breakaway-sixth.log": {
+        "bytes": 487,
+        "sha256": "93f54a42eb84db0bc74902ca7e930d06edd3126591e0fa76e3118d2bacdb779e"
+      },
+      "breakaway-seventh.log": {
+        "bytes": 488,
+        "sha256": "3ffa725e896dbb96f79bc608e22e5fe9d0c3112c4838ca1bbf16e06196fc10df"
+      }
+    },
+    "metadata": "uid/gid/mtime zero; uname/gname empty"
+  },
+  "notRun": [
+    "reader/native, version-help, configuration-discovery and archive-history probes: inputs unchanged this round",
+    "Snapshot suites: no product, session-log or model-visible change in this round's diff (test fixture + i18n records only); 1c15232's own snapshot obligations belong to that commit",
+    "Full doc-sync aggregate: doc-quick (test:docs) covers the changed documentation surfaces per this round's scope",
+    "Real-API e2e: requires DEEPSEEK_API_KEY; none used this round by instruction",
+    "Production credentials, gateway/TLS, model calls, OS read-only/ACL, monetary-budget enforcement",
+    "Designated plan.v4 or OpenCode hard review"
+  ],
+  "protectedFilesNotChanged": [
+    {
+      "path": "config/agents/models.v1.json",
+      "bytes": 1656,
+      "sha256": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f"
+    },
+    {
+      "path": "config/agents/models.v1.lock.json",
+      "bytes": 227,
+      "sha256": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 768436,
+      "sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383"
+    },
+    {
+      "path": "development/nodes/P0-B/state.json",
+      "bytes": 2878,
+      "sha256": "6ec9def1b6e71c33088315e8106cfbb7538fff6d402d8b2148e86b8d34c90103"
+    }
+  ],
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+      "bytes": 40468,
+      "sha256": "d78eff7b4b23c64b3abc9bb910ef5c94e00f3a58ff698200686db6b0e8b0906b"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.i18n.yaml",
+      "bytes": 442,
+      "sha256": "e32eb1fc4748bba3c82383a281811c18db6ad36f2e87d763a586e8ffab796683"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml",
+      "bytes": 538,
+      "sha256": "48de48e3bba943fca7dc205d181a97750a14ccca1c25779d90351ba0a6d68ddc"
+    }
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}

@@ -1,0 +1,36 @@
+✔ bounds stdout by UTF-8 bytes, not UTF-16 length (967.0758ms)
+✔ bounds stderr by UTF-8 bytes, not UTF-16 length (1239.9687ms)
+✔ EOF-flushed delayed text cannot bypass the byte bound (1162.3605ms)
+✔ discard a violating fragment before retaining it (639.5686ms)
+✔ replacement-marker expansion counts toward the byte bound and retains detection (3323.4685ms)
+✔ exact-bound UTF-8 text survives normal EOF unchanged (2545.7121ms)
+✔ refuses unsafe HTTPS case 1 before reading (12.491ms)
+✔ refuses unsafe HTTPS case 2 before reading (9.4178ms)
+✔ refuses unsafe HTTPS case 3 before reading (8.2812ms)
+✔ requires an explicit bounded termination grace before reading (7.0143ms)
+✔ rejects NUL argv before reading rather than letting spawn reject after reading (8.9715ms)
+✔ captures a private input snapshot across asynchronous credential resolution (3063.004ms)
+✔ failed prompt delivery is not reported as a completed planning input (2933.4494ms)
+✔ deadline returns with an unverified descendant even when inherited pipes stay open (5851.7148ms)
+✔ normal completion leaves a non-pipe-holding descendant unverified (1831.3092ms)
+✔ cancelling one invocation leaves a concurrent unrelated invocation intact (3135.8591ms)
+✔ nonzero process completion retains the real exit and never accepts a product (3862.3767ms)
+✔ refuses case-insensitive credential environment collisions before reading (10.558ms)
+✔ rejects a known leased key in argv before spawning and omits the value from errors (1819.788ms)
+✔ an absent heartbeat cannot certify descendant termination (9.6746ms)
+✔ a frozen heartbeat is inconclusive rather than evidence of exit (143.1707ms)
+✔ refuses the current approved HTTP route before any credential read (111.1967ms)
+✔ refuses a subject that does not match the approval before any credential read (113.7704ms)
+✔ refuses an approval without an owner record before any credential read (115.0378ms)
+✔ refuses a prompt whose bytes do not match the pinned hash (117.33ms)
+✔ refuses a CLI executable whose bytes do not match the pinned hash (248.5217ms)
+✔ completes a synthetic run with the leased value redacted from every channel (951.29ms)
+✔ cancels and kills the direct child when the deadline passes (1317.4793ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 32972.7503

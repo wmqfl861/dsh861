@@ -1,0 +1,105 @@
+{
+  "kind": "windows-credential-native-validation-and-planner-wiring",
+  "recordedAt": "2026-09-10",
+  "baseCommit": "c70a079aaf75d584111da132726cadd09d8ddebc",
+  "actor": "ZCode built-in implementation subagent (builtin:bigmodel-coding-plan/GLM-5.3); not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "win32 10.0.26200 x64",
+    "powershell": "Windows PowerShell 5.1 (in-box, System32\\WindowsPowerShell\\v1.0\\powershell.exe)",
+    "node": "26.4.0",
+    "executionPolicy": "CurrentUser RemoteSigned; no policy bypass used for any component test",
+    "localEvidenceRoot": "C:\\Albert\\project\\dsh861-local-validation\\20260910-p0b-credential-native-5e29"
+  },
+  "firstFailure": {
+    "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs",
+    "result": "1 test failed, exit 1; WINDOWS_CREDENTIAL_READ_FAILED after ~2s",
+    "syntheticTargetsPrinted": ["dsh861/selftest/b44ebf2ebd13166b508c1733c02e59b8", "dsh861/selftest/150cc1b469e91d46c5e708e340fb6ed1"],
+    "preservedAt": "native-first-failure.txt under localEvidenceRoot",
+    "rootCause": "bridge.ps1 line 23-24: continuation line begins with binary operator '-or'; Windows PowerShell 5.1 parser rejects it (5 ParserErrors: if-expression missing ')', try block missing '}'/catch, unexpected ')' and '}'). Files are pure ASCII, no BOM, LF endings; execution policy RemoteSigned; encoding and policy ruled out by byte dump and policy list.",
+    "minimalReproduction": "repro-leading.ps1 (leading '-or') fails to parse; repro-trailing.ps1 (trailing '-or') parses and runs; diag-matrix.mjs shows -EncodedCommand always emits CLIXML module-analysis progress on stderr (382 bytes for a trivial script) while -File and -Command stay quiet in both full and restricted environments",
+    "fix": "moved the '-or' to the end of the previous line in bridge.ps1; semantics, assertions, and all other lines unchanged"
+  },
+  "commands": [
+    {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs",
+      "P0B_WINDOWS_CREDENTIAL_MODULE_ROOT": "unset",
+      "exitCode": 0,
+      "tests": 29,
+      "passed": 28,
+      "skipped": 1,
+      "skippedItem": "'Windows transport is unavailable on other platforms' skips on win32 by design",
+      "log": "reader-final-pass.txt under localEvidenceRoot"
+    },
+    {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs (after fix)",
+      "exitCode": 0,
+      "tests": 5,
+      "passed": 5,
+      "coverage": [
+        "PowerShell 5.1 actually compiles native-credential.cs via Add-Type",
+        "RSA-4096 OAEP-SHA256 interop between Node parent and .NET native process",
+        "one unique dsh861/selftest target: create, implicit-overwrite refusal, explicit replace, sealed read, verified deletion",
+        "helper hash mismatch rejected before any credential read",
+        "bridge.ps1 and manage.ps1 parse with 0 errors under the in-box Windows PowerShell",
+        "hidden-input confirmation mismatch refused through the real store path; matching synthetic pair stored via SecureString chars, sealed, cleaned up (SelfTestStore, synthetic target dsh861/selftest/f98059fe48a04245e173b78f6520df36)",
+        "manage.ps1 Set refuses redirected stdin without prompting (CREDENTIAL_OPERATION_REFUSED, no status JSON)",
+        "manage.ps1 Remove -WhatIf declines without emitting a completed status"
+      ],
+      "log": "native-final-pass.txt under localEvidenceRoot"
+    },
+    {
+      "command": "residue-check.ps1 / residue-check-r2.ps1 (exact-target CredReadW probe, no enumeration)",
+      "result": "all recorded synthetic targets MISSING: b44ebf2e..., 150cc1b4..., 0123456789abcdef0123456789abcdef, 0446a76a..., f98059fe...",
+      "productionTargetsTouched": "none read, written, enumerated, or deleted"
+    },
+    {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs",
+      "exitCode": 0,
+      "tests": 7,
+      "passed": 7,
+      "coverage": [
+        "refuses the current lock-verified codex route (http://154.89.153.24:8080/v1) with PLANNER_TRANSPORT_NOT_PROVEN before any credential read (real config/agents/models.v1.json + lock loaded)",
+        "refuses subject mismatch, empty owner-approval record, wrong prompt hash, wrong CLI hash, each before any credential read",
+        "synthetic run: leased value redacted from stdout and stderr ([SECRET_REDACTED]), secretLeakDetected latched, two model_request lines observed, exitCode 0",
+        "deadline cancellation kills the direct child (DEADLINE_EXCEEDED)"
+      ]
+    }
+  ],
+  "changes": {
+    "scripts/p0-b/windows-credentials/bridge.ps1": "parser-compatible line layout only",
+    "scripts/p0-b/windows-credentials/reader.ts": "repo lint compliance only on the r07 candidate file: arrow parentheses, multiline type-member delimiter, and removal of one runtime check redundant with the BridgeAction union; protocol and tests unchanged (reader suite re-passed 28+1 skip)",
+    "scripts/p0-b/windows-credentials/native-credential.cs": "Store refactored to StoreTarget(target,...); new SelfTestStore exercises the confirmation path on dsh861/selftest/<32hex> targets only; production Store behavior unchanged",
+    "scripts/p0-b/windows-credentials/native.test.mjs": "four new tests: PS 5.1 parse regression (would have caught this round's bug), hidden-input confirmation mismatch, Set redirected-input refusal, Remove -WhatIf decline; runner uses -File like the bridge",
+    "scripts/p0-b/windows-credentials/planner-invocation.ts": "new minimal planner wiring: pre-read gates (owner approval record, subject vs lock-verified route, HTTPS-only transport, pinned prompt/CLI hashes, deadline/channel bounds), one-shot lease into child env, full-stream redaction before return, multi-request cost note",
+    "scripts/p0-b/windows-credentials/planner-invocation.test.mjs": "new keyless synthetic-process suite",
+    "README pair + Agent Note pair": "verification-section and receipt-reference updates (r07 + r08)",
+    "development/remediation/2026-09-10/codex-plan-precheck-raw/": "verbatim retrievable archive of the prior round's help/probe outputs and SHA list; all hashes match planner-precheck.r01.json records"
+  },
+  "protectedFilesNotModified": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml"
+  ],
+  "fileHashes": [
+    { "path": "scripts/p0-b/windows-credentials/reader.ts", "bytes": 9947, "gitBlob": "f4a885d12d253afc0f952ff74c0ce2ff2d7867ba", "sha256": "6a32e218ed289421c1ffc73707b641ce3d8bf5caf1bcaf4d16e77e5c23a83d50" },
+    { "path": "scripts/p0-b/windows-credentials/bridge.ps1", "bytes": 2321, "gitBlob": "83fb78a3d1cf9ba121583fffac773e5ea0edf603", "sha256": "55449e6c7e43c6820973991d58d37cb7ae9b3256b7f1a69e404830da32025aec" },
+    { "path": "scripts/p0-b/windows-credentials/native-credential.cs", "bytes": 14052, "gitBlob": "ca792eeea73a80bdb6c236750ab074b7a1ef4d31", "sha256": "304b32b1794c5ad1d657e67197cf0ba9423b1410882b39758d8cb6cb8ba36822" },
+    { "path": "scripts/p0-b/windows-credentials/native.test.mjs", "bytes": 7357, "gitBlob": "8570119a23b85bbe249cc4885a877d4b9059d1ce", "sha256": "772eafe5dcc8b2e579678c95d8ab67d7e83a7db0feb944c4c89adcd79c7254ad" },
+    { "path": "scripts/p0-b/windows-credentials/planner-invocation.ts", "bytes": 10036, "gitBlob": "8b33f51798c9d42228c1ffce93ccdc6df0e52618", "sha256": "0c299cf88f12af214f89c0219ada16948401e267e160b9910ebe5a0f12586a04" },
+    { "path": "scripts/p0-b/windows-credentials/planner-invocation.test.mjs", "bytes": 8799, "gitBlob": "1156948e22c0537cffa4cb06d40d2f3f973cf531", "sha256": "7de2b382c30258d10b8edac6332f8297fb99580946774eb43c3b4fe07f1077b6" },
+    { "path": "scripts/p0-b/windows-credentials/README.md", "bytes": 9593, "gitBlob": "6d18bbeb2713374a7b581500e6fdae2701b939b4", "sha256": "549198297f28d907401f16e595201cb2c9cd79a0a8cbdf333ae7ed14c549a078" },
+    { "path": "scripts/p0-b/windows-credentials/README.zh.md", "bytes": 8484, "gitBlob": "f521764fb004b28d4248575e8e726f948023a5c9", "sha256": "881a1166fd83e47405c2ad4b7f679d0d745127540dd206a010015e6a86b0f092" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md", "bytes": 2276, "gitBlob": "6e25af24da8a68e34b394acf1d733449181f7929", "sha256": "f683a998c7a7682a848ec5740f39fc2ea2571d2113984bb69bb0727e4d7eb90e" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md", "bytes": 1945, "gitBlob": "bed4e0f3e58eeba7eec988a66a6ea412a373c162", "sha256": "d894af3ba2ba3b585726d6090c9f33b5cc7bfeaf8d5477c7085678b327b8f6fb" },
+    { "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md", "bytes": 7639, "gitBlob": "c980931d759b7af3c90b3640c80bdd1234864dd4", "sha256": "21b5068684f9728711769665c575e7ac485b94e2ee4d2d92af1acabfd4a2635c" }
+  ],
+  "notRun": [
+    "interactive masked entry of a real key by the owner (component refuses redirected input; verified, not bypassed)",
+    "cross-logon persistence, service-account reads, and Windows ACL isolation",
+    "verified teardown of the full Windows descendant tree (deadline kills the direct child only)",
+    "any real model request, gateway contact, plan.v4 generation, or designated Codex/OpenCode role",
+    "full repository typecheck/lint/documentation gates are run separately this round and recorded in the branch, not in this receipt"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}

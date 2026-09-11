@@ -1,0 +1,101 @@
+{
+  "kind": "windows-planner-entry-and-owned-process-tree",
+  "round": "r12",
+  "recordedAt": "2026-09-10",
+  "baseCommit": "1de6c9dd074e5aeeb8f6c934017a75183c9af211",
+  "actor": "ZCode built-in implementation subagent; not designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Windows 10.0.26200 x64",
+    "node": "26.4.0",
+    "pnpm": "11.7.0",
+    "powershell": "in-box Windows PowerShell 5.1 (System32)",
+    "localEvidenceRoot": "C:\\Albert\\project\\dsh861-local-validation\\20260910-p0b-r12-windows-projection-9d3e"
+  },
+  "sync": "fetch origin fix/p0b-windows-credential-store-20260910 (http.version=HTTP/1.1); fast-forward 21b654b -> 1de6c9dd; clean tree; no reset, stash or force",
+  "reverification": {
+    "plannerSuites": { "tests": 28, "passed": 28, "failed": 0, "exitCode": 0, "log": "planner-suites-postchange.tap", "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs" },
+    "projection": { "tests": 15, "passed": 15, "failed": 0, "exitCode": 0, "log": "projection-postchange.tap", "command": "node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs" }
+  },
+  "keylessPinnedCli": {
+    "program": "repo-pinned @openai/codex@0.149.1 win32-x64 vendor binary",
+    "executableSha256": "a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6",
+    "isolated": "own runRoot/workspace siblings under localEvidenceRoot/codex-native; synthetic re-locked https://approved.example.invalid/v1 fixture; credential variable never set; global %USERPROFILE%\\.codex untouched (before/after mtime snapshots equal); 82 CLI writes confined to runRoot",
+    "accepted": [
+      "projected argv (exec --model --config x2 --sandbox read-only --ephemeral --json --color never --cd -) parsed natively; prompt consumed from stdin",
+      "provider resolved from generated config.toml in isolated CODEX_HOME: JSON error names env_key DSH861_CODEX_API_KEY before any connection",
+      "banner (diagnostic run without --json) shows workdir, model gpt-6-astra, provider my-gpt, approval never, sandbox read-only, reasoning effort max"
+    ],
+    "rejected": [
+      "[shell_environment_policy] inherit not-an-enum-value -> exit 1 'unknown variant..., expected core/all/none': table parsed and enum-validated natively",
+      "--sandbox not-a-sandbox -> exit 2, possible values read-only/workspace-write/danger-full-access",
+      "empty CODEX_HOME -> exit 1 'Model provider my-gpt not found': discovery path proven"
+    ],
+    "firstFailure": "forward-slash deployment input paths refused by projection (CODEX_LAUNCH_PROJECTION_REFUSED): win32 drive paths require backslash form; driver fixed, projection unchanged (first-failure-forward-slash-paths.json)",
+    "notVerifiedKeyless": [
+      "effective OS semantics of shell_environment_policy on tool processes",
+      "OS-enforced read-only sandbox filesystem scope",
+      "gateway/TLS behavior (no network attempted; stop at missing env_key per r01 precedent)"
+    ],
+    "evidence": "codex-native/keyless-main.json, keyless-no-json-banner.json, keyless-bad-shell-policy.json, keyless-bad-sandbox-argv.json, keyless-no-config.json"
+  },
+  "processTreeFacts": {
+    "platformSource": "https://raw.githubusercontent.com/nodejs/node/v26.4.0/deps/uv/src/win/process.c",
+    "sourceFacts": "libuv process-global job handle with JOB_OBJECT_LIMIT_BREAKAWAY_OK|SILENT_BREAKAWAY_OK|DIE_ON_UNHANDLED_EXCEPTION|KILL_ON_JOB_CLOSE, current process included; UV_PROCESS_DETACHED skips assignment (DETACHED_PROCESS|CREATE_NEW_PROCESS_GROUP|CREATE_SUSPENDED); libuv never uses CREATE_BREAKAWAY_FROM_JOB",
+    "behavioralProbes": {
+      "log": "job-semantics-probes.json",
+      "firstAttempt": "job-semantics/probe-results-attempt1.json preserved: two PowerShell scenarios failed on a truncated STARTUPINFO struct in the probe's own P/Invoke; fixed and rerun",
+      "measured": {
+        "attached Node grandchild": "dies at its direct Node parent's exit (each Node process holds its own KILL_ON_JOB_CLOSE job)",
+        "detached Node descendant": "survives the whole Node chain's exit",
+        "child of a non-Node job member (W:Node -> PowerShell member -> cmd via plain CreateProcess)": "survives W's exit: SILENT_BREAKAWAY_OK keeps members' children out of the libuv job, so a wrapper's own exit never reaches CLI descendants",
+        "explicit CREATE_BREAKAWAY_FROM_JOB descendant": "survives the libuv-job chain"
+      },
+      "conclusion": "'every Windows spawn auto-cleans all descendants' is false on Node 26.4.0; ownership must be explicit"
+    }
+  },
+  "ownedJobWiring": {
+    "files": [
+      "scripts/p0-b/windows-credentials/job-owner.ps1",
+      "scripts/p0-b/windows-credentials/windows-job-owner.ts",
+      "scripts/p0-b/windows-credentials/planner-entry.ts",
+      "scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+      "scripts/p0-b/windows-credentials/codex-launch-projection.d.mts"
+    ],
+    "modified": "scripts/p0-b/windows-credentials/planner-invocation.ts (optional ownership seam: assign after spawn, OWNERSHIP_FAILED cancellation, facts-only ownership report; behavior without ownership unchanged)",
+    "design": "projection-derived spec only (argv/environment/CODEX_HOME/credential variable from projectCodexLaunch); entry materializes runRoot and writes config.toml exclusively (wx); job without breakaway flags so members' descendants join; terminate/dispose/owner-death (helper stdin EOF) each call TerminateJobObject then close, KILL_ON_JOB_CLOSE backstop",
+    "defectFoundAndFixed": [
+      "PowerShell nested value-type field assignment ($info.BasicLimitInformation.LimitFlags = 0x2000) is a silent no-op on a copy: SetInformationJobObject returned TRUE with the flag unset (kill-on-close-probe.ps1, kill-on-close-probe2.ps1) and the owner-death fail-safe test failed twice with the helper confirmed dead; fixed by whole-struct assignment plus explicit TerminateJobObject on every exit path; kill-on-close-probe3.ps1 reads the flag back as 0x2000 and the owner-death kill is observed",
+      "Pre-assignment spawn window: under two concurrent entries the stalled CLI spawned its detached writer before the assign reply settled, so the writer never joined the owned job and survived terminateOwned (entry-parallel-preassignment-race.tap.xz); fixed by delivering the fixed input only after assignment settles (planner-invocation.ts) and fixtures that create descendants on input receipt; entry suite 10/10 twice after the fix"
+    ],
+    "breakawayObservation": "CREATE_BREAKAWAY_FROM_JOB spawn against the owned job was not refused by Windows, but the spawned writer remained a member and was terminated (containment mode: contained-and-terminated)",
+    "residualLimitation": "assignment happens after spawn: CLI startup work that spawns before assignment settles may still never join the owned job; descendantState stays NOT_VERIFIED and the receipt reports terminated/activeProcessesRemaining/disposed facts only",
+    "entrySuite": { "tests": 10, "passed": 10, "failed": 0, "exitCode": 0, "log": "entry-final.tap", "firstFailureLog": "entry-first-failure.tap.xz", "firstFailureCauses": "test fixture errors (synthetic config in HTTP test, redaction-marker assertion on the cancellation path, escape-log existence conflated with escape, worker file URL/cwd/beat-path); two product defects fixed (PowerShell flag no-op; pre-assignment spawn window)" }
+  },
+  "archiveRecheck": {
+    "package": "development/remediation/2026-09-10/credential-store-r08/raw-evidence.tar.xz",
+    "sha256": "648634ab46fec791ffc210b0a6b2330f200e6146e4ee40da6cf99ef6aeff83bc",
+    "bytes": 6060,
+    "membersVerified": "19/19 digests and byte sizes match raw-evidence-manifest.json",
+    "missingRawLogsStillAbsent": "5/5",
+    "regenerated": false
+  },
+  "protectedFiles": {
+    "config/agents/models.v1.json": "UNCHANGED",
+    "config/agents/models.v1.lock.json": "UNCHANGED",
+    "pnpm-lock.yaml": "NOT_IN_CHANGE_SET"
+  },
+  "notRun": [
+    "Real credential read, provisioning or production target enumeration",
+    "Any model request or network endpoint contact",
+    "reader/native/version/help suites (unchanged sources; per handoff, not mechanically rerun)",
+    "Full repository test matrix, test:coverage, build, doc-sync aggregate",
+    "Designated plan.v4 or OpenCode hard review"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "userDecisionsOpen": [
+    "Owner authorization record + transport evidence for a real HTTPS Codex route",
+    "Provider-side revocation confirmation of the exposed key and private re-entry",
+    "Monetary/request budget enforcement point before any real call"
+  ]
+}

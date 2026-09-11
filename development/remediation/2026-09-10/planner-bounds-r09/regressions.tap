@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: bounds stdout by UTF-8 bytes, not UTF-16 length
+ok 1 - bounds stdout by UTF-8 bytes, not UTF-16 length
+  ---
+  duration_ms: 1197.506411
+  type: 'test'
+  ...
+# Subtest: bounds stderr by UTF-8 bytes, not UTF-16 length
+ok 2 - bounds stderr by UTF-8 bytes, not UTF-16 length
+  ---
+  duration_ms: 2165.676907
+  type: 'test'
+  ...
+# Subtest: EOF-flushed delayed text cannot bypass the byte bound
+ok 3 - EOF-flushed delayed text cannot bypass the byte bound
+  ---
+  duration_ms: 1071.72697
+  type: 'test'
+  ...
+# Subtest: discard a violating fragment before retaining it
+ok 4 - discard a violating fragment before retaining it
+  ---
+  duration_ms: 2050.824187
+  type: 'test'
+  ...
+# Subtest: replacement-marker expansion counts toward the byte bound and retains detection
+ok 5 - replacement-marker expansion counts toward the byte bound and retains detection
+  ---
+  duration_ms: 644.381527
+  type: 'test'
+  ...
+# Subtest: exact-bound UTF-8 text survives normal EOF unchanged
+ok 6 - exact-bound UTF-8 text survives normal EOF unchanged
+  ---
+  duration_ms: 1646.514686
+  type: 'test'
+  ...
+# Subtest: refuses unsafe HTTPS case 1 before reading
+ok 7 - refuses unsafe HTTPS case 1 before reading
+  ---
+  duration_ms: 2.155593
+  type: 'test'
+  ...
+# Subtest: refuses unsafe HTTPS case 2 before reading
+ok 8 - refuses unsafe HTTPS case 2 before reading
+  ---
+  duration_ms: 0.978832
+  type: 'test'
+  ...
+# Subtest: refuses unsafe HTTPS case 3 before reading
+ok 9 - refuses unsafe HTTPS case 3 before reading
+  ---
+  duration_ms: 0.838666
+  type: 'test'
+  ...
+# Subtest: requires an explicit bounded termination grace before reading
+ok 10 - requires an explicit bounded termination grace before reading
+  ---
+  duration_ms: 0.992557
+  type: 'test'
+  ...
+# Subtest: rejects NUL argv before reading rather than letting spawn reject after reading
+ok 11 - rejects NUL argv before reading rather than letting spawn reject after reading
+  ---
+  duration_ms: 0.663983
+  type: 'test'
+  ...
+# Subtest: captures a private input snapshot across asynchronous credential resolution
+ok 12 - captures a private input snapshot across asynchronous credential resolution
+  ---
+  duration_ms: 694.634668
+  type: 'test'
+  ...
+# Subtest: failed prompt delivery is not reported as a completed planning input
+ok 13 - failed prompt delivery is not reported as a completed planning input
+  ---
+  duration_ms: 921.910917
+  type: 'test'
+  ...
+# Subtest: deadline returns with an unverified descendant even when inherited pipes stay open
+ok 14 - deadline returns with an unverified descendant even when inherited pipes stay open
+  ---
+  duration_ms: 3302.415763
+  type: 'test'
+  ...
+# Subtest: nonzero process completion retains the real exit and never accepts a product
+ok 15 - nonzero process completion retains the real exit and never accepts a product
+  ---
+  duration_ms: 1285.280158
+  type: 'test'
+  ...
+# Subtest: refuses case-insensitive credential environment collisions before reading
+ok 16 - refuses case-insensitive credential environment collisions before reading
+  ---
+  duration_ms: 1.593586
+  type: 'test'
+  ...
+# Subtest: rejects a known leased key in argv before spawning and omits the value from errors
+ok 17 - rejects a known leased key in argv before spawning and omits the value from errors
+  ---
+  duration_ms: 1782.242975
+  type: 'test'
+  ...
+# Subtest: refuses the current approved HTTP route before any credential read
+ok 18 - refuses the current approved HTTP route before any credential read
+  ---
+  duration_ms: 218.610166
+  type: 'test'
+  ...
+# Subtest: refuses a subject that does not match the approval before any credential read
+ok 19 - refuses a subject that does not match the approval before any credential read
+  ---
+  duration_ms: 344.356744
+  type: 'test'
+  ...
+# Subtest: refuses an approval without an owner record before any credential read
+ok 20 - refuses an approval without an owner record before any credential read
+  ---
+  duration_ms: 508.958893
+  type: 'test'
+  ...
+# Subtest: refuses a prompt whose bytes do not match the pinned hash
+ok 21 - refuses a prompt whose bytes do not match the pinned hash
+  ---
+  duration_ms: 188.769063
+  type: 'test'
+  ...
+# Subtest: refuses a CLI executable whose bytes do not match the pinned hash
+ok 22 - refuses a CLI executable whose bytes do not match the pinned hash
+  ---
+  duration_ms: 333.075934
+  type: 'test'
+  ...
+# Subtest: completes a synthetic run with the leased value redacted from every channel
+ok 23 - completes a synthetic run with the leased value redacted from every channel
+  ---
+  duration_ms: 1731.408576
+  type: 'test'
+  ...
+# Subtest: cancels and kills the direct child when the deadline passes
+ok 24 - cancels and kills the direct child when the deadline passes
+  ---
+  duration_ms: 2430.160139
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 16981.33751

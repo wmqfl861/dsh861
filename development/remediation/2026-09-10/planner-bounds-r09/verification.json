@@ -1,0 +1,209 @@
+{
+  "kind": "planner-boundary-hardening-not-native-or-node-acceptance",
+  "recordedAt": "2026-09-10T08:25:48.840040+00:00",
+  "baseCommit": "0589b0340682edbe1a3abb256a5c1c890ca5f495",
+  "actor": "ChatGPT; not designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false
+  },
+  "method": "Git-blob-verified source copies; TypeScript transpileModule to an isolated ESM tree with relative .ts import extensions rewritten to .js. Real Node subprocesses, real RSA/lease/redaction; sealed credential peer is explicitly synthetic.",
+  "baseline": {
+    "passed": 2,
+    "failed": 13,
+    "total": 15,
+    "exitCode": 1,
+    "log": "baseline-controls.tap.xz",
+    "uncompressedBytes": 12656,
+    "uncompressedSha256": "97536b834a23095dbde25cebe23c63597e9e42fb0500d744920a21394287eb8c",
+    "originalPlannerBlob": "8b33f51798c9d42228c1ffce93ccdc6df0e52618",
+    "testInputSha256": "bba61cbbe9dbf4edeca7715f138827e4e729d37da2137bda88062014f7a5ea08",
+    "note": "Initial 15-case suite before two additional regressions; failures are test cases, not 13 distinct product defects."
+  },
+  "final": {
+    "command": "node --test build-fixed/scripts/p0-b/windows-credentials/planner-invocation.test.mjs build-fixed/scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs",
+    "cwd": "/mnt/data/dsh861-r09",
+    "passed": 24,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "log": "regressions.tap",
+    "coverage": "17 boundary cases plus 7 original planner cases (three process fixtures now explicitly supply terminationGraceMs)."
+  },
+  "typecheck": {
+    "exitCode": 0,
+    "command": "tsc --noEmit --strict --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --skipLibCheck --types node --typeRoots /opt/nvm/versions/node/v22.16.0/lib/node_modules/ts-node/node_modules/@types fixed/scripts/p0-b/windows-credentials/planner-invocation.ts",
+    "scope": "Planner and its exact local TS dependencies; preinstalled Node declarations, not the repository full host/client programs."
+  },
+  "documentation": {
+    "pairs": [
+      {
+        "pair": "scripts/p0-b/windows-credentials/README",
+        "structureAndLinks": "PASS",
+        "blobHashes": "PASS"
+      },
+      {
+        "pair": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge",
+        "structureAndLinks": "PASS",
+        "blobHashes": "PASS"
+      }
+    ],
+    "negativeControls": 3,
+    "method": "markdown-it structural/fence/semantic-link comparison and raw blob hashes; original repository --write/gates NOT_RUN"
+  },
+  "sourceIdentity": [
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "gitBlob": "bed4e0f3e58eeba7eec988a66a6ea412a373c162"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "gitBlob": "6e25af24da8a68e34b394acf1d733449181f7929"
+    },
+    {
+      "path": "config/agents/models.v1.lock.json",
+      "gitBlob": "2ecb11ccba29a748e6eba6f47aeb59284052db26"
+    },
+    {
+      "path": "config/agents/models.v1.json",
+      "gitBlob": "5292c7094b84fcb42d15735ca91ccb99123f892c"
+    },
+    {
+      "path": "scripts/p0-b/redaction.ts",
+      "gitBlob": "655221ae0657523c5e93235be8219f676f8aa328"
+    },
+    {
+      "path": "scripts/p0-b/model-config.mjs",
+      "gitBlob": "2c7cce5d541b205b06172750c7565cf71b60652c"
+    },
+    {
+      "path": "scripts/p0-b/security-gates.ts",
+      "gitBlob": "7c086613da3f0388c53d0636e64c69ef5689b3da"
+    },
+    {
+      "path": "scripts/p0-b/credential-ref.ts",
+      "gitBlob": "0a599a1940a2b451d875e846b0189aed0b276c67"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.test.mjs",
+      "gitBlob": "1156948e22c0537cffa4cb06d40d2f3f973cf531"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/reader.ts",
+      "gitBlob": "f4a885d12d253afc0f952ff74c0ce2ff2d7867ba"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "gitBlob": "6d18bbeb2713374a7b581500e6fdae2701b939b4"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.ts",
+      "gitBlob": "8b33f51798c9d42228c1ffce93ccdc6df0e52618"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "gitBlob": "f521764fb004b28d4248575e8e726f948023a5c9"
+    }
+  ],
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.ts",
+      "bytes": 14457,
+      "sha256": "bfec50487d08b51ab43c9f6b8f992c5c1050f4d9ff62e0a4e63078953eae0551",
+      "gitBlob": "6688bf4154d091960493b57c3690b377a5c2eb50"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.test.mjs",
+      "bytes": 8874,
+      "sha256": "b152c1c6f6557996390ecffdf7e006479b4ae2628092951a5dadc539af3fae31",
+      "gitBlob": "ab12207b0c05caf232bc4668a72f16e178fbb8ae"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs",
+      "bytes": 10906,
+      "sha256": "736c7eaf7d36b5f9f50fdd4a40d57afecbb85f5fdae68bce7d09a8e92f945748",
+      "gitBlob": "f225cd1ba9aded79517939f0e2d0e3f904d79a59"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 12124,
+      "sha256": "0576d14629fade31a7b92838ccc8f84f1a70e6ed2c0198fe941081533da83920",
+      "gitBlob": "d51b051e5e45301a1a70c23b9d4af0058b1fce48"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 10648,
+      "sha256": "99fba0e7c9b7c68592f32f3f1859bf563820d01d5ff5cc56eaa5659ccb042d43",
+      "gitBlob": "73f83d9961d8f704cff7123a4ccc395ae6bdba76"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.i18n.yaml",
+      "bytes": 189,
+      "sha256": "dc091b20f30cfb841b3e83a663bf5d5f6e82a38becf5f9908202d69dd3d8ac89",
+      "gitBlob": "8527ea8fb7b7d220fcba52e1ecb0d4c80ec86975"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 2996,
+      "sha256": "6d594f28befdf5b6ff3342ed4060a8aeb3254a017304ed01edc8b3d29a491117",
+      "gitBlob": "85d559f65aafc218d90f596b9de5b89c19a4904e"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 2557,
+      "sha256": "d18ef6646a206ef67cdcce0eb6994f3eb744b6d049282e21ece4214fe42abccc",
+      "gitBlob": "fabd57ec4f12e9a6963d2b478dc94029822d42f8"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml",
+      "bytes": 249,
+      "sha256": "4ce635b0cc5fb128aac595659baee56081e64027a9e79ec679e1380370bb0ac0",
+      "gitBlob": "9d5df3fb953f15a2e2f210467ffc99236f4703f0"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 6411,
+      "sha256": "8d2553c458de9acc1d9845278b7829a7f23f0eba2413f977805a431518181a85",
+      "gitBlob": "6c0e4d6cf51436bcfc8532a3a8721067152291b5"
+    },
+    {
+      "path": "development/remediation/2026-09-10/planner-bounds-r09/baseline-controls.tap.xz",
+      "bytes": 1744,
+      "sha256": "75648ba01e83d3b04ce32132b327c71d04688d0c57f7e365f36d3b0b5f3940fc",
+      "gitBlob": "e1e70bd152f18935b0344c90f3e483ea467a428b"
+    },
+    {
+      "path": "development/remediation/2026-09-10/planner-bounds-r09/regressions.tap",
+      "bytes": 4919,
+      "sha256": "062fee62ed4c000636604441a355390f01a4b082b051ff740b0aeb84193cb562",
+      "gitBlob": "b9b37e7ea835dd1c630ed0142a70d253f171c15a"
+    }
+  ],
+  "protectedFiles": {
+    "models.v1.json": "UNCHANGED",
+    "models.v1.lock.json": "UNCHANGED",
+    "pnpm-lock.yaml": "NOT_IN_CHANGE_SET"
+  },
+  "nativeFiles": "UNCHANGED; r08 Windows findings received as local structured evidence, not independently rerun here",
+  "remainingDeveloperConditions": [
+    "Windows execution of the changed planner suites and applicable repository gates",
+    "Archive already-existing r08 command/native/aggregate logs; current receipt mostly points to local paths",
+    "Trusted Codex-specific caller must verify authorization and bind actual CLI/config, isolation, process ownership and native evidence; this function alone does not certify them",
+    "Full descendant-tree quiescence is NOT_VERIFIED; forced pipe closure is not tree termination"
+  ],
+  "remainingOwnerConditions": [
+    "Provider-side revocation/rotation confirmation",
+    "Owner-only masked input of the replacement Codex credential",
+    "Approved HTTPS route or separately designed and verified protected transport; current HTTP route remains refused"
+  ],
+  "notRun": [
+    "Windows/PowerShell/C# native execution in this remote environment",
+    "Full repository typecheck/lint/test:docs/doc-sync",
+    "Real model calls or gateway/network tests",
+    "Designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}

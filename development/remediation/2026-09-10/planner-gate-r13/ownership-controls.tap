@@ -1,0 +1,35 @@
+(node:36916) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ ownership false never delivers the pinned prompt (228.8076ms)
+✔ ownership rejected never delivers the pinned prompt (76.2909ms)
+✔ ownership synchronous throw never delivers the pinned prompt (69.4394ms)
+✔ ownership success after deadline cannot deliver input (88.0087ms)
+✔ exit before ownership settles cannot report completed input (51.5906ms)
+✔ confirmed ownership delivers once and preserves ordinary completion (56.5921ms)
+✔ throwing termination callback cannot break bounded cancellation (60.5543ms)
+✔ owner assign rejects contradictory ok=false success fields (35.6753ms)
+✔ owner terminate rejects contradictory ok=false success fields (28.3869ms)
+✔ negative active count is invalid evidence, not a valid count (17.5058ms)
+✔ owner protocol refuses oversized incomplete output immediately (16.702ms)
+✔ dispose waits for observed helper close, not just an acknowledgement (16.6067ms)
+✔ dispose rejects a helper that acknowledges but does not exit (112.94ms)
+✔ failed disposal reply cannot resolve as successful cleanup (17.9559ms)
+✔ prior protocol failure cannot make later disposal report success (17.0537ms)
+✔ a valid dispose acknowledgement and clean close allow idempotent disposal (21.096ms)
+✔ null protocol reply becomes a fixed error without escaping an event callback (16.4453ms)
+✔ entry cannot label termination refused as completed cleanup (15.7413ms)
+✔ entry cannot label members remain as completed cleanup (10.0888ms)
+✔ entry cannot label count unknown as completed cleanup (8.8851ms)
+✔ entry cannot label disposal failed as completed cleanup (10.4048ms)
+✔ entry preserves cleanup facts when invocation throws (9.896ms)
+✔ entry reserves a fresh run root before creating children (8.3964ms)
+✔ missing approval references refuse before materialization (10.3302ms)
+✔ entry returns completed only with observed assigned and empty disposed job (10.8612ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1494.0201
