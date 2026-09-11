@@ -53,6 +53,18 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 
 入口显式把作业属主的 `launchGated`、`releaseGated`、`abortGated` 映射到调用接口的 `launch`、`release`、`abort`。适配器要求提供全部 `PlannerProcessOwnership` 方法，不能因底层接口可选而在此入口静默遗漏门控。指派与终止仍使用同一个属主实例。[planner-entry-gate.test.mjs](planner-entry-gate.test.mjs) 直接观察这条入口组合，不在测试内另行组装不同的适配器。
 
+## 所有者批准的启动准入
+
+[owner-approved-planner.ts](owner-approved-planner.ts) 是既有投影入口的生产准入调用方，不是第二套启动器。准备阶段固定公开调用输入、提示词摘要和声明的文件哈希清单。请求摘要绑定源码版本、读取清单、投影配置／参数／环境、程序与辅助脚本哈希、路径和进程限制。改变任一绑定值都需要新的所有者决定；生成说明既不批准也不执行调用。
+
+[planner-approval.mjs](planner-approval.mjs) 使用带用途前缀的 Ed25519 签名，对照受信服务独立提供的所有者公钥验证。信封不能提供自己的信任公钥。决定指定唯一请求、有效期、已确认的轮换引用、传输引用、币种、正整数最小货币单位上限和费用强制记录。在外部预约或使用凭据前，受保护的本地账本通过独占创建消费一次尝试。重放、过期、变更、未批准或非规范记录都被拒绝。失败不会删除已消费标记来授权自动重试。账本恢复、父目录保护、原生 ACL 和所有者公钥登记仍由部署端负责；本地独占创建不是分布式或防断电账本。
+
+服务必须提供经过审查且有界的在线控制适配器，实际验证传输、只读／范围隔离及金额强制限制。准入层核对预约是否绑定相同决定和请求，并在凭据读取入口再次检查有效期、文件哈希及在线控制。签名验证和记录名称本身不实现这些控制。缺失或失败的适配器必须拒绝；即使签名有效，也不能在缺少控制时读取 Key。控制清理失败继续保持阻塞。原低层投影入口是受信内部组件，不是绕过准入的公共入口。
+
+签署端及信任登记与模型 API 凭据不同，测试不会部署它们。所有者签名只记录其对 Key 轮换的确认，不查询或证明服务商实际撤销。源码版本是签名引用，部署端仍负责已验证的工作副本和不可变的获准文件。本模块不交付真实费用记账、TLS 或原生隔离。
+
+批准测试使用真实临时签名和本地文件。调用方套件加载实际准入与投影代码，模拟原生入口、凭据对端及外部控制，不是操作系统证据。独立的 Windows 原生套件调用实际既有入口及作业机制，但仍使用合成签署者、密封对端和强制适配器，只证明组合接线。见[准入回执](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json)。
+
 ## 验证
 
 使用钉版依赖在仓库运行；正常验证不要设置模块覆盖变量。
@@ -64,6 +76,9 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs

@@ -1,0 +1,203 @@
+{
+  "kind": "signed-owner-admission-and-fixed-planning-input",
+  "round": "r17",
+  "recordedAt": "2026-09-11T15:11:00.059152+00:00",
+  "baseCommit": "dcb4845a6cf42d0af2701cfc405dff6757b364ab",
+  "developmentBase": "227e5597bf85419a6e60bd61e5e9f83025828c56",
+  "actor": "ChatGPT implementation and synthetic verification; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false,
+    "nodeBelowRepositoryMinimum": true
+  },
+  "delivered": [
+    "Exact-request Ed25519 decision verification using independently supplied owner public key",
+    "Exclusive local-ledger consumption before reservation or credential read; failures do not automatically permit retry",
+    "New admission consumer directly invokes existing projected entry; absent/failing live control adapter cannot read credentials",
+    "Read-set/prompt validity and live controls rechecked at private reader boundary",
+    "Planner prompt prepared before approval; not plan.v4; original unapproved r01 retained"
+  ],
+  "checks": {
+    "approval": {
+      "command": "node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs",
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "approval-final.tap",
+      "scope": "Real crypto, local filesystem, fresh-process replay and in-process concurrent exclusive creation. Synthetic signing keys only."
+    },
+    "consumer": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "consumer-final.tap",
+      "scope": "Actual new admission source, projection, verifier, files. Windows entry, sealed peer and external enforcement are explicit test doubles."
+    },
+    "focusedTypecheck": {
+      "exitCode": 0,
+      "log": "typecheck-final.log",
+      "command": "tsc --noEmit --strict --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --skipLibCheck --types node --typeRoots /opt/nvm/versions/node/v22.16.0/lib/node_modules/ts-node/node_modules/@types scripts/p0-b/windows-credentials/owner-approved-planner.ts",
+      "scope": "Exact retrieved dependency subset, preinstalled Node types; not repository host/client programs."
+    },
+    "syntax": {
+      "exitCode": 0,
+      "files": [
+        "scripts/p0-b/windows-credentials/planner-approval.mjs",
+        "scripts/p0-b/windows-credentials/planner-approval.test.mjs",
+        "scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+        "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs"
+      ]
+    },
+    "documentation": {
+      "pairs": 2,
+      "headingsAndFences": "PASS",
+      "repositoryPairingCommand": "NOT_RUN",
+      "sidecars": "unchanged pending named local re-record"
+    }
+  },
+  "authoring": {
+    "typecheck-first.log": "Initial subset inadvertently contained historical pre-gate invocation interface. Reconstructed from retrieved source and verified exact current Git blob 962eb4d97bcd296589c99e50ba5f0c90077ec184; compiler then passed. Not a repository defect or runtime change.",
+    "consumer-first.tap": "18/18 before test fixture hash reuse/line formatting. Retained; final test avoids repeated hashing of the unchanged Node binary.",
+    "approval.tap": "21/21 initial run; later junction test cleanup explicitly unlinks its test link before recursive directory cleanup.",
+    "consumer-final.tap": "Final 18/18 on the current platform-aware fixture (native path syntax and SystemRoot chosen from host platform); real enforcement and native consumer remain mocked in this suite."
+  },
+  "nativeFixtures": {
+    "path": "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs",
+    "cases": 2,
+    "status": "NOT_RUN",
+    "scope": "Auth consumer -> real Windows entry/job/gate; synthetic signer/reader/enforcement. Does not certify real owner enrollment, ACL, TLS or financial control."
+  },
+  "existingRuntimeChanged": false,
+  "protectedFiles": "models.v1.json, models.v1.lock.json, pnpm-lock.yaml, state.json not in change set",
+  "notDelivered": [
+    "Production signer/private-key custody or owner trust-root enrollment",
+    "Windows ACL/local-ledger recovery or immutable source workspace",
+    "Actual OS read-only/scope isolation, TLS/gateway validation and hard monetary enforcement adapter",
+    "Real credentials, model invocation, plan.v4, specified independent review or node acceptance"
+  ],
+  "notRun": [
+    "Windows execution of new suites",
+    "Full dependency-aware host/client typecheck, lint, test:docs and doc-sync",
+    "CI and real model calls"
+  ],
+  "signingReference": "https://nodejs.org/api/crypto.html#cryptoverifyalgorithm-data-key-signature-callback",
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "promptSha256": "02b3a4dc87553a53be0fb4b8a165d107bd305f806fbfd18e6bfa38db6fc24c47",
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 2432,
+    "sha256": "4172ec88c0a7b8dc4857e0500670f2b0a04efc47e04abcbfe0929ba5db66a8d3",
+    "metadata": "uid/gid/mtime=0; uname/gname empty",
+    "members": {
+      "approval-final.tap": {
+        "bytes": 3969,
+        "sha256": "6179c49f910cbdf5c93f2f5f7f0d091caa98b7e9b168baf04eddfcbfdd94fdf9"
+      },
+      "approval.tap": {
+        "bytes": 3972,
+        "sha256": "4997f7aab0b01d8f4df73fcd602b427c7eb9e9b89d0d1d8a6b9dd76d611d5b9c"
+      },
+      "consumer-final.tap": {
+        "bytes": 3745,
+        "sha256": "e88b1585d95c1f8fbf1ea40b79a652d7ebba28da7d1187f30d797876c10f804a"
+      },
+      "consumer-first.tap": {
+        "bytes": 3780,
+        "sha256": "9c58e13c7781ab6aed356f2ea913bec487f3ff71c8b9ce510452abb5aa9dd07c"
+      },
+      "typecheck-final.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "typecheck-first.log": {
+        "bytes": 318,
+        "sha256": "57e05d0460153c148d49adbab7c3980c4dbe6c10ff3b25c402a851cc6280acc4"
+      },
+      "typecheck.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-approval.mjs",
+      "bytes": 6930,
+      "gitBlob": "73243a882749d4a2108f4496dc2493f126863fee",
+      "sha256": "6f3e8411d7f0606bbcd07d008431df0fc309d91ea2bbe0260e4c73fa3bb609be"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-approval.d.mts",
+      "bytes": 1870,
+      "gitBlob": "9465ec639db6fa964e454d14647523b6759e323a",
+      "sha256": "700609db7efe2e62db9055ce26bd6eade88a39434ce9245a57cb76ef11dadbc2"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-approval.test.mjs",
+      "bytes": 8074,
+      "gitBlob": "f87ef69500e7ab48434f82920d6096626de734c8",
+      "sha256": "a00f7f2e4e13e53b2b29ff11187f81b4d55c5352dbe825c259b9ebcce17db106"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner.ts",
+      "bytes": 8700,
+      "gitBlob": "946c08a402a639ed748bb4df5bf02bedf125e634",
+      "sha256": "d6d463f1b3e29e6b1848f8a63c8829169b737cac19a80f82886a0e31ea70fec2"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+      "bytes": 11847,
+      "gitBlob": "9c3b4cf7dea4e6d6915c9533762d039fbbea6a6f",
+      "sha256": "9f7102023ebb66c1bc3d79db541c466f4595a4a052555639529889a03a1eabd0"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs",
+      "bytes": 6950,
+      "gitBlob": "f3c3fcf33225bd92ad47d598f6fb5424dcbf3f44",
+      "sha256": "804d63a5166ec763fc3caad394094f522fb6d1d10df114cecefebe17a3ddae5b"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 14700,
+      "gitBlob": "bfa7114cbc6a937ec777e07c2def22aa125fdf5a",
+      "sha256": "f0a8f67c6fa29f4fc54a6f02a7063efb350d756ed9ce1479f748cf1788709b2f"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 12869,
+      "gitBlob": "945f369b349f8a5f67ca3c27dd0505823549172d",
+      "sha256": "70895fef8dffa5aaad925c6b8391eb6df4e1ed5840896cd826c3e98cf8fff961"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 7118,
+      "gitBlob": "98d70bdba1de013c0b21a76e2741de795c0746fe",
+      "sha256": "c7252ca84f59f489a115c25989306e8adb75ae258052a4edf743df59ae80c36e"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 6142,
+      "gitBlob": "dd7a6ee304444d8f59e8d26fd80f78c7e9a2d011",
+      "sha256": "53a82b225db73a1ef85a87f52afdc3cad29913db246e8e50eaa9d71392fd1889"
+    },
+    {
+      "path": "development/nodes/P0-B/planner-prompt.r01.txt",
+      "bytes": 3747,
+      "gitBlob": "5bdebb7341d037b00f922ed3acdf8847292fe6bf",
+      "sha256": "02b3a4dc87553a53be0fb4b8a165d107bd305f806fbfd18e6bfa38db6fc24c47"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 5789,
+      "gitBlob": "1808fc0bb4de046061691beb6b843f7d2d755a0f",
+      "sha256": "63d8aca821a9b72172c24e22f6b815e36e44fb4a711503369bcecf6f11d92ed8"
+    }
+  ]
+}

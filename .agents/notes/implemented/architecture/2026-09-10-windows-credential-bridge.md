@@ -26,6 +26,8 @@ Release authority belongs to the exact live launcher and is lost on abort or own
 
 The entry requires a complete `PlannerProcessOwnership` adapter and explicitly maps the job owner's differently named gated methods. Structural typing accepts a raw owner when launch methods are optional; requiring the adapter and exercising the real entry prevents helper-only tests from certifying an unused launch path.
 
+The owner-admission consumer verifies a signed, exact-request decision and consumes a protected single-attempt marker before reservation or credential use. A separate trusted service supplies the owner key and live enforcement adapter; request files cannot appoint their own signer or substitute matching record strings for runtime controls. Signature, file and active-control checks recur at the reader boundary, and failed control cleanup blocks the result. Native key custody, ledger ACL, immutable snapshots and the actual financial/transport/isolation implementation remain distinct deployment obligations. This preserves one existing process launcher while making owner consent independently verifiable.
+
 ## Alternatives considered
 
 Plaintext files and command-line password arguments expand disclosure paths. Plaintext reader stdout makes accidental process logging unsafe. A full platform secret service and public management UI require authorization and deployment contracts beyond this support component; the component does not claim to deliver them.
