@@ -151,8 +151,9 @@
   },
   "archive": {
     "file": "logs.tar.xz",
-    "bytes": 23064,
-    "sha256": "35ae10c3139eddffaa14bb64398cd8482a2ec2c2ac5199299f00d153225b64d5",
+    "bytes": 22988,
+    "sha256": "445454c3086c599debd25340271d971a005e8e9e91df47c451db05ec5ecc7b00",
+    "metadata": "uid/gid/mtime zero; uname/gname empty",
     "members": {
       "planner-entry-gate-r15.tap": { "bytes": 1007, "sha256": "7e1669258f541b5c5a221b40223f42a7cf82c1b84c7a0e87a63a79c764293fc8" },
       "planner-entry-gate-r15-postfix.tap": { "bytes": 1007, "sha256": "e6d1f18589991c1ac648864569f8d3fe78d9828b16253fb845819fd68648aad2" },
