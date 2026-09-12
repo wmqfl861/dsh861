@@ -41,7 +41,6 @@ export function withPrivateCodexStderr(child: SubprocessHandle): SubprocessHandl
   }
 
   return {
-    get pid() { return child.pid },
     get stdin() { return child.stdin },
     get stdout() { return child.stdout },
     stderr: undefined,
