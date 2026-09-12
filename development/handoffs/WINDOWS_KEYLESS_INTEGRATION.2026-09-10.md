@@ -12,6 +12,10 @@
 
 [r21 记录](../remediation/2026-09-12/native-sandbox-r21/verification.json)的18项观察器检查在Linux执行通过；包括真实未受限Node父子进程正控及明确模拟的拒绝回执。1项真正执行钉版Codex沙箱的Windows测试已写好但未执行。只有后者能回答所测原生权限是否成立；前18项不认证操作系统隔离。
 
+### r21 Windows 实测结果（2026-09-12）
+
+在 `test/p0b-native-sandbox-20260912`（f1edc65）上，Windows 实测完成：钉版 codex.exe 哈希复算一致，隔离无凭据 CODEX_HOME 下 `sandbox --help` 确认宿主 `sandbox` 命令与 `--permission-profile`／`--include-managed-config`／`--cd` 旗标存在、无 `sandbox windows` 子命令；18 项观察器检查全部通过；原生用例两次确定性失败，沙箱本体以 `windows sandbox failed: Restricted read-only access requires the elevated Windows sandbox backend` 拒绝受限读策略（exit 1）。钉版源码（rust-v0.149.1）核对：unelevated 后端在 profile 缺少全盘读时直接退出；elevated 后端需专用沙箱登录账号、capability SID 与管理员上下文本机 ACL 变更。结论：原生限制成立，验证 BLOCKED，不放宽策略、不改测试求绿。证据、最小追加授权与门禁结果见 [r21-win 回执](../remediation/2026-09-12/native-sandbox-r21-win/verification.json)。
+
 ## 本地的有限任务
 
 安全同步新分支，沿用Node26.4.0、pnpm11.7.0及依赖，不重装、不自动stash或强制覆盖。先点读钉版程序的 `sandbox --help`，确认命令存在性；程序摘要继续是 `a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6`。不升级或切到全局Codex。

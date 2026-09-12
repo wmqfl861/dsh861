@@ -13,6 +13,12 @@ const directory = fileURLToPath(new URL('.', import.meta.url))
 const repository = fileURLToPath(new URL('../../../', import.meta.url))
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const fileHash = path => sha256(readFileSync(path))
+// Failure evidence keeps the native error text itself, not only a digest: printable characters only, byte-bounded.
+const sanitizedExcerpt = (text, limit = 4096) => {
+  const printable = text.replace(/[^\t\n\r\x20-\x7e]/g, '')
+  return Buffer.byteLength(printable) <= limit ? printable
+    : printable.slice(0, limit) + `…[truncated ${Buffer.byteLength(printable) - limit} bytes]`
+}
 // Existing repository-pinned program, not a globally discovered or downloaded replacement.
 const codexPath = join(repository, 'node_modules/.pnpm/@openai+codex@0.149.1-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/bin/codex.exe')
 const codexHash = 'a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6'
@@ -62,7 +68,7 @@ async function runOwned(probe, temporary, diagnostic, lifecycle) {
     } finally { clearTimeout(timer); clearTimeout(graceTimer) }
     diagnostic({ exitCode: result.exitCode, signal: result.signal, timedOut,
       outputBoundExceeded, stdoutBytes: Buffer.byteLength(stdout), stderrBytes: Buffer.byteLength(stderr),
-      stderrSha256: sha256(stderr) })
+      stderrSha256: sha256(stderr), stderrText: sanitizedExcerpt(stderr), stdoutText: sanitizedExcerpt(stdout) })
   } finally {
     try { terminated = await owner.terminateOwned() } catch { /* false is not successful cleanup */ }
     try { active = await owner.activeProcesses() } catch { /* -1 is unknown, not empty */ }

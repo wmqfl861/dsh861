@@ -25,4 +25,4 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/codex-sandbox-qual
 
 第一组通过真实 Node／文件操作和明确模拟的结果验证材料准备及判定规则。第二组要求 Windows、钉版二进制及其原生沙箱；非 Windows 跳过不算 Windows 成功。它保留既有作业的指派、终止、活动计数归零和销毁要求。通过回执仅表示所列合成命令及其子进程呈现了测试中的限制，不证明主 CLI、配置发现、任意插件、全部文件对象或后续模型调用均已隔离。生产准入层不会接收此回执作为放行依据。
 
-测试不修改模型投影或生产执行路径。验证成功后仍需明确接入获准调用；验证失败或阻塞时，生产隔离要求仍未满足。已执行检查见[r21 记录](../../../development/remediation/2026-09-12/native-sandbox-r21/verification.json)，当前本地工作见[交接](../../../development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md)。
+测试不修改模型投影或生产执行路径。验证成功后仍需明确接入获准调用；验证失败或阻塞时，生产隔离要求仍未满足。[制备回执](../../../development/remediation/2026-09-12/native-sandbox-r21/verification.json)保存 Linux 观察器运行；[Windows 执行回执](../../../development/remediation/2026-09-12/native-sandbox-r21-win/verification.json)保存钉版二进制运行，其受限读策略在 unelevated 后端被阻塞。当前本地工作见[交接](../../../development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md)。
