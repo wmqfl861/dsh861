@@ -36,13 +36,14 @@
   "dependencies": {
     "@deepseek-ai/dsh-util-values": "workspace:^",
     "@deepseek-ai/schemastery": "workspace:^",
-    "@joplin/turndown-plugin-gfm": "^1.0.67",
+    "@joplin/turndown-plugin-gfm": "^1.0.68",
     "turndown": "^7.2.4"
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "workspace:^",
     "@deepseek-ai/dsh-agent": "workspace:^",
     "@deepseek-ai/dsh-llm": "workspace:^",
+    "@deepseek-ai/dsh-scope": "workspace:^",
     "@deepseek-ai/dsh-session": "workspace:^",
     "@deepseek-ai/dsh-spill-local": "workspace:^",
     "@deepseek-ai/dsh-spill-policy": "workspace:^",
@@ -52,7 +53,6 @@
     "@deepseek-ai/dsh-web": "workspace:^",
     "@deepseek-ai/dsh-web-fetch-http": "workspace:^",
     "@deepseek-ai/dsh-web-search-exa": "workspace:^",
-    "@types/turndown": "^5.0.6",
-    "@deepseek-ai/dsh-scope": "workspace:^"
+    "@types/turndown": "^5.0.6"
   }
 }

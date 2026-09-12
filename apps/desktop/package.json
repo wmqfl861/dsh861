@@ -37,15 +37,15 @@
     "@deepseek-ai/dsh-home-paths": "workspace:^",
     "@electron/notarize": "2.5.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.20.0",
+    "@types/node": "^22.20.2",
     "@types/semver": "^7.8.0",
     "app-builder-lib": "26.15.3",
-    "electron": "^44.0.0",
+    "electron": "^44.3.0",
     "electron-builder": "^26.15.3",
     "extract-zip": "^2.0.1",
-    "js-yaml": "^4.2.0",
-    "pnpm": "11.7.0",
-    "tar": "^7.5.0",
+    "js-yaml": "^4.3.2",
+    "pnpm": "12.4.1",
+    "tar": "^7.5.22",
     "typescript": "^6.0.3"
   }
 }
