@@ -53,6 +53,30 @@ Disposal requires a valid clean helper close and an observed launcher close. Tim
 
 The entry explicitly maps the job owner's `launchGated`, `releaseGated` and `abortGated` methods to the invocation's `launch`, `release` and `abort` methods. Its adapter requires every `PlannerProcessOwnership` method, so optional wrapper support cannot silently omit gating at this entry. Assignment and termination use the same owner instance. The entry-path regressions in [planner-entry-gate.test.mjs](planner-entry-gate.test.mjs) observe this composition instead of constructing a different adapter inside a test.
 
+## Owner-approved admission
+
+[owner-approved-planner.ts](owner-approved-planner.ts) adds a production-admission consumer of the existing projected entry, not a second launcher. Preparation fixes public invocation inputs, the prompt digest and a declared file-hash set. The request digest binds the source revision, read set, projected configuration/arguments/environment, program and helper hashes, paths and process bounds. Changing any bound value requires a new owner decision; preparing the description neither approves nor executes it.
+
+[planner-approval.mjs](planner-approval.mjs) verifies a domain-separated Ed25519 signature against an owner public key supplied independently by the trusted service. The envelope cannot supply its own authority key. Decisions name one exact request, validity interval, confirmed rotation reference, transport reference, currency, positive integer minor-unit limit and budget enforcement reference. A protected local ledger consumes one attempt with exclusive creation before external reservation or credential use. Replayed, expired, changed, unapproved or noncanonical records are refused. Failures never delete consumed markers to authorize automatic retries. Ledger recovery, parent protection, native ACL and owner-key enrollment remain deployment responsibilities; local exclusive creation is not a distributed or crash-proof ledger.
+
+The service must provide a reviewed, bounded live-control adapter for real transport validation, read-only/scope isolation and financial enforcement. The admission layer verifies that its reservation is bound to the same decision and request, and rechecks validity, file hashes and live controls at the credential-reader boundary. Signature verification and record names do not themselves implement these controls. A missing or failing adapter must reject; a valid signature cannot authorize reading a key in its absence. Control-cleanup failures remain blocked. The original low-level projected entry is a trusted internal component, not a public bypass endpoint.
+
+The signer and its trust enrollment are separate from model API credentials and are not provisioned by the tests. Signed owner confirmation records what the owner attests about key rotation; it does not query or prove provider-side revocation. The source revision is a signed reference, while the deployment remains responsible for its verified checkout and immutable admitted files. Financial accounting, native isolation and TLS on the eventual Codex connection are not delivered by the signature module.
+
+Approval tests use real ephemeral signatures and local files. The consumer suite loads actual admission and projection code with simulated native entry, credential peer and external controls; it is not OS evidence. The separate Windows native suite calls the real existing entry and job machinery, but still uses a synthetic signer, sealed peer and enforcement adapter. It proves composition only; its two cases actually ran on Windows. See the [admission receipt](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json) and the [Windows execution receipt](../../../development/remediation/2026-09-11/approval-admission-r17-win/verification.json).
+
+## Credential-free TLS verification
+
+[planner-tls.mjs](planner-tls.mjs) verifies a fresh TLS connection to one independently configured route. The trusted policy fixes the record ID, exact HTTPS base URL, explicit CA certificates, optional SPKI pin, minimum TLS version, handshake deadline and close deadline. Userinfo, queries, fragments, HTTP and validation overrides are rejected. The verifier always checks chain authorization and the route hostname or literal IP; DNS names also send SNI. A key pin is an additional restriction, never a replacement for certificate validation. There are no HTTP requests, credentials, redirects, retries or cached success results.
+
+The owner-admission service requires a transport verifier. After consuming a valid signed attempt and obtaining live controls, its guarded credential reader calls the verifier with the signed record, projected route and request digest. A failed handshake prevents the read; unapproved or replayed requests cannot initiate the probe. Consent, live controls and fixed files are rechecked after the asynchronous TLS check. Successful observations include certificate/SPKI/trust-store hashes and an observed socket close; TLS error messages contain only fixed refusal codes. The returned observation is separate from invocation and control-cleanup results.
+
+A probe certifies only its own connection. It does not protect later Codex requests, establish the model route's business authorization, fetch revocation information or prevent later DNS/certificate changes. The deployed CLI must independently verify its actual HTTPS connection without inherited bypass settings, and the live control adapter must still enforce isolation and the approved financial limit. Trust material and immutable record bindings belong to the protected deployment, never to an unsigned task envelope. No real gateway is contacted by tests or by constructing a verifier.
+
+[planner-tls.test.mjs](planner-tls.test.mjs) uses real TLS on loopback. Its [test certificates](fixtures/planner-tls-certificates.mjs) are synthetic: only the known test server key and public certificates are retained, not the CA private key. Never install that CA or reuse that key in production. Consumer tests combine the real probe with simulated native/financial/isolation services; the native suite combines it with the existing Windows entry. See the [TLS receipt](../../../development/remediation/2026-09-12/planner-tls-r18/verification.json) for the actual platforms and unexecuted checks.
+
+A sealed credential read is itself asynchronous. Before releasing its completed response to the existing reader, admission checks the still-valid decision, reservation binding, live controls and fixed input bytes again. Expiry, revocation or changed input during that read prevents response delivery and target launch; the read may already have occurred and is not reported as zero. This check does not revoke credentials already delivered to a running target. Continuous enforcement and immutable inputs remain deployment responsibilities.
+
 ## Verification
 
 Run from the repository with pinned dependencies; leave module-override variables unset for normal verification.
@@ -64,6 +88,11 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs

@@ -53,6 +53,30 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 
 入口显式把作业属主的 `launchGated`、`releaseGated`、`abortGated` 映射到调用接口的 `launch`、`release`、`abort`。适配器要求提供全部 `PlannerProcessOwnership` 方法，不能因底层接口可选而在此入口静默遗漏门控。指派与终止仍使用同一个属主实例。[planner-entry-gate.test.mjs](planner-entry-gate.test.mjs) 直接观察这条入口组合，不在测试内另行组装不同的适配器。
 
+## 所有者批准的启动准入
+
+[owner-approved-planner.ts](owner-approved-planner.ts) 是既有投影入口的生产准入调用方，不是第二套启动器。准备阶段固定公开调用输入、提示词摘要和声明的文件哈希清单。请求摘要绑定源码版本、读取清单、投影配置／参数／环境、程序与辅助脚本哈希、路径和进程限制。改变任一绑定值都需要新的所有者决定；生成说明既不批准也不执行调用。
+
+[planner-approval.mjs](planner-approval.mjs) 使用带用途前缀的 Ed25519 签名，对照受信服务独立提供的所有者公钥验证。信封不能提供自己的信任公钥。决定指定唯一请求、有效期、已确认的轮换引用、传输引用、币种、正整数最小货币单位上限和费用强制记录。在外部预约或使用凭据前，受保护的本地账本通过独占创建消费一次尝试。重放、过期、变更、未批准或非规范记录都被拒绝。失败不会删除已消费标记来授权自动重试。账本恢复、父目录保护、原生 ACL 和所有者公钥登记仍由部署端负责；本地独占创建不是分布式或防断电账本。
+
+服务必须提供经过审查且有界的在线控制适配器，实际验证传输、只读／范围隔离及金额强制限制。准入层核对预约是否绑定相同决定和请求，并在凭据读取入口再次检查有效期、文件哈希及在线控制。签名验证和记录名称本身不实现这些控制。缺失或失败的适配器必须拒绝；即使签名有效，也不能在缺少控制时读取 Key。控制清理失败继续保持阻塞。原低层投影入口是受信内部组件，不是绕过准入的公共入口。
+
+签署端及信任登记与模型 API 凭据不同，测试不会部署它们。所有者签名只记录其对 Key 轮换的确认，不查询或证明服务商实际撤销。源码版本是签名引用，部署端仍负责已验证的工作副本和不可变的获准文件。签名模块不交付真实费用记账、原生隔离或最终 Codex 连接上的 TLS。
+
+批准测试使用真实临时签名和本地文件。调用方套件加载实际准入与投影代码，模拟原生入口、凭据对端及外部控制，不是操作系统证据。独立的 Windows 原生套件调用实际既有入口及作业机制，但仍使用合成签署者、密封对端和强制适配器，只证明组合接线；两项已在 Windows 实跑。见[准入回执](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json)与[Windows 执行回执](../../../development/remediation/2026-09-11/approval-admission-r17-win/verification.json)。
+
+## 无凭据 TLS 验证
+
+[planner-tls.mjs](planner-tls.mjs) 对独立配置的唯一路由建立新 TLS 连接并验证。可信策略固定记录 ID、精确 HTTPS 地址、显式 CA 证书、可选 SPKI 公钥钉扎、最低 TLS 版本、握手及关闭时限。userinfo、查询参数、片段、HTTP 和验证覆盖选项均被拒绝。验证器始终检查证书链授权及路由主机名或 IP 字面量；DNS 主机名同时发送 SNI。公钥钉扎是附加限制，不替代证书验证。不发 HTTP 请求、不携带凭据、不跟随重定向、不重试、不缓存成功。
+
+所有者准入服务必须提供传输验证器。有效签名的尝试已消费且在线控制已取得后，受保护的凭据读取入口把签名记录、投影路由和请求摘要交给验证器。握手失败阻止读取；未批准或重放的请求不能发起探测。异步 TLS 检查后再次核对同意、在线控制和固定文件。成功观察包含证书／SPKI／信任库摘要及实际 socket 关闭；TLS 错误只返回固定拒绝码。观察结果与调用结果、控制清理结果分别记录。
+
+探测只认证自身连接。它不保护后续 Codex 请求，不建立模型路由的业务授权，不获取证书撤销信息，也不防止之后 DNS 或证书改变。部署的 CLI 必须独立验证实际 HTTPS 连接，不能继承绕过设置；在线控制适配器仍须强制隔离和获准金额上限。信任材料和不可变记录绑定属于受保护部署，不能来自未签署任务信封。测试及创建验证器均不访问真实网关。
+
+[planner-tls.test.mjs](planner-tls.test.mjs) 在回环地址上运行真实 TLS。[测试证书](fixtures/planner-tls-certificates.mjs)为合成材料，只保留已知测试服务器私钥及公开证书，不保留 CA 私钥；不得安装该 CA 或在生产复用测试私钥。调用方测试将真实探测与模拟的原生／费用／隔离服务组合；原生套件将其与既有 Windows 入口组合。实际平台及未执行检查见[TLS 回执](../../../development/remediation/2026-09-12/planner-tls-r18/verification.json)。
+
+密封凭据读取本身也是异步操作。完成的响应交给既有读取器之前，准入层再次核对决定有效期、预约绑定、在线控制及固定输入字节。读取期间的过期、撤销或输入变化会阻止响应交付和目标启动；读取可能已经发生，不能记为零读取。这项检查不撤回已交付给运行中目标的凭据，持续强制控制及不可变输入仍由部署端负责。
+
 ## 验证
 
 使用钉版依赖在仓库运行；正常验证不要设置模块覆盖变量。
@@ -64,6 +88,11 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs
