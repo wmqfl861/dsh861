@@ -62,7 +62,7 @@ scripts/     gates and generators
 website/     VitePress projection of selected bilingual docs/ sources
 ```
 
-Package groups: [packages/README.md](packages/README.md). `packages/acp/` provides an automation-only Agent Client Protocol server; `packages/experimental/` contains private prototypes excluded from official releases; `packages/util/` contains zero-dependency utilities.
+Package groups: [packages/README.md](packages/README.md).
 
 ## Commands
 
