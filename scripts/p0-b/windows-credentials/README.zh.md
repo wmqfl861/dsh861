@@ -77,6 +77,16 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 
 密封凭据读取本身也是异步操作。完成的响应交给既有读取器之前，准入层再次核对决定有效期、预约绑定、在线控制及固定输入字节。读取期间的过期、撤销或输入变化会阻止响应交付和目标启动；读取可能已经发生，不能记为零读取。这项检查不撤回已交付给运行中目标的凭据，持续强制控制及不可变输入仍由部署端负责。
 
+## 固定提交输入快照
+
+[planner-input-snapshot.mjs](planner-input-snapshot.mjs) 从本地固定 Git 提交及显式路径／SHA-256 读取清单准备既有的未签署规划请求。它核验 Git 程序，要求原始对象已经在本地，并禁用替换引用、按需拉取及环境中的 Git 配置。只导出普通已提交 blob，不使用检出过滤器、暂存修改、当前工作区内容、未跟踪文件、子模块或符号链接条目。文件数、单文件字节、总字节和每条命令时限均由部署明确指定。
+
+准备过程在受保护的本地父目录下拥有一个新建随机目录。其 `input` 目录只含获准文件，保留原字节，不复制源 `.git` 目录、不创建硬链接。独立清单记录提交、blob 和内容身份。`prepared.run.input.workspace` 及现有 Codex 投影的 `--cd` 同时指向快照；应签署这个已准备请求，而不是先前源工作区请求。显式 `workspaceKind: 'fixed-input-snapshot'` 仅为非 Git 目录增加 `--skip-git-repo-check`。普通输入的参数保持原样，沙箱和审批设置不变。
+
+返回的 `verify()` 检查完整文件树与清单，拒绝新增、缺失、链接或内容变化。`dispose()` 合并同时发起的清理，只删除自己拥有的目录；根目录身份被替换时阻止删除，内部链接只解除而不进入其目标。只有确认全部消费者已经停止后才能销毁。它不重新签发批准、不重置已消费尝试；准备过程不调用模型，也不提供凭据。
+
+快照字节不受后续工作区修改影响，但建议性文件权限不是 Windows ACL，完整性检查不是操作系统访问控制。可信部署必须保护 Git、源对象、快照父目录和文件免受并发篡改，阻止 agent 读取获准目录之外的数据，并在在线隔离检查中调用 `verify()`。Windows 文件系统行为及钉版 Codex 对非 Git 选项的支持需要实测；合成原生测试用 Node 代替 CLI，不是模型验收。不含 `.git` 的目录可能仍需另行批准补充源码才能产生有用计划；导出器不会自动扩大读取清单。
+
 ## 验证
 
 使用钉版依赖在仓库运行；正常验证不要设置模块覆盖变量。
@@ -87,6 +97,8 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs

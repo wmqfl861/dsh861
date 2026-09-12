@@ -32,7 +32,10 @@ export function projectCodexLaunch(configuration, trustedLock, input) {
     const route = resolveApprovedRoute(configuration, trustedLock, 'codex')
     const url = new URL(route.baseUrl)
     if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash) fail()
-    if (!fields(input, ['platform', 'workspace', 'runRoot', 'executable', 'executableSha256', 'systemRoot', 'toolDirectories'])
+    const snapshot = own(input, 'workspaceKind')
+    if ((snapshot && input.workspaceKind !== 'fixed-input-snapshot')
+      || !fields(input, ['platform', 'workspace', 'runRoot', 'executable', 'executableSha256', 'systemRoot', 'toolDirectories',
+        ...(snapshot ? ['workspaceKind'] : [])])
       || !['win32', 'linux', 'darwin'].includes(input.platform)
       || !/^[a-f0-9]{64}$/.test(input.executableSha256)
       || !Array.isArray(input.toolDirectories) || input.toolDirectories.length === 0) fail()
@@ -78,7 +81,7 @@ export function projectCodexLaunch(configuration, trustedLock, input) {
       `set = { ${safeShellEnvironment.map(name => `${JSON.stringify(name)} = ${JSON.stringify(environment[name])}`).join(', ')} }`,
       '',
     ].join('\n')
-    const args = ['exec', '--model', route.model, '--config', `model_provider=${JSON.stringify(route.provider)}`,
+    const args = ['exec', ...(snapshot ? ['--skip-git-repo-check'] : []), '--model', route.model, '--config', `model_provider=${JSON.stringify(route.provider)}`,
       '--config', `model_reasoning_effort=${JSON.stringify(route.reasoningEffort)}`,
       '--sandbox', 'read-only', '--ephemeral', '--json', '--color', 'never', '--cd', workspace, '-']
     return Object.freeze({

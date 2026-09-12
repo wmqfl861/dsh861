@@ -23,6 +23,8 @@ export interface ProjectedPlannerEntrySpec {
   trustedLock: unknown
   input: {
     platform: 'win32' | 'linux' | 'darwin'
+    /** Explicit non-Git input snapshot; this does not relax the read-only sandbox. */
+    workspaceKind?: 'fixed-input-snapshot'
     workspace: string
     runRoot: string
     executable: string
