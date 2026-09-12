@@ -7,7 +7,7 @@ import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createContext, SourceTextModule, SyntheticModule } from 'node:vm'
 import test from 'node:test'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 import * as approval from './planner-approval.mjs'
 
 // Real admission source, signatures, lease ledger and input files. Projection,

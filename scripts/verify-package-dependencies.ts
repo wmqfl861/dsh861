@@ -4,7 +4,7 @@ import { spawnSync } from 'node:child_process'
 import { existsSync, globSync, readFileSync, writeFileSync } from 'node:fs'
 import { isBuiltin } from 'node:module'
 import { dirname, extname, join, normalize, relative, resolve, sep } from 'node:path'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 import { WorkspaceTypertGenerator } from '../packages/typert/generator/src/workspace.ts'
 import { writeModuleGraph } from './gen-module-graph.ts'
 import {

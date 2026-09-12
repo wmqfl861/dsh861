@@ -1,7 +1,7 @@
 /** Mock-local unbuilt typing and native deep mocks over generated Remote declarations. */
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 import type { MaybeMockedDeep } from '@vitest/spy'
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import type { TypertRemoteNamespace, TypertRemoteNamespaceMap } from '@deepseek-ai/dsh-typert-protocol'

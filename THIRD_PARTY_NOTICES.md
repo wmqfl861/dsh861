@@ -55,6 +55,7 @@ External packages installed for runtime use or distributed inside the prebuilt b
 | [`@shikijs/langs`](https://github.com/shikijs/shiki) | MIT |
 | [`@standard-schema/spec`](https://github.com/standard-schema/standard-schema) | MIT |
 | [`@tanstack/react-virtual`](https://github.com/TanStack/virtual) | MIT |
+| [`@typescript/typescript6`](https://github.com/microsoft/TypeScript) | Apache-2.0 |
 | [`@vscode/ripgrep`](https://github.com/microsoft/vscode-ripgrep) | MIT |
 | [`@xterm/headless`](https://github.com/xtermjs/xterm.js) | MIT |
 | [`@yarnpkg/parsers`](https://github.com/yarnpkg/berry) | BSD-2-Clause |
@@ -104,7 +105,6 @@ External packages installed for runtime use or distributed inside the prebuilt b
 | [`supports-color`](https://github.com/chalk/supports-color) | MIT |
 | [`tsx`](https://github.com/privatenumber/tsx) | MIT |
 | [`turndown`](https://github.com/mixmark-io/turndown) | MIT |
-| [`typescript`](https://github.com/microsoft/TypeScript) | Apache-2.0 |
 | [`undici`](https://github.com/nodejs/undici) | MIT |
 | [`use-sync-external-store`](https://github.com/facebook/react) | MIT |
 | [`ws`](https://github.com/websockets/ws) | MIT |
@@ -205,6 +205,7 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`spdx-expression-parse`](https://github.com/jslicense/spdx-expression-parse.js) | MIT |
 | [`tar`](https://github.com/isaacs/node-tar) | BlueOak-1.0.0 |
 | [`tsdown`](https://github.com/rolldown/tsdown) | MIT |
+| [`typescript`](https://github.com/microsoft/TypeScript) | Apache-2.0 |
 | [`typescript-language-server`](https://github.com/typescript-language-server/typescript-language-server) | Apache-2.0 |
 | [`vite`](https://github.com/vitejs/vite) | MIT |
 | [`vite-tsconfig-paths`](https://github.com/aleclarson/vite-tsconfig-paths) | MIT |

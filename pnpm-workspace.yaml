@@ -24,7 +24,7 @@ overrides:
 
 peerDependencyRules:
   allowedVersions:
-    typescript: '>=5 <7'
+    typescript: '>=5 <8'
 
 # pnpm 10+ blocks any dependency shipping an install/build script until it is
 # explicitly reviewed here (strictDepBuilds defaults to true: an unlisted script

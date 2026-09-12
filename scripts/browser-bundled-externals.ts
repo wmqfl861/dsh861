@@ -5,7 +5,7 @@ import { createRequire } from 'node:module'
 import { dirname, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { Rolldown, type UserConfigExport } from 'tsdown'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 
 interface Manifest {
   name: string

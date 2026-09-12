@@ -11,7 +11,7 @@ import { setImmediate as tick } from 'node:timers/promises'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import vm from 'node:vm'
 import test from 'node:test'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 
 // The entry and invocation are real source modules. Unit cases replace only
 // their OS/credential peers. Windows cases retain real helpers, pipes and jobs;
