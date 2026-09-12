@@ -1,0 +1,109 @@
+{
+  "round": "r22",
+  "kind": "native-sandbox-reception-and-setup-impact-correction",
+  "recordedDate": "2026-09-12",
+  "receivedHead": "b60c5e65daf409b46dafd42e4d6d1735d5a3eba9",
+  "mergeCommit": "03494c4e21cc5daddb16b8dfa7c2d9ac95ac7cc7",
+  "mergedPullRequest": 10,
+  "actor": "ChatGPT source review; not designated Codex planner or OpenCode hard reviewer",
+  "reception": {
+    "observerReported": "18/18 passed on Windows",
+    "nativeReported": "1 executed, exit 1, BLOCKED",
+    "repositoryGates": "Local receipt records typecheck/lint and test:docs15/doc-sync33; not rerun here",
+    "archiveIndependentVerification": false,
+    "actionsRunsForReceivedHead": 0,
+    "originalWindowsReceiptUnchanged": true
+  },
+  "findings": [
+    {
+      "id": "SETUP-NETWORK-SCOPE",
+      "source": "codex-rs/windows-sandbox-rs/src/bin/setup_main/win.rs",
+      "ref": "rust-v0.149.1",
+      "blob": "dc43abd9226e13cdf6aadc9abadce5bf46a854c4",
+      "readLines": [620, 775],
+      "facts": [
+        "configure_offline_sandbox_network calls proxy allowlist, offline outbound block and WFP installation",
+        "run_provision_only calls configure_offline_sandbox_network"
+      ],
+      "correction": "Future initialization cannot be limited to accounts/ACL with no firewall changes. This does not dispute that the completed unelevated test made none of those changes."
+    },
+    {
+      "id": "SETUP-ELEVATION-SCOPE",
+      "source": "codex-rs/windows-sandbox-rs/src/setup.rs",
+      "ref": "rust-v0.149.1",
+      "blob": "4a5f403e5bd1fb4a13d7690e16894bddd3049bdc",
+      "readLines": [[932, 979], [970, 1140]],
+      "facts": [
+        "run_setup_exe uses ShellExecuteExW with runas when elevation is requested",
+        "run_elevated_setup_inner decides needs_elevation",
+        "run_elevated_provisioning_setup instead requires an elevated caller"
+      ],
+      "correction": "Reading elevated_impl.rs alone does not establish that every agent process must already run as administrator. The actual supported entry and intended user identity must be selected before authorization."
+    },
+    {
+      "id": "SETUP-SUCCESS-NOT-ENFORCEMENT",
+      "source": "codex-rs/windows-sandbox-rs/src/wfp_setup.rs",
+      "ref": "rust-v0.149.1",
+      "blob": "688878583b017ef029a9b54b8fdf5e806a7d94ad",
+      "readLines": [1, 186],
+      "facts": [
+        "WFP installation errors and panics can be logged while setup continues",
+        "Optional metrics settings can construct an exporter"
+      ],
+      "correction": "Exit zero alone is insufficient evidence of effective WFP controls. No-model is not itself proof of no network traffic."
+    }
+  ],
+  "deliverables": [
+    "development/nodes/P0-B/windows-elevated-setup-request.r01.md",
+    "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md"
+  ],
+  "productionRuntimeModified": false,
+  "scope": "Documentation and source audit only; no new runtime, installer, fixture or authorization framework",
+  "localTask": "Read-only targeted machine inventory; no setup or UAC until a separate exact owner decision",
+  "notRun": [
+    "Windows or Codex execution in this session",
+    "Setup, accounts, ACL, registry, firewall or WFP mutations",
+    "Full repository document/type/lint commands",
+    "Model requests, credentials, designated plan/review"
+  ],
+  "productAccepted": false,
+  "productionIsolationAccepted": false,
+  "executionAuthorized": false,
+  "systemChangesAuthorized": false,
+  "nextNodeAllowed": false,
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "remaining": [
+    "Actual local setup inventory and owner decision",
+    "Native read isolation validation after approved setup",
+    "Production signer/enrollment, ledger ACL/recovery, actual CLI TLS and monetary enforcement"
+  ],
+  "documentationChecks": {
+    "utf8AndTrailingNewline": "PASS",
+    "noTrailingWhitespace": "PASS",
+    "markdownFenceBalance": "PASS",
+    "resolvedKnownRepositoryLinks": "PASS",
+    "linkCount": 11,
+    "fixedUpstreamLocators": "PASS",
+    "credentialPatternCheck": "PASS",
+    "repositoryGate": "NOT_RUN; no full checkout/dependencies"
+  },
+  "fileHashes": [
+    {
+      "path": "development/nodes/P0-B/windows-elevated-setup-request.r01.md",
+      "bytes": 6664,
+      "sha256": "880157f0439617596ae22e98127ce49da13412c822294fda101bdf96cc00b8cf",
+      "gitBlob": "d9b463a9d3c96a3a16a403010b8d5615dd4f5432"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 4083,
+      "sha256": "e0125227649b27ddd5b5b570bd538aa2b667de6d39f18f41311c20db46a1ad5b",
+      "gitBlob": "4c504eca7e7796e67ff63f4c5b313262b0afa22d"
+    }
+  ]
+}
