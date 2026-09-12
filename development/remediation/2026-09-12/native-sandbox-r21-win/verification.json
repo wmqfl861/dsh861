@@ -1,0 +1,172 @@
+{
+  "kind": "windows-native-execution-of-r21-codex-sandbox-qualification",
+  "round": "r21-windows",
+  "recordedAt": "2026-09-12T04:17:43Z",
+  "baseCommit": "f1edc65871e1a66b72e2217f5e3757f5b3b4e72d",
+  "baseCommitParent": "f070a85554ba82fd30f89d7300e86645609081f7",
+  "mergedPullRequestOnChain": 9,
+  "draftPullRequest": 10,
+  "actor": "ZCode built-in execution subagent on the user's Windows host; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "git": "2.55.0.windows.3",
+    "repositoryDependenciesInstalled": true,
+    "windowsNativeRun": true,
+    "note": "Explicit fetch of origin test/p0b-native-sandbox-20260912 (git -c http.version=HTTP/1.1); commit chain read first: f1edc65 -> f070a855 (Merge PR #9) -> 4997b13 (prior local head). git checkout -b --track failed twice with 'cannot set up tracking information' on git 2.55.0.windows.3; the branch was created at f1edc65 and switched with index and worktree verified byte-identical to f1edc65 (no reset, no stash, no force, no content loss), upstream set via branch config. Worktree clean before changes. Node 26.4.0 / pnpm 11.7.0 / dependencies reused without reinstall."
+  },
+  "pinnedProgram": {
+    "executable": "node_modules/.pnpm/@openai+codex@0.149.1-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/bin/codex.exe",
+    "version": "0.149.1",
+    "sha256": "a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6",
+    "sha256ReverifiedThisRound": true,
+    "globalProgramUntouched": true
+  },
+  "sandboxHelpCheck": {
+    "command": "codex.exe sandbox --help",
+    "exitCode": 0,
+    "stdoutBytes": 1764,
+    "stderrBytes": 0,
+    "isolation": "Fresh CODEX_HOME/home/tmp under C:\\dsh-r21-verify-20260912-01\\sandbox-help; environment built from scratch (CODEX_HOME, HOME, USERPROFILE, TEMP, TMP, SystemRoot, WINDIR, PATH whitelist), nothing inherited, asserted free of KEY/TOKEN/SECRET/PASSWORD/CREDENTIAL members; no auth material present or read.",
+    "keyFindings": [
+      "Host 'sandbox' command exists: 'Run commands within a Codex-provided sandbox'; COMMAND described as 'Full command args to run under Windows restricted token sandbox'",
+      "-P/--permission-profile <NAME>, --include-managed-config and -C/--cd <DIR> flags all present",
+      "No 'sandbox windows' subcommand was guessed or used"
+    ],
+    "log": "sandbox-help-r21-win.json"
+  },
+  "native": {
+    "file": "scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs",
+    "cases": 1,
+    "firstRun": {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs",
+      "exitCode": 1,
+      "outcome": "SANDBOX_PROBE_NOT_COMPLETED",
+      "diagnostic": { "exitCode": 1, "signal": null, "timedOut": false, "stdoutBytes": 0, "stderrBytes": 98, "stderrSha256": "c538b352839a27d8d509e7a13123f0f976e1a8ffb9d5dc44409aefe3ad41b496" },
+      "log": "native-first-r21-win.tap"
+    },
+    "outOfTestReproduction": {
+      "purpose": "Capture the sanitized native error text and exit code required for failure evidence; the first-run receipt carried only a stderr hash.",
+      "baselineVerifiedFirst": true,
+      "exitCode": 1,
+      "stderr": "windows sandbox failed: Restricted read-only access requires the elevated Windows sandbox backend\n",
+      "jobOwnerBypassedInReproductionOnly": true,
+      "log": "native-repro-r21-win.txt"
+    },
+    "secondRunAfterEvidenceFix": {
+      "exitCode": 1,
+      "outcome": "SANDBOX_PROBE_NOT_COMPLETED",
+      "diagnostic": { "exitCode": 1, "signal": null, "timedOut": false, "stdoutBytes": 0, "stderrBytes": 98, "stderrSha256": "c538b352839a27d8d509e7a13123f0f976e1a8ffb9d5dc44409aefe3ad41b496", "stderrText": "windows sandbox failed: Restricted read-only access requires the elevated Windows sandbox backend\n" },
+      "deterministicWithFirstRun": true,
+      "log": "native-final-r21-win.tap"
+    },
+    "positiveControl": "Unrestricted parent/child baseline passed inside every native run (reads of both fixtures, both write markers created and removed by exact path, child spawned and read outside bytes) and the job-owner cleanup assertions (terminateOwned, activeProcesses 0, disposed) held in both runs; the failure is the sandbox refusal, not a harness defect.",
+    "status": "BLOCKED",
+    "blocked": {
+      "reason": "The pinned Codex sandbox refuses the qualification profile: restricted read-only access (reads denied outside approved roots) requires the elevated Windows sandbox backend; this round runs unelevated by explicit constraint.",
+      "pinnedSourceEvidence": {
+        "repository": "openai/codex",
+        "ref": "rust-v0.149.1",
+        "unelevatedBail": "codex-rs/windows-sandbox-rs/src/lib.rs, run_windows_sandbox_capture_with_filesystem_overrides: bails with the exact observed error whenever !permissions.has_full_disk_read_access(); WRITE_RESTRICTED tokens consult restricting SIDs only for writes, so deny-read cannot be expressed unelevated.",
+        "unelevatedCapability": "Full-disk-read profiles only (workspace-write style): deny-write expressible, deny-read not expressible.",
+        "elevatedRequirements": "codex-rs/windows-sandbox-rs/src/elevated_impl.rs: requires dedicated sandbox logon credentials (require_logon_sandbox_creds), capability SIDs (load_or_create_cap_sids) and local ACL changes (including the null-device ACL) under an administrator context; the file contains no self-elevation step, the caller must already be elevated."
+      },
+      "minimalAdditionalAuthorization": "A specific owner decision to initialize the pinned Codex elevated Windows sandbox backend once under an administrator context: creating/using a dedicated local sandbox logon account and credentials, capability SIDs, and the local ACL changes that backend performs, then launching the qualification through the job owner elevated.",
+      "impactScope": "Local machine account/ACL state only (dedicated local sandbox account, capability SIDs, local ACLs including the null device). No network access, no model calls, no production credentials, no system-wide firewall changes. The refusal is a native capability limitation, not a code defect; no assertion was deleted, no deny rule was relaxed, no full-access fallback was used, and the managed requirements (--permission-profile with --include-managed-config) were retained."
+    }
+  },
+  "observer": {
+    "command": "node --test scripts/p0-b/windows-credentials/codex-sandbox-qualification.test.mjs",
+    "exitCode": 0,
+    "passed": 18,
+    "failed": 0,
+    "skipped": 0,
+    "log": "observer-final-r21-win.tap",
+    "scope": "Real Node parent/child processes and filesystem on Windows for the positive control; simulated denial receipts validate the observer only. Not OS isolation evidence."
+  },
+  "evidenceFix": {
+    "defect": "The native test's failure diagnostic kept only a stderr SHA-256, so a failing synthetic invocation could not preserve the sanitized native error text as required.",
+    "fix": "codex-sandbox-qualification-native.test.mjs now emits byte-bounded, printable-only stderrText/stdoutText excerpts alongside the digest and exit code. No assertion, timeout, profile rule or cleanup requirement was changed; the second run reproduced the first failure deterministically."
+  },
+  "documentationFixes": [
+    "Agent Note pair restructured to the required format (## Problem opener, ## Alternatives considered added); the preparation commit's note violated verify-agent-note-format, exposed by the first test:docs run (log preserved).",
+    "Chinese note link to the out-of-corpus scripts/p0-b/windows-credentials/sandbox-qualification.md pair realigned to the shared authored path; the corpus rule permits the .zh.md switch only for in-corpus targets.",
+    "sandbox-qualification.md/.zh.md now point executed checks at the preparation and Windows receipts; the handoff records the r21 Windows result."
+  ],
+  "checks": {
+    "pairingWriteQualificationDoc": {
+      "command": "pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/sandbox-qualification.md",
+      "exitCode": 2,
+      "result": "Refused as out of scope: scripts/ documents other than READMEs are outside the i18n corpus (docs/i18n/README.md). Recorded as the actual outcome; no sidecar was created for this pair.",
+      "log": "pairing-write-qualification-r21-win.log"
+    },
+    "pairingWriteAgentNote": {
+      "command": "pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-12-native-codex-scope-qualification.md",
+      "exitCode": 0,
+      "log": "pairing-write-note-r21-win.log"
+    },
+    "pairingCheckAgentNote": { "exitCode": 0, "log": "pairing-check-note-r21-win.log" },
+    "typecheck": { "command": "pnpm run typecheck", "exitCode": 0, "log": "typecheck-r21-win.log" },
+    "lint": { "command": "pnpm run lint", "exitCode": 0, "warnings": 0, "errors": 0, "log": "lint-r21-win.log" },
+    "testDocsFirst": { "command": "pnpm run test:docs", "exitCode": 1, "failedGates": ["markdown links (receipt not yet created)", "agent note format (preparation-commit note)"], "firstFailurePreserved": true, "log": "test-docs-first-r21-win.log" },
+    "testDocsFinal": { "command": "pnpm run test:docs", "exitCode": 0, "passed": 15, "failed": 0, "log": "test-docs-r21-win.log" },
+    "docSync": { "command": "pnpm run doc-sync", "exitCode": 0, "passed": 33, "failed": 0, "log": "doc-sync-r21-win.log" }
+  },
+  "protectedFilesUnchanged": {
+    "verifiedAgainst": "f070a85554ba82fd30f89d7300e86645609081f7",
+    "method": "git diff <parent> -- <paths> empty; byte-identical",
+    "paths": [
+      "config/agents/models.v1.json",
+      "config/agents/models.v1.lock.json",
+      "pnpm-lock.yaml",
+      "development/nodes/P0-B/state.json"
+    ]
+  },
+  "notRun": [
+    "r20 62/1 input-snapshot suites, TLS, credential and gating suites (inputs unchanged; not repeated)",
+    "snapshot re-record, real-API e2e, CI matrix (no GitHub Actions run was triggered or claimed)",
+    "model calls, gateway or relay access, production credentials, global authentication stores",
+    "elevated Windows sandbox backend initialization (not authorized this round)"
+  ],
+  "notDelivered": [
+    "Production OS isolation or admission of the diagnostic receipt",
+    "Sandboxing of the main Codex process or all configuration-discovery paths",
+    "A second sandbox runner or any new token/ACL launcher"
+  ],
+  "productAccepted": false,
+  "productionIsolationAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 19700,
+    "sha256": "9b21a3c64524e9d87af52d046b31c59e2e9270318ff22705c4cc1276d0919ac9",
+    "metadata": "uid/gid/mtime=0; uname/gname empty; member order sorted by name",
+    "sanitization": "The local Windows account name in the reproduction log was replaced with <local-user>; no environment or credential material is present in any member.",
+    "members": {
+      "doc-sync-r21-win.log": { "bytes": 2787, "sha256": "7857974d6c7b689cbaa6aa84cef222d1891f3893d19342e10b34e852d3101780", "gitBlob": "da4d70d5123990319ebc7ad241636d0e2e6eca46" },
+      "lint-r21-win.log": { "bytes": 160970, "sha256": "5ae0b512f5c820e89ee6eebcd4c0942f0c658d3e92ad269124f8f6d3ce10cf90", "gitBlob": "4778a4c94fe642fb54c5250f9ac6f3984cb9dca0" },
+      "native-final-r21-win.tap": { "bytes": 1663, "sha256": "aa7be291553b6875c2cbf26f116b19b3ab8d96f6798a29bedfe85d61189dffdc", "gitBlob": "91e670e61a0b4ee4580cc4d6b3688030a03fccce" },
+      "native-first-r21-win.tap": { "bytes": 1534, "sha256": "8c616236efbbbad3dae79958adef47e32f105ec0b10d02d8812278c30b5c3015", "gitBlob": "4e340709581c79ba5c2f234543fd05a7697d5dca" },
+      "native-repro-r21-win.txt": { "bytes": 462, "sha256": "ee62222177b598e7ae1f4792fc7200d3f78911e08b1c0d8013230634995e5ab6", "gitBlob": "4439c7529e1ac15f30fbc26168f472cd457993e5" },
+      "observer-final-r21-win.tap": { "bytes": 1548, "sha256": "1a5b84dd3213951ba48cd59bff7fdad9a02c44aadeec06ae5d9602b83fd505f4", "gitBlob": "eaec5235ca179d3394befad2e0f32644b1a83da8" },
+      "pairing-check-note-r21-win.log": { "bytes": 229, "sha256": "acee29ca25f6dc661c491fab63c71c87b276f723712a2f585760defe1e6c0fb6", "gitBlob": "fb5e74b06377f5bdd8daa3324aa9ec59169078f3" },
+      "pairing-write-note-r21-win.log": { "bytes": 348, "sha256": "6a6734a01889e7fdeb691720e7ed9cceb934dafa332434248b69b1f047bc4f4f", "gitBlob": "aae5f75c2bb9e637c35232949b7236ec78c7ca8a" },
+      "pairing-write-qualification-r21-win.log": { "bytes": 342, "sha256": "b57a6d27c02c29ed66238902ca74bb0c9f6373ad41fdc1b1be6023694019a039", "gitBlob": "24bb134400223f5d09093faf791a08453187f316" },
+      "sandbox-help-r21-win.json": { "bytes": 2364, "sha256": "ac3988cf829a9db7801c212d905dd0e851d650523ee47e7055a6be3f01f608dc", "gitBlob": "bc5a8c666f47d76067ce9b1be63d542466475381" },
+      "test-docs-first-r21-win.log": { "bytes": 2850, "sha256": "a8e9548e58bc06828f1d9c8da5661f9b321aa863dd0883841762d1bef5b2eb08", "gitBlob": "de761bf046a39f7f1c396e01ff8ac8b5d05e06eb" },
+      "test-docs-r21-win.log": { "bytes": 1429, "sha256": "04c35705f0570e38fb4a20c8b7008602033607a730c6cf2a7759129340506bba", "gitBlob": "23820f55b7f67c5ac0d13e27044d679706fca1a7" },
+      "typecheck-r21-win.log": { "bytes": 160764, "sha256": "ae766e03ce98d07e1de2c2fa0cf6b849d9a6c50d08acae4a1d2659694e66e454", "gitBlob": "951e41c08ee5f042aa2ffd0d3ed31325f3886c19" }
+    }
+  },
+  "files": [
+    { "path": "scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs", "bytes": 6297, "sha256": "4a636da01f72d69d8178c8c86c2c5d8208be10e2c85412d1a28d99f1de60593b", "gitBlob": "de8f714ca187853c7e555ef0d30ff0e8f205cea0" },
+    { "path": "scripts/p0-b/windows-credentials/sandbox-qualification.md", "bytes": 4192, "sha256": "205708821b1da3a47ad948dd1154a06bbb1f31cb6c88a8acf52d26fb770913f1", "gitBlob": "3902c7f9f658b280e1addc70dd0d5d21c7445ade" },
+    { "path": "scripts/p0-b/windows-credentials/sandbox-qualification.zh.md", "bytes": 3504, "sha256": "2700fbf06033706fcda63a9792ae73bae90b6295a5eed75140905b2485e3a2cc", "gitBlob": "f7204514fc35aebd99084b87c57b1091921cbe89" },
+    { "path": ".agents/notes/implemented/testing/2026-09-12-native-codex-scope-qualification.md", "bytes": 3481, "sha256": "1a4f8205104059c3e992cabe0ffe1d73fd56808af1811aed451bf348ced69621", "gitBlob": "bc9f13c2d87f7523fcdc9e17208439d04800c1bc" },
+    { "path": ".agents/notes/implemented/testing/2026-09-12-native-codex-scope-qualification.zh.md", "bytes": 2848, "sha256": "71b81b1a455895dbfc4a562cff543aa0e265fe7fe04a8ad9a72bf56968d7d864", "gitBlob": "250030d23fe7dc7008e4d92779c0053fd69c122b" },
+    { "path": ".agents/notes/implemented/testing/2026-09-12-native-codex-scope-qualification.i18n.yaml", "bytes": 554, "sha256": "e14ef726c894e7a41c4358e3bae080e8a84f2403c5c6e68fa79f2883000c6adf", "gitBlob": "b7497b7005c447edaa84d5d5baf37e36d1cedc45", "new": true },
+    { "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md", "bytes": 5565, "sha256": "74730aa003e2b28cfe2059af0fc35e4064a782e0c38158638ce12d5b5e2d49ea", "gitBlob": "9fc589d34095fd93362023cbfbb7e011fc69c90e" }
+  ]
+}
