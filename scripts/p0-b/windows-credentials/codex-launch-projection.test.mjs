@@ -76,3 +76,22 @@ test('POSIX projection uses explicit isolated paths and keeps shell key forwardi
   assert.equal(shellConfig.includes(result.credentialEnvironmentVariable), false)
   assert.equal(result.requiredBeforeCredentialRead.includes('external-budget-enforcement'), true)
 })
+
+
+test('non-Git snapshot mode is explicit and retains the sandbox and model configuration', () => {
+  const { config, approved, input } = fixture()
+  const ordinary = projectCodexLaunch(config, approved, input)
+  const snapshot = projectCodexLaunch(config, approved, { ...input, workspaceKind: 'fixed-input-snapshot' })
+  assert.equal(ordinary.args.includes('--skip-git-repo-check'), false)
+  assert.equal(snapshot.args.includes('--skip-git-repo-check'), true)
+  assert.deepEqual(snapshot.args.filter(arg => arg !== '--skip-git-repo-check'), ordinary.args)
+  assert.equal(snapshot.configToml, ordinary.configToml)
+  assert.deepEqual(snapshot.route, ordinary.route)
+})
+
+for (const workspaceKind of ['other', false, undefined]) {
+  test(`rejects an explicit invalid workspace kind ${String(workspaceKind)}`, () => {
+    const { config, approved, input } = fixture()
+    assert.throws(() => projectCodexLaunch(config, approved, { ...input, workspaceKind }), /CODEX_LAUNCH_PROJECTION_REFUSED/)
+  })
+}

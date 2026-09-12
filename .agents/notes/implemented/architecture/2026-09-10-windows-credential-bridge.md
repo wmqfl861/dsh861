@@ -30,6 +30,8 @@ The owner-admission consumer verifies a signed, exact-request decision and consu
 
 A credential-free TLS verifier checks one exact deployment route with explicit trust, hostname validation and bounded socket cleanup at the owner-admission reader. The signed record selects the configured route; invalid consent never opens a connection. TLS completion is followed by fresh consent and live-control checks. A receipt certifies only the probe, not the subsequent CLI connection, gateway behavior or monetary enforcement. Loopback tests use a synthetic public CA and test-only server key; no trust is installed globally.
 
+Planning preparation exports an explicit read set from immutable Git object identities instead of copying the mutable checkout. Raw blob reads omit checkout filters and replacement references, while a separately owned directory prevents ordinary worktree edits from changing the prepared input. The request and native working directory both name that directory before owner signing. Whole-tree verification rejects additional or changed files; filesystem permissions and process isolation remain independent requirements. This separates content selection from OS enforcement without replacing the existing approval or invocation services.
+
 ## Alternatives considered
 
 Plaintext files and command-line password arguments expand disclosure paths. Plaintext reader stdout makes accidental process logging unsafe. A full platform secret service and public management UI require authorization and deployment contracts beyond this support component; the component does not claim to deliver them.

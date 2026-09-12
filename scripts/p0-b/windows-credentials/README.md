@@ -77,6 +77,16 @@ A probe certifies only its own connection. It does not protect later Codex reque
 
 A sealed credential read is itself asynchronous. Before releasing its completed response to the existing reader, admission checks the still-valid decision, reservation binding, live controls and fixed input bytes again. Expiry, revocation or changed input during that read prevents response delivery and target launch; the read may already have occurred and is not reported as zero. This check does not revoke credentials already delivered to a running target. Continuous enforcement and immutable inputs remain deployment responsibilities.
 
+## Fixed-commit input snapshots
+
+[planner-input-snapshot.mjs](planner-input-snapshot.mjs) prepares the existing unsigned planner request from a fixed local Git commit and an explicit path/SHA-256 read set. It verifies the Git executable, requires locally available raw objects, and disables replacement references, lazy fetch and ambient Git configuration. Only ordinary committed blobs are exported; checkout filters, staged edits, live worktree content, untracked files, submodules and symbolic-link entries are not used. File count, per-file bytes, total bytes and per-command time are explicit deployment limits.
+
+Preparation owns a fresh random allocation beneath a protected local parent. Its `input` directory contains only the admitted files, with original bytes preserved and no source `.git` directory or hardlinks. A separate manifest records commit, blob and content identities. `prepared.run.input.workspace` and the existing Codex projection's `--cd` both point to this snapshot; sign this prepared request, not the preceding source-workspace request. Explicit `workspaceKind: 'fixed-input-snapshot'` adds only `--skip-git-repo-check` for the non-Git directory. Ordinary inputs retain their existing argv; sandbox and approval settings do not change.
+
+The returned `verify()` checks the complete tree and manifest, refusing extra, missing, linked or changed content. `dispose()` joins concurrent cleanup calls and deletes only its owned allocation; replaced root identity blocks deletion, while inner links are unlinked without traversing their targets. Dispose only after all consumers are confirmed stopped. Existing grants are not reissued, consumed attempts are not reset, and preparation neither calls a model nor supplies credentials.
+
+Snapshot bytes are independent of later checkout changes, but advisory file modes are not Windows ACLs and integrity checks are not OS access control. The trusted deployment must protect Git, source objects, snapshot parents and files from concurrent tampering, prevent the agent from reading outside the admitted directory, and call `verify()` through its live isolation checks. The [r20 Windows receipt](../../../development/remediation/2026-09-12/input-snapshot-r20-win/verification.json) records the native Git-for-Windows snapshot suites, the junction and read-only cleanup controls, and the pinned Codex CLI's own offline help for `--skip-git-repo-check`; the synthetic native composition still uses Node as its CLI stand-in, not a model, and is not OS isolation. A `.git`-free directory may require separately approved source files before a useful plan can be produced; the exporter never widens the read set automatically.
+
 ## Verification
 
 Run from the repository with pinned dependencies; leave module-override variables unset for normal verification.
@@ -87,6 +97,8 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
 node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs

@@ -1,39 +1,32 @@
 # Windows 验证、凭据接入与 P0-B 规划交接
 
-仅处理 `wmqfl861/dsh861`，本地项目为 `C:\Albert\project\dsh861`。继续 PR #8 的 `feat/p0b-owner-approval-20260911`，不复活 PR #7，不应用旧附件。P0-B blocked，不合并 master，不进入 P0-C；本轮不启动真实模型或指定规划／硬审核。
+仅处理 `wmqfl861/dsh861`，本地项目为 `C:\Albert\project\dsh861`。PR #8 已合入开发分支，合并提交 `decfb608ed52374db4dfa7c02491cc3e9f39534c` 接收 `2f5c328f92477bc4a98f88ef2de68d34fb07c606`，不再向已关闭的批准修复分支追加旧任务。P0-B 仍 blocked，master 未合并，不进入 P0-C，不签发真实执行批准或指定审核。
 
-## 当前输入
+## 已接收结果与新范围
 
-本地 r17 提交 `602a3d9498f044a71df9632748c72602f09b7599` 之后，远端已有 r18 提交 `5e72c4a5644794f9c5fd4a0bb9bf0b587853dca9`。本次 r19 正常叠加其上，保留[Windows 批准层回执](../remediation/2026-09-11/approval-admission-r17-win/verification.json)、[TLS 回执](../remediation/2026-09-12/planner-tls-r18/verification.json)、原申请和全部历史记录。r18 的 TLS 及待执行原生用例不是另一份要重复应用的补丁。
+[r18/r19 Windows 回执](../remediation/2026-09-12/r18-r19-win/verification.json)记录 TLS 24/24、消费与读取完成31/31、原生6/6及类型、lint、完整文档检查通过。接收审查读取了实际提交差异和结构化回执，没有在当前 Linux 会话重跑 Windows 或独立解包该九文件日志。原提交没有产品源码修复；这些测试不再因合并或后继文档提交机械重跑。查询该提交的 Actions 返回0次运行，不算CI通过。
 
-## r19：读取开始不等于响应可以放行
+新任务分支 `feat/p0b-input-snapshot-20260912` 只处理固定输入快照与原规划入口的连接，不另写启动器、签名或TLS服务。[快照实现](../../scripts/p0-b/windows-credentials/planner-input-snapshot.mjs)从固定提交的获准普通blob创建独立目录，不读取工作区修改，不复制`.git`或未列入的文件。返回的prepared对象保留源码身份并改用快照路径，现有投影明确采用非Git目录选项而保留read-only和审批限制。批准必须在准备后绑定完整请求，旧目录的签名不能认证新目录。
 
-[准入层](../../scripts/p0-b/windows-credentials/owner-approved-planner.ts)在密封读取完成后再次核对批准有效期、预约绑定、在线控制及固定文件，再把响应交给既有读取器。读取期间发生撤销、过期、提示词／读取文件改变或预约错配时，不放行密封响应。已经开始的读取仍记为发生过，不能回写为零；本检查不撤销已交付给运行中目标的凭据，也不替代持续的 OS／费用控制。
+本次目录快照不是ACL或OS沙箱。`verify()`只是整树完整性检查，生产控制仍须保护父目录、文件和运行身份，阻止读到快照外部。不得把“目录只导出了两份文件”说成“进程只能读两份文件”。[r20记录](../remediation/2026-09-12/input-snapshot-r20/verification.json)区分实测和未执行项。
 
-运行时只修改上述一个文件；原凭据、签名账本、TLS 验证器、作业对象、门控启动和投影／原入口均保持原样。原消费路径的在线检查次数由3改为4，对应新增读取完成检查，不删除既有断言。[七项读取完成控制](../../scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs)与[后继证据](../remediation/2026-09-12/read-completion-r19/verification.json)记录先失败再修复的结果。
+## 本地下一步
 
-## 本地一次性完成 r18+r19 的受影响验证
-
-安全同步同一分支至最新提交，沿用 Node 26.4.0、专用 pnpm 11.7.0 和既有依赖。不要重装、不强制覆盖、不自动 stash。已有更晚提交时先读差异，不能回退。无新变化的 r17 批准21项、旧门控、凭据存取、版本帮助、配置解析和历史归档不重复运行。
-
-执行以下四组：TLS 套件24项、消费路径24项、读取完成7项，以及 Windows 原生组合6项。原生6项包含 r18 的3项和新增读取中撤销／过期／提示词变化3项，必须在 Windows 实跑。正常仓库不设置模块覆盖变量。仅使用临时合成签名、密封对端及回环 TLS，不请求中转，不安装测试 CA，不改变宿主安全策略。
+沿用现有Node26.4.0、pnpm11.7.0、Git和依赖，安全同步新任务分支；不复活PR #7/#8、不应用旧ZIP、不自动stash或强制覆盖。先运行新快照43项和受影响投影19项，再运行已写好的Windows原生快照组合1项。后者使用真实临时Git、已有批准／TLS／门控入口，但签署者、凭据对端、金额与OS控制仍为合成；不认证生产模型或隔离。
 
 ```sh
-node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
-node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs
-node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs
 ```
 
-新增原生用例要求真实既有入口返回拒绝、目标 marker 不存在、作业计数归零且已销毁、只发生一次合成密封读取、恢复合成提示或测试时钟后仍不能重用批准。区分“读取前拒绝”和“读取已开始但禁止继续”，不要统一改写成 reads=0。时钟模拟由测试上下文恢复，不影响服务器时间。
+核验Git for Windows支持本次使用的`--no-lazy-fetch`等选项；不支持就明确阻塞，不删除禁止拉取的限制。核验Windows只读文件清理、junction精确解链、目录身份与原生cwd；缺失或跳过不能记为通过。只处理临时测试资源，不修改源仓库状态、hooks或全局Git配置。核对钉版Codex帮助中非Git目录选项，必要的解析探针使用隔离配置和无凭据环境且不得请求网关；不重复完整模型兼容性探针。该选项不关闭sandbox或approval。
 
-保留首次失败，最小修复真实原因，不删断言或用任意重试掩盖错误。按影响完成类型、lint、test:docs/doc-sync。README 双语已更新；r18 既有 Agent Note 的配对写入仍待本地，核对后对 README 和该 Note 点名重录，不用 --write --all。已有匹配当前输入的有效结果可复用，不为了提交机械重跑。
+本轮改动了投影和入口输入类型，所以需受影响的类型、lint、文档检查；旧TLS／凭据／签名／作业实现未改时不全量重跑。README与现有Agent Note两对正文一起核对后用原程序点名重录i18n记录，不用`--write --all`，不关闭项目钩子。发生新失败，保留首次输出并最小修复。正常提交推送本任务分支，提供可取回日志、实际退出码及最终SHA。
 
-只暂存明确文件，正常推送本分支，保持原 PR #8。交回新 SHA、24/24/7/6 的实际结果与明确跳过情况、必要门禁及可取回日志。归档只包含必要证据，清空账户／组／时间头；不重造缺失历史日志。
+2026-09-12 本轮已在 Windows 实跑上述全部验证。首次运行快照 43 项与原生 1 项全部失败于同一根因：Node 的 `os.devNull` 在 win32 为 `\\.\nul`，Git for Windows 拒绝将其作为 `GIT_CONFIG_GLOBAL`（实测该程序接受 `NUL`、`nul` 与 `/dev/null`，仅拒绝 `\\.\nul`）；已在快照实现和两个测试夹具中最小修复为平台正确的空配置路径，拉取／替换／系统配置禁用全部保持。复跑 62/62（43 快照＋19 投影）、原生 1/1（约 3.1 秒实跑）通过、零跳过；钉版 Codex 0.149.1 在隔离 `CODEX_HOME`、无凭据、零网关请求条件下由其自身离线帮助确认 `--skip-git-repo-check`。受影响类型、lint、文档门禁结果与首失日志见[Windows 执行回执](../remediation/2026-09-12/input-snapshot-r20-win/verification.json)；OS 隔离、生产签署、金额强制仍未交付，不据此重发启动申请。
 
-2026-09-12 本轮已在 Windows 实跑上述全部验证：TLS 24/24、消费路径 24/24、读取完成 7/7、原生组合 6/6，全部通过、零失败、零跳过；无需源码修复。全仓 typecheck、lint（0 警告 0 错误）、test:docs 15/15、doc-sync 33/33 通过；README 与 Agent Note 的双语配对已点名重录并复验一致，受保护文件字节与 r17-win 回执逐字节相同。证据与日志见[Windows 执行回执](../remediation/2026-09-12/r18-r19-win/verification.json)。
+## 真实运行仍需决定和落实
 
-## 仍未完成的真实调用条件
+本轮不需要API Key，不读写或枚举生产凭据、不访问用户中转、不安装CA、不登记生产签署身份，不代写plan.v4或OpenCode硬审核。现行HTTP配置继续拒绝。模型声明、模型锁、pnpm-lock和state.json保持原字节。
 
-代码测试不会登记生产信任、导入真实 Key、确认服务商撤销、授予 HTTPS 路由或费用权限。生产签署入口／公钥登记、账本 ACL／恢复、经验证的只读与范围隔离、实际 CLI 的 TLS 及金额强制仍分别需要实现或部署。TLS 探测只证明探测自身，不能认证后续 CLI 连接。具体路由、轮换确认及本人隐藏录入、金额／币种／有效期由用户决定；不索取新 Key 到聊天或让 agent 代填。
-
-四套模型声明、模型锁、pnpm-lock、state.json、[未批准申请](../nodes/P0-B/planner-launch-request.r01.md)和[固定提示词](../nodes/P0-B/planner-prompt.r01.txt)保持不变。保留[网页后台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)，但本轮没有交付后台页面，不扩大为完整控制台、通用权限或计费框架。指定 Codex plan.v4 和 OpenCode 硬审核不能由本轮或内置子代理代签。
+生产签署入口／信任登记、账本ACL／恢复、OS只读与范围隔离、实际CLI连接保护、金额强制仍须落实；快照使输入可固定，不替代它们。实际路由、旧Key服务商撤销和本人私录、费用／币种／有效期由所有者决定，不要求用户手工维护内部哈希或提供新Key到聊天。保留[网页控制台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)及[未批准的启动申请](../nodes/P0-B/planner-launch-request.r01.md)，不扩大为本轮完整后台开发。
