@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.7.0",
+  "packageManager": "pnpm@12.4.1",
   "engines": {
     "node": "^22.19.0 || >=24.0.0"
   },
@@ -161,6 +161,7 @@
     "postinstall": "node scripts/install-lefthook.mjs"
   },
   "devDependencies": {
+    "@anthropic-ai/claude-code": "2.1.269",
     "@deepseek-ai/dsh-tool-session-query": "workspace:^",
     "@deepseek-ai/dsh-web-fetch-http": "workspace:^",
     "@stylistic/eslint-plugin": "^5.10.0",
@@ -172,6 +173,7 @@
     "@types/node": "^22.20.0",
     "@types/spdx-expression-parse": "^4.0.0",
     "@vitest/coverage-v8": "^4.1.8",
+    "@xai-official/grok": "1.0.25",
     "@yao-pkg/pkg": "6.21.0",
     "@yarnpkg/cli-dist": "4.17.1",
     "eslint-plugin-sonarjs": "^4.1.0",
@@ -187,6 +189,7 @@
     "mdast-util-gfm": "^3.1.0",
     "mermaid": "11.16.0",
     "micromark-extension-gfm": "^3.0.0",
+    "opencode-ai": "1.18.30",
     "oxlint": "1.76.0",
     "oxlint-tsgolint": "7.0.2001",
     "publint": "^0.3.21",

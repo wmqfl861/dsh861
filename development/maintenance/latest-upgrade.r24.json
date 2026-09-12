@@ -1,0 +1,159 @@
+{
+  "round": "r24",
+  "kind": "owner-requested-latest-stable-upgrade",
+  "recordedDate": "2026-09-12",
+  "baseCommit": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+  "status": "PARTIAL_MANIFEST_UPDATE_LOCK_AND_INSTALL_PENDING",
+  "authority": {
+    "projectProgramAndDependencyUpgrades": true,
+    "lockfileRegeneration": true,
+    "compatibilityMigration": true,
+    "globalInstallations": false,
+    "systemSandboxSetup": false,
+    "modelConfigurationChanges": false,
+    "paidModelCalls": false
+  },
+  "selection": "Resolve latest stable once at the start of the local batch from publisher registries/releases, record time/provenance and exact resolved versions, then keep that batch fixed. No nightly/prerelease adoption or downgrade merely because latest points to an older stable line. Existing preview-only source projects use their current documented channel and reviewed immutable commit.",
+  "targets": [
+    {
+      "name": "@openai/codex",
+      "observedVersion": "0.154.0",
+      "previous": "0.149.1",
+      "declaration": "packages/subagent/subagent-codex/package.json",
+      "state": "DECLARATION_UPDATED_NOT_INSTALLED",
+      "source": "https://api.github.com/repos/openai/codex/releases/latest",
+      "releaseTag": "rust-v0.154.0"
+    },
+    {
+      "name": "@anthropic-ai/claude-code",
+      "observedVersion": "2.1.269",
+      "previous": "not a root development dependency",
+      "declaration": "package.json",
+      "state": "PROJECT_LOCAL_DEV_TOOL_DECLARED_NOT_INSTALLED",
+      "source": "https://api.github.com/repos/anthropics/claude-code/releases/latest"
+    },
+    {
+      "name": "@anthropic-ai/claude-agent-sdk",
+      "observedVersion": "0.3.269",
+      "previous": "0.3.241",
+      "declaration": "packages/subagent/subagent-claude-code/package.json",
+      "state": "DECLARATION_UPDATED_NOT_INSTALLED",
+      "source": "https://api.github.com/repos/anthropics/claude-agent-sdk-typescript/releases/latest"
+    },
+    {
+      "name": "@anthropic-ai/sdk",
+      "observedVersion": "0.125.0",
+      "previous": "0.93.0",
+      "declaration": "packages/subagent/subagent-claude-code/package.json",
+      "state": "DECLARATION_UPDATED_NOT_INSTALLED",
+      "source": "https://github.com/anthropics/anthropic-sdk-typescript/blob/main/package.json",
+      "note": "The repository releases/latest currently identifies aws-sdk, a different package. Use actual npm package metadata for final resolution."
+    },
+    {
+      "name": "opencode-ai",
+      "observedVersion": "1.18.30",
+      "previous": "not a root development dependency",
+      "declaration": "package.json",
+      "state": "PROJECT_LOCAL_DEV_TOOL_DECLARED_NOT_INSTALLED",
+      "source": "https://api.github.com/repos/anomalyco/opencode/releases/latest"
+    },
+    {
+      "name": "@xai-official/grok",
+      "observedVersion": "1.0.25",
+      "previous": "historical discovery 1.0.24; not installed by that discovery",
+      "declaration": "package.json",
+      "state": "PROJECT_LOCAL_DEV_TOOL_DECLARED_NOT_INSTALLED",
+      "source": "https://www.npmjs.com/package/%40xai-official/grok",
+      "note": "Publisher npm page; live registry recheck required before resolving the batch. Do not substitute another similarly named Grok product."
+    },
+    {
+      "name": "pnpm",
+      "observedVersion": "12.4.1",
+      "previous": "11.7.0",
+      "declaration": "package.json#packageManager",
+      "state": "DECLARATION_UPDATED_LOCAL_BOOTSTRAP_AND_MIGRATION_PENDING",
+      "source": "https://api.github.com/repos/pnpm/pnpm/releases/latest"
+    },
+    {
+      "name": "node",
+      "observedVersion": "26.8.2",
+      "previous": "local report 26.4.0",
+      "state": "PROJECT_LOCAL_TOOLCHAIN_UPGRADE_PENDING",
+      "source": "https://api.github.com/repos/nodejs/node/releases/latest"
+    },
+    {
+      "name": "typescript",
+      "observedVersion": "7.0.2",
+      "previous": "^6.0.3",
+      "state": "COMPILER_AND_API_COMPATIBILITY_MIGRATION_PENDING",
+      "source": "https://registry.npmjs.org/typescript/latest",
+      "migrationReference": "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/",
+      "note": "Use current native compiler and the publisher-supported current TypeScript 6 compatibility package where existing compiler-API consumers still need it. Resolve that compatibility package from its own registry; distinguish native tsc from API tooling. No fake pass by changing peer ranges or transpiling without typechecking."
+    }
+  ],
+  "sourceProjects": [
+    {
+      "repository": "deepseek-ai/deepseek-harness",
+      "observedDefaultBranch": "master",
+      "observedCommit": "c291e7961a515f6d7af9304e7fd1d257929aef26",
+      "state": "SOURCE_INTEGRATION_PENDING",
+      "releaseApi": "404 no latest release",
+      "note": "Official default source commit, not a stable release claim. Local merge-forward must retain dsh861 features, rules and historical evidence; do not replace the fork wholesale."
+    },
+    {
+      "repository": "deepseek-harness/cosmokit",
+      "currentCommit": "16f6fc058ade66e8ac5da0033d35a8d0f279f544",
+      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+    },
+    {
+      "repository": "deepseek-harness/schemastery",
+      "currentCommit": "e67cee00ad725bd1534aee930a979ea3eec6f698",
+      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+    },
+    {
+      "repository": "cordiverse/cordis",
+      "currentCommit": "56b3d4f725681cf4556c1a8695a709cc3b6eed74",
+      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+    },
+    {
+      "repository": "deepseek-harness/cordis",
+      "currentCommit": "abb0a307cb1d3b0947f455d590cf5ba922d4caa4",
+      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+    }
+  ],
+  "requiredCoverage": [
+    "root and every pnpm workspace dependency/devDependency/optionalDependency/peerDependency/override/catalog and resolved transitive graph",
+    "patches and vendored sources, retaining local patches and scope renames",
+    "native Cargo manifests/locks and pinned build tools",
+    "Python manifests/locks/runtime build dependency closure",
+    "CI action revisions, Docker/deployment images and other downloaded tool pins actually used by the project",
+    "GBrain/PostgreSQL/pgvector only where a concrete installed or deployment declaration exists; absent integration is not an already-upgraded service"
+  ],
+  "completionRule": "Every inventory row needs original version, latest resolved target and provenance, resulting version or named incompatibility/absence, changed paths and validation. Metadata lookup alone is not upgrade completion. Refresh transitive versions via supported parent updates, not blanket forced overrides.",
+  "localOrder": [
+    "confirm complete tracked manifest/source inventory and freeze current targets",
+    "merge-forward reviewed current upstream source without losing project changes",
+    "bootstrap project-local current Node/pnpm and migrate all applicable dependency declarations/patches",
+    "regenerate actual locks with the package managers; never hand-edit integrity or retain an obsolete lock while claiming installation",
+    "migrate TypeScript compiler/API consumers and binary pin/path consumers",
+    "install/frozen reinstall and run affected build/type/lint/behavior/Loader/docs checks; record actual binary identities and no-model configuration compatibility"
+  ],
+  "preserved": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "all historical versioned receipts/requests/plans and sandbox-tool-bundle.0.149.1.json"
+  ],
+  "notDone": [
+    "all-workspace latest-version enumeration",
+    "pnpm-lock.yaml regeneration",
+    "new dependencies or runtime installation",
+    "TypeScript 7 compiler/API migration",
+    "upstream/vendor/Python/native/image/CI upgrades",
+    "new Windows/native sandbox validation",
+    "model activation or designated plan/review"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false
+}
