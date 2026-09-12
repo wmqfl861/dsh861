@@ -1,32 +1,32 @@
 # Windows 验证、凭据接入与 P0-B 规划交接
 
-仅处理 `wmqfl861/dsh861`，本地项目为 `C:\Albert\project\dsh861`。PR #8 已合入开发分支，合并提交 `decfb608ed52374db4dfa7c02491cc3e9f39534c` 接收 `2f5c328f92477bc4a98f88ef2de68d34fb07c606`，不再向已关闭的批准修复分支追加旧任务。P0-B 仍 blocked，master 未合并，不进入 P0-C，不签发真实执行批准或指定审核。
+仅处理 `wmqfl861/dsh861`，本地项目 `C:\Albert\project\dsh861`。PR #9 已以 `f070a85554ba82fd30f89d7300e86645609081f7` 合入开发分支，接收 `4997b13f36fcc2473ec15112d5003b6943c8e1ea`。原快照、批准／TLS 和门控轮已结束，不向已关闭 PR #7/#8/#9 追加旧任务。P0-B 仍 blocked，master 未合并，不进入 P0-C，不授予真实模型调用或指定硬审核权限。
 
-## 已接收结果与新范围
+## 接收范围
 
-[r18/r19 Windows 回执](../remediation/2026-09-12/r18-r19-win/verification.json)记录 TLS 24/24、消费与读取完成31/31、原生6/6及类型、lint、完整文档检查通过。接收审查读取了实际提交差异和结构化回执，没有在当前 Linux 会话重跑 Windows 或独立解包该九文件日志。原提交没有产品源码修复；这些测试不再因合并或后继文档提交机械重跑。查询该提交的 Actions 返回0次运行，不算CI通过。
+[r20 Windows 回执](../remediation/2026-09-12/input-snapshot-r20-win/verification.json)记录 Git 空配置路径修复、62/62 快照和投影、1/1 Windows 组合及类型／lint／文档门禁。接收审查读取实际差异和代码，没有在当前会话重新执行 Windows 或独立解包15份日志。原始失败、最小修复、模型声明／模型锁／pnpm-lock／节点状态均保留。无新输入变化时不重跑已完成检查；GitHub Actions按候选查询为0次，不能把本地通过改称CI通过。
 
-新任务分支 `feat/p0b-input-snapshot-20260912` 只处理固定输入快照与原规划入口的连接，不另写启动器、签名或TLS服务。[快照实现](../../scripts/p0-b/windows-credentials/planner-input-snapshot.mjs)从固定提交的获准普通blob创建独立目录，不读取工作区修改，不复制`.git`或未列入的文件。返回的prepared对象保留源码身份并改用快照路径，现有投影明确采用非Git目录选项而保留read-only和审批限制。批准必须在准备后绑定完整请求，旧目录的签名不能认证新目录。
+## r21：先测钉版已有沙箱，不另建运行器
 
-本次目录快照不是ACL或OS沙箱。`verify()`只是整树完整性检查，生产控制仍须保护父目录、文件和运行身份，阻止读到快照外部。不得把“目录只导出了两份文件”说成“进程只能读两份文件”。[r20记录](../remediation/2026-09-12/input-snapshot-r20/verification.json)区分实测和未执行项。
+新任务分支 `test/p0b-native-sandbox-20260912` 提供[无模型诊断](../../scripts/p0-b/windows-credentials/sandbox-qualification.zh.md)。当前钉版源码的 CLI 提供宿主 `sandbox` 命令、`--permission-profile` 和 `--include-managed-config`；此处只编排合成文件和检查结果，复用既有Windows作业属主。不改生产模型投影，不增加另一套原生隔离实现，不把最新文档能力假定为本机二进制已经兑现。
 
-## 本地下一步
+[r21 记录](../remediation/2026-09-12/native-sandbox-r21/verification.json)的18项观察器检查在Linux执行通过；包括真实未受限Node父子进程正控及明确模拟的拒绝回执。1项真正执行钉版Codex沙箱的Windows测试已写好但未执行。只有后者能回答所测原生权限是否成立；前18项不认证操作系统隔离。
 
-沿用现有Node26.4.0、pnpm11.7.0、Git和依赖，安全同步新任务分支；不复活PR #7/#8、不应用旧ZIP、不自动stash或强制覆盖。先运行新快照43项和受影响投影19项，再运行已写好的Windows原生快照组合1项。后者使用真实临时Git、已有批准／TLS／门控入口，但签署者、凭据对端、金额与OS控制仍为合成；不认证生产模型或隔离。
+## 本地的有限任务
+
+安全同步新分支，沿用Node26.4.0、pnpm11.7.0及依赖，不重装、不自动stash或强制覆盖。先点读钉版程序的 `sandbox --help`，确认命令存在性；程序摘要继续是 `a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6`。不升级或切到全局Codex。
 
 ```sh
-node --test scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
-node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs
+node --test scripts/p0-b/windows-credentials/codex-sandbox-qualification.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs
 ```
 
-核验Git for Windows支持本次使用的`--no-lazy-fetch`等选项；不支持就明确阻塞，不删除禁止拉取的限制。核验Windows只读文件清理、junction精确解链、目录身份与原生cwd；缺失或跳过不能记为通过。只处理临时测试资源，不修改源仓库状态、hooks或全局Git配置。核对钉版Codex帮助中非Git目录选项，必要的解析探针使用隔离配置和无凭据环境且不得请求网关；不重复完整模型兼容性探针。该选项不关闭sandbox或approval。
+原生测试只用自建可读写文件和子进程，不接模型、不读生产凭据、不探中转。它先证明普通进程能够读取／写入目标，再经既有作业启动实际Codex沙箱，检查获准输入可读、目录外父子读取被拒、目录内外写入被拒及宿主字节／标记。EOF、超时、启动失败或ENOENT不能算拒绝；若确实不支持该策略或需要初始化，记录BLOCKED和准确原因，不能为了绿灯删断言、切full-access或改成不启动目标。
 
-本轮改动了投影和入口输入类型，所以需受影响的类型、lint、文档检查；旧TLS／凭据／签名／作业实现未改时不全量重跑。README与现有Agent Note两对正文一起核对后用原程序点名重录i18n记录，不用`--write --all`，不关闭项目钩子。发生新失败，保留首次输出并最小修复。正常提交推送本任务分支，提供可取回日志、实际退出码及最终SHA。
+方案选用unelevated并保留受管要求。不得创建系统账号、修改现有用户目录或系统范围ACL／防火墙，不得UAC提权或安装沙箱。若受管策略要求其他模式，或必须初始化，先停止原生执行并给出具体影响范围与最小所需授权；不能用忽略受管配置的方式继续。只在自有临时目录内进行可逆操作，不跟随目录链接清理其他位置。
 
-2026-09-12 本轮已在 Windows 实跑上述全部验证。首次运行快照 43 项与原生 1 项全部失败于同一根因：Node 的 `os.devNull` 在 win32 为 `\\.\nul`，Git for Windows 拒绝将其作为 `GIT_CONFIG_GLOBAL`（实测该程序接受 `NUL`、`nul` 与 `/dev/null`，仅拒绝 `\\.\nul`）；已在快照实现和两个测试夹具中最小修复为平台正确的空配置路径，拉取／替换／系统配置禁用全部保持。复跑 62/62（43 快照＋19 投影）、原生 1/1（约 3.1 秒实跑）通过、零跳过；钉版 Codex 0.149.1 在隔离 `CODEX_HOME`、无凭据、零网关请求条件下由其自身离线帮助确认 `--skip-git-repo-check`。受影响类型、lint、文档门禁结果与首失日志见[Windows 执行回执](../remediation/2026-09-12/input-snapshot-r20-win/verification.json)；OS 隔离、生产签署、金额强制仍未交付，不据此重发启动申请。
+这是新的原生命令验证，不是重跑r20快照、旧TLS／凭据／门控或版本全套探针。完成新增脚本的必要lint／文档检查。两个新文档对用原配对程序点名创建记录：`scripts/p0-b/windows-credentials/sandbox-qualification.md`、`.agents/notes/implemented/testing/2026-09-12-native-codex-scope-qualification.md`；不用`--write --all`，旧README／说明未变，无需重录旧对。保存最初失败、实际命令及退出码；正常推送同一分支，证据可从远端取回。
 
-## 真实运行仍需决定和落实
+## 结果之后的边界
 
-本轮不需要API Key，不读写或枚举生产凭据、不访问用户中转、不安装CA、不登记生产签署身份，不代写plan.v4或OpenCode硬审核。现行HTTP配置继续拒绝。模型声明、模型锁、pnpm-lock和state.json保持原字节。
-
-生产签署入口／信任登记、账本ACL／恢复、OS只读与范围隔离、实际CLI连接保护、金额强制仍须落实；快照使输入可固定，不替代它们。实际路由、旧Key服务商撤销和本人私录、费用／币种／有效期由所有者决定，不要求用户手工维护内部哈希或提供新Key到聊天。保留[网页控制台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)及[未批准的启动申请](../nodes/P0-B/planner-launch-request.r01.md)，不扩大为本轮完整后台开发。
+即使本次测量成功，也只说明合成命令及子进程的所测文件操作；主CLI、配置发现和生产工作区接线仍需单独落实。失败或阻塞则明确该原生方案缺什么，不额外堆叠一轮通用框架。本次不把诊断回执送入生产批准层。生产签署／身份登记、账本ACL／恢复、实际CLI TLS、费用强制，以及用户的真实路由、旧Key撤销／本人私录、金额／币种／有效期仍分别保留。不代写plan.v4，不改[网页后台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)，不把整个后台扩大为准备工作的前置。
