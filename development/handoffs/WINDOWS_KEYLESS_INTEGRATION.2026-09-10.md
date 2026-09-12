@@ -1,31 +1,29 @@
 # Windows 验证、凭据接入与 P0-B 规划交接
 
-仅处理 `wmqfl861/dsh861`，项目目录为 `C:\Albert\project\dsh861`。PR #10 已以 `03494c4e21cc5daddb16b8dfa7c2d9ac95ac7cc7` 合入开发分支，接收 `b60c5e65daf409b46dafd42e4d6d1735d5a3eba9` 的诊断和证据。此合并不代表原生隔离通过：P0-B 仍 blocked，master 未合并，不进入 P0-C，不生成指定计划或硬审核。
+仅处理 `wmqfl861/dsh861`，项目为 `C:\Albert\project\dsh861`。PR #11 已接收 `6cf516949e81ab0aace2c5c8b0dad66ee9274755` 的[只读清点](../nodes/P0-B/windows-elevated-inventory.r01.json)，合并为 `78adb4b3ec0da2183566605559948c2892c335cc`。清点和原申请均未批准；P0-B 仍 blocked，master 未合并，不进入 P0-C。
 
-## r21 已结束，不重复修绿
+## r22 清点的接收与共存决定
 
-[Windows 执行回执](../remediation/2026-09-12/native-sandbox-r21-win/verification.json)记录18项观察器通过、原生1项实际执行后被unelevated后端拒绝，原生继续BLOCKED。类型/lint/test:docs15/doc-sync33是本地已执行的对应候选检查。本次接收读取实际差异和结构化回执，未在远端重跑Windows或独立解包13份日志；对应Actions查询为0次运行。原始失败和所有保护文件保持原样。
+接收读取实际提交、结构化清点及相关钉版源码，没有重复本机查询或独立认证机器事实。已有两账号、组、全局 Codex home 和旧 runner 不动；WFP 的 UNKNOWN 不改写为不存在。新 CODEX_HOME 不隔离固定的系统账号和过滤器标识，不能据此初始化或重置密码。密码重置的风险是已有保存的账号密码失配，不能据此断言 DPAPI 本身失效。可按名定位的已有共享规则／目录也不等于可无损移除；原清点的“可恢复”条目不是清理授权。
 
-scripts 下非 README 参考文档不在现行双语语料范围；没有给 sandbox-qualification.md 生成sidecar并非缺漏，不再重复执行已明确退出2的配对写入。Agent Note的有效配对记录保留。已关闭的PR #7/#8/#9/#10不继续追加旧任务。
+不再要求用户逐项决定九个内部设置。当前操作默认保留现有全局 Codex；具体系统共存／部署方案未批准，既不提权修补旧环境，也不购买或新建虚拟机。未解释的旧规则变化不推断为攻击或某个已知行为方。原生 unelevated 限定读取已证明 BLOCKED，不重跑。
 
-## r22：部署影响审查，不新增运行器
+## r23：补齐程序文件，不执行初始化
 
-后继[源码复核](../remediation/2026-09-12/native-sandbox-r21-win/setup-impact-review.r22.json)对照钉版完整初始化路径，更正了未来操作范围：除账号和ACL，初始化还包含账号专用Firewall/WFP配置；setup helper有独立runas提权路径，不能推断整个agent必须长期管理员运行。原回执保持不变，关于本轮未改系统状态的事实仍成立。
+清点显示安装包未确认齐备独立 setup／runner。钉版上游通过主程序旁或 codex-resources 查找 helper；原生主程序的 help 通过不证明 helper 可用。同版官方发布提供独立原始 x64 资产，已固定资产 ID、字节数和摘要到[工具清单](../../scripts/p0-b/windows-credentials/sandbox-tool-bundle.0.149.1.json)。现有旧 runner 不混用，不更改 pnpm 依赖或模型配置。
 
-[未批准的初始化影响清单](../nodes/P0-B/windows-elevated-setup-request.r01.md)是本轮唯一新增部署申请，明确 `approved=false`、`systemChangesAuthorized=false`、`executionAuthorized=false`。它不是模型启动批准，也不要求用户再提供Key或手工维护签名/哈希。
+[准备器说明](../../scripts/p0-b/windows-credentials/sandbox-tool-bundle.md)定义离线复制与完整校验。程序只接受本地文件，不下载、不执行，不写 node_modules、全局 home 或 sandbox 持久目录。三文件完整验证后创建新自有目录，返回 `SANDBOX_TOOL_BUNDLE_PREPARED_NOT_ACTIVATED`；版本兼容、系统变更、执行和产品批准均不成立。[本轮验证记录](../remediation/2026-09-12/sandbox-bundle-r23/verification.json)只证明 Linux 合成字节测试，未取得或执行真实 Windows 资产。
 
-## 本地下一项仅为只读清点
+## 本地仅执行新文件准备
 
-安全同步开发分支，沿用现有环境，不重装、不强制覆盖、不自动stash。先读上述清单及其已固定上游依据；复用r21已有能力与help证据，不重跑已知BLOCKED用例，不再写同类观察器测试。
+从任务分支 `feat/p0b-sandbox-bundle-20260912` 继续，沿用现有 Node26.4.0、pnpm11.7.0 和依赖。运行新增准备器测试；在项目外自有临时工作目录，从清单的精确官方 HTTPS 下载两个原始 exe 到普通文件，不执行。此次仅此两个无凭据公共发布下载，拒绝身份材料、模型中转、版本替换及证书校验关闭。已有相同摘要的缓存可复用，失败不无限重试。
 
-本轮只允许核对本机相关程序元数据、两个精确沙箱账号和上游精确组的存在、拟用稳定目录及其ACL元数据、匹配该沙箱的网络策略元数据。禁止读取密码/账号凭据文件、全局agent认证或无关用户数据。权限不足如实UNKNOWN，不触发UAC或以管理员重试，不调用带初始化/修复副作用的工具入口。
+使用已钉版的本机 codex.exe 与两资产调用 CLI，保留实际返回、文件大小／SHA-256 和完整输出 verify 结果。确认来源没变、输出不是硬链接；不运行任何新 exe（包括 --help）、不把输出放进 PATH 或覆盖原调用配置，不启动 sandbox/setup/doctor。下载不等于安装。真实文件缺失或摘要不符保持 BLOCKED，不能改清单使其通过。
 
-输出一份脱敏本机清点结果，区分已有共享对象、拟新增对象和未知项；给出精确最小系统变更、所需提权点、执行前元数据保存范围及未证明的恢复限制。绑定本轮输入，不复制生成另一份相同申请。远端不知道本机已有状态，因此这部分必须由本地执行；之后再由用户决定是否授权实际系统变更。
+新 `.mjs` 和 JSON 按影响做检查；新 Agent Note 对用原程序点名生成侧车。scripts 下非 README 双语参考不在语料，不给它造侧车、不重跑已知退出2命令。只补本轮必要 lint／文档检查，不重做旧账号清点、62/1、TLS、凭据和门控。正常提交推送同一任务分支，证据脱敏可取回；程序和缓存不入 Git。
 
-若清点结果需要入库，从开发分支建一个明确用途的本地任务分支，正常提交推送，只保存必要脱敏状态。纯清点文档按实际影响做文档检查，不机械重跑产品测试或全库类型。没有新文件就不造空提交，不因无法创建PR而丢掉推送SHA。
+## 下一次系统决定仍独立
 
-## 不变的约束
+工具包真实字节准备好后，若继续在此机器使用 elevated 路径，仍需处理共享账号和已有规则的具体共存范围，以及显式系统授权；若改用独立环境也需用户批准部署范围。本轮不选择或执行其中任何安装路径。不把本地文件准备升级为 Codex 原生隔离、真实 CLI TLS、金额控制、生产签署或指定计划／审核完成。
 
-未批准前，不更改账号、ACL、Firewall/WFP、注册表，不提权、不初始化、不把sandbox切成elevated再试。原生完整配置和精确初始化入口尚需结合本机对象确认；本次没有交付自动化安装器或宣称可完整一键回滚。
-
-模型清单、模型锁、pnpm-lock、state.json、原计划/申请/回执均不改。仍不读生产Key、不探中转、不调用收费模型、不安装CA、不登记生产签署身份、不使用Remote Desktop Commander、不操作其他项目。服务商撤销、真实路由/费用决定与生产技术控制仍分别保留；[网页后台及团队需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)没有被替换或追加无限前置。
+四个保护文件 models.v1.json、models.v1.lock.json、pnpm-lock.yaml、state.json 和历史证据不改。不读生产 Key 或全局认证、不复制旧沙箱秘密、不重置密码、不改 ACL／注册表／Firewall／WFP、不触发 UAC，不使用 Remote Desktop Commander，不操作其他项目。网页团队后台需求保留，不加新的通用前置框架。

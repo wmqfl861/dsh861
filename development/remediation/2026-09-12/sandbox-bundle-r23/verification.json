@@ -1,0 +1,166 @@
+{
+  "round": "r23",
+  "kind": "pinned-sandbox-tool-bundle-preparation",
+  "recordedAt": "2026-09-12T08:00:23.449696+00:00",
+  "baseCommit": "78adb4b3ec0da2183566605559948c2892c335cc",
+  "receivedInventory": "6cf516949e81ab0aace2c5c8b0dad66ee9274755",
+  "mergedInventoryPR": 11,
+  "actor": "ChatGPT implementation and synthetic file verification; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "fullRepositoryDependencies": false,
+    "belowRepositoryNodeMinimum": true
+  },
+  "checks": {
+    "suite": {
+      "command": "node --test scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.test.mjs",
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "bundle-final.tap",
+      "scope": "Real local filesystem, hashes, copies, links, native Node CLI. Sources are explicit synthetic non-executable bytes; no Windows executable started."
+    },
+    "negativeControl": {
+      "mutation": "Disabled computed SHA-256 equality check",
+      "command": "node --test --test-name-pattern='wrong .* digest' scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.test.mjs",
+      "passed": 0,
+      "failed": 3,
+      "exitCode": 1,
+      "log": "digest-mutation.tap",
+      "originalRestored": true
+    },
+    "syntax": "2 mjs PASS",
+    "documentation": "2 bilingual structures/fences, UTF-8/newline/trailing whitespace PASS; original corpus generator and full gates NOT_RUN"
+  },
+  "sourceEvidence": [
+    {
+      "repository": "openai/codex",
+      "ref": "rust-v0.149.1",
+      "path": "codex-rs/windows-sandbox-rs/src/helper_materialization.rs",
+      "gitBlob": "7532d191ead69f010f17ef48a8e0b90d2bca3e71",
+      "readLines": [
+        1,
+        230
+      ],
+      "finding": "Separate helper resolution beside executable or codex-resources; main program alone does not prove helpers are present."
+    },
+    {
+      "releaseId": 375371090,
+      "assetId": 526817936,
+      "name": "codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe",
+      "bytes": 15415088,
+      "sha256": "cff8f8861d0bb0dba601f5d4e74d8eeb578a6b9a5956a6a83c818dafc7d4894a"
+    },
+    {
+      "releaseId": 375371090,
+      "assetId": 526817940,
+      "name": "codex-command-runner-x86_64-pc-windows-msvc.exe",
+      "bytes": 8160560,
+      "sha256": "7f14523fe94a2d3ee3737198afa3328fcde04b53f6774bbd1a3f165666bec682"
+    }
+  ],
+  "delivery": "Offline preparer and fixed raw-asset pins. Does not download, execute, install, change PATH, call a model, enroll identity or initialize system sandbox objects.",
+  "preservation": "Existing shared accounts, credentials, global Codex and all prior receipts remain untouched; CODEX_HOME separation is not account/network-identifier separation.",
+  "remoteReadLimitations": "Reception inspected actual commit and structured inventory, not the user machine or independent execution of inventory commands.",
+  "notRun": [
+    "Download/hash of actual setup and runner asset bytes in this environment",
+    "Windows staging and real installed main binary copy",
+    "Full repository typecheck/lint/Agent Note pairing/test:docs/doc-sync",
+    "Authenticode/Sigstore validation",
+    "Any executable in the candidate bundle, setup, elevation, accounts/ACL/Firewall/WFP mutations",
+    "Production credentials/model calls/designated plan.v4 or hard review"
+  ],
+  "nextLocal": "Fetch exactly the two fixed official raw assets without credentials into a new staging work directory, validate pins, prepare the three-file bundle using the fixed main binary without executing any of them. Do not redo machine inventory.",
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "productAccepted": false,
+  "runtimeCompatibilityVerified": false,
+  "systemChangesAuthorized": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "files": [
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-12-pinned-sandbox-tool-preparation.md",
+      "bytes": 1960,
+      "gitBlob": "7ccc065e03d3e35d1f9614620c98b8fd80bc788a",
+      "sha256": "a879d2fb5efd69e21357c46b92affd5992ee0213da1ba4e3c9359ebf48164365"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-12-pinned-sandbox-tool-preparation.zh.md",
+      "bytes": 1611,
+      "gitBlob": "63ab7de7ccb77afcd84c302941dbcb9442b0397c",
+      "sha256": "63f850437c1c2af556775d8ea888ccbbb235d1d23fc0ed0599b40110dd159030"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 4491,
+      "gitBlob": "6c16f40b4712385444dd50c0a0cf9e24c5bbafdd",
+      "sha256": "4d5b70bcb5ae3a93b81e5bbfc934b48f26f95eaf1a7409be6fc84d73ce36f023"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.mjs",
+      "bytes": 9403,
+      "gitBlob": "50d06ebc617844c00b14e02a8275e33b8a20c97e",
+      "sha256": "1df3c0f0112d60bbf38d926dbc6a30cfa29756d925a1b325f9d026e8c811b412"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.test.mjs",
+      "bytes": 10277,
+      "gitBlob": "729792a7f09735086726b3ea6f64d0944027e20d",
+      "sha256": "374044701437b1269a5df7061feb81571851a0068b3232ef2ea393beb652e72e"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-tool-bundle.0.149.1.json",
+      "bytes": 2230,
+      "gitBlob": "5ec12ee79a03d6344f22bfdbb59a42497d0dcfc7",
+      "sha256": "4362a1ab18f0d7e90ab26879a984244568dfb9acefd9fbfa784c4cdc6fd4c998"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-tool-bundle.md",
+      "bytes": 4067,
+      "gitBlob": "ae7ffb793a74def71e87f6560131e30aabb7a996",
+      "sha256": "2107d3ded8b885fc9e5505df831667c21fb011ed6525ba281f5876c576fbb172"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-tool-bundle.zh.md",
+      "bytes": 3424,
+      "gitBlob": "35c1bef38f6574130811d0104c39c119145ac487",
+      "sha256": "6e9426298711b5a41762bd9d17b9226a8b975832ee132cf01d2d41be37929c86"
+    }
+  ],
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 2056,
+    "sha256": "496f542b32bc05139050b575d3ed18873fbee76d136322c8ab44d46dd08a4474",
+    "gitBlob": "709fef50b115cdf4f54e2155a01466605f9da004",
+    "metadata": "uid/gid/mtime=0; uname/gname empty; regular files only",
+    "members": {
+      "bundle-final.tap": {
+        "bytes": 4849,
+        "sha256": "d76cf508de8286837e8eef7aaae9121b6c386d53e159a9eaaee5d6968ed2af1d"
+      },
+      "bundle-first.tap": {
+        "bytes": 4851,
+        "sha256": "fa2a151f9fcf15ec20d02a3f4807e14371d0db4a0bc0ec8d7ef4ad71c702e28f"
+      },
+      "digest-mutation-exit.txt": {
+        "bytes": 2,
+        "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+      },
+      "digest-mutation.tap": {
+        "bytes": 2318,
+        "sha256": "852f5835ffc3df2db378f7e254695aa99ef8861c30ae66769cb0c682581f7b23"
+      },
+      "static-checks.json": {
+        "bytes": 401,
+        "sha256": "b9e1f27fc1519662e77a6816df7c85dd9157fd4d4c6a1b80abf1c3727665a446"
+      }
+    }
+  }
+}

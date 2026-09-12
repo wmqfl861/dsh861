@@ -1,0 +1,146 @@
+{
+  "round": "r23",
+  "kind": "pinned-sandbox-tool-bundle-preparation-windows-local",
+  "recordedAt": "2026-09-12T09:06:00Z",
+  "baseCommit": "9d32e63700d6b87d48642204ad91f964883cf5fa",
+  "actor": "ZCode built-in execution subagent; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Windows 10.0.26200.8894 (MINGW64_NT-10.0-26200)",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "fullRepositoryDependencies": true,
+    "belowRepositoryNodeMinimum": false
+  },
+  "checks": {
+    "suite": {
+      "command": "node --test scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.test.mjs",
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "bundle-test-first.out",
+      "scope": "First run on the real local filesystem; no failures to preserve."
+    },
+    "syntax": "node --check 2 mjs PASS",
+    "lint": "Scoped oxlint reported no lintable files: .oxlintrc.json ignorePatterns excludes **/*.mjs by design; recorded as-is",
+    "documentation": {
+      "verifyTranslationPairingWrite": "exit 0; wrote .agents/notes/implemented/architecture/2026-09-12-pinned-sandbox-tool-preparation.i18n.yaml",
+      "verifyTranslationPairingCheck": "exit 0; 1 named pair consistent",
+      "testDocs": "15 passed, 0 failed, 0 skipped; exit 0",
+      "docSync": "33 passed, 0 failed, 0 skipped; exit 0",
+      "sidecarsForScriptsReferences": "none; scripts/ non-README bilingual references stay outside the i18n corpus"
+    }
+  },
+  "downloads": {
+    "cacheRoot": "C:\\dsh-r23-bundle-20260912-01 (outside the repository; unique per-round directory)",
+    "reusedCache": "none existed; r20/r21/r22 directories contain no exe assets",
+    "transport": "curl --fail --location --retry 3 --retry-delay 2 --connect-timeout 30 --max-time 540; HTTPS certificate verification on; no credentials; exact manifest downloadUrls only",
+    "assets": [
+      {
+        "name": "codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe",
+        "downloadUrl": "https://github.com/openai/codex/releases/download/rust-v0.149.1/codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe",
+        "bytes": 15415088,
+        "sha256": "cff8f8861d0bb0dba601f5d4e74d8eeb578a6b9a5956a6a83c818dafc7d4894a",
+        "matchesPin": true
+      },
+      {
+        "name": "codex-command-runner-x86_64-pc-windows-msvc.exe",
+        "downloadUrl": "https://github.com/openai/codex/releases/download/rust-v0.149.1/codex-command-runner-x86_64-pc-windows-msvc.exe",
+        "bytes": 8160560,
+        "sha256": "7f14523fe94a2d3ee3737198afa3328fcde04b53f6774bbd1a3f165666bec682",
+        "matchesPin": true
+      }
+    ]
+  },
+  "preparation": {
+    "command": "node scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.mjs --parent C:\\dsh-r23-bundle-20260912-01\\staging --codex <repo-pinned codex.exe absolute path> --setup <downloaded setup> --runner <downloaded runner>",
+    "exitCode": 0,
+    "stderr": "empty",
+    "stdoutLog": "preparer-run1.out",
+    "status": "SANDBOX_TOOL_BUNDLE_PREPARED_NOT_ACTIVATED",
+    "codexSource": "node_modules/.pnpm/@openai+codex@0.149.1-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/bin/codex.exe; 297481008 bytes; sha256 a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6 == pin; node_modules untouched",
+    "directory": "C:\\dsh-r23-bundle-20260912-01\\staging\\dsh-codex-tools-1JdLT2",
+    "bundle": [
+      {
+        "fileName": "codex.exe",
+        "bytes": 297481008,
+        "sha256": "a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6"
+      },
+      {
+        "fileName": "codex-windows-sandbox-setup.exe",
+        "bytes": 15415088,
+        "sha256": "cff8f8861d0bb0dba601f5d4e74d8eeb578a6b9a5956a6a83c818dafc7d4894a"
+      },
+      {
+        "fileName": "codex-command-runner.exe",
+        "bytes": 8160560,
+        "sha256": "7f14523fe94a2d3ee3737198afa3328fcde04b53f6774bbd1a3f165666bec682"
+      }
+    ],
+    "bundleManifest": "bundle-manifest.json, 949 bytes; manifestSha256 dad1c0013664289fd756fb4072cee0dbdaddbe5faba3f3714ca069545bc825f2 (loaded-manifest digest computed by the CLI)",
+    "independentRecheck": {
+      "digests": "All three bundle files re-hashed with certutil after preparation; each equals its pin.",
+      "sourcesUnchanged": "Cache assets and repo-pinned codex.exe re-hashed after preparation; digests and byte sizes unchanged.",
+      "hardLinks": "stat link counts: three bundle copies = 1 (independent copies); cache copies = 1; repo-pinned codex.exe = 2 (pre-existing pnpm install state, not modified).",
+      "checkedInManifestRawBytes": "scripts/p0-b/windows-credentials/sandbox-tool-bundle.0.149.1.json sha256 4362a1ab18f0d7e90ab26879a984244568dfb9acefd9fbfa784c4cdc6fd4c998 equals the r23 receipt files entry."
+    }
+  },
+  "notRun": [
+    "Any executable in the candidate bundle or downloads, including --help/--version, setup, sandbox, doctor, or unknown payloads",
+    "Installation, initialization, PATH changes, CODEX_HOME writes, node_modules changes, or existing invocation-config changes",
+    "Accounts, groups, ACL, registry, Firewall, WFP, UAC, password reset, or copying old sandbox secrets",
+    "Production credentials or global authentication reads; model calls; designated plan.v4 or hard review",
+    "Machine inventory, 18/1, 62/1, TLS, credential, and gating checks from prior rounds (unchanged)"
+  ],
+  "preservation": "Executables and download cache stay outside Git; only sanitized evidence is committed. Existing shared accounts, credentials, global Codex, and all prior receipts untouched.",
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "productAccepted": false,
+  "runtimeCompatibilityVerified": false,
+  "systemChangesAuthorized": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "files": [
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-12-pinned-sandbox-tool-preparation.i18n.yaml"
+    },
+    {
+      "path": "development/remediation/2026-09-12/sandbox-bundle-r23-win/verification.json"
+    },
+    {
+      "path": "development/remediation/2026-09-12/sandbox-bundle-r23-win/logs.tar.xz"
+    }
+  ],
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 2976,
+    "sha256": "b40d6d3bec91614baeab9648b1ee15c8b45f20c49ade297f66cacae1daab14ab",
+    "metadata": "uid/gid/mtime=0; uname/gname empty; regular files only",
+    "members": {
+      "bundle-test-first.out": {
+        "bytes": 2026,
+        "sha256": "b4935b9d561dd78f618a703dea4f9616f626dd28c5afa4f66288d2028c26f767"
+      },
+      "digests-and-lifecycle.txt": {
+        "bytes": 3041,
+        "sha256": "4d748c6d11d3798b639ae9c7ce4513e07f0d4fa206a8f708efcdbb6bf76abec2"
+      },
+      "preparer-run1.err": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "preparer-run1.out": {
+        "bytes": 857,
+        "sha256": "c8d1ba505502276cc551c8da170130c4639f61e5bc7a65abf80cac486d008b53"
+      },
+      "static-checks.json": {
+        "bytes": 1015,
+        "sha256": "5e684989705511f86cd7cfe77d76db501b0b7bad37e67f5a68ade3f6d61b6462"
+      }
+    }
+  }
+}
