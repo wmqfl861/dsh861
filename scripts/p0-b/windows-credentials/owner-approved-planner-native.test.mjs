@@ -61,6 +61,7 @@ async function setup(t, options) {
   const payload = plannerDecisionPayload(decision)
   const envelope = { payload, signature: sign(null, plannerDecisionSigningBytes(payload), keys.privateKey).toString('base64url') }
   const seen = { reads: 0, acquired: 0, closed: 0 }
+  const faults = { revoked: false, beforeReadReturns: async () => {} }
   const approvals = createPlannerApprovalVerifier({ ownerId: 'synthetic-owner', spentDirectory, maxValidityMs: 180000,
     publicKeyPem: keys.publicKey.export({ type: 'spki', format: 'pem' }) })
   const services = { approvals, transport: createPlannerTlsVerifier(peer.policy),
@@ -72,6 +73,7 @@ async function setup(t, options) {
         e: Buffer.from(request.exponent, 'base64').toString('base64url') } })
       const ciphertext = publicEncrypt({ key, padding: constants.RSA_PKCS1_OAEP_PADDING, oaepHash: 'sha256' },
         Buffer.from(leasedValue)).toString('base64')
+      await faults.beforeReadReturns()
       return Buffer.from(JSON.stringify({ version: 1, requestId: request.requestId,
         status: 'SEALED', ciphertext, selfTestRemoved: false }))
     },
@@ -80,9 +82,11 @@ async function setup(t, options) {
       return { requestSha256: requestHash, approvalId: claims.approvalId,
         transportRecord: claims.transportRecord, rotationRecord: claims.rotationRecord,
         budget: claims.budget, isolationRecord: 'test/synthetic-isolation',
-        assertActive: async () => {}, close: async () => { seen.closed++ } }
+        assertActive: async () => {
+          if (faults.revoked) throw new Error('SYNTHETIC_CONTROL_REVOKED')
+        }, close: async () => { seen.closed++ } }
     } }
-  return { input, envelope, seen, workspace, peer, invoke: createOwnerApprovedPlanner(services) }
+  return { input, envelope, seen, workspace, peer, faults, decision, invoke: createOwnerApprovedPlanner(services) }
 }
 
 test('signed admission reaches the real gated Windows consumer and cannot replay',
@@ -132,3 +136,30 @@ test('bad TLS blocks the actual native reader and CLI while closing the already-
     assert.equal((await f.invoke(f.input, f.envelope)).code, 'PLANNER_APPROVAL_USED')
     assert.equal(f.peer.stats.connections, 1)
   })
+
+for (const change of ['revocation', 'expiry', 'prompt']) {
+  test(`native entry refuses ${change} during sealed reading without creating the target`,
+    { skip: process.platform !== 'win32', timeout: 90000 }, async t => {
+      const f = await setup(t)
+      const originalPrompt = readFileSync(f.input.run.prompt.file)
+      f.faults.beforeReadReturns = async () => {
+        await Promise.resolve()
+        if (change === 'revocation') f.faults.revoked = true
+        else if (change === 'expiry') t.mock.method(Date, 'now', () => f.decision.expiresAt)
+        else writeFileSync(f.input.run.prompt.file, 'changed while the sealed reader was pending')
+      }
+      const result = await f.invoke(f.input, f.envelope)
+      assert.equal(result.result.status, 'PROJECTED_PLANNER_REFUSED')
+      assert.equal(result.result.ownership.disposed, true)
+      assert.equal(result.result.ownership.activeProcessesRemaining, 0)
+      assert.equal(f.seen.reads, 1, 'the authorized read began before this change')
+      assert.equal(f.seen.closed, 1)
+      assert.equal(f.peer.stats.connections, 1)
+      assert.equal(f.peer.stats.applicationBytes, 0)
+      assert.equal(existsSync(join(f.workspace, 'target-ran.json')), false)
+      t.mock.restoreAll()
+      writeFileSync(f.input.run.prompt.file, originalPrompt)
+      assert.equal((await f.invoke(f.input, f.envelope)).code, 'PLANNER_APPROVAL_USED')
+      assert.equal(f.seen.reads, 1)
+    })
+}

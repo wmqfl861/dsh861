@@ -1,31 +1,37 @@
 # Windows 验证、凭据接入与 P0-B 规划交接
 
-仅处理 `wmqfl861/dsh861`，本地目录 `C:\Albert\project\dsh861`。继续 PR #8 的 `feat/p0b-owner-approval-20260911`，不复活已合并 PR #7，不应用旧 ZIP。P0-B blocked、master 未合并、不进入 P0-C；本页与内置子代理审核不代替指定 Codex 规划或 OpenCode 硬审核。
+仅处理 `wmqfl861/dsh861`，本地项目为 `C:\Albert\project\dsh861`。继续 PR #8 的 `feat/p0b-owner-approval-20260911`，不复活 PR #7，不应用旧附件。P0-B blocked，不合并 master，不进入 P0-C；本轮不启动真实模型或指定规划／硬审核。
 
-## r17 接收与保留
+## 当前输入
 
-接收基线 `602a3d9498f044a71df9632748c72602f09b7599`。[Windows 回执](../remediation/2026-09-11/approval-admission-r17-win/verification.json)记录批准 21/21、消费路径 18/18、原生组合 2/2，以及 typecheck、修复后 lint、test:docs 15/15 和 doc-sync 33/33。已有签名、一次性账本、Windows 作业／门控与原始回执保留，不重复旧验证轮；回执中未交付能力没有因为内置 PASS 而变成已实现。
+本地 r17 提交 `602a3d9498f044a71df9632748c72602f09b7599` 之后，远端已有 r18 提交 `5e72c4a5644794f9c5fd4a0bb9bf0b587853dca9`。本次 r19 正常叠加其上，保留[Windows 批准层回执](../remediation/2026-09-11/approval-admission-r17-win/verification.json)、[TLS 回执](../remediation/2026-09-12/planner-tls-r18/verification.json)、原申请和全部历史记录。r18 的 TLS 及待执行原生用例不是另一份要重复应用的补丁。
 
-## r18 新目标：实际 TLS 探测接入凭据读取前
+## r19：读取开始不等于响应可以放行
 
-[planner-tls.mjs](../../scripts/p0-b/windows-credentials/planner-tls.mjs) 使用受信部署的精确路由、显式 CA 和可选公钥钉扎，执行真实 TLS 握手、主机名/IP、最低协议、绝对握手时限及 socket 关闭检查。只返回固定错误或公开摘要；不发 HTTP、不携带 Key、不重定向、不重试。TLS 证书、验证器与证据语义归[组件说明](../../scripts/p0-b/windows-credentials/README.zh.md)所有。
+[准入层](../../scripts/p0-b/windows-credentials/owner-approved-planner.ts)在密封读取完成后再次核对批准有效期、预约绑定、在线控制及固定文件，再把响应交给既有读取器。读取期间发生撤销、过期、提示词／读取文件改变或预约错配时，不放行密封响应。已经开始的读取仍记为发生过，不能回写为零；本检查不撤销已交付给运行中目标的凭据，也不替代持续的 OS／费用控制。
 
-[owner-approved-planner.ts](../../scripts/p0-b/windows-credentials/owner-approved-planner.ts) 的受信服务新增必需 `transport` 验证器。在已签名且已消费的请求真正读凭据之前探测路由，随后再次检查批准有效期、在线控制及固定文件；失败不读取 Key，不能再次使用同一批准重试。新的 `transport` 结果仅说明探测连接通过，不将探测等同于 Codex 后续请求已受到保护。原 Windows 启动器和凭据读取实现未改。
+运行时只修改上述一个文件；原凭据、签名账本、TLS 验证器、作业对象、门控启动和投影／原入口均保持原样。原消费路径的在线检查次数由3改为4，对应新增读取完成检查，不删除既有断言。[七项读取完成控制](../../scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs)与[后继证据](../remediation/2026-09-12/read-completion-r19/verification.json)记录先失败再修复的结果。
 
-[r18 回执](../remediation/2026-09-12/planner-tls-r18/verification.json)包含真实回环 TLS 24 项与消费路径 24 项（原18项加6项传输控制），Linux 执行48通过。六项新增消费路径控制在原准入层上1通过5失败，只说明原版本未做这项检查，不计为五个独立漏洞。三项原生组合用例（两项扩展、一项新增）尚未在 Windows 执行。测试只连接自己创建的回环服务器，使用合成服务器证书，不接触实际中转站或系统信任库。
+## 本地一次性完成 r18+r19 的受影响验证
 
-## 本地下一步仅处理新变化
+安全同步同一分支至最新提交，沿用 Node 26.4.0、专用 pnpm 11.7.0 和既有依赖。不要重装、不强制覆盖、不自动 stash。已有更晚提交时先读差异，不能回退。无新变化的 r17 批准21项、旧门控、凭据存取、版本帮助、配置解析和历史归档不重复运行。
 
-沿用 Node 26.4.0、pnpm 11.7.0 与既有依赖，安全同步同一分支，不强推、不自动 stash、不覆盖新工作。执行 `planner-tls.test.mjs`、`owner-approved-planner.test.mjs` 和 `owner-approved-planner-native.test.mjs`，当前为24/24/3；在 Windows 原生三项必须实际执行。第三组沿用真实 PowerShell／作业／门控，TLS 也为真实回环连接，签署者、密封对端、费用及隔离适配器仍是合成材料，不能推广为生产验收。
+执行以下四组：TLS 套件24项、消费路径24项、读取完成7项，以及 Windows 原生组合6项。原生6项包含 r18 的3项和新增读取中撤销／过期／提示词变化3项，必须在 Windows 实跑。正常仓库不设置模块覆盖变量。仅使用临时合成签名、密封对端及回环 TLS，不请求中转，不安装测试 CA，不改变宿主安全策略。
 
-重点验证坏证书/主机名/超时阻止实际读取，未批准和重放请求连接数为零，TLS 期间控制失效不能被成功握手掩盖，真实入口保留 `transport.socketCloseObserved`。测试 CA 不得安装为系统受信根，不得使用真实 CA 私钥、生产 Key 或真实 HTTPS 中转地址。保留首次失败，按根因最小修复；不改为跳过、不关闭证书或宿主安全策略。
+```sh
+node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
+```
 
-按影响完成类型、lint 和文档检查。两组 README/Agent Note 正文已同步，原配对程序远端未执行，核对后点名重录 `.i18n.yaml`，不用 `--write --all`。必要聚合命令保存退出码及可取回日志；未变化的旧批准21项、门控8/25/12或34/2、reader/native、版本／配置探针不机械重跑。正常提交推送同一分支，更新原 PR #8，不另建运行器。
+新增原生用例要求真实既有入口返回拒绝、目标 marker 不存在、作业计数归零且已销毁、只发生一次合成密封读取、恢复合成提示或测试时钟后仍不能重用批准。区分“读取前拒绝”和“读取已开始但禁止继续”，不要统一改写成 reads=0。时钟模拟由测试上下文恢复，不影响服务器时间。
 
-## 真实规划仍缺什么
+保留首次失败，最小修复真实原因，不删断言或用任意重试掩盖错误。按影响完成类型、lint、test:docs/doc-sync。README 双语已更新；r18 既有 Agent Note 的配对写入仍待本地，核对后对 README 和该 Note 点名重录，不用 --write --all。已有匹配当前输入的有效结果可复用，不为了提交机械重跑。
 
-TLS 探测不证明实际模型请求的证书校验、无旁路环境、远端业务路由、证书撤销或后续 DNS 不变；实际 CLI 仍需核验其真正请求。费用强制、只读／范围隔离、生产签署入口、受信公钥登记、账本 ACL 与恢复仍需独立实施或部署；`acquireControls` 不能用空函数或记录字符串冒充它们。
+只暂存明确文件，正常推送本分支，保持原 PR #8。交回新 SHA、24/24/7/6 的实际结果与明确跳过情况、必要门禁及可取回日志。归档只包含必要证据，清空账户／组／时间头；不重造缺失历史日志。
 
-实际路由、旧 Codex Key 供应商侧撤销确认与本人隐藏录入、金额／币种／有效期仍由用户决定。当前模型声明中的 HTTP 继续在投影阶段被拒，本轮不擅改地址或配置锁。用户不需要提供任何 Key 来做本轮测试，也不需要管理测试证书或手写内部批准记录。四套模型声明、模型锁、pnpm-lock、state.json、原申请和历史回执保持原字节。
+## 仍未完成的真实调用条件
 
-[未批准的启动申请](../nodes/P0-B/planner-launch-request.r01.md)与[固定提示词](../nodes/P0-B/planner-prompt.r01.txt)继续作为后继准备输入，不是 plan.v4；新增代码不能由旧签名默认批准。保留[网页后台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)，不把整个控制面变成本节点的无限前置。只有具体真实条件齐备且获授权，才进行指定真实规划及之后的硬审核。
+代码测试不会登记生产信任、导入真实 Key、确认服务商撤销、授予 HTTPS 路由或费用权限。生产签署入口／公钥登记、账本 ACL／恢复、经验证的只读与范围隔离、实际 CLI 的 TLS 及金额强制仍分别需要实现或部署。TLS 探测只证明探测自身，不能认证后续 CLI 连接。具体路由、轮换确认及本人隐藏录入、金额／币种／有效期由用户决定；不索取新 Key 到聊天或让 agent 代填。
+
+四套模型声明、模型锁、pnpm-lock、state.json、[未批准申请](../nodes/P0-B/planner-launch-request.r01.md)和[固定提示词](../nodes/P0-B/planner-prompt.r01.txt)保持不变。保留[网页后台需求](../requirements/WEB_CONTROL_CONSOLE_SUPPLEMENT.v1.md)，但本轮没有交付后台页面，不扩大为完整控制台、通用权限或计费框架。指定 Codex plan.v4 和 OpenCode 硬审核不能由本轮或内置子代理代签。

@@ -75,6 +75,8 @@ Set-Location -LiteralPath 'C:\Albert\project\dsh861'
 
 [planner-tls.test.mjs](planner-tls.test.mjs) 在回环地址上运行真实 TLS。[测试证书](fixtures/planner-tls-certificates.mjs)为合成材料，只保留已知测试服务器私钥及公开证书，不保留 CA 私钥；不得安装该 CA 或在生产复用测试私钥。调用方测试将真实探测与模拟的原生／费用／隔离服务组合；原生套件将其与既有 Windows 入口组合。实际平台及未执行检查见[TLS 回执](../../../development/remediation/2026-09-12/planner-tls-r18/verification.json)。
 
+密封凭据读取本身也是异步操作。完成的响应交给既有读取器之前，准入层再次核对决定有效期、预约绑定、在线控制及固定输入字节。读取期间的过期、撤销或输入变化会阻止响应交付和目标启动；读取可能已经发生，不能记为零读取。这项检查不撤回已交付给运行中目标的凭据，持续强制控制及不可变输入仍由部署端负责。
+
 ## 验证
 
 使用钉版依赖在仓库运行；正常验证不要设置模块覆盖变量。
@@ -89,6 +91,7 @@ node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership
 node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs

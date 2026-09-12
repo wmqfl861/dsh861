@@ -120,7 +120,7 @@ test('signed exact request and live controls reach the existing consumer and rea
   assert.equal(f.seen.entries, 1); assert.equal(f.seen.reads, 1); assert.equal(f.seen.closed, 1)
   assert.equal(f.seen.actual.approval.record, 'synthetic-attempt')
   assert.equal(f.seen.actual.approval.transportEvidenceRecord, 'test/tls')
-  assert.equal(f.seen.active, 3)
+  assert.equal(f.seen.active, 4)
   assert.equal(f.seen.tls, 1)
   const replay = await f.invoke(f.input, f.envelope)
   assert.equal(replay.code, 'PLANNER_APPROVAL_USED'); assert.equal(f.seen.entries, 1)

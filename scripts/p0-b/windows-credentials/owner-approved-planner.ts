@@ -108,7 +108,7 @@ function checkLease(lease: PlannerControlLease, claims: Readonly<PlannerOwnerDec
 }
 
 /**
- * Bind the signed decision and live controls to the existing consumer before one credential read.
+ * Bind the signed decision and live controls before one read and before releasing its completed response.
  * A consumed decision stays consumed after refusal, crash or cleanup failure; no automatic retry.
  * @param services - independent owner verifier, private reader, TLS verifier and real control adapter.
  * @returns the admission function; missing enforcement must make acquireControls reject.
@@ -152,7 +152,15 @@ export function createOwnerApprovedPlanner(services: OwnerApprovedPlannerService
         approvals.inspect(envelope, requestSha256)
         await checkReadSet(snapshot.prepared)
         approvals.inspect(envelope, requestSha256)
-        return bridge(...args)
+        const response = await bridge(...args)
+        // A native read is asynchronous; its completed envelope is not permission to continue.
+        approvals.inspect(envelope, requestSha256)
+        checkLease(activeLease, claims, requestSha256)
+        await activeLease.assertActive()
+        await checkReadSet(snapshot.prepared)
+        approvals.inspect(envelope, requestSha256)
+        checkLease(activeLease, claims, requestSha256)
+        return response
       }
       result = await invokeProjectedPlannerOnce({ ...snapshot.prepared.run, bridge: guardedBridge,
         approval: { record: claims.approvalId, transportEvidenceRecord: claims.transportRecord,

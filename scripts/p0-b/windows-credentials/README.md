@@ -75,6 +75,8 @@ A probe certifies only its own connection. It does not protect later Codex reque
 
 [planner-tls.test.mjs](planner-tls.test.mjs) uses real TLS on loopback. Its [test certificates](fixtures/planner-tls-certificates.mjs) are synthetic: only the known test server key and public certificates are retained, not the CA private key. Never install that CA or reuse that key in production. Consumer tests combine the real probe with simulated native/financial/isolation services; the native suite combines it with the existing Windows entry. See the [TLS receipt](../../../development/remediation/2026-09-12/planner-tls-r18/verification.json) for the actual platforms and unexecuted checks.
 
+A sealed credential read is itself asynchronous. Before releasing its completed response to the existing reader, admission checks the still-valid decision, reservation binding, live controls and fixed input bytes again. Expiry, revocation or changed input during that read prevents response delivery and target launch; the read may already have occurred and is not reported as zero. This check does not revoke credentials already delivered to a running target. Continuous enforcement and immutable inputs remain deployment responsibilities.
+
 ## Verification
 
 Run from the repository with pinned dependencies; leave module-override variables unset for normal verification.
@@ -89,6 +91,7 @@ node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership
 node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
 node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs
 node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
 node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
