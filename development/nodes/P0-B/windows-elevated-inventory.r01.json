@@ -1,0 +1,211 @@
+{
+  "kind": "windows-elevated-sandbox-read-only-machine-inventory",
+  "round": "r22",
+  "recordedDate": "2026-09-12",
+  "request": "development/nodes/P0-B/windows-elevated-setup-request.r01.md",
+  "reviewBasis": "development/remediation/2026-09-12/native-sandbox-r21-win/setup-impact-review.r22.json",
+  "baseBranch": "feat/multi-agent-company-nodes",
+  "baseCommit": "aaf8cec4309b2daa4b378471607c7e0b7bbec10e",
+  "actor": "ZCode built-in execution subagent on the user's Windows host; read-only inventory only; not the designated Codex planner or OpenCode hard reviewer",
+  "approved": false,
+  "systemChangesAuthorized": false,
+  "executionAuthorized": false,
+  "sanitization": {
+    "notUploaded": ["machine name", "local usernames", "full machine-local SIDs", "full SDDL strings", "password or secret file contents", "production credentials"],
+    "method": "Account and group names are source-fixed identifiers and are kept; machine-local SID material is reduced to the RID where informative; ACL evidence is summarized by trustee class and access mask; log quotes redact SIDs."
+  },
+  "pinnedProgram": {
+    "executable": "node_modules/.pnpm/@openai+codex@0.149.1-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/bin/codex.exe",
+    "version": "0.149.1",
+    "sha256": "a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6",
+    "sha256RecomputedThisRound": true,
+    "executedThisRound": false
+  },
+  "sourceIdentifiers": {
+    "ref": "openai/codex@rust-v0.149.1, crate codex-windows-sandbox (codex-rs/windows-sandbox-rs)",
+    "accounts": ["CodexSandboxOffline", "CodexSandboxOnline"],
+    "group": { "name": "CodexSandboxUsers", "description": "Codex sandbox internal group (managed)", "createdIfMissing": "NetLocalGroupAdd; ERROR_ALIAS_EXISTS/NERR_GROUP_EXISTS treated as success", "membership": "both accounts added to CodexSandboxUsers and builtin Users (S-1-5-32-545)" },
+    "userCreation": { "api": "NetUserAdd level 1", "priv": "USER_PRIV_USER", "flags": "UF_SCRIPT | UF_DONT_EXPIRE_PASSWD", "fallbackOnCreateFailure": "NetUserSetInfo level 1003 password reset (both accounts already exist, so a pinned-0.149.1 init would take the reset path if create reports failure)" },
+    "registryHideFromLogonScreen": { "key": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\SpecialAccounts\\UserList", "value": "<username> = DWORD 0 per sandbox account; per-user failures logged and skipped", "profileHiding": "sandbox user profile dir set FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM" },
+    "firewallRules": {
+      "api": "COM INetFwPolicy2; no netsh; rule Name is the stable lookup key",
+      "rules": [
+        { "name": "codex_sandbox_offline_block_outbound", "display": "Codex Sandbox Offline - Block Non-Loopback Outbound" },
+        { "name": "codex_sandbox_offline_block_loopback_tcp", "display": "Codex Sandbox Offline - Block Loopback TCP (Except Proxy)" },
+        { "name": "codex_sandbox_offline_block_loopback_udp", "display": "Codex Sandbox Offline - Block Loopback UDP" },
+        { "name": "codex_sandbox_offline_allow_loopback_proxy", "display": "legacy; only ever removed" }
+      ],
+      "shape": "outbound BLOCK, all profiles, keyed to the offline account by LocalUserAuthorizedList SDDL pattern 'O:LSD:(A;;CC;;;<offline-account-sid>)'; LocalPolicyModifyState must be NET_FW_MODIFY_STATE_OK else HelperFirewallPolicyIneffective"
+    },
+    "wfpFilters": {
+      "layers": ["FWPM_LAYER_ALE_AUTH_CONNECT_V4", "FWPM_LAYER_ALE_AUTH_CONNECT_V6", "FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V4", "FWPM_LAYER_ALE_RESOURCE_ASSIGNMENT_V6"],
+      "filterCount": 12,
+      "filters": [
+        { "name": "codex_wfp_icmp_connect_v4", "guid": "9f5f3812-79f0-4fe9-9615-4c2c92d2f0ff" },
+        { "name": "codex_wfp_icmp_connect_v6", "guid": "87498484-45ab-4510-845e-ece8b791b3bc" },
+        { "name": "codex_wfp_icmp_assign_v4", "guid": "af4751de-f874-4a7b-a34d-f0d0f22d1d9b" },
+        { "name": "codex_wfp_icmp_assign_v6", "guid": "ea10db66-a928-4b2e-a82e-a376a54f93ba" },
+        { "name": "codex_wfp_dns_53_v4", "guid": "83172805-f6be-4ae1-9dc6-6847aef04e7f" },
+        { "name": "codex_wfp_dns_53_v6", "guid": "d23b2efb-1efb-46b2-96f3-b0ccda5690c8" },
+        { "name": "codex_wfp_dns_853_v4", "guid": "420b026f-9dc9-4aea-88f4-0f2b9feab39a" },
+        { "name": "codex_wfp_dns_853_v6", "guid": "8d917c81-99cc-45e7-84d6-824df860cfb8" },
+        { "name": "codex_wfp_smb_445_v4", "guid": "e1d6e0af-ce5f-471b-b2d3-15ca00e966f3" },
+        { "name": "codex_wfp_smb_445_v6", "guid": "c2bceca4-66ef-4a0f-ba80-f4f761b8c6f0" },
+        { "name": "codex_wfp_smb_139_v4", "guid": "ba10c618-84e7-4b83-8f74-36e22b2fa1ff" },
+        { "name": "codex_wfp_smb_139_v6", "guid": "fe7f22b8-5cf5-4adb-b2aa-71fc0a8f5d44" }
+      ],
+      "conditions": "per sandbox-account user SID; ICMP/ICMPv6 protocols; remote ports 53, 853, 445, 139",
+      "failureSemantics": "wfp_setup.rs logs and continues on all WFP errors and panics; exit zero does not certify enforcement"
+    },
+    "helperBinaries": {
+      "setupExe": "codex-windows-sandbox-setup.exe (SETUP_VERSION=5)",
+      "runnerExe": "codex-command-runner.exe, materialized versioned as codex-command-runner-<version>.exe",
+      "bundling": "shipped beside the main exe or under codex-resources; no download; no checksum verification (size+mtime freshness only); materialized into CODEX_HOME/.sandbox-bin",
+      "npmVendorNote": "the pinned 0.149.1 and the installed global 0.153.4 npm packages vendor only codex.exe and codex-code-mode-host.exe; no standalone setup exe ships in either"
+    },
+    "codexHomeDirs": { "sandbox": ".sandbox (setup_marker.json, setup_error.json, logs)", "sandboxBin": ".sandbox-bin (group RX)", "sandboxSecrets": ".sandbox-secrets (sandbox_users.json, DPAPI-encrypted; group DENY)", "markerSddlPattern": "D:P(A;;GA;;;SY)(A;;GA;;;BA)(A;;GA;;;<real-user-sid>)" },
+    "elevationPaths": {
+      "runas": "run_setup_exe: ShellExecuteExW verb runas, hidden window, base64 argv payload, singleflight dedup, when parent not elevated (needs_elevation = !is_elevated())",
+      "provisioning": "run_elevated_provisioning_setup: requires an already-elevated caller and an absolute local-disk CODEX_HOME; no UAC",
+      "refresh": "never elevates; refresh also removes all three loopback/proxy rules when allow_local_binding is enabled"
+    },
+    "telemetry": "optional Statsig/OTel metrics from the setup helper (service name codex-windows-sandbox-setup, counters codex.windows_sandbox.wfp_setup_success/failure); no-model does not imply no outbound"
+  },
+  "machineInventory": {
+    "priorInitializationFound": {
+      "conclusion": "This machine already received a full elevated Windows sandbox initialization on 2026-07-27 by a Codex 0.144.6 setup helper under the default global CODEX_HOME (<local-user>/.codex); most created objects still exist, the firewall rules do not, and current WFP residency is unverifiable unelevated.",
+      "evidence": ["setup_marker.json version 5 created 2026-07-27T15:38:17Z", "sandbox.2026-07-27.log records rule configuration, 12 WFP filters installed, setup binary completed", "codex-command-runner-0.144.6.exe left in .sandbox-bin", "both accounts' password-set time 2026-07-27 23:38 local and offline account last logon 23:39:53 local matching the final log entries"]
+    },
+    "accounts": [
+      { "name": "CodexSandboxOffline", "exists": true, "enabled": true, "passwordSet": "2026-07-27 23:38 local", "passwordExpires": "never", "lastLogon": "2026-07-27 23:39:53 local (matches the runner session in the setup log)", "localGroups": ["CodexSandboxUsers", "Users"], "passwordRead": false },
+      { "name": "CodexSandboxOnline", "exists": true, "enabled": true, "passwordSet": "2026-07-27 23:38 local", "passwordExpires": "never", "lastLogon": "never", "localGroups": ["CodexSandboxUsers", "Users"], "passwordRead": false }
+    ],
+    "group": { "name": "CodexSandboxUsers", "exists": true, "description": "Codex sandbox internal group (managed) (matches source literal)", "members": ["CodexSandboxOffline", "CodexSandboxOnline"], "memberCount": 2, "otherMembers": false },
+    "registryUserList": { "CodexSandboxOffline": 0, "CodexSandboxOnline": 0, "note": "both accounts are already hidden from the logon screen" },
+    "firewall": {
+      "queriedNames": ["codex_sandbox_offline_block_outbound", "codex_sandbox_offline_block_loopback_tcp", "codex_sandbox_offline_block_loopback_udp", "codex_sandbox_offline_allow_loopback_proxy"],
+      "currentState": "all four NOT_FOUND by Name; none by DisplayName 'Codex Sandbox*'",
+      "history": "the 2026-07-27 log proves all three block rules were configured then (loopback udp/tcp scoped RemotePorts=* then tcp narrowed 1-65535, outbound non-loopback, SDDL keyed to the offline account SID, RID 1003)",
+      "removalActor": "UNKNOWN; the sandbox log contains no removal entries; candidate explainers are a later refresh with allow_local_binding, another Codex version's cleanup, or an external actor"
+    },
+    "wfp": {
+      "unelevatedEnumeration": "netsh wfp show state and netsh wfp show filters both ACCESS_DENIED (require administrator); no elevation retry",
+      "currentState": "UNKNOWN",
+      "history": "the 2026-07-27 log records 'WFP setup succeeded for CodexSandboxOffline with 12 installed filters'",
+      "risk": "if the 12 GUID-keyed filters are still resident, offline-account ICMP/DNS(53,853)/SMB(139,445) egress filtering is active machine-wide right now while the paired firewall rules are gone"
+    },
+    "existingArtifacts": {
+      "codexHome": "<local-user>/.codex (the July CODEX_HOME; also holds global auth.json and other credentials, not read)",
+      "sandboxDir": [".sandbox/setup_marker.json (255 B)", ".sandbox/sandbox.2026-07-27.log (17991 B)", ".sandbox/deny_read_acl_state.json (22 B, principals empty)"],
+      "sandboxBin": [".sandbox-bin/codex-command-runner-0.144.6.exe (1271088 B, sha256 ac075278a65a0b80ae433eb389a45cbf1431c6c95368efdb326f15f881c0ed2e, no VersionInfo fields)"],
+      "sandboxSecrets": [".sandbox-secrets/sandbox_users.json (828 B; NOT read by design)"],
+      "capSidFile": "<local-user>/.codex/cap_sid (183 B; existence only)",
+      "setupMarker": { "version": 5, "offline_username": "CodexSandboxOffline", "online_username": "CodexSandboxOnline", "created_at": "2026-07-27T15:38:17.965547100+00:00", "proxy_ports": [], "allow_local_binding": false, "read_roots": [], "write_roots": [] },
+      "profileDirs": { "C:/Users/CodexSandboxOffline": "EXISTS (matches last logon)", "C:/Users/CodexSandboxOnline": "ABSENT (never logged on)" },
+      "julyLogNotableErrors": "a later read-ACL maintenance pass failed on C:/Windows/Temp: read mask check failed, read mask check failed for sandbox_group, grant read ACE failed for sandbox_group (CreateFileW failed); recorded 'setup error: read ACL run had errors'"
+    },
+    "aclSummaries": {
+      ".sandbox": "explicit: CodexSandboxUsers (OI)(CI)(M), SYSTEM (OI)(CI)(M), Administrators (OI)(CI)(M), <local-user> (OI)(CI)(RX,W); inherited from .codex: group RX, SYSTEM/Administrators/<local-user> F",
+      ".sandbox-bin": "explicit: CodexSandboxUsers (OI)(CI)(RX), SYSTEM (OI)(CI)(M), Administrators (OI)(CI)(M), <local-user> (OI)(CI)(M); inherited as above",
+      ".sandbox-secrets": "explicit: CodexSandboxUsers (OI)(CI)(DENY)(M), SYSTEM (OI)(CI)(M), Administrators (OI)(CI)(M), <local-user> (OI)(CI)(RX,W); inherited: group RX, SYSTEM/Administrators/<local-user> F",
+      "matchesPinnedDesign": "secrets-group-DENY and bin-group-RX match the rust-v0.149.1 source exactly",
+      "C:/Users/CodexSandboxOffline": "ACCESS_DENIED unelevated (icacls exit 5); profile ACL state UNKNOWN",
+      "C:/Windows/Temp": "ACCESS_DENIED unelevated; combined with the July grant failure, whether any sandbox-group ACE is present is UNKNOWN",
+      "C:/ (parent of candidate A)": "Administrators (OI)(CI)(F), SYSTEM (OI)(CI)(F), Users (OI)(CI)(RX), Authenticated Users (OI)(CI)(IO)(M)+(AD), one unprivileged AppContainer-namespace SID (S,RD,X,RA), High Mandatory Level (OI)(NP)(IO)(NW)",
+      "C:/Albert (parent of candidate B)": "inherited Administrators/SYSTEM (OI)(CI)(F), Users (OI)(CI)(RX), Authenticated Users (I)(M) and (I)(OI)(CI)(IO)(M)"
+    },
+    "otherCodexPrograms": [
+      { "scope": "global npm", "package": "@openai/codex 0.153.4 with platform package 0.153.4-win32-x64", "shims": ["codex", "codex.cmd", "codex.ps1"] , "installed": "2026-09-05", "codexExe": "295408944 B, sha256 444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b", "vendorBin": ["codex.exe", "codex-code-mode-host.exe"], "notes": "newer than the pinned 0.149.1 and than July's 0.144.6; shares the same machine accounts, group, marker home and WFP namespace" }
+    ],
+    "r21IsolatedHome": "C:/dsh-r21-verify-20260912-01/sandbox-help/codex-home contains only tmp/; the r21 unelevated run created no sandbox artifacts"
+  },
+  "identityRoles": {
+    "initializingUser": "<local-user> (owner account; July setup ran elevated from their .codex via the runas path)",
+    "restrictedRunIdentities": ["CodexSandboxOffline (logged on once for the runner session)", "CodexSandboxOnline (never logged on)"],
+    "trustedIdentities": "SYSTEM, BUILTIN Administrators, and the real user hold GA/F on the marker and sandbox dirs per ACL evidence; the helpers are ordinary processes, not Windows services"
+  },
+  "codexHomeCandidates": [
+    { "rank": 1, "path": "C:/dsh861-codex-home", "status": "does not exist (nearest existing parent C:/ read)", "rationale": "dedicated, absolute local disk (satisfies the provisioning precondition), outside the credential-bearing user profile, project-adjacent" },
+    { "rank": 2, "path": "C:/Albert/codex-home", "status": "does not exist (nearest existing parent C:/Albert read)", "rationale": "same properties one level deeper under the existing projects root" },
+    { "rank": "rejected", "path": "<local-user>/.codex", "status": "exists, already initialized by 0.144.6", "rationale": "shared with the global 0.153.4 program and with auth.json credentials; reuse would entangle production credentials, mix runner versions and let both programs mutate the same marker" },
+    { "rank": "rejected", "path": "C:/dsh-r21-verify-20260912-01 (r21 temp home)", "status": "exists, throwaway", "rationale": "temporary verification home, not a stable location" }
+  ],
+  "classification": {
+    "existingSharedObjects": ["account CodexSandboxOffline (enabled)", "account CodexSandboxOnline (enabled)", "group CodexSandboxUsers with exactly the two members", "UserList values hiding both accounts", "<local-user>/.codex/.sandbox with marker v5, log, deny-read state", "<local-user>/.codex/.sandbox-bin with runner 0.144.6", "<local-user>/.codex/.sandbox-secrets with sandbox_users.json (unread)", "<local-user>/.codex/cap_sid", "profile dir C:/Users/CodexSandboxOffline"],
+    "proposedForPinnedInit": ["three outbound firewall rules (currently absent, would be freshly created)", "twelve WFP filters by the GUIDs above (may collide with July residue; idempotency unproven)", "materialize codex-command-runner-0.149.1.exe into the chosen CODEX_HOME/.sandbox-bin", "marker refresh (same schema version 5)", "ACL application on the chosen CODEX_HOME sandbox/bin/secrets dirs", "per-request read/write/deny-root ACL changes (July evidence shows these can reach system dirs such as C:/Windows/Temp)", "possible password-reset fallback on the existing accounts (invalidates July DPAPI secrets and any reuse by 0.153.4)", "UserList rewrite (no-op), profile hide attributes"],
+    "unknownObjects": ["current residency of the 12 WFP filters (ACCESS_DENIED)", "actor and time of the firewall-rule removal", "C:/Windows/Temp and C:/Users/CodexSandboxOffline ACL contents (ACCESS_DENIED)", "whether the July partial read-ACL failure left half-applied system ACEs outside tracked roots (deny_read_acl_state.json tracks none, but the Temp failure is a counterexample)", "contents of sandbox_users.json (not read by design)", "whether the global 0.153.4 install still reuses these accounts and secrets"]
+  },
+  "minimalChangeSetIfApproved": {
+    "objectsTouched": ["chosen CODEX_HOME .sandbox/.sandbox-bin/.sandbox-secrets (new dirs + ACLs)", "marker v5 write", "runner 0.149.1 materialization", "3 firewall rules created (currently absent)", "12 WFP filters added or reconciled", "existing accounts and group reused, not recreated"],
+    "elevationEntryChoice": ["runas: one UAC prompt, payload via base64 argv, parent stays unelevated", "provisioning entry: requires an already-elevated terminal and an absolute local-disk CODEX_HOME; no UAC prompt"],
+    "notRequired": "making the whole agent or the dsh harness run persistently as administrator"
+  },
+  "preExecutionMetadataToSave": [
+    "elevated WFP enumeration before and after (only possible inside the authorized elevated session; this inventory could not capture it)",
+    "filtered firewall export for the four rule names (this round already captured the empty state)",
+    "copies of setup_marker.json, deny_read_acl_state.json and the sandbox log (captured this round)",
+    "icacls of the chosen CODEX_HOME parent before creation (captured for both candidates)",
+    "account password-set and last-logon timestamps (captured) and a decision record that password reset invalidates July secrets",
+    "runner 0.144.6 digest (captured) to detect unintended replacement"
+  ],
+  "recoveryScope": {
+    "preciselyReversibleByNamesOrGuids": ["3 firewall rule names", "12 WFP filter GUIDs (elevation required)", "runner exe file", "marker/state/log files", "UserList values", "profile dir C:/Users/CodexSandboxOffline", "cap_sid file"],
+    "notProvenReversible": ["WFP removal completeness without elevated before/after enumeration", "system read ACEs that read-ACL passes may have applied outside tracked roots (C:/Windows/Temp grant failed mid-chain in July)", "interference from whatever actor removed the July firewall rules", "coexistence with the global 0.153.4 program that shares these objects"],
+    "notReversible": ["account password reset (old random passwords unrecoverable; July DPAPI secrets become stale)", "deleting sandbox_users.json (loses the working sandbox credentials)"],
+    "fullRollbackClaim": "Deleting two accounts plus the CODEX_HOME dirs is NOT a full rollback: registry UserList values, WFP filters, profile dir, possible out-of-root ACEs and secrets handling must each be addressed; this inventory explicitly refuses to certify any complete-rollback claim"
+  },
+  "approvalChecklistForOwner": [
+    "reuse vs recreate the two existing accounts (reset invalidates July secrets and affects the global 0.153.4 program)",
+    "choose CODEX_HOME (candidates ranked above; not <local-user>/.codex)",
+    "authorize creating the 3 named firewall rules; decide whether the unexplained removal of the July rules should be investigated first",
+    "authorize the 12 WFP filters and require elevated before/after enumeration as the acceptance evidence (exit zero is not enforcement)",
+    "choose the elevation entry: single runas UAC for the setup helper, or an already-elevated provisioning session",
+    "fix the exact read/write/deny roots (July evidence shows the chain can touch system directories)",
+    "authorize runner 0.149.1 materialization in the chosen home",
+    "decide the optional Statsig/OTel metrics setting (no-model is not no-network)",
+    "confirm coordination with the globally installed Codex 0.153.4 that shares accounts, group, marker home and WFP namespace"
+  ],
+  "commandsLog": [
+    { "cmd": "git -C <repo> status/branch -vv/log/remote -v", "exit": 0, "result": "clean tree on test/p0b-native-sandbox-20260912 @ b60c5e65daf409b46dafd42e4d6d1735d5a3eba9" },
+    { "cmd": "git -c http.version=HTTP/1.1 fetch origin feat/multi-agent-company-nodes", "exit": 0, "result": "FETCH_HEAD = aaf8cec4309b2daa4b378471607c7e0b7bbec10e; 03494c4 verified ancestor via merge-base --is-ancestor" },
+    { "cmd": "git show FETCH_HEAD:<3 input docs>", "exit": 0, "result": "read handoff, setup-request.r01.md, setup-impact-review.r22.json without switching the working tree" },
+    { "cmd": "net user CodexSandboxOffline", "exit": 0, "result": "exists, enabled, groups CodexSandboxUsers+Users, last logon 2026-07-27 23:39:53" },
+    { "cmd": "net user CodexSandboxOnline", "exit": 0, "result": "exists, enabled, same groups, never logged on" },
+    { "cmd": "powershell Get-LocalGroup -Name CodexSandboxUsers (first attempt)", "exit": 1, "result": "parse error: bash $-expansion mangled the script; no system query ran" },
+    { "cmd": "powershell Get-LocalGroup -Name CodexSandboxUsers; Get-LocalGroupMember -Group CodexSandboxUsers (fixed quoting)", "exit": 0, "result": "group exists with source-exact description; members exactly the two accounts, both Local" },
+    { "cmd": "reg query HKLM\\...\\SpecialAccounts\\UserList /v <name> (first attempt)", "exit": 1, "result": "invalid syntax: MSYS converted /v to a path; no registry query ran" },
+    { "cmd": "powershell Get-ItemProperty ...UserList -Name CodexSandboxOffline/CodexSandboxOnline", "exit": 0, "result": "both values exist and equal 0" },
+    { "cmd": "powershell Get-NetFirewallRule -Name <4 exact names>; -DisplayName 'Codex Sandbox*'", "exit": 0, "result": "all four NOT_FOUND; no Codex display-named rules" },
+    { "cmd": "netsh wfp show state", "exit": 1, "result": "ACCESS_DENIED, requires administrator; no retry" },
+    { "cmd": "netsh wfp show filters", "exit": 1, "result": "ACCESS_DENIED, requires administrator; no retry" },
+    { "cmd": "where.exe codex-windows-sandbox-setup.exe / codex-command-runner.exe / codex.exe", "exit": 1, "result": "none on PATH" },
+    { "cmd": "dir checks of Program Files, Program Files (x86), ProgramData Codex dirs", "exit": 0, "result": "all absent" },
+    { "cmd": "dir of <local-user>/.codex and .sandbox/.sandbox-bin/.sandbox-secrets; cat setup_marker.json and deny_read_acl_state.json; sha256sum runner 0.144.6", "exit": 0, "result": "July initialization artifacts enumerated; secrets file listed but never read" },
+    { "cmd": "grep of sandbox.2026-07-27.log for firewall/wfp/error evidence", "exit": 0, "result": "rules configured, 12 WFP filters installed, setup completed, C:/Windows/Temp read-ACL failure recorded" },
+    { "cmd": "icacls .sandbox / .sandbox-bin / .sandbox-secrets", "exit": 0, "result": "group M / group RX / group DENY(M) as summarized" },
+    { "cmd": "icacls C:/Users/CodexSandboxOffline", "exit": 5, "result": "ACCESS_DENIED" },
+    { "cmd": "icacls C:/Windows/Temp", "exit": 0, "result": "ACCESS_DENIED reading the DACL; state UNKNOWN" },
+    { "cmd": "icacls C:/ and C:/Albert", "exit": 0, "result": "candidate-parent ACL metadata captured" },
+    { "cmd": "dir + package.json + sha256sum of global npm @openai/codex 0.153.4 platform package", "exit": 0, "result": "global program identified; no setup helper shipped" },
+    { "cmd": "sha256sum pinned vendor codex.exe", "exit": 0, "result": "a395030b... matches the r21 receipt" },
+    { "cmd": "dir C:/dsh-r21-verify-20260912-01/sandbox-help/codex-home", "exit": 0, "result": "only tmp/; no r21 sandbox artifacts" },
+    { "cmd": "git status --porcelain and git diff HEAD -- <4 protected paths>", "exit": 0, "result": "empty; byte-identical" }
+  ],
+  "notDone": [
+    "no UAC, no administrator retry, no elevation of any command",
+    "no account, password, group, rights, ACL, registry, firewall or WFP mutation",
+    "no setup/runner/helper execution, download or upgrade; no sandbox, doctor or repair entry invoked",
+    "no reading of sandbox_users.json, auth.json, production credentials or global agent authentication",
+    "no enumeration of unrelated users, no machine-wide policy export",
+    "no model calls, relay access, CA installation, external agents or other projects"
+  ],
+  "protectedFilesUnchanged": ["config/agents/models.v1.json", "config/agents/models.v1.lock.json", "pnpm-lock.yaml", "development/nodes/P0-B/state.json"],
+  "documentationChecks": {
+    "jsonParsed": "PASS (node JSON.parse after write)",
+    "singleTrailingNewline": "PASS",
+    "noTrailingWhitespace": "PASS",
+    "sanitizationLeakScan": "PASS (machine name, local username, machine-domain SID patterns absent)",
+    "testDocs": { "command": "pnpm run test:docs", "exitCode": 0, "passed": 15, "failed": 0 },
+    "notRun": "typecheck/lint/full suites: no TypeScript or package source changed this round"
+  }
+}

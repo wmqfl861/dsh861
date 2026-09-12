@@ -1,0 +1,24 @@
+{
+  "kind": "isolated-provider-wiring-fixture",
+  "expectPrivate": true,
+  "sourceSha256": "668e77e96f4878ce302cd163088ce3d2e28e4abf5d87e7f04e10d421d5ff71e2",
+  "results": [
+    {
+      "exitCode": 0,
+      "rawBytesAtRunner": 0,
+      "stdoutPreserved": true,
+      "spawnSpecPreserved": true,
+      "stderrPrivate": true
+    },
+    {
+      "exitCode": 7,
+      "rawBytesAtRunner": 0,
+      "stdoutPreserved": true,
+      "spawnSpecPreserved": true,
+      "stderrPrivate": true
+    }
+  ],
+  "actualCodexInvoked": false,
+  "loaderCompositionVerified": false,
+  "productAccepted": false
+}

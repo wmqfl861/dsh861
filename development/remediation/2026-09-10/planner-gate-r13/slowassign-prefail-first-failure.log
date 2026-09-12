@@ -1,0 +1,25 @@
+✖ pre-launch containment holds when assignment is slower than CLI startup (8598.7403ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9055.9162
+
+✖ failing tests:
+
+test at scripts\p0-b\windows-credentials\planner-entry.test.mjs:319:1
+✖ pre-launch containment holds when assignment is slower than CLI startup (8598.7403ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\JOYCEG~1\AppData\Local\Temp\dsh861-planner-slowassign-k0Rfay '\\?\C:\Users\JOYCEG~1\AppData\Local\Temp\dsh861-planner-slowassign-k0Rfay'
+      at rmSync (node:fs:1484:18)
+      at TestContext.<anonymous> (file:///C:/Albert/project/dsh861/scripts/p0-b/windows-credentials/planner-entry.test.mjs:383:5)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\JOYCEG~1\\AppData\\Local\\Temp\\dsh861-planner-slowassign-k0Rfay',
+    syscall: 'rm'
+  }

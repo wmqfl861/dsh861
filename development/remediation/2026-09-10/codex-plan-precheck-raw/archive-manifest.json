@@ -1,0 +1,29 @@
+{
+  "kind": "planner-precheck-raw-output-archive",
+  "recordedAt": "2026-09-10",
+  "source": {
+    "localRoot": "C:\\Albert\\project\\dsh861-local-validation\\20260910-codex-plan-precheck-4c17",
+    "summaryRecord": "development/nodes/P0-B/evidence/planner-precheck.r01.json",
+    "capturedInRound": "keyless Codex planner precheck on commit 04d283fb0d53e334d7a818fdfa95c39bbae1adde (merged as PR #6, merge commit a1f94eab80a109bb19f454620703587c9e630951)",
+    "notReexecuted": "files copied once from the local evidence root; no probe rerun"
+  },
+  "packaging": "planner-precheck-raw.zip (sha256 a2a95bf35c4685280ec539c159c0b4185b584fb4f765714f854922aede505f9c, 12239 bytes) holds the outputs verbatim under help/ and out/, following the r06 raw-evidence zip convention. The verbatim help texts contain trailing whitespace that the repository pre-commit whitespace gate rejects in loose files; the zip preserves the exact bytes while keeping that gate intact.",
+  "fidelity": "Byte-identical members. planner-precheck.r01.json records sha256 values for these outputs; masking or trimming would break that verification, and the only personal identifier (the owner's Windows username in out/binary-digests.txt) already appears verbatim in the committed planner-precheck.r01.json. No credential material exists in this archive per the r01 no_residue finding. The codex-home sqlite trees from the local root are runtime CLI state, not probe output, and are deliberately not archived.",
+  "members": [
+    { "path": "help/exec-help-global1534.txt", "sha256": "e504bac5a6364566fbe408132dec7993639def9258ece34e8352f51f8d43687c", "bytes": 3957 },
+    { "path": "help/exec-help-repo1491.txt", "sha256": "e504bac5a6364566fbe408132dec7993639def9258ece34e8352f51f8d43687c", "bytes": 3957 },
+    { "path": "help/root-help-global1534.txt", "sha256": "e8ecd554e6e3e870a55e540f1a21598c085cfee237f9c735ff9b5ba4ac4cf08a", "bytes": 5731 },
+    { "path": "help/root-help-repo1491.txt", "sha256": "e8ecd554e6e3e870a55e540f1a21598c085cfee237f9c735ff9b5ba4ac4cf08a", "bytes": 5731 },
+    { "path": "out/binary-digests.txt", "sha256": "3a29bdb2ccbe0f56ac7f134e3fb0f14104213a0ba746ec3949abc42a2d2bd209", "bytes": 822 },
+    { "path": "out/probe-bogus-repo1491.txt", "sha256": "0c24cb79e9a7f4462a5aaadba8007965622a09bf27fbfc01aa2ec50541b66901", "bytes": 621 },
+    { "path": "out/probe-config-backup.toml", "sha256": "0b1ec287cf1c8fb3a54994006e2700d1cb9c570d8313f5707c254a4c91fce594", "bytes": 143 },
+    { "path": "out/probe-config-mygpt.toml", "sha256": "3153994ad67ea39dbb8bb7d31420dc95001f390f2350d4dfe924ee1fc2219f3e", "bytes": 140 },
+    { "path": "out/probe-max-global1534.txt", "sha256": "8f1b9b081c0aee55b4741620da5770f9f82a84c677b186873418614391e46034", "bytes": 475 },
+    { "path": "out/probe-max-repo1491.txt", "sha256": "cea25e2fccedca0b79e7aaca4527789d7b6d1bbcaa3bee8e43ab61cbc959cbaa", "bytes": 629 },
+    { "path": "out/probe-mygpt-exact-repo1491.txt", "sha256": "579218568d08edd49770d1e210885fc03bb4bc2fd33d3d8b9101de76cf5edc7a", "bytes": 603 },
+    { "path": "out/version-global1534.txt", "sha256": "616dba4e87de2b1f07e61fe30ff4a5b3b075986c986c466ac5d244597eac0f36", "bytes": 18 },
+    { "path": "out/version-repo1491.txt", "sha256": "ca4fe30a68dd82c6a7af75eeb683f763cfb6554840590a9e345692269ae744f0", "bytes": 18 }
+  ],
+  "hashAgreement": "All sha256 values recorded in planner-precheck.r01.json for these outputs match the zip members byte-for-byte (exec help, root help, probe-max repo/global, probe-bogus, probe-mygpt-exact, probe config toml).",
+  "limits": "Banner echoes remain config-layer evidence only; this archive does not upgrade any WRAPPER_READY or gateway claim in the r01 record."
+}

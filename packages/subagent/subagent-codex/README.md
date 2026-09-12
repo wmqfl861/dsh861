@@ -83,7 +83,7 @@ A foreground call gives the model the selected final Codex answer, or an error w
 
 ### Failure and recovery
 
-An install that omits optional dependencies, uses an unsupported platform, or loses the selected payload leaves the provider dormant and fails the first delegation at `initialize` with a safe `unknown` category and any observed process outcome; there is no host-CLI fallback. Raw wrapper text stays on Host stderr. A cancelled run settles as `aborted`.
+An install that omits optional dependencies, uses an unsupported platform, or loses the selected payload leaves the provider dormant and fails the first delegation at `initialize` with a safe `unknown` category and any observed process outcome; there is no host-CLI fallback. The registered Provider drains native stderr privately before the one-shot runner receives the process handle; raw wrapper text is not sent to Host stderr. A cancelled run settles as `aborted`.
 
 -----
 
@@ -107,6 +107,7 @@ This section explains how the provider drives a real Codex app-server and where 
 |---|---|
 | [`src/index.ts`](src/index.ts) | Plugin entry: config schema, provider registration |
 | [`src/run.ts`](src/run.ts) | The run lifecycle, turn execution, result selection, and diagnostics |
+| [`src/private-stderr.ts`](src/private-stderr.ts) | Provider-owned native stderr suppression and drain lifecycle |
 | [`src/wire.ts`](src/wire.ts) | The minimal app-server JSON-RPC wire implementation |
 | [`cordis.patch.yml`](cordis.patch.yml) | The Profile patch layer that registers the dormant provider |
 
@@ -176,6 +177,7 @@ These limits define when this provider is a poor fit or needs special operationa
 - **Compatibility is pinned by development evidence** — upgrading from the verified 0.149.1 protocol baseline requires regenerating upstream schema evidence and rerunning handshake, answer-selection, approval, cancellation, keyless real-product, and credentialed DeepSeek nonce tests.
 - **No human approval path** — known unattended approval requests are denied and unknown server requests fail closed; the three Profile modes never create a DSH interaction channel or per-call allow policy.
 - **Assistant payload is final text only** — a failed run may additionally expose the separate safe diagnostic; reasoning, commentary, intermediate messages, tool traffic, usage, raw stderr, and workspace diffs remain outside the parent Session, while generic Job ids, notices, and status come from the shared job runtime.
+- **Native stderr is deliberately unavailable** — the registered Provider suppresses all native stderr, including diagnostics that may contain credentials unknown to the Host. This is not selective redaction, leak detection, or a complete diagnostic archive. Direct test calls to the internal runner must provide their own safe process boundary; stdout, native files, SDK error causes, and other product providers are outside this stderr policy. See the [privacy decision](../../../.agents/notes/implemented/architecture/2026-09-09-codex-private-stderr.md).
 - **No optional shared capabilities** — `agentOptions`, output schemas, child personas, tool filtering, and harness depth enforcement are rejected by the shared service for this provider.
 - **No wall-clock timeout or side-effect rollback** — the caller cancels long work, and files or external systems changed before cancellation are not restored.
 

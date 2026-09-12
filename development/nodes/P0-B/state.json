@@ -14,9 +14,9 @@
   "hard_review": null,
   "product_acceptance_completed": [],
   "next_node_allowed": false,
-  "blocker": "PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.",
-  "current_activity": "User-authorized review remediation is recorded separately. Offline audit controls do not constitute a node PASS, a real Codex plan, or a real OpenCode hard review.",
-  "updated_at": "2026-09-09",
+  "blocker": "PLANNER_PRECONDITIONS_BLOCKED: keyless precheck r01 confirmed the repo-pinned Codex 0.149.1 accepts my-gpt/gpt-6-astra/max at the config layer, but the real successor-planning call lacks (1) an authorized bound credential reference, (2) rotation confirmation for chat-exposed keys (UNKNOWN_NOT_VERIFIED), and (3) transport protection for the plaintext-HTTP approved route. See evidence/planner-precheck.r01.json.",
+  "current_activity": "Keyless designated-planner precheck completed at f1d7ec92ccf52f6a4fff8ff9a5bd1ed253a3d3a3 (round r01): proposed program repo-pinned @openai/codex@0.149.1 codex.exe (sha256 a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6), isolated-CODEX_HOME probes confirmed config-layer acceptance of the exact approved spelling; no credentials read, no gateway contact, no model request. Real Codex call withheld pending owner-level preconditions; plan.v4 not written. Current handoff: [Windows integration](handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md).",
+  "updated_at": "2026-09-10",
   "evidence": [
     "evidence/governance/preconditions.json",
     "evidence/discovery/index.json",
@@ -24,12 +24,20 @@
     "evidence/codex-capability-matrix.json",
     "evidence/claude-code-capability-matrix.json",
     "evidence/b0-b4-source-evidence-index.json",
-    "evidence/authorized-isolated-compatibility-v2.json"
+    "evidence/authorized-isolated-compatibility-v2.json",
+    "evidence/planner-precheck.r01.json"
   ],
   "plan_invocation": "D:/Temp_projects/dsh861-node-governance/runs/p0-b-plan-v3-configured-runs.receipt.json",
-  "plan_revision_pending": "plan-revision-request.r01.md",
+  "plan_revision_pending": "plan-revision-request.r02.md",
   "acceptance_map": "acceptance-map.r01.json",
   "remediation": "../../remediation/2026-09-09/README.md",
   "credential_rotation_status": "UNKNOWN_NOT_VERIFIED",
-  "product_calls_using_exposed_credentials_allowed": false
+  "product_calls_using_exposed_credentials_allowed": false,
+  "security_implementation": "PARTIAL_CODEX_STDERR_PRIVACY_WIRED_FULL_CAPTURE_PENDING",
+  "security_evidence": "../../remediation/2026-09-09/security-r02/verification.json",
+  "runtime_stderr_policy": "CODEX_REGISTERED_PROVIDER_SUPPRESSION_ONLY",
+  "runtime_stderr_evidence": "../../remediation/2026-09-09/codex-stderr-r04/verification.json",
+  "integrated_validation_commit": "2a62e488856eee00688740a287abc3cceb90d399",
+  "local_validation_evidence": "../../remediation/2026-09-10/windows-keyless-r06/verification.json",
+  "remote_review_evidence": "../../remediation/2026-09-10/windows-keyless-r06/remote-review.json"
 }

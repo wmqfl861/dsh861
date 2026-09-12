@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "dsh861.agent-models-lock.v1",
+  "configurationVersion": "2026-09-09.1",
+  "algorithm": "sha256-sorted-json-v1",
+  "publicConfigSha256": "a9b0dc87948932102b160d9703c4214ec2528800d3edc470d6e8fb64264fd09e"
+}

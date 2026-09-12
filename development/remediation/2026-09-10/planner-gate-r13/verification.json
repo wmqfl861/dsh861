@@ -1,0 +1,129 @@
+{
+  "kind": "pre-launch-containment-gate-windows-native-followup",
+  "round": "r13",
+  "recordedAt": "2026-09-10T14:48:16+00:00",
+  "baseCommit": "92e78809c010841d6c2be7fd830273cadbb01306",
+  "branch": "fix/p0b-windows-credential-store-20260910",
+  "pullRequest": 7,
+  "actor": "ZCode built-in execution subagent; not designated Codex planner or OpenCode hard reviewer",
+  "patchIntegration": {
+    "bundle": "dsh861_r13_review.zip",
+    "changesPatchSha256": "8b4608fc34fde9f2b3a822d9118da0c81b0f4e4e23461b163014c37a8a8319d3",
+    "manifestBaseCommitMatches": true,
+    "beforeGitBlobsMatched": 7,
+    "gitApplyCheck": true,
+    "gitApplyExitCode": 0,
+    "afterGitBlobsMatchedAll": 12,
+    "authoringAndReviewInputsCopiedIntoRepository": false
+  },
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "powershell": "5.1.26100.8894",
+    "executionPolicy": "RemoteSigned (CurrentUser scope); no policy bypass used",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "typescript": "repository pinned",
+    "repositoryDependenciesInstalled": true,
+    "windowsNativeRun": true
+  },
+  "method": {
+    "gate": "launch-gate.mjs: hash-pinned launcher spawned with the CLI's exact stdio/cwd/environment; it joins the owned job through assign() and creates the CLI only after releaseGated() confirms membership, so the CLI's first code runs inside the job and its descendants join the same job. Abort marker, bounded wait, assignment failure, late assignment after cancellation and pre-release cancellation all end the launcher without creating the CLI.",
+    "whyNotSuspendedCreate": "Node's spawn cannot pass CREATE_SUSPENDED, and having the helper create the CLI directly would move the wrapper-owned stdio pipes across a process boundary. The gate uses the job's native create-into-job semantics (job-owner.ps1 admits no breakaway; a member's child joins at creation) instead of suspend-assign-resume, with the same invariant: the target's first code runs only after membership.",
+    "controls": "Deterministic delayed-assignment control (real owner, assign held back 500ms past node module top level) reproduced the pre-fix escape first, then passed with the gate. Module-top-level descendant control kept as the entry-level invariant; it passed pre-fix on real timing because the resident-helper assign roundtrip beats node bootstrap, which is timing dependence, not containment."
+  },
+  "testSourceRepairs": [
+    "planner-entry.test.mjs writeBreakawayAttempt: PROCESS_INFORMATION completed with dwProcessId and dwThreadId; PS-side Marshal.SizeOf/OffsetOf layout verification (exit 6 on mismatch, pi-layout evidence file) and kernel-filled nonzero PID/TID verification (exit 7, pi-fields-invalid); test-side layout assertions.",
+    "planner-entry.test.mjs deployment and breakaway exec stand-ins: removed unapproved -ExecutionPolicy Bypass; PowerShell now invoked with -NoLogo -NoProfile -NonInteractive -File under the host policy (RemoteSigned); policy-blocked probes fail explicitly with captured exit code and stderr instead of passing silently."
+  ],
+  "checks": {
+    "patchBaselineOwnershipControls": {
+      "passed": 25, "failed": 0, "cancelled": 0, "skipped": 0, "exitCode": 0,
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs",
+      "log": "ownership-controls.tap",
+      "note": "Re-run after the local work; one spec line adds the required launcher hash to the ownerFixture construction."
+    },
+    "plannerSuites": {
+      "passed": 31, "failed": 0, "cancelled": 0, "skipped": 0, "exitCode": 0,
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs",
+      "log": "planner-suites.tap",
+      "note": "28 original tests plus 3 gate seam tests (release-after-assign ordering, abort-without-release on refused assignment, abort on late assignment after cancellation)."
+    },
+    "entryBaselineBeforeGate": {
+      "passed": 10, "failed": 0, "cancelled": 0, "skipped": 0, "exitCode": 0,
+      "log": "entry-pre-gate-baseline.tap",
+      "note": "r13-patched product code with the two repaired test sources; PROCESS_INFORMATION probe evidence: layout size=24;dwProcessId@16;dwThreadId@20, containment mode contained-and-terminated."
+    },
+    "deterministicNegativeControlBeforeGate": {
+      "passed": 0, "failed": 1, "cancelled": 0, "skipped": 0, "exitCode": 1,
+      "log": "slowassign-prefail-first-failure.log",
+      "note": "First failure preserved. Delayed assignment (500ms) with a module-top-level detached descendant escaped the job; the surviving descendant kept the run directory busy (EPERM) while holding its working directory. Run against the exact r13-patched planner-invocation.ts (attachment copy, hash-verified), then the implemented file was restored."
+    },
+    "deterministicNegativeControlAfterGate": {
+      "passed": 1, "failed": 0, "cancelled": 0, "skipped": 0, "exitCode": 0,
+      "log": "slowassign-postfix.tap"
+    },
+    "entrySuiteWithGate": {
+      "passed": 12, "failed": 0, "cancelled": 0, "skipped": 0, "exitCode": 0,
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+      "log": "entry-gate.tap",
+      "note": "10 pre-existing native tests plus the module-top-level control and the delayed-assignment control, all through the gate; breakaway probe re-verified the completed ABI and contained-and-terminated outcome."
+    },
+    "moduleTopControlFirstRun": {
+      "passed": 1, "failed": 0, "exitCode": 0,
+      "log": "moduletop-baseline-timing-pass.log",
+      "note": "Passed on real timing before the gate (assign roundtrip faster than node bootstrap); recorded as timing dependence, not containment proof."
+    },
+    "typecheck": { "exitCode": 0, "log": "typecheck.log", "command": "pnpm run typecheck" },
+    "lint": {
+      "exitCode": 0, "log": "lint.log", "command": "pnpm run lint",
+      "firstFailure": "First run failed with two errors: one gate-cleanup line over the 140-column limit (local) and one prefer-promise-reject-errors reject(failure) inherited from the r13 patch; both repaired, lint clean on 3103 files."
+    },
+    "documentation": {
+      "testDocsFirstFailure": "verify-md-links failed until this receipt existed; all other doc gates passed",
+      "i18nPairingReRecorded": [
+        "pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md",
+        "pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md"
+      ]
+    }
+  },
+  "changedFiles": [
+    "scripts/p0-b/windows-credentials/launch-gate.mjs (added)",
+    "scripts/p0-b/windows-credentials/windows-job-owner.ts",
+    "scripts/p0-b/windows-credentials/planner-invocation.ts",
+    "scripts/p0-b/windows-credentials/planner-entry.test.mjs",
+    "scripts/p0-b/windows-credentials/planner-invocation.test.mjs",
+    "scripts/p0-b/windows-credentials/ownership-failures.test.mjs (spec line: launcher hash)",
+    "scripts/p0-b/windows-credentials/README.md",
+    "scripts/p0-b/windows-credentials/README.zh.md",
+    "scripts/p0-b/windows-credentials/README.i18n.yaml",
+    ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+    ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+    ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml",
+    "development/remediation/2026-09-10/planner-gate-r13/ (this receipt)"
+  ],
+  "protectedFilesNotChanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "notRun": [
+    "Real TLS, gateway or model requests",
+    "Real credentials, production credential targets, global authentication stores and key rotation",
+    "Paid-model calls and public relay requests",
+    "Reader/native/version/help and original configuration probes (unchanged this round)",
+    "Designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "remainingDevelopment": [
+    "P0-B stays blocked; no merge to master and no P0-C entry",
+    "Real production launch still requires the existing owner decisions and native isolation conditions; the gate is launch wiring, not owner authorization",
+    "Helper abnormal exit while the gate is unassigned ends the launcher via the bounded wait and the direct kill; a dedicated native helper-kill-with-gate fixture is future work",
+    "escape-writer.pid in the breakaway fixture records an unresolved cmd placeholder rather than a real PID; containment evidence there rests on the heartbeat freeze"
+  ],
+  "userDecisionsPending": [
+    "Owner approval of the gated-launcher wiring and its pinned hash before any production use",
+    "Authorization for real-API e2e and any future external agent use"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}

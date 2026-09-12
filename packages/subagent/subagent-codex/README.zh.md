@@ -83,7 +83,7 @@ dsh --profile <name>
 
 ### 失败与恢复
 
-省略 optional dependencies、当前平台不受支持或所选载荷缺失的安装会让提供方保持休眠，并在第一次委派时于 `initialize` 阶段以安全 `unknown` 类别和任何已观测进程结果失败；不存在宿主 CLI 回退。原始 wrapper 文本只保留在 Host stderr。被取消的运行以 `aborted` 结算。
+省略 optional dependencies、当前平台不受支持或所选载荷缺失的安装会让提供方保持休眠，并在第一次委派时于 `initialize` 阶段以安全 `unknown` 类别和任何已观测进程结果失败；不存在宿主 CLI 回退。注册的提供方会在一次性运行器收到进程句柄前私下读取并丢弃原生 stderr，不向 Host stderr 发送原始 wrapper 文本。被取消的运行以 `aborted` 结算。
 
 -----
 
@@ -107,6 +107,7 @@ dsh --profile <name>
 |---|---|
 | [`src/index.ts`](src/index.ts) | 插件入口：config schema、提供方注册 |
 | [`src/run.ts`](src/run.ts) | 运行生命周期、轮次执行、结果选择与诊断 |
+| [`src/private-stderr.ts`](src/private-stderr.ts) | 提供方拥有的原生 stderr 屏蔽及读取生命周期 |
 | [`src/wire.ts`](src/wire.ts) | 最小的 app-server JSON-RPC 协议实现 |
 | [`cordis.patch.yml`](cordis.patch.yml) | 注册休眠提供方的 Profile patch 层 |
 
@@ -176,6 +177,7 @@ Codex 子级会在一个全新的临时线程中，以单个轮次接收这些�
 - **兼容性由开发证据锁定**——若要从已验证的 0.149.1 协议基线升级，必须重新生成上游 schema 证据，并重新运行握手、答案选择、审批、取消、无密钥真实产品以及带密钥的 DeepSeek 随机数测试。
 - **没有人工审批路径**——已知的无人值守审批请求会被拒绝，未知服务器请求会以默认拒绝方式使运行失败；三种 Profile 模式都不会创建 DSH 交互通道或逐次调用 allow 策略。
 - **assistant 载荷仅包含最终文本**——失败运行可以额外公开独立的安全诊断；推理、过程说明、中间消息、工具通信、用量信息、原始 stderr 和工作区差异不会进入父会话，通用 Job id、通知与状态来自共享作业运行时。
+- **原生 stderr 刻意不可获取**——注册的提供方屏蔽全部原生 stderr，包括可能含有宿主未知凭据的诊断。这不是选择性脱敏、泄漏检测或完整诊断归档。直接调用内部运行器的测试必须自行提供安全的进程边界；stdout、原生文件、SDK 错误原因及其他产品提供方不在本 stderr 策略范围内。参见[隐私决策](../../../.agents/notes/implemented/architecture/2026-09-09-codex-private-stderr.zh.md)。
 - **没有可选的共享能力**——对于本提供方，共享服务会拒绝 `agentOptions`、输出 schema、子任务角色设定、工具筛选和 harness 深度强制约束。
 - **没有按实际经过时间触发的超时或副作用回滚**——长时间运行的工作由调用方取消，且取消前已更改的文件或外部系统不会恢复原状。
 

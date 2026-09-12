@@ -1,0 +1,239 @@
+{
+  "kind": "gate-owner-failure-lifecycle-support-not-native-acceptance",
+  "round": "r14",
+  "recordedAt": "2026-09-10T15:51:23.624436+00:00",
+  "baseCommit": "ed8d91461fcdbf68066fa5804d57d06c23c31749",
+  "baseTree": "1bd45668ceca68eae1406f65e4550ddeec1c4df6",
+  "actor": "ChatGPT in this conversation; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false,
+    "note": "Node is below repository engine minimum. Git clone unavailable due DNS; exact source subsets were verified against Git blob IDs."
+  },
+  "sourceIdentity": {
+    "windows-job-owner.ts": "710a9e701124a3b34076e42b646e83b1f2d81058",
+    "launch-gate.mjs": "1f1bc3db0dfd2bae35e021db92cae25e8095d713",
+    "ownership-failures.test.mjs": "2bf0a5152f59bebb51037c7cb3bf58b116008cb7",
+    "baselineFourDocBlobsMatched": true
+  },
+  "findings": [
+    "An unhealthy/disposed helper did not prevent launchGated or releaseGated; release did not enforce exact launcher assignment or single use.",
+    "Helper failure only terminated the helper; an unassigned launcher was not aborted by the owner, and disposal could erase its files before launcher close.",
+    "The gate could accept go after wait expiry and omitted a final abort decision; malformed null launch data could print a stack trace."
+  ],
+  "checks": {
+    "baseline": {
+      "command": "node --experimental-vm-modules --test baseline/scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs baseline/scripts/p0-b/windows-credentials/launch-gate.test.mjs",
+      "cwd": "/mnt/data/dsh861-r14",
+      "log": "baseline-controls.tap",
+      "tests": 34,
+      "passed": 7,
+      "failed": 27,
+      "skipped": 0,
+      "exitCode": 1,
+      "scope": "New expected-behavior controls on the exact r13 sources, not 27 distinct vulnerabilities."
+    },
+    "fixed": {
+      "command": "node --experimental-vm-modules --test fixed/scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs fixed/scripts/p0-b/windows-credentials/launch-gate.test.mjs",
+      "cwd": "/mnt/data/dsh861-r14",
+      "log": "regressions.tap",
+      "tests": 34,
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "20 real-source owner cases with simulated win32/processes and real files; 14 gate cases use real Node helpers/targets or explicitly virtual clocks."
+    },
+    "legacyOwner": {
+      "command": "node --experimental-vm-modules --test --test-name-pattern='^(owner |negative active|dispose |failed disposal|prior protocol|a valid dispose|null protocol)' fixed/scripts/p0-b/windows-credentials/ownership-failures.test.mjs",
+      "cwd": "/mnt/data/dsh861-r14",
+      "log": "owner-legacy-focused.tap",
+      "tests": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Only the existing owner protocol/disposal subset; not the other 15 entry/invocation cases."
+    },
+    "focusedTypecheck": {
+      "command": "tsc --noEmit --strict --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --skipLibCheck --types node --typeRoots /opt/nvm/versions/node/v22.16.0/lib/node_modules/ts-node/node_modules/@types fixed/scripts/p0-b/windows-credentials/windows-job-owner.ts",
+      "log": "typecheck.log",
+      "exitCode": 0,
+      "scope": "One changed TypeScript module with preinstalled Node declarations; not host/client programs."
+    },
+    "syntax": {
+      "files": [
+        "launch-gate.mjs",
+        "launch-gate.test.mjs",
+        "gate-owner-failures.test.mjs",
+        "gate-owner-native.test.mjs"
+      ],
+      "method": "node --check",
+      "exitCode": 0
+    },
+    "documentation": [
+      {
+        "pair": "scripts/p0-b/windows-credentials/README",
+        "tokenStructureAndFences": "PASS",
+        "repositoryPairingCommand": "NOT_RUN",
+        "sidecar": "LEFT_UNCHANGED_PENDING_LOCAL_RE_RECORD"
+      },
+      {
+        "pair": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge",
+        "tokenStructureAndFences": "PASS",
+        "repositoryPairingCommand": "NOT_RUN",
+        "sidecar": "LEFT_UNCHANGED_PENDING_LOCAL_RE_RECORD"
+      }
+    ]
+  },
+  "authoringIssues": [
+    {
+      "log": "owner-fixed-first.tap",
+      "result": "Node VM test worker exited with SIGSEGV; not an assertion failure. Root cause unestablished.",
+      "followup": "Single-case isolation passed. Test loader then preloaded core namespaces and transpiled source once; identical final loader used for baseline/fixed controls. Not claimed as a Node/libuv fix."
+    },
+    {
+      "log": "owner-legacy.tap",
+      "result": "Initial name filter selected 2 extra entry tests without their files in the subset; 9 passed/2 ENOENT.",
+      "followup": "Exact owner-only filter ran 10/10; no entry test or missing source was weakened."
+    }
+  ],
+  "nativeFixtures": {
+    "path": "scripts/p0-b/windows-credentials/gate-owner-native.test.mjs",
+    "cases": 2,
+    "status": "NOT_RUN",
+    "scope": "Written for actual PowerShell/helper and retained real child handles before/after assignment; no OS simulation. Linux skips are not native passes."
+  },
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 4772,
+    "sha256": "b9a17bae8b15a5ba4bcb708df61df7db994576f864e10680bcfbd761c758fe09",
+    "members": {
+      "baseline-controls.tap": {
+        "bytes": 24660,
+        "sha256": "93ee3d2d666af2004864026575b65acecde10453be819a10242c87dab85e6772"
+      },
+      "gate-baseline.tap": {
+        "bytes": 8171,
+        "sha256": "b952509ec6d40ecf178de69686173d4b18f3815b53dc3970f9a4a220683ab7b2"
+      },
+      "gate-fixed.tap": {
+        "bytes": 2888,
+        "sha256": "8754e87623a54c1a7a8ecbc07d13db1b0ca0142f4bbaa3314bce3edf843607a8"
+      },
+      "owner-baseline.tap": {
+        "bytes": 16618,
+        "sha256": "69c4c73ccce1bf86998aad0822cdb0e4dadb9de8e8a3c51659de31ecadc4b3e1"
+      },
+      "owner-fixed-first.tap": {
+        "bytes": 596,
+        "sha256": "86437708cfe980b5f121b7e74640e53b16625f5681d609cc95d81775b1f2a121"
+      },
+      "owner-fixed-isolation.tap": {
+        "bytes": 469,
+        "sha256": "1c6c908b0452e272044fdd706b8b605c845ccbf07f97c9941f94995ec95b6eb4"
+      },
+      "owner-fixed.tap": {
+        "bytes": 4123,
+        "sha256": "374addad75b886bbf615a230b553d59c75f9e5cf4e56662386e8ac9839bf497b"
+      },
+      "owner-legacy-focused.tap": {
+        "bytes": 2300,
+        "sha256": "021e51b231d72b42ab933c3b38347a8b1f0bdfe265243c0c6cfc17d55e41d479"
+      },
+      "owner-legacy.tap": {
+        "bytes": 4576,
+        "sha256": "a1f5661e77a6c7e5f0f2373da56d0f167167ffffb2cd3e26e183c15e4d83aba4"
+      },
+      "regressions.tap": {
+        "bytes": 6901,
+        "sha256": "fc373dcfed16084df773023773ea5dfe0c92886e74e3fb2d11b178c03603e19a"
+      },
+      "typecheck.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "metadata": "uid/gid/mtime zero; uname/gname empty"
+  },
+  "notRun": [
+    "Windows execution of the new owner/gate and native tests",
+    "Full host/client typecheck, lint, test:docs or doc-sync",
+    "Repository translation re-recording; existing i18n sidecars deliberately not self-certified",
+    "Breakaway fixture real process-handle/PID correction and kernel-exit proof",
+    "Production credentials, gateway/TLS, model calls, OS read-only/ACL, monetary-budget enforcement",
+    "Designated plan.v4 or OpenCode hard review"
+  ],
+  "protectedFilesNotChanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "fileHashes": [
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 6083,
+      "sha256": "48b7d75b324501dbd730306178153ef2d43c9c7d5df89b20d42ba2d774f502dd",
+      "gitBlob": "0f1352bc2916859223cd54f89453981b0d30d70d"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 5241,
+      "sha256": "f8dd0d0cb5e7ccbf57b81483a2366830de8568d74ca39450c652f5e7bf3900dc",
+      "gitBlob": "44ff82259be3628465c53d438cc90715045a8080"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 4261,
+      "sha256": "c9cd920fcdddde8d3e3eb905f3bd3fcbe5cca74c098b9db678071ec42b23a05c",
+      "gitBlob": "9683a3e0417dce8b1f0a959b2dfed4dc7dadcdc4"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 10771,
+      "sha256": "ad406fbb786a1e068e9aaeab89b194f47dacbb91ce1e463534fb7de72a6bbee9",
+      "gitBlob": "fba75f308adffa8a3d858daa126c41969b7f4e96"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 9511,
+      "sha256": "ef4ef53e59de011aad39141595db0341785aeba2e66211739e78c917bb44e4db",
+      "gitBlob": "c5a7df3ff6d70d0e6d14a201a5567532772587a6"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs",
+      "bytes": 10399,
+      "sha256": "048c10ca10fd456a71cfa7d29bfaf4c72d561f49751c5d55420a4c3a76d8bfa8",
+      "gitBlob": "ddcd2f9f36fa8a710b04203dc3c0e1755cb8b732"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/gate-owner-native.test.mjs",
+      "bytes": 4679,
+      "sha256": "36bf440ff1ea3dd2a316e5a49c22805a7213e6a6d9317126daed4cdd9b63927c",
+      "gitBlob": "81016ac80f07d1e5a490baf2e679fbd6bfcb707d"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/launch-gate.mjs",
+      "bytes": 2141,
+      "sha256": "48ece9f3e620e6f3ad3fbc131ff61d3895e38d7c6b1407d7c0b51c2ae4482923",
+      "gitBlob": "4893121dc3db51b14d3a9b7b3aebfea17d8a671f"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/launch-gate.test.mjs",
+      "bytes": 6255,
+      "sha256": "92813c6e4211bae9482ec2369abde17f48905c1e2789a95da36bab54d25b40c4",
+      "gitBlob": "f504112b1fe348e783b635d3599bbd060b1d7bf8"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/windows-job-owner.ts",
+      "bytes": 17250,
+      "sha256": "ddd1b1710911ed0768e522dd8dc1dbee12416c31fe81d19312a1b5f847b51507",
+      "gitBlob": "abced4414d14daa01d3968ce3775ef2fd027e57d"
+    }
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}

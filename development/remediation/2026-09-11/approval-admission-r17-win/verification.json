@@ -1,0 +1,174 @@
+{
+  "kind": "windows-native-execution-of-r17-owner-approval-admission",
+  "round": "r17-windows",
+  "recordedAt": "2026-09-11T16:25:11Z",
+  "baseCommit": "5a1ffbb6f48b8b58d2b442dddaaefa39fdfb2f6d",
+  "baseCommitParent": "dcb4845a6cf42d0af2701cfc405dff6757b364ab",
+  "actor": "ZCode built-in execution subagent on the user's Windows host; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "repositoryDependenciesInstalled": true,
+    "windowsNativeRun": true,
+    "note": "Explicit fetch of origin feat/p0b-owner-approval-20260911 at 5a1ffbb over parent dcb4845a; local branch created at that commit with upstream recorded via branch config (remote.origin.fetch refspec is master-only). No stash, no force, no reset, no parallel implementation; PR #7 branch untouched."
+  },
+  "checks": {
+    "approval21": {
+      "command": "node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "approval-win-r17-postfix.tap",
+      "tests": 21,
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Real Ed25519 verification, exclusive local-ledger markers, in-process concurrent replay (8 racers, exactly one fulfill), fresh-process replay via spawned Node, junction symlink refusal with precise marker unlink, and refusal of unapproved/noncanonical/embedded-key/expired/mismatched decisions."
+    },
+    "consumer18": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "consumer-win-r17-postfix.tap",
+      "tests": 18,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Actual admission consumer, projection and verifier loaded from source (vm modules with transpiled owner-approved-planner.ts); native entry, credential transport and external enforcement are explicit test doubles. Covers changed source/prompt/executable/helper hashes, run-root and read-set changes, HTTP declaration refusal, acquire-failure retry refused with PLANNER_APPROVAL_USED, lease binding mismatch, revocation and file changes at the reader boundary (reads=0), control acquisition mutation isolation, cleanup-unknown CLEANUP_BLOCKED, concurrent single reservation/read."
+    },
+    "native2": {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "native-win-r17-postfix.tap",
+      "tests": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Actually executed on win32 (skip condition process.platform!=='win32' not taken; first run duration 5113.7ms, post-fix 3493.8ms). Case 1: signed admission reaches the real invokeProjectedPlannerOnce with real config/agents/models.v1.json + lock, real SystemRoot PowerShell, real job-owner.ps1 helper and launch-gate.mjs launcher hashes; the target Node child wrote target-ran.json with real pid/ppid; PROJECTED_PLANNER_COMPLETED with exitCode 0, ownership.assigned=true, activeProcessesRemaining=0, disposed=true; exactly one sealed-credential read; replay refused PLANNER_APPROVAL_USED with no second read. Case 2: deadlineMs altered after signing refused PLANNER_DECISION_MISMATCH before run-root creation (runRoot absent, target-ran.json absent, controls acquired=0, reads=0). Synthetic Ed25519 signer, RSA-OAEP-SHA256 sealed peer and control adapter only; proves composition wiring, not owner enrollment, ACL, TLS, monetary enforcement or OS isolation."
+    },
+    "lintRepair": {
+      "firstFailure": {
+        "command": "pnpm run lint",
+        "log": "lint-r17.log",
+        "exitCode": 1,
+        "errors": 5,
+        "detail": "All five in scripts/p0-b/windows-credentials/owner-approved-planner.ts: four @stylistic(member-delimiter-style) on the multi-line OwnerApprovedPlannerResult union member using semicolons, one typescript(unbound-method) on destructuring the acquireControls interface method at line 108. The r17 authoring receipt ran only a focused typecheck, so repository lint had not seen the change (same class as the r15 Windows finding)."
+      },
+      "fix": "Union member reformatted to the planner-entry.ts ProjectedPlannerEntryResult house style (one member per line, no separators); createOwnerApprovedPlanner no longer destructures acquireControls and calls services.acquireControls at its single call site, keeping the interface method syntax symmetric with assertActive/close/inspect/consume. No behavior, spawn, gate, verifier or test change.",
+      "fixedRun": {
+        "command": "pnpm run lint",
+        "log": "lint-r17-fixed.log",
+        "exitCode": 0,
+        "warnings": 0,
+        "errors": 0
+      }
+    },
+    "postRepairReRuns": {
+      "approval": { "log": "approval-win-r17-postfix.tap", "tests": 21, "passed": 21, "failed": 0, "skipped": 0, "exitCode": 0 },
+      "consumer": { "log": "consumer-win-r17-postfix.tap", "tests": 18, "passed": 18, "failed": 0, "skipped": 0, "exitCode": 0 },
+      "native": { "log": "native-win-r17-postfix.tap", "tests": 2, "passed": 2, "failed": 0, "skipped": 0, "exitCode": 0 },
+      "scope": "All three new suites re-run on the repaired owner-approved-planner.ts source; native re-executed for real on Windows."
+    },
+    "typecheckFull": {
+      "command": "pnpm run typecheck",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "typecheck-r17.log",
+      "exitCode": 0
+    },
+    "pairingWrite": {
+      "command": "pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md; pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-write-readme-r17.log; pairing-write-note-r17.log",
+      "exitCode": 0,
+      "scope": "Named re-record only (no --write --all) of the two pairs left unchanged-pending-local-re-record by the r17 authoring receipt; README re-recorded again after its bilingual receipt-link update (pairing-write-readme-r17-final.log)."
+    },
+    "pairingCheck": {
+      "command": "pnpm run verify-translation-pairing scripts/p0-b/windows-credentials/README.md; pnpm run verify-translation-pairing .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-check-readme-r17-final.log; pairing-check-note-r17.log",
+      "exitCode": 0,
+      "scope": "Both named pairs consistent after re-record; README.md and README.zh.md remain 97 lines each."
+    },
+    "testDocs": {
+      "command": "pnpm run test:docs",
+      "log": "test-docs-r17.log",
+      "exitCode": 0,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "doc-quick aggregate including corpus-wide translation pairing and markdown wrap; run after the lint repair and pairing re-records."
+    },
+    "docSync": {
+      "command": "pnpm run doc-sync",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "doc-sync-r17.log",
+      "exitCode": 0,
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 148.86,
+      "scope": "One actual full doc-sync execution on the final candidate working tree (post lint repair, bilingual receipt links, handoff correction and sidecar re-records; the stub of this receipt was present so the new relative links resolved). Not a CI claim."
+    }
+  },
+  "impactAnalysis": {
+    "productChange": "scripts/p0-b/windows-credentials/owner-approved-planner.ts only: OwnerApprovedPlannerResult multi-line union member reformatted (delimiter style) and the acquireControls destructure replaced with a services.acquireControls call at its single call site. Same admission ordering, guarded bridge, cleanup precedence and result values; no spawn, gate, helper, credential, verifier or test logic change.",
+    "nonProductChange": "Bilingual README receipt-link sentence, two handoff sentences recording actual Windows execution, two i18n sidecar re-records via the named pairing program, and this Windows evidence directory.",
+    "evidence": "Every affected suite was re-run on the repaired source: approval 21/21, consumer 18/18, native 2/2 (really executed on Windows), lint 0/0, test:docs 15/15, doc-sync 33/33."
+  },
+  "notRun": [
+    "Legacy 8/25/12 entry and invocation suites, 34/2 gate-owner + launch-gate suites, reader/native credential tests, gate-owner-native, version and configuration-discovery probes: their source files are byte-identical to the r15 Windows receipts and unchanged in 5a1ffbb and this round",
+    "Real-API e2e: requires DEEPSEEK_API_KEY; none used this round by instruction",
+    "Production credentials, gateway/TLS, model calls, Remote Desktop Commander, monetary-budget enforcement, owner trust-root enrollment or production signing keys",
+    "GitHub Actions CI for this candidate: not consumed as evidence",
+    "Designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "protectedFilesNotChanged": [
+    { "path": "config/agents/models.v1.json", "bytes": 1656, "sha256": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f", "gitBlob": "5292c7094b84fcb42d15735ca91ccb99123f892c" },
+    { "path": "config/agents/models.v1.lock.json", "bytes": 227, "sha256": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb", "gitBlob": "2ecb11ccba29a748e6eba6f47aeb59284052db26" },
+    { "path": "pnpm-lock.yaml", "bytes": 768436, "sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383", "gitBlob": "a286e8db0adb8a0178b3b845a52e057f4ef9046b" },
+    { "path": "development/nodes/P0-B/state.json", "bytes": 2878, "sha256": "6ec9def1b6e71c33088315e8106cfbb7538fff6d402d8b2148e86b8d34c90103", "gitBlob": "4fa1dd1ab8f34e620a14e83fe4c9c7beea12665f" }
+  ],
+  "fileHashes": [
+    { "path": "scripts/p0-b/windows-credentials/owner-approved-planner.ts", "bytes": 8706, "gitBlob": "6eddf96b1687e5d8229fb8b7c6e6f14a1b6925ec", "sha256": "769482f7548b57729619c520c4749f97390fbf5f58c173953e8634779d8802fa", "note": "Final repaired source; 5a1ffbb recorded gitBlob 946c08a402a639ed748bb4df5bf02bedf125e634 before the lint-only repair" },
+    { "path": "scripts/p0-b/windows-credentials/planner-approval.mjs", "bytes": 6930, "gitBlob": "73243a882749d4a2108f4496dc2493f126863fee", "sha256": "6f3e8411d7f0606bbcd07d008431df0fc309d91ea2bbe0260e4c73fa3bb609be" },
+    { "path": "scripts/p0-b/windows-credentials/planner-approval.test.mjs", "bytes": 8074, "gitBlob": "f87ef69500e7ab48434f82920d6096626de734c8", "sha256": "a00f7f2e4e13e53b2b29ff11187f81b4d55c5352dbe825c259b9ebcce17db106" },
+    { "path": "scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs", "bytes": 11847, "gitBlob": "9c3b4cf7dea4e6d6915c9533762d039fbbea6a6f", "sha256": "9f7102023ebb66c1bc3d79db541c466f4595a4a052555639529889a03a1eabd0" },
+    { "path": "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs", "bytes": 6950, "gitBlob": "f3c3fcf33225bd92ad47d598f6fb5424dcbf3f44", "sha256": "804d63a5166ec763fc3caad394094f522fb6d1d10df114cecefebe17a3ddae5b" },
+    { "path": "scripts/p0-b/windows-credentials/README.md", "bytes": 14865, "gitBlob": "ef8393d578ef8361d5ea6d3168d42b955892b777", "sha256": "77e90f4ebb1c12e729fedaf29c139b7d48af5f46b4b47176d3adadd95dc7badc" },
+    { "path": "scripts/p0-b/windows-credentials/README.zh.md", "bytes": 13014, "gitBlob": "2cf827455e1867e263d0871944733b6ae8a108a6", "sha256": "db8e44493930cd7da26b5cf51874f18c24edf5117b121adaa6540c6267de38e8" },
+    { "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md", "bytes": 6030, "gitBlob": "2d69c8d4773114bb451c4d51badba982cb4615f8", "sha256": "41cf26d904c8788b192ec24e9ec579178cbc5698955b30b6d167af59a90ac41a" }
+  ],
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 23116,
+    "sha256": "1deb595e33af29005701a0395e8c7887e717b79b1e46a1fd95e8259c684de12a",
+    "metadata": "uid/gid/mtime=0; uname/gname empty; ustar; sorted names",
+    "members": {
+      "approval-win-r17-postfix.tap": { "bytes": 1626, "sha256": "3c2b56a046abd3fc4f57a753ce138c7d6c6bd949f14e5e9213c8adab7cc870b7" },
+      "approval-win-r17.tap": { "bytes": 1625, "sha256": "d0399920c5190fb5e3d12b92c84a44011f13e2d9f8cced40e647f692710f1134" },
+      "consumer-win-r17-postfix.tap": { "bytes": 1662, "sha256": "fa311bfee5b5e88dd4ca29c8853dba661e15458f034f8a54b277a7d319683742" },
+      "consumer-win-r17.tap": { "bytes": 1657, "sha256": "add0ed6fa1025a4f368b7010086406b8a5ea84ddb234f8b270d38b48ac8a664b" },
+      "doc-sync-r17.log": { "bytes": 2788, "sha256": "afc9c1d3b332d8697ff10fce6bb7ee895a002f2afd57b7b025e34a5e917710b8" },
+      "lint-r17-fixed.log": { "bytes": 162426, "sha256": "0a1d966c3fdff8f84ea26213923d02aaf5c63277247a5f8225bb3dd62c8ed262" },
+      "lint-r17.log": { "bytes": 165295, "sha256": "e4ba1f4aee0caa4a889b784cc96dab63beec60152a64290e512169efafbc6ad2" },
+      "native-win-r17-postfix.tap": { "bytes": 307, "sha256": "42ad2646d93ea272ff278c25774156008c1d13ffc1c79dc5486f1ec02e257fbf" },
+      "native-win-r17.tap": { "bytes": 307, "sha256": "89fd0c9c4b1a9e44cf397e3743d22cc98cce7d37a9950ee5458b90aa816eb37f" },
+      "pairing-check-note-r17.log": { "bytes": 227, "sha256": "a15a162a4a4189eeccef102e28f79252334c3e8b92847dec212c433b73bdb2fe" },
+      "pairing-check-readme-r17-final.log": { "bytes": 191, "sha256": "61e2b391629a168b6a82be50e3efdeb2ae028e2b13ae2717b0ef863aa73ca8e8" },
+      "pairing-check-readme-r17.log": { "bytes": 191, "sha256": "61e2b391629a168b6a82be50e3efdeb2ae028e2b13ae2717b0ef863aa73ca8e8" },
+      "pairing-write-note-r17.log": { "bytes": 344, "sha256": "1288a9ac7e6f91199dab0287f9657231656415e5284e0fafd6455578357b0330" },
+      "pairing-write-readme-r17-final.log": { "bytes": 272, "sha256": "93aa7fcdf1063430c0bb36696add2ad5ca57dbde2af93d5958adf6c4e8344a58" },
+      "pairing-write-readme-r17.log": { "bytes": 272, "sha256": "93aa7fcdf1063430c0bb36696add2ad5ca57dbde2af93d5958adf6c4e8344a58" },
+      "test-docs-r17.log": { "bytes": 1429, "sha256": "aae815c44e42a5beddc70441faf090130129af17675f99b2267f944a10a1f96b" },
+      "typecheck-r17.log": { "bytes": 159904, "sha256": "15c0290c0e27d62c884108d3bbd128a3f70cbda0450b32e23b78dc0940118124" }
+    }
+  },
+  "remainingWorkSplit": {
+    "technical": "Production signing entry and owner trust-root enrollment, ledger parent-directory ACL and recovery, verified read-only/scope isolation, real TLS route validation and hard monetary enforcement adapters still need implementation or deployment; acquireControls remains a trusted deployment interface, not a completed enforcement implementation.",
+    "userDecisions": "Actual HTTPS route and its approval, provider-side revocation of the old Codex key with private re-entry of the replacement, concrete currency/limit/validity for the budget, and the final complete signable request bound to new code. No key is required from the user for this round."
+  }
+}

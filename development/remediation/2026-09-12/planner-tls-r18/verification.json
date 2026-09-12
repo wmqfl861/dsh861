@@ -1,0 +1,228 @@
+{
+  "kind": "credential-free-tls-probe-and-admission-reader-binding",
+  "round": "r18",
+  "recordedAt": "2026-09-11T16:55:33.564039+00:00",
+  "baseCommit": "602a3d9498f044a71df9632748c72602f09b7599",
+  "actor": "ChatGPT; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false,
+    "nodeBelowRepositoryMinimum": true
+  },
+  "changes": [
+    "Explicit trusted-route CA/host/IP/minimum TLS and optional SPKI validation; credentials/HTTP/redirects/retries absent",
+    "Bounded handshake and socket close; no cached success; fixed diagnostic codes",
+    "Existing owner admission invokes TLS at its guarded private reader; consent/controls/files rechecked afterward",
+    "Exact-route loopback TLS fixtures; no production CA or API key"
+  ],
+  "checks": {
+    "tls": {
+      "command": "node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs",
+      "tests": 24,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "tls-first.tap",
+      "scope": "Actual OpenSSL-backed Node TLS to loopback servers, including real wrong-host/expired/untrusted certificates, minimum version, pin, timeout and cancellation"
+    },
+    "combinedFinal": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-tls.test.mjs scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+      "tests": 48,
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "final.tap",
+      "scope": "24 TLS + 24 admission controls. Actual admission/projection/signatures/files; native entry, reader and financial/isolation services simulated in the consumer suite. Explicit cases use real loopback TLS."
+    },
+    "newControlsOnBase": {
+      "command": "node --experimental-vm-modules --test --test-name-pattern='^(actual |unapproved input never|live controls revoked during TLS)' scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+      "tests": 6,
+      "passed": 1,
+      "failed": 5,
+      "skipped": 0,
+      "exitCode": 1,
+      "log": "baseline-controls.tap",
+      "scope": "Same new controls with the exact 602a3d9 admission source; demonstrates newly required TLS check, not five independent vulnerabilities"
+    },
+    "focusedTypecheck": {
+      "exitCode": 0,
+      "log": "typecheck.log",
+      "scope": "Changed admission with exact current TS dependencies, preinstalled TypeScript/Node types; not full repository typecheck"
+    },
+    "syntax": {
+      "files": 6,
+      "method": "node --check",
+      "exitCode": 0
+    },
+    "documentation": {
+      "pairs": 2,
+      "headingLevelsAndFences": "PASS",
+      "repositoryPairingCommand": "NOT_RUN",
+      "sidecars": "UNCHANGED_PENDING_NAMED_RE_RECORD"
+    }
+  },
+  "sourceIdentity": {
+    "baseAdmissionBlob": "6eddf96b1687e5d8229fb8b7c6e6f14a1b6925ec",
+    "projectedEntryBlob": "ef3b3339a50b9f481315d6bd521faf572ef8ab8e",
+    "invocationBlob": "962eb4d97bcd296589c99e50ba5f0c90077ec184",
+    "ownerBlob": "abced4414d14daa01d3968ce3775ef2fd027e57d",
+    "method": "Exact-source subsets recovered from prior review snapshots and compared to connector blob identities; historical dependency bytes corrected to current hashes before typecheck; not a full clone"
+  },
+  "nativeFixtures": {
+    "file": "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs",
+    "cases": 3,
+    "status": "NOT_RUN",
+    "scope": "Real Windows entry/job/launcher plus actual loopback TLS, with synthetic signer/reader/budget/isolation services. Includes bad TLS before real reader/CLI."
+  },
+  "network": {
+    "actualGatewayContacted": false,
+    "addresses": "127.0.0.1 and localhost only",
+    "httpRequestsSent": 0,
+    "productionCredentialsRead": false,
+    "trustStoreModified": false,
+    "testServerKey": "Synthetic, intentionally public test fixture; CA private key not retained or committed"
+  },
+  "notDelivered": [
+    "TLS behavior of actual Codex requests, production route or network isolation",
+    "Production signing UI/trust enrollment and ledger ACL/recovery",
+    "Immutable OS read-only scope or hard monetary enforcement adapter",
+    "Owner production approval, real model invocation, plan.v4 or designated hard review"
+  ],
+  "notRun": [
+    "Windows execution of new/changed suites",
+    "Full repository typecheck/lint/test:docs/doc-sync",
+    "CI matrix and real gateway/model probes"
+  ],
+  "preserved": [
+    "models.v1.json",
+    "models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "state.json",
+    "Original signing verifier, Windows credential/job/gate/entry/invocation sources and all historical evidence"
+  ],
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 3148,
+    "sha256": "0b227e5390a6862e952920d5f5b954200096dae4781ce0426541cee03c28bb14",
+    "gitBlob": "dc0a959953810f4a0cffeb5b20cfb4fe99bdc131",
+    "members": {
+      "baseline-controls.tap": {
+        "bytes": 5236,
+        "sha256": "c3077e690e3d4db55c2dc50c3c68bda4d1dc13195ec8e801fb75b2d724c01653",
+        "gitBlob": "06dc4a23da910a0d49c82ce9cdffc597841c06b5"
+      },
+      "consumer-first.tap": {
+        "bytes": 5053,
+        "sha256": "79b26e933477c35ed071b6c9619c0933a539c061fed2b017427a505b4bf74d71",
+        "gitBlob": "1ac91e9b9951eb12cd868ddcae595fcf22107e87"
+      },
+      "final.tap": {
+        "bytes": 9567,
+        "sha256": "793146619ff4c821f618bc7c241c67fcdab5438fca0de74d11da06b69373df73",
+        "gitBlob": "e1d3dbd5aba988d5d4c13733ca70a2229f1b1891"
+      },
+      "tls-first.tap": {
+        "bytes": 4621,
+        "sha256": "113ce9ee14d1723233816ea9d86371b50617243477940e1d90c0cf679a1a88b0",
+        "gitBlob": "619619539a697ef0a5cbe44df92a65e2f4be4bc5"
+      },
+      "typecheck.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      }
+    },
+    "metadata": "USTAR; uid/gid/mtime=0; uname/gname empty"
+  },
+  "references": [
+    "https://nodejs.org/api/tls.html",
+    "https://nodejs.org/api/https.html"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-tls.mjs",
+      "bytes": 7609,
+      "sha256": "a4da5f865d2a9aaffc6a4a5e8fb00a4ed98376ff5670da8577e17eff4efd1365",
+      "gitBlob": "0ed1ee78b9487006deb9a50ed76335de1248d12a"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-tls.d.mts",
+      "bytes": 1668,
+      "sha256": "b54a8e77d70b3de94c15cc290c54bc8776547a78ee11ef2ae9161196bdf32eb3",
+      "gitBlob": "a5472da029d584dc4ebbc9512813245a6026d2ca"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-tls.test.mjs",
+      "bytes": 7041,
+      "sha256": "a529e118980f54f69269d1ba1f09824e8f8ff2c96a355269f81dfb7076d67074",
+      "gitBlob": "06a4954f66d480160f370a78afff65ec8331499f"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/fixtures/planner-tls-certificates.mjs",
+      "bytes": 6704,
+      "sha256": "7f832f7819d94296560723fc12919fcd743fe89df804b5ca77acb534ca56231c",
+      "gitBlob": "b9343b79536b78ae135dcee59b7d3166f3b098b6"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/fixtures/planner-tls-server.mjs",
+      "bytes": 1801,
+      "sha256": "9525182ce86407cd77750f5dd1fcbe009b44cbbfc97ac809ceb4b100c8f9be57",
+      "gitBlob": "f7905706fe1bbe0275dbaeaa2baf5826041fe09e"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner.ts",
+      "bytes": 9528,
+      "sha256": "b0608d75a5029ceee685693fa67632708061e1b9a0b1db4e7f6ff0915e708fa7",
+      "gitBlob": "e780a793e877bd23c7cb2f621c36610920a8b790"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+      "bytes": 14833,
+      "sha256": "a30840430b12b017221a24c51faf6a1e26fb8cf80cbe85fd55db7fb7d7bb9027",
+      "gitBlob": "b90d4567a83389eb4917f73dd2e2ff37aac211f3"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs",
+      "bytes": 8444,
+      "sha256": "1920379e8620d18398f3c11fd49ed8d0bd17e4b7f2afc0d275e367c3a9d31014",
+      "gitBlob": "0d2b3f4bb138456cba515c487c6147ebf2f056a4"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 17483,
+      "sha256": "6fe4068372030cd97d2040e3de6617cd9eca0413d1442253c315a43cc8e0d02e",
+      "gitBlob": "f2db139c6798d9ecb404019add7cc645377039ac"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 15235,
+      "sha256": "ca336e914f3684a5ff57ea8209177e2d25e70205d61291a6fe688033e34d6ece",
+      "gitBlob": "aa50b5aeed591d3fe43b9234e9ffffa1c023fc9b"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 7654,
+      "sha256": "70a312075a1dd8635b60bed580a1f3ef73436f6429101f211690450fdf85f6ca",
+      "gitBlob": "476c2b4bf228614e31a86826df73fa48a9285fdd"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 6578,
+      "sha256": "ea48207e9a302f6035ebcb0b83ed8506adc0d909462a38b7ebbe85f20ee47ac0",
+      "gitBlob": "415c14ca4c72869831bd704990ba87ef191774e8"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 5065,
+      "sha256": "7d09f71e78610461ef1df5b3650ad6cd7c3215332c696680cbd2965a553c7c3c",
+      "gitBlob": "7924e3ca8cdf9cfeb8161fa65d6e69c6b23b4c52"
+    }
+  ]
+}

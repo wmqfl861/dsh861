@@ -1,0 +1,168 @@
+{
+  "kind": "windows-native-execution-of-r18-tls-and-r19-read-completion",
+  "round": "r18-r19-windows",
+  "recordedAt": "2026-09-12T00:57:15Z",
+  "baseCommit": "27eaf8852b583d52dd2d3d36028bfeb7a372bd5b",
+  "baseCommitParent": "5e72c4a5644794f9c5fd4a0bb9bf0b587853dca9",
+  "actor": "ZCode built-in execution subagent on the user's Windows host; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "repositoryDependenciesInstalled": true,
+    "windowsNativeRun": true,
+    "note": "Explicit fetch of origin feat/p0b-owner-approval-20260911 (git -c http.version=HTTP/1.1), then fast-forward 602a3d9 -> 27eaf88 with no local-only commits, no stash, no force, no reset, clean worktree before and after. r18 (5e72c4a) and r19 (27eaf88) read as diffs before integration; protected files byte-identical to the r17-win receipt afterwards."
+  },
+  "checks": {
+    "tls24": {
+      "command": "node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "tls-r18r19-win.tap",
+      "tests": 24,
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "durationMs": 428,
+      "scope": "Actual OpenSSL-backed TLS to loopback servers: wrong-host, expired and untrusted certificates, minimum version, SPKI pin, handshake timeout, cancellation, policy rejections (userinfo/query/fragment/trust/leaf-CA/override/deadline) before network access, record/policy match, verifier immutability, no reuse of a past success."
+    },
+    "consumerReadCompletion31": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "consumer-read-completion-r18r19-win.tap",
+      "tests": 31,
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "durationMs": 1051,
+      "scope": "24 admission-consumer controls (actual admission/projection/verifier source; native entry, credential transport and enforcement as explicit doubles, loopback TLS real) plus the 7 r19 read-completion controls: expiry, revocation and prompt/read-set/reservation changes during the pending sealed read prevent response delivery; a started read stays reads=1; post-read refusal with failed cleanup cannot become completed."
+    },
+    "native6": {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "native-r18r19-win.tap",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "durationMs": 11167,
+      "scope": "Actually executed on win32 (skip condition process.platform!=='win32' not taken; per-case durations 107ms-3415ms). Real config/agents/models.v1.json + lock, real SystemRoot PowerShell, job-owner.ps1, launch-gate.mjs and the real projected entry; synthetic Ed25519 signer, RSA-OAEP-SHA256 sealed peer, control adapter and loopback TLS only. Case 1 admission completes with transport PLANNER_TLS_PEER_VERIFIED, socketCloseObserved, one connection, zero application bytes, exitCode 0, ownership activeProcessesRemaining=0 and disposed, reads=1, replay PLANNER_APPROVAL_USED without a second read. Case 2 altered request refused PLANNER_DECISION_MISMATCH before run root, helper or read (connections=0, reads=0). Case 3 wrong-host certificate blocks reader and CLI, owner closed, reads=0, no target marker, replay refused without a new connection. Cases 4-6 revocation, expiry and prompt change injected while the sealed read is pending: PROJECTED_PLANNER_REFUSED, disposed, activeProcessesRemaining=0, reads=1 (the read began and is recorded as one, not zero), no target marker; after restoring only the synthetic prompt and the test-mocked clock (t.mock.restoreAll), the same approval still yields PLANNER_APPROVAL_USED with reads=1. Clock mocking is test-process Date.now only."
+    },
+    "typecheckFull": {
+      "command": "pnpm run typecheck",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "typecheck-r18r19-win.log",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "pnpm run lint",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "lint-r18r19-win.log",
+      "exitCode": 0,
+      "warnings": 0,
+      "errors": 0,
+      "scope": "No repair was required: the r18/r19 authors' sources pass repository lint directly (unlike r17, whose union-member formatting failed lint locally)."
+    },
+    "pairingWrite": {
+      "command": "pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-write-r18r19-win.log",
+      "exitCode": 0,
+      "scope": "Named re-record only (no --write --all) of the two pairs the r18/r19 receipts left pending local re-record; bilingual semantics compared across both language sides before recording."
+    },
+    "pairingCheck": {
+      "command": "pnpm run verify-translation-pairing scripts/p0-b/windows-credentials/README.md .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-check-r18r19-win.log",
+      "exitCode": 0,
+      "scope": "Both named pairs consistent after re-record."
+    },
+    "testDocsFinal": {
+      "command": "pnpm run test:docs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "test-docs-r18r19-win.log",
+      "exitCode": 0,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "doc-quick aggregate on the final candidate tree (sidecar re-records, handoff completion record and this evidence directory present)."
+    },
+    "docSyncFinal": {
+      "command": "pnpm run doc-sync",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "doc-sync-r18r19-win.log",
+      "exitCode": 0,
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "One actual full doc-sync execution on the final candidate working tree, after the handoff completion record and this evidence directory were added. An earlier full doc-sync run on the integrated r18+r19 tree with sidecar re-records also passed 33/33."
+    }
+  },
+  "impactAnalysis": {
+    "productChange": "None. All three suites, full typecheck and lint passed on 27eaf885 as pushed, so no minimal repair was needed and no assertion, hook or certificate-verification setting was touched.",
+    "nonProductChange": "Two i18n sidecar re-records via the named pairing program, one handoff paragraph recording the actual Windows execution, and this Windows evidence directory."
+  },
+  "notRun": [
+    "r17 legacy suites (approval 21, gate-owner, credential reader/native, version/config-discovery): sources unchanged since the r17-win receipts except where r18/r19 diffs touch them, and the touched suites above all re-ran",
+    "Real-API e2e: requires DEEPSEEK_API_KEY; none used this round by instruction",
+    "Production credentials, user relay/gateway, model calls, Remote Desktop Commander, monetary-budget enforcement, owner trust-root enrollment or production signing keys",
+    "GitHub Actions CI for this candidate: not consumed as evidence",
+    "Designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "protectedFilesNotChanged": [
+    { "path": "config/agents/models.v1.json", "bytes": 1656, "sha256": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f", "gitBlob": "5292c7094b84fcb42d15735ca91ccb99123f892c" },
+    { "path": "config/agents/models.v1.lock.json", "bytes": 227, "sha256": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb", "gitBlob": "2ecb11ccba29a748e6eba6f47aeb59284052db26" },
+    { "path": "pnpm-lock.yaml", "bytes": 768436, "sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383", "gitBlob": "a286e8db0adb8a0178b3b845a52e057f4ef9046b" },
+    { "path": "development/nodes/P0-B/state.json", "bytes": 2878, "sha256": "6ec9def1b6e71c33088315e8106cfbb7538fff6d402d8b2148e86b8d34c90103", "gitBlob": "4fa1dd1ab8f34e620a14e83fe4c9c7beea12665f" }
+  ],
+  "fileHashes": [
+    { "path": "scripts/p0-b/windows-credentials/owner-approved-planner.ts", "bytes": 9971, "gitBlob": "3d8d57b66153f29453de6ea33d1d445ae5b42c08", "sha256": "9db38cb9c9ffdf101403741f39867f649b7c9e9b24a5f163da420ff4bc6f36f0" },
+    { "path": "scripts/p0-b/windows-credentials/planner-tls.mjs", "bytes": 7609, "gitBlob": "0ed1ee78b9487006deb9a50ed76335de1248d12a", "sha256": "a4da5f865d2a9aaffc6a4a5e8fb00a4ed98376ff5670da8577e17eff4efd1365" },
+    { "path": "scripts/p0-b/windows-credentials/planner-tls.test.mjs", "bytes": 7041, "gitBlob": "06a4954f66d480160f370a78afff65ec8331499f", "sha256": "a529e118980f54f69269d1ba1f09824e8f8ff2c96a355269f81dfb7076d67074" },
+    { "path": "scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs", "bytes": 14833, "gitBlob": "3cede3ef608fd596584f90602a4f25dc853ad9f6", "sha256": "b56a6a782a717261cf981736c9e836026af268f4ad34303a04a536314d4d1d98" },
+    { "path": "scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs", "bytes": 7622, "gitBlob": "4d98138388969675f943c742091ec6b9dfc89aa8", "sha256": "14f299b2163ec5265e29f63e4079ebe5d9ffb079a8019e6fae8c94208b48818a" },
+    { "path": "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs", "bytes": 10096, "gitBlob": "69a25d95f50c704c165045e846d07564bd240aaf", "sha256": "6da1ffcc710c9f1828e676070ffdee65d10f47f5628f8dc314b9766840cdfae7" },
+    { "path": "scripts/p0-b/windows-credentials/README.md", "bytes": 18136, "gitBlob": "b3902f5c0d8d7192bd68a17bb105c00ea3abbc9a", "sha256": "f753f10e5f82a159f1b24ec07c8c5433a44cd6a7a2e1c65fb6c9c5a81eaf1d0b" },
+    { "path": "scripts/p0-b/windows-credentials/README.zh.md", "bytes": 15783, "gitBlob": "06f386af1e92123e180422f4f87fb8a030e97fa4", "sha256": "2e3c2a466f53cee399d938b29305bebbcaa022b8c52c579359eae20aa393999e" },
+    { "path": "scripts/p0-b/windows-credentials/README.i18n.yaml", "bytes": 442, "gitBlob": "46e206f6e3c56166c6f02b08b9d424c63b3b5f16", "sha256": "b6c33029f5b4621b039b99cb5a606a602149bf841a9a82e7e0f6783b522e1cfb", "note": "Re-recorded locally this round" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md", "bytes": 7654, "gitBlob": "476c2b4bf228614e31a86826df73fa48a9285fdd", "sha256": "70a312075a1dd8635b60bed580a1f3ef73436f6429101f211690450fdf85f6ca" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md", "bytes": 6578, "gitBlob": "415c14ca4c72869831bd704990ba87ef191774e8", "sha256": "ea48207e9a302f6035ebcb0b83ed8506adc0d909462a38b7ebbe85f20ee47ac0" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml", "bytes": 538, "gitBlob": "97384d9aee0472cb0a82771bdd740ec446d1545a", "sha256": "8700ab429f829612d2345508598c10b6d3f04f4cd5d8661e88ce1c86bab1e1f2", "note": "Re-recorded locally this round" },
+    { "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md", "bytes": 5474, "gitBlob": "6daef6ca8bf9df8c8f62dcf69771c55fcc5c5ebd", "sha256": "11a5791d6b025b430064acb03e322fd33715920186098c41879d9a5e9436a05f", "note": "Completion record added this round" }
+  ],
+  "network": {
+    "actualGatewayContacted": false,
+    "addresses": "127.0.0.1 and localhost only",
+    "httpRequestsSent": 0,
+    "productionCredentialsRead": false,
+    "globalAuthRead": false,
+    "trustStoreModified": false,
+    "testCAPurpose": "Synthetic loopback fixture; never installed as a system root; CA private key not retained"
+  },
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 18688,
+    "sha256": "4e607b8cb6617a73cafb68ef3b97900453d6aed2e5b6c9c8ca53bbcab55efc11",
+    "metadata": "uid/gid/mtime=0; uname/gname empty; numeric owner; sorted names; ./-prefixed members like the r17-win Windows archive",
+    "members": {
+      "consumer-read-completion-r18r19-win.tap": { "bytes": 3029, "sha256": "f072e2fea7ba0009ad40ed7af3ae5454ce40a298055b69957ba14fee96ce0b6a" },
+      "doc-sync-r18r19-win.log": { "bytes": 2787, "sha256": "9abbd05ccb7d70554465cce64a5cd40de9678808913f925d54f0db8312459743" },
+      "lint-r18r19-win.log": { "bytes": 160896, "sha256": "fb87d64303974dbc59675c9f5466b49457efb5aa7a05cce31a3d46e8afccf244" },
+      "native-r18r19-win.tap": { "bytes": 705, "sha256": "5583351e5aa264a4ce7ce031ffb8bc36e13f6c77dca47fd360b2d5ac6ece5f81" },
+      "pairing-check-r18r19-win.log": { "bytes": 272, "sha256": "dd77a436bf86e689e860cc708f811deda07ec5e766b5e99694745df0830accc9" },
+      "pairing-write-r18r19-win.log": { "bytes": 476, "sha256": "2f758949f81257bea70af746efbf2c889fe18cd83275aaa5356a4500f558ea45" },
+      "test-docs-r18r19-win.log": { "bytes": 1429, "sha256": "ad173175ea2b2d0b69b4d8ca353e4eb45381031b90da51cba916454b08a2e75a" },
+      "tls-r18r19-win.tap": { "bytes": 1894, "sha256": "17ddf651f52e3201957c93b93cacb77297adf30b79c867f5cce779e130d04bf9" },
+      "typecheck-r18r19-win.log": { "bytes": 161386, "sha256": "9c9ed5f5e45dfa0aacc22d9b8613a14c24160955f11ffd0ef44d0e500847cb58" }
+    }
+  },
+  "remainingWorkSplit": {
+    "technical": "Production signing entry and owner trust-root enrollment, ledger parent-directory ACL and recovery, verified read-only/scope isolation, the eventual Codex CLI connection's own TLS, hard monetary enforcement and provider-side revocation confirmation remain implementation or deployment work; the r18 probe certifies only its own connection and the r19 recheck does not revoke credentials already delivered to running targets.",
+    "userDecisions": "Actual HTTPS route and its approval, provider-side revocation of the old Codex key with private re-entry of the replacement, concrete currency/limit/validity for the budget, and the final complete signable request bound to new code. No key is required from the user for this round."
+  }
+}

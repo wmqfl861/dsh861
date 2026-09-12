@@ -1,0 +1,8 @@
+# Only non-secret declarations belong here; a private vault must live outside Git.
+*.local.*
+*.secret.*
+.env
+.env.*
+!.env.example
+credentials.json
+auth.json

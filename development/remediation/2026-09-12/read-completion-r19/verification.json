@@ -1,0 +1,153 @@
+{
+  "round": "r19",
+  "kind": "sealed-reader-completion-authorization-recheck",
+  "recordedAt": "2026-09-12T00:06:05.024887+00:00",
+  "baseCommit": "5e72c4a5644794f9c5fd4a0bb9bf0b587853dca9",
+  "receivedWindowsReportCommit": "602a3d9498f044a71df9632748c72602f09b7599",
+  "actor": "ChatGPT implementation; not designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false,
+    "belowRepositoryNodeMinimum": true
+  },
+  "finding": "Consent and live controls could change during the awaited sealed read; the prior code returned its response without a completion check. An authorized read already started cannot be reported as zero reads.",
+  "checks": {
+    "newControlsBaseline": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs",
+      "passed": 1,
+      "failed": 6,
+      "skipped": 0,
+      "exitCode": 1,
+      "log": "baseline.tap"
+    },
+    "newControlsFixed": {
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "fixed.tap"
+    },
+    "combinedFinal": {
+      "command": "node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs",
+      "passed": 31,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "final-combined.tap"
+    },
+    "syntax": {
+      "files": 3,
+      "exitCode": 0,
+      "log": "syntax.json"
+    },
+    "documentation": {
+      "readmeHeadingLevelsAndFences": "PASS",
+      "repositoryPairingCommand": "NOT_RUN",
+      "sidecars": "not modified; explicit re-record required locally"
+    },
+    "typecheck": "NOT_RUN; transpilation inside tests is not a strict type check"
+  },
+  "testBoundaries": {
+    "newSeven": "Real admission source, Ed25519 signatures, local ledger and input files; projection/native entry/TLS/credential transport/enforcement explicitly mocked. Date.now mocked only for expiry and restored.",
+    "existingTwentyFour": "Exact admission/projection/verifier/files; native entry/credential/enforcement mocked. Loopback TLS integration uses exact r18 verifier, fixture and certificates.",
+    "windowsSix": "Three inherited r18 cases plus three added late-read changes. Written and syntax-checked, NOT_RUN; no Windows pass claimed."
+  },
+  "authoringNotes": [
+    "Initial source reconstruction checksum mismatch was caught before tests; corrected the JSDoc reconstruction and verified exact baseline Git blob e780a793e877bd23c7cb2f621c36610920a8b790. No mismatched source was used as the baseline.",
+    "New native replay case restores only its synthetic prompt and mocked clock before checking the already-spent approval; no production data is involved."
+  ],
+  "notDelivered": [
+    "Production signer/trust enrollment, ledger ACL or recovery",
+    "OS-enforced immutable read-only scope",
+    "Actual Codex connection protection and monetary enforcement",
+    "Revocation of credentials already delivered to running targets"
+  ],
+  "notRun": [
+    "Windows native execution",
+    "Complete repository typecheck/lint/test:docs/doc-sync and original pairing generator",
+    "Production credentials, gateway, model requests, designated plan.v4 or hard review"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 2456,
+    "sha256": "04ac6906c4d19f86cfa6d75114932f8c6cfb829d3dec8128deaee7d78d37346e",
+    "metadata": "uid/gid/mtime=0; uname/gname empty",
+    "members": {
+      "baseline.tap": {
+        "bytes": 6638,
+        "sha256": "0a53b4d4acf38c3427736d19e2bcddd98fbf9769400866323ca7896a399e6b33"
+      },
+      "fixed.tap": {
+        "bytes": 1870,
+        "sha256": "1b3906dc6ed476791662028f55dd16904da60ac2f1521223df787b83231d89d8"
+      },
+      "combined.tap": {
+        "bytes": 6813,
+        "sha256": "e7f9ebcfef7e60741e5745a95c2dcf00bebe933693858a1b635797595aae4c68"
+      },
+      "final-combined.tap": {
+        "bytes": 6816,
+        "sha256": "ad328b2fb07860f6fb09e4f648656fde6ec731c95f70d9bc93cebadd5215c8b0"
+      },
+      "syntax.json": {
+        "bytes": 339,
+        "sha256": "f6bab96c178934ea25b566b1c7df6baead98570d00ef63a76ca9600838dc8e7a"
+      }
+    }
+  },
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner.ts",
+      "bytes": 9971,
+      "gitBlob": "3d8d57b66153f29453de6ea33d1d445ae5b42c08",
+      "sha256": "9db38cb9c9ffdf101403741f39867f649b7c9e9b24a5f163da420ff4bc6f36f0"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs",
+      "bytes": 14833,
+      "gitBlob": "3cede3ef608fd596584f90602a4f25dc853ad9f6",
+      "sha256": "b56a6a782a717261cf981736c9e836026af268f4ad34303a04a536314d4d1d98"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs",
+      "bytes": 10096,
+      "gitBlob": "69a25d95f50c704c165045e846d07564bd240aaf",
+      "sha256": "6da1ffcc710c9f1828e676070ffdee65d10f47f5628f8dc314b9766840cdfae7"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs",
+      "bytes": 7622,
+      "gitBlob": "4d98138388969675f943c742091ec6b9dfc89aa8",
+      "sha256": "14f299b2163ec5265e29f63e4079ebe5d9ffb079a8019e6fae8c94208b48818a"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 18136,
+      "gitBlob": "b3902f5c0d8d7192bd68a17bb105c00ea3abbc9a",
+      "sha256": "f753f10e5f82a159f1b24ec07c8c5433a44cd6a7a2e1c65fb6c9c5a81eaf1d0b"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 15783,
+      "gitBlob": "06f386af1e92123e180422f4f87fb8a030e97fa4",
+      "sha256": "2e3c2a466f53cee399d938b29305bebbcaa022b8c52c579359eae20aa393999e"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 4964,
+      "gitBlob": "213f14486a28134bc1b8456efcd4641c924ef4da",
+      "sha256": "c9b1d3fa179f11bb0016dd690a71d15be3db8e2ff610577be153ee560fdf66b6"
+    }
+  ]
+}

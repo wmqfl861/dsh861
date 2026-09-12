@@ -1,0 +1,22 @@
+✔ refuses the repository HTTP configuration before materializing anything (143.386ms)
+✔ refuses an approval whose subject is not the projected route (136.5509ms)
+✔ cancellation terminates the detached descendant through the owned job (6157.7579ms)
+✔ a module-top-level descendant, created before any stdin read, stays contained (6067.3195ms)
+✔ pre-launch containment holds when assignment is slower than CLI startup (9973.322ms)
+✔ normal completion still terminates surviving descendants of the run (4793.5312ms)
+✔ explicit breakaway out of the owned job fails closed (8363.6089ms)
+ℹ PROCESS_INFORMATION layout: size=24;pid@16;tid@20
+ℹ breakaway containment mode: contained-and-terminated
+✔ helper integrity failure refuses the entry before any credential read (150.8218ms)
+✔ a failed assignment cancels the run instead of proceeding unowned (692.4331ms)
+✔ owner death is fail-safe: stdin EOF closes the job and kills the tree (4540.2932ms)
+✔ operations after disposal report failure instead of containment (1113.9457ms)
+✔ cancelling one owned invocation leaves a concurrent unrelated one intact (8370.1257ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50953.3442

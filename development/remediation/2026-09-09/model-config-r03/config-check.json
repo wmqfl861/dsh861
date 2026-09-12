@@ -1,0 +1,35 @@
+{
+  "status": "CONFIG_VALID_NOT_ACTIVATED",
+  "configurationVersion": "2026-09-09.1",
+  "publicConfigSha256": "a9b0dc87948932102b160d9703c4214ec2528800d3edc470d6e8fb64264fd09e",
+  "productAccepted": false,
+  "nativeCompatibility": "NOT_RUN",
+  "credentialProvisioning": "ROTATE_AND_IMPORT_PRIVATELY_REQUIRED",
+  "plaintextHttpRoutes": [
+    "codex",
+    "claude-code",
+    "grok"
+  ],
+  "credentials": [
+    {
+      "agent": "codex",
+      "credentialRef": "secret-reference:providers/codex",
+      "state": "NOT_IMPORTED_BY_THIS_CHANGE"
+    },
+    {
+      "agent": "claude-code",
+      "credentialRef": "secret-reference:providers/claude-code",
+      "state": "NOT_IMPORTED_BY_THIS_CHANGE"
+    },
+    {
+      "agent": "grok",
+      "credentialRef": "secret-reference:providers/grok",
+      "state": "NOT_IMPORTED_BY_THIS_CHANGE"
+    },
+    {
+      "agent": "opencode",
+      "credentialRef": "secret-reference:providers/opencode",
+      "state": "NOT_IMPORTED_BY_THIS_CHANGE"
+    }
+  ]
+}

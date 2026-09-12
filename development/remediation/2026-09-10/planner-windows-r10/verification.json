@@ -1,0 +1,181 @@
+{
+  "kind": "windows-planner-reverification-and-lifecycle-evidence",
+  "recordedAt": "2026-09-10",
+  "baseCommit": "83b5c23cb2565abdcea186a9b496765943966496",
+  "actor": "ZCode built-in implementation subagent (builtin:bigmodel-coding-plan/GLM-5.3); not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "win32 10.0.26200 x64",
+    "node": "26.4.0",
+    "pnpm": "11.7.0",
+    "gitTransportNote": "default HTTP/2 fetch hung; fetch succeeded with -c http.version=HTTP/1.1; no proxy or credential helper configured or changed",
+    "localEvidenceRoot": "C:\\Albert\\project\\dsh861-local-validation\\20260910-p0b-r10-windows-reverify-7a41"
+  },
+  "sync": {
+    "before": "0589b0340682edbe1a3abb256a5c1c890ca5f495, clean worktree",
+    "after": "83b5c23cb2565abdcea186a9b496765943966496 via fast-forward; no reset, stash, force push, or parallel implementation"
+  },
+  "firstFailure": {
+    "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs",
+    "result": "23/24 passed, exit 1",
+    "failingCase": "deadline returns with an unverified descendant even when inherited pipes stay open: expected PLANNER_INVOCATION_CANCELLED, got PLANNER_INVOCATION_COMPLETED",
+    "log": "planner-suites-first-failure.tap.xz (verbatim bytes; the raw TAP carried trailing whitespace in node assertion-diff decoration, which the repository whitespace gate rejects in text files)",
+    "rootCause": "The r09 fixture made a descendant hold the wrapper's channels via stdio 'inherit'+IPC. On Windows, libuv stdio pipe handles are not inheritable by grandchildren through any tested spawn form ('inherit', integer fd, or classic handle inheritance), so the direct child's exit closed the channels and the wrapper correctly returned COMPLETED inside the deadline. Empirically, the deeper mechanism is that each Node spawn on Windows creates a kill-on-close job object: when the direct child exits (voluntarily or terminated), the job closes and the operating system hard-terminates all of its descendants, including mid-boot ones."
+  },
+  "platformInvestigation": {
+    "method": "Instrumented synthetic processes (heartbeat files, pid probes, full process-event logging) under the local evidence root repro-inherit/; never killed or enumerated by image name; diagnostics read-only",
+    "windowsFacts": [
+      "'inherit', integer-fd, and all-ignore stdio cannot hand a wrapper pipe write end to a grandchild: the wrapper sees EOF within milliseconds of the direct child's exit",
+      "the direct child's libuv kill-on-close job object terminates every descendant at that child's exit, within hundreds of milliseconds, whether the child exits voluntarily or is terminated; descendants dying mid-boot never run their first line",
+      "therefore 'descendant outlives the direct child' and 'normal completion with a still-running descendant' are not constructible on Windows",
+      "an already-exited PID is not signalled again by the wrapper; bounded return still reports descendantState=NOT_VERIFIED because the wrapper observes neither the job termination nor any survivor"
+    ],
+    "posixFacts": "Untestable on this Windows host this round; the POSIX branches keep the r09 semantics (fd-sharing pipe holder, surviving descendant) and are exercised by repository CI/Linux runs"
+  },
+  "final": {
+    "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs",
+    "moduleOverrideVariables": "none set",
+    "passed": 26,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "runs": "final and repeat run both 26/26 exit 0; planner-suites-final.tap; a post-product-lint-fix run also 26/26 (planner-suites-postlint.tap)",
+    "coverage": "7 original planner cases + 17 r09 boundary cases + 2 new lifecycle cases: 'normal completion leaves a non-pipe-holding descendant unverified' (Windows asserts job-object termination at child exit; POSIX asserts the descendant still beats after the return) and 'cancelling one invocation leaves a concurrent unrelated invocation intact'. The deadline case keeps the full r09 assertion set on POSIX (forcedPipeClosure=true with a live pipe holder) and asserts the Windows-constructible state (child alive holding its own channels at deadline, CANCELLED/DEADLINE_EXCEEDED, directChildExitObserved, descendant untouched by the wrapper, NOT_VERIFIED). No existing case was deleted, skipped, or weakened; test-owned descendants are stopped by the tests (stop-file acknowledgement or observed job termination), never counted as wrapper capability."
+  },
+  "productChange": {
+    "scripts/p0-b/windows-credentials/planner-invocation.ts": "two lint repairs only: deadlineTimer gains an explicit undefined initializer (assignment stays post-spawn so the spawn-failure path can finish without the timer); the redundant inner cancellation===undefined check before the stderr EOF flush was removed because accept() already guards on the same state (stdout-bound violation therefore still skips the stderr flush)",
+    "behaviorVerification": "full suites re-run after the change: 26/26, including EOF-flush and replacement-marker bound cases"
+  },
+  "testChange": {
+    "scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs": "fixture cleanup accepts stop-file acknowledgement or observed termination (heartbeat-file based, pid-reuse safe); shared descendant program writes started/pid/heartbeat files; deadline case branches on the platform truth; two new lifecycle cases; rmSync retries EPERM briefly on Windows where a just-terminated descendant releases its working directory asynchronously"
+  },
+  "callerBindingAudit": {
+    "realCallers": "none; invokePlannerOnce has no caller outside its tests in this repository",
+    "componentEnforced": [
+      "model lock subject check: route model/reasoningEffort/baseUrl must match the approval subject; refusal proven by tests",
+      "transport: HTTPS-only, no userinfo/fragment; the current approved HTTP route is refused before any credential read (re-proven this round)"
+    ],
+    "missingUntilTrustedCallerExists": [
+      "verified owner authorization: approval.record/transportEvidenceRecord are non-empty reference strings only, not proof",
+      "actual Codex CLI argv/config projection",
+      "isolated CODEX_HOME",
+      "read-only scope/sandbox binding",
+      "per-request or monetary budget (wrapper provides wall-clock deadline, channel byte bounds, bounded termination grace only)"
+    ],
+    "existingOwnershipMechanisms": "packages/subagent/subagent-claude-code/src/process.ts process-tree owner (reused by subagent-codex); this round's lifecycle evidence reuses libuv job-object semantics and adds no orchestration framework"
+  },
+  "repositoryGates": {
+    "typecheck": {
+      "command": "pnpm run typecheck",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "pnpm run lint",
+      "firstRun": "exit 1 with 2 errors in r09-introduced planner-invocation.ts (prefer-const deadlineTimer; no-unnecessary-condition on the redundant inner check); the remote r09 round never ran the repository lint",
+      "afterFix": "exit 0, 0 warnings 0 errors"
+    }
+  },
+  "documentation": {
+    "pairs": [
+      {
+        "pair": "scripts/p0-b/windows-credentials/README",
+        "preWriteCheck": "out of sync only, no structural/fence/link violations",
+        "reRecord": "verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md; 1 record written; post-write named check consistent"
+      },
+      {
+        "pair": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge",
+        "preWriteCheck": "out of sync only, no structural/fence/link violations",
+        "reRecord": "verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md; 1 record written; post-write named check consistent"
+      }
+    ],
+    "testDocs": {
+      "command": "pnpm run test:docs",
+      "aggregateExitCode": 0,
+      "result": "15 passed, 0 failed, 0 skipped"
+    },
+    "docSync": {
+      "command": "pnpm run doc-sync",
+      "aggregateExitCode": 0,
+      "result": "33 passed, 0 failed, 0 skipped (includes the corpus-wide translation pairing, markdown links, doc budgets, and website checks)"
+    },
+    "noAllFlag": true,
+    "hooks": "none disabled; pre-commit hooks run on commit"
+  },
+  "r08Evidence": {
+    "archive": "development/remediation/2026-09-10/credential-store-r08/raw-evidence.tar.xz with raw-evidence-manifest.json (per-file sha256, command index, sanitization statement)",
+    "missingDeclared": [
+      "r08 planner-suite raw TAP (results only in the r08 receipt)",
+      "r08 typecheck/lint/test:docs/doc-sync raw logs (run separately per the r08 receipt notRun note; not retained under the r08 local evidence root)"
+    ],
+    "notRegenerated": "missing entries stay missing; the r08 verification.json was not modified",
+    "helpProbeArchive": "codex-plan-precheck-raw was already in the repository and was not re-uploaded"
+  },
+  "protectedFiles": {
+    "config/agents/models.v1.json": "UNCHANGED",
+    "config/agents/models.v1.lock.json": "UNCHANGED",
+    "pnpm-lock.yaml": "NOT_IN_CHANGE_SET"
+  },
+  "authorizationBoundaries": "No real key read, written, or enumerated; no production credential target touched; no global auth read; no external agent invoked; no public relay, paid model, or real planning; HTTP route refusal preserved; owner-side revocation/rotation and HTTPS route approval remain with the user",
+  "notRun": [
+    "POSIX execution of the platform branches (this host is Windows)",
+    "native/reader/bridge/manage suites (r09 and this round changed none of them beyond the two lint repairs in planner-invocation.ts)",
+    "real model calls, gateway/network tests, plan.v4, designated Codex/OpenCode roles"
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.ts",
+      "bytes": 14537,
+      "sha256": "a37e5d530248f02d39ca01a0760362df1ef4e88cb138503b6a70eb7cddcec892",
+      "gitBlob": "0b24481bb4382cfbc1a0d9bb730541107b1ff981"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs",
+      "bytes": 15354,
+      "sha256": "f9ef2872d89c04f03c32c09eff0601c75cc5cc6c3d355720564d289320988e9e",
+      "gitBlob": "91bf17377a87754b01f6483c08fc75a820e7fec6"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation.test.mjs",
+      "bytes": 8874,
+      "sha256": "b152c1c6f6557996390ecffdf7e006479b4ae2628092951a5dadc539af3fae31",
+      "gitBlob": "ab12207b0c05caf232bc4668a72f16e178fbb8ae"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 12735,
+      "sha256": "70f87688df10f989eb969d2cf0d2d78fa4a592387907fc3905c2b4f0ff7c0b11",
+      "gitBlob": "78e1e679be3f92cb021e245a92a097a49a4a3b3a"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 11142,
+      "sha256": "fd986a4b7eff8b9361b7300726bb0212824c3101ad1d9b97094e61a276a28f2d",
+      "gitBlob": "3eaa0fc3952755e9493dfee982533054ba417e77"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.i18n.yaml",
+      "bytes": 442,
+      "sha256": "a6349fbf064af46d5fe00383a73e6dc17cc656cd84cc77d4d6ef3600a74ec999",
+      "gitBlob": "8fd5d6a4a3d28e2e4b2411dab6430c627d19c831"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 3551,
+      "sha256": "942f50368fd6a92ff1536294da10ded9f80dc5535063f2fa68e9b559a865c7d5",
+      "gitBlob": "16547e34986cde74c601aa041ae30c943d79c19e"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 3033,
+      "sha256": "b4434a245435d362da58322bbf0e1f01e0c3daf601a1cb6d3be1c33e50397947",
+      "gitBlob": "c263a614909f8cac1b3381c6282bdd9db4fbf854"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml",
+      "bytes": 538,
+      "sha256": "faf52583a8637fd7025d8de1cf800823a58135db6d4aa0d70127025371bd9052",
+      "gitBlob": "00ce135130654e5adbe7b771fe2a22f9815d96c7"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "intermediate-exit": {
+    "name": "intermediate-exit",
+    "grandchildAliveAfterIntermediateExit": false,
+    "pidSignalCheck": false,
+    "evidence": "beat.log,beat.pid,c1-ready,c1.mjs,g.mjs"
+  },
+  "attached-chain": {
+    "name": "attached-chain",
+    "grandchildAliveAfterWExit": false,
+    "pidSignalCheck": false,
+    "evidence": "beat.log,beat.pid,c1-ready,c1.mjs,g.mjs,w-exit"
+  },
+  "direct-powershell": {
+    "name": "direct-powershell",
+    "grandchildAliveAfterWExit": true,
+    "pidSignalCheck": false,
+    "evidence": "beat.log,beat.pid,c1-ready,holder.pid,ps-step-addtype,ps-step-created,ps-step-precreate,w-exit,writer-spawn.ps1,writer.cmd"
+  },
+  "detached-grandchild": {
+    "name": "detached-grandchild",
+    "grandchildAliveAfterWExit": true,
+    "pidSignalCheck": true,
+    "evidence": "beat.log,beat.n,beat.pid,c1-ready,c1.mjs,g.mjs,w-exit"
+  },
+  "breakaway-grandchild": {
+    "name": "breakaway-grandchild",
+    "grandchildAliveAfterWExit": true,
+    "pidSignalCheck": false,
+    "evidence": "beat.log,beat.pid,c1-ready,c1.mjs,holder.pid,ps-step-addtype,ps-step-created,ps-step-precreate,w-exit,writer-spawn.ps1,writer.cmd"
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "round": "r20",
+  "kind": "fixed-commit-planner-input-snapshot",
+  "recordedAt": "2026-09-12T01:25:03.043347+00:00",
+  "baseCommit": "decfb608ed52374db4dfa7c02491cc3e9f39534c",
+  "receivedHead": "2f5c328f92477bc4a98f88ef2de68d34fb07c606",
+  "receivedPullRequest": 8,
+  "actor": "ChatGPT; not designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "git": "2.47.3",
+    "fullRepositoryDependencies": false,
+    "nodeBelowRepositoryMinimum": true
+  },
+  "delivered": [
+    "Fixed SHA-1 commit and literal ordinary-blob read-set export using pinned local Git; no worktree/index/filter/replacement-ref content",
+    "Independent exact-file workspace and full-tree integrity check; owned cleanup does not follow links",
+    "Prepared input and existing projection bind the snapshot path before signing; explicit non-Git mode retains sandbox/approval/model settings"
+  ],
+  "checks": {
+    "combined": {
+      "command": "node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs",
+      "passed": 62,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "snapshotCases": 43,
+      "projectionCases": 19,
+      "scope": "Actual local Git, raw objects, filesystem and existing projection; no process or filesystem mocks. Uses temporary synthetic repositories and a synthetic .invalid model URL, never a model connection.",
+      "log": "combined-final.tap"
+    },
+    "mutations": {
+      "replacement-refs": {
+        "exitCode": 1,
+        "command": [
+          "node",
+          "--test",
+          "--test-name-pattern=ignores replacement refs",
+          "scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs"
+        ],
+        "purpose": "Controlled mutation, not an old repository defect"
+      },
+      "live-worktree": {
+        "exitCode": 1,
+        "command": [
+          "node",
+          "--test",
+          "--test-name-pattern=copies only committed admitted bytes",
+          "scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs"
+        ],
+        "purpose": "Controlled mutation, not an old repository defect"
+      }
+    },
+    "syntax": {
+      "files": 5,
+      "exitCode": 0,
+      "log": "syntax.json"
+    },
+    "documentation": {
+      "pairs": 2,
+      "structureAndFences": "PASS",
+      "originalPairingGenerator": "NOT_RUN"
+    },
+    "strictTypecheck": "NOT_RUN; source syntax/execution is not complete strict typechecking"
+  },
+  "authoring": {
+    "snapshot-first.tap": "24 pass/11 fail. Nine cleanup hooks ran after the fixture deleted their parent; two fixture stdin strings incorrectly used encoding=buffer. Fixed fixture cleanup order and null Buffer encoding; not an old repository defect.",
+    "snapshot-second.tap": "35/35 before extending file and projection cases.",
+    "snapshot-final.tap": "42/42 before adding joined cleanup.",
+    "mutations": "Expected failures for deliberately enabling Git replacements or reading worktree bytes instead of committed blobs. Original source restored. These are acceptance negative controls, not discovered historical defects."
+  },
+  "native": {
+    "path": "scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs",
+    "cases": 1,
+    "status": "NOT_RUN",
+    "scope": "Written composition uses local Git -> snapshot -> real signed admission/TLS/job/gate, synthetic signer/credential/enforcement and Node CLI stand-in. Not actual Codex or OS isolation."
+  },
+  "notDelivered": [
+    "Windows ACL and resistance to malicious concurrent parent/file replacement",
+    "OS denial of reads outside the snapshot",
+    "Real Codex 0.149.1 non-Git option verification",
+    "Production signing/key enrollment, money enforcement, actual gateway/CLI TLS, plan.v4 and designated hard review"
+  ],
+  "notRun": [
+    "Windows 43/19/1 execution",
+    "Full host/client typecheck, lint, original pairing generator, test:docs/doc-sync",
+    "CI matrix and real API calls"
+  ],
+  "notes": [
+    "Raw cat-file reads avoid checkout filters; --no-lazy-fetch and a minimal Git environment prohibit on-demand fetching in the trusted Git invocation. This is not a network sandbox.",
+    "Read-only file mode is advisory and not Windows ACL isolation. Prepared manifest is not approval.",
+    "No new source-of-truth configuration or launcher is introduced."
+  ],
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "references": [
+    "https://git-scm.com/docs/git",
+    "https://git-scm.com/docs/git-cat-file",
+    "https://developers.openai.com/codex/cli/reference/",
+    "https://nodejs.org/api/fs.html"
+  ],
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 4316,
+    "sha256": "85884f59622eb03745df367f3f352b080e48dca5c1c7d39aa43834a85670fd3c",
+    "metadata": "uid/gid/mtime zero; uname/gname empty",
+    "members": {
+      "combined-final.tap": {
+        "bytes": 11722,
+        "sha256": "79623637b857463e6a283fef3822e349acbe7bc859339b741ea1c3a8951d51df"
+      },
+      "doc-check.json": {
+        "bytes": 133,
+        "sha256": "14dc8a2fd4eb33a3022b7663929c6bfbc43ed5c76eb21f6cb4758772315fc237"
+      },
+      "mutant-live-worktree.tap": {
+        "bytes": 1300,
+        "sha256": "6941b6ce9ef6287b58f4694bd43fb87c1629e0519a04780a36243aac383e0985"
+      },
+      "mutant-replacement-refs.tap": {
+        "bytes": 1262,
+        "sha256": "dddca49d483e7382b00b008ef86891e9287853c111adbfdbdaaf7a0b1e1cf1fe"
+      },
+      "mutation-results.json": {
+        "bytes": 604,
+        "sha256": "b5963de3fef3d9f796e7f281ed33475ca1c29849bcfd110f7b22e6f51cd61107"
+      },
+      "snapshot-final.tap": {
+        "bytes": 8370,
+        "sha256": "ebf53b5b53e663c35a7a1cd76817e202e3113a8b6bc0967e617e14339b5c8c35"
+      },
+      "snapshot-first.tap": {
+        "bytes": 16280,
+        "sha256": "d09281ae236c8ddd32956a928b8c4d94a846bb885bd12e56ff595c8644a1e68d"
+      },
+      "snapshot-second.tap": {
+        "bytes": 7008,
+        "sha256": "165751521ebd7f591d8777e600dcd032c1dfa0e9080df35f492bb18ca13060be"
+      },
+      "syntax.json": {
+        "bytes": 567,
+        "sha256": "36a9fc41af7b9aa5b5e5a0bc75f34420c724ffd04514075d5e422ea664f528a4"
+      }
+    }
+  },
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-input-snapshot.mjs",
+      "bytes": 13226,
+      "sha256": "c3d5a36a60b10024f28ec25ba2e53d863220d491f629a63ec68446681b66bed6",
+      "gitBlob": "094f2e8944586346e465c079615b00f8edcb3f18"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-input-snapshot.d.mts",
+      "bytes": 1768,
+      "sha256": "074d3087a8d32a21781180c4484dff4995d72a64c88e3e96e7499fdfc23e1a68",
+      "gitBlob": "df4b1bf1180e96baa8a2ed11046720d4e9a116a9"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs",
+      "bytes": 16244,
+      "sha256": "eaa5856b10f14f8695ceafcd4a51ca8562f8837c0308db856601fa65165bec6a",
+      "gitBlob": "159f8e1652bfec0fc05b4d6f617e6786191d15ff"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs",
+      "bytes": 8474,
+      "sha256": "84db0e3a596cb5e26727599cb99379a5872bd1a78dbfd77aa7f3cac4372e80ca",
+      "gitBlob": "6d1e0e7c1274ec6a6a3556248f3865bc04130fa3"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-launch-projection.mjs",
+      "bytes": 6375,
+      "sha256": "0f5850fa8062f3f3f076fd109316b99c145ebaa25f976ac8ea80faa47ca76adc",
+      "gitBlob": "f55a659bed0ce8006b639e231b3f4b3701392a4e"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs",
+      "bytes": 5384,
+      "sha256": "c9007ff5c9089339274ac8d94ad0b4aa3f004910527bba2cd30593e7cd3c36c4",
+      "gitBlob": "850be375c8a54156282ae6ab1a0ae04372ff5849"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-entry.ts",
+      "bytes": 8135,
+      "sha256": "455febdc45172d39640aeb7dfc9524cb785a34d5040a55a41f022f6bb7d2861f",
+      "gitBlob": "1868e267315dac98acd60e55912e6a4069029a19"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 20777,
+      "sha256": "1b629421d708ff6c963ae8a3d5ebb8530f99435c666d7b45646cb261d4ebeced",
+      "gitBlob": "28e8b6e34deb3c2117fe083f7937a0162d7a9416"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 18096,
+      "sha256": "a39df6c6eaf7e9200668233d207daf24228ea882d2ffd67d7aadf28c48fa3768",
+      "gitBlob": "67a8554e29c83f94d11eb6f058566fbab729e195"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 8294,
+      "sha256": "35e9b524d908cfd3bbcce4a87aa3564eeb529a2ff802b1a7df0b09e9c353b553",
+      "gitBlob": "d225546dc1e620abaf7a6cdbeb487421b6259ac6"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 7083,
+      "sha256": "4941df87a847ec8389cb4e251892bb98e8c99510812d31c5070d44a62f7b76c3",
+      "gitBlob": "c37a83c76d736511c3f83940960fa37b69161109"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 4422,
+      "sha256": "3f31e987b438085fb79d645e5ee3f7b7359f2294e0d9fd26e2958e114f3c9bf2",
+      "gitBlob": "795e5ce436275ddfed6042fff0e9e1250e5b7fcf"
+    }
+  ]
+}

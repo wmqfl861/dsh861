@@ -13,9 +13,9 @@
 
 历史 approved/PASS 仅对应当时的固定候选，不认证后来提交的整个工作树。
 
-当前活动：User-authorized review remediation is recorded separately. Offline audit controls do not constitute a node PASS, a real Codex plan, or a real OpenCode hard review.
+当前活动：Keyless designated-planner precheck completed at f1d7ec92ccf52f6a4fff8ff9a5bd1ed253a3d3a3 (round r01): proposed program repo-pinned @openai/codex@0.149.1 codex.exe (sha256 a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6), isolated-CODEX_HOME probes confirmed config-layer acceptance of the exact approved spelling; no credentials read, no gateway contact, no model request. Real Codex call withheld pending owner-level preconditions; plan.v4 not written. Current handoff: [Windows integration](handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md).
 
-当前阻塞：PLAN_REVISION_REQUIRED: v3 AC mapping and handoff/admission scope conflict with the main specification; designated real Codex successor and real product evidence are still required.
+当前阻塞：PLANNER_PRECONDITIONS_BLOCKED: keyless precheck r01 confirmed the repo-pinned Codex 0.149.1 accepts my-gpt/gpt-6-astra/max at the config layer, but the real successor-planning call lacks (1) an authorized bound credential reference, (2) rotation confirmation for chat-exposed keys (UNKNOWN_NOT_VERIFIED), and (3) transport protection for the plaintext-HTTP approved route. See evidence/planner-precheck.r01.json.
 
 下一节点准入记录：**不允许**。
 

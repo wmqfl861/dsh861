@@ -1,0 +1,205 @@
+{
+  "round": "r21",
+  "kind": "offline-native-codex-scope-qualification-preparation",
+  "recordedAt": "2026-09-12T03:05:55.956396+00:00",
+  "baseCommit": "f070a85554ba82fd30f89d7300e86645609081f7",
+  "receivedHead": "4997b13f36fcc2473ec15112d5003b6943c8e1ea",
+  "mergedPullRequest": 9,
+  "actor": "ChatGPT implementation and local observer checks; not designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "v22.16.0",
+    "fullRepositoryDependencies": false,
+    "belowRepositoryNodeMinimum": true
+  },
+  "delivered": [
+    "Owned synthetic readable/writable file fixtures with real unconfined parent/child positive control",
+    "Strict access-denied result evaluation and independent host byte/side-effect checks",
+    "Native diagnostic for the repository-pinned Codex sandbox through the existing Windows job owner, without a model invocation",
+    "Explicit finite stop on unsupported profile or unauthorized native setup; no fallback to unrestricted commands"
+  ],
+  "checks": {
+    "observer": {
+      "command": "node --test scripts/p0-b/windows-credentials/codex-sandbox-qualification.test.mjs",
+      "exitCode": 0,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "log": "probe-final.tap",
+      "scope": "Actual Node parent/child process and filesystem for baseline; explicitly simulated denial results for observer-positive and invalid-protocol controls. Not OS isolation evidence."
+    },
+    "negativeControl": {
+      "command": "node --test --test-name-pattern=\"missing outside file\" scripts/p0-b/windows-credentials/codex-sandbox-qualification.test.mjs",
+      "mutation": "Deliberately accept ENOENT as access denial",
+      "exitCode": 1,
+      "log": "missing-file-mutation.tap",
+      "originalRestored": true,
+      "scope": "Observer sensitivity check, not a historical product vulnerability"
+    },
+    "syntax": {
+      "exitCode": 0,
+      "files": 4,
+      "log": "static-checks.json"
+    },
+    "toml": {
+      "parsedWith": "Python tomllib",
+      "exitCode": 0,
+      "log": "toml-check.json",
+      "scope": "Syntax and generated fields only; not native Codex interpretation"
+    },
+    "documentation": {
+      "bilingualPairs": 2,
+      "headingsAndFences": "PASS",
+      "log": "static-checks.json",
+      "originalPairingGenerator": "NOT_RUN",
+      "sidecars": "New pairs pending local named generation"
+    }
+  },
+  "native": {
+    "file": "scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs",
+    "cases": 1,
+    "status": "NOT_RUN",
+    "pinnedCodexVersion": "0.149.1",
+    "pinnedCodexSha256": "a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6",
+    "scope": "Real Codex sandbox command; no model. Unelevated profile with managed requirements retained. This host capability may refuse split read permissions or require setup; neither is a passing access-denial result. No new privileged setup authorized."
+  },
+  "upstreamSource": {
+    "repository": "openai/codex",
+    "ref": "rust-v0.149.1",
+    "files": [
+      {
+        "path": "codex-rs/cli/src/main.rs",
+        "gitBlob": "45218a6d394d6f4d77b73e1344a48af2b5ab647c",
+        "finding": "Sandbox dispatch uses HostSandboxArgs for the compiled host; no Windows subcommand guessed"
+      },
+      {
+        "path": "codex-rs/cli/src/lib.rs",
+        "gitBlob": "c008567b96a899a30baa2afc9a712e47dd477880",
+        "finding": "WindowsCommand permission-profile, cd and include-managed-config flags"
+      },
+      {
+        "path": "codex-rs/cli/src/debug_sandbox.rs",
+        "gitBlob": "06c133394b408d4700a82bd88ddd6b8cf01ffd79",
+        "finding": "Managed permission profile and Windows restricted-command path"
+      }
+    ]
+  },
+  "productionRuntimeModified": false,
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "pnpm-lock.yaml",
+    "development/nodes/P0-B/state.json"
+  ],
+  "notDelivered": [
+    "Production OS isolation or immutable snapshot ACLs",
+    "Sandboxing the main Codex process or all config discovery paths",
+    "Production signer/trust enrollment, approval-ledger ACL/recovery",
+    "Actual CLI TLS, monetary enforcement, provider-side revocation confirmation"
+  ],
+  "notRun": [
+    "Windows observer18 and native1",
+    "Real pinned Codex sandbox invocation",
+    "Full repository typecheck/lint/original bilingual pairing/test:docs/doc-sync",
+    "CI matrix, production credentials, gateway/model requests, designated plan.v4 or hard review"
+  ],
+  "productAccepted": false,
+  "productionIsolationAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 1832,
+    "sha256": "a06a4ba063ebbaa0b4881255749b933b54dccf43d95d9ca7203f96f28b628fa1",
+    "gitBlob": "ee1733151d196d1053a779ae8296004d8cd77c32",
+    "metadata": "uid/gid/mtime=0; uname/gname empty",
+    "members": {
+      "missing-file-mutation.tap": {
+        "bytes": 852,
+        "sha256": "5974e0e5e0a8a5dac228aa66e63fb3be605db9104d897c9ca33695741d2baa01",
+        "gitBlob": "47267ad54227600cf4a7bdba4c3f170be09a143c"
+      },
+      "mutation-exit.txt": {
+        "bytes": 2,
+        "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "gitBlob": "d00491fd7e5bb6fa28c517a0bb32b8b506539d4d"
+      },
+      "probe-final.tap": {
+        "bytes": 3661,
+        "sha256": "7945103e5ed964abc9a06618cff23ce5ed17689f7e03822002daced4bffd1083",
+        "gitBlob": "69310ab15a9df95f7b59ce393063962039c2d885"
+      },
+      "probe-first.tap": {
+        "bytes": 3704,
+        "sha256": "5e43e3b6eb3e7e3b7eba37591a4a5c556656a026207ccaa3da0ccd34737ba6f8",
+        "gitBlob": "ac408a049e9148f6b7fd0ab66fdc8b6e5e5b0bb7"
+      },
+      "static-checks.json": {
+        "bytes": 594,
+        "sha256": "7b515497b52738f63944f7bc41c06601ab2e0d386b3117bc91ddc13adb94b485",
+        "gitBlob": "fe6ae1fc96f51d081d633210d90dcbf974d6353a"
+      },
+      "toml-check.json": {
+        "bytes": 234,
+        "sha256": "31fbb00e04c3924651e0b8d8501d99a3a183ca6bd43e7258a1fba3cd46029937",
+        "gitBlob": "f5b15701e35c210a72551e43055f752203a8b8c8"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": ".agents/notes/implemented/testing/2026-09-12-native-codex-scope-qualification.md",
+      "bytes": 1369,
+      "sha256": "a4c28cfcde736bbcadc4f8fd4608f9151f0c217e659c15fb83b35d5db2750ca6",
+      "gitBlob": "4ef3c032768cc81d0ba9f84a21e9c298d76dc3c8"
+    },
+    {
+      "path": ".agents/notes/implemented/testing/2026-09-12-native-codex-scope-qualification.zh.md",
+      "bytes": 1090,
+      "sha256": "3f1a1ec3e51f81ca077bb707c9f3ab76f8dc2cafa40d116a0a399e53ff1c7c10",
+      "gitBlob": "856b692ea0c45fd2d4d966d10b095f680fa4338d"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 4562,
+      "sha256": "138213d1166336c6baab6744d0f4dbd316202579f15e54c3baf8968f96cd11b2",
+      "gitBlob": "57bf851b993b3387bf0e6da20203c29307aacef3"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs",
+      "bytes": 5836,
+      "sha256": "9b55fb46ea98efde4da8b57f44b8ce29a9c9d961520c3256480d308031641257",
+      "gitBlob": "debf7125f7ff663d85f34ccf84bc47b40b41eba9"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-sandbox-qualification.mjs",
+      "bytes": 10730,
+      "sha256": "bc54d7117f4ee1e2af0473d9731d46c06fb2422284c538caf93143274c2b31c5",
+      "gitBlob": "db4e7676daac7bfa5ddf7b99f06fc3ad2f77dff5"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-sandbox-qualification.test.mjs",
+      "bytes": 6518,
+      "sha256": "af0a39020981d9b5923f866280e2d40d94202d3dcdf268b77a8568e6d4796c54",
+      "gitBlob": "6e491a1da30eb5b23960906a2b67ea0d057b4072"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/fixtures/sandbox-file-probe.mjs",
+      "bytes": 1962,
+      "sha256": "e85364c636c3699717aad5dc9482c2adafde01f1f2a66ca98234e18c5e93ddbe",
+      "gitBlob": "111444f0469a28a9ea61c30ee66c9fe530909baa"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-qualification.md",
+      "bytes": 3964,
+      "sha256": "a41ab6ed9b02f5ff45662668b9f513880773b6b81ab43435594e30b6184ce6f6",
+      "gitBlob": "34f8773f26a424a71c83d267b22f406f842592fb"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-qualification.zh.md",
+      "bytes": 3303,
+      "sha256": "f95877f80eba82641dd5673936d04f2d9ef3f0a9331195fa521e4f2b8228e991",
+      "gitBlob": "ed4560a67d85911d51287c27454cfa5cbac18c32"
+    }
+  ]
+}

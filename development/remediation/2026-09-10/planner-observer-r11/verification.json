@@ -1,0 +1,216 @@
+{
+  "kind": "planner-observer-correction-and-keyless-launch-projection",
+  "recordedAt": "2026-09-10T10:40:26.646172+00:00",
+  "baseCommit": "21b654b4877748cbf7ac06ae252f7c7438e11996",
+  "baseTree": "e594cf7fbe16f6265a763d81b96dfc7610ed22fe",
+  "actor": "ChatGPT; not designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false
+  },
+  "lifecycle": {
+    "method": "Exact Git-blob source copies; TypeScript transpileModule into isolated ESM with relative .ts imports mapped to .js. Real Node processes/RSA/lease/redaction; synthetic credential peer.",
+    "baseline": {
+      "tests": 26,
+      "passed": 25,
+      "failed": 1,
+      "skipped": 0,
+      "exitCode": 1,
+      "log": "baseline-linux.tap.xz",
+      "uncompressedSha256": "1cd1fba6d3a48bbc9ce1a402de4e1bba8f1dc5c922a8d2e7f7003c88d5c9ba88",
+      "boundsTestBlob": "91bf17377a87754b01f6483c08fc75a820e7fec6"
+    },
+    "finding": "r10 descendant never creates descendant.beat; utimesSync failure is swallowed. A missing heartbeat becomes false and is treated as termination. This invalidates the observer-based Windows termination inference, not all unrelated test results.",
+    "fixed": {
+      "tests": 28,
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "lifecycle-linux.tap",
+      "command": "node --test build-fixed/scripts/p0-b/windows-credentials/planner-invocation.test.mjs build-fixed/scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs"
+    },
+    "change": "Create heartbeat before readiness; require mtime advance; reject missing/frozen evidence; deliberately detached descendants, preserved POSIX forcedPipeClosure; explicit cooperative test cleanup is not product termination.",
+    "platformSource": "https://raw.githubusercontent.com/nodejs/node/v26.4.0/deps/uv/src/win/process.c",
+    "platformCorrection": "libuv uses a process-global job handle with breakaway flags, excludes UV_PROCESS_DETACHED from explicit assignment. Nested Node examples do not prove arbitrary Codex/Rust/PowerShell descendant containment.",
+    "windowsCorrectedFixture": "NOT_RUN",
+    "runtimeWrapperChanged": false,
+    "descendantState": "NOT_VERIFIED"
+  },
+  "launchProjection": {
+    "path": "scripts/p0-b/windows-credentials/codex-launch-projection.mjs",
+    "tests": 15,
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "exitCode": 0,
+    "log": "projection.tap",
+    "command": "node --test fixed/scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs",
+    "actualModelLockChecked": true,
+    "currentHttpRefused": true,
+    "generatedTomlParsed": "Python tomllib; exact model/max/responses and shell environment exclusions verified",
+    "status": "CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED",
+    "doesNotReadSecretsWriteFilesOrSpawn": true,
+    "initialFailure": "Test config path traversed one extra parent directory; corrected fixture path only. Initial error preserved in projection-first-failure.tap.xz.",
+    "notImplementedHere": [
+      "Authenticating real owner approval",
+      "Creating and defending isolated filesystem/OS identity",
+      "Native configuration acceptance and effective sandbox",
+      "Monetary/request-budget enforcement",
+      "Full trusted production caller and process-tree ownership"
+    ]
+  },
+  "archiveCorrection": {
+    "original": {
+      "commit": "21b654b4877748cbf7ac06ae252f7c7438e11996",
+      "sha256": "8acba639e169bcf3c34ae27780a73f4f25ba52aae21ad035e4c6bacb7fed03f6",
+      "bytes": 6136
+    },
+    "sanitized": {
+      "sha256": "648634ab46fec791ffc210b0a6b2330f200e6146e4ee40da6cf99ef6aeff83bc",
+      "bytes": 6060
+    },
+    "payloadCount": 19,
+    "payloadBytesUnchanged": true,
+    "metadataNeutralized": [
+      "uname",
+      "gname",
+      "uid",
+      "gid",
+      "mtime",
+      "pax_headers"
+    ],
+    "originalManifestBlob": "8d38ae785ee64072e215505ae8c2d15fcb9c341f",
+    "manifestOriginalIdentityVerified": true,
+    "all19PayloadsMatchOriginalManifest": true,
+    "originalReceiptJsonUnchanged": true,
+    "historicalMissingLogCount": 5,
+    "missingLogsRegenerated": false,
+    "memberManifest": "../credential-store-r08/raw-evidence-manifest.json"
+  },
+  "documentation": {
+    "pairs": 2,
+    "structureLinksBlobs": "PASS",
+    "negativeControls": 3,
+    "repositoryPairingCommand": "NOT_RUN"
+  },
+  "syntaxChecks": {
+    "files": 3,
+    "exitCode": 0
+  },
+  "protectedFiles": {
+    "models.v1.json": "UNCHANGED",
+    "models.v1.lock.json": "UNCHANGED",
+    "pnpm-lock.yaml": "NOT_IN_CHANGE_SET"
+  },
+  "nativeCredentialSources": "NOT_IN_CHANGE_SET; existing r08 native receipt retained, not re-executed",
+  "notRun": [
+    "Windows execution of new tests/projection",
+    "Full dependency-aware typecheck/lint/test:docs/doc-sync",
+    "Actual Codex/TLS/provider/model tests",
+    "Real credential read or provisioning",
+    "Designated plan.v4/OpenCode hard review"
+  ],
+  "fileHashes": [
+    {
+      "path": "scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs",
+      "bytes": 15780,
+      "sha256": "ca797006c5337dae52475827efac50388c14e9fd4cb268033019186d76e1f1a0",
+      "gitBlob": "ded48f0c8adcfbb6717e09e01eb4191861eed6e7"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-launch-projection.mjs",
+      "bytes": 6160,
+      "sha256": "20ae0b4b9d024c708be9af01804cadc236ce350402896bee52ced8c487423838",
+      "gitBlob": "93084fae9d6fc2bb34b0fc21dd6e4b66cb3c2bd8"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs",
+      "bytes": 4387,
+      "sha256": "5785072ac5cf76ecf355ee7fd0b55e676893a9408aaaa4aab6acd3ed7d983c38",
+      "gitBlob": "a7e18169cbf4cf1793add634d182c77d174b0818"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.md",
+      "bytes": 13907,
+      "sha256": "33c4c0617899812866c35619c952bd3c8c75c482088bc107ba31809cd03f9ae9",
+      "gitBlob": "96346aec108246002a1b9d366015246cbe2886fa"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.zh.md",
+      "bytes": 12150,
+      "sha256": "81bcf5118f05d44707f584f30f286b712e216286709cbf55632348e1aa15b326",
+      "gitBlob": "138c7ce9bdf62bcd14a4b08d765feb255f53030c"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/README.i18n.yaml",
+      "bytes": 188,
+      "sha256": "67fec0c40386ca0d4f3a795b2be77f2caa2b66388206da984313f39538482166",
+      "gitBlob": "102a959a136146cb05f2dde7ae867bed2aee778b"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "bytes": 3815,
+      "sha256": "062b604160accef2ab3990628423805ac0524a961c690ee91b062288e92b6187",
+      "gitBlob": "a84c5b9fe3998bb5889a4bbaebd6d7d48e2da83f"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md",
+      "bytes": 3246,
+      "sha256": "7e2fe8c726163570f063694d4754c18d1a780d379b4f15472649aedcd9393e09",
+      "gitBlob": "6ec39c94f8de301e26a4e0bfb28a4de9e1f657d5"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml",
+      "bytes": 248,
+      "sha256": "14558d794a5c065a8f1299bdebaae8efe16ebc350f0308a2a214a72e8b11a63d",
+      "gitBlob": "9d3a1b11ea44463190bcdd4863740202eaa84b0d"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 5537,
+      "sha256": "3fa9c2dd7ce1d38d336c12489a3cafc7a4fc9ec1f0fd52e8790607b1423d534d",
+      "gitBlob": "55e140f805c6d54bef8e906e8d2836c77a24c999"
+    },
+    {
+      "path": "development/remediation/2026-09-10/credential-store-r08/raw-evidence.tar.xz",
+      "bytes": 6060,
+      "sha256": "648634ab46fec791ffc210b0a6b2330f200e6146e4ee40da6cf99ef6aeff83bc",
+      "gitBlob": "c65f88611a686a63410952d3e0517507ed3ede49"
+    },
+    {
+      "path": "development/remediation/2026-09-10/credential-store-r08/raw-evidence-manifest.json",
+      "bytes": 8330,
+      "sha256": "653d105d7196ec64756f7bd036fecc0e19ac61b7c5cb0b6293448d9b3a595023",
+      "gitBlob": "b3674b42a0c63d39a3d7092ea2386d6e25bcf54f"
+    },
+    {
+      "path": "development/remediation/2026-09-10/planner-observer-r11/baseline-linux.tap.xz",
+      "bytes": 1704,
+      "sha256": "d0e96f48109ec59e90be0a662a0f0f6bdaa42a8a368da8f7aca3d7ccc4e633ea",
+      "gitBlob": "9d86682ac9fae35d653ebbb79c5de4b616d0833a"
+    },
+    {
+      "path": "development/remediation/2026-09-10/planner-observer-r11/lifecycle-linux.tap",
+      "bytes": 5730,
+      "sha256": "4a9774a70f93eca8c8df11d73501a1380ee19b503b5b6041bbf92d8b707c08a6",
+      "gitBlob": "33a0eee0213faef3d5781ce1162068f4110a3df0"
+    },
+    {
+      "path": "development/remediation/2026-09-10/planner-observer-r11/projection-first-failure.tap.xz",
+      "bytes": 696,
+      "sha256": "e637cc0877ad76ae87498163304a5223fc7ba8559e230a67a98fee305ab1c286",
+      "gitBlob": "53e2974b8bd032db8d582b9324bf8d6e56af3762"
+    },
+    {
+      "path": "development/remediation/2026-09-10/planner-observer-r11/projection.tap",
+      "bytes": 2479,
+      "sha256": "e358dfb1fe28d5bc3540a4f2b69a31f7cd6f2bf36df09382c11a811e721a5c7c",
+      "gitBlob": "244369f1cc6d7fc5a9bf872ce7ee843cf8b15e25"
+    }
+  ],
+  "productAccepted": false,
+  "nextNodeAllowed": false
+}

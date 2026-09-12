@@ -1,0 +1,123 @@
+# Windows dedicated credential bridge
+
+English | [中文](README.zh.md)
+
+This P0-B support component stores dedicated Windows credentials and connects an explicitly authorized reader, Codex configuration projection and owned process launcher. It is not a public settings UI, multi-tenant vault, user authentication service or product acceptance mechanism. [Model configuration](../../../config/agents/README.md) remains independently versioned.
+
+## Owner operations
+
+Use [manage.ps1](manage.ps1) in a trusted interactive PowerShell console as the Windows account that will run the trusted planning service. `Set` uses two `Read-Host -AsSecureString` prompts and accepts no key-valued argument. Do not put keys in chat, scripts, transcripts, `cmdkey /pass:...` or ordinary `.key` files. Do not bypass host security policy.
+
+```powershell
+Set-Location -LiteralPath 'C:\Albert\project\dsh861'
+.\scripts\p0-b\windows-credentials\manage.ps1 -Action Status -Provider codex
+.\scripts\p0-b\windows-credentials\manage.ps1 -Action Set -Provider codex
+```
+
+Complete native keyless validation before real provisioning. Writes require confirmation; replacing an existing entry requires `-Replace`. `Remove` confirms deletion of only the selected target. Provisioning is single-writer: Windows CredWrite is an upsert, not compare-and-swap. Status contains only target and presence/format state, not values, suffixes, lengths or key-derived hashes.
+
+| Provider | Stable reference | Windows target |
+|---|---|---|
+| `codex` | `secret-reference:providers/codex` | `dsh861/providers/codex` |
+| `claude-code` | `secret-reference:providers/claude-code` | `dsh861/providers/claude-code` |
+| `grok` | `secret-reference:providers/grok` | `dsh861/providers/grok` |
+| `opencode` | `secret-reference:providers/opencode` | `dsh861/providers/opencode` |
+
+The application-defined generic credential format persists for the same user on the same machine across logons. Other machines and service accounts do not inherit it; cmdkey entries have a different format and are not imported implicitly. Keys must contain 1–384 printable non-space ASCII bytes. Unsupported values fail rather than being truncated. SecureString and buffer clearing do not guarantee complete memory erasure or protection from administrators or compromised same-user code.
+
+## Trusted reading
+
+[reader.ts](reader.ts) composes `createWindowsBridge` and `createSealedCredentialReaders` with the existing [one-use lease](../credential-ref.ts). Both reference and source-to-environment grants are explicit. There is no global credential enumeration, ambient environment fallback, plaintext export command or general agent-facing secret reader.
+
+The trusted deployment pins the absolute PowerShell executable, [bridge.ps1](bridge.ps1), [native-credential.cs](native-credential.cs) and their hashes. The bridge uses `-NoProfile`, `-NonInteractive`, `shell: false`, a private pipe and only `SystemRoot`, `TEMP` and `TMP`. It enforces response size and time limits and discards raw diagnostics. Each read uses a fresh Node-owned RSA-4096 key pair: public parameters cross stdin, native stdout carries an RSA-OAEP-SHA256 envelope, and decryption occurs in parent memory. Windows owns at-rest storage; the envelope prevents incidental plaintext pipe capture, not same-user credential theft.
+
+Keep deployment files and temporary parents protected throughout execution. Pre-launch hashes do not remove concurrent modification races, and path isolation or POSIX mode bits do not establish Windows ACLs. Untrusted agents need separate identities or verified OS isolation. Rotation, storage, transport approval and run authorization are independent facts.
+
+## Codex projection and invocation
+
+[codex-launch-projection.mjs](codex-launch-projection.mjs) validates the actual model lock and generates one fixed argv/TOML/environment set. It rejects HTTP, lock mismatch, unsafe paths, unknown input fields and workspace/run-root overlap. The result is `CODEX_LAUNCH_PROJECTED_NOT_AUTHORIZED`: projection reads no key, creates no directories and starts no process. The configuration contains the credential variable name, never its value; the tool-shell environment excludes model credentials.
+
+[planner-entry.ts](planner-entry.ts) reserves a new run root exclusively, creates isolated directories and writes configuration with `wx`. Existing roots, including pre-positioned links, are refused; protecting parent directories remains the caller's responsibility. The entry supplies projection-derived inputs to [planner-invocation.ts](planner-invocation.ts) and the existing credential lease. Empty approval references and subject mismatches are refused, but nonempty references do not authenticate the underlying owner decision or transport evidence.
+
+The wrapper privately snapshots inputs, checks prompt/executable hashes and explicit bounds before credential reading, and scans known leased secrets out of argv before spawn. Both returned channels are redacted first. `maxChannelBytes` bounds retained UTF-8 bytes including delayed EOF fragments and replacement expansion; a violating fragment is discarded before retention. Input-delivery failures cancel, leakage stays latched, and incomplete capture remains explicit.
+
+`deadlineMs` covers the spawned phase, not hashing or credential resolution; `terminationGraceMs` bounds cancellation waiting. Forced pipe closure is not process-tree exit. Results distinguish direct-child exit, pipe closure, retained bytes and `descendantState=NOT_VERIFIED`. One CLI can make multiple model requests: these limits are not a monetary ceiling. Exit zero is not a usable plan or product acceptance.
+
+## Owned launch and failure lifecycle
+
+[job-owner.ps1](job-owner.ps1) holds one explicit Windows job without breakaway flags. [windows-job-owner.ts](windows-job-owner.ts) verifies executable/helper/launcher hashes and bounded, operation-matched JSON responses. The pinned [launch-gate.mjs](launch-gate.mjs) joins the job before creating the target CLI. The standard entry uses this gate; an optional ownership implementation without gated launch still has the post-spawn assignment gap.
+
+The owner tracks one launcher and permits exactly one release after its exact live PID receives a successful assignment response. Wrong-PID, failed or late assignment, abort, helper exit, protocol failure and disposal cannot authorize release. Failure writes an abort marker and requests direct termination even while the gate is unassigned; no process-name scan is used. The helper uses monotonic waiting, abort precedes release, and a go marker first observed after expiry cannot start the target. Malformed or oversized launch records yield fixed exit codes without exposing their contents. Target stdio is not used for control messages.
+
+Disposal requires a valid clean helper close and an observed launcher close. Timeout remains failure; marker files remain while launcher closure is unknown. A replaced directory link is unlinked rather than recursively traversed. The entry records assignment, termination acknowledgement, active count and disposal. Missing assignment, failed termination/disposal, or nonzero/unknown count returns `PROJECTED_PLANNER_CLEANUP_BLOCKED`; invocation failures retain cleanup facts. None of these facts establishes ACLs, authenticates a user or certifies an unobserved descendant.
+
+The entry explicitly maps the job owner's `launchGated`, `releaseGated` and `abortGated` methods to the invocation's `launch`, `release` and `abort` methods. Its adapter requires every `PlannerProcessOwnership` method, so optional wrapper support cannot silently omit gating at this entry. Assignment and termination use the same owner instance. The entry-path regressions in [planner-entry-gate.test.mjs](planner-entry-gate.test.mjs) observe this composition instead of constructing a different adapter inside a test.
+
+## Owner-approved admission
+
+[owner-approved-planner.ts](owner-approved-planner.ts) adds a production-admission consumer of the existing projected entry, not a second launcher. Preparation fixes public invocation inputs, the prompt digest and a declared file-hash set. The request digest binds the source revision, read set, projected configuration/arguments/environment, program and helper hashes, paths and process bounds. Changing any bound value requires a new owner decision; preparing the description neither approves nor executes it.
+
+[planner-approval.mjs](planner-approval.mjs) verifies a domain-separated Ed25519 signature against an owner public key supplied independently by the trusted service. The envelope cannot supply its own authority key. Decisions name one exact request, validity interval, confirmed rotation reference, transport reference, currency, positive integer minor-unit limit and budget enforcement reference. A protected local ledger consumes one attempt with exclusive creation before external reservation or credential use. Replayed, expired, changed, unapproved or noncanonical records are refused. Failures never delete consumed markers to authorize automatic retries. Ledger recovery, parent protection, native ACL and owner-key enrollment remain deployment responsibilities; local exclusive creation is not a distributed or crash-proof ledger.
+
+The service must provide a reviewed, bounded live-control adapter for real transport validation, read-only/scope isolation and financial enforcement. The admission layer verifies that its reservation is bound to the same decision and request, and rechecks validity, file hashes and live controls at the credential-reader boundary. Signature verification and record names do not themselves implement these controls. A missing or failing adapter must reject; a valid signature cannot authorize reading a key in its absence. Control-cleanup failures remain blocked. The original low-level projected entry is a trusted internal component, not a public bypass endpoint.
+
+The signer and its trust enrollment are separate from model API credentials and are not provisioned by the tests. Signed owner confirmation records what the owner attests about key rotation; it does not query or prove provider-side revocation. The source revision is a signed reference, while the deployment remains responsible for its verified checkout and immutable admitted files. Financial accounting, native isolation and TLS on the eventual Codex connection are not delivered by the signature module.
+
+Approval tests use real ephemeral signatures and local files. The consumer suite loads actual admission and projection code with simulated native entry, credential peer and external controls; it is not OS evidence. The separate Windows native suite calls the real existing entry and job machinery, but still uses a synthetic signer, sealed peer and enforcement adapter. It proves composition only; its two cases actually ran on Windows. See the [admission receipt](../../../development/remediation/2026-09-11/approval-admission-r17/verification.json) and the [Windows execution receipt](../../../development/remediation/2026-09-11/approval-admission-r17-win/verification.json).
+
+## Credential-free TLS verification
+
+[planner-tls.mjs](planner-tls.mjs) verifies a fresh TLS connection to one independently configured route. The trusted policy fixes the record ID, exact HTTPS base URL, explicit CA certificates, optional SPKI pin, minimum TLS version, handshake deadline and close deadline. Userinfo, queries, fragments, HTTP and validation overrides are rejected. The verifier always checks chain authorization and the route hostname or literal IP; DNS names also send SNI. A key pin is an additional restriction, never a replacement for certificate validation. There are no HTTP requests, credentials, redirects, retries or cached success results.
+
+The owner-admission service requires a transport verifier. After consuming a valid signed attempt and obtaining live controls, its guarded credential reader calls the verifier with the signed record, projected route and request digest. A failed handshake prevents the read; unapproved or replayed requests cannot initiate the probe. Consent, live controls and fixed files are rechecked after the asynchronous TLS check. Successful observations include certificate/SPKI/trust-store hashes and an observed socket close; TLS error messages contain only fixed refusal codes. The returned observation is separate from invocation and control-cleanup results.
+
+A probe certifies only its own connection. It does not protect later Codex requests, establish the model route's business authorization, fetch revocation information or prevent later DNS/certificate changes. The deployed CLI must independently verify its actual HTTPS connection without inherited bypass settings, and the live control adapter must still enforce isolation and the approved financial limit. Trust material and immutable record bindings belong to the protected deployment, never to an unsigned task envelope. No real gateway is contacted by tests or by constructing a verifier.
+
+[planner-tls.test.mjs](planner-tls.test.mjs) uses real TLS on loopback. Its [test certificates](fixtures/planner-tls-certificates.mjs) are synthetic: only the known test server key and public certificates are retained, not the CA private key. Never install that CA or reuse that key in production. Consumer tests combine the real probe with simulated native/financial/isolation services; the native suite combines it with the existing Windows entry. See the [TLS receipt](../../../development/remediation/2026-09-12/planner-tls-r18/verification.json) for the actual platforms and unexecuted checks.
+
+A sealed credential read is itself asynchronous. Before releasing its completed response to the existing reader, admission checks the still-valid decision, reservation binding, live controls and fixed input bytes again. Expiry, revocation or changed input during that read prevents response delivery and target launch; the read may already have occurred and is not reported as zero. This check does not revoke credentials already delivered to a running target. Continuous enforcement and immutable inputs remain deployment responsibilities.
+
+## Fixed-commit input snapshots
+
+[planner-input-snapshot.mjs](planner-input-snapshot.mjs) prepares the existing unsigned planner request from a fixed local Git commit and an explicit path/SHA-256 read set. It verifies the Git executable, requires locally available raw objects, and disables replacement references, lazy fetch and ambient Git configuration. Only ordinary committed blobs are exported; checkout filters, staged edits, live worktree content, untracked files, submodules and symbolic-link entries are not used. File count, per-file bytes, total bytes and per-command time are explicit deployment limits.
+
+Preparation owns a fresh random allocation beneath a protected local parent. Its `input` directory contains only the admitted files, with original bytes preserved and no source `.git` directory or hardlinks. A separate manifest records commit, blob and content identities. `prepared.run.input.workspace` and the existing Codex projection's `--cd` both point to this snapshot; sign this prepared request, not the preceding source-workspace request. Explicit `workspaceKind: 'fixed-input-snapshot'` adds only `--skip-git-repo-check` for the non-Git directory. Ordinary inputs retain their existing argv; sandbox and approval settings do not change.
+
+The returned `verify()` checks the complete tree and manifest, refusing extra, missing, linked or changed content. `dispose()` joins concurrent cleanup calls and deletes only its owned allocation; replaced root identity blocks deletion, while inner links are unlinked without traversing their targets. Dispose only after all consumers are confirmed stopped. Existing grants are not reissued, consumed attempts are not reset, and preparation neither calls a model nor supplies credentials.
+
+Snapshot bytes are independent of later checkout changes, but advisory file modes are not Windows ACLs and integrity checks are not OS access control. The trusted deployment must protect Git, source objects, snapshot parents and files from concurrent tampering, prevent the agent from reading outside the admitted directory, and call `verify()` through its live isolation checks. The [r20 Windows receipt](../../../development/remediation/2026-09-12/input-snapshot-r20-win/verification.json) records the native Git-for-Windows snapshot suites, the junction and read-only cleanup controls, and the pinned Codex CLI's own offline help for `--skip-git-repo-check`; the synthetic native composition still uses Node as its CLI stand-in, not a model, and is not OS isolation. A `.git`-free directory may require separately approved source files before a useful plan can be produced; the exporter never widens the read set automatically.
+
+## Verification
+
+Run from the repository with pinned dependencies; leave module-override variables unset for normal verification.
+
+```sh
+node --import tsx/esm --test scripts/p0-b/windows-credentials/reader.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/native.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-invocation.test.mjs scripts/p0-b/windows-credentials/planner-invocation-bounds.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-entry.test.mjs
+node --test scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/ownership-failures.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-tls.test.mjs
+node --test scripts/p0-b/windows-credentials/planner-approval.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-planner.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/owner-approved-read-completion.test.mjs
+node --import tsx/esm --test scripts/p0-b/windows-credentials/owner-approved-planner-native.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/planner-entry-gate.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-failures.test.mjs scripts/p0-b/windows-credentials/launch-gate.test.mjs
+node --experimental-vm-modules --test scripts/p0-b/windows-credentials/gate-owner-native.test.mjs
+```
+
+Reader tests use an explicit synthetic peer and real RSA/lease code. The optional `P0B_WINDOWS_CREDENTIAL_MODULE_ROOT` is only for documented offline compiled copies. Native credential tests use unique `dsh861/selftest/` targets, never production keys; crashes can leave residue, so inspect only the recorded targets. They do not certify interactive real-key entry, service-account persistence or ACLs.
+
+Planner tests distinguish real Node fixtures from simulated OS interfaces. Missing or frozen heartbeats are not exit proof; readiness requires creation and progress, and fixture-owned cleanup is not product containment. [gate-owner-failures.test.mjs](gate-owner-failures.test.mjs) uses actual owner source, simulated children and real marker files. [launch-gate.test.mjs](launch-gate.test.mjs) combines real Node runs with deterministic clock controls. [gate-owner-native.test.mjs](gate-owner-native.test.mjs) observes exact real Windows child handles for helper death before and after assignment. Non-Windows skips are not native acceptance.
+
+The [r13 Windows receipt](../../../development/remediation/2026-09-10/planner-gate-r13/verification.json) preserves prior native results; the [r14 receipt](../../../development/remediation/2026-09-10/gate-abort-r14/verification.json) records current controls and unexecuted checks. The [decision note](../../../.agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md) links earlier evidence and qualifications. Reuse passing evidence only for the unchanged inputs it actually covers.
+
+## Production prerequisites
+
+Only the owner can confirm provider-side revocation, privately provision a replacement and approve the real protected route and spending limits. First planning needs only the Codex credential, not all four. HTTP risk acceptance is not encryption evidence. Keep model declarations and locks unchanged until a specific configuration change is authorized.
+
+The implementation must authenticate authorization records and enforce effective sandbox, output, lifecycle and budget constraints; these are not supplied by a user's confirmation alone. A CLI banner, HTTPS spelling or isolated CODEX_HOME path does not prove gateway behavior, certificate validation or OS enforcement. Do not read production credentials or call a model until the real invocation conditions are met. This component does not issue the designated Codex plan or OpenCode review.
