@@ -23,6 +23,8 @@ node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-input-snap
 
 本轮改动了投影和入口输入类型，所以需受影响的类型、lint、文档检查；旧TLS／凭据／签名／作业实现未改时不全量重跑。README与现有Agent Note两对正文一起核对后用原程序点名重录i18n记录，不用`--write --all`，不关闭项目钩子。发生新失败，保留首次输出并最小修复。正常提交推送本任务分支，提供可取回日志、实际退出码及最终SHA。
 
+2026-09-12 本轮已在 Windows 实跑上述全部验证。首次运行快照 43 项与原生 1 项全部失败于同一根因：Node 的 `os.devNull` 在 win32 为 `\\.\nul`，Git for Windows 拒绝将其作为 `GIT_CONFIG_GLOBAL`（实测该程序接受 `NUL`、`nul` 与 `/dev/null`，仅拒绝 `\\.\nul`）；已在快照实现和两个测试夹具中最小修复为平台正确的空配置路径，拉取／替换／系统配置禁用全部保持。复跑 62/62（43 快照＋19 投影）、原生 1/1（约 3.1 秒实跑）通过、零跳过；钉版 Codex 0.149.1 在隔离 `CODEX_HOME`、无凭据、零网关请求条件下由其自身离线帮助确认 `--skip-git-repo-check`。受影响类型、lint、文档门禁结果与首失日志见[Windows 执行回执](../remediation/2026-09-12/input-snapshot-r20-win/verification.json)；OS 隔离、生产签署、金额强制仍未交付，不据此重发启动申请。
+
 ## 真实运行仍需决定和落实
 
 本轮不需要API Key，不读写或枚举生产凭据、不访问用户中转、不安装CA、不登记生产签署身份，不代写plan.v4或OpenCode硬审核。现行HTTP配置继续拒绝。模型声明、模型锁、pnpm-lock和state.json保持原字节。

@@ -1,0 +1,191 @@
+{
+  "kind": "windows-native-execution-of-r20-fixed-commit-input-snapshot",
+  "round": "r20-windows",
+  "recordedAt": "2026-09-12T02:17:59Z",
+  "baseCommit": "40e3247a6bdf62daaf17e6cda42af4864aca36c9",
+  "baseCommitParent": "decfb608ed52374db4dfa7c02491cc3e9f39534c",
+  "actor": "ZCode built-in execution subagent on the user's Windows host; not designated Codex planner or OpenCode reviewer",
+  "environment": {
+    "os": "Windows 11 10.0.26200",
+    "node": "v26.4.0",
+    "pnpm": "11.7.0",
+    "git": "2.55.0.windows.3 (C:\\Program Files\\Git\\mingw64\\bin\\git.exe, resolved by the suites via where.exe)",
+    "repositoryDependenciesInstalled": true,
+    "windowsNativeRun": true,
+    "note": "Explicit fetch of origin feat/p0b-input-snapshot-20260912 (git -c http.version=HTTP/1.1), then a new local branch at 40e3247 with no checkout of prior branches, no stash, no force, no reset; worktree clean before and after. The commit chain was read first: 40e3247 -> decfb608 (Merge PR #8, parents 227e559 + 2f5c328). Protected files byte-identical to the r18-r19-win receipt afterwards. Node 26.4.0 / pnpm 11.7.0 / Git reused without reinstall."
+  },
+  "firstFailureAndRepair": {
+    "combinedFirstRun": { "log": "combined-first-r20-win.tap", "tests": 62, "passed": 19, "failed": 43, "skipped": 0, "exitCode": 1 },
+    "nativeFirstRun": { "log": "native-first-r20-win.tap", "tests": 1, "passed": 0, "failed": 1, "skipped": 0, "exitCode": 1 },
+    "rootCause": "All 43 snapshot cases and the native case failed at fixture `git init` with `fatal: unable to access '\\\\.\\\\nul': Invalid argument`. The r20 sources set GIT_CONFIG_GLOBAL to Node's os.devNull, which is '\\\\.\\\\nul' on win32; Git for Windows rejects that path. The same value sat in the implementation's trusted Git reader environment (planner-input-snapshot.mjs), not only in fixtures.",
+    "probe": "git-null-path-probe-r20-win.log: with GIT_CONFIG_GLOBAL set per value, `git rev-parse --git-dir` exits 128 for '\\\\.\\\\nul' and '\\\\.\\\\NUL' and exits 0 for 'NUL', 'nul' and '/dev/null' on the pinned Git 2.55.0.windows.3.",
+    "repair": "Minimal root-cause fix in planner-input-snapshot.mjs, planner-input-snapshot.test.mjs and planner-input-snapshot-native.test.mjs: a platform-correct null config path ('NUL' on win32, os.devNull elsewhere). No lazy-fetch, replacement-ref, system-config or terminal-prompt prohibition was removed; no assertion was deleted; no test was skipped; first-failure output is archived unchanged."
+  },
+  "checks": {
+    "combinedFinal": {
+      "command": "node --test scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs scripts/p0-b/windows-credentials/codex-launch-projection.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "combined-final-r20-win.tap",
+      "tests": 62,
+      "passed": 62,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "snapshotCases": 43,
+      "projectionCases": 19,
+      "durationMs": 18243,
+      "scope": "Actual local Git for Windows, raw objects, filesystem and existing projection; no process or filesystem mocks, temporary synthetic repositories, synthetic .invalid model URL, never a model connection. Covers committed-only bytes versus dirty/staged/untracked content, replacement refs and ambient GIT_DIR ignored, checkout filters bypassed by raw cat-file, .git and submodule/symlink modes refused, 13 nonportable or escaping read-set paths (including NUL.txt, LPT1, drive, stream and reserved-character forms), case alias and prefix collisions, per-file/total/file-count caps, literal brackets, binary and empty files, junction snapshot-parent refusal, junction inside the workspace unlinked without traversal, replaced snapshot root blocking verify and dispose, read-only (0o400) file cleanup, concurrent preparations, joined concurrent dispose followed by SNAPSHOT_DISPOSED, caller mutation isolation, HTTP route still refused, and the three new non-Git projection cases."
+    },
+    "nativeFinal": {
+      "command": "node --import tsx/esm --test scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "native-final-r20-win.tap",
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "caseDurationMs": 3073.9,
+      "totalDurationMs": 3312.5,
+      "scope": "Actually executed on win32 (skip condition process.platform!=='win32' not taken): temporary Git repository -> preparePlannerInputSnapshot -> describePlannerApprovalRequest digest binding (source-workspace digest differs from snapshot digest) -> synthetic Ed25519 owner decision -> existing owner-approved admission with real loopback TLS verification, sealed synthetic RSA-OAEP-SHA256 credential peer, synthetic control adapter asserting snapshot.verify(), real planner-entry/gate/job-owner path with real SystemRoot PowerShell -> spawned Node CLI stand-in. Assertions prove the target's real cwd realpath equals the snapshot workspace, the program read COMMITTED-INPUT bytes rather than the DIRTY-MUST-NOT-BE-READ worktree file, the unlisted private.txt sentinel is absent from the snapshot, argv retains --skip-git-repo-check and --sandbox read-only, exit code 0, ownership activeProcessesRemaining=0 and disposed=true, credential reads=1 with controls closed=1, replay of the same approval returns PLANNER_APPROVAL_USED with reads still 1, and the post-run whole-tree verify() still passes. The CLI stand-in is Node, not real Codex; signer, sealing peer, budget and isolation adapters are synthetic."
+    },
+    "gitNullConfigProbe": {
+      "log": "git-null-path-probe-r20-win.log",
+      "exitCode": 0,
+      "scope": "Documented the first-failure root cause on the pinned Git; see firstFailureAndRepair.probe."
+    },
+    "codexOptionProbe": {
+      "executable": "node_modules/.pnpm/@openai+codex@0.149.1-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/bin/codex.exe (repository-pinned @openai/codex 0.149.1)",
+      "commands": ["codex.exe --version", "codex.exe exec --help", "codex.exe --help"],
+      "logs": ["codex-version-r20-win.log", "codex-exec-help-r20-win.log", "codex-help-r20-win.log"],
+      "version": "codex-cli 0.149.1 (self-reported)",
+      "finding": "`exec --help` documents '--skip-git-repo-check: Allow running Codex outside a Git repository' (codex-exec-help-r20-win.log lines 78-79).",
+      "exitCodes": [0, 0, 0],
+      "scope": "Option-existence confirmation only, per task. Isolation: env -i clean environment with no credential variables and no base URLs, fresh empty CODEX_HOME, redirected HOME/USERPROFILE/TEMP/TMP; only --version and --help executed; zero gateway or network requests (only local arg0 helper files appeared inside the isolated CODEX_HOME). The full model-compatibility probe suite was not repeated; read-only/sandbox settings were not changed; no source .git was linked into any snapshot."
+    },
+    "typecheckFull": {
+      "command": "pnpm run typecheck",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "typecheck-r20-win.log",
+      "exitCode": 0
+    },
+    "lint": {
+      "command": "pnpm run lint",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "lint-r20-win.log",
+      "exitCode": 0,
+      "warnings": 0,
+      "errors": 0,
+      "scope": "Run after the null-config repair; the repaired sources pass repository lint directly."
+    },
+    "pairingWriteReadme": {
+      "command": "pnpm run verify-translation-pairing --write scripts/p0-b/windows-credentials/README.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-write-readme-r20-win.log",
+      "exitCode": 0,
+      "scope": "Named re-record only (no --write --all), after comparing both language sides of the pair."
+    },
+    "pairingWriteNote": {
+      "command": "pnpm run verify-translation-pairing --write .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-write-note-r20-win.log",
+      "exitCode": 0,
+      "scope": "Named re-record only (no --write --all), after comparing both language sides of the pair."
+    },
+    "pairingCheck": {
+      "command": "pnpm run verify-translation-pairing scripts/p0-b/windows-credentials/README.md .agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "pairing-check-r20-win.log",
+      "exitCode": 0,
+      "scope": "Both named pairs consistent after re-record."
+    },
+    "testDocsFinal": {
+      "command": "pnpm run test:docs",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "test-docs-r20-win.log",
+      "exitCode": 0,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "doc-quick aggregate re-run on the final candidate tree with the sidecar re-records, the handoff completion record and this evidence directory present."
+    },
+    "docSyncFinal": {
+      "command": "pnpm run doc-sync",
+      "cwd": "C:\\Albert\\project\\dsh861",
+      "log": "doc-sync-r20-win.log",
+      "exitCode": 0,
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "One actual full doc-sync execution on the final candidate working tree with this evidence directory present; the archived log is that final run."
+    }
+  },
+  "impactAnalysis": {
+    "productChange": "One cross-platform defect repaired in the snapshot implementation: planner-input-snapshot.mjs now passes Git for Windows a usable null config path ('NUL') instead of Node's os.devNull ('\\\\.\\\\nul'), which Git for Windows rejects; POSIX behavior is unchanged (os.devNull). The two new test fixtures received the same correction. No lazy-fetch, replacement-ref, system-config, sandbox, approval or route prohibition was altered, and no assertion was removed.",
+    "nonProductChange": "One sentence in each language side of scripts/p0-b/windows-credentials/README{,.zh}.md now links this receipt instead of stating Windows validation is pending; two i18n sidecar re-records via the named pairing program; one dated handoff completion paragraph; this Windows evidence directory."
+  },
+  "notRun": [
+    "Older suites whose implementation paths are untouched by this repair: r17 approval-consumer 21 cases, gate-owner/launch-gate suites, credential reader/native suites, planner-invocation/entry suites, r18 TLS 24 cases, r19 consumer/read-completion 31 cases, owner-approved native 6 cases. The r20 native composition re-exercised the shared admission/TLS/job/gate entry with committed inputs.",
+    "Real-API e2e: requires DEEPSEEK_API_KEY; none used this round by instruction",
+    "Production credentials, user relay/gateway, model calls, Remote Desktop Commander, monetary-budget enforcement, owner trust-root enrollment or production signing keys",
+    "GitHub Actions CI for this candidate: not consumed as evidence",
+    "Designated Codex plan.v4 or OpenCode hard review"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "protectedFilesNotChanged": [
+    { "path": "config/agents/models.v1.json", "bytes": 1656, "sha256": "923c49311ecbeda6da1e5f32c086db56016714637994dde6619e78dccce7226f", "gitBlob": "5292c7094b84fcb42d15735ca91ccb99123f892c" },
+    { "path": "config/agents/models.v1.lock.json", "bytes": 227, "sha256": "f5f35db817af54376a6db1d56767043381e008693e8025d05a7449c8a056f5eb", "gitBlob": "2ecb11ccba29a748e6eba6f47aeb59284052db26" },
+    { "path": "pnpm-lock.yaml", "bytes": 768436, "sha256": "2c903ab870f821ee2db62fa9417d11b1c2b9c65fbeec30e851ddc53c4cc8c383", "gitBlob": "a286e8db0adb8a0178b3b845a52e057f4ef9046b" },
+    { "path": "development/nodes/P0-B/state.json", "bytes": 2878, "sha256": "6ec9def1b6e71c33088315e8106cfbb7538fff6d402d8b2148e86b8d34c90103", "gitBlob": "4fa1dd1ab8f34e620a14e83fe4c9c7beea12665f" }
+  ],
+  "fileHashes": [
+    { "path": "scripts/p0-b/windows-credentials/planner-input-snapshot.mjs", "bytes": 13400, "gitBlob": "abcbbe49c23f652b669de1d6111017f9397175b4", "sha256": "f993e7ec4d3b08cf046ac5af348eb78b727db6e4ad749a2be86fcb3d09ffd141", "note": "Null-config repair this round" },
+    { "path": "scripts/p0-b/windows-credentials/planner-input-snapshot.test.mjs", "bytes": 16418, "gitBlob": "dfbdf288037ac08f2207d20d1038330d0f942917", "sha256": "8fd56fb010eb4b60ae35db1ad6c13fed9dd704dc04c8630b750e9fb89c824c58", "note": "Null-config repair this round" },
+    { "path": "scripts/p0-b/windows-credentials/planner-input-snapshot-native.test.mjs", "bytes": 8648, "gitBlob": "efe9184ae35daddf20e92c2356a305c0d97ae35c", "sha256": "de203872ad4d65d1b0e40aa4fdf5ce7341ae2ac0fb85acd67fe2095ae9707ae9", "note": "Null-config repair this round" },
+    { "path": "scripts/p0-b/windows-credentials/README.md", "bytes": 21002, "gitBlob": "ec681b34d576551cedfda937c1b3a9641bd4431e", "sha256": "56f4309a3596b6f8705a7a61786a7841df64978a47d54edf1b47b02cf1b2a99f", "note": "Receipt-link sentence updated this round" },
+    { "path": "scripts/p0-b/windows-credentials/README.zh.md", "bytes": 18302, "gitBlob": "a7cb4e2a7ff7080b849a2616f8d87cfbbe28ca3b", "sha256": "45526e829b983025e25ca075e9e297964473ff631f5051eca0660650f9f52dae", "note": "Receipt-link sentence updated this round" },
+    { "path": "scripts/p0-b/windows-credentials/README.i18n.yaml", "bytes": 442, "gitBlob": "4f9dbb9993d735a79bb65e3d71bcd5efca16ff9a", "sha256": "0fa7adfd2f2601e6813437aec28ce937145fbee29a004340898669023b6d47c0", "note": "Re-recorded locally this round" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.md", "bytes": 8294, "gitBlob": "d225546dc1e620abaf7a6cdbeb487421b6259ac6", "sha256": "35e9b524d908cfd3bbcce4a87aa3564eeb529a2ff802b1a7df0b09e9c353b553", "note": "Unchanged this round; pair re-recorded by name" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.zh.md", "bytes": 7083, "gitBlob": "c37a83c76d736511c3f83940960fa37b69161109", "sha256": "4941df87a847ec8389cb4e251892bb98e8c99510812d31c5070d44a62f7b76c3", "note": "Unchanged this round; pair re-recorded by name" },
+    { "path": ".agents/notes/implemented/architecture/2026-09-10-windows-credential-bridge.i18n.yaml", "bytes": 538, "gitBlob": "0fdac35cac8d225aa631e1852366779bc32ff1dd", "sha256": "35dd6513baf2e469a492b9d2802cf2a6f426af5431d5bc28e70b4cf0aba0fd4c", "note": "Re-recorded locally this round" },
+    { "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md", "bytes": 5351, "gitBlob": "1d8eb729b1e73448daadbd1d4c5f93802538efba", "sha256": "ce95eefe2783aef5ca662f1f147cdac9f51e1268a1792c9f53d7b76436bb0eba", "note": "Completion record added this round" }
+  ],
+  "network": {
+    "actualGatewayContacted": false,
+    "addresses": "127.0.0.1 loopback inside the native composition only",
+    "httpRequestsSent": 0,
+    "productionCredentialsRead": false,
+    "globalAuthRead": false,
+    "trustStoreModified": false,
+    "testCAPurpose": "Synthetic loopback fixture; never installed as a system root; CA private key not retained"
+  },
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 23348,
+    "sha256": "8230f635985fded7f881ba46a220fe5420a5e6565a91fd560e131ef95f2f9e31",
+    "metadata": "uid/gid/mtime=0; uname/gname empty; numeric owner; sorted ./-prefixed members like the r17-win and r18-r19-win Windows archives",
+    "members": {
+      "codex-exec-help-r20-win.log": { "bytes": 3957, "sha256": "e504bac5a6364566fbe408132dec7993639def9258ece34e8352f51f8d43687c" },
+      "codex-help-r20-win.log": { "bytes": 5731, "sha256": "e8ecd554e6e3e870a55e540f1a21598c085cfee237f9c735ff9b5ba4ac4cf08a" },
+      "codex-version-r20-win.log": { "bytes": 18, "sha256": "ca4fe30a68dd82c6a7af75eeb683f763cfb6554840590a9e345692269ae744f0" },
+      "combined-final-r20-win.tap": { "bytes": 4743, "sha256": "2bc8e79bafc686c85f2f0ef15a3041c343cd58dc21ae0cb68754bbc994eb8f19" },
+      "combined-first-r20-win.tap": { "bytes": 83000, "sha256": "0ea0ac0214eba2734a0f3e3bbffc2d21e04d962dd905e42136fafa82fdc41975" },
+      "doc-sync-r20-win.log": { "bytes": 2787, "sha256": "9c13540060ac570d25e1df881146837c3e500fa98849896816ea6b2ef7bb5291" },
+      "git-null-path-probe-r20-win.log": { "bytes": 362, "sha256": "49f38e5583e9982c64c04185734ddcfe2d3a4de05eb8421b6a32ead625a80c07" },
+      "lint-r20-win.log": { "bytes": 162527, "sha256": "c440070914af9ca5092a9902435a8dce3bcaebdecaddbffe75931f2c0b900398" },
+      "native-final-r20-win.tap": { "bytes": 231, "sha256": "d8adcfdc9b5d11793a2dccbff9b4d26e7cc3fc0a131fecd915661b11bad77d80" },
+      "native-first-r20-win.tap": { "bytes": 1860, "sha256": "0bbb96b8bf2aacde9d3784ec46dc87e1525ac14a6c088ecc4fa5e53c3e7736ba" },
+      "pairing-check-r20-win.log": { "bytes": 272, "sha256": "dd77a436bf86e689e860cc708f811deda07ec5e766b5e99694745df0830accc9" },
+      "pairing-write-note-r20-win.log": { "bytes": 344, "sha256": "1288a9ac7e6f91199dab0287f9657231656415e5284e0fafd6455578357b0330" },
+      "pairing-write-readme-r20-win.log": { "bytes": 272, "sha256": "93aa7fcdf1063430c0bb36696add2ad5ca57dbde2af93d5958adf6c4e8344a58" },
+      "test-docs-r20-win.log": { "bytes": 1430, "sha256": "38cf163c7627195bfbe4fd673bb7a1a6b86f1c953b472210c0c06f4ee4b0fc8a" },
+      "typecheck-r20-win.log": { "bytes": 159825, "sha256": "2a35a94957f47ff76578e8fe78f8d740c497d9037c3e7b7693ba83e4364ccade" }
+    }
+  },
+  "deliverySplit": {
+    "completedThisRound": "Fixed-commit input content snapshots are prepared and verified on Windows: committed-only bytes, whole-tree verify, owned cleanup with junction unlink-only behavior, read-only file cleanup, concurrent dispose joining, and the native composition binding the snapshot path, sandbox arguments and single-use approval through the existing admission/TLS/job/gate entry. The pinned Codex 0.149.1 CLI itself documents --skip-git-repo-check in its offline help.",
+    "stillNotDelivered": "OS-level isolation (ACLs, denial of reads outside the snapshot, resistance to malicious concurrent parent/file replacement by another identity), production signing entry and owner trust-root enrollment, ledger ACL/recovery, the actual Codex CLI connection's TLS verification, hard monetary enforcement, provider-side revocation confirmation, and any real model call. This round used no real key and issues no launch request; do not regenerate the previous launch application from this evidence."
+  }
+}

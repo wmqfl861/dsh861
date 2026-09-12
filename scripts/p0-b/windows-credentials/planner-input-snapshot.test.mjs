@@ -19,6 +19,8 @@ const gitExecutable = realpathSync(execFileSync(process.platform === 'win32' ? '
 const hash = bytes => createHash('sha256').update(bytes).digest('hex')
 const gitSha256 = hash(readFileSync(gitExecutable))
 const executableSha256 = hash(readFileSync(process.execPath))
+// Git for Windows rejects Node's os.devNull ('\\.\nul') as a config path; its null device is NUL.
+const gitNullConfig = process.platform === 'win32' ? 'NUL' : devNull
 const data = Buffer.from('固定输入\r\nline two\r\n')
 const code = expected => error => error.code === expected && error.message === expected && error.cause === undefined
 
@@ -32,7 +34,7 @@ function fixture(t) {
   const repository = join(base, 'repo'), parent = join(base, 'snapshots')
   mkdirSync(repository); mkdirSync(parent)
   const env = { HOME: base, USERPROFILE: base, TEMP: base, TMP: base,
-    GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: devNull, GIT_TERMINAL_PROMPT: '0',
+    GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: gitNullConfig, GIT_TERMINAL_PROMPT: '0',
     ...(process.platform === 'win32' ? { SystemRoot: process.env.SystemRoot } : {}) }
   const git = (args, input) => execFileSync(gitExecutable, ['-c', 'core.autocrlf=false',
     '-c', 'core.hooksPath=' + join(base, 'no-hooks'), '-c', 'commit.gpgSign=false',

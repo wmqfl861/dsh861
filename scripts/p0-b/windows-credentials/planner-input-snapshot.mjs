@@ -9,6 +9,8 @@ import { projectCodexLaunch } from './codex-launch-projection.mjs'
 
 const SHA256 = /^[a-f0-9]{64}$/
 const hash = bytes => createHash('sha256').update(bytes).digest('hex')
+// Git for Windows rejects Node's os.devNull ('\\.\nul') as a config path; its null device is NUL.
+const gitNullConfig = process.platform === 'win32' ? 'NUL' : devNull
 const exact = (value, keys) => value !== null && typeof value === 'object' && !Array.isArray(value)
   && Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key))
 const positive = value => Number.isSafeInteger(value) && value > 0
@@ -106,7 +108,7 @@ export async function preparePlannerInputSnapshot(input, policy) {
       || contains(runRoot, parent) || contains(parent, runRoot)) refuse('SNAPSHOT_LOCATION_INVALID')
     if (hash(await readFile(policy.gitExecutable)) !== policy.gitSha256) refuse('SNAPSHOT_GIT_IDENTITY_INVALID')
     const environment = { HOME: parent, USERPROFILE: parent, TEMP: parent, TMP: parent,
-      GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: devNull, GIT_TERMINAL_PROMPT: '0',
+      GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: gitNullConfig, GIT_TERMINAL_PROMPT: '0',
       GIT_CONFIG_COUNT: '0', GIT_NO_LAZY_FETCH: '1', GIT_NO_REPLACE_OBJECTS: '1' }
     if (process.platform === 'win32') environment.SystemRoot = input.run.input.systemRoot
     const git = gitReader(repository, policy, environment)

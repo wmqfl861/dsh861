@@ -18,6 +18,8 @@ const directory = fileURLToPath(new URL('.', import.meta.url))
 const repository = join(directory, '../../..')
 const hash = bytes => createHash('sha256').update(bytes).digest('hex')
 const fileHash = file => hash(readFileSync(file))
+// Git for Windows rejects Node's os.devNull ('\\.\nul') as a config path; its null device is NUL.
+const gitNullConfig = process.platform === 'win32' ? 'NUL' : devNull
 
 test('a signed snapshot request reaches the existing native entry with committed rather than live inputs',
   { skip: process.platform !== 'win32', timeout: 120000 }, async t => {
@@ -36,7 +38,7 @@ test('a signed snapshot request reaches the existing native entry with committed
       '-c', 'core.hooksPath=' + join(base, 'no-hooks'), '-c', 'user.name=Snapshot Fixture',
       '-c', 'user.email=snapshot@example.invalid', '-C', source, ...args],
     { encoding: 'utf8', timeout: 10000, env: { SystemRoot: systemRoot, HOME: base, USERPROFILE: base, TEMP: base, TMP: base,
-      GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: devNull, GIT_TERMINAL_PROMPT: '0' } })
+      GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: gitNullConfig, GIT_TERMINAL_PROMPT: '0' } })
     git(['init', '-q'])
     writeFileSync(join(source, 'input.txt'), 'COMMITTED-INPUT')
     writeFileSync(join(source, 'exec'), [
