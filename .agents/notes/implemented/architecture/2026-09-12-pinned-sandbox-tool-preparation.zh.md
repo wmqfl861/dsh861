@@ -10,7 +10,7 @@ Codex 主程序可运行，不代表独立的 setup 和 command runner 已齐备
 
 ## Decision
 
-[本地工具包准备器](../../../../scripts/p0-b/windows-credentials/sandbox-tool-bundle.md)只在核验已审查的大小和 SHA-256 后复制三个显式文件。它把同一版本的原始 setup、runner 资产与仓库钉版主程序组合，不使用全局 runner，也不自动升级版本。新暂存目录保留来源文件与既有安装。准备不执行程序、不登记信任、不操作账号或请求提权。
+[本地工具包准备器](../../../../scripts/p0-b/windows-credentials/sandbox-tool-bundle.md)只在核验已审查的大小和 SHA-256 后复制三个显式文件。它使用同一版本的原始主程序、setup 和 runner 摘要，不使用全局 runner 或浮动版本。CLI 选择已有的精确版本清单并默认使用经审查的当前版本，历史清单保持不变。新暂存目录保留来源文件与既有安装。准备不执行程序、不登记信任、不操作账号或请求提权。
 
 ## Alternatives considered
 

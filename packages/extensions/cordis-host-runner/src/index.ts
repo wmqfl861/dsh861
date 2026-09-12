@@ -7,6 +7,7 @@
 import { Context } from '@deepseek-ai/cordis'
 import type { Fiber } from '@deepseek-ai/cordis'
 import z from '@deepseek-ai/schemastery'
+import { brandString } from '@deepseek-ai/dsh-brand'
 import type { Agent } from '@deepseek-ai/dsh-agent'
 import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { TypertRemoteService, Remote } from '@deepseek-ai/dsh-typert-protocol'
@@ -165,7 +166,7 @@ export class DynamicCordisRunnerService extends TypertRemoteService {
       if (!/^[a-z]{3,6}$/.test(prefix)) {
         throw new Error('cordis_define `plugin.idPrefix` must contain 3–6 lowercase English letters')
       }
-      const pluginId = CordisDynamicPluginId(this.registry.mintPluginId(prefix))
+      const pluginId = brandString<CordisDynamicPluginId>(this.registry.mintPluginId(prefix))
       plugin = {
         pluginId,
         sessionId: request.sessionId,
@@ -182,7 +183,7 @@ export class DynamicCordisRunnerService extends TypertRemoteService {
       plugin = found
     }
 
-    const packageId = CordisDynamicPackageId(this.registry.mintPackageId())
+    const packageId = brandString<CordisDynamicPackageId>(this.registry.mintPackageId())
     const definition: DynamicCordisDefinition = {
       packageId,
       name,
@@ -274,7 +275,7 @@ export class DynamicCordisRunnerService extends TypertRemoteService {
       return { ...started, reason: 'host-half-failed' }
     }
 
-    const requestId = ApprovalRequestId(this.registry.mintApprovalRequestId())
+    const requestId = brandString<ApprovalRequestId>(this.registry.mintApprovalRequestId())
     const requiresApproval = !plan.plugin.clientVersionUpdatesApproved
       && !plan.plugin.approvedClientPackages.has(packageId)
     attempt.approvalRequestId = requestId
@@ -1173,7 +1174,7 @@ export class DynamicCordisRunnerService extends TypertRemoteService {
 
   private createAttempt(plan: ActivationPlan): DynamicCordisRunAttempt {
     return {
-      pluginRunId: CordisDynamicPluginRunId(this.registry.mintPluginRunId()),
+      pluginRunId: brandString<CordisDynamicPluginRunId>(this.registry.mintPluginRunId()),
       packageId: plan.definition.packageId,
       mode: plan.mode,
       status: 'starting-host',

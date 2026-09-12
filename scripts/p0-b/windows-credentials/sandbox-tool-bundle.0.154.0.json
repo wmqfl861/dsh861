@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "product": "codex-windows-sandbox-tools",
+  "codexVersion": "0.154.0",
+  "target": "x86_64-pc-windows-msvc",
+  "release": "https://github.com/openai/codex/releases/tag/rust-v0.154.0",
+  "releaseId": 385887902,
+  "recordedDate": "2026-09-12",
+  "artifacts": [
+    {
+      "role": "codex",
+      "fileName": "codex.exe",
+      "assetName": "codex-x86_64-pc-windows-msvc.exe",
+      "assetId": 553706480,
+      "bytes": 298169136,
+      "sha256": "be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde",
+      "metadataUrl": "https://api.github.com/repos/openai/codex/releases/assets/553706480",
+      "downloadUrl": "https://github.com/openai/codex/releases/download/rust-v0.154.0/codex-x86_64-pc-windows-msvc.exe"
+    },
+    {
+      "role": "setup",
+      "fileName": "codex-windows-sandbox-setup.exe",
+      "assetName": "codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe",
+      "assetId": 553706488,
+      "bytes": 15467312,
+      "sha256": "ea27f90a0746e2464a829cd6e1de0dcafb77c8be603de899661e8c006ef33937",
+      "metadataUrl": "https://api.github.com/repos/openai/codex/releases/assets/553706488",
+      "downloadUrl": "https://github.com/openai/codex/releases/download/rust-v0.154.0/codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe"
+    },
+    {
+      "role": "runner",
+      "fileName": "codex-command-runner.exe",
+      "assetName": "codex-command-runner-x86_64-pc-windows-msvc.exe",
+      "assetId": 553706450,
+      "bytes": 8218416,
+      "sha256": "a57ca8beb786a05f36c97309e8a716610c70ced9946dc1437bbbaf4566c0c403",
+      "metadataUrl": "https://api.github.com/repos/openai/codex/releases/assets/553706450",
+      "downloadUrl": "https://github.com/openai/codex/releases/download/rust-v0.154.0/codex-command-runner-x86_64-pc-windows-msvc.exe"
+    }
+  ],
+  "assurance": "Official raw release asset sizes and digests were read from GitHub on 2026-09-12. No executable bytes were downloaded or executed in the authoring environment. Package-installed codex.exe must be compared to this raw-asset pin before it is substituted. Hash agreement is not Authenticode/Sigstore or runtime-compatibility verification.",
+  "purpose": "Prepare a separate three-file sandbox diagnostic bundle. Not a full Codex distribution, installation, activation, runtime compatibility claim or system-change approval.",
+  "systemChangesAuthorized": false,
+  "executionAuthorized": false
+}

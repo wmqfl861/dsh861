@@ -40,6 +40,6 @@ Reviewers can identify the implementation and evidence behind a verdict, includi
 
 The Agent Note's `implemented` status records adoption of the process decision. Node completion belongs to candidate-bound review receipts and verification evidence; this note makes no claim that a node or check has passed.
 
-[Explicit change-scope reporting](2026-07-27-explicit-change-scope-report.md) continues to own Git-layer discovery, and [browser evidence chains](2026-08-08-browser-gif-evidence-chain.md) govern recorded GUI runs. Both retain independent rationale and mechanisms.
+[Explicit change-scope reporting](../../archived/process/2026-07-27-explicit-change-scope-report.md) continues to own Git-layer discovery, and [browser evidence chains](2026-08-08-browser-gif-evidence-chain.md) govern recorded GUI runs. Both retain independent rationale and mechanisms.
 
 [Product subagent backends](../feature/2026-08-04-claude-code-and-codex-subagent-backends.md) own runtime integration and its testing tiers. [Periodic human-review maintenance](../../proposed/process/2026-07-13-human-review-skill-maintenance.md) remains a proposal for maintaining the review skill. This node workflow supersedes neither record.

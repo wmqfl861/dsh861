@@ -14,7 +14,6 @@ function fixture() {
   const stderr = new PassThrough()
   const outcome: SubprocessOutcome = { exitCode: 0, signal: null }
   const handle: SubprocessHandle = {
-    pid: 123,
     stdin, stdout, stderr,
     collected: {},
     done: Promise.resolve(outcome),
@@ -90,12 +89,13 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
   test('reads changing owner properties instead of freezing a stale copy', async () => {
     const f = fixture()
     try {
-      let pid = 1
-      const child = { ...f.handle, get pid() { return pid } }
+      let collected: SubprocessHandle['collected'] = {}
+      const child = { ...f.handle, get collected() { return collected } }
       const guarded = protect(child)
-      assert.equal(guarded.pid, 1)
-      pid = 2
-      assert.equal(guarded.pid, 2)
+      assert.equal(guarded.collected, collected)
+      const replacement: SubprocessHandle['collected'] = {}
+      collected = replacement
+      assert.equal(guarded.collected, replacement)
     } finally { await f.cleanup() }
   })
 
@@ -200,7 +200,7 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
         child.once('close', (code, signal) => { resolve({ exitCode: code, signal }) })
       })
       const handle: SubprocessHandle = {
-        pid: child.pid ?? -1, stdin: child.stdin, stdout: child.stdout, stderr: child.stderr,
+        stdin: child.stdin, stdout: child.stdout, stderr: child.stderr,
         collected: {}, done,
         terminate() { child.kill() },
         async waitForExit() { await done; return true },
@@ -230,7 +230,7 @@ export function registerPrivateStderrCases(test: RegisterTest, protect: Protect)
       child.once('close', (exitCode, signal) => { resolve({ exitCode, signal }) })
     })
     const guarded = protect({
-      pid: child.pid ?? -1, stdin: child.stdin, stdout: child.stdout, stderr: child.stderr,
+      stdin: child.stdin, stdout: child.stdout, stderr: child.stderr,
       collected: {}, done, terminate() { child.kill() }, async waitForExit() { await done; return true },
     })
     try {

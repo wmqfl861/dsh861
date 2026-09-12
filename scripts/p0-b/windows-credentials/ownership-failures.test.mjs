@@ -8,7 +8,7 @@ import { setImmediate as tick } from 'node:timers/promises'
 import { fileURLToPath } from 'node:url'
 import vm from 'node:vm'
 import test from 'node:test'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 
 // Actual source modules with explicitly simulated process/OS boundaries. These
 // tests prove failure-state handling, not Windows jobs, credentials or a model.
