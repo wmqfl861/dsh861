@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "product": "codex-windows-sandbox-tools",
+  "codexVersion": "0.149.1",
+  "target": "x86_64-pc-windows-msvc",
+  "release": "https://github.com/openai/codex/releases/tag/rust-v0.149.1",
+  "releaseId": 375371090,
+  "recordedDate": "2026-09-12",
+  "artifacts": [
+    {
+      "role": "codex",
+      "fileName": "codex.exe",
+      "bytes": 297481008,
+      "sha256": "a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6",
+      "source": "repository-pinned @openai/codex@0.149.1 win32-x64 executable; independently recorded local binary digest",
+      "evidence": "development/nodes/P0-B/planner-launch-request.r01.md"
+    },
+    {
+      "role": "setup",
+      "fileName": "codex-windows-sandbox-setup.exe",
+      "assetName": "codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe",
+      "assetId": 526817936,
+      "bytes": 15415088,
+      "sha256": "cff8f8861d0bb0dba601f5d4e74d8eeb578a6b9a5956a6a83c818dafc7d4894a",
+      "metadataUrl": "https://api.github.com/repos/openai/codex/releases/assets/526817936",
+      "downloadUrl": "https://github.com/openai/codex/releases/download/rust-v0.149.1/codex-windows-sandbox-setup-x86_64-pc-windows-msvc.exe"
+    },
+    {
+      "role": "runner",
+      "fileName": "codex-command-runner.exe",
+      "assetName": "codex-command-runner-x86_64-pc-windows-msvc.exe",
+      "assetId": 526817940,
+      "bytes": 8160560,
+      "sha256": "7f14523fe94a2d3ee3737198afa3328fcde04b53f6774bbd1a3f165666bec682",
+      "metadataUrl": "https://api.github.com/repos/openai/codex/releases/assets/526817940",
+      "downloadUrl": "https://github.com/openai/codex/releases/download/rust-v0.149.1/codex-command-runner-x86_64-pc-windows-msvc.exe"
+    }
+  ],
+  "assurance": "Release API digests are integrity pins, not an Authenticode or Sigstore verification. Helper bytes have not been downloaded or executed in the authoring environment. Main binary bytes and published helper files require local verification together.",
+  "purpose": "Prepare a separate three-file sandbox diagnostic bundle. Not a full Codex distribution, installation, activation, runtime compatibility claim or system-change approval.",
+  "systemChangesAuthorized": false,
+  "executionAuthorized": false
+}
