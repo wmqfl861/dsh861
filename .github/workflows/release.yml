@@ -52,7 +52,7 @@ jobs:
           echo "npm_config_devdir=${{ runner.temp }}/node-gyp" >> "$GITHUB_ENV"
           echo "TMPDIR=${{ runner.temp }}" >> "$GITHUB_ENV"
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           dest: ${{ runner.temp }}/setup-pnpm-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
 
@@ -114,7 +114,7 @@ jobs:
           echo "npm_config_devdir=${{ runner.temp }}/node-gyp" >> "$GITHUB_ENV"
           echo "TMPDIR=${{ runner.temp }}" >> "$GITHUB_ENV"
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           dest: ${{ runner.temp }}/setup-pnpm-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
 
@@ -172,7 +172,7 @@ jobs:
       - name: Verify packed install
         run: pnpm run release:verify-packed-install --family dsh --from dist/npm --from dist/npm-vendor --from dist/npm-landlock
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: dsh-npm-tarballs
           path: dist/npm/*

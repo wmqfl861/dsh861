@@ -2,8 +2,10 @@
   "round": "r24",
   "kind": "owner-requested-latest-stable-upgrade",
   "recordedDate": "2026-09-12",
+  "completedDate": "2026-09-12",
   "baseCommit": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
-  "status": "PARTIAL_MANIFEST_UPDATE_LOCK_AND_INSTALL_PENDING",
+  "startCommit": "337aab11bed920cda2e6cd1b0fcd6ad6ec23f65e",
+  "status": "EXECUTED_ON_BRANCH_LOCK_AND_GATES_GREEN_VENDOR_PARTIALLY_BLOCKED",
   "authority": {
     "projectProgramAndDependencyUpgrades": true,
     "lockfileRegeneration": true,
@@ -13,82 +15,87 @@
     "modelConfigurationChanges": false,
     "paidModelCalls": false
   },
-  "selection": "Resolve latest stable once at the start of the local batch from publisher registries/releases, record time/provenance and exact resolved versions, then keep that batch fixed. No nightly/prerelease adoption or downgrade merely because latest points to an older stable line. Existing preview-only source projects use their current documented channel and reviewed immutable commit.",
+  "selection": "Resolved once at batch start from publisher registries (2026-09-12T10:54Z) and kept fixed: Grok resolved to 1.0.30 because the registry latest moved past the start commit's 1.0.25 declaration during the round; every other target matched the declaration.",
   "targets": [
     {
       "name": "@openai/codex",
       "observedVersion": "0.154.0",
       "previous": "0.149.1",
       "declaration": "packages/subagent/subagent-codex/package.json",
-      "state": "DECLARATION_UPDATED_NOT_INSTALLED",
-      "source": "https://api.github.com/repos/openai/codex/releases/latest",
-      "releaseTag": "rust-v0.154.0"
+      "state": "UPDATED_INSTALLED_BYTE_VERIFIED",
+      "source": "registry.npmjs.org/@openai/codex/latest + api.github.com repos/openai/codex releases",
+      "byteVerification": "npm platform package codex.exe/codex-windows-sandbox-setup.exe/codex-command-runner.exe equal to the checked-in 0.154.0 pin and to the live GitHub asset digests (sizes and sha256 all match); codex --version in an isolated no-credential environment reports codex-cli 0.154.0"
     },
     {
       "name": "@anthropic-ai/claude-code",
       "observedVersion": "2.1.269",
       "previous": "not a root development dependency",
       "declaration": "package.json",
-      "state": "PROJECT_LOCAL_DEV_TOOL_DECLARED_NOT_INSTALLED",
-      "source": "https://api.github.com/repos/anthropics/claude-code/releases/latest"
+      "state": "UPDATED_INSTALLED",
+      "source": "registry.npmjs.org/@anthropic-ai/claude-code/latest",
+      "installScriptReview": "postinstall copies the platform binary over the package's own bin placeholder (in-package only); allowed in allowBuilds",
+      "probe": "claude --version in an isolated environment reports 2.1.269 (Claude Code)"
     },
     {
       "name": "@anthropic-ai/claude-agent-sdk",
       "observedVersion": "0.3.269",
       "previous": "0.3.241",
       "declaration": "packages/subagent/subagent-claude-code/package.json",
-      "state": "DECLARATION_UPDATED_NOT_INSTALLED",
-      "source": "https://api.github.com/repos/anthropics/claude-agent-sdk-typescript/releases/latest"
+      "state": "UPDATED_INSTALLED",
+      "source": "registry.npmjs.org/@anthropic-ai/claude-agent-sdk/latest"
     },
     {
       "name": "@anthropic-ai/sdk",
       "observedVersion": "0.125.0",
       "previous": "0.93.0",
       "declaration": "packages/subagent/subagent-claude-code/package.json",
-      "state": "DECLARATION_UPDATED_NOT_INSTALLED",
-      "source": "https://github.com/anthropics/anthropic-sdk-typescript/blob/main/package.json",
-      "note": "The repository releases/latest currently identifies aws-sdk, a different package. Use actual npm package metadata for final resolution."
+      "state": "UPDATED_INSTALLED",
+      "source": "registry.npmjs.org/@anthropic-ai/sdk/latest"
     },
     {
       "name": "opencode-ai",
       "observedVersion": "1.18.30",
       "previous": "not a root development dependency",
       "declaration": "package.json",
-      "state": "PROJECT_LOCAL_DEV_TOOL_DECLARED_NOT_INSTALLED",
-      "source": "https://api.github.com/repos/anomalyco/opencode/releases/latest"
+      "state": "UPDATED_INSTALLED",
+      "source": "registry.npmjs.org/opencode-ai/latest; repository resolved to github.com/anomalyco/opencode",
+      "installScriptReview": "postinstall copies the platform binary into the package's own bin (in-package only); allowed in allowBuilds",
+      "probe": "opencode --version in an isolated environment reports 1.18.30"
     },
     {
       "name": "@xai-official/grok",
-      "observedVersion": "1.0.25",
-      "previous": "historical discovery 1.0.24; not installed by that discovery",
+      "observedVersion": "1.0.30",
+      "previous": "1.0.24 historical discovery; start commit declared 1.0.25",
       "declaration": "package.json",
-      "state": "PROJECT_LOCAL_DEV_TOOL_DECLARED_NOT_INSTALLED",
-      "source": "https://www.npmjs.com/package/%40xai-official/grok",
-      "note": "Publisher npm page; live registry recheck required before resolving the batch. Do not substitute another similarly named Grok product."
+      "state": "UPDATED_INSTALLED_EXECUTION_OF_POSTINSTALL_DENIED_BY_POLICY",
+      "source": "registry.npmjs.org/@xai-official/grok dist-tags latest at 2026-09-12T10:54Z",
+      "installScriptReview": "postinstall installs the binary into ~/.grok/bin, a user-home global location; denied in allowBuilds, so package and platform payload (grok.exe.br) install into node_modules only",
+      "probe": "node bin/grok --version with GROK_HOME inside the isolated probe directory reports grok 1.0.30 (04b7ffed98c6)"
     },
     {
       "name": "pnpm",
       "observedVersion": "12.4.1",
       "previous": "11.7.0",
-      "declaration": "package.json#packageManager",
-      "state": "DECLARATION_UPDATED_LOCAL_BOOTSTRAP_AND_MIGRATION_PENDING",
-      "source": "https://api.github.com/repos/pnpm/pnpm/releases/latest"
+      "declaration": "package.json#packageManager + apps/desktop devDependency",
+      "state": "UPDATED_PROJECT_LOCAL_EXECUTED",
+      "source": "github.com/pnpm/pnpm releases v12.4.1 pnpm-win32-x64.zip",
+      "execution": "all installs, lock regeneration and frozen verification ran through C:\\dsh-r24-upgrade-20260912-01\\pnpm-12.4.1\\pnpm.exe; desktop devDependency bumped 11.7.0 -> 12.4.1 with its bin-relink script reviewed and allowed"
     },
     {
       "name": "node",
       "observedVersion": "26.8.2",
-      "previous": "local report 26.4.0",
-      "state": "PROJECT_LOCAL_TOOLCHAIN_UPGRADE_PENDING",
-      "source": "https://api.github.com/repos/nodejs/node/releases/latest"
+      "previous": "26.4.0",
+      "state": "UPDATED_PROJECT_LOCAL_EXECUTED",
+      "source": "nodejs.org/dist/v26.8.2 win-x64 zip, SHA256 cf02f5d0c06c794b84f277177d5cf3743d0924ca49f6641cd435dd7cb6ee9085 matches SHASUMS256.txt",
+      "execution": "C:\\dsh-r24-upgrade-20260912-01\\node-v26.8.2-win-x64; every build/test/gate in this round ran under it; engines range ^22.19 || >=24 unchanged"
     },
     {
       "name": "typescript",
       "observedVersion": "7.0.2",
       "previous": "^6.0.3",
-      "state": "COMPILER_AND_API_COMPATIBILITY_MIGRATION_PENDING",
-      "source": "https://registry.npmjs.org/typescript/latest",
-      "migrationReference": "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/",
-      "note": "Use current native compiler and the publisher-supported current TypeScript 6 compatibility package where existing compiler-API consumers still need it. Resolve that compatibility package from its own registry; distinguish native tsc from API tooling. No fake pass by changing peer ranges or transpiling without typechecking."
+      "state": "UPDATED_MIGRATED",
+      "source": "registry.npmjs.org/typescript/latest (7.0.2 published 2026-07-08)",
+      "migration": "native compiler for all build surfaces (root and leaf devDependencies ^7.0.2; build:lib:host now bin-resolved tsc); 39 classic compiler-API import sites moved to @typescript/typescript6@6.0.2 (scripts, p0-b gate tests, typert/generator runtime dependency, remote-mock spec); lsp-stdio devDependency aliased to npm:@typescript/typescript6@6.0.2 for the tsserver consumer; peerDependencyRules typescript '>=5 <8'; TS7's stricter checking exposed four Branded ids used as values in cordis-host-runner (fixed via brandString<T>) and one negative-sample directive relocation in ui-conversation"
     }
   ],
   "sourceProjects": [
@@ -96,64 +103,65 @@
       "repository": "deepseek-ai/deepseek-harness",
       "observedDefaultBranch": "master",
       "observedCommit": "c291e7961a515f6d7af9304e7fd1d257929aef26",
-      "state": "SOURCE_INTEGRATION_PENDING",
-      "releaseApi": "404 no latest release",
-      "note": "Official default source commit, not a stable release claim. Local merge-forward must retain dsh861 features, rules and historical evidence; do not replace the fork wholesale."
+      "state": "MERGED_FORWARD",
+      "detail": "local clone unshallowed; real merge-base d347e703908d0406b7a7ef80e3a0e594d86b2215; merge commit f526b21297 (1301 upstream commits, 5 textual conflicts resolved keeping the newer r24 pins and both sides' additions); protected files byte-identical to 337aab1"
     },
     {
       "repository": "deepseek-harness/cosmokit",
       "currentCommit": "16f6fc058ade66e8ac5da0033d35a8d0f279f544",
-      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+      "state": "BLOCKED_SOURCE_NOT_PUBLICLY_RESOLVABLE",
+      "detail": "api.github.com 404 and git ls-remote 'Repository not found' without credentials; the upstream harness master vendors the same commit, so the local pin equals the upstream integration baseline"
     },
     {
       "repository": "deepseek-harness/schemastery",
       "currentCommit": "e67cee00ad725bd1534aee930a979ea3eec6f698",
-      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+      "state": "BLOCKED_SOURCE_NOT_PUBLICLY_RESOLVABLE",
+      "detail": "same 404 pattern as cosmokit"
     },
     {
       "repository": "cordiverse/cordis",
       "currentCommit": "56b3d4f725681cf4556c1a8695a709cc3b6eed74",
-      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+      "resolvedLatestCommit": "f8ea3cd50f1a (2026-09-08)",
+      "state": "RESOLVED_SYNC_DEFERRED",
+      "detail": "30 commits ahead touching 14 core/loader source files; adopting them requires re-applying the 19 documented local modifications and full fiber/loader behavioral revalidation while the upstream harness master itself still pins 56b3d4f; recorded as the concrete follow-up with the compare evidence in development/remediation/2026-09-12/latest-upgrade-r24/"
     },
     {
       "repository": "deepseek-harness/cordis",
       "currentCommit": "abb0a307cb1d3b0947f455d590cf5ba922d4caa4",
-      "state": "UPSTREAM_RESOLUTION_AND_VENDOR_SYNC_PENDING"
+      "state": "BLOCKED_SOURCE_NOT_PUBLICLY_RESOLVABLE",
+      "detail": "same 404 pattern as cosmokit"
     }
   ],
-  "requiredCoverage": [
-    "root and every pnpm workspace dependency/devDependency/optionalDependency/peerDependency/override/catalog and resolved transitive graph",
-    "patches and vendored sources, retaining local patches and scope renames",
-    "native Cargo manifests/locks and pinned build tools",
-    "Python manifests/locks/runtime build dependency closure",
-    "CI action revisions, Docker/deployment images and other downloaded tool pins actually used by the project",
-    "GBrain/PostgreSQL/pgvector only where a concrete installed or deployment declaration exists; absent integration is not an already-upgraded service"
-  ],
-  "completionRule": "Every inventory row needs original version, latest resolved target and provenance, resulting version or named incompatibility/absence, changed paths and validation. Metadata lookup alone is not upgrade completion. Refresh transitive versions via supported parent updates, not blanket forced overrides.",
-  "localOrder": [
-    "confirm complete tracked manifest/source inventory and freeze current targets",
-    "merge-forward reviewed current upstream source without losing project changes",
-    "bootstrap project-local current Node/pnpm and migrate all applicable dependency declarations/patches",
-    "regenerate actual locks with the package managers; never hand-edit integrity or retain an obsolete lock while claiming installation",
-    "migrate TypeScript compiler/API consumers and binary pin/path consumers",
-    "install/frozen reinstall and run affected build/type/lint/behavior/Loader/docs checks; record actual binary identities and no-model configuration compatibility"
-  ],
+  "coverageResults": {
+    "workspaceDependencies": "pnpm -r update refreshed every semver-compatible dependency across 130 manifests (execa 10.0.1, fast-check 4.10.0, js-yaml 4.3.2, lefthook 2.1.12, lightningcss 1.33.0, publint 0.3.24, smol-toml 1.8.0, tsdown 0.22.14, tsx 4.23.13, vitest 4.1.11, node-addon-require-builtin 0.1.5 and the transitive set); deferred majors outside owning ranges: react 19, react-dom 19, vite 8, vitest 5, @vitest/coverage-v8 5, jsdom 30, @types/jsdom 30, mermaid 12, zustand 5, immer 11, js-yaml 5, supports-color 11, typescript-language-server 6, @lexical 0.50",
+    "patches": "patchedDependencies unchanged (@yao-pkg/pkg 6.21.0 and node-pty 1.2.0-beta.15 keep their patches; 6.22.0 exists but re-porting the patch is a dedicated change); upstream's new @electron/osx-sign@1.3.3 patch merged in",
+    "python": "uv 0.12.13 installed project-locally; uv lock --check passed, uv lock --upgrade refreshed annotated-types 0.8.0, packaging 26.3, pydantic 2.13.5, pydantic-core 2.46.5, pygments 2.21.0, typing-inspection 0.4.4 within declared constraints; hatchling stays pinned ==1.30.1 by the build-system pin",
+    "native": "no Cargo manifests exist in this repository; the upstream merge replaced native/landlock-run with native/system (node-addon TS workspace), whose build uses the workspace toolchain",
+    "ci": "actions/checkout v4->v6, setup-node v4->v6, upload-artifact v4->v7, download-artifact v4->v8, pnpm/action-setup v4->v6 across all workflows; primary validation lanes (ci, ci-master, docs-pages, build-preview-cloudflare) move to Node 26 matching the locally validated toolchain, while artifact, native-ABI and release lanes stay on Node 24 LTS; CI runs only on GitHub, so workflow changes are validated by the draft PR checks",
+    "notIntegrated": [
+      "GBrain/PostgreSQL/pgvector: no installed or deployment declaration exists in this repository",
+      "Docker/deployment images: no Dockerfile or image reference exists in this repository"
+    ]
+  },
+  "validation": {
+    "lockfile": "pnpm-lock.yaml regenerated by pnpm 12.4.1; supply-chain policy verification passed (1538 entries); pnpm install --frozen-lockfile exit 0",
+    "buildAndTypes": "pnpm run typecheck exit 0 under TypeScript 7.0.2 native compiler (host tsc -b + tsdown all packages, client contracts tsc -b); lint oxlint 0 warnings 0 errors on 3589 files",
+    "sandboxToolRegression": "node --test prepare-sandbox-tool-bundle.test.mjs sandbox-tool-upgrade.test.mjs: 35 pass, 0 fail under Node 26.8.2",
+    "docs": "pnpm run test:docs: 16 gates pass, 0 fail (translation pairing 825 pairs, markdown links 1627 files, doc budgets 8 docs within ceiling)"
+  },
   "preserved": [
     "config/agents/models.v1.json",
     "config/agents/models.v1.lock.json",
     "development/nodes/P0-B/state.json",
     "all historical versioned receipts/requests/plans and sandbox-tool-bundle.0.149.1.json"
   ],
-  "notDone": [
-    "all-workspace latest-version enumeration",
-    "pnpm-lock.yaml regeneration",
-    "new dependencies or runtime installation",
-    "TypeScript 7 compiler/API migration",
-    "upstream/vendor/Python/native/image/CI upgrades",
-    "new Windows/native sandbox validation",
-    "model activation or designated plan/review"
+  "remainingBlockers": [
+    "vendor sources deepseek-harness/{cosmokit,schemastery,cordis} are not publicly resolvable without credentials",
+    "cordiverse/cordis 30-commit vendor sync (19 local modifications to re-apply) deferred to a dedicated change",
+    "PR #13 body cannot be edited from this environment (gh CLI absent); the branch push updates the draft PR itself",
+    "deferred dependency majors listed in coverageResults.workspaceDependencies need per-major migrations"
   ],
   "productAccepted": false,
-  "executionAuthorized": false,
+  "executionAuthorized": true,
   "nextNodeAllowed": false
 }
