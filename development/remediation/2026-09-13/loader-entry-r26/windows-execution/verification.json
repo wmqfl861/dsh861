@@ -86,9 +86,10 @@
   "protectedUnchanged": ["config/agents/models.v1.json", "config/agents/models.v1.lock.json", "development/nodes/P0-B/state.json", "all historical receipts/plans", "pnpm-lock.yaml", "patches/@yao-pkg__pkg@6.22.0.patch"],
   "logsArchive": {
     "path": "development/remediation/2026-09-13/loader-entry-r26/windows-execution/logs.tar.xz",
-    "sha256": "02e06f267c8f285e30ace9afd97f09169991b17ced7e5de71a910659edd783b2",
+    "sha256": "56614d9e9586f2f3201898af8fbcdd8912f6e0b541f580c5db6c5dade395a184",
+    "reseal": "initial archive (sha256 02e06f267c8f285e30ace9afd97f09169991b17ced7e5de71a910659edd783b2, pushed in c497fcdf85) carried the machine account name in tar uname/gname and real mtimes, violating the repository sanitized-archive convention; rebuilt with uid/gid 0, empty uname/gname, and epoch-0 mtimes. All 47 member files verified byte-identical between the two archives; a binary grep over the rebuilt archive finds no account-name occurrence.",
     "contents": "logs/ (41 files: every command log and .exit code from this round, including preserved first failures) + seal/r25-evidence/ (retrievable r25 raw evidence copies)",
-    "credentialScan": "pattern scan over all archived logs returned no matches"
+    "credentialScan": "pattern scan over all archived log contents returned no matches, and the tar member headers were checked as part of the reseal: zeroed uid/gid/uname/gname and epoch-0 mtimes, with a binary scan of the archive bytes for the account name returning no matches"
   },
   "productAccepted": false,
   "executionAuthorized": true,
