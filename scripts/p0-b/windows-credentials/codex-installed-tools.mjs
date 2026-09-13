@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto'
 import { createReadStream } from 'node:fs'
 import { readFile, realpath, stat } from 'node:fs/promises'
 import { createRequire } from 'node:module'
-import { dirname, isAbsolute, join, relative, sep } from 'node:path'
+import { basename, dirname, isAbsolute, join, relative, sep } from 'node:path'
 
 /**
  * Resolve from the provider's installed dependency, never a pnpm-store spelling or PATH.
@@ -33,8 +33,20 @@ export async function resolveProjectCodexTools(repositoryRoot, manifest) {
   assert.equal(cli.name, '@openai/codex', 'CODEX_PACKAGE_NAME_MISMATCH')
   assert.equal(cli.version, version, 'CODEX_PACKAGE_VERSION_MISMATCH')
   const platformFile = await projectPath(createRequire(cliFile).resolve('@openai/codex-win32-x64/package.json'))
-  const bin = join(dirname(platformFile), 'vendor', manifest.target, 'bin')
+  const target = join(dirname(platformFile), 'vendor', manifest.target)
+  // The installed layout is self-describing: the platform package ships vendor/<target>/codex-package.json.
+  // Main executable follows `entrypoint`; setup/runner live under `resourcesDir`. No bin/ assumption.
+  const layoutFile = await projectPath(join(target, 'codex-package.json'))
+  const layout = JSON.parse(await readFile(layoutFile, 'utf8'))
+  assert.ok(typeof layout === 'object' && layout !== null, 'CODEX_LAYOUT_METADATA_INVALID')
+  assert.equal(layout.layoutVersion, 1, 'CODEX_LAYOUT_VERSION_UNSUPPORTED')
+  assert.equal(layout.version, version, 'CODEX_LAYOUT_VERSION_MISMATCH')
+  assert.equal(layout.target, manifest.target, 'CODEX_LAYOUT_TARGET_MISMATCH')
+  assert.equal(basename(layout.entrypoint), 'codex.exe', 'CODEX_LAYOUT_ENTRYPOINT_MISMATCH')
+  assert.ok(typeof layout.resourcesDir === 'string' && layout.resourcesDir !== '' && !layout.resourcesDir.includes(sep),
+    'CODEX_LAYOUT_RESOURCES_DIR_MISMATCH')
   const names = { codex: 'codex.exe', setup: 'codex-windows-sandbox-setup.exe', runner: 'codex-command-runner.exe' }
+  const locate = { codex: () => layout.entrypoint, setup: () => join(layout.resourcesDir, 'codex-windows-sandbox-setup.exe'), runner: () => join(layout.resourcesDir, 'codex-command-runner.exe') }
   assert.equal(manifest.artifacts.length, 3, 'CODEX_MANIFEST_FILES_MISMATCH')
   const sources = {}
   for (const [role, fileName] of Object.entries(names)) {
@@ -42,7 +54,7 @@ export async function resolveProjectCodexTools(repositoryRoot, manifest) {
     assert.equal(pins.length, 1, 'CODEX_MANIFEST_FILES_MISMATCH')
     const pin = pins[0]
     assert.equal(pin.fileName, fileName, 'CODEX_MANIFEST_FILES_MISMATCH')
-    const file = await projectPath(join(bin, fileName))
+    const file = await projectPath(join(target, locate[role]()))
     const before = await stat(file)
     assert.ok(before.isFile(), 'CODEX_TOOL_NOT_FILE')
     assert.equal(before.size, pin.bytes, 'CODEX_TOOL_SIZE_MISMATCH')
