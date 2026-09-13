@@ -34,12 +34,11 @@
     "@deepseek-ai/cordis-plugin-include": "workspace:^",
     "@deepseek-ai/dsh-experimental-webworker-runtime": "workspace:^",
     "@deepseek-ai/dsh-home-paths": "workspace:^",
-    "js-yaml": "^4.3.2",
+    "js-yaml": "^5.4.2",
     "picomatch": "^4.0.7"
   },
   "devDependencies": {
     "@deepseek-ai/cordis": "workspace:^",
-    "@types/js-yaml": "^4.0.9",
     "@types/picomatch": "^3.0.2"
   },
   "peerDependencies": {
