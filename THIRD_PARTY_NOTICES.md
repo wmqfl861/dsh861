@@ -95,8 +95,8 @@ External packages installed for runtime use or distributed inside the prebuilt b
 | [`open`](https://github.com/sindresorhus/open) | MIT |
 | [`pdfjs-dist`](https://github.com/mozilla/pdf.js) | Apache-2.0 |
 | [`picomatch`](https://github.com/micromatch/picomatch) | MIT |
-| [`react`](https://github.com/facebook/react) | MIT |
-| [`react-dom`](https://github.com/facebook/react) | MIT |
+| [`react`](https://github.com/react/react) | MIT |
+| [`react-dom`](https://github.com/react/react) | MIT |
 | [`readable-stream`](https://github.com/nodejs/readable-stream) | MIT |
 | [`resolve.exports`](https://github.com/lukeed/resolve.exports) | MIT |
 | [`semver`](https://github.com/npm/node-semver) | ISC |
@@ -115,7 +115,7 @@ External packages installed for runtime use or distributed inside the prebuilt b
 pnpm applies local patches to the following packages at install time, so shipped artifacts carry modified copies; each patch file is the complete record of the modification:
 
 - `@electron/osx-sign@1.3.3` — [`patches/@electron__osx-sign@1.3.3.patch`](patches/@electron__osx-sign@1.3.3.patch)
-- `@yao-pkg/pkg@6.21.0` — [`patches/@yao-pkg__pkg@6.21.0.patch`](patches/@yao-pkg__pkg@6.21.0.patch)
+- `@yao-pkg/pkg@6.22.0` — [`patches/@yao-pkg__pkg@6.22.0.patch`](patches/@yao-pkg__pkg@6.22.0.patch)
 - `node-pty@1.2.0-beta.15` — [`patches/node-pty@1.2.0-beta.15.patch`](patches/node-pty@1.2.0-beta.15.patch)
 
 ## Official Claude Code platform payloads
@@ -154,7 +154,6 @@ External packages **directly declared** for development, tests, types, or toolin
 | [`@testing-library/react`](https://github.com/testing-library/react-testing-library) | MIT |
 | [`@types/babel__code-frame`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/compression`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
-| [`@types/js-yaml`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/jsdom`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/mdast`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |
 | [`@types/mime-types`](https://github.com/DefinitelyTyped/DefinitelyTyped) | MIT |

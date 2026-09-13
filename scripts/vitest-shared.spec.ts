@@ -19,7 +19,7 @@ it('executes decorated TypeScript through the classic compiler API', () => {
   assert.ok(result)
   assert.equal(runInNewContext(result.code, {}), 42)
   assert.ok(result.map)
-  const map = JSON.parse(result.map)
+  const map = JSON.parse(result.map) as { sources: string[] }
   assert.ok(map.sources.some((source: string) => source.endsWith('answer.ts')))
   assert.doesNotMatch(result.code, /sourceMappingURL=/)
 })
@@ -46,7 +46,7 @@ it('supports decorated cts and mts inputs without retaining query text', () => {
   for (const extension of ['cts', 'mts']) {
     const result = standardDecoratorPlugin().transform(methodSource, `/fixture/answer.${extension}?v=1`)
     assert.ok(result?.map)
-    const map = JSON.parse(result.map)
+    const map = JSON.parse(result.map) as { sources: string[] }
     assert.ok(map.sources.some((source: string) => source.endsWith(`answer.${extension}`)))
   }
 })

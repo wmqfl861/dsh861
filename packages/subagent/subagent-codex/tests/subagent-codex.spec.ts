@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
 import { dirname, resolve } from 'node:path'
 import { PassThrough } from 'node:stream'
 import { fileURLToPath } from 'node:url'
@@ -64,7 +65,7 @@ vi.mock('node:fs', async (importOriginal) => {
 
 type JsonObject = Record<string, unknown>
 
-const CODEX_VERSION = '0.153.4'
+const CODEX_VERSION = '0.154.0'
 const CODEX_PLATFORM_PACKAGES = [
   '@openai/codex-darwin-arm64',
   '@openai/codex-darwin-x64',
@@ -263,7 +264,7 @@ async function initializeWire(): Promise<{
   wire.start()
   const initializing = wire.initialize(new AbortController().signal)
   const initialize = await child.peer.nextMethod('initialize')
-  child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+  child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
   await initializing
   expect(await child.peer.nextMethod('initialized')).toEqual({
     jsonrpc: '2.0',
@@ -283,7 +284,7 @@ async function publishRun(
 ) {
   const starting = startCodexRun(request(undefined, signal), runSpec(child, specOverrides))
   const initialize = await child.peer.nextMethod('initialize')
-  child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+  child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
   await child.peer.nextMethod('initialized')
   const threadStart = await child.peer.nextMethod('thread/start')
   child.peer.respond(threadStart, { thread: { id: 'thread-1', ephemeral: true } })
@@ -371,7 +372,8 @@ describe('task admission and package contracts', () => {
     expect(manifest.dependencies).toHaveProperty('@openai/codex', CODEX_VERSION)
     expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh-subagent-claude-code')
 
-    const codexPackageJson = fileURLToPath(import.meta.resolve('@openai/codex/package.json'))
+    // The Vitest module runner does not implement import.meta.resolve; resolve through Node instead.
+    const codexPackageJson = createRequire(import.meta.url).resolve('@openai/codex/package.json')
     const codexManifest = JSON.parse(readFileSync(codexPackageJson, 'utf8')) as {
       version: string
       bin: { codex: string }
@@ -504,7 +506,7 @@ describe('task admission and package contracts', () => {
       [bypassChild, 'codex-bypass-model'],
     ] as const) {
       const initialize = await child.peer.nextMethod('initialize')
-      child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+      child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
       await child.peer.nextMethod('initialized')
       const threadStart = await child.peer.nextMethod('thread/start')
       expect(threadStart.params).toMatchObject({ model })
@@ -604,7 +606,7 @@ describe('task admission and package contracts', () => {
     expect(ctx.subagents.getProvider('codex')).toBeDefined()
     const starting = ctx.subagents.start('codex', request())
     const initialize = await child.peer.nextMethod('initialize')
-    child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+    child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
     await child.peer.nextMethod('initialized')
     const threadStart = await child.peer.nextMethod('thread/start')
     expect(threadStart.params).not.toHaveProperty('model')
@@ -645,7 +647,7 @@ describe('task admission and package contracts', () => {
     wire.start()
     const initializing = wire.initialize(new AbortController().signal)
     const initialize = await child.peer.nextMethod('initialize')
-    child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+    child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
     await initializing
     await child.peer.nextMethod('initialized')
     const starting = wire.startThread('/workspace', new AbortController().signal)
@@ -672,7 +674,7 @@ describe('task admission and package contracts', () => {
     wire.start()
     const initializing = wire.initialize(new AbortController().signal)
     const initialize = await child.peer.nextMethod('initialize')
-    child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+    child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
     await initializing
     await child.peer.nextMethod('initialized')
     const starting = wire.startThread('/workspace', new AbortController().signal)
@@ -739,7 +741,7 @@ describe('CodexAppServerWire', () => {
         requestAttestation: false,
       },
     })
-    child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+    child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
     await initializing
     await child.peer.nextMethod('initialized')
 
@@ -1489,7 +1491,7 @@ describe('run lifecycle and quiescence', () => {
     void starting.then(() => { published = true })
     const initialize = await child.peer.nextMethod('initialize')
     expect(published).toBe(false)
-    child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+    child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
     await child.peer.nextMethod('initialized')
     const threadStart = await child.peer.nextMethod('thread/start')
     expect(published).toBe(false)
@@ -1940,7 +1942,7 @@ describe('run lifecycle and quiescence', () => {
     const threadChild = fakeChild()
     const threadStarting = startCodexRun(request(), runSpec(threadChild))
     const threadInitialize = await threadChild.peer.nextMethod('initialize')
-    threadChild.peer.respond(threadInitialize, { userAgent: 'codex-cli 0.153.4' })
+    threadChild.peer.respond(threadInitialize, { userAgent: 'codex-cli 0.154.0' })
     await threadChild.peer.nextMethod('initialized')
     const invalidThread = await threadChild.peer.nextMethod('thread/start')
     threadChild.peer.respond(invalidThread, { thread: { id: '', ephemeral: true } })
@@ -1955,7 +1957,7 @@ describe('run lifecycle and quiescence', () => {
     )
     const exitedThreadInitialize = await exitedThreadChild.peer.nextMethod('initialize')
     exitedThreadChild.peer.respond(exitedThreadInitialize, {
-      userAgent: 'codex-cli 0.153.4',
+      userAgent: 'codex-cli 0.154.0',
     })
     await exitedThreadChild.peer.nextMethod('initialized')
     await exitedThreadChild.peer.nextMethod('thread/start')
@@ -1974,7 +1976,7 @@ describe('run lifecycle and quiescence', () => {
     const eofBeforeCloseInitialize = await eofBeforeCloseChild.peer
       .nextMethod('initialize')
     eofBeforeCloseChild.peer.respond(eofBeforeCloseInitialize, {
-      userAgent: 'codex-cli 0.153.4',
+      userAgent: 'codex-cli 0.154.0',
     })
     await eofBeforeCloseChild.peer.nextMethod('initialized')
     await eofBeforeCloseChild.peer.nextMethod('thread/start')
@@ -1992,7 +1994,7 @@ describe('run lifecycle and quiescence', () => {
     const stderrStarting = startCodexRun(request(), runSpec(stderrChild))
     const stderrInitialize = await stderrChild.peer.nextMethod('initialize')
     stderrChild.stderr.emit('error', new Error('startup stderr broke'))
-    stderrChild.peer.respond(stderrInitialize, { userAgent: 'codex-cli 0.153.4' })
+    stderrChild.peer.respond(stderrInitialize, { userAgent: 'codex-cli 0.154.0' })
     await stderrChild.peer.nextMethod('initialized')
     const stderrThreadStart = await stderrChild.peer.nextMethod('thread/start')
     stderrChild.peer.respond(stderrThreadStart, {
@@ -2018,7 +2020,7 @@ describe('run lifecycle and quiescence', () => {
       runSpec(child),
     )
     const initialize = await child.peer.nextMethod('initialize')
-    child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+    child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
     await child.peer.nextMethod('initialized')
     const threadStart = await child.peer.nextMethod('thread/start')
     expect(threadStart.params).toEqual({
@@ -2174,7 +2176,7 @@ describe('run lifecycle and quiescence', () => {
       signal: new AbortController().signal,
     })
     const initialize = await child.peer.nextMethod('initialize')
-    child.peer.respond(initialize, { userAgent: 'codex-cli 0.153.4' })
+    child.peer.respond(initialize, { userAgent: 'codex-cli 0.154.0' })
     await child.peer.nextMethod('initialized')
     const threadStart = await child.peer.nextMethod('thread/start')
     expect(threadStart.params).toEqual({
