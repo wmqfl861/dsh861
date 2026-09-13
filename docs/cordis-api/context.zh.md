@@ -285,7 +285,7 @@ set(name: string, value: any): void
 
 [源码](../../vendor/cordis/src/reflect.ts#L29)
 
-### ctx.provide(name, value)
+### ctx.provide(name, value, check?)
 
 ```ts cordis-catalog
 /**
@@ -298,10 +298,11 @@ set(name: string, value: any): void
  *
  * @param name — the service name.
  * @param value — the service value.
+ * @param check — optional availability predicate for dependents.
  * @returns a disposer that unregisters the service.
  */
-provide<K extends string & keyof this>(name: K, value: undefined | this[K]): () => void
-provide(name: string, value?: any): () => void
+provide<K extends string & keyof this>(name: K, value: undefined | this[K], check?: () => boolean): () => void
+provide(name: string, value?: any, check?: () => boolean): () => void
 ```
 
 注册一个归当前 fiber 所有的服务实现。
@@ -310,10 +311,11 @@ fiber 激活后，该服务对同一隔离作用域内的依赖方可见；当�
 
 - `name`：服务名称。
 - `value`：服务值。
+- `check`：供依赖方使用的可选可用性判定函数。
 
 **返回**一个用于取消注册该服务的资源释放函数。
 
-[源码](../../vendor/cordis/src/reflect.ts#L44)
+[源码](../../vendor/cordis/src/reflect.ts#L45)
 
 ### ctx.accessor(name, options)
 
@@ -337,7 +339,7 @@ accessor(name: string, options: Omit<Property.Accessor, 'type'>): void
 - `name`：上下文属性名称。
 - `options`：`get` 钩子和可选的 `set` 钩子。
 
-[源码](../../vendor/cordis/src/reflect.ts#L56)
+[源码](../../vendor/cordis/src/reflect.ts#L57)
 
 ### ctx.mixin(name, mixins)
 
@@ -363,4 +365,4 @@ mixin<T extends {}>(source: T, mixins: (keyof this & keyof T)[] | Dict<string>):
 - `name`：存放源服务的上下文属性。
 - `mixins`：要转发的键，或从源键到 ctx 键的映射。
 
-[源码](../../vendor/cordis/src/reflect.ts#L67)
+[源码](../../vendor/cordis/src/reflect.ts#L68)
