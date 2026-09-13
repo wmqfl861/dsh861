@@ -1,6 +1,6 @@
 /** Client owner for forwarded Remote Event subscriptions and deliveries. */
 
-import type { Context } from '@deepseek-ai/cordis'
+import type { Context, EventsService } from '@deepseek-ai/cordis'
 import type {
   ConnectionGenerationSource,
   ConnectionHostInfo,
@@ -38,16 +38,7 @@ export type RemoteEventStreamOpener = (
 type RemoteEventListener = (this: Context, ...args: unknown[]) => unknown
 
 /** Untyped access used only for instance-private Cordis event keys. */
-interface PrivateEventContext {
-  on(name: string, listener: RemoteEventListener): () => boolean
-  parallel(name: string, ...args: unknown[]): Promise<void>
-  waterfall(
-    thisArg: Context,
-    name: string,
-    request: Readonly<Record<string, unknown>>,
-    next: () => Promise<symbol>,
-  ): unknown
-}
+type PrivateEventContext = Pick<EventsService, 'on' | 'parallel' | 'waterfall'>
 
 /** Transport outcome after one Client listener chain either claims or delegates. */
 type RemoteEventReplyOutcome =
@@ -342,7 +333,7 @@ async function abortable<T>(value: T | PromiseLike<T>, signal: AbortSignal): Pro
 }
 
 function privateEvents(ctx: Context): PrivateEventContext {
-  return ctx
+  return ctx.events
 }
 
 function toError(reason: unknown, message: string): Error {
