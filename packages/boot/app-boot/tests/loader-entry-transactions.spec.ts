@@ -19,7 +19,7 @@ function fixture() {
   const ctx = { fiber: { uid: 1 }, emit: (...args: unknown[]) => { notifications.push(args) } } as unknown as Context
   const tree = Object.create(EntryTree.prototype) as EntryTree
   tree.ctx = ctx
-  tree.store = Object.create(null)
+  tree.store = Object.create(null) as EntryTree['store']
   tree.root = new EntryGroup(ctx, tree)
   tree.commit = (change) => { changes.push(change) }
   return { tree, group: tree.root, changes, notifications }

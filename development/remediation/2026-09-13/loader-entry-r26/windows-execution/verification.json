@@ -1,0 +1,97 @@
+{
+  "round": "r26-windows-execution",
+  "kind": "attachment-candidate-apply-merge-and-local-verification",
+  "recordedAt": "2026-09-13T17:57:00+08:00",
+  "baseCommit": "91715660dbbaf743becd0ccdcbb9b2df82a9bf12",
+  "pullRequest": 13,
+  "actor": "ZCode built-in execution subagent; not the designated Codex planner or OpenCode hard reviewer",
+  "attachment": {
+    "zip": "dsh861_r26_candidate.zip",
+    "extractedTo": "C:/dsh-r26-20260913-01/",
+    "changesPatchSha256": "0b3e512d308ef9082aa252ec9b299b46af6d629dddf83c4a88fdaa373c5e01b4",
+    "sha256Verified": true,
+    "beforeGitBlobsVerified": "3/3 exact at 91715660 (handoff 838f6a9a, group.ts 5221e11c, tree.ts 294d253f)",
+    "newPathsAbsent": "5/5",
+    "applyCheckExit": 0,
+    "applyExit": 0,
+    "outputDigests": "8/8 match MANIFEST.json (sha256 + git blob + bytes) before any local edit",
+    "beyondAttachment": "vendor/README.md local-modifications entry added in the same apply commit to satisfy the vendor manifest guard pre-commit hook; listed in that commit message"
+  },
+  "commits": {
+    "candidateApply": "121b80bfaa fix(loader): drop failed-entry rows and unlink permanent removals before teardown",
+    "remoteMerge": "6ff8973479 merge of remote 4d6c751211 (fix(cordis): keep failed activations latched across unchanged dependency notifications); conflicts resolved by combining both handoff briefs and renumbering vendor README entries (fiber=22, loader=23)",
+    "followUpFixes": "see followUpCommit in this record"
+  },
+  "environment": {
+    "os": "Windows 10.0.26200 x64",
+    "node": "26.8.2 (C:/dsh-r24-upgrade-20260912-01/node-v26.8.2-win-x64)",
+    "pnpm": "12.4.1 (C:/dsh-r24-upgrade-20260912-01/pnpm-12.4.1, store C:/dsh-r24-upgrade-20260912-01/pnpm-store)",
+    "vitest": "5.0.0 via normal repository configuration (process-bound + thread-safe projects)",
+    "toolchainReinstalled": false,
+    "dependencyLocksChanged": false,
+    "pkgPatchTouched": false,
+    "modelConfigurationTouched": false
+  },
+  "testRuns": {
+    "loaderEntryTransactions": {
+      "command": "pnpm exec vitest run packages/boot/app-boot/tests/loader-entry-transactions.spec.ts",
+      "tests": "20/20 (10 method-level cases x 2 projects)",
+      "exitCode": 0,
+      "log": "logs/loader-entry-transactions.log"
+    },
+    "loaderComposition": {
+      "command": "pnpm exec vitest run packages/host/directory-picker-auto/tests/loader-composition.spec.ts",
+      "tests": "16/16 (8 x 2 projects)",
+      "exitCode": 0,
+      "note": "r25 deterministic failure 'unmounts the backend when the surface entry fails to load' now passes with original assertions unchanged; the fix is attributable to the merged loader-transaction + fiber-latch candidates jointly present in this tree",
+      "log": "logs/loader-composition.log"
+    },
+    "failureRecovery": {
+      "command": "pnpm exec vitest run packages/host/directory-picker-auto/tests/failure-recovery.spec.ts",
+      "firstRun": "8 passed | 8 failed (4 cases x 2 projects) + 2 unhandled rejections, exit 1 (preserved: logs/failure-recovery.log + .exit)",
+      "rootCause": "scripts/test-invariants.ts wraps RegistryService.prototype.plugin (ctx.inject routes through it): every registered consumer gains the testInvariantReady injection and a joined wrapper whose then is a one-shot readiness join over the first rawFiber.await() outcome; Fiber.prototype.await() ends with 'return this', so an inherited await() on the wrapper assimilates that settled promise and replays the first failure forever. The four failing cases were the retry-expecting ones; the fiber latch itself worked (internal state dumps showed _failedEpoch cleared on real unavailability and reload scheduled).",
+      "fix": "packages/host/directory-picker-auto/tests/failure-recovery.spec.ts register() helper returns { fiber: registered.ctx.fiber, firstActivation: Promise.resolve(registered) }: the first assert.rejects per test consumes the one-shot settlement, every later observation uses the raw fiber. No test case or assertion deleted or weakened.",
+      "finalRun": "16/16 (8 x 2 projects), exit 0 (logs/failure-recovery-fixed3.log + .exit)"
+    },
+    "threeSuitesCombined": { "tests": "52/52 (6 files x 2 projects)", "exitCode": 0, "log": "logs/r26-three-suites-final.log" },
+    "appBootConfigReloadAndUserPatches": { "tests": "62/62", "exitCode": 0, "log": "logs/app-boot-reload-patches.log" },
+    "webserver": { "tests": "8/8", "exitCode": 0, "log": "logs/webserver.log" },
+    "sixSuitesFinal": { "tests": "122/122 (12 files)", "exitCode": 0, "log": "logs/r26-all-six-final.log" }
+  },
+  "gates": {
+    "typecheck": { "command": "pnpm run typecheck", "exitCode": 0, "log": "logs/typecheck3.log", "note": "first run exposed the attachment spec's 3-argument ctx.provide call against a 2-argument declaration; fixed by declaring the implemented check predicate in vendor/cordis/src/reflect.ts (type-only; vendor README entry 24)" },
+    "lint": { "command": "pnpm run lint", "finalExitCode": 0, "log": "logs/lint3.log", "note": "5 errors found: 4 in packages/api/gateway/src/client/remote-events.ts reproduced identically at baseline 91715660 (pre-existing, r25 receipt's lint exit 0 does not reproduce on this machine today; fixed here with type-only changes: dispose narrowed via 'as () => void', waterfall result annotated unknown, unnecessary listener assertion and its now-unused alias removed) plus 1 in the attachment spec fixture (Object.create store cast). All behavior-preserving; gateway suite fails identically with and without these edits." },
+    "translationPairing": { "command": "pnpm run verify-translation-pairing --write <note>", "exitCode": 0, "note": "sidecars generated for 2026-09-13-loader-entry-transactions.md and (missing from the remote candidate) 2026-09-13-failed-fiber-recovery.md; full check exit 0" },
+    "docs": { "command": "pnpm run test:docs", "exitCode": 0, "log": "logs/test-docs2.log", "note": "16 passed, 0 failed after sidecar generation" }
+  },
+  "preExistingBaselineFailures": {
+    "gatewayClient": {
+      "suite": "packages/api/gateway/tests/gateway.client.spec.ts",
+      "result": "208 passed | 4 failed (2 cases x 2 projects), exit 1",
+      "cases": ["projects one direct lookup descriptor onto an Agent-scoped alias", "uses the caller Context identity for scoped namespace methods"],
+      "evidence": "fails identically at 91715660 and at 121b80bfaa (pre-merge) in a clean worktree and with this round's edits stashed (logs/gateway-at-91715660.log, logs/gateway-at-121b80bf.log, logs/gateway-baseline-check.log); error 'cannot get property \"fixtureId\" without inject' from vendor/cordis/src/utils.ts:134",
+      "scope": "outside this round's changes; not fixed here, recorded for the next round"
+    }
+  },
+  "windowsScopes": {
+    "csprngPoolDefect": "unchanged from r25 evidence (Node 26.8.2-on-Windows Vitest-pool child abort ncrypto::CSPRNG(nullptr,0), SystemRoot single-variable trigger); this round's six suites run inside the real Vitest pools and spawn no such children; direct-vs-pool distinction preserved (no direct result claimed as a pool result); probe scripts and r25 raw logs sealed under windows-execution/logs.tar.xz seal/r25-evidence/",
+    "symlinkPrivilege": "packages/client/ui-deliverables/tests/present-open.host.spec.ts:131 'opens external regular files through absolute and relative paths but refuses final symlinks' creates a FILE symlink (symlink(outside, source) with outside.txt); a directory junction is not a valid substitute and no privilege elevation was performed, so this item stays UNVERIFIED on this machine exactly as in the r25 receipt (client 5269/5270); not rerun this round (loader/fiber changes do not reach it)"
+  },
+  "r25Logs": {
+    "retrieved": ["client-full.log (231474 B)", "vitest5-client.log (2205925 B)", "loader-composition-direct.json (1978 B)", "probe-csprng.mjs", "probe-bisect.mjs", "probe-env.mjs"],
+    "location": "C:/dsh-r25-20260912-01/ (originals) and copies inside logs.tar.xz seal/r25-evidence/",
+    "missing": ["r25 loader-composition.e2e pool probe raw stderr transcript file (matrix row references probe transcripts; the individual .tap/.txt stderr captures were not found as separate files - the probe scripts and structured matrix are preserved)"],
+    "notReconstructed": true
+  },
+  "protectedUnchanged": ["config/agents/models.v1.json", "config/agents/models.v1.lock.json", "development/nodes/P0-B/state.json", "all historical receipts/plans", "pnpm-lock.yaml", "patches/@yao-pkg__pkg@6.22.0.patch"],
+  "logsArchive": {
+    "path": "development/remediation/2026-09-13/loader-entry-r26/windows-execution/logs.tar.xz",
+    "sha256": "02e06f267c8f285e30ace9afd97f09169991b17ced7e5de71a910659edd783b2",
+    "contents": "logs/ (41 files: every command log and .exit code from this round, including preserved first failures) + seal/r25-evidence/ (retrievable r25 raw evidence copies)",
+    "credentialScan": "pattern scan over all archived logs returned no matches"
+  },
+  "productAccepted": false,
+  "executionAuthorized": true,
+  "modelExecutionAuthorized": false,
+  "nextNodeAllowed": false
+}

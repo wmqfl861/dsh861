@@ -39,11 +39,12 @@ declare module './context.ts' {
      *
      * @param name — the service name.
      * @param value — the service value.
+     * @param check — optional availability predicate for dependents.
      * @returns a disposer that unregisters the service.
      */
-    provide<K extends string & keyof this>(name: K, value: undefined | this[K]): () => void
+    provide<K extends string & keyof this>(name: K, value: undefined | this[K], check?: () => boolean): () => void
     /** Same as above for service names outside the typed `Context` surface. */
-    provide(name: string, value?: any): () => void
+    provide(name: string, value?: any, check?: () => boolean): () => void
     /**
      * Define a computed context property backed by get/set hooks.
      *

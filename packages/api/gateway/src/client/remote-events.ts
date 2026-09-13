@@ -35,7 +35,6 @@ export type RemoteEventStreamOpener = (
 ) => AsyncIterable<unknown>
 
 /** One subscribed listener after its event-specific signature is erased. */
-type RemoteEventListener = (this: Context, ...args: unknown[]) => unknown
 
 /** Untyped access used only for instance-private Cordis event keys. */
 type PrivateEventContext = Pick<EventsService, 'on' | 'parallel' | 'waterfall'>
@@ -82,8 +81,8 @@ export class ClientRemoteEvents {
   ): () => void {
     const dispose = privateEvents(callerCtx).on(
       this.eventKey(event),
-      listener as unknown as RemoteEventListener,
-    )
+      listener,
+    ) as () => void
     return () => { dispose() }
   }
 
@@ -221,7 +220,7 @@ export class ClientRemoteEvents {
       agent: target,
       signal,
     }
-    const value = await abortable(
+    const value: unknown = await abortable(
       Promise.resolve(privateEvents(target).waterfall(
         target,
         this.eventKey(frame.event),
