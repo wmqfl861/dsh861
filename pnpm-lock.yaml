@@ -168,7 +168,7 @@ overrides:
 
 patchedDependencies:
   '@electron/osx-sign@1.3.3': 280e7b2816caf01423097d24e79107a66afeb563a348630ce9928ae8499a5861
-  '@yao-pkg/pkg@6.22.0': 3c154f3fbafb586267636249efaed214744c271f2798be84eb2b38cc258c7aff
+  '@yao-pkg/pkg@6.22.0': 4442f344d77fb5dc6c06d48f8bcfa93eb4a62dd3b72a6ca34d8162bd9cedb24a
   node-pty@1.2.0-beta.15: b40ae545608897914bd25fb009c97eeac478c34e8a910298ddcb01b746534bb0
 
 importers:
@@ -219,7 +219,7 @@ importers:
         version: 1.0.30
       '@yao-pkg/pkg':
         specifier: 6.22.0
-        version: 6.22.0(patch_hash=3c154f3fbafb586267636249efaed214744c271f2798be84eb2b38cc258c7aff)(supports-color@9.4.0)
+        version: 6.22.0(patch_hash=4442f344d77fb5dc6c06d48f8bcfa93eb4a62dd3b72a6ca34d8162bd9cedb24a)(supports-color@9.4.0)
       '@yarnpkg/cli-dist':
         specifier: 4.17.1
         version: 4.17.1
@@ -20961,7 +20961,7 @@ snapshots:
       - bare-buffer
       - react-native-b4a
 
-  '@yao-pkg/pkg@6.22.0(patch_hash=3c154f3fbafb586267636249efaed214744c271f2798be84eb2b38cc258c7aff)(supports-color@9.4.0)':
+  '@yao-pkg/pkg@6.22.0(patch_hash=4442f344d77fb5dc6c06d48f8bcfa93eb4a62dd3b72a6ca34d8162bd9cedb24a)(supports-color@9.4.0)':
     dependencies:
       '@babel/generator': 7.29.8
       '@babel/parser': 7.29.8
