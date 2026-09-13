@@ -1,0 +1,9 @@
+[WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+.                                        | [WARN] A pnpm-lock.yaml file exists. The current configuration prohibits to read or write a lockfile
+Packages are copied from the content-addressable store to the virtual store.
+  Content-addressable store is at: C:\Users\Joyce Gu\AppData\Local\pnpm\store\v11
+  Virtual store is at:             target/node_modules/.pnpm
+Progress: resolved 1, reused 0, downloaded 0, added 0
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+.                                        |   +3 +
+Progress: resolved 3, reused 3, downloaded 0, added 3, done

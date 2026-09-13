@@ -1,6 +1,6 @@
 # Windows 验证、升级收尾与 P0-B 交接
 
-仅处理 `wmqfl861/dsh861` 与本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 和草稿 PR #13。接收 r27 提交 `fa1a3751720558a0040633b322ee73cb1c5f3c54`；本轮 r28 只提交新的 CI 诊断和执行任务，不改源码、依赖或节点状态。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
+仅处理 `wmqfl861/dsh861` 与本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 和草稿 PR #13。r27 已接收（Gateway 212/212，补丁已应用，独立复审 PASS）；r28 的 CI runner 适配与单文件打包修复已完成并通过本机验证（见下）。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
 
 ## 固定交付规则
 
@@ -12,15 +12,15 @@
 
 [r26 Windows 回执](../remediation/2026-09-13/loader-entry-r26/windows-execution/verification.json)及其 Loader/Fiber 六套件 122/122 保留。已完成的上游、主版本与工具链升级不重做。Windows CSPRNG 同类子进程及 present-open.host 文件 symlink 仍是未证明范围，目录 junction 不替代文件 symlink；缺失的旧 stderr 不重造。
 
-## r28：CI 出现真实宿主打包失败
+## r28：CI runner 托管默认与真实打包失败修复（本轮已完成）
 
-[r28 记录](../remediation/2026-09-13/artifact-build-r28/verification.json)及[本地执行说明](../remediation/2026-09-13/artifact-build-r28/LOCAL_AGENT_PROMPT.md)为唯一当前任务入口。没有新源码补丁，不再 apply r27 文件。
+[r28 执行回执](../remediation/2026-09-13/ci-integration-r28/verification.json)是唯一现行执行记录；上轮的[诊断记录](../remediation/2026-09-13/artifact-build-r28/verification.json)与其"tailwind/tsdown"转述已被本地复现证伪并弃用（固定树无任何 tailwind 依赖，build:lib 双 Node 版本通过），未据此改码。原始 job 日志无凭据不可取（403），按预案本地完整复现同一路径。
 
-接收提交的 CI run `34754759281` 中，job `103717195665` 的日志实际执行 PR 合并测试提交 `41c81747f67bff78d7eb4fd7c740f9c180a4a0a`。frozen 安装完成后，`pnpm run build:lib` 进入宿主 tsdown 打包，在 `@tailwindcss/vite@4.3.1` 解析 `@tailwindcss/cli/package.json` 时发生 UNRESOLVED_IMPORT 并退出 1。整体排队状态不能掩盖已失败的 job；此问题与可选预览上传或 Windows CSPRNG 分别记录。
+两个真实根因与修复（证据见回执）：其一，pnpm 12.4.1 `deploy --legacy` 把生产闭包内无供给者的 `workspace:^` peer 改写为裸 `^` 致两平台同步骤失败——闭包根清单已补上 `dsh-session-title-llm` 与 `dsh-util-workspace-path` 两个 peer 供给者（锁再生成 +6 行）；其二，同版本 `--legacy` + hoisted 把注册表树物化到工作区根——`build-exe-for-python-sdk.ts` 改走 pnpm 12 部署实现并 `--ignore-scripts`，spawn-helper chmod 已镜像，死代码 legacy 恢复步骤删除。`ci.yml` 七个作业默认改标准托管 `ubuntu-24.04`/`windows-2025`，上游专用池转为显式 `'enterprise'` 值，池调并发常量改按池注入、托管默认回落 CPU 自适应；needs、阻断命令、平台范围、超时未放宽。
 
-错误点已从原始 job 日志确定，但缺失声明、外部依赖处理及模块解析位置之间的根因尚未证明。远端对固定提交的部分源码与 blob 读取未能交叉闭合，因此没有根据片段写入猜测修复。必须在完整工作区核对真实配置和实际安装闭包，按日志内包名定位拥有者，不复用猜测目录。
+Windows 完整管线在 Node 26.8.2 与隔离官方 Node 24.21.0（sha256 校验）下均通过并产出 230.3MB 单文件与 `-rg` 伴随件；wheel + 干净 venv + keyless 黑盒 `--scenario all` 全部通过（本机含空格用户路径的首次失败为本地条件，已记录）。受影响 specs/typecheck/lint/note 检查/831 对翻译配对全绿；Linux 打包由本候选推送后的标准 hosted CI run 验证。PR 正文更新文本入库于同目录 `pr-body-r28.md`（无 gh/Token，不入正文）。
 
-## 本地连续完成的工作
+## 本地连续完成的工作（历史轮次说明）
 
 复用现有 Node26.8.2、pnpm12.4.1、TS7 与安装，按 r28 说明取得固定交付，检查 PR merge 与 head 的相关差异，定位真实调用与正确包拥有者，保存首失，最小修复并验证完整构建产物。必要的定向依赖／锁更新仍在既有授权内，不整体重新升级或重装。不能用只通过 typecheck、忽略解析错误、给根目录随意补包或改成全量 external 代替产物闭合。
 

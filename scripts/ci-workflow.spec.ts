@@ -174,6 +174,7 @@ describe('CI workflow', () => {
       expect(job['runs-on']).toContain('dsh-win-ci')
       expect(job['runs-on']).toContain('dsh-windows-2025-16core')
       expect(job['runs-on']).toContain('blacksmith-16vcpu-windows-2025')
+      expect(job['runs-on'], `${jobName} default must be the standard hosted Windows image`).toContain("'windows-2025'")
       expect(job.if).toBe("github.event_name == 'pull_request'")
     }
 
@@ -313,11 +314,13 @@ describe('CI workflow', () => {
       expect(job['runs-on'], `${jobName} runs-on must not use the Windows failover switch`).not.toContain('DSH_CI_FAILOVER_WINDOWS')
       expect(job['runs-on']).toContain('vm-backup')
       expect(job['runs-on']).toContain('blacksmith-16vcpu-ubuntu-2404')
+      expect(job['runs-on'], `${jobName} default must be the standard hosted Linux image`).toContain("'ubuntu-24.04'")
     }
     expect(aggregate['runs-on']).toContain('DSH_CI_FAILOVER_LINUX')
     expect(aggregate['runs-on']).not.toContain('DSH_CI_FAILOVER_WINDOWS')
     expect(aggregate['runs-on']).toContain('vm-backup')
     expect(aggregate['runs-on']).toContain('blacksmith-4vcpu-ubuntu-2404')
+    expect(aggregate['runs-on']).toContain("'ubuntu-24.04'")
 
     // Evaluating the full selector, not just substring containment, proves the
     // blacksmith branch is standalone: it must not fall through to the
@@ -327,27 +330,24 @@ describe('CI workflow', () => {
       linuxAggregate: aggregate['runs-on'] as string,
       windows: windowsBuild['runs-on'] as string,
     }
-    const evaluate = (expression: string, vars: Record<string, string>, login = 'maintainer'): unknown => {
-      const body = expression.trim().slice(3, -2)
-      return runInNewContext(body, {
-        vars,
-        fromJSON: JSON.parse,
-        github: { event: { pull_request: { user: { login } } } },
-      }, { timeout: 1000 })
-    }
-    for (const [name, selector, variable, pool, hosted] of [
-      ['linux gates', selectors.linux, 'DSH_CI_FAILOVER_LINUX', ['self-hosted', 'linux', 'x64', 'vm-backup'], 'dsh-ubuntu-24-04-16core'],
-      ['linux aggregate', selectors.linuxAggregate, 'DSH_CI_FAILOVER_LINUX', ['self-hosted', 'linux', 'x64', 'vm-backup'], 'ubuntu-latest'],
-      ['windows lanes', selectors.windows, 'DSH_CI_FAILOVER_WINDOWS', ['self-hosted', 'dsh-win-ci', 'windows'], 'dsh-windows-2025-16core'],
+    for (const [name, selector, variable, pool, hosted, enterprise] of [
+      ['linux gates', selectors.linux, 'DSH_CI_FAILOVER_LINUX', ['self-hosted', 'linux', 'x64', 'vm-backup'], 'ubuntu-24.04', 'dsh-ubuntu-24-04-16core'],
+      ['linux aggregate', selectors.linuxAggregate, 'DSH_CI_FAILOVER_LINUX', ['self-hosted', 'linux', 'x64', 'vm-backup'], 'ubuntu-24.04', null],
+      ['windows lanes', selectors.windows, 'DSH_CI_FAILOVER_WINDOWS', ['self-hosted', 'dsh-win-ci', 'windows'], 'windows-2025', 'dsh-windows-2025-16core'],
     ] as const) {
-      expect(evaluate(selector, { [variable]: 'blacksmith' }), `${name} blacksmith value`).toMatch(/^blacksmith-/)
-      expect(evaluate(selector, { [variable]: 'selfhosted' }), `${name} selfhosted value`).toEqual(pool)
+      expect(evaluateExpression(selector, { [variable]: 'blacksmith' }), `${name} blacksmith value`).toMatch(/^blacksmith-/)
+      expect(evaluateExpression(selector, { [variable]: 'selfhosted' }), `${name} selfhosted value`).toEqual(pool)
       // The blacksmith branch must not capture the selfhosted pool, and the
       // dependabot exclusion applies to the pool, not to the blacksmith tier.
-      expect(evaluate(selector, { [variable]: 'selfhosted' }, 'dependabot[bot]'), `${name} dependabot on selfhosted`).toBe(hosted)
+      expect(evaluateExpression(selector, { [variable]: 'selfhosted' }, 'dependabot[bot]'), `${name} dependabot on selfhosted`).toBe(hosted)
+      // The unconfigured fork default is the standard GitHub-hosted image —
+      // never an upstream dedicated pool label.
       for (const mode of ['', 'hosted', 'unexpected']) {
-        expect(evaluate(selector, { [variable]: mode }), `${name} default on ${mode}`).toBe(hosted)
+        expect(evaluateExpression(selector, { [variable]: mode }), `${name} default on ${mode}`).toBe(hosted)
       }
+      // The upstream dedicated pools stay reachable only through the explicit
+      // 'enterprise' value (the aggregate verdict never uses them).
+      expect(evaluateExpression(selector, { [variable]: 'enterprise' }), `${name} enterprise value`).toBe(enterprise ?? hosted)
     }
 
     // The run-gates aggregate lanes stop at the first blocking gate failure so
@@ -357,7 +357,6 @@ describe('CI workflow', () => {
     for (const [jobName, job] of [['node-24', node24], ['node-24-coverage', node24Coverage], ['node-24-consumers', node24Consumers], ['node-compat', nodeCompat]] as const) {
       expect(job.env, `${jobName} must enable fail-fast`).toMatchObject({ DSH_GATE_FAIL_FAST: '1' })
     }
-
     // The native Windows lanes with run-gates aggregates fail fast for the
     // same reason: a failing gate aborts the sibling gate instead of waiting
     // out the multi-minute instrumented coverage run.
@@ -369,6 +368,79 @@ describe('CI workflow', () => {
     // possible, so the first failure must not truncate the rest.
     expect(windowsObservational.env).toBeDefined()
     expect(windowsObservational.env).not.toMatchObject({ DSH_GATE_FAIL_FAST: '1' })
+  })
+
+  it('sizes concurrency budgets for the selected pool and empties them on the hosted default', () => {
+    const workflow = loadWorkflow('.github/workflows/ci.yml')
+    interface ConcurrencyCase {
+      readonly job: string
+      readonly variable: 'DSH_CI_FAILOVER_LINUX' | 'DSH_CI_FAILOVER_WINDOWS'
+      readonly key: string
+      readonly pool: string
+      readonly hosted: string
+    }
+    // An empty value unsets the budget: run-gates, oxlint, publint, Vitest
+    // coverage, and the snapshot config each fall back to sizing themselves to
+    // the runner's availableParallelism. Entries whose empty value would change
+    // behavior instead carry an explicit small hosted constant.
+    const cases: readonly ConcurrencyCase[] = [
+      { job: 'node-24', variable: 'DSH_CI_FAILOVER_LINUX', key: 'DSH_GATE_CONCURRENCY', pool: '8', hosted: '' },
+      { job: 'node-24-coverage', variable: 'DSH_CI_FAILOVER_LINUX', key: 'DSH_COVERAGE_MAX_WORKERS', pool: '6', hosted: '' },
+      { job: 'node-24-coverage', variable: 'DSH_CI_FAILOVER_LINUX', key: 'DSH_GATE_CONCURRENCY', pool: '3', hosted: '' },
+      { job: 'node-24-consumers', variable: 'DSH_CI_FAILOVER_LINUX', key: 'DSH_GATE_CONCURRENCY', pool: '10', hosted: '4' },
+      { job: 'node-24-consumers', variable: 'DSH_CI_FAILOVER_LINUX', key: 'DSH_OXLINT_THREADS', pool: '8', hosted: '' },
+      { job: 'node-24-consumers', variable: 'DSH_CI_FAILOVER_LINUX', key: 'DSH_PUBLINT_CONCURRENCY', pool: '8', hosted: '' },
+      { job: 'node-24-consumers', variable: 'DSH_CI_FAILOVER_LINUX', key: 'DSH_WEB_SNAPSHOT_WORKERS', pool: '6', hosted: '2' },
+      { job: 'windows-coverage', variable: 'DSH_CI_FAILOVER_WINDOWS', key: 'DSH_COVERAGE_MAX_WORKERS', pool: '6', hosted: '' },
+      { job: 'windows-coverage', variable: 'DSH_CI_FAILOVER_WINDOWS', key: 'DSH_GATE_CONCURRENCY', pool: '3', hosted: '' },
+      { job: 'windows-observational', variable: 'DSH_CI_FAILOVER_WINDOWS', key: 'DSH_PUBLINT_CONCURRENCY', pool: '8', hosted: '' },
+    ]
+    for (const { job: jobName, variable, key, pool, hosted } of cases) {
+      const job = workflowJob(workflow, jobName)
+      const raw = (job.env as Record<string, string>)[key]
+      if (typeof raw !== 'string' || !raw.startsWith('${{')) {
+        throw new TypeError(`${jobName} env ${key} must be a failover-switch expression`)
+      }
+      const label = `${jobName} ${key}`
+      expect(evaluateExpression(raw, { [variable]: 'enterprise' }), `${label} on the enterprise pool`).toBe(pool)
+      expect(evaluateExpression(raw, { [variable]: 'blacksmith' }), `${label} on blacksmith`).toBe(pool)
+      expect(evaluateExpression(raw, { [variable]: 'selfhosted' }), `${label} on the failover pool`).toBe(pool)
+      expect(evaluateExpression(raw, { [variable]: 'selfhosted' }, 'dependabot[bot]'), `${label} dependabot fallback`).toBe(hosted)
+      expect(evaluateExpression(raw, {}), `${label} hosted default`).toBe(hosted)
+    }
+    // The snapshot lane keeps its per-pool split: halved on the shared
+    // selfhosted VM, full on the 16-vCPU tiers, empty (CPU-adaptive) on the
+    // standard hosted default.
+    const consumers = workflowJob(workflow, 'node-24-consumers')
+    const snapshotCap = (consumers.env as Record<string, string>).DSH_SNAPSHOT_MAX_CONCURRENCY!
+    expect(evaluateExpression(snapshotCap, { DSH_CI_FAILOVER_LINUX: 'selfhosted' })).toBe('12')
+    expect(evaluateExpression(snapshotCap, { DSH_CI_FAILOVER_LINUX: 'blacksmith' })).toBe('32')
+    expect(evaluateExpression(snapshotCap, { DSH_CI_FAILOVER_LINUX: 'enterprise' })).toBe('32')
+    expect(evaluateExpression(snapshotCap, {})).toBe('')
+    // Partitioning and the hosted-image per-test timeout are runner-independent
+    // and stay constant across every path.
+    for (const jobName of ['node-24-coverage', 'windows-coverage']) {
+      const job = workflowJob(workflow, jobName)
+      expect((job.env as Record<string, string>).DSH_COVERAGE_PARTITIONS).toBe('4')
+      expect((job.env as Record<string, string>).DSH_COVERAGE_TEST_TIMEOUT_MS).toBe('90000')
+    }
+  })
+
+  it('fails the aggregate verdict on any non-successful needed job', () => {
+    const workflow = loadWorkflow('.github/workflows/ci.yml')
+    const aggregate = workflowJob(workflow, 'all-checks-passed')
+    if (!Array.isArray(aggregate.steps)) throw new TypeError('aggregate must define steps')
+
+    expect(aggregate.if).toBe("${{ !cancelled() && github.event_name == 'pull_request' }}")
+    const fail = aggregate.steps.find((step): step is Record<string, unknown> & { if: string } =>
+      isRecord(step) && step.name === 'Fail if any needed job did not succeed')
+    expect(fail).toMatchObject({
+      if: "contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')",
+    })
+    expect(JSON.stringify(aggregate.needs)).toBe(JSON.stringify([
+      'node-24', 'node-24-coverage', 'node-24-bench', 'node-24-consumers', 'node-compat',
+      'python-sdk', 'python-runtime', 'windows-build', 'windows-native-tests',
+    ]))
   })
 
   it('gates standalone keyless blacksmith jobs and benchmark tiers on the failover variables', () => {
@@ -1118,4 +1190,14 @@ function workflowJob(workflow: Record<string, unknown>, job: string): Record<str
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
+/** Evaluate a workflow expression body against a failover-variable fixture context. */
+function evaluateExpression(expression: string, vars: Record<string, string>, login = 'maintainer'): unknown {
+  const body = expression.trim().slice(3, -2)
+  return runInNewContext(body, {
+    vars,
+    fromJSON: JSON.parse,
+    github: { event: { pull_request: { user: { login } } } },
+  }, { timeout: 1000 })
 }

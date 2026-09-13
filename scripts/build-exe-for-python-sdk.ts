@@ -28,8 +28,6 @@ const OUT_DIR = 'dist-exe'
 const PYTHON_RUNTIME_DIR = 'python/sdk-runtime/src/deepseek_harness_runtime/runtime'
 /** The deployed closure doubles as the node-mode carrier. */
 const PYTHON_NODE_SUBDIR = 'node'
-/** Legacy deploy may hoist peer-specialized workspace packages back here. */
-const DEPLOY_SOURCE_NODE_MODULES = 'python/sdk-runtime/node_modules'
 /** Documentation excluded from the generated runtime directory. */
 const DEPLOY_ONLY_DOCS = ['README.md', 'README.zh.md', 'README.i18n.yaml']
 
@@ -290,8 +288,13 @@ class SingleExeBuild {
       '--filter',
       DEPLOY_ROOT_PACKAGE,
       'deploy',
-      '--legacy',
       '--prod',
+      // Scripts are skipped: node-pty and koffi ship their prebuilt binaries,
+      // and the only workspace postinstall (the node-pty spawn-helper chmod)
+      // is mirrored below for the macOS prebuilds the sidecar copy takes.
+      // Running them would also fail pnpm 12's strict per-dep build gate,
+      // whose file-URL key for the workspace package is machine-specific.
+      '--ignore-scripts',
       // Production deployment omits workspace tooling such as Electron's patched signer.
       '--config.allow-unused-patches=true',
       '--config.node-linker=hoisted',
@@ -299,8 +302,8 @@ class SingleExeBuild {
       '--config.link-workspace-packages=true',
       this.staging,
     ])
-    await this.restoreLegacyHoists()
     await this.materializeStagedLinks()
+    await this.restoreSpawnHelperMode()
     if (this.cli.dryRun) {
       for (const name of DEPLOY_ONLY_DOCS) console.log(`build-exe-for-python-sdk: [dry-run] rm -f ${join(this.staging, name)}`)
     } else {
@@ -309,47 +312,22 @@ class SingleExeBuild {
   }
 
   /**
-   * Restore direct packages that pnpm's legacy hoister places beside the deploy
-   * source instead of in the target. The runtime manifest supplies every peer,
-   * so package-local node_modules trees are omitted to preserve one flat Cordis
-   * instance and a symlink-free packaged payload.
+   * Restore the executable bit on node-pty's prebuilt macOS spawn helper,
+   * mirroring the reviewed dsh-subprocess-local postinstall that the deploy
+   * skips with `--ignore-scripts`.
    */
-  private async restoreLegacyHoists(): Promise<void> {
+  private async restoreSpawnHelperMode(): Promise<void> {
     if (this.cli.dryRun) {
-      console.log('build-exe-for-python-sdk: [dry-run] restore direct dependencies omitted by legacy deploy')
+      console.log('build-exe-for-python-sdk: [dry-run] chmod 755 staged node-pty spawn helpers')
       return
     }
-    const manifestPath = join(this.staging, 'package.json')
-    const manifest = JSON.parse(await readFile(manifestPath, 'utf8')) as {
-      dependencies?: Record<string, string>
-    }
-    const sourceNodeModules = resolve(root, DEPLOY_SOURCE_NODE_MODULES)
-    const restored: string[] = []
-    for (const dependency of Object.keys(manifest.dependencies ?? {}).sort()) {
-      const destination = join(this.staging, 'node_modules', dependency)
-      if (existsSync(destination)) continue
-      const source = join(sourceNodeModules, dependency)
-      if (!existsSync(source)) {
-        throw new Error(
-          `build-exe-for-python-sdk: deployed dependency ${dependency} is absent from both ${destination} and ${source}.`,
-        )
-      }
-      await mkdir(dirname(destination), { recursive: true })
-      const nestedNodeModules = join(source, 'node_modules')
-      await cp(source, destination, {
-        recursive: true,
-        dereference: true,
-        filter: path => path !== nestedNodeModules && !path.startsWith(nestedNodeModules + sep),
-      })
-      restored.push(dependency)
-    }
-    const stillMissing = Object.keys(manifest.dependencies ?? {})
-      .filter(dependency => !existsSync(join(this.staging, 'node_modules', dependency)))
-    if (stillMissing.length > 0) {
-      throw new Error(`build-exe-for-python-sdk: staged dependencies remain missing: ${stillMissing.join(', ')}.`)
-    }
-    if (restored.length > 0) {
-      console.log(`build-exe-for-python-sdk: restored legacy deploy hoists: ${restored.join(', ')}`)
+    const nodePty = join(this.staging, 'node_modules', 'node-pty')
+    for (const helper of [
+      join(nodePty, 'prebuilds', 'darwin-arm64', 'spawn-helper'),
+      join(nodePty, 'prebuilds', 'darwin-x64', 'spawn-helper'),
+      join(nodePty, 'build', 'Release', 'spawn-helper'),
+    ]) {
+      if (existsSync(helper)) await chmod(helper, 0o755)
     }
   }
 
