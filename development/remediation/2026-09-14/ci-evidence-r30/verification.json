@@ -1,0 +1,100 @@
+{
+  "round": "r30-remote-evidence-handoff",
+  "repository": "wmqfl861/dsh861",
+  "pr": 13,
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "sourceHead": "1baf323167e9d4bde171249f322ab4ebec7f3567",
+  "scope": "Documentation and evidence handoff only; no product/test/workflow implementation.",
+  "productAccepted": false,
+  "p0bAccepted": false,
+  "localHooksExecutedByRemote": false,
+  "fullProjectTestsExecutedByRemote": false,
+  "r29IndependentReview": {
+    "origin": "User-forwarded local independent review after the archived receipt",
+    "reportedVerdict": "PASS",
+    "reportedChecklistCount": 8,
+    "remotelyReperformed": false
+  },
+  "r29Corrections": [
+    "push-attempt1.log records a successful retry; original failed-push output is not archived.",
+    "7ms is the negative-test duration; the assertion is 150 < 240.",
+    "r28 local static was 46/1; no local 47/47 raw log is available.",
+    "Six existing Windows golden failures include shell, command and newline differences in addition to paths; 8.3-only attribution is not established."
+  ],
+  "archivedLogInspected": {
+    "path": "development/remediation/2026-09-13/ci-gates-r29/windows-execution/logs/10-headless-full-file.log",
+    "ref": "1baf323167e9d4bde171249f322ab4ebec7f3567",
+    "returnedBlob": "f7287f58a78d09d597df57b765ebe46b56716c52c",
+    "rangesRequested": [
+      [
+        1,
+        200
+      ],
+      [
+        180,
+        340
+      ]
+    ],
+    "countsInReturnedFile": {
+      "tests": 33,
+      "passed": 27,
+      "failed": 6
+    },
+    "notAnIndependentLocalRerun": true,
+    "differencesObserved": [
+      "bash versus pwsh",
+      "printf versus Write-Output",
+      "LF versus CRLF",
+      "native cwd spelling",
+      "escaped cwd inside JSON strings",
+      "cwd in startup-error text"
+    ],
+    "rootCauseOfEachPathDifference": "Not proven without actual parent/child cwd and alias values."
+  },
+  "ciObservation": {
+    "runId": 34789573313,
+    "runNumber": 17,
+    "headSha": "1baf323167e9d4bde171249f322ab4ebec7f3567",
+    "initialConclusion": "failure",
+    "initialSuccessReported": [
+      "static",
+      "windows observational"
+    ],
+    "initialFailureReported": [
+      "linux coverage",
+      "windows coverage",
+      "consumers"
+    ],
+    "staticLogSummaryObserved": {
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0
+    },
+    "jobProvenanceAcceptedForSourceRepair": false,
+    "reason": "Different reads returned inconsistent job identities; some listed jobs returned 404; consumer-log test paths were absent from the returned fixed-HEAD subtree. Checkout/source-map/raw-byte reconciliation is incomplete.",
+    "consumerPathsExcludedFromRepairBasis": [
+      "packages/test-support/loader-smoke/tests/bundled-profile-runtime.e2e.ts",
+      "packages/test-support/loader-smoke/tests/bundle-closed-world.e2e.ts"
+    ],
+    "completeRunLogDownload": "GET run logs via connector returned empty text; no validated ZIP or complete raw log archive obtained.",
+    "rerunAction": {
+      "tool": "rerun_failed_workflow_run_jobs",
+      "successResponse": true,
+      "laterObservedAttempt": 2,
+      "laterObservedStatus": "in_progress",
+      "laterObservedHead": "1baf323167e9d4bde171249f322ab4ebec7f3567",
+      "completionClaimed": false
+    },
+    "snapshotNotLiveMonitor": true
+  },
+  "nextImplementation": "Optional GateResult-based CI diagnostics and failure-only artifacts for the three red jobs, validated and independently reviewed locally before any source/workflow push.",
+  "runtimeDiagnosticFeatureImplemented": false,
+  "remoteEnvironment": {
+    "node": "22.16.0",
+    "git": "2.47.3",
+    "pnpmAvailable": false,
+    "fullWorkspaceAvailable": false
+  },
+  "task": "LOCAL_AGENT_TASK.md",
+  "readout": "READOUT.md"
+}
