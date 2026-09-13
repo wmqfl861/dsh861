@@ -283,7 +283,7 @@ Only the fiber that provided the service may set it; setting an unprovided name 
 
 [Source](../../vendor/cordis/src/reflect.ts#L29)
 
-### ctx.provide(name, value)
+### ctx.provide(name, value, check?)
 
 ```ts cordis-catalog
 /**
@@ -296,10 +296,11 @@ Only the fiber that provided the service may set it; setting an unprovided name 
  *
  * @param name — the service name.
  * @param value — the service value.
+ * @param check — optional availability predicate for dependents.
  * @returns a disposer that unregisters the service.
  */
-provide<K extends string & keyof this>(name: K, value: undefined | this[K]): () => void
-provide(name: string, value?: any): () => void
+provide<K extends string & keyof this>(name: K, value: undefined | this[K], check?: () => boolean): () => void
+provide(name: string, value?: any, check?: () => boolean): () => void
 ```
 
 Register a service implementation owned by the current fiber.
@@ -308,10 +309,11 @@ The service becomes visible to dependents in the same isolation scope once the f
 
 - `name` — the service name.
 - `value` — the service value.
+- `check` — optional availability predicate for dependents.
 
 **Returns** a disposer that unregisters the service.
 
-[Source](../../vendor/cordis/src/reflect.ts#L44)
+[Source](../../vendor/cordis/src/reflect.ts#L45)
 
 ### ctx.accessor(name, options)
 
@@ -335,7 +337,7 @@ The accessor is removed when the current fiber unloads. Throws if the name is al
 - `name` — the context property name.
 - `options` — the `get` hook and optional `set` hook.
 
-[Source](../../vendor/cordis/src/reflect.ts#L56)
+[Source](../../vendor/cordis/src/reflect.ts#L57)
 
 ### ctx.mixin(name, mixins)
 
@@ -361,4 +363,4 @@ Each mixed-in key becomes an accessor that forwards to the service (binding meth
 - `name` — the context property holding the source service.
 - `mixins` — keys to forward, or a source-key → ctx-key map.
 
-[Source](../../vendor/cordis/src/reflect.ts#L67)
+[Source](../../vendor/cordis/src/reflect.ts#L68)

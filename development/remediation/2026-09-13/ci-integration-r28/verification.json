@@ -65,18 +65,34 @@
       "closure verifier with apps/ walk and closure-level peer supply",
       "affected unit specs, host typecheck, lint, note format/classification, translation pairing"
     ],
-    "previouslyQueuedNowRerouted": "the seven dsh-pool jobs now default to standard hosted runners; confirmation requires the CI run of this candidate",
+    "ciRunOfCandidate": {
+      "runId": 34762530672,
+      "runNumber": 12,
+      "headSha": "a9aac5d15b08d9f22e2f5e8c3f2b68cd0a7efb61",
+      "runnerAdaptationConfirmed": "all seven previously queued jobs executed on standard hosted runners (ubuntu-24.04 / windows-2025 labels observed on live runners)",
+      "succeeded": [
+        "python runtime / release-shaped matrix / node24-linux-x64 (Build single-exe success — the run-10 Linux failure is fixed on real Linux CI, including wheel build, clean-venv install, keyless black-box, GLIBC checks, and the manylinux 2.28 container smoke)",
+        "python runtime / release-shaped matrix / node24-win-x64 (Build single-exe success)",
+        "windows node 24 / build", "windows node 24 / native tests", "node 24 / benchmarks",
+        "node 22.19 / 24.9 / 26 compatibility legs", "python 3.10 / keyless SDK", "python runtime plan + sdk-wheel"
+      ],
+      "failed": {
+        "node 24 / static": "stale cordis catalog — r26 leftover (vendor/cordis changed in 4d6c751211 and c497fcdf85 after the last catalog regeneration 780ab151c5; the lane had never executed on this branch). Reproduced locally (logs/31-check-ci-static.log); fixed by regenerating docs/cordis-api/context.md and fiber.md (pnpm run gen-cordis-catalog; --check passes) and pushing.",
+        "node 24 / coverage, windows node 24 / coverage, node 24 / snapshots and artifacts, windows node 24 / observational": "first-ever executions of these lanes on this branch (every prior run queued them on the missing pools); failures observed within 2-8 minutes at the gate-aggregate steps. Local follow-up triage: verify-node-next-types aborts on this Windows host at a symlink EPERM privilege error before running tsc (CI enables Developer Mode, so the CI failure mode differs and cannot be faithfully reproduced here without privilege changes); the built-bin smoke suite fails genuinely in 100 s locally; the coverage and consumers aggregates were not rerun locally in this round. Recorded as separately-listed pre-existing exposure of never-run lanes, not r28 regressions — the r28 surfaces (packaging, deploy, closure, runner routing, concurrency gating) are green on both platforms."
+      }
+    },
     "realFailuresFixed": [
       "deploy bare-'^' resolution failure (both platforms)",
-      "deploy hoisted-tree misplacement (both platforms)"
+      "deploy hoisted-tree misplacement (both platforms)",
+      "stale cordis catalog blocking the static lane"
     ],
     "notRun": [
       "real-API installed-wheel smokes (no key; forbidden this round)",
-      "Linux and macOS packaging legs (CI-owned; macOS not in the PR workflow)",
+      "macOS packaging legs (not in the PR workflow)",
       "r27 Gateway 212 suite, r26 Loader 122 suite, full Web matrix, full upgrade survey (out of scope; no code impact)",
       "package publication and production deployment"
     ],
-    "unprovenScopes": "Windows file-symlink and CSPRNG probes and the P0-B blockers remain listed separately from earlier rounds; the local space-in-path condition of the profile-plugin scenario is recorded above."
+    "unprovenScopes": "Windows file-symlink and CSPRNG probes and the P0-B blockers remain listed separately from earlier rounds; the local space-in-path condition of the profile-plugin scenario is recorded above; the four never-run gate lanes' first failures are recorded under ciRunOfCandidate.failed for follow-up rounds."
   },
   "delivery": {
     "evidenceDir": "development/remediation/2026-09-13/ci-integration-r28/",

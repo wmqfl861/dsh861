@@ -18,7 +18,9 @@
 
 两个真实根因与修复（证据见回执）：其一，pnpm 12.4.1 `deploy --legacy` 把生产闭包内无供给者的 `workspace:^` peer 改写为裸 `^` 致两平台同步骤失败——闭包根清单已补上 `dsh-session-title-llm` 与 `dsh-util-workspace-path` 两个 peer 供给者（锁再生成 +6 行）；其二，同版本 `--legacy` + hoisted 把注册表树物化到工作区根——`build-exe-for-python-sdk.ts` 改走 pnpm 12 部署实现并 `--ignore-scripts`，spawn-helper chmod 已镜像，死代码 legacy 恢复步骤删除。`ci.yml` 七个作业默认改标准托管 `ubuntu-24.04`/`windows-2025`，上游专用池转为显式 `'enterprise'` 值，池调并发常量改按池注入、托管默认回落 CPU 自适应；needs、阻断命令、平台范围、超时未放宽。
 
-Windows 完整管线在 Node 26.8.2 与隔离官方 Node 24.21.0（sha256 校验）下均通过并产出 230.3MB 单文件与 `-rg` 伴随件；wheel + 干净 venv + keyless 黑盒 `--scenario all` 全部通过（本机含空格用户路径的首次失败为本地条件，已记录）。受影响 specs/typecheck/lint/note 检查/831 对翻译配对全绿；Linux 打包由本候选推送后的标准 hosted CI run 验证。PR 正文更新文本入库于同目录 `pr-body-r28.md`（无 gh/Token，不入正文）。
+Windows 完整管线在 Node 26.8.2 与隔离官方 Node 24.21.0（sha256 校验）下均通过并产出 230.3MB 单文件与 `-rg` 伴随件；wheel + 干净 venv + keyless 黑盒 `--scenario all` 全部通过（本机含空格用户路径的首次失败为本地条件，已记录）。受影响 specs/typecheck/lint/note 检查/831 对翻译配对全绿。
+
+候选 `a9aac5d15b` 推送后的 CI run 12（34762530672）证实：七个原排队作业全部在标准托管 runner 上实际运行；r28 核心（双平台单文件打包、windows-build、native-tests、benchmarks、compat、python-sdk）全绿，Linux 打包腿含 wheel/干净安装/keyless 黑盒/GLIBC/manylinux 冒烟全部通过。同 run 暴露：static 车道因 r26 遗留 stale cordis catalog 失败（已再生成并推送修复）；coverage×2、consumers、observational 四条本分支从未运行过的车道首次执行即失败（本机复核：node-next-types 在本机因 symlink 特权早死与 CI 模式不同、built-bin smoke 本机真实失败、coverage/consumers 未本机重跑；原始 CI 日志无凭据不可取）——单列为后续轮次的既有暴露，非 r28 回归。PR 正文更新文本入库于同目录 `pr-body-r28.md`（无 gh/Token，不入正文）。
 
 ## 本地连续完成的工作（历史轮次说明）
 
