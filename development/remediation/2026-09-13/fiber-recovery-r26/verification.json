@@ -1,0 +1,212 @@
+{
+  "round": "r26",
+  "kind": "failed-fiber-retry-latch-repair",
+  "recordedAt": "2026-09-13T07:49:42.999595+00:00",
+  "baseCommit": "91715660dbbaf743becd0ccdcbb9b2df82a9bf12",
+  "pullRequest": 13,
+  "actor": "ChatGPT implementation and isolated Fiber regression; not designated Codex planner or OpenCode reviewer",
+  "finding": {
+    "file": "vendor/cordis/src/fiber.ts",
+    "baseBlob": "d2fe9830b69fda2027c168695faf43d6d8a2a9e6",
+    "baseBytes": 26065,
+    "behavior": "Failed activation sets execution epoch to INACTIVE. Re-announcing unchanged ready dependencies incorrectly clears the failure and schedules another activation, including during rollback.",
+    "repair": "Track failed dependency epoch separately. Keep unchanged-ready failures latched; retain genuine availability recovery, replacement, explicit update and disposal semantics.",
+    "directoryPickerIntegration": "CANDIDATE_FIX_NOT_YET_VERIFIED_IN_FULL_LOADER"
+  },
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescriptAPI": "5.8.3 preinstalled",
+    "belowRepositoryNodeMinimum": true,
+    "fullRepositoryDependencies": false
+  },
+  "checks": {
+    "sourceIdentity": {
+      "fiberBaseGitBlob": "MATCH",
+      "vendorReadmeBaseGitBlob": "266fcf26ccf711ca4092a2db926c90ad7591b5be MATCH"
+    },
+    "firstControls": {
+      "tests": 6,
+      "before": {
+        "passed": 4,
+        "failed": 2,
+        "exitCode": 1,
+        "log": "fiber-before.tap"
+      },
+      "after": {
+        "passed": 6,
+        "failed": 0,
+        "exitCode": 0,
+        "log": "fiber-after-initial.tap"
+      }
+    },
+    "finalControls": {
+      "tests": 8,
+      "before": {
+        "passed": 5,
+        "failed": 3,
+        "skipped": 0,
+        "exitCode": 1,
+        "log": "fiber-before-final.tap"
+      },
+      "after": {
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0,
+        "exitCode": 0,
+        "log": "fiber-after-final.tap"
+      },
+      "command": "node --experimental-vm-modules run-fiber-controls.mjs <exact fiber.ts>",
+      "scope": "Actual entire Fiber source and its async lifecycle/effect logic. Reflection, event dispatch, context plumbing and diagnostic stack helpers are explicit substitutes; not actual Context/Loader/Vitest or OS integration."
+    },
+    "formalTests": {
+      "path": "packages/host/directory-picker-auto/tests/failure-recovery.spec.ts",
+      "cases": 8,
+      "status": "NOT_RUN",
+      "scope": "Uses actual repository Context, provide/inject/notify and lifecycle APIs, for local Vitest execution."
+    },
+    "static": {
+      "status": "PASS",
+      "log": "static-checks.json",
+      "scope": "TS parser syntax, whitespace, note heading/fence structure and credential-shape scan; not strict typecheck or repository lint/docs gates."
+    }
+  },
+  "existingAssertionsChanged": false,
+  "productRuntimeFilesChanged": [
+    "vendor/cordis/src/fiber.ts"
+  ],
+  "reception": {
+    "previousUpgradeReceiptsPreserved": true,
+    "finalOldLogsReconstructed": false,
+    "previousWindowsTestsIndependentlyRerun": false,
+    "separateOpenResults": {
+      "clientSuite": "5269/5270; present-open.host symlink EPERM per r25 report",
+      "directoryPickerComposition": "15/16; startup rollback leak per r25 report",
+      "loaderPool": "Windows CSPRNG/hang reported; direct same-harness success does not certify pool path"
+    }
+  },
+  "ciObservedForBase": {
+    "totalRuns": 8,
+    "main": {
+      "id": 34742980539,
+      "status": "queued"
+    },
+    "preview": {
+      "id": 34742980167,
+      "conclusion": "failure"
+    },
+    "issuePolicy": {
+      "id": 34742980163,
+      "conclusion": "failure"
+    },
+    "issueLifecycle": {
+      "id": 34742980175,
+      "conclusion": "failure"
+    },
+    "nodeAddonSystem": {
+      "id": 34742980172,
+      "conclusion": "success"
+    },
+    "realAPI": {
+      "id": 34742980198,
+      "conclusion": "skipped"
+    },
+    "scope": "Connector run-state read only; no failure cause inferred and no CI setting changed."
+  },
+  "notRun": [
+    "Actual Context/Loader directory-picker composition",
+    "Windows platform or symlink probes",
+    "Full repository strict typecheck/build/lint/doc-sync and note pairing",
+    "Real model calls or designated planning/review",
+    "Any system setup or credential access"
+  ],
+  "protectedUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "pnpm-lock.yaml",
+    "patches/",
+    "all previous plans/receipts/manifests"
+  ],
+  "nextLocal": "Run the new actual-Context tests and unchanged directory-picker tests, then affected app-boot/webserver/lifecycle regressions and necessary gates. Retain final raw logs for this candidate. If full composition still fails, preserve failure and minimally repair the actual path; do not weaken assertions.",
+  "projectRepairAuthorized": true,
+  "executionAuthorized": false,
+  "modelExecutionAuthorized": false,
+  "systemChangesAuthorized": false,
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 4144,
+    "sha256": "2579a10c737cd59d7343fd8a24d154ae877ed5001336184f2170a897c526da5f",
+    "metadata": "regular files only; uid/gid/mtime=0; uname/gname empty",
+    "members": {
+      "fiber-after-final.tap": {
+        "bytes": 1977,
+        "sha256": "9e07115a3e019369afb8abdaa100d669bd2226bc6bddaa019fc1ff7c10030c05"
+      },
+      "fiber-after-initial.tap": {
+        "bytes": 1574,
+        "sha256": "ebd8ada474292a78540d2ee13fd6a4618049ce929648dcbe09733f02c594fd15"
+      },
+      "fiber-before-final.tap": {
+        "bytes": 3549,
+        "sha256": "5796f5947901c3a3b7bc95762c99685538c6e82a442d9b33a34f73b4e13ad056"
+      },
+      "fiber-before.tap": {
+        "bytes": 2619,
+        "sha256": "7db9d83b67b3aaa3df5362bcde20969425ca1be17fb0e1f4f8d001b759a5edb3"
+      },
+      "run-fiber-controls.mjs": {
+        "bytes": 6917,
+        "sha256": "98f75782600928280b87bf297376170e7d2bd946af3cbd3f23f4ec584cbec167"
+      },
+      "static-checks.json": {
+        "bytes": 384,
+        "sha256": "a87b5a6f9006a5ed3d94ef26501b9631801f2862c1a0bedf656fdcd0f2803551"
+      },
+      "validate-candidate.cjs": {
+        "bytes": 1750,
+        "sha256": "fc9b5c93fe662450fea19d98524bec7f82fc359ba7b4c779c96fb1c8e1bf62c7"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-13-failed-fiber-recovery.md",
+      "bytes": 1872,
+      "sha256": "fb0696c39930a0cff037671e892ab6f75af60823e607bdc73aa3e27a488f23d6",
+      "gitBlob": "31cb676ce5856058259b9ca81c146cb39a888ea5"
+    },
+    {
+      "path": ".agents/notes/implemented/architecture/2026-09-13-failed-fiber-recovery.zh.md",
+      "bytes": 1624,
+      "sha256": "3f5a910de33f707aa71dc5af92b887ffb06954e5456d9170edb5b479055b04a5",
+      "gitBlob": "2b65a9a6cfdaa1aa7458fa55c984680db32b1c7a"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 5340,
+      "sha256": "034ac2afc844a2d5a2f385229be0c3003a078356f3dc6491d17a3b0804f5cd76",
+      "gitBlob": "984b77e25ba4958d7c9c4aa62f72fced364eabfd"
+    },
+    {
+      "path": "packages/host/directory-picker-auto/tests/failure-recovery.spec.ts",
+      "bytes": 5679,
+      "sha256": "10e36c62afcbcb048014e62d00589eb6eda1d988b9b78f6ec57e2ee84065f222",
+      "gitBlob": "c0703de5cd25d26653e78b0a7bc6a048c3aebcc4"
+    },
+    {
+      "path": "vendor/README.md",
+      "bytes": 20484,
+      "sha256": "378d497c5bff70d5709afcb188d58e2054dde31350c259fd42e86368e1857197",
+      "gitBlob": "dead0000241d3d29cc9f6340d72f67163196b23a"
+    },
+    {
+      "path": "vendor/cordis/src/fiber.ts",
+      "bytes": 26414,
+      "sha256": "487eee181782a9843d96de677ac88cfa642b24ff367fdde18727787c376ed05c",
+      "gitBlob": "44145a02d164e5f6e2a910f8fb79dbfabda4c100"
+    }
+  ]
+}
