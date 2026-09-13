@@ -446,7 +446,7 @@ describe('web e2e: settings modal and General preferences', () => {
       await expect.poll(async () => readFile(join(scaffold.harnessHome, 'settings.yaml'), 'utf8'), { timeout: 5_000 })
         .toMatch(new RegExp(`ui-theme:\n(?:\\s+\\w+: .*\n)*?\\s+fontSize: ${px}`))
       await page.getByRole('dialog', { name: '设置' }).getByText(String(px), { exact: true }).waitFor({ timeout: 5_000 })
-      await expect.poll(readFontSize, { timeout: 5_000 }).toBe(`${px}px`)
+      await expect.poll(() => readFontSize(), { timeout: 5_000 }).toBe(`${px}px`)
     }
     expect(await readFontSize()).toBe('14px')
     expect(await readSecondaryFontSize()).toBe('13px')
@@ -471,7 +471,7 @@ describe('web e2e: settings modal and General preferences', () => {
     await page.reload({ waitUntil: 'load' })
     acknowledgeReloadConnectionLoss(tripwire, warningStart)
     await page.waitForSelector('[class*="frame"]', { timeout: 30_000 })
-    await expect.poll(readFontSize, { timeout: 5_000 }).toBe('16px')
+    await expect.poll(() => readFontSize(), { timeout: 5_000 }).toBe('16px')
     expect(await readSecondaryFontSize()).toBe('14px')
 
     // Restore the default for the specs that follow (and the dialog golden).

@@ -485,7 +485,8 @@ describe('deleting a preset', () => {
     fireEvent.click(within(dialog).getByText(en.cancel))
 
     expect(actions.remove).toHaveBeenCalledTimes(1)
-    expect(actions.confirmDelete).toHaveBeenLastCalledWith(null)
+    // React 19 invokes ref callbacks with extra internal arguments on detach; the node slot is what we own.
+    expect(actions.confirmDelete.mock.calls.at(-1)?.[0]).toBe(null)
   })
 
   it('dismisses the confirmation on Escape', () => {
