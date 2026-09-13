@@ -119,7 +119,7 @@ class PresetTree extends Include {
    * future "edit your preset while it runs" flow needs a deliberate
    * persistence path rather than this method's return.
    */
-  override write(): void {
+  override commit(): void {
   }
 }
 

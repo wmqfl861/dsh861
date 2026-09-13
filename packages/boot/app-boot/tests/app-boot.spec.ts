@@ -620,7 +620,8 @@ describe('loadOverlayPatches', () => {
     expect(loadOverlayPatches(NAME, valid)).toEqual([{ id: 'target', config: { value: { __jsExpr: 'process.env.VALUE' } } }])
     expect(() => loadOverlayPatches(NAME, join(dir, 'missing.yml'))).toThrow(`${NAME}: failed to read overlay`)
     const malformed = join(dir, 'malformed.yml')
-    writeFileSync(malformed, ': bad')
+    // js-yaml 5 accepts `: bad` as an empty-key mapping; an unclosed flow sequence is the parse error.
+    writeFileSync(malformed, '[a, b')
     expect(() => loadOverlayPatches(NAME, malformed)).toThrow(`${NAME}: failed to parse overlay`)
     const mapping = join(dir, 'mapping.yml')
     writeFileSync(mapping, 'id: target\n')

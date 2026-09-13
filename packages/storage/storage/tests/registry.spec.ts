@@ -83,7 +83,8 @@ expect.extend({
 })
 
 declare module 'vitest' {
-  interface Assertion<T> {
-    toThrowMatchingObject(expected: object): T
+  // Vitest 5 declares Assertion with two type parameters (result R, value T).
+  interface Assertion<R extends void | Promise<void> = void, T = unknown> {
+    toThrowMatchingObject(expected: object): void
   }
 }
