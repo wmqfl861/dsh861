@@ -225,7 +225,7 @@ Wait for current lifecycle work and rethrow startup errors.
 
 **Returns** this fiber, once it has settled into a stable state.
 
-[Source](../../vendor/cordis/src/fiber.ts#L704)
+[Source](../../vendor/cordis/src/fiber.ts#L711)
 
 ### fiber.restart()
 
@@ -243,7 +243,7 @@ Dispose and immediately reload this plugin with its current config.
 
 **Returns** a promise resolving once the reload settled.
 
-[Source](../../vendor/cordis/src/fiber.ts#L718)
+[Source](../../vendor/cordis/src/fiber.ts#L725)
 
 ### fiber.update(config, noSave?)
 
@@ -252,26 +252,27 @@ Dispose and immediately reload this plugin with its current config.
  * Validate and apply new config, then restart the plugin.
  *
  * Runs the `internal/update` waterfall first, so update hooks (and HMR)
- * can veto or replace the restart.
+ * can veto or replace the restart. Config resolution stays lazy (see
+ * `_resolveConfig`): a fiber that cannot yet activate keeps the raw config.
  *
  * @param config — the new raw config; validated before anything restarts.
  * @param noSave — hint for persistence hooks not to write the change back.
  * @returns the update waterfall result; the default restart returns a promise.
  * @throws when validation, an update listener, or the restarted plugin fails.
  */
-update(config: any, noSave = false)
+update(config: any, noSave = false): Awaitable<void>
 ```
 
 Validate and apply new config, then restart the plugin.
 
-Runs the `internal/update` waterfall first, so update hooks (and HMR) can veto or replace the restart.
+Runs the `internal/update` waterfall first, so update hooks (and HMR) can veto or replace the restart. Config resolution stays lazy (see `_resolveConfig`): a fiber that cannot yet activate keeps the raw config.
 
 - `config` — the new raw config; validated before anything restarts.
 - `noSave` — hint for persistence hooks not to write the change back.
 
 **Returns** the update waterfall result; the default restart returns a promise.
 
-[Source](../../vendor/cordis/src/fiber.ts#L736)
+[Source](../../vendor/cordis/src/fiber.ts#L747)
 
 ## Effect
 

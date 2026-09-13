@@ -111,6 +111,8 @@
     "benchmarks/**/*.ts",
     "packages/*/*/tests/**/*.ts",
     "scripts/**/*.ts",
+    // Imported by scripts/vitest-shared.spec.ts; the root test configuration must be in the program.
+    "vitest.shared.ts",
     "website/**/*.ts",
     "website/.vitepress/**/*.ts"
   ],

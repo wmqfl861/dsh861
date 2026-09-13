@@ -2,6 +2,24 @@ import { composeError, Context } from '@deepseek-ai/cordis'
 import { isNonNullable, type Dict } from '@deepseek-ai/cosmokit'
 import { Entry, type EntryOptions } from './entry.ts'
 import { EntryGroup } from './group.ts'
+import { createResolve } from '../resolve.ts'
+
+/**
+ * One tree-side mutation, reported to `EntryTree.commit()` synchronously after
+ * it has been applied to `entry.options` / `group.data`.
+ *
+ * - `options` absent: the entry was removed from `group`.
+ * - `legacy` absent: the entry was created in `group`.
+ * - both present: the entry was updated and now lives in `group`; `from` is
+ *   the group it left if the update moved it.
+ */
+export interface EntryChange {
+  id: string
+  group: EntryGroup
+  from?: EntryGroup
+  options?: EntryOptions
+  legacy?: EntryOptions
+}
 
 /** Mutable tree of loader entries. Persistence is supplied by subclasses. */
 export abstract class EntryTree {
@@ -96,18 +114,20 @@ export abstract class EntryTree {
   /** Create an entry in the root group or a nested group. */
   async create(options: Omit<EntryOptions, 'id'>, parent: string | null = null, position = Infinity) {
     const group = this.resolveGroup(parent)
-    const id = await group.create(options)
-    const entry = this.resolve(id)
-    group.data.splice(position, 0, entry.options)
-    group.tree.write()
-    return id
+    const id = group.tree.ensureId(options)
+    group.data.splice(position, 0, options as EntryOptions)
+    group.tree.commit({ id, group, options: options as EntryOptions })
+    const created = await group.create(options)
+    return created ?? id
   }
 
   /** Stop and remove an entry from its parent group. */
   async remove(id: string) {
     const entry = this.resolve(id)
-    await entry.parent.remove(id)
-    entry.parent.tree.write()
+    const group = entry.parent
+    const legacy = entry.options
+    await group.remove(legacy.id)
+    group.tree.commit({ id: legacy.id, group, legacy })
   }
 
   /** Update an entry and optionally move it to another group. */
@@ -116,14 +136,18 @@ export abstract class EntryTree {
     const source = entry.parent
     const sourceIndex = source.data.indexOf(entry.options)
     let target = source
+    const legacy = { ...entry.options }
     if (parent !== undefined) {
       target = this.resolveGroup(parent)
       source.unlink(entry.options)
       target.data.splice(position ?? Infinity, 0, entry.options)
       entry.parent = target
     }
+    // `Entry.update` assigns the new options before its first `await`, so the
+    // change is fully visible to `commit()` once the call returns.
+    const task = entry.update(options, false, true)
     try {
-      await entry.update(options, false, true)
+      await task
     } catch (error) {
       if (parent !== undefined) {
         target.unlink(entry.options)
@@ -137,8 +161,11 @@ export abstract class EntryTree {
       }
       throw error
     }
-    source.tree.write()
-    if (target !== source) target.tree.write()
+    if (entry.parent.tree !== source.tree) {
+      source.tree.commit({ id: legacy.id, group: source, legacy })
+    }
+    const from = entry.parent === source ? undefined : source
+    entry.parent.tree.commit({ id: legacy.id, group: entry.parent, from, options: entry.options, legacy })
   }
 
   /** Import a plugin module from a specifier or `cordis:` builtin. */
@@ -154,13 +181,22 @@ export abstract class EntryTree {
       if (this.ctx.loader.internal) {
         return await this.ctx.loader.internal.import(name, this.ctx.baseUrl!, {})
       } else if (name.startsWith('.')) {
-        return await import(/* @vite-ignore */new URL(name, this.ctx.baseUrl).href)
+        return await import(/* @vite-ignore */ new URL(name, this.ctx.baseUrl).href)
       } else {
-        return await import(/* @vite-ignore */name)
+        // An `import()` written here anchors on this file, reaching the loader's
+        // own dependencies. A helper inside the config file's project supplies
+        // that project as the anchor; the plain import applies when no project
+        // can be located.
+        const resolve = await createResolve(this.ctx.baseUrl)
+        const url = resolve ? resolve(name) : name
+        return await import(/* @vite-ignore */ url)
       }
     }, getOuterStack)
   }
 
-  /** Persist current tree state. In-memory trees may implement this as a no-op. */
-  abstract write(): void
+  /**
+   * Report one applied tree mutation to the owning tree for persistence.
+   * In-memory trees may ignore the change and do nothing.
+   */
+  abstract commit(change: EntryChange): void
 }

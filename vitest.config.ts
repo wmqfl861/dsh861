@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { resolvePwshPath } from './packages/shell/pwsh-local/src/resolve.ts'
 import { defineConfig } from 'vitest/config'
-import { standardDecoratorPlugin, vitestExecArgv } from './vitest.shared.ts'
+import { standardDecoratorPlugin, vitestExecArgv, vitestEsbuild } from './vitest.shared.ts'
 import { COVERAGE_EXEMPT_ENV, coverageExemptHeavySuites } from './scripts/coverage-exempt.ts'
 import { COVERAGE_PARTITION_MODE_ENV } from './scripts/coverage-partitions.ts'
 
@@ -156,6 +156,7 @@ const processBoundTests = [
 ]
 
 export default defineConfig({
+  esbuild: vitestEsbuild,
   plugins: [pathsPlugin(), standardDecoratorPlugin()],
   test: {
     setupFiles: ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts'],
@@ -166,6 +167,7 @@ export default defineConfig({
     // Node stability; process-bound suites stay separate for inventory control.
     projects: [
       {
+        esbuild: vitestEsbuild,
         plugins: [pathsPlugin(), standardDecoratorPlugin()],
         test: {
           name: 'thread-safe',
@@ -174,7 +176,6 @@ export default defineConfig({
           // MaybeLocal in cjs_lexer::Parse) from worker threads on macOS,
           // Linux, and Windows. Forked workers avoid that shared thread path.
           pool: 'forks',
-          setupFiles: ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts'],
           include: testIncludes,
           exclude: [
             ...platformUnsupportedTests,
@@ -184,12 +185,12 @@ export default defineConfig({
         },
       },
       {
+        esbuild: vitestEsbuild,
         plugins: [pathsPlugin(), standardDecoratorPlugin()],
         test: {
           name: 'process-bound',
           execArgv: vitestExecArgv,
           pool: 'forks',
-          setupFiles: ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts'],
           include: processBoundTests,
           exclude: [
             ...platformUnsupportedTests,
