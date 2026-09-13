@@ -1,35 +1,31 @@
 # Windows 验证、升级收尾与 P0-B 交接
 
-仅处理 `wmqfl861/dsh861` 和本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 与草稿 PR #13。已接收 r26 远端 `571550ebc6695a668fddc2894cda3c9da822f1f4`；本次增加 r27 候选材料与交接，不改实际测试或运行源码。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
+仅处理 `wmqfl861/dsh861` 与本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 和草稿 PR #13。接收 r27 提交 `fa1a3751720558a0040633b322ee73cb1c5f3c54`；本轮 r28 只提交新的 CI 诊断和执行任务，不改源码、依赖或节点状态。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
 
 ## 固定交付规则
 
-远端助手先完成能直接执行的工作，只有依赖本地环境的步骤才交给本地 agent。所有给本地 agent 的文件先提交到此 GitHub 仓库；提示词给出完整固定提交 SHA、文件路径、摘要和下载／使用步骤。通过现有仓库 fetch 固定对象后使用，不依赖聊天附件，不把滚动分支链接当作固定交付。工作区或远端有新工作时逐项整合，不覆盖、不重置、不自动 stash、不强推。
+远端先完成可直接执行的工作，只有依赖本地实际环境的步骤才交给本地 agent。交付文件先放此 GitHub 仓库，提示词提供完整固定提交 SHA、路径、完整性核对与使用方法，不依赖聊天附件或滚动分支链接。存在新工作时审阅整合，不覆盖、不回退、不自动 stash、不强推。
 
-## 已接收结果与证据边界
+## 已接收的 r27 与 r26
 
-[r25 回执](../remediation/2026-09-13/upgrade-consumers-r25/verification.json)保留工具链、主版本迁移、Cordis 重放和锁/补丁哈希整改结果，不重装、不重新扫描版本、不重做升级。
+[r27 Windows 回执](../remediation/2026-09-13/gateway-scope-r27/windows-execution/verification.json)记录 Gateway 补丁只改一个 spec 的身份夹具和两条 RPC 计数断言，两个原失败在两 project 中全部通过，整文件 212/212，类型、lint 和快速文档检查通过。用户转达独立复审 PASS；本次远端读取回执与提交，没有重新运行 Windows 或独立扫描其归档。实际补丁已应用，不重复 r27 的 apply 或验证任务。
 
-[r26 Windows 回执](../remediation/2026-09-13/loader-entry-r26/windows-execution/verification.json)记录 Loader 方法级 20/20、原目录选择器组合 16/16、失败恢复 16/16、六套件 122/122，以及类型、lint、文档和配对检查。目录选择器原失败断言未改，合并树已通过真实组合；归因保留为 Loader 事务性和 Fiber 闩锁共同在场，不拆成单独已证明结果。失败恢复测试的双句柄观察方式不改变 Fiber 闩锁。
+[r26 Windows 回执](../remediation/2026-09-13/loader-entry-r26/windows-execution/verification.json)及其 Loader/Fiber 六套件 122/122 保留。已完成的上游、主版本与工具链升级不重做。Windows CSPRNG 同类子进程及 present-open.host 文件 symlink 仍是未证明范围，目录 junction 不替代文件 symlink；缺失的旧 stderr 不重造。
 
-[r26 归档](../remediation/2026-09-13/loader-entry-r26/windows-execution/logs.tar.xz)的回执摘要为 `56614d9e9586f2f3201898af8fbcdd8912f6e0b541f580c5db6c5dade395a184`。回执记录归零头重封存、47 个成员内容不变及原历史 blob 仍可达。此次远端接收读取回执、提交信息和 21 文件差异；没有重新运行 Windows 命令或重新解压扫描该归档，不能将接收核对称为新的独立全量验收。r25 池探针的独立原始 stderr 仍缺失，禁止重造。
+## r28：CI 出现真实宿主打包失败
 
-## r27 当前任务
+[r28 记录](../remediation/2026-09-13/artifact-build-r28/verification.json)及[本地执行说明](../remediation/2026-09-13/artifact-build-r28/LOCAL_AGENT_PROMPT.md)为唯一当前任务入口。没有新源码补丁，不再 apply r27 文件。
 
-[r27 固定候选说明](../remediation/2026-09-13/gateway-scope-r27/LOCAL_AGENT_PROMPT.md)和[作者记录](../remediation/2026-09-13/gateway-scope-r27/verification.json)是本轮执行入口。`changes.patch` 尚未应用到实际 Gateway spec，先按说明核对基线并应用，再跑正常 Vitest 双池；不是仅 pull 后复测。
+接收提交的 CI run `34754759281` 中，job `103717195665` 的日志实际执行 PR 合并测试提交 `41c81747f67bff78d7eb4fd7c740f9c180a4a0a`。frozen 安装完成后，`pnpm run build:lib` 进入宿主 tsdown 打包，在 `@tailwindcss/vite@4.3.1` 解析 `@tailwindcss/cli/package.json` 时发生 UNRESOLVED_IMPORT 并退出 1。整体排队状态不能掩盖已失败的 job；此问题与可选预览上传或 Windows CSPRNG 分别记录。
 
-r26 的 Gateway 基线为 208 过、4 败，即两个用例各在两个 project 失败。三个夹具用普通 `fixtureId` 字段保存身份；经服务 shadow 检查无标记调用方时，缺失字符串属性进入 Cordis 注入检查，先于 Gateway 预期的参数／作用域错误抛出。候选复用同文件已有的 `fixtureContextTag` Symbol，保留所有原断言，新增两处无额外 RPC 的计数断言；一个测试文件 +8/-6，不修改运行时注入检查。
+错误点已从原始 job 日志确定，但缺失声明、外部依赖处理及模块解析位置之间的根因尚未证明。远端对固定提交的部分源码与 blob 读取未能交叉闭合，因此没有根据片段写入猜测修复。必须在完整工作区核对真实配置和实际安装闭包，按日志内包名定位拥有者，不复用猜测目录。
 
-作者提取 reflection get-trap 并显式替换 Context/Fiber/追踪协作者，旧标记 6/8、新标记 8/8；这不是实际 Gateway、真实 Context/Vitest 或 Windows 通过证明。补丁仅在取回源码片段上验证应用/反向检查，TS5.8.3 仅检查片段语法。完整文件应用、真实双池和项目类型检查仍待本地；独立审核未被作者检查替代。
+## 本地连续完成的工作
 
-## 分开保留的限制
+复用现有 Node26.8.2、pnpm12.4.1、TS7 与安装，按 r28 说明取得固定交付，检查 PR merge 与 head 的相关差异，定位真实调用与正确包拥有者，保存首失，最小修复并验证完整构建产物。必要的定向依赖／锁更新仍在既有授权内，不整体重新升级或重装。不能用只通过 typecheck、忽略解析错误、给根目录随意补包或改成全量 external 代替产物闭合。
 
-Windows CSPRNG 子进程问题维持 r25 矩阵及原证据不足范围。r26 六套件在真实 Vitest 池中通过，但未经过同类崩溃子进程，不能认证整个 Node 平台。`present-open.host` 的文件 symlink 仍 UNVERIFIED；目录 junction 不能替代，不提权、不删除断言。三个不可达 vendor 来源仍独立记录，不将它们扩大为重做已完成升级的前置。
+通过实际构建、产物级回归及必要检查后，独立复审固定候选，正常钩子提交推送同一分支。明确 Windows 与 Linux 结果，等待中的 CI 不认证成功。本轮的实际日志与摘要写入 r28 新执行目录，不覆盖 r25/r26/r27 记录。未受影响通过检查复用旧证据，不机械重跑 Gateway212、Loader122或整个 Web 测试矩阵。
 
-接收 SHA 的 Actions 查询显示主 CI `34751797589` queued，Issue lifecycle / Issue policy / Build PR preview failure，real-API skipped；另外三个流程 success。该快照不是新候选结果，不用排队或跳过作为全绿，也不根据流程名猜失败根因。新提交状态需另查，不为求绿修改工作流权限或外部凭据。
+## 不变的边界
 
-## 检查与授权
-
-按 r27 说明保存真实最终日志、退出码、文件摘要及独立复审结果，正常钩子提交推送。未受影响检查复用原证据，不为每次提交重复全仓测试、Loader 122 项、Web 102 文件、CLI 版本或平台探针。依赖锁与 pkg 补丁保持原字节，不剥补丁空白。
-
-模型配置两文件、provider/endpoint/思考等级/credentialRef、`development/nodes/P0-B/state.json` 和历史回执不改。升级与有限修复授权不是模型调用或系统初始化授权。不读生产 Key、不登录、不调用模型、不复制旧沙箱秘密，不改全局工具、账号/ACL/Firewall/WFP/UAC，不使用 Remote Desktop Commander、不操作其他项目。
+模型配置两文件、provider/endpoint/思考等级/credentialRef、P0-B state 与历史计划/证据保持原字节。本轮诊断未改变依赖锁或 pkg 补丁；后继必要锁变更由包管理器真实生成并验证。升级修复不等于模型调用或系统初始化授权。不读生产 Key、全局认证、不登录、不请求模型，不复制旧沙箱秘密，不改全局工具、账号/ACL/注册表/Firewall/WFP/UAC，不使用 Remote Desktop Commander、不操作其他项目。三个来源不可达的 vendor 和指定规划/审核仍独立记录。
