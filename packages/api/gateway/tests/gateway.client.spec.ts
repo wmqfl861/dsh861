@@ -809,9 +809,9 @@ describe('Client Typert API', () => {
     const call = vi.fn<ConnectionHandle['rpc']['call']>()
       .mockResolvedValue({ ok: true, value: { ref: 'goal-2' } })
     const ctx = await bench(call)
-    const agentCtx = ctx.extend({ fixtureId: 'agent-2' }) as FixtureContext
+    const agentCtx = ctx.extend({ [fixtureContextTag]: 'agent-2' }) as FixtureContext
     ctx.typert.contexts.registerClient('fixture', {
-      identity: candidate => (candidate as Context & { fixtureId?: string }).fixtureId,
+      identity: candidate => (candidate as Context & { [fixtureContextTag]?: string })[fixtureContextTag],
       resolve: id => id === 'agent-2' ? agentCtx : undefined,
     })
     const assembly = ctx.plugin(Object.assign(
@@ -830,6 +830,7 @@ describe('Client Typert API', () => {
     )
     await expect((ctx as FixtureContext).remote.probe.create({ objective: 'wrong scope' }))
       .rejects.toThrow('expected 2 business argument(s)')
+    expect(call).toHaveBeenCalledTimes(1)
 
     await assembly.dispose()
     expect((ctx.remote as unknown as Record<string, unknown>).probe).toBeUndefined()
@@ -840,9 +841,9 @@ describe('Client Typert API', () => {
     const call = vi.fn<ConnectionHandle['rpc']['call']>()
       .mockResolvedValue({ ok: true, value: { renamed: true } })
     const ctx = await bench(call)
-    const agentCtx = ctx.extend({ fixtureId: 'agent-2' }) as FixtureContext
+    const agentCtx = ctx.extend({ [fixtureContextTag]: 'agent-2' }) as FixtureContext
     ctx.typert.contexts.registerClient('fixture', {
-      identity: candidate => (candidate as Context & { fixtureId?: string }).fixtureId,
+      identity: candidate => (candidate as Context & { [fixtureContextTag]?: string })[fixtureContextTag],
       resolve: id => id === 'agent-2' ? agentCtx : undefined,
     })
     const assembly = ctx.plugin(Object.assign(
@@ -861,6 +862,7 @@ describe('Client Typert API', () => {
     )
     await expect((ctx as FixtureContext).remote.probe.rename({ objective: 'land' }))
       .rejects.toThrow('requires a "fixture" Context')
+    expect(call).toHaveBeenCalledTimes(1)
 
     await assembly.dispose()
     expect(ctx.get('remote.probe')).toBeUndefined()
@@ -886,9 +888,9 @@ describe('Client Typert API', () => {
     const call = vi.fn<ConnectionHandle['rpc']['call']>()
       .mockResolvedValue({ ok: true, value: { renamed: true } })
     const ctx = await bench(call)
-    const agentCtx = ctx.extend({ fixtureId: 'agent-remounted' }) as FixtureContext
+    const agentCtx = ctx.extend({ [fixtureContextTag]: 'agent-remounted' }) as FixtureContext
     ctx.typert.contexts.registerClient('fixture', {
-      identity: candidate => (candidate as Context & { fixtureId?: string }).fixtureId,
+      identity: candidate => (candidate as Context & { [fixtureContextTag]?: string })[fixtureContextTag],
       resolve: id => id === 'agent-remounted' ? agentCtx : undefined,
     })
     const direct = directDescriptor()
