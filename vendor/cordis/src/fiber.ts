@@ -206,6 +206,7 @@ export class Fiber {
   protected context: Context
 
   private _error: any
+  private _failedEpoch: string | undefined
   private _runner: EffectRunner<string>
   private _store: Dict<Impl> = Object.create(null)
 
@@ -624,14 +625,20 @@ export class Fiber {
 
   private _setEpoch(epoch: string) {
     const oldEpoch = this._runner.epoch
-    if (epoch === oldEpoch) return
-    // A failed fiber retries when its injections come back (the INACTIVE →
-    // ready transition: the missing dependency was the failure's cause).
-    // Failures under a ready epoch clear only through update().
+    // Failure cleanup also uses INACTIVE; it is not evidence that a required
+    // service disappeared. Keep that failed activation latched while the
+    // same dependencies remain ready, including notifications during cleanup.
     if (this._error) {
-      if (oldEpoch !== INACTIVE || epoch === INACTIVE || this.uid === null) return
-      this._error = undefined
+      if (this.uid === null) return
+      if (epoch === INACTIVE) {
+        this._failedEpoch = undefined
+      } else {
+        if (epoch === this._failedEpoch) return
+        this._error = undefined
+        this._failedEpoch = undefined
+      }
     }
+    if (epoch === oldEpoch) return
     this._runner.epoch = epoch
     if (this.inertia) return
     this._updateState(() => {
@@ -667,6 +674,8 @@ export class Fiber {
       // impl guarantees that the error is non-null (?)
       this.ctx.logger.error(reason)
       this._error = reason
+      // A dependency may already have gone away while startup was awaiting.
+      this._failedEpoch = this._runner.epoch === INACTIVE ? undefined : oldEpoch
       this._runner.epoch = INACTIVE
     }
     this._updateState(() => {
