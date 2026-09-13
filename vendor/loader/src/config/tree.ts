@@ -111,13 +111,23 @@ export abstract class EntryTree {
     return entry.subgroup
   }
 
-  /** Create an entry in the root group or a nested group. */
+  /**
+   * Create an entry in the root group or a nested group. Failed activation
+   * removes its candidate row; successful activation precedes the creation journal.
+   */
   async create(options: Omit<EntryOptions, 'id'>, parent: string | null = null, position = Infinity) {
     const group = this.resolveGroup(parent)
     const id = group.tree.ensureId(options)
     group.data.splice(position, 0, options as EntryOptions)
+    let created: string | undefined
+    try {
+      created = await group.create(options)
+    } catch (error) {
+      // Remove only this candidate, not siblings added during its activation.
+      group.unlink(options as EntryOptions)
+      throw error
+    }
     group.tree.commit({ id, group, options: options as EntryOptions })
-    const created = await group.create(options)
     return created ?? id
   }
 

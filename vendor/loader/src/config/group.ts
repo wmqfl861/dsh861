@@ -45,6 +45,12 @@ export class EntryGroup {
     if (index >= 0) config.splice(index, 1)
   }
 
+  /**
+   * Unregister membership before teardown; permanent removal also unlinks the row.
+   * @param id - local entry id owned by this group.
+   * @param isDispose - retain the configured row for a later group restart.
+   * @returns after the entry has finished disposing; cleanup errors propagate.
+   */
   async remove(id: string, isDispose = false) {
     const entry = this.tree.store[id]
     // an entry that another group already adopted (a file-driven move) belongs
@@ -54,10 +60,12 @@ export class EntryGroup {
     // distinguishes "removed by the loader" from "disposed itself" by checking
     // whether the entry is still in the store.
     delete this.tree.store[id]
-    await entry._dispose()
+    // Permanent removal must leave neither membership nor configuration visible
+    // to observers that reconcile the group while teardown is awaiting.
     if (!isDispose) {
       this.unlink(entry.options)
     }
+    await entry._dispose()
     this.context.emit('loader/partial-dispose', entry, entry.options, false)
   }
 

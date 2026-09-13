@@ -1,0 +1,216 @@
+{
+  "round": "r26",
+  "kind": "loader-entry-consistency-candidate",
+  "recordedAt": "2026-09-13T07:39:41.850988+00:00",
+  "sourceBaseCommit": "91715660dbbaf743becd0ccdcbb9b2df82a9bf12",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pullRequest": 13,
+  "deliveryStatus": "PATCH_PREPARED_NOT_PUSHED",
+  "githubWritePerformed": false,
+  "deliveryConstraint": "Current GitHub tool surface exposes reads but no commit/ref/PR-write action; plugin discovery found no additional connected write route. The local agent must apply and publish the candidate.",
+  "actor": "ChatGPT implementation and focused tests; not the designated Codex planner or OpenCode hard reviewer",
+  "changes": [
+    {
+      "file": "vendor/loader/src/config/tree.ts",
+      "behavior": "Failed group activation unlinks its candidate object; successful activation precedes creation publication, retaining concurrent sibling rows."
+    },
+    {
+      "file": "vendor/loader/src/config/group.ts",
+      "behavior": "Permanent removal unregisters both store membership and configuration before awaiting disposal. Stop/restart configuration and disposal waiting/error propagation remain distinct."
+    }
+  ],
+  "checks": {
+    "before": {
+      "command": "node --experimental-vm-modules run-loader-controls.mjs before",
+      "passed": 4,
+      "failed": 6,
+      "skipped": 0,
+      "exitCode": 1,
+      "log": "before.tap"
+    },
+    "after": {
+      "command": "node --experimental-vm-modules run-loader-controls.mjs after",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "after.tap"
+    },
+    "inputIdentity": {
+      "vendor/loader/src/config/group.ts": "5221e11c3fb56cf25f5d620122b7395fac677421",
+      "vendor/loader/src/config/tree.ts": "294d253f03f842aca57093187244e169a580c11b",
+      "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md": "838f6a9a45437b2fcd1dc1a0d557549c0d53fa80"
+    },
+    "static": {
+      "typescriptSyntax": {
+        "compiler": "preinstalled TypeScript 5.8.3 transpileModule",
+        "files": 3,
+        "result": "PASS",
+        "strictTypecheck": false
+      },
+      "bilingualStructure": {
+        "pairs": 1,
+        "result": "PASS",
+        "repositoryPairingGenerator": "NOT_RUN"
+      },
+      "textWhitespace": "PASS",
+      "knownRepositoryLinkTargets": "PASS",
+      "scope": "Subset source and local-file checks; not installed Vitest/TS7 or a full Cordis boot."
+    }
+  },
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "transpileCompiler": "5.8.3",
+    "fullRepositoryDependencies": false,
+    "belowRepositoryNodeMinimum": true
+  },
+  "testScope": "Actual fetched EntryTree and EntryGroup methods execute in vm.SourceTextModule. Plugin activation/disposal and Context notifications are controlled test callbacks. Cordis module dependencies are explicit unused-port stubs; Vitest registration is replaced by node:test. This is not actual Vitest5, TS7 strict checking, a real plugin boot, Windows validation or a real-browser result.",
+  "localOriginalFailure": "packages/host/directory-picker-auto/tests/loader-composition.spec.ts :: unmounts the backend when the surface entry fails to load",
+  "originalIntegrationFixed": "NOT_VERIFIED",
+  "regressionObservation": "The old remove method lets a controlled reentrant group.update reconstruct the backend while its disposer is pending. Corrected removal prevents that recreation in the method-level fixture. The actual original directory-picker composition still requires local confirmation.",
+  "authoringNotes": "Initial TAP logs are retained. The final test adds microtask checkpoints to the cleanup-wait assertions; the initial test SHA is stored with the logs. Runtime behavior was unchanged between these authoring runs, apart from JSDoc clarification.",
+  "r25EvidenceLimit": "The fetched 2026-09-13 upgrade-consumers-r25 directory contains a structured receipt but no final raw-log archive. The older 2026-09-12 archive is a different run. Existing final logs should be preserved if available; absence must not be replaced by a fabricated historical log.",
+  "ciAtBase": {
+    "queriedCommit": "91715660dbbaf743becd0ccdcbb9b2df82a9bf12",
+    "runs": 8,
+    "main": {
+      "id": 34742980539,
+      "status": "queued"
+    },
+    "failedWorkflows": [
+      "Build PR preview",
+      "Issue policy",
+      "Issue lifecycle"
+    ],
+    "realApi": "skipped",
+    "claim": "No CI pass is inferred for this unpushed candidate."
+  },
+  "unchangedByPatch": [
+    "pnpm-lock.yaml",
+    "patches/",
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "all previous versioned receipts/plans",
+    "vendor/cordis/src/fiber.ts",
+    "existing directory-picker composition assertions"
+  ],
+  "notRun": [
+    "Original directory-picker full composition",
+    "Installed Vitest5 and TypeScript7",
+    "Windows native or CSPRNG experiments",
+    "Complete host/client build, lint and doc-sync",
+    "System symlink permission changes",
+    "Any model call or system sandbox initialization",
+    "Repository commit/push or PR edit"
+  ],
+  "requiredLocal": [
+    "Apply only after source and patch digest checks",
+    "Run new 10 tests in real Vitest and unchanged directory-picker composition",
+    "Continue minimal diagnosis if the original integration still fails; preserve failure logs",
+    "Run affected app-boot config-reload/user-patches/webserver regressions",
+    "Preserve original Windows abort probes before attributing a platform root cause",
+    "Resolve directory-vs-file link semantics without privilege escalation",
+    "Archive actual affected final logs and original missing-log status; preserve lock/patch bytes"
+  ],
+  "projectRepairAuthorized": true,
+  "modelExecutionAuthorized": false,
+  "systemChangesAuthorized": false,
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 8640,
+    "sha256": "131039f2d6e143011ed3caab70389f08dd79e4b669a9b00f04bbbf646f70fad2",
+    "metadata": "regular files only; uid/gid/mtime zero; empty uname/gname",
+    "members": {
+      "after-initial.tap": {
+        "bytes": 2357,
+        "sha256": "407998c692dc31a7c2e96d6d33eca8da88d11b7293a11123d45ee78445a3b4c7"
+      },
+      "after.tap": {
+        "bytes": 2356,
+        "sha256": "089e969d77fef94bcb43cf3cbf37e59a9730b7543ddc1cd025a012e1f6af78b5"
+      },
+      "after/packages/boot/app-boot/tests/loader-entry-transactions.spec.ts": {
+        "bytes": 7811,
+        "sha256": "489c42cef50e8e681cbc22cdd6cca978e94457d93e0cd84c9ca3fcf69fe9430b"
+      },
+      "after/vendor/loader/src/config/group.ts": {
+        "bytes": 4977,
+        "sha256": "2e4722ccadfbeeb28fb1d93620c1cec7719b1883ce9031968087e9c52a21cad4"
+      },
+      "after/vendor/loader/src/config/tree.ts": {
+        "bytes": 7462,
+        "sha256": "9f3ae7a0d4eb955daa68a9e5c8d431c659a50d6045385d9056aa858eff151113"
+      },
+      "before-initial.tap": {
+        "bytes": 8136,
+        "sha256": "178dccc621702468571632959dc318a474c79c865aa0d1bce7391d99c3b311ab"
+      },
+      "before.tap": {
+        "bytes": 8138,
+        "sha256": "9932062885f24a687850beefb516d64a62219ea98c0e355736573b848ab700d9"
+      },
+      "before/vendor/loader/src/config/group.ts": {
+        "bytes": 4517,
+        "sha256": "623edeb27f10361945961526b6f0a5d2e04180f06469edd9f703e5f80aea557c"
+      },
+      "before/vendor/loader/src/config/tree.ts": {
+        "bytes": 7140,
+        "sha256": "01a1e337f5c8d209de8e85a09471fc9b4c03fa44642af561de4044ac93b408f9"
+      },
+      "initial-test-sha256.txt": {
+        "bytes": 65,
+        "sha256": "05e37c3259fe01fbe63fc20ecdfa30297ee97089c4435434496f3d19db3e8f05"
+      },
+      "run-loader-controls.mjs": {
+        "bytes": 2995,
+        "sha256": "21c13bc36b0376ab2351a21f829afde3e03fb00b574dc2a881e030b4902f4f12"
+      },
+      "static-checks.json": {
+        "bytes": 444,
+        "sha256": "eef6edc734ee3136c94b76712bb7acc917e7a373bc80053ac577afaaf995a046"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": ".agents/notes/implemented/testing/2026-09-13-loader-entry-transactions.md",
+      "bytes": 2158,
+      "gitBlob": "e27bafa20bf1efeeab302df91b4baf54326b9e4f",
+      "sha256": "8450cf3505f487feafbb0ddc5f663b93bdcc30776724c78e383fa398be0a483c"
+    },
+    {
+      "path": ".agents/notes/implemented/testing/2026-09-13-loader-entry-transactions.zh.md",
+      "bytes": 1799,
+      "gitBlob": "1b22d7dfbaa8a8ae9a80147834610fb13cfe6cfc",
+      "sha256": "6a2fb6813d985eea2332ae734513e392fdba5b1c69650f749e97b08be2b8c278"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 6160,
+      "gitBlob": "e3c27b1daeb2e7ff465fe1b8e8571648471f5b9d",
+      "sha256": "5225e6d5108fba8ee483847ae14a8d20e32ac220e6fa2c7e31a8e20b0ab3b836"
+    },
+    {
+      "path": "packages/boot/app-boot/tests/loader-entry-transactions.spec.ts",
+      "bytes": 7811,
+      "gitBlob": "27a62644b6b4b73af9fc5e8957e7737ab84dd878",
+      "sha256": "489c42cef50e8e681cbc22cdd6cca978e94457d93e0cd84c9ca3fcf69fe9430b"
+    },
+    {
+      "path": "vendor/loader/src/config/group.ts",
+      "bytes": 4977,
+      "gitBlob": "e6fc21669f27a55e9fca228aee1aba9400ce648e",
+      "sha256": "2e4722ccadfbeeb28fb1d93620c1cec7719b1883ce9031968087e9c52a21cad4"
+    },
+    {
+      "path": "vendor/loader/src/config/tree.ts",
+      "bytes": 7462,
+      "gitBlob": "d1f9e9514a8f8b20869f59c66bc7a40fa4a2c577",
+      "sha256": "9f3ae7a0d4eb955daa68a9e5c8d431c659a50d6045385d9056aa858eff151113"
+    }
+  ]
+}
