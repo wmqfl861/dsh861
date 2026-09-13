@@ -62,6 +62,9 @@ interface DeepSeekDefaultsServer {
   close(): Promise<void>
 }
 
+/** Mock keep-alive cadence the fixture's streamIdleTimeoutMs must dominate. */
+const KEEP_ALIVE_INTERVAL_MS = 60
+
 /** Compare one current Session with an older committed generation in memory. */
 async function expectSessionSnapshot(
   actual: string,
@@ -96,7 +99,7 @@ async function deepseekDefaultsServer(options: { waitForTitleRequest?: boolean }
         if (keepAlives-- > 0
           || (options.waitForTitleRequest === true && !requests.some(request => request.max_tokens === 64))) {
           response.write(': keep-alive\n\n')
-          timer = setTimeout(write, 60)
+          timer = setTimeout(write, KEEP_ALIVE_INTERVAL_MS)
           return
         }
         response.end([
@@ -106,7 +109,7 @@ async function deepseekDefaultsServer(options: { waitForTitleRequest?: boolean }
           '',
         ].join('\n\n'))
       }
-      let timer = setTimeout(write, 60)
+      let timer = setTimeout(write, KEEP_ALIVE_INTERVAL_MS)
       response.once('close', () => { clearTimeout(timer) })
     })
   })
@@ -445,6 +448,14 @@ describe('headless stream-json snapshots', () => {
   }, LOADER_SMOKE_TEST_TIMEOUT_MS)
 
   it('keeps provider comments alive and sends DeepSeek defaults through the one-shot app', async () => {
+    // Negative regression for the phantom third request: a 150ms idle budget
+    // over this server's keep-alive cadence let scheduler jitter abort the
+    // main stream (llm/retry, STREAM_IDLE_TIMEOUT) and re-dispatch a second
+    // main request after the title request. The budget must stay a clear
+    // multiple of the cadence or the retry surfaces as a request-count flake.
+    const fixtureText = await readFile(deepseekDefaultsConfigPath, 'utf8')
+    const idleBudgetMs = Number(/streamIdleTimeoutMs:\s*(\d+)/.exec(fixtureText)?.[1])
+    expect(idleBudgetMs).toBeGreaterThanOrEqual(4 * KEEP_ALIVE_INTERVAL_MS)
     const server = await deepseekDefaultsServer()
     try {
       const result = await runLoaderSmoke({

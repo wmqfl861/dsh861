@@ -1,6 +1,6 @@
 # Windows 验证、升级收尾与 P0-B 交接
 
-仅处理 `wmqfl861/dsh861` 与本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 和草稿 PR #13。r28 接收基线为 `ccc5aa51d50fb4e51c3a89658db8d769811221d4`。r29 源码提交为 `321172e13c0962fdb3c745f2e3317015fc5802fb`：新 CI static 已实绿，built-lib 完整执行与独立复审仍待完成。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
+仅处理 `wmqfl861/dsh861` 与本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 和草稿 PR #13。r28 接收基线为 `ccc5aa51d50fb4e51c3a89658db8d769811221d4`。r29 源码提交为 `321172e13c0962fdb3c745f2e3317015fc5802fb`：新 CI static 已实绿，built-lib 已在本机以真实产物完整执行并通过，consumers 第三请求已在本地定因并修复；独立复审仍待完成。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
 
 ## 当前唯一执行入口
 
@@ -32,7 +32,7 @@ built-lib E2E 的私有 builtAgentId 改为脚本内 Symbol，同一键用于 id
 
 基线 run 14 static 是5过1失41跳的 fail-fast，Windows observational 是52过2失（ACP缺失与builtAgentId注入）；node-next types 当时实际通过，不去修已绿类型检查。新 run 15 observational 截止本回执读取仍执行中，不提前宣布 built-lib 通过。
 
-consumers 基线 headless expected 用例收到3次请求而非2。远端实际源码确认 loopback mock 区分主请求 max_tokens=256000 与标题请求 max_tokens=64，根因仍待真实请求/事件采集。新 run 15 consumers job `103754182474` 仍失败，但新首失尚未核对，不把旧首失自动写成新首失。不放宽计数、不刷新 golden 造绿。
+consumers 基线 headless expected 用例收到3次请求而非2。[r29 Windows 执行回执](../remediation/2026-09-13/ci-gates-r29/windows-execution/verification.json)已在本地定因：第三次请求是主请求重发——fixture `streamIdleTimeoutMs: 150` 对 mock 60ms keep-alive 仅2.5倍余量，Windows 调度抖动触发 `STREAM_IDLE_TIMEOUT` 后按部署策略重试（事件序列 seq15 `llm/retry`，标题请求 seq13 已先行发出）。产品重试/watchdog/标题调度不变且另有专项测试；修复归属 fixture：150→1000（与 pi-ai 同族一致）并加"空闲预算≥4×keep-alive 间隔"负向回归（旧值确定性失败），两次请求契约原样保留，复测 6/6 绿，整文件 A/B 证明本机另 6 个 `{{cwd}}` golden 失败为预存路径归一化差异（macOS/Linux 通道负责）。run 15 consumers job `103754182474` 首失因本机无 gh 未核对，不把旧首失自动写成新首失。不放宽计数、不刷新 golden 造绿。
 
 基线两个 coverage 日志响应出现文件路径与固定 Git 树不匹配，已在 ci-followup.json 排除出修改依据。实际 gateway.client.spec.ts 仍保留 r27 fixtureContextTag 与调用次数断言；不得按不存在的 gateway.spec.ts 宣称 r27 退化。tool-present 的被报告文件也不在该包树中；不据此猜测补目录。需要原始日志与 checkout/source-map 或真实复现。新 run 15 coverage 两腿截至读取仍执行中；partial coverage 不当完整阈值结果。
 
@@ -43,6 +43,8 @@ consumers 基线 headless expected 用例收到3次请求而非2。远端实际�
 按当前任务取件，运行 config-files spec、verify-cordis-config、实际产物 built-lib 与必要类型/lint/docs，正常 hooks 和独立子代理复审。采集 consumers 第三请求、来源匹配后处理 coverage。远端没有完整依赖环境，Git Data API 提交没有运行本机 hooks，不声称独立硬审通过。
 
 r28 两处历史日志名核对与真实本机47/47归档仍需本机原始材料；有则追加、没有则明确缺失，不把新 CI 摘录或四组 Git 机制实验冒充 r28 本机日志。追加 `ci-gates-r29/windows-execution/`，不覆盖 r25–r28 回执；沿既有脱敏/归档规范。当前 static 清单已分开记录 run14红与run15绿。
+
+r29 本地执行已完成并记录于 [r29 Windows 执行回执](../remediation/2026-09-13/ci-gates-r29/windows-execution/verification.json)：取件完整性四项全过；config-files spec 4/4、verify-cordis-config 153、真实产物 built-lib E2E 1/1（非 skipped）；typecheck/lint/test:docs 全绿（16/0/0）；consumers 第三请求定因修复如上；F1/F2 勘误——封存 r28 回执引用的三处日志名（18-build-exe-newdeploy2 / 19-build-exe-node24 / 25-blackbox-keyless-spacefree）实为 18/19-*-full-pass 与 25-blackbox-keyless-pass，实际文件均在、EXIT 0、内容与描述相符，封存记录原字节未动；F3 复核确认 run14红/run15绿已分列；F4 本机无原始 47/47 日志——r28 本机 static 实为 46/1（cordis catalog 红），明确缺失，不以 run15 CI 摘录冒充。gh 本机不可用，run15 consumers/coverage 各 job 读取未执行并已记录原因；coverage 修复仍以来源匹配为前置。本轮新增提交使用各自 CI 结果，独立子代理复审仍待主会话派发后才能宣称完成。
 
 不机械重跑 Gateway212、Loader122、全部升级或已绿打包矩阵。正常提交、非强推同一分支，返回真实 SHA、固定证据路径、通过/失败/未执行各自结果。
 
