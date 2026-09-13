@@ -1,33 +1,43 @@
 # Windows 验证、升级收尾与 P0-B 交接
 
-仅处理 `wmqfl861/dsh861` 与本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 和草稿 PR #13。r27 已接收（Gateway 212/212，补丁已应用，独立复审 PASS）；r28 的 CI runner 适配与单文件打包修复已完成并通过本机验证（见下）。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
+仅处理 `wmqfl861/dsh861` 与本地 `C:\Albert\project\dsh861`，继续 `chore/latest-stable-upgrade-20260912` 和草稿 PR #13。r28 接收基线为 `ccc5aa51d50fb4e51c3a89658db8d769811221d4`。r29 已直接提交小范围夹具修复候选，完整工作区执行与独立复审仍待完成，不把远端静态证据称为整体验收。P0-B 仍 blocked，不合并 master、不开放 P0-C，不代写指定计划或硬审核。
 
 ## 固定交付规则
 
 远端先完成可直接执行的工作，只有依赖本地实际环境的步骤才交给本地 agent。交付文件先放此 GitHub 仓库，提示词提供完整固定提交 SHA、路径、完整性核对与使用方法，不依赖聊天附件或滚动分支链接。存在新工作时审阅整合，不覆盖、不回退、不自动 stash、不强推。
 
-## 已接收的 r27 与 r26
+## 已接收结果
 
-[r27 Windows 回执](../remediation/2026-09-13/gateway-scope-r27/windows-execution/verification.json)记录 Gateway 补丁只改一个 spec 的身份夹具和两条 RPC 计数断言，两个原失败在两 project 中全部通过，整文件 212/212，类型、lint 和快速文档检查通过。用户转达独立复审 PASS；本次远端读取回执与提交，没有重新运行 Windows 或独立扫描其归档。实际补丁已应用，不重复 r27 的 apply 或验证任务。
+[r27 Windows 回执](../remediation/2026-09-13/gateway-scope-r27/windows-execution/verification.json)记录 Gateway 212/212；[r26 Windows 回执](../remediation/2026-09-13/loader-entry-r26/windows-execution/verification.json)及 Loader/Fiber 122/122 保留。用户转达独立复审 PASS；远端没有冒充 Windows 执行或独立重扫其归档。不重复应用旧补丁，不重做已完成的整体升级。
 
-[r26 Windows 回执](../remediation/2026-09-13/loader-entry-r26/windows-execution/verification.json)及其 Loader/Fiber 六套件 122/122 保留。已完成的上游、主版本与工具链升级不重做。Windows CSPRNG 同类子进程及 present-open.host 文件 symlink 仍是未证明范围，目录 junction 不替代文件 symlink；缺失的旧 stderr 不重造。
+[r28 执行回执](../remediation/2026-09-13/ci-integration-r28/verification.json)记录托管 runner 默认适配、两个 pnpm deploy 根因修复、双 Node Windows 单文件构建和无密钥黑盒。此前 [artifact-build-r28 诊断](../remediation/2026-09-13/artifact-build-r28/verification.json)中的 Tailwind 归因已撤回，不再据此改源码。历史文件不覆盖。
 
-## r28：CI runner 托管默认与真实打包失败修复（本轮已完成）
+远端在 r29 读取 run `34765078459`（run 14）的实际作业列表，确认 Linux/Windows 单文件构建、wheel 干净安装和 keyless 黑盒成功，Linux GLIBC/manylinux 成功。Windows build/native、benchmarks、兼容矩阵、Python SDK 成功。PR 正文已经由远端 API 直接更新，不再让用户手工粘贴旧正文。
 
-[r28 执行回执](../remediation/2026-09-13/ci-integration-r28/verification.json)是唯一现行执行记录；上轮的[诊断记录](../remediation/2026-09-13/artifact-build-r28/verification.json)与其"tailwind/tsdown"转述已被本地复现证伪并弃用（固定树无任何 tailwind 依赖，build:lib 双 Node 版本通过），未据此改码。原始 job 日志无凭据不可取（403），按预案本地完整复现同一路径。
+## r29 当前候选与证据
 
-两个真实根因与修复（证据见回执）：其一，pnpm 12.4.1 `deploy --legacy` 把生产闭包内无供给者的 `workspace:^` peer 改写为裸 `^` 致两平台同步骤失败——闭包根清单已补上 `dsh-session-title-llm` 与 `dsh-util-workspace-path` 两个 peer 供给者（锁再生成 +6 行）；其二，同版本 `--legacy` + hoisted 把注册表树物化到工作区根——`build-exe-for-python-sdk.ts` 改走 pnpm 12 部署实现并 `--ignore-scripts`，spawn-helper chmod 已镜像，死代码 legacy 恢复步骤删除。`ci.yml` 七个作业默认改标准托管 `ubuntu-24.04`/`windows-2025`，上游专用池转为显式 `'enterprise'` 值，池调并发常量改按池注入、托管默认回落 CPU 自适应；needs、阻断命令、平台范围、超时未放宽。
+[r29 远端记录](../remediation/2026-09-13/ci-gates-r29/verification.json)固定基线、作业身份、原始日志的明确摘录、修复范围和未执行项目。此记录不是完整原始日志归档，也不是独立硬审核。
 
-Windows 完整管线在 Node 26.8.2 与隔离官方 Node 24.21.0（sha256 校验）下均通过并产出 230.3MB 单文件与 `-rg` 伴随件；wheel + 干净 venv + keyless 黑盒 `--scenario all` 全部通过（本机含空格用户路径的首次失败为本地条件，已记录）。受影响 specs/typecheck/lint/note 检查/831 对翻译配对全绿。
+ACP `cordis.yml` 的 Git 模式原为 `120000`，blob 内容却是 YAML `- path: ...`，并非链接目标。候选只将其改为 `100644` 并补结尾换行，include 目标与目标文件保持不变。`scripts/cordis-config-files.spec.ts` 增加索引模式回归，避免 `core.symlinks=false` 将错误掩盖为可读普通文件。索引回归检查当前已暂存版本；接收本提交后直接运行，不在用户工作区修改 symlink 设置。
 
-候选 `a9aac5d15b` 推送后的 CI run 12（34762530672）证实：七个原排队作业全部在标准托管 runner 上实际运行；r28 核心（双平台单文件打包、windows-build、native-tests、benchmarks、compat、python-sdk）全绿，Linux 打包腿含 wheel/干净安装/keyless 黑盒/GLIBC/manylinux 冒烟全部通过。同 run 暴露：static 车道因 r26 遗留 stale cordis catalog 失败（已再生成并推送修复）；coverage×2、consumers、observational 四条本分支从未运行过的车道首次执行即失败（本机复核：node-next-types 在本机因 symlink 特权早死与 CI 模式不同、built-bin smoke 本机真实失败、coverage/consumers 未本机重跑；原始 CI 日志无凭据不可取）——单列为后续轮次的既有暴露，非 r28 回归。PR 正文更新文本入库于同目录 `pr-body-r28.md`（无 gh/Token，不入正文）。
+`packages/api/remotes/tests/built-lib.e2e.ts` 仅把私有 `builtAgentId` 字符串元数据改为同一脚本中的 Symbol 键。真实 HTTP、生成包加载、参数、原始错误、输出与所有断言保持不变；Gateway/Cordis 运行时零修改。它是已提交的候选，不是已取得成功日志的 built-lib 终验。
 
-## 本地连续完成的工作（历史轮次说明）
+[隔离 Git 实验结果](../remediation/2026-09-13/ci-gates-r29/git-mode-proof.json)及[复现程序](../remediation/2026-09-13/ci-gates-r29/probe-git-mode.py)来自远端 Linux 容器，不是 Windows 全仓测试；四组真实 checkout 证明旧模式的 ENOENT 与禁用 symlink 时的掩盖，并证明新模式在两种 Git 设置下均可读。新回归的模式条件在旧两组拒绝、新两组接受。built-lib 嵌入脚本只做了 Node 22.16.0 语法检查，不能替代项目 Node26/生成产物执行。
 
-复用现有 Node26.8.2、pnpm12.4.1、TS7 与安装，按 r28 说明取得固定交付，检查 PR merge 与 head 的相关差异，定位真实调用与正确包拥有者，保存首失，最小修复并验证完整构建产物。必要的定向依赖／锁更新仍在既有授权内，不整体重新升级或重装。不能用只通过 typecheck、忽略解析错误、给根目录随意补包或改成全量 external 代替产物闭合。
+## 尚未闭合的 CI
 
-通过实际构建、产物级回归及必要检查后，独立复审固定候选，正常钩子提交推送同一分支。明确 Windows 与 Linux 结果，等待中的 CI 不认证成功。本轮的实际日志与摘要写入 r28 新执行目录，不覆盖 r25/r26/r27 记录。未受影响通过检查复用旧证据，不机械重跑 Gateway212、Loader122或整个 Web 测试矩阵。
+run 14 的 static 仍红：首失为 `verify-cordis-config` 读取 ACP 文件 ENOENT，5 passed / 1 failed / 41 skipped（fail-fast），不能把未执行的 41 项记绿。Windows observational 为 52 passed / 2 failed：同一 Cordis config 错误，以及 built-lib 的 `cannot get property "builtAgentId" without inject`；该作业的 node-next types 实际通过，不要按本机权限现象去改已绿的 CI 类型检查。
+
+consumers 首失为 `headless.expected.e2e.ts` 第 471 行，`keeps provider comments alive and sends DeepSeek defaults through the one-shot app` 收到 3 次请求而预期 2；该预期套件为 30 passed / 1 failed，后继 snapshot/browser/built-bin 等被 fail-fast 中断或未执行。不要直接把 2 改成 3，须记录 mock 请求和重试原因后修复。
+
+Linux/Windows coverage 仍失败，不能据其他作业成功认证其通过；两条 coverage 的完整首失仍需单独分析。Issue policy、Issue lifecycle、Build PR preview 也失败，暂未归因；真实 API E2E skipped，macOS 不在本 PR 打包矩阵。首次执行暴露不等于已证明非 r28 回归。以新提交实际 CI 的完整结果更新本清单，不用旧 run 代替新提交结果。
+
+## 本地接续
+
+先 fast-forward 接收远端候选并核对 Git 模式与 blob。复用 Node26.8.2、pnpm12.4.1 及现有依赖；定向运行 config-files spec、verify-cordis-config、真实构建后的 Remotes built-lib E2E。若 requiredArtifacts 不齐导致 skip，先沿现有 build 命令生成，不能把 skip 算 PASS。保留无密钥、无模型请求边界。真实 typecheck/lint/test:docs、必要配对和独立复审由可执行环境完成；远端 Git Data API 提交不声称执行了本地钩子。
+
+r28 审核 F1–F4 中，本交接已经补记 static 仍红并纠正日志可达性和 PR 正文状态；两处历史日志名称核对、47/47 本机原始日志归档仍需从真实本机证据补齐，不能把远端四组实验改名冒充该日志。追加 r29/windows-execution 证据，不覆盖 r25–r28 原始回执。检查通过后正常钩子提交、非强推同分支；不机械重跑 Gateway212、Loader122或已绿的打包矩阵。
 
 ## 不变的边界
 
-模型配置两文件、provider/endpoint/思考等级/credentialRef、P0-B state 与历史计划/证据保持原字节。本轮诊断未改变依赖锁或 pkg 补丁；后继必要锁变更由包管理器真实生成并验证。升级修复不等于模型调用或系统初始化授权。不读生产 Key、全局认证、不登录、不请求模型，不复制旧沙箱秘密，不改全局工具、账号/ACL/注册表/Firewall/WFP/UAC，不使用 Remote Desktop Commander、不操作其他项目。三个来源不可达的 vendor 和指定规划/审核仍独立记录。
+模型配置两文件、provider/endpoint/思考等级/credentialRef、P0-B state、pkg 补丁与历史计划/证据保持原字节；本候选不改依赖锁或工作流。不读生产 Key、全局认证，不登录、不请求模型，不复制旧沙箱秘密，不改全局工具、账号/ACL/注册表/Firewall/WFP/UAC，不使用 Remote Desktop Commander、不操作其他项目。Windows CSPRNG 同类子进程与 present-open.host 文件 symlink 仍未证明，目录 junction 不替代文件 symlink，不补造旧 stderr。三个来源不可达的 vendor 和指定规划/审核仍独立记录。

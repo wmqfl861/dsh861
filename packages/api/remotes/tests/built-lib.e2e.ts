@@ -172,8 +172,9 @@ describe.skipIf(!requiredArtifacts)('Goal Remote built LIB chain', () => {
         const plugin = instantiate(id)
         await client.plugin({ inject: plugin.inject, apply: plugin.apply })
       }
+      const builtAgentId = Symbol('built-agent-id')
       client.typert.contexts.registerClient('agent', {
-        identity: candidate => candidate.builtAgentId,
+        identity: candidate => candidate[builtAgentId],
       })
 
       let invalidRejected = false
@@ -190,7 +191,7 @@ describe.skipIf(!requiredArtifacts)('Goal Remote built LIB chain', () => {
         rootResult.value.ref,
         { objective: 'edited root goal' },
       )
-      const agentContext = client.extend({ builtAgentId: scopedAgent.id })
+      const agentContext = client.extend({ [builtAgentId]: scopedAgent.id })
       const scopedResult = await agentContext.remote.goals.create({ objective: 'scoped goal', maxGoalRounds: 3 })
       const result = {
         invalidRejected,
