@@ -1,33 +1,29 @@
 # Windows 验证、升级收尾与 P0-B 交接
 
-仅操作 `wmqfl861/dsh861`、`C:\Albert\project\dsh861`、`chore/latest-stable-upgrade-20260912` 和草稿 PR #13。PR base 保持 `feat/multi-agent-company-nodes`，不合并，P0-B blocked，不进入 P0-C。
+仅处理 `wmqfl861/dsh861`、`C:\Albert\project\dsh861`、`chore/latest-stable-upgrade-20260912` 和草稿 PR #13，base `feat/multi-agent-company-nodes` 不变。不合并、不验收 P0-B、不进入 P0-C。
 
-## 当前接收状态
+## 当前接收与实际 CI
 
-r29 接收 SHA 为 `1baf323167e9d4bde171249f322ab4ebec7f3567`。[本地回执](../remediation/2026-09-13/ci-gates-r29/windows-execution/verification.json)记录 ACP/config 验证、实际构建产物下 built-lib 1/1、headless 第三请求 fixture 根因修复与 6/6、类型/lint/docs。用户随后转达独立复审八项 PASS，另附两项非阻断勘误；这不是远端 Windows 重跑，也不替代指定 P0-B 硬审核。
+r33 接收源码为 `b6b7c7585dfbe537653846711d36c694b524783e`；用户转达独立复审10/10 PASS。保留transform/3、receiver和switch语义修复、去重及其历史证据，不重复r31推送或r32排查。
 
-r29 不再处于“等待整轮独立复审、等待 built-lib 实测”的状态。保留 config 与 built-lib blob、1000ms/60ms 预算和原 expect(2)。r27 Gateway212、r26 Loader122、r28 构建交付仍接收；不重复应用旧补丁、升级调查或无关构建矩阵。
+远端已读取该SHA的CI run34871934787/attempt1：consumers job104069700622实际11过/0败/0跳，主Web批次100文件通过、355测试通过、13跳过。queue-actions、sidebar、IME、预览、preset及built-boot原失败场景均在本次通过；这关闭了“等待第一次新CI验证”的待办，不是各历史机制唯一归因证明。Windows observational也通过。不要再将旧r32失败或r33 duplication列为当前首失。
 
-r30 接收 SHA 为 `201206cb4c83581b3d44620831434fbf2e337df9`，整改复审经用户转达 PASS。后续 CI run `34799140559`（attempt 1，run number 19，结论 failure，checkout `d1ee13a76acd0cbee2f135fd546dab336e77ab72`）的三个诊断 ZIP 已下载并逐字节核验（摘要/CRC/清单/14 文件哈希/身份）。consumers 包记录的是嵌套 `node-compat` aggregate 4 passed 而非外层 `ci-consumers` 失败，不得据此宣布 consumers 成功；两平台 coverage 首失已定因为 Typert 快照中唯一一处版本化 external symbol 路径 `zod@4.4.3` 失配本机与锁的 `zod@4.6.2`。完整接收与边界见 [r31 取证](../remediation/2026-09-14/ci-evidence-r31/remote-intake/)。
+Windows coverage前置组仍失败：thread-safe的Chokidar5写入稳定用例期望一次add，实际add后change；组内1703过/1败/96跳，主coverage因fail-fast未运行。不能把该状态描述为覆盖率百分比不足。Linux coverage无最终结论，未发现同名失败artifact不代表成功。
 
-## 当前执行入口
+## 当前唯一任务
 
-[r31 本地任务](../remediation/2026-09-14/ci-evidence-r31/LOCAL_AGENT_TASK.md)是当前接续入口。三项定向修复（嵌套 aggregate 证据目录认领、Typert 快照单处版本路径、浅克隆父链读取）已应用并通过定向验证，[Windows 执行回执](../remediation/2026-09-14/ci-evidence-r31/windows-execution/)记录基线复现、main 接线 CLI 实跑、新增五用例与类型/lint 结果；源码与证据经全新上下文独立复审到 PASS 后提交推送。r31 提交后的新 CI 尚未发生，不得提前宣布通过；远端可用读取/下载通道核对后续 artifact。
+[r34任务](../remediation/2026-09-15/chokidar-timing-r34/LOCAL_AGENT_TASK.md)与[远端回执](../remediation/2026-09-15/chokidar-timing-r34/verification.json)是接续入口。候选已直接修改Chokidar spec，不是待应用patch。取件按最终交接消息的完整SHA，核对祖先及文件blob，再执行实际两个库版本/两个project。
 
-## r32：六个 Web 浏览器消费者失败（2026-09-14）
+候选仅在写入稳定场景控制Date与timeout/interval，保留生产Loader/VFS/安装包、30ms/5ms和一次add契约；增加稳定前不发事件、add读到完整内容与稍后独立写入应发change的断言。watcher关闭后恢复真实时钟。完整Vitest/Windows集成、类型/lint/duplication/docs及独立复审尚未由远端执行，不能把2项显式轮询模型实验称作真实Chokidar通过。
 
-升级分支上六个 Web 浏览器消费者测试文件失败，已全部定因并在拥有者处修复，[证据索引](../remediation/2026-09-14/web-consumers-r32/FINDINGS.md)按文件留存首失、根因、修复与复测（logs 00-36）。要点：built-boot 为 jsdom 30 选择器行为（改 `getAttribute` 查找）；preset golden 为 js-yaml 5 诊断措辞单行（Windows 分隔符伪差不归一化）；lifecycle-chrome 为 composer 两处真缺陷（claim-decor `splitText` 样式泄漏致 Lexical #14 transform 死循环——与上游 Discussion #6052 同因；Lexical 0.50 组合填充滞留 DOM 吞 Backspace）；preview-boot 为三层（测试 `respond()` win32 分隔符、worker transform 具名导入急切读取致 zod core/util 循环 TDZ、default 访问器构造优先级），transform 语义升级为 `dsh-worker-transform/2` 并配 15 条新用例（项目计数 270→300）；queue-actions（CI-only React #185）与 sidebar-scrollbar（CI-only thumb/hover 透明）本机不可复现，分别按机制归因于 claim 循环的 React 嵌套更新风暴与用例间 linger 过期，已做加固（无断言删改、无错误过滤）。六文件 CI 并行形态合跑 32/33（唯一失败即上述 Windows 伪差）。决策记录见 [Agent Note](../../../.agents/notes/implemented/bug-fix/2026-09-14-web-consumers-r32-upgrade-remediation.md)。本段所列源码与证据已按拥有者分组提交，推送前待独立复审；未闭合项为该 Windows 伪差与两项待 CI 确认的归因。
+原10ms真实等待不保证实际间隔短于30ms，CI也没有逐次写入时间。已提出并处理测试前提风险，但具体CI延迟链尚未实证；本地真实执行若暴露其他缺陷，保留首失后窄修，不改变事件预期或提高阈值掩盖。
 
-## 已结案的勘误与非本轮任务
+## 交付规则与范围
 
-r28 本机 static 实际46/1，无本机47/47原始日志，不能拿CI摘录冒充。两处陈旧日志名的核对结果保持在r29回执，不改封存r28材料。`push-attempt1.log` 是复推成功记录，首次失败输出缺失；负向回归的7ms是用例耗时，实际失败为150<240。不要再要求补造这些缺失历史。
+给本地agent的文件先放GitHub，提示词提供固定SHA、路径、完整性和用法。本轮所有候选/说明已入库，原Windows ZIP在该仓库Actions artifact。安全fetch/快进，保留其他工作，不reset、不强推、不自动stash。正常hooks与独立复审后，追加r34/windows-execution证据并推送同分支。
 
-六个既有 Windows golden 失败不能全归因于8.3路径；已读日志还包含bash/pwsh、命令文本和换行差异。保留用户A/B基线同样失败的结论，并按当前任务先核对已有本机日志。此轮不把macOS/Linux夹具范围扩大成Windows新阻断，不改normalizer或刷新golden抹平语义差异。
+复用现有Node26.8.2/pnpm12.4.1/依赖；不重装、不再升级、不跑全部Web、完整coverage、Gateway212、Loader122或exe/wheel矩阵。必要源码推送可能使旧CI被取消，不能把取消当通过；不手动重复触发。Issue policy/lifecycle/PR preview独立失败不通过权限或发布配置绕过。
 
-Issue policy、Issue lifecycle、Build PR preview 的独立失败仍未归因；不改权限/分支保护绕过。真实API不运行，macOS不在本PR打包矩阵。Windows CSPRNG同类子进程和文件symlink旧未证明项不因其他CI成功自动标绿。
+历史r29–r33回执与更正保持原字节，不再寻找或补造缺失push/旧static日志，不重做既有Windows命令golden。真实API未授权，macOS打包矩阵、Windows CSPRNG同类子进程及文件symlink的旧未证明范围不自动标绿。
 
-## 执行约束
-
-远端先做可执行的读取、取证和仓库交接；本地只处理需要完整依赖、Windows行为和独立复审的新增任务。取件使用固定提交SHA，先检查工作树，安全快进；保留后续工作，不reset、强推、自动stash、重复clone。当前r30只交付文档/取证任务，没有源码补丁等待重复应用。新源码按正常hooks和独立复审后提交，回传真实SHA、固定证据路径及通过/失败/未运行。
-
-模型配置两文件、provider/endpoint/思考等级/credentialRef、P0-B state、pkg补丁、锁和旧证据不变。不读生产Key或全局认证，不请求真实模型，不改全局工具、账号/ACL/注册表/防火墙/UAC/Developer Mode，不部署runner、不使用Remote Desktop Commander、不操作其他项目。不把普通独立复审冒充指定规划/硬审核，不改PR base、不合并、不进入P0-C。
+模型配置两文件、provider/endpoint/思考等级/credentialRef、P0-B state、pnpm锁、pkg补丁、生产运行源码与CI策略不变。不读生产Key或全局凭据、不操作用户.env、不调用真实模型、不改系统/账号/ACL/防火墙/UAC/Developer Mode、不用Remote Desktop Commander、不操作其他项目。普通独立复审不冒充指定P0-B规划/硬审核。
