@@ -731,3 +731,123 @@ refuses('unparseable source is refused', 'export const = \n', 'parse failed')
     true,
   )
 }
+
+// ---------------------------------------------------------------------------
+// 11. Live import bindings. A cyclic module pair touches an import inside a
+//     function while the exporting module has not finished evaluating; an
+//     eager `const local = held[name]` at the require site trips the temporal
+//     dead zone there (zod's core/util cycle is the shipped example). Use
+//     sites must read through the required module's exports instead.
+// ---------------------------------------------------------------------------
+
+{
+  // The zod-shaped cycle: util requires core at its top while core is
+  // mid-evaluation, and only touches the binding inside a function.
+  const core = transformModule(
+    [
+      "import { readsMarker } from './util.js'",
+      'export const marker = "core"',
+      'export const globalConfig = { jitless: false }',
+      'export function cross() { return readsMarker() }',
+      '',
+    ].join('\n'),
+    'core.js',
+  )
+  const util = transformModule(
+    [
+      "import { globalConfig, marker } from './core.js'",
+      'export function readsConfig() { return globalConfig.jitless }',
+      'export function readsMarker() { return marker }',
+      'export const eager = 1',
+      '',
+    ].join('\n'),
+    'util.js',
+  )
+  const cache = new Map<string, Record<string, unknown>>()
+  const require = (specifier: string): Record<string, unknown> => {
+    const cached = cache.get(specifier)
+    if (cached !== undefined) return cached
+    const exports: Record<string, unknown> = {}
+    cache.set(specifier, exports)
+    const code = specifier === './core.js' ? core : util
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval -- runBody's wrapper shape, populating a caller-made exports
+    const factory = new Function(...WRAPPER_PARAMS, code) as (...args: unknown[]) => void
+    factory(exports, require, { exports }, `/vfs/${specifier}`, '/vfs', { url: `file:///vfs/${specifier}` })
+    return exports
+  }
+  const coreExports = require('./core.js') as { globalConfig: { jitless: boolean }; cross: () => unknown }
+  const utilExports = cache.get('./util.js') as { readsConfig: () => boolean; readsMarker: () => unknown }
+  check('cyclic module pair evaluates without a dead zone', typeof utilExports.readsMarker, 'function')
+  check('cyclic read sees the initialized binding', utilExports.readsMarker(), 'core')
+  check('cyclic read through a nested function sees it too', coreExports.cross(), 'core')
+  check('cyclic object binding stays live', utilExports.readsConfig(), false)
+
+  lacks('cyclic import emits no eager specifier const', util, 'const globalConfig=')
+  contains('cyclic import reads through the held module', util, 'return __dsh$m1["globalConfig"].jitless')
+}
+
+{
+  // Shadowed names keep their local meaning; only true references rewrite.
+  const code = transformModule(
+    [
+      "import { a } from 'p'",
+      'export function param(a) { return a }',
+      'export const block = () => { const a = 2; return a }',
+      'export const outer = () => a',
+      'export const shorthand = () => ({ a })',
+      'export const memberKey = () => ({ a: 1, b: 2 }).a',
+      'export let assigned = 0',
+      'export function setAssigned(v) { assigned = v }',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  const exports = runBody(code, () => ({ a: 'import' })) as {
+    param: (value: string) => string
+    block: () => number
+    outer: () => string
+    shorthand: () => { a: string }
+    memberKey: () => number
+    setAssigned: (value: number) => void
+  }
+  check('parameter shadow keeps its argument', exports.param('local'), 'local')
+  check('block shadow keeps its local const', exports.block(), 2)
+  check('outer reference reads the import', exports.outer(), 'import')
+  check('shorthand property expands to the import read', exports.shorthand().a, 'import')
+  check('member key stays a key', exports.memberKey(), 1)
+}
+
+{
+  // A re-export of an imported binding must read through the module, and a
+  // reference before the import statement (legal hoisting) must still rewrite.
+  const reexport = transformModule("import { a } from 'p'\nexport { a }\n", 'probe.js')
+  const hoisted = transformModule('export const out = later()\nfunction later() { return a }\nimport { a } from "p"\n', 'probe.js')
+  contains('re-export reads through the held module', reexport, '__dsh$def(exports,"a",()=>__dsh$m1["a"])')
+  const exports = runBody(hoisted, () => ({ a: 'late-import' })) as { out: string }
+  check('hoisted reference before its import rewrites', exports.out, 'late-import')
+}
+
+{
+  // A default import used as a constructor must construct the imported value:
+  // the interop accessor is a call expression and needs parentheses under
+  // `new`, or the constructor invocation binds to the helper itself.
+  const code = transformModule(
+    [
+      "import Ctor from 'p'",
+      "import { Named } from 'q'",
+      'export const made = () => new Ctor(1)',
+      'export const madeNamed = () => new Named(2)',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  class DefaultCtor { constructor(public value: number) {} }
+  class NamedCtor { constructor(public value: number) {} }
+  const exports = runBody(code, (specifier: string) =>
+    specifier === 'p' ? { __esModule: true, default: DefaultCtor } : { Named: NamedCtor }) as {
+    made: () => DefaultCtor
+    madeNamed: () => NamedCtor
+  }
+  check('default import constructs the imported class', exports.made().value, 1)
+  check('named import constructs the imported class', exports.madeNamed().value, 2)
+}

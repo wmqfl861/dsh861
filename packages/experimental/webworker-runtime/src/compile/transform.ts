@@ -13,6 +13,12 @@
  * The image packer is this transform's only caller: it lowers every JavaScript
  * entry it packs and records `LOWERING_VERSION` in the image manifest, so the
  * worker wraps those bodies without carrying a compiler of its own.
+ *
+ * Named and default import bindings stay live: each use site reads through the
+ * required module's exports, because a cyclic module pair legally touches an
+ * import inside a function before the exporting module finished evaluating,
+ * and an eager `const local = held[name]` would trip the temporal dead zone
+ * there. Namespace imports remain an eager snapshot.
  * @module @deepseek-ai/dsh-experimental-webworker-runtime/src/compile/transform
  */
 import { parse } from 'acorn'
@@ -57,7 +63,22 @@ interface Edit {
 /** One binding to publish on `exports`. */
 interface Binding {
   readonly exported: string
-  readonly local: string
+  /** Expression read lazily by the export getter: a local identifier or an import accessor. */
+  readonly read: string
+}
+
+/**
+ * A named or default import binding. The lowered body reads it through the
+ * required module's exports at each use site, never eagerly at evaluation:
+ * a cyclic module pair (zod's core/util is the shipped example) legally
+ * accesses an import inside a function while the exporting module has not
+ * finished evaluating, and an eager `const local = held[name]` would trip the
+ * temporal dead zone there.
+ */
+interface ImportedBinding {
+  readonly held: string
+  readonly imported: string
+  readonly interop: 'named' | 'default'
 }
 
 class Transformer {
@@ -65,6 +86,13 @@ class Transformer {
   private readonly source: string
   private readonly helpers = new Set<string>()
   private readonly bindings: Binding[] = []
+  private readonly importedLocals = new Map<string, ImportedBinding>()
+  /** Import statement start offset to its prepared held-module temp. */
+  private readonly preparedImports = new Map<number, string>()
+  /** Prologue requires emitted in import-statement order, ESM-hoisted ahead of the body. */
+  private readonly importRequires: string[] = []
+  /** Names each entered non-module scope declares; a shadowed import keeps its local meaning. */
+  private readonly scopes: Array<ReadonlySet<string>> = []
   private modules = 0
   private temporaries = 0
   private moduleSyntax = false
@@ -150,35 +178,68 @@ class Transformer {
 
   // --- module syntax --------------------------------------------------------
 
-  private importDeclaration(node: Node): void {
+  /**
+   * Register one import's held module temp and its lazy locals before the
+   * traversal: ESM hoists imports, so a reference may textually precede its
+   * import statement and the binding must already be known when it is
+   * visited. Idempotent per import statement.
+   * @returns The temp that holds the required module at the import's position.
+   */
+  private prepareImport(node: Node): string {
+    const existing = this.preparedImports.get(node.start)
+    if (existing !== undefined) return existing
+    const held = this.moduleTemp()
+    this.preparedImports.set(node.start, held)
     this.moduleSyntax = true
+    for (const specifier of node.specifiers as Node[]) {
+      if (specifier.type === 'ImportNamespaceSpecifier') continue
+      const local = (specifier.local as Node).name as string
+      const isDefault = specifier.type === 'ImportDefaultSpecifier'
+      const imported = specifier.imported as Node
+      const name = isDefault
+        ? 'default'
+        : imported.type === 'Identifier' ? imported.name as string : imported.value as string
+      this.importedLocals.set(local, { held, imported: name, interop: isDefault ? 'default' : 'named' })
+    }
+    return held
+  }
+
+  private importDeclaration(node: Node): void {
     if (Array.isArray(node.attributes) && node.attributes.length > 0) {
       this.fail('import attributes are not supported', node.start)
     }
     const source = node.source as Node
     const request = `require(${this.literal(source)})`
     const specifiers = node.specifiers as Node[]
+    // ESM evaluates imports before the module body however late the statement
+    // sits in it, so the require joins the prologue rather than its statement
+    // position; a body statement that runs before the textual import still
+    // reads an initialized binding.
     if (specifiers.length === 0) {
-      this.replace(node.start, node.end, `${request};`)
-      return
-    }
-    const held = this.moduleTemp()
-    const lines = [`const ${held}=${request};`]
-    for (const specifier of specifiers) {
-      const local = (specifier.local as Node).name as string
-      if (specifier.type === 'ImportDefaultSpecifier') {
-        lines.push(`const ${local}=${this.helper('default')}(${held});`)
-        continue
+      this.importRequires.push(`${request};`)
+    } else {
+      const held = this.prepareImport(node)
+      this.importRequires.push(`const ${held}=${request};`)
+      for (const specifier of specifiers) {
+        if (specifier.type !== 'ImportNamespaceSpecifier') continue
+        // A namespace import stays an eager snapshot: nothing in the shipped
+        // graph reaches a cycle through one, and a live namespace would need
+        // identity-stable lazy properties the CommonJS body cannot express.
+        const local = (specifier.local as Node).name as string
+        this.importRequires.push(`const ${local}=${this.helper('ns')}(${held});`)
       }
-      if (specifier.type === 'ImportNamespaceSpecifier') {
-        lines.push(`const ${local}=${this.helper('ns')}(${held});`)
-        continue
-      }
-      const imported = specifier.imported as Node
-      const name = imported.type === 'Identifier' ? imported.name as string : imported.value as string
-      lines.push(`const ${local}=${held}[${JSON.stringify(name)}];`)
     }
-    this.replace(node.start, node.end, lines.join(''))
+    this.replace(node.start, node.end, '')
+  }
+
+  /** @returns The expression a use site reads one import binding through. */
+  private importedRead(binding: ImportedBinding): string {
+    // The default accessor is parenthesized: it is a call expression, and a
+    // bare call after `new` would bind the constructor invocation to the
+    // helper instead of the imported default (`new X()` must construct X).
+    return binding.interop === 'default'
+      ? `(${this.helper('default')}(${binding.held}))`
+      : `${binding.held}[${JSON.stringify(binding.imported)}]`
   }
 
   private exportNamed(node: Node): void {
@@ -191,7 +252,7 @@ class Transformer {
       // `export const x = 1` keeps its declaration; only the keyword goes.
       this.replace(node.start, declaration.start, '')
       for (const { exported, local } of declaredBindings(declaration, detail => this.fail(detail, declaration.start))) {
-        this.bindings.push({ exported, local })
+        this.bindings.push({ exported, read: local })
       }
       return
     }
@@ -207,9 +268,16 @@ class Transformer {
       this.replace(node.start, node.end, lines.join(''))
       return
     }
-    // A bare `export {}` is a module marker with nothing to publish.
+    // A bare `export {}` is a module marker with nothing to publish. An
+    // imported local re-exported here reads through its accessor, not a local
+    // binding the lowered body never declared.
     for (const specifier of specifiers) {
-      this.bindings.push({ exported: nameOf(specifier.exported as Node), local: nameOf(specifier.local as Node) })
+      const local = nameOf(specifier.local as Node)
+      const binding = this.importedLocals.get(local)
+      this.bindings.push({
+        exported: nameOf(specifier.exported as Node),
+        read: binding === undefined ? local : this.importedRead(binding),
+      })
     }
     this.replace(node.start, node.end, '')
   }
@@ -315,11 +383,43 @@ class Transformer {
 
   // --- traversal ------------------------------------------------------------
 
+  /** A slot an identifier occupies without being a reference to a binding. */
+  private isBindingSlot(parent: Node, key: string): boolean {
+    switch (parent.type) {
+      case 'MemberExpression':
+      case 'OptionalMemberExpression':
+        return key === 'property' && parent.computed !== true
+      case 'Property':
+      case 'MethodDefinition':
+      case 'PropertyDefinition':
+        return key === 'key' && parent.computed !== true
+      case 'VariableDeclarator':
+      case 'FunctionDeclaration':
+      case 'FunctionExpression':
+      case 'ClassDeclaration':
+      case 'ClassExpression':
+        return key === 'id'
+      case 'LabeledStatement':
+      case 'BreakStatement':
+      case 'ContinueStatement':
+        return key === 'label'
+      case 'CatchClause':
+        return key === 'param'
+      case 'MetaProperty':
+        return key === 'meta' || key === 'property'
+      default:
+        return false
+    }
+  }
+
   private visit(node: unknown, context: {
     asyncGenerator: boolean
     functionDepth: number
     moduleScope: boolean
     statement?: Node
+    parent?: Node
+    key?: string
+    skipReferences?: boolean
   }): void {
     if (node === null || typeof node !== 'object') return
     if (Array.isArray(node)) {
@@ -330,10 +430,38 @@ class Transformer {
     if (typeof record.type !== 'string') return
     let next = context
     switch (record.type) {
-      case 'ImportDeclaration': this.importDeclaration(record); break
-      case 'ExportNamedDeclaration': this.exportNamed(record); break
+      case 'ImportDeclaration':
+        this.importDeclaration(record)
+        // Nothing inside an import statement is a reference to rewrite.
+        return
+      case 'ExportNamedDeclaration': {
+        this.exportNamed(record)
+        const declaration = record.declaration as Node | null
+        if (declaration !== null) {
+          this.visit(declaration, { ...next, parent: record, key: 'declaration' })
+        }
+        return
+      }
       case 'ExportDefaultDeclaration': this.exportDefault(record); break
-      case 'ExportAllDeclaration': this.exportAll(record); break
+      case 'ExportAllDeclaration': this.exportAll(record); return
+      case 'Identifier': {
+        const parent = context.parent
+        if (context.skipReferences === true || parent === undefined) break
+        if (this.isBindingSlot(parent, context.key ?? '')) break
+        const name = record.name as string
+        const binding = this.importedLocals.get(name)
+        if (binding === undefined || this.scopes.some(scope => scope.has(name))) break
+        const read = this.importedRead(binding)
+        const shorthand = parent.type === 'Property' && context.key === 'value'
+          && (parent as Node & { shorthand?: boolean }).shorthand === true
+        this.replace(record.start, record.end, shorthand ? `${name}:${read}` : read)
+        break
+      }
+      case 'VariableDeclarator': {
+        this.visit(record.id, { ...next, parent: record, key: 'id', skipReferences: true })
+        this.visit(record.init, { ...next, parent: record, key: 'init' })
+        return
+      }
       case 'ImportExpression': {
         this.moduleSyntax = true
         if (!this.source.startsWith('import', record.start)) this.fail('unexpected dynamic import layout', record.start)
@@ -350,9 +478,10 @@ class Transformer {
         // only a direct module-scope createRequire call with the importer URL.
         const callee = record.callee as Node
         const callArguments = record.arguments as Node[]
+        const literalArgument = callArguments[0]?.value
         if (this.isRequireCall(callee, context.moduleScope) && callArguments.length === 1
-          && typeof callArguments[0]?.value === 'string') {
-          this.moduleRequests.add(callArguments[0].value)
+          && typeof literalArgument === 'string') {
+          this.moduleRequests.add(literalArgument)
         }
         // `import.meta.resolve('lit')` is the third static request face: the
         // loader answers it from the image, so the pack sweep must keep the
@@ -363,8 +492,8 @@ class Transformer {
           const property = callee.property as Node
           if (object.type === 'MetaProperty' && (object.meta as Node).name === 'import'
             && property.type === 'Identifier' && property.name === 'resolve'
-            && typeof callArguments[0]?.value === 'string') {
-            this.metaResolveRequests.add(callArguments[0].value)
+            && typeof literalArgument === 'string') {
+            this.metaResolveRequests.add(literalArgument)
           }
         }
         break
@@ -387,11 +516,15 @@ class Transformer {
         break
       case 'ForOfStatement':
         if (record.await === true) {
-          if (context.functionDepth === 0) this.fail('a top-level for-await loop cannot run as CommonJS', record.start)
+          if (context.functionDepth === 0) this.fail('a top-level for-await loop cannot run as CommonJS in the worker', record.start)
           this.forAwait(record)
         }
-        next = { ...next, moduleScope: false }
-        break
+        this.visitLoop(record, context)
+        return
+      case 'ForStatement':
+      case 'ForInStatement':
+        this.visitLoop(record, context)
+        return
       case 'LabeledStatement': {
         const body = record.body as Node
         if (body.type === 'ForOfStatement' && body.await === true) {
@@ -404,27 +537,118 @@ class Transformer {
         break
       case 'FunctionDeclaration':
       case 'FunctionExpression':
-      case 'ArrowFunctionExpression':
+      case 'ArrowFunctionExpression': {
         next = {
+          ...next,
           asyncGenerator: record.async === true && record.generator === true,
           functionDepth: context.functionDepth + 1,
           moduleScope: false,
         }
-        break
-      case 'BlockStatement':
-      case 'CatchClause':
+        this.scopes.push(functionScopeNames(record))
+        try {
+          this.visit(record.id, { ...next, key: 'id', parent: record, skipReferences: true })
+          for (const param of record.params as Node[]) {
+            this.visit(param, { ...next, key: 'params', parent: record, skipReferences: true })
+          }
+          this.visit(record.body, { ...next, key: 'body', parent: record })
+        } finally {
+          this.scopes.pop()
+        }
+        return
+      }
+      case 'BlockStatement': {
+        next = { ...next, moduleScope: false }
+        this.scopes.push(blockScopeNames(record))
+        try {
+          this.recurse(record, next)
+        } finally {
+          this.scopes.pop()
+        }
+        return
+      }
+      case 'CatchClause': {
+        next = { ...next, moduleScope: false }
+        const caught = new Set<string>()
+        patternNames(record.param, caught)
+        this.scopes.push(caught)
+        try {
+          this.visit(record.param, { ...next, key: 'param', parent: record, skipReferences: true })
+          this.visit(record.body, { ...next, key: 'body', parent: record })
+        } finally {
+          this.scopes.pop()
+        }
+        return
+      }
+      case 'SwitchStatement': {
+        next = { ...next, moduleScope: false }
+        this.scopes.push(switchScopeNames(record))
+        try {
+          this.recurse(record, next)
+        } finally {
+          this.scopes.pop()
+        }
+        return
+      }
       case 'ClassBody':
-      case 'ForStatement':
-      case 'ForInStatement':
-      case 'SwitchStatement':
+      case 'ClassDeclaration':
+      case 'ClassExpression':
         next = { ...next, moduleScope: false }
         break
       default: break
     }
     if (record.type === 'ExpressionStatement') next = { ...next, statement: record }
+    this.recurse(record, next)
+  }
+
+  /** Recurse into every child of a node with parent/key context attached. */
+  private recurse(record: Node, next: {
+    asyncGenerator: boolean
+    functionDepth: number
+    moduleScope: boolean
+    statement?: Node
+    parent?: Node
+    key?: string
+    skipReferences?: boolean
+  }): void {
     for (const [key, value] of Object.entries(record)) {
       if (key === 'type' || key === 'start' || key === 'end') continue
-      this.visit(value, next)
+      this.visit(value, { ...next, parent: record, key, skipReferences: false })
+    }
+  }
+
+  /** Visit a loop whose `init`/`left` declares per-iteration block bindings. */
+  private visitLoop(record: Node, context: {
+    asyncGenerator: boolean
+    functionDepth: number
+    moduleScope: boolean
+    statement?: Node
+    parent?: Node
+    key?: string
+    skipReferences?: boolean
+  }): void {
+    const next = { ...context, moduleScope: false }
+    const declared = new Set<string>()
+    const head = (record.type === 'ForStatement' ? record.init : record.left) as Node | null
+    if (head !== null && head.type === 'VariableDeclaration' && head.kind !== 'var') {
+      for (const declarator of head.declarations as Node[]) patternNames(declarator.id, declared)
+    }
+    this.scopes.push(declared)
+    try {
+      if (head !== null) {
+        if (head.type === 'VariableDeclaration') {
+          this.visit(head, { ...next, parent: record, key: 'init' })
+        } else {
+          this.visit(head, { ...next, parent: record, key: 'left' })
+        }
+      }
+      if (record.type !== 'ForStatement') this.visit(record.right, { ...next, parent: record, key: 'right' })
+      if (record.type === 'ForStatement') {
+        this.visit(record.test, { ...next, parent: record, key: 'test' })
+        this.visit(record.update, { ...next, parent: record, key: 'update' })
+      }
+      this.visit(record.body, { ...next, parent: record, key: 'body' })
+    } finally {
+      this.scopes.pop()
     }
   }
 
@@ -480,6 +704,13 @@ class Transformer {
       this.fail(`parse failed: ${(reason as Error).message}`, 0)
     }
     this.indexCreateRequireImports(program)
+    // Imports register their lazy locals before the traversal: ESM hoists
+    // them, so a reference may textually precede its import and the binding
+    // must already be known when the reference is visited. The statement's
+    // own rewrite still happens at its position, keeping request order.
+    for (const statement of program.body as Node[]) {
+      if (statement.type === 'ImportDeclaration') this.prepareImport(statement)
+    }
     this.visit(program, { asyncGenerator: false, functionDepth: 0, moduleScope: true })
     if (this.edits.length === 0 && !this.moduleSyntax) return this.source
 
@@ -489,8 +720,9 @@ class Transformer {
     for (const [name, source] of Object.entries(HELPER_SOURCE)) {
       if (this.helpers.has(name)) prologue.push(source)
     }
-    for (const { exported, local } of this.bindings) {
-      prologue.push(`__dsh$def(exports,${JSON.stringify(exported)},()=>${local});`)
+    prologue.push(...this.importRequires)
+    for (const { exported, read } of this.bindings) {
+      prologue.push(`__dsh$def(exports,${JSON.stringify(exported)},()=>${read});`)
     }
 
     const sorted = [...this.edits].sort((left, right) => left.start - right.start || left.end - right.end)
@@ -521,8 +753,105 @@ function nameOf(node: Node): string {
   return node.type === 'Identifier' ? node.name as string : String(node.value)
 }
 
+/** Collect every name a binding pattern declares into `into`. */
+function patternNames(pattern: unknown, into: Set<string>): void {
+  if (pattern === null || typeof pattern !== 'object') return
+  const node = pattern as Node
+  switch (node.type) {
+    case 'Identifier':
+      into.add(node.name as string)
+      return
+    case 'ObjectPattern':
+      for (const property of node.properties as Node[]) {
+        patternNames(property.type === 'RestElement' ? property.argument : property.value, into)
+      }
+      return
+    case 'ArrayPattern':
+      for (const element of node.elements as Array<Node | null>) {
+        if (element !== null) patternNames(element, into)
+      }
+      return
+    case 'AssignmentPattern':
+      patternNames(node.left, into)
+      return
+    case 'RestElement':
+      patternNames(node.argument, into)
+      return
+    default:
+      return
+  }
+}
+
+/**
+ * Collect `var` names declared anywhere under `node`, stopping at function
+ * boundaries: `var` hoists to the enclosing function scope, so a nested
+ * block's `var` still shadows a same-named import for the whole function.
+ */
+function collectVarNames(node: Node, into: Set<string>): void {
+  if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression'
+    || node.type === 'ArrowFunctionExpression') return
+  if (node.type === 'VariableDeclaration' && node.kind === 'var') {
+    for (const declarator of node.declarations as Node[]) patternNames(declarator.id, into)
+  }
+  for (const [key, value] of Object.entries(node)) {
+    if (key === 'type' || key === 'start' || key === 'end') continue
+    if (value === null || typeof value !== 'object') continue
+    if (Array.isArray(value)) {
+      for (const child of value) {
+        if (child !== null && typeof child === 'object') collectVarNames(child as Node, into)
+      }
+      continue
+    }
+    if (typeof (value as Node).type === 'string') collectVarNames(value as Node, into)
+  }
+}
+
+/**
+ * Names one function's own scope declares: parameters, a named function
+ * expression's self-binding, and every `var` under it. Block-level lexical
+ * declarations belong to their blocks and are collected there instead.
+ */
+function functionScopeNames(node: Node): ReadonlySet<string> {
+  const names = new Set<string>()
+  const id = node.id as Node | null
+  if (id !== null) names.add(id.name as string)
+  for (const param of node.params as Node[]) patternNames(param, names)
+  collectVarNames(node.body as Node, names)
+  return names
+}
+
+/** Names a block's direct statement list declares lexically (let/const/class/function). */
+function blockScopeNames(block: Node): ReadonlySet<string> {
+  const names = new Set<string>()
+  for (const statement of block.body as Node[]) {
+    if (statement.type === 'VariableDeclaration' && statement.kind !== 'var') {
+      for (const declarator of statement.declarations as Node[]) patternNames(declarator.id, names)
+    } else if (statement.type === 'FunctionDeclaration' || statement.type === 'ClassDeclaration') {
+      const id = statement.id as Node | null
+      if (id !== null) names.add(id.name as string)
+    }
+  }
+  return names
+}
+
+/** Names a switch's shared block scope declares across its case bodies. */
+function switchScopeNames(switchNode: Node): ReadonlySet<string> {
+  const names = new Set<string>()
+  for (const caseClause of switchNode.cases as Node[]) {
+    for (const statement of caseClause.consequent as Node[]) {
+      if (statement.type === 'VariableDeclaration' && statement.kind !== 'var') {
+        for (const declarator of statement.declarations as Node[]) patternNames(declarator.id, names)
+      } else if (statement.type === 'FunctionDeclaration' || statement.type === 'ClassDeclaration') {
+        const id = statement.id as Node | null
+        if (id !== null) names.add(id.name as string)
+      }
+    }
+  }
+  return names
+}
+
 /** Every binding an exported declaration introduces, including patterns. */
-function declaredBindings(declaration: Node, fail: (detail: string) => never): Binding[] {
+function declaredBindings(declaration: Node, fail: (detail: string) => never): Array<{ exported: string; local: string }> {
   if (declaration.type === 'FunctionDeclaration' || declaration.type === 'ClassDeclaration') {
     const id = declaration.id as Node | null
     if (id === null) fail('an exported declaration must be named')
@@ -530,7 +859,7 @@ function declaredBindings(declaration: Node, fail: (detail: string) => never): B
     return [{ exported: name, local: name }]
   }
   if (declaration.type !== 'VariableDeclaration') fail(`unsupported exported declaration ${declaration.type}`)
-  const bindings: Binding[] = []
+  const bindings: Array<{ exported: string; local: string }> = []
   const collect = (pattern: Node): void => {
     switch (pattern.type) {
       case 'Identifier':
