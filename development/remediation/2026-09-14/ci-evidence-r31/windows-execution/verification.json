@@ -96,12 +96,14 @@
     "Gateway212, Loader122, exe/wheel matrix, whole upgrade round reruns, six known Windows golden failures (r29/r30 scope, preserved)",
     "snapshot -u refresh, normalizer changes, lock changes, model goldens",
     "WMI/PowerShell abort-flake reruns: r30 evidence stands; no new failure occurred in this round's runs, so no new classification was needed",
-    "PR body publication: no gh on this host; nothing installed, no token requested, no global credentials read",
-    "push (gated on the independent fresh-context review per task ordering; r30 precedent)"
+    "PR body publication: no gh on this host; nothing installed, no token requested, no global credentials read"
   ],
   "independentReview": {
-    "status": "pending",
-    "note": "Per the task ordering, a fresh-context independent review of the r31 candidate+integration fix+evidence is requested before push; the r30 review PASS is not reused as r31 review evidence."
+    "status": "PASS",
+    "verdict": "11/11 checklist items passed; no remediation items",
+    "method": "fresh-context independent review subagent dispatched by the main session after the local commit; examined commit 93959964c213b8df2cd9d4c4610689c43a033a00 (git show diff over the four source files), the bundle material under remote-intake/, this verification.json and its logs, against the user's r31 task text; conclusion relayed by the coordinator before push",
+    "reviewedBeforePush": true,
+    "note": "The r30 review PASS was not reused as r31 review evidence; this record was updated before the push (chosen over amend-and-repush: the pre-review commit SHA stays immutable in history)."
   },
   "archive": {
     "file": "logs.tar.xz",
