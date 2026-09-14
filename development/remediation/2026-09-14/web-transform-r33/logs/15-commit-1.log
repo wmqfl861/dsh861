@@ -1,0 +1,52 @@
+[38;2;0;0;0m╭[38;2;5;5;5m─[38;2;11;11;11m─[38;2;16;16;16m─[38;2;19;19;19m─[38;2;23;23;23m─[38;2;26;26;26m─[38;2;29;29;29m─[38;2;32;32;32m─[38;2;35;35;35m─[38;2;39;39;39m─[38;2;42;42;42m─[38;2;45;45;45m─[38;2;49;49;49m─[38;2;52;52;52m─[38;2;56;56;56m─[38;2;56;56;56m─[38;2;52;52;52m─[38;2;49;49;49m─[38;2;45;45;45m─[38;2;42;42;42m─[38;2;39;39;39m─[38;2;35;35;35m─[38;2;32;32;32m─[38;2;29;29;29m─[38;2;26;26;26m─[38;2;23;23;23m─[38;2;19;19;19m─[38;2;16;16;16m─[38;2;11;11;11m─[38;2;5;5;5m─[38;2;0;0;0m─[38;2;0;0;0m─[38;2;5;5;5m─[38;2;11;11;11m─[38;2;16;16;16m─[38;2;19;19;19m─[38;2;23;23;23m─[38;2;26;26;26m─[38;2;29;29;29m─[38;2;32;32;32m─[38;2;35;35;35m─[38;2;39;39;39m─[38;2;42;42;42m╮[m
+[38;2;0;0;0m│[m 🥊 lefthook  v2.1.12   hook:  [1mpre-commit[m [38;2;52;52;52m│[m
+[38;2;6;6;6m╰[38;2;12;12;12m─[38;2;17;17;17m─[38;2;20;20;20m─[38;2;24;24;24m─[38;2;27;27;27m─[38;2;31;31;31m─[38;2;34;34;34m─[38;2;38;38;38m─[38;2;41;41;41m─[38;2;45;45;45m─[38;2;48;48;48m─[38;2;52;52;52m─[38;2;56;56;56m─[38;2;56;56;56m─[38;2;52;52;52m─[38;2;48;48;48m─[38;2;45;45;45m─[38;2;41;41;41m─[38;2;38;38;38m─[38;2;34;34;34m─[38;2;31;31;31m─[38;2;27;27;27m─[38;2;24;24;24m─[38;2;20;20;20m─[38;2;17;17;17m─[38;2;12;12;12m─[38;2;6;6;6m─[38;2;0;0;0m─[38;2;0;0;0m─[38;2;5;5;5m─[38;2;11;11;11m─[38;2;16;16;16m─[38;2;19;19;19m─[38;2;23;23;23m─[38;2;26;26;26m─[38;2;29;29;29m─[38;2;32;32;32m─[38;2;35;35;35m─[38;2;39;39;39m─[38;2;42;42;42m─[38;2;45;45;45m─[38;2;49;49;49m─[38;2;52;52;52m╯[m
+┃  translation pairing (staged records) ❯
+verify-translation-pairing: 1 named staged pair(s) consistent; the corpus-wide check still runs in doc-sync.
+
+│  archived agent notes (skip) no matching staged files
+┃  lint (staged) ❯
+
+  ! Unused eslint-disable directive (no problems were reported).
+    ,-[packages/experimental/webworker-runtime/tests/compile/transform.spec.ts:81:3]
+ 80 |   const module = { exports }
+ 81 |   // eslint-disable-next-line @typescript-eslint/no-implied-eval -- the wrapper contract under test is a `new Function` body
+    :   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 82 |   const factory = new Function(...WRAPPER_PARAMS, code) as (...args: unknown[]) => void
+    `----
+
+  ! Unused eslint-disable directive (no problems were reported).
+     ,-[packages/experimental/webworker-runtime/tests/compile/transform.spec.ts:108:7]
+ 107 |     try {
+ 108 |       // eslint-disable-next-line @typescript-eslint/no-implied-eval -- proves the parameter names compile where the loader uses them
+     :       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 109 |       new Function(...WRAPPER_PARAMS, 'return 0')
+     `----
+
+  ! Unused eslint-disable directive (no problems were reported).
+     ,-[packages/experimental/webworker-runtime/tests/compile/transform.spec.ts:773:5]
+ 772 |     const code = specifier === './core.js' ? core : util
+ 773 |     // eslint-disable-next-line @typescript-eslint/no-implied-eval -- runBody's wrapper shape, populating a caller-made exports
+     :     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 774 |     const factory = new Function(...WRAPPER_PARAMS, code) as (...args: unknown[]) => void
+     `----
+
+Found 3 warnings and 0 errors.
+Finished in 2.4s on 3 files with 49 rules using 20 threads.
+
+┃  third-party notices (staged) ❯
+gen-third-party-notices: wrote THIRD_PARTY_NOTICES.md.
+
+┃  whitespace (staged) ❯
+
+┃  vendor manifest guard ❯
+
+[38;2;56;56;56m  ────────────────────────────────────[m
+summary: (done in 11.51 seconds)
+✔️ translation pairing (staged records) (1.70 seconds)
+✔️ lint (staged) (3.11 seconds)
+✔️ third-party notices (staged) (6.17 seconds)
+✔️ whitespace (staged) (0.09 seconds)
+✔️ vendor manifest guard (0.31 seconds)
+[chore/latest-stable-upgrade-20260912 b781b450e6] fix(webworker-runtime): call imported callees receiver-free and scope switch discriminants outside cases
+ 6 files changed, 140 insertions(+), 23 deletions(-)
