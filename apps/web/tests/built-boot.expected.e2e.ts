@@ -47,6 +47,20 @@ function isUnknownRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null
 }
 
+/**
+ * Find an svg by its exact viewBox. jsdom 30 no longer matches camelCase
+ * attribute-value selectors (`svg[viewBox="…"]`) against foreign-namespace
+ * elements, so the exact attribute value is compared through getAttribute.
+ * @param viewBox - the exact viewBox string the brand artwork declares.
+ * @returns the first matching svg element, or null when absent.
+ */
+function findSvgByViewBox(viewBox: string): SVGSVGElement | null {
+  for (const svg of document.querySelectorAll('svg')) {
+    if (svg.getAttribute('viewBox') === viewBox) return svg
+  }
+  return null
+}
+
 /** Read one optional string from the verified client build record. */
 function clientBuildValue(name: string): string | undefined {
   const value = clientBuildEnvironment[name]
@@ -62,10 +76,10 @@ it('boots the built plugin graph and renders a fixture session end to end', asyn
   // The sidebar renders from the boot graph: every inject layer activated.
   const tree = await screen.findByRole('tree', { name: 'Sessions' }, { timeout: 10_000 })
   if (clientBuildValue('DSH_CLIENT_BUILD_PROFILE') === 'official') {
-    expect(document.querySelector('svg[viewBox="26 0 156 24"]')).not.toBeNull()
+    expect(findSvgByViewBox('26 0 156 24')).not.toBeNull()
     expect(screen.queryByText('DSH Local Build')).toBeNull()
   } else {
-    expect(document.querySelector('svg[viewBox="0 0 23.16 17.04"]')).not.toBeNull()
+    expect(findSvgByViewBox('0 0 23.16 17.04')).not.toBeNull()
     const version = clientBuildValue('DSH_CLIENT_VERSION')
     if (version === undefined) throw new Error('default client build record must carry DSH_CLIENT_VERSION')
     const commit = clientBuildValue('DSH_CLIENT_COMMIT_HASH')
