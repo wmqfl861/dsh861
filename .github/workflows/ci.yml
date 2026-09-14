@@ -202,7 +202,25 @@ jobs:
           exit "$sandbox_status"
 
       - name: Run exhaustive coverage
+        id: coverage-gates
+        env:
+          # Failure diagnostics only: run-gates exports sanitized gate results
+          # and logs under runner.temp when this is set; unset means no files.
+          DSH_GATE_EVIDENCE_DIR: ${{ runner.temp }}/gate-evidence/${{ github.job }}
+          DSH_GATE_EVIDENCE_PR_NUMBER: ${{ github.event.pull_request.number }}
+          DSH_GATE_EVIDENCE_PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          DSH_GATE_EVIDENCE_PR_BASE: ${{ github.event.pull_request.base.sha }}
         run: pnpm run check:ci:coverage
+      # Uploads only when the gate step itself failed (not on install or
+      # cancellation), so the artifact always corresponds to a real aggregate
+      # failure; the job's own failure conclusion is unchanged either way.
+      - name: Upload gate failure evidence
+        if: ${{ failure() && steps.coverage-gates.outcome == 'failure' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: gate-evidence-${{ github.job }}-run${{ github.run_id }}-attempt${{ github.run_attempt }}
+          path: ${{ runner.temp }}/gate-evidence/${{ github.job }}
+          if-no-files-found: error
 
   node-24-bench:
     if: github.event_name == 'pull_request'
@@ -360,7 +378,25 @@ jobs:
         run: pnpm --filter @deepseek-ai/dsh-web-frontend exec playwright install chromium
 
       - name: Run compatibility, snapshot, and artifact gates
+        id: consumer-gates
+        env:
+          # Failure diagnostics only: run-gates exports sanitized gate results
+          # and logs under runner.temp when this is set; unset means no files.
+          DSH_GATE_EVIDENCE_DIR: ${{ runner.temp }}/gate-evidence/${{ github.job }}
+          DSH_GATE_EVIDENCE_PR_NUMBER: ${{ github.event.pull_request.number }}
+          DSH_GATE_EVIDENCE_PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          DSH_GATE_EVIDENCE_PR_BASE: ${{ github.event.pull_request.base.sha }}
         run: pnpm run check:ci:consumers
+      # Uploads only when the gate step itself failed (not on install or
+      # cancellation), so the artifact always corresponds to a real aggregate
+      # failure; the job's own failure conclusion is unchanged either way.
+      - name: Upload gate failure evidence
+        if: ${{ failure() && steps.consumer-gates.outcome == 'failure' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: gate-evidence-${{ github.job }}-run${{ github.run_id }}-attempt${{ github.run_attempt }}
+          path: ${{ runner.temp }}/gate-evidence/${{ github.job }}
+          if-no-files-found: error
 
 
   node-compat:
@@ -604,8 +640,26 @@ jobs:
       # transform-corpus, client ui-trajectory client-bundle) self-skip on
       # unbuilt checkouts.
       - name: Run Windows coverage
+        id: coverage-gates
         shell: pwsh
+        env:
+          # Failure diagnostics only: run-gates exports sanitized gate results
+          # and logs under runner.temp when this is set; unset means no files.
+          DSH_GATE_EVIDENCE_DIR: ${{ runner.temp }}/gate-evidence/${{ github.job }}
+          DSH_GATE_EVIDENCE_PR_NUMBER: ${{ github.event.pull_request.number }}
+          DSH_GATE_EVIDENCE_PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          DSH_GATE_EVIDENCE_PR_BASE: ${{ github.event.pull_request.base.sha }}
         run: pnpm run check:ci:coverage
+      # Uploads only when the gate step itself failed (not on install or
+      # cancellation), so the artifact always corresponds to a real aggregate
+      # failure; the job's own failure conclusion is unchanged either way.
+      - name: Upload gate failure evidence
+        if: ${{ failure() && steps.coverage-gates.outcome == 'failure' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: gate-evidence-${{ github.job }}-run${{ github.run_id }}-attempt${{ github.run_attempt }}
+          path: ${{ runner.temp }}/gate-evidence/${{ github.job }}
+          if-no-files-found: error
       - name: Save coverage duration history
         # Coverage flakes must not prevent the cache from building; the
         # measured durations remain useful even when a partition failed. The

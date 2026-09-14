@@ -1,0 +1,92 @@
+$ tsx scripts/run-gates.ts doc-quick
+run-gates: doc-quick running 16 gate(s) with 4 worker(s) from 20 available CPU(s), doc-quick cap 4, fail-fast after first blocking failure.
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: PASS type equivalence (22.42s)
+run-gates: start public repository links
+run-gates: PASS markdown wrap (22.96s)
+run-gates: start doc refs
+run-gates: PASS doc refs (4.90s)
+run-gates: start package README Summaries
+run-gates: PASS package README Summaries (0.73s)
+run-gates: start package README model experience
+run-gates: PASS public repository links (10.46s)
+run-gates: start agent note classification
+
+== FAILED agent note classification (0.76s) ==
+command: pnpm run verify-agent-note-classification
+outcome: exit 1
+$ tsx scripts/verify-agent-note-classification.ts
+verify-agent-note-classification: violations found:
+  structure: implemented/2026-09-14-zzz-temp-red-fixture.md — expected {lifecycle}/{class}/file.md (got depth 2)
+[ELIFECYCLE] Command failed with exit code 1.
+run-gates: fail-fast aborting: agent note classification failed.
+
+== SKIPPED agent note format (0.00s) ==
+command: pnpm run verify-agent-note-format
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED archived agent notes (0.00s) ==
+command: pnpm run verify-archived-agent-notes
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED skill invocation metadata (0.00s) ==
+command: pnpm run verify-skill-invocation-metadata
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED translation prompt (0.00s) ==
+command: pnpm run verify-translation-prompt
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED doc budgets (0.00s) ==
+command: pnpm run verify-doc-budgets
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED documentation standard tests (0.00s) ==
+command: pnpm exec vitest run scripts/doc-standard.spec.ts
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED package README limitations (0.00s) ==
+command: pnpm run verify-package-readme-limitations
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED package README model experience (0.00s) ==
+command: pnpm run verify-package-readme-model-experience
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED translation pairing (0.00s) ==
+command: pnpm run verify-translation-pairing
+outcome: aborted by fail-fast: agent note classification failed
+
+== SKIPPED markdown links (0.00s) ==
+command: pnpm run verify-md-links
+outcome: aborted by fail-fast: agent note classification failed
+
+run-gates: 5 passed, 1 failed, 10 skipped in 44.13s.
+run-gates: unsuccessful gates:
+  - SKIPPED markdown links (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-md-links
+  - SKIPPED translation pairing (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-translation-pairing
+  - SKIPPED package README model experience (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-package-readme-model-experience
+  - FAILED agent note classification (0.76s, exit 1)
+    pnpm run verify-agent-note-classification
+  - SKIPPED agent note format (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-agent-note-format
+  - SKIPPED archived agent notes (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-archived-agent-notes
+  - SKIPPED skill invocation metadata (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-skill-invocation-metadata
+  - SKIPPED translation prompt (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-translation-prompt
+  - SKIPPED doc budgets (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-doc-budgets
+  - SKIPPED documentation standard tests (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm exec vitest run scripts/doc-standard.spec.ts
+  - SKIPPED package README limitations (0.00s, aborted by fail-fast: agent note classification failed)
+    pnpm run verify-package-readme-limitations
+run-gates: gate evidence written to [user-temp]/AppData/Local/Temp/tmp.L10sPsxV9W/gate-evidence-red (6 files).
+[ELIFECYCLE] Command failed with exit code 1.

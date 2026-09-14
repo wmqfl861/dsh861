@@ -19,6 +19,12 @@ import {
   parseCoveragePartitionCount,
 } from './coverage-partitions.ts'
 import { pnpmInvocation } from './pnpm-invocation.ts'
+import {
+  exportGateEvidence,
+  gateEvidenceRequest,
+  mirrorProcessOutput,
+  type CapturedOutput,
+} from './gate-evidence.ts'
 
 /** A named aggregate exposed by the gate runner. */
 export type Mode =
@@ -113,11 +119,43 @@ async function main(args: string[]): Promise<number> {
   const startedAt = performance.now()
   console.log(`run-gates: ${mode} running ${gates.length} gate(s) with ${maxConcurrency} worker(s) from ${concurrencySource}${failFast ? ', fail-fast after first blocking failure' : ''}.`)
 
-  const results = await runGates(gates, maxConcurrency, runGate, printResult, cliGateOptions(failFast))
-  printSummary(results, performance.now() - startedAt)
-  return results.some(result => result.gate.allowFailure !== true && (result.status === 'failed' || result.status === 'skipped'))
-    ? 1
-    : 0
+  // Evidence export observes the runner's own output so streamed gates leave
+  // logs too; the switch unset means no mirror, no files, no behavior change.
+  const evidence = gateEvidenceRequest(mode, process.env)
+  const mirror = evidence === undefined ? undefined : mirrorProcessOutput()
+  let results: GateResult[]
+  try {
+    results = await runGates(gates, maxConcurrency, runGate, printResult, cliGateOptions(failFast))
+    printSummary(results, performance.now() - startedAt)
+  } finally {
+    mirror?.restore()
+  }
+  const unsuccessful = results.some(result => result.gate.allowFailure !== true && (result.status === 'failed' || result.status === 'skipped'))
+  if (evidence !== undefined) {
+    try {
+      const files = exportGateEvidence({
+        ...evidence,
+        root,
+        failFast,
+        maxConcurrency,
+        concurrencySource,
+        results,
+        aggregateStdout: mirror?.stdout.read() ?? emptyCapture(),
+        aggregateStderr: mirror?.stderr.read() ?? emptyCapture(),
+      })
+      console.log(`run-gates: gate evidence written to ${evidence.directory} (${files.length} files).`)
+    } catch (error) {
+      // An export failure must not mask the aggregate's own outcome, and must
+      // not turn a failed aggregate green either: the exit code is untouched.
+      console.error(`run-gates: gate evidence export failed: ${error instanceof Error ? error.message : String(error)}`)
+    }
+  }
+  return unsuccessful ? 1 : 0
+}
+
+/** The empty capture used only when the mirror was never installed. */
+function emptyCapture(): CapturedOutput {
+  return { text: '', originalBytes: 0, omittedBytes: 0 }
 }
 
 /**

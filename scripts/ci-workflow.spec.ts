@@ -443,6 +443,41 @@ describe('CI workflow', () => {
     ]))
   })
 
+  it('exports and uploads gate failure evidence only after the matching gate step fails', () => {
+    const workflow = loadWorkflow('.github/workflows/ci.yml')
+    const cases = [
+      { job: 'node-24-coverage', stepId: 'coverage-gates', command: 'pnpm run check:ci:coverage' },
+      { job: 'node-24-consumers', stepId: 'consumer-gates', command: 'pnpm run check:ci:consumers' },
+      { job: 'windows-coverage', stepId: 'coverage-gates', command: 'pnpm run check:ci:coverage' },
+    ] as const
+    for (const { job: jobName, stepId, command } of cases) {
+      const steps = workflowJob(workflow, jobName).steps
+      if (!Array.isArray(steps)) throw new TypeError(`${jobName} must define steps`)
+      const recordSteps = steps.filter((step): step is Record<string, unknown> => isRecord(step))
+      const gate = recordSteps.find(step => step.id === stepId)
+      if (gate === undefined) throw new TypeError(`${jobName} must define the ${stepId} gate step`)
+      expect(gate, `${jobName} keeps the blocking command`).toMatchObject({ run: command })
+      expect(gate.env, `${jobName} scopes evidence to runner temp and the pull request`).toEqual({
+        DSH_GATE_EVIDENCE_DIR: '${{ runner.temp }}/gate-evidence/${{ github.job }}',
+        DSH_GATE_EVIDENCE_PR_NUMBER: '${{ github.event.pull_request.number }}',
+        DSH_GATE_EVIDENCE_PR_HEAD: '${{ github.event.pull_request.head.sha }}',
+        DSH_GATE_EVIDENCE_PR_BASE: '${{ github.event.pull_request.base.sha }}',
+      })
+      const upload = recordSteps.find(step => step.uses === 'actions/upload-artifact@v7')
+      if (upload === undefined) throw new TypeError(`${jobName} must define the evidence upload step`)
+      expect(upload, `${jobName} uploads only the evidence directory`).toMatchObject({
+        with: {
+          name: 'gate-evidence-${{ github.job }}-run${{ github.run_id }}-attempt${{ github.run_attempt }}',
+          path: '${{ runner.temp }}/gate-evidence/${{ github.job }}',
+          'if-no-files-found': 'error',
+        },
+      })
+      expect(upload.if, `${jobName} uploads only after the gate step itself failed`)
+        .toBe(`\${{ failure() && steps.${stepId}.outcome == 'failure' }}`)
+      expect(steps.indexOf(gate)).toBeLessThan(steps.indexOf(upload))
+    }
+  })
+
   it('gates standalone keyless blacksmith jobs and benchmark tiers on the failover variables', () => {
     const expectedFilenames = workflowJob(loadWorkflow('.github/workflows/expected-filenames.yml'), 'expected-filenames')
     const sandbox = workflowJob(loadWorkflow('.github/workflows/sandbox.yml'), 'sandbox-e2e')
