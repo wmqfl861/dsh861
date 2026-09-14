@@ -123,7 +123,7 @@ async function watchWriteFinishWithClock(): Promise<import('chokidar').FSWatcher
   const watcher = watchPath(ROOT, {
     awaitWriteFinish: { stabilityThreshold: 30, pollInterval: 5 },
   })
-  const ready = onceEvent<void>(watcher, 'ready')
+  const ready = onceEvent(watcher, 'ready')
   await vi.advanceTimersByTimeAsync(0)
   await ready
   return watcher
