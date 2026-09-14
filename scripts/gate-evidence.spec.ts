@@ -3,9 +3,11 @@ import { createHash } from 'node:crypto'
 import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, symlinkSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import {
   captureBoundedStream,
+  claimGateEvidenceRequest,
   EVIDENCE_LOG_CONTENT_BYTES,
   EVIDENCE_LOG_MAX_BYTES,
   exportGateEvidence,
@@ -100,6 +102,75 @@ describe('evidence switch', () => {
       environment: { [GATE_EVIDENCE_DIR_ENV]: '/tmp/evidence' },
     })
   })
+})
+
+describe('evidence destination ownership', () => {
+  it('keeps the read-only resolver available without consuming the switch', () => {
+    const environment = { [GATE_EVIDENCE_DIR_ENV]: '/tmp/evidence' }
+    expect(gateEvidenceRequest('ci-consumers', environment)?.directory).toBe('/tmp/evidence')
+    expect(environment[GATE_EVIDENCE_DIR_ENV]).toBe('/tmp/evidence')
+  })
+
+  it('consumes only the directory switch and keeps identity metadata with the request', () => {
+    const environment = { ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: '/tmp/evidence' }
+    const request = claimGateEvidenceRequest('ci-consumers', environment)
+    expect(request?.directory).toBe('/tmp/evidence')
+    expect(request?.mode).toBe('ci-consumers')
+    expect(request?.environment).toBe(environment)
+    expect(environment).toEqual(identityEnvironment())
+    expect(claimGateEvidenceRequest('ci-consumers', environment)).toBeUndefined()
+    expect(gateEvidenceRequest('node-compat', environment)).toBeUndefined()
+  })
+
+  it('leaves absent and empty switches unchanged when claiming is disabled', () => {
+    const absent = identityEnvironment()
+    const empty = { ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: '' }
+    expect(claimGateEvidenceRequest('ci-consumers', absent)).toBeUndefined()
+    expect(claimGateEvidenceRequest('ci-consumers', empty)).toBeUndefined()
+    expect(absent).toEqual(identityEnvironment())
+    expect(empty).toEqual({ ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: '' })
+  })
+
+  it('keeps nested aggregates from writing before the outer failure is exported', () => {
+    const directory = mkdtempSync(join(tmpdir(), 'dsh-gate-owner-'))
+    const environment = { ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: directory }
+    try {
+      const request = claimGateEvidenceRequest('ci-consumers', environment)
+      if (request === undefined) throw new Error('the outer aggregate did not claim its evidence')
+      const child = spawnSync(process.execPath, [
+        '--import', 'tsx/esm', '--input-type=module', '-e',
+        `import { gateEvidenceRequest } from './scripts/gate-evidence.ts'
+         for (const mode of ['node-compat', 'ci-lint-contracts-ready', 'ci-consumers']) {
+           if (gateEvidenceRequest(mode, process.env) !== undefined) {
+             throw new Error('a child inherited the outer evidence destination')
+           }
+         }
+         process.stdout.write('nested aggregates disabled\\n')`,
+      ], { cwd: repoRoot, env: environment, encoding: 'utf8', timeout: 15_000 })
+      expect(child.error).toBeUndefined()
+      expect(child.status, child.stderr).toBe(0)
+      expect(child.stdout).toContain('nested aggregates disabled')
+      expect(readdirSync(directory)).toEqual([])
+      const failure: GateResult = {
+        gate: gate('outer-failure'),
+        status: 'failed',
+        durationMs: 1,
+        output: [{ stream: 'stderr', text: 'outer failure remains visible\n' }],
+        exitCode: 7,
+        signalCode: null,
+      }
+      exportGateEvidence(exportOptions({ ...request, results: [failure] }))
+      expect(readJson(join(directory, 'identity.json'))).toMatchObject({ aggregate: 'ci-consumers' })
+      expect(readJson(join(directory, 'gate-results.json'))).toMatchObject({
+        aggregate: 'ci-consumers',
+        summary: { passed: 0, failed: 1, skipped: 0 },
+        gates: [{ id: 'outer-failure', status: 'failed', exitCode: 7 }],
+      })
+      expect(readText(join(directory, 'logs', 'outer-failure.log'))).toContain('outer failure remains visible')
+    } finally {
+      rmSync(directory, { recursive: true, force: true })
+    }
+  }, 20_000)
 })
 
 describe('log sanitization', () => {
@@ -236,6 +307,46 @@ describe('gate path arguments', () => {
     expect(unmatchedPaths).toEqual([])
     expect(paths).toEqual([{ path: 'scripts/run-gates.ts', blob: (expected.stdout).trim() }])
   })
+})
+
+describe('stored commit ancestry', () => {
+  it('keeps both merge parents in a depth-one checkout without reading the message as headers', () => {
+    const directory = mkdtempSync(join(tmpdir(), 'dsh-parent-evidence-'))
+    const source = join(directory, 'source')
+    const shallow = join(directory, 'shallow')
+    mkdirSync(source)
+    const fixtureGit = (cwd: string, args: string[], input?: string): string => {
+      const result = spawnSync('git', [
+        '-C', cwd, '-c', 'user.name=Evidence Fixture',
+        '-c', 'user.email=fixture@example.invalid', ...args,
+      ], { encoding: 'utf8', input })
+      expect(result.error).toBeUndefined()
+      expect(result.status, result.stderr).toBe(0)
+      return result.stdout.trim()
+    }
+    try {
+      fixtureGit(source, ['init', '--initial-branch=main'])
+      const tree = fixtureGit(source, ['hash-object', '-t', 'tree', '--stdin', '-w'], '')
+      const root = fixtureGit(source, ['commit-tree', tree, '-m', 'root'])
+      const base = fixtureGit(source, ['commit-tree', tree, '-p', root, '-m', 'base'])
+      const head = fixtureGit(source, ['commit-tree', tree, '-p', root, '-m', 'head'])
+      const forged = 'f'.repeat(40)
+      const merge = fixtureGit(source, ['commit-tree', tree, '-p', base, '-p', head, '-m', `merge fixture
+
+parent ${forged}`])
+      fixtureGit(source, ['update-ref', 'refs/heads/main', merge])
+      fixtureGit(directory, ['clone', '--quiet', '--depth=1', pathToFileURL(source).href, shallow])
+      expect(fixtureGit(shallow, ['rev-parse', '--is-shallow-repository'])).toBe('true')
+      expect(fixtureGit(shallow, ['show', '-s', '--format=%P', '-n1', 'HEAD'])).toBe('')
+      const output = join(directory, 'evidence')
+      exportGateEvidence(exportOptions({ root: shallow, directory: output }))
+      expect(readJson(join(output, 'identity.json'))).toMatchObject({
+        git: { head: merge, headParent: base, headParents: [base, head] },
+      })
+    } finally {
+      rmSync(directory, { recursive: true, force: true })
+    }
+  }, 20_000)
 })
 
 describe('process output mirroring', () => {

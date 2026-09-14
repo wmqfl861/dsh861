@@ -115,6 +115,20 @@ export function gateEvidenceRequest(mode: string, environment: NodeJS.ProcessEnv
 }
 
 /**
+ * Claim this CLI's evidence destination without enabling child aggregates.
+ * The resolved request keeps its directory and identity metadata; descendants
+ * inherit the remaining environment without the evidence-directory switch.
+ * @param mode - aggregate mode name to record.
+ * @param environment - environment whose directory switch is consumed when set.
+ * @returns the current aggregate's request, or undefined without changing an unset or empty switch.
+ */
+export function claimGateEvidenceRequest(mode: string, environment: NodeJS.ProcessEnv): GateEvidenceRequest | undefined {
+  const request = gateEvidenceRequest(mode, environment)
+  if (request !== undefined) Reflect.deleteProperty(environment, GATE_EVIDENCE_DIR_ENV)
+  return request
+}
+
+/**
  * Create one bounded capture keeping the first and last slices of a stream.
  * The drop notice is inserted between the slices at read time and states the
  * omitted and original byte counts, so truncation stays visible in the file.
@@ -331,20 +345,21 @@ export function gatePathArguments(root: string, args: readonly string[]): {
 interface GitIdentity {
   head: string | null
   headParent: string | null
+  headParents: string[]
   error?: string
 }
 
 function readGitIdentity(root: string): GitIdentity {
   try {
     const head = runGit(root, ['rev-parse', 'HEAD'], 'resolving evidence HEAD').toString('utf8').trim()
-    const parents = runGit(root, ['show', '-s', '--format=%P', '-n1', 'HEAD'], 'resolving evidence HEAD parent')
-      .toString('utf8')
-      .trim()
-      .split(' ')
-      .filter(Boolean)
-    return { head, headParent: parents[0] ?? null }
+    const commit = runGit(root, ['cat-file', 'commit', 'HEAD'], 'reading evidence commit headers').toString('utf8')
+    const headers = commit.split('\n\n', 1)[0] ?? ''
+    const parents = headers.split('\n')
+      .filter(header => header.startsWith('parent '))
+      .map(header => header.slice('parent '.length))
+    return { head, headParent: parents[0] ?? null, headParents: parents }
   } catch (error) {
-    return { head: null, headParent: null, error: error instanceof Error ? error.message : String(error) }
+    return { head: null, headParent: null, headParents: [], error: error instanceof Error ? error.message : String(error) }
   }
 }
 
@@ -417,6 +432,7 @@ function buildIdentity(options: GateEvidenceOptions, git: GitIdentity): Record<s
     git: {
       head: git.head,
       headParent: git.headParent,
+      headParents: git.headParents,
       ...(git.error === undefined ? {} : { error: git.error }),
     },
     runtime: {

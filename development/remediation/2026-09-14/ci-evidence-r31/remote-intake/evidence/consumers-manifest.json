@@ -1,0 +1,26 @@
+{
+  "artifactScope": "gate failure evidence",
+  "generatedAt": "2026-09-14T02:26:16.335Z",
+  "files": [
+    {
+      "path": "identity.json",
+      "bytes": 637,
+      "sha256": "4ce2b30a1107c4f7fb6a3e7026ce5d923b02f6a64e040a4fb713d95ecf421e4b"
+    },
+    {
+      "path": "gate-results.json",
+      "bytes": 2648,
+      "sha256": "a508f847795917e1b35d7429a7790bb4f6d76b192d0a76d16521da6a375db829"
+    },
+    {
+      "path": "aggregate-stdout.log",
+      "bytes": 388,
+      "sha256": "0382a184c6bb34f4bd93b06f0943cf97d2a29e42e5dcc71582af693c601b53d9"
+    },
+    {
+      "path": "aggregate-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

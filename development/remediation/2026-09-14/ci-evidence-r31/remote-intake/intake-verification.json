@@ -1,0 +1,38 @@
+{
+  "round": "r31-remote-intake",
+  "executor": "ZCode built-in execution subagent on the Windows host (relay identity recorded verbatim)",
+  "source": {
+    "bundlePath": "C:\\Users\\Joyce Gu\\Downloads\\dsh861-r31-candidate-bundle.tar.xz",
+    "bytes": 126136,
+    "sha256": "7a5b5188c3d7765071ffc78ea2a3068326cc7a42cee22233cf802d170da68002",
+    "sha256MatchedDeclaredValue": true,
+    "unpackDirectory": "C:\\dsh-r31-20260914-01\\bundle (project-external, newly created, empty)",
+    "topLevelDirectory": "dsh861-r31",
+    "memberCount": 34,
+    "memberPathSafety": "no absolute path, no parent-directory traversal, no symlink member"
+  },
+  "sha256sumsCheck": {
+    "manifest": "SHA256SUMS.json (33 entries, every regular bundle member except itself)",
+    "result": "33/33 verified on this host; no uncovered file",
+    "note": "the three nested CI ZIPs kept their exact original bytes; this directory is a copy of the checked bundle members, not a re-download"
+  },
+  "portableArtifactVerification": {
+    "command": "python verify_artifacts.py (from the checked bundle)",
+    "exitCode": 0,
+    "consumers": {
+      "integrity": "PASS (digest, size, CRC, member safety, manifest set, 4 file hashes, identity)",
+      "aggregateRecorded": "node-compat",
+      "summary": { "passed": 4, "failed": 0, "skipped": 0 },
+      "expectedAggregateMatches": false,
+      "conclusion": "this ZIP is the nested node-compat aggregate's own export, NOT evidence that the outer ci-consumers job passed; the outer job's conclusion remains failure and its full log was not obtained"
+    },
+    "linux-coverage": { "integrity": "PASS", "aggregateRecorded": "ci-coverage", "summary": { "passed": 1, "failed": 1, "skipped": 1 }, "expectedAggregateMatches": true },
+    "windows-coverage": { "integrity": "PASS", "aggregateRecorded": "ci-coverage", "summary": { "passed": 1, "failed": 1, "skipped": 1 }, "expectedAggregateMatches": true }
+  },
+  "scopeBoundaries": [
+    "remote-intake/ holds received material re-verified on this host; windows-execution/ holds this host's own verification runs; the two provenances are kept separate",
+    "the evidence/ member manifests describe the original CI ZIPs, not this evidence/ copy directory",
+    "run 34799140559 attempt 1 artifacts were verified; no newer CI run or artifact existed at intake time and none is claimed",
+    "PR_BODY.md is an unpublished draft; no gh CLI exists on this host, nothing was installed or requested, and the PR body was not updated"
+  ]
+}

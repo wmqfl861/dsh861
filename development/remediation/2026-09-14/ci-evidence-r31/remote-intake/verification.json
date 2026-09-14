@@ -1,0 +1,96 @@
+{
+  "round": "r31-remote-audit-and-candidate",
+  "repository": "wmqfl861/dsh861",
+  "pr": 13,
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "sourceHead": "201206cb4c83581b3d44620831434fbf2e337df9",
+  "newRemoteCommit": null,
+  "remoteSourceChanged": false,
+  "prBodyUpdated": false,
+  "r30IndependentReview": {
+    "origin": "user-forwarded local remediation re-review",
+    "verdict": "PASS",
+    "remoteWindowsRerun": false
+  },
+  "ci": {
+    "runId": 34799140559,
+    "runNumberLatestRead": 19,
+    "attempt": 1,
+    "conclusion": "failure",
+    "checkout": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+    "sourceAndCheckoutTree": "f5ad1b2da2bd2cfd002b59e71df5a13e6d4a660f",
+    "parentsConfirmedViaGitDataApi": [
+      "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+      "201206cb4c83581b3d44620831434fbf2e337df9"
+    ],
+    "parentsPresentInOriginalArtifacts": false
+  },
+  "artifacts": {
+    "downloaded": 3,
+    "zipDigestAndSizeCrcChecked": true,
+    "manifestFileHashesChecked": 14,
+    "manifestFileSetsChecked": true,
+    "correctAggregate": {
+      "consumers": false,
+      "linux-coverage": true,
+      "windows-coverage": true
+    }
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "subject": "nested aggregate inherits and occupies outer evidence directory",
+      "status": "source matched and isolated child-process mechanism reproduced",
+      "proposedFix": "main claims opt-in and consumes only evidence-directory env variable; readonly resolver and nonempty-dir guard remain"
+    },
+    {
+      "id": "F2",
+      "subject": "single Typert snapshot external path pins old Zod version",
+      "status": "same failure in both authentic coverage ZIPs; source and checkout trees equal",
+      "proposedFix": "one exact zod@4.4.3 -> zod@4.6.2 external symbol replacement; no broad refresh"
+    },
+    {
+      "id": "F3",
+      "subject": "shallow checkout reports null parent via traversal format",
+      "status": "depth-one local file:// fixture reproduced; raw commit header recovers both parents",
+      "proposedFix": "parse only stored commit headers; retain headParent and add headParents"
+    }
+  ],
+  "candidate": {
+    "paths": 4,
+    "newSpecCases": 5,
+    "sourceBlobsOrigin": "GitHub pinned file metadata; prepare_candidate.py recomputes full local Git blobs before emitting any patch",
+    "applied": false,
+    "projectVitestExecutedRemotely": false,
+    "independentNewSourceReview": false
+  },
+  "executedRemotely": [
+    "three original ZIP audits",
+    "limited secret-signature scan of 17 original UTF-8 members",
+    "three nested modes before/after in real isolated Node child processes",
+    "local Git shallow merge-parents experiment",
+    "candidate generator in a synthetic Git repository, git apply --check/application, dirty/path/anchor rejection",
+    "syntax parsing of candidate added TS test blocks; no type checking"
+  ],
+  "notExecuted": [
+    "repository typecheck/lint/docs or Vitest",
+    "Windows tests",
+    "full coverage",
+    "new CI run/rerun",
+    "source push or PR update"
+  ],
+  "transportBoundary": "GitHub tool discovery exposed read/download only; plugin search yielded no installed write action. No credential escalation or Remote Desktop use.",
+  "r30ErrataAccepted": {
+    "oldRemoteR29BlobAnd33_27_6ClaimWithdrawn": true,
+    "localReportedCounts": {
+      "tests": 13,
+      "passed": 7,
+      "failed": 6
+    },
+    "oldArchivesRewritten": false
+  },
+  "p0bAccepted": false,
+  "prRemainsDraft": true,
+  "prBaseChanged": false,
+  "merged": false
+}

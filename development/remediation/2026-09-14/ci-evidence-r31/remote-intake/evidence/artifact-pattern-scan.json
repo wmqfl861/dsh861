@@ -1,0 +1,32 @@
+{
+  "scope": "limited signature scan of UTF-8 original ZIP members; not proof of absence of every possible secret",
+  "results": [
+    {
+      "artifact": "consumers",
+      "scannedMembers": 5,
+      "patternMatches": {
+        "token-shaped": 0,
+        "authorization-line": 0,
+        "personal-path": 0
+      }
+    },
+    {
+      "artifact": "linux-coverage",
+      "scannedMembers": 6,
+      "patternMatches": {
+        "token-shaped": 0,
+        "authorization-line": 0,
+        "personal-path": 0
+      }
+    },
+    {
+      "artifact": "windows-coverage",
+      "scannedMembers": 6,
+      "patternMatches": {
+        "token-shaped": 0,
+        "authorization-line": 0,
+        "personal-path": 0
+      }
+    }
+  ]
+}

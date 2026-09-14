@@ -8,11 +8,11 @@ r29 接收 SHA 为 `1baf323167e9d4bde171249f322ab4ebec7f3567`。[本地回执](.
 
 r29 不再处于“等待整轮独立复审、等待 built-lib 实测”的状态。保留 config 与 built-lib blob、1000ms/60ms 预算和原 expect(2)。r27 Gateway212、r26 Loader122、r28 构建交付仍接收；不重复应用旧补丁、升级调查或无关构建矩阵。
 
+r30 接收 SHA 为 `201206cb4c83581b3d44620831434fbf2e337df9`，整改复审经用户转达 PASS。后续 CI run `34799140559`（attempt 1，run number 19，结论 failure，checkout `d1ee13a76acd0cbee2f135fd546dab336e77ab72`）的三个诊断 ZIP 已下载并逐字节核验（摘要/CRC/清单/14 文件哈希/身份）。consumers 包记录的是嵌套 `node-compat` aggregate 4 passed 而非外层 `ci-consumers` 失败，不得据此宣布 consumers 成功；两平台 coverage 首失已定因为 Typert 快照中唯一一处版本化 external symbol 路径 `zod@4.4.3` 失配本机与锁的 `zod@4.6.2`。完整接收与边界见 [r31 取证](../remediation/2026-09-14/ci-evidence-r31/remote-intake/)。
+
 ## 当前执行入口
 
-[r30 本地任务](../remediation/2026-09-14/ci-evidence-r30/LOCAL_AGENT_TASK.md)是唯一接续入口；[r30 取证与勘误](../remediation/2026-09-14/ci-evidence-r30/READOUT.md)记录来源及限制。只在完整项目环境中验证新增 CI 诊断导出，给三个红项提供带 run/attempt/checkout/hash 的失败证据，不猜测修补产品。
-
-远端已经请求 run34789573313 只重跑失败作业，接口成功，随后读取 attempt2=in_progress；未宣称完成。首次读取仍有 coverage 两腿和 consumers 失败；static 日志报告47/47，observational 作业显示成功，但不同 job 身份/日志读取存在不一致，整体首失尚不能可靠归因。后续用匹配源码与 hash 的 artifact 核对，不混用 run 或提交结果。新的交接文档提交不是原源码 CI 的证明。
+[r31 本地任务](../remediation/2026-09-14/ci-evidence-r31/LOCAL_AGENT_TASK.md)是当前接续入口。三项定向修复（嵌套 aggregate 证据目录认领、Typert 快照单处版本路径、浅克隆父链读取）已应用并通过定向验证，[Windows 执行回执](../remediation/2026-09-14/ci-evidence-r31/windows-execution/)记录基线复现、main 接线 CLI 实跑、新增五用例与类型/lint 结果；源码与证据经全新上下文独立复审到 PASS 后提交推送。r31 提交后的新 CI 尚未发生，不得提前宣布通过；远端可用读取/下载通道核对后续 artifact。
 
 ## 已结案的勘误与非本轮任务
 

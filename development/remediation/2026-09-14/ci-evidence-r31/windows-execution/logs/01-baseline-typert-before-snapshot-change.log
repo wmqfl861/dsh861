@@ -1,0 +1,208 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[1m[30m[43m Vitest [49m[39m[22m [33mThe "thread-safe" project applies the same plugin multiple times: "vite-tsconfig-paths", "dsh-standard-decorators". Since Vitest 5, an inline project extends the config file that declares it by default, so the plugins from "vitest.config.ts" already apply to this project and don't need to be listed again.
+Remove the duplicated plugins from the project, or set `extends: false` to not inherit the declaring config. Setting the `extends` option explicitly hides this warning.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[1m[30m[43m Vitest [49m[39m[22m [33mThe "process-bound" project applies the same plugin multiple times: "vite-tsconfig-paths", "dsh-standard-decorators". Since Vitest 5, an inline project extends the config file that declares it by default, so the plugins from "vitest.config.ts" already apply to this project and don't need to be listed again.
+Remove the duplicated plugins from the project, or set `extends: false` to not inherit the declaring config. Setting the `extends` option explicitly hides this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[42m process-bound [49m[39m packages/typert/generator/tests/type-model.spec.ts [2m([22m[2m57 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m56 skipped[39m[2m)[22m[33m 4654[2mms[22m[39m
+   [31m❯[39m WorkspaceAnalyzer [2m(51)[22m
+[31m     [31m×[31m builds independent face models with an explicit cross-face type graph[39m[33m 4652[2mms[22m[39m
+     [2m[90m↓[39m[22m merges bounded package programs into the same face model
+     [2m[90m↓[39m[22m discovers an explicitly keyed service implementation without a Context merge
+     [2m[90m↓[39m[22m prefers an explicitly keyed implementation over its protocol Context merge
+     [2m[90m↓[39m[22m rejects an explicit service implementation without one valid key
+     [2m[90m↓[39m[22m indexes authored top-level exports without promoting them to graph roots
+     [2m[90m↓[39m[22m covers every modeled discriminant with source-authored fixture syntax
+     [2m[90m↓[39m[22m retains an omitted mapped value when the owning project permits implicit any
+     [2m[90m↓[39m[22m fails in check mode and writes inferred public annotations in write mode
+     [2m[90m↓[39m[22m rejects relative imports across face boundaries
+     [2m[90m↓[39m[22m rejects package subpaths absent from package.json exports
+     [2m[90m↓[39m[22m rejects cross-face re-exports outside package.json exports
+     [2m[90m↓[39m[22m rejects cross-face namespace re-exports until the model has a namespace target
+     [2m[90m↓[39m[22m ignores cross-face namespace exports that are not package exports
+     [2m[90m↓[39m[22m records public symbols from explicit cross-face star re-exports
+     [2m[90m↓[39m[22m expands explicit same-face package exports through declaration targets
+     [2m[90m↓[39m[22m resolves explicit same-face package re-exports to their declaration owner
+     [2m[90m↓[39m[22m rejects same-face package imports outside package.json exports
+     [2m[90m↓[39m[22m rejects relative imports across same-face package boundaries
+     [2m[90m↓[39m[22m package-local forwarding modules [2m(14)[22m
+       [2m[90m↓[39m[22m follows a named re-export to the original declaration
+       [2m[90m↓[39m[22m follows renamed hops through several forwarding modules
+       [2m[90m↓[39m[22m follows an import re-exported without a module specifier
+       [2m[90m↓[39m[22m follows a star re-export
+       [2m[90m↓[39m[22m follows a namespace import of the forwarding module
+       [2m[90m↓[39m[22m rejects a forwarded type absent from the package export
+       [2m[90m↓[39m[22m rejects a forwarding module that reaches another package by relative path
+       [2m[90m↓[39m[22m follows a forwarding module across faces
+       [2m[90m↓[39m[22m prefers an explicit re-export over a star edge that loops back
+       [2m[90m↓[39m[22m follows a valid renamed route after another route reaches the same module
+       [2m[90m↓[39m[22m rejects a forwarding cycle whose only exit crosses a package by relative path
+       [2m[90m↓[39m[22m rejects a namespace re-export in a forwarding module
+       [2m[90m↓[39m[22m rejects a forwarding module that exports a namespace import binding
+       [2m[90m↓[39m[22m produces one model regardless of batch size or package order
+     [2m[90m↓[39m[22m rejects TypeScript projects with source diagnostics before modeling them
+     [2m[90m↓[39m[22m retains every authored part of a merged interface
+     [2m[90m↓[39m[22m rejects merged declarations that include a part outside the registered face
+     [2m[90m↓[39m[22m keeps unscoped global npm declarations as true external targets
+     [2m[90m↓[39m[22m skips ambient imports without physical module files while walking exported sources
+     [2m[90m↓[39m[22m rejects declaration merges without a lossless model
+     [2m[90m↓[39m[22m rejects merged interfaces with conflicting authored variance
+     [2m[90m↓[39m[22m handles empty selections and rejects malformed aggregate configs
+     [2m[90m↓[39m[22m ignores empty Cordis augmentations during package discovery
+     [2m[90m↓[39m[22m ignores aggregate references that are not named workspace packages
+     [2m[90m↓[39m[22m keeps both runtime faces for an ordinary dsh.client project
+     [2m[90m↓[39m[22m confines explicit face projects to their selected Typert face
+     [2m[90m↓[39m[22m accepts package export forms while skipping artifact-only rows and unexported packages
+     [2m[90m↓[39m[22m rejects package exports whose source entry is missing
+     [2m[90m↓[39m[22m recognizes all supported typert annotation spellings
+     [2m[90m↓[39m[22m rejects an exported Context service that is not a class or interface
+     [2m[90m↓[39m[22m rejects tagged anonymous declarations that cannot be named losslessly
+     [2m[90m↓[39m[22m retains merged generic interfaces without constraints or defaults
+   [2m[90m↓[39m[22m TypeGraphRenderer [2m(2)[22m
+     [2m[90m↓[39m[22m retains every source-authored SyntaxZoo property type through rendering
+     [2m[90m↓[39m[22m renders every analyzed declaration as compilable TypeScript
+   [2m[90m↓[39m[22m WorkspaceTypertGenerator [2m(3)[22m
+     [2m[90m↓[39m[22m emits host and client faces through their exact root-level public artifacts
+     [2m[90m↓[39m[22m rejects a public Typert subpath that points outside the root-level face artifact
+     [2m[90m↓[39m[22m rejects absent Typert exports and package file entries
+   [2m[90m↓[39m[22m FaceModelEmitter [2m(1)[22m
+     [2m[90m↓[39m[22m emits runnable Zod JavaScript, precise declarations, and runtime package metadata
+ [31m❯[39m [30m[45m thread-safe [49m[39m packages/typert/generator/tests/type-model.spec.ts [2m([22m[2m57 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m56 skipped[39m[2m)[22m[33m 4655[2mms[22m[39m
+   [31m❯[39m WorkspaceAnalyzer [2m(51)[22m
+[31m     [31m×[31m builds independent face models with an explicit cross-face type graph[39m[33m 4654[2mms[22m[39m
+     [2m[90m↓[39m[22m merges bounded package programs into the same face model
+     [2m[90m↓[39m[22m discovers an explicitly keyed service implementation without a Context merge
+     [2m[90m↓[39m[22m prefers an explicitly keyed implementation over its protocol Context merge
+     [2m[90m↓[39m[22m rejects an explicit service implementation without one valid key
+     [2m[90m↓[39m[22m indexes authored top-level exports without promoting them to graph roots
+     [2m[90m↓[39m[22m covers every modeled discriminant with source-authored fixture syntax
+     [2m[90m↓[39m[22m retains an omitted mapped value when the owning project permits implicit any
+     [2m[90m↓[39m[22m fails in check mode and writes inferred public annotations in write mode
+     [2m[90m↓[39m[22m rejects relative imports across face boundaries
+     [2m[90m↓[39m[22m rejects package subpaths absent from package.json exports
+     [2m[90m↓[39m[22m rejects cross-face re-exports outside package.json exports
+     [2m[90m↓[39m[22m rejects cross-face namespace re-exports until the model has a namespace target
+     [2m[90m↓[39m[22m ignores cross-face namespace exports that are not package exports
+     [2m[90m↓[39m[22m records public symbols from explicit cross-face star re-exports
+     [2m[90m↓[39m[22m expands explicit same-face package exports through declaration targets
+     [2m[90m↓[39m[22m resolves explicit same-face package re-exports to their declaration owner
+     [2m[90m↓[39m[22m rejects same-face package imports outside package.json exports
+     [2m[90m↓[39m[22m rejects relative imports across same-face package boundaries
+     [2m[90m↓[39m[22m package-local forwarding modules [2m(14)[22m
+       [2m[90m↓[39m[22m follows a named re-export to the original declaration
+       [2m[90m↓[39m[22m follows renamed hops through several forwarding modules
+       [2m[90m↓[39m[22m follows an import re-exported without a module specifier
+       [2m[90m↓[39m[22m follows a star re-export
+       [2m[90m↓[39m[22m follows a namespace import of the forwarding module
+       [2m[90m↓[39m[22m rejects a forwarded type absent from the package export
+       [2m[90m↓[39m[22m rejects a forwarding module that reaches another package by relative path
+       [2m[90m↓[39m[22m follows a forwarding module across faces
+       [2m[90m↓[39m[22m prefers an explicit re-export over a star edge that loops back
+       [2m[90m↓[39m[22m follows a valid renamed route after another route reaches the same module
+       [2m[90m↓[39m[22m rejects a forwarding cycle whose only exit crosses a package by relative path
+       [2m[90m↓[39m[22m rejects a namespace re-export in a forwarding module
+       [2m[90m↓[39m[22m rejects a forwarding module that exports a namespace import binding
+       [2m[90m↓[39m[22m produces one model regardless of batch size or package order
+     [2m[90m↓[39m[22m rejects TypeScript projects with source diagnostics before modeling them
+     [2m[90m↓[39m[22m retains every authored part of a merged interface
+     [2m[90m↓[39m[22m rejects merged declarations that include a part outside the registered face
+     [2m[90m↓[39m[22m keeps unscoped global npm declarations as true external targets
+     [2m[90m↓[39m[22m skips ambient imports without physical module files while walking exported sources
+     [2m[90m↓[39m[22m rejects declaration merges without a lossless model
+     [2m[90m↓[39m[22m rejects merged interfaces with conflicting authored variance
+     [2m[90m↓[39m[22m handles empty selections and rejects malformed aggregate configs
+     [2m[90m↓[39m[22m ignores empty Cordis augmentations during package discovery
+     [2m[90m↓[39m[22m ignores aggregate references that are not named workspace packages
+     [2m[90m↓[39m[22m keeps both runtime faces for an ordinary dsh.client project
+     [2m[90m↓[39m[22m confines explicit face projects to their selected Typert face
+     [2m[90m↓[39m[22m accepts package export forms while skipping artifact-only rows and unexported packages
+     [2m[90m↓[39m[22m rejects package exports whose source entry is missing
+     [2m[90m↓[39m[22m recognizes all supported typert annotation spellings
+     [2m[90m↓[39m[22m rejects an exported Context service that is not a class or interface
+     [2m[90m↓[39m[22m rejects tagged anonymous declarations that cannot be named losslessly
+     [2m[90m↓[39m[22m retains merged generic interfaces without constraints or defaults
+   [2m[90m↓[39m[22m TypeGraphRenderer [2m(2)[22m
+     [2m[90m↓[39m[22m retains every source-authored SyntaxZoo property type through rendering
+     [2m[90m↓[39m[22m renders every analyzed declaration as compilable TypeScript
+   [2m[90m↓[39m[22m WorkspaceTypertGenerator [2m(3)[22m
+     [2m[90m↓[39m[22m emits host and client faces through their exact root-level public artifacts
+     [2m[90m↓[39m[22m rejects a public Typert subpath that points outside the root-level face artifact
+     [2m[90m↓[39m[22m rejects absent Typert exports and package file entries
+   [2m[90m↓[39m[22m FaceModelEmitter [2m(1)[22m
+     [2m[90m↓[39m[22m emits runnable Zod JavaScript, precise declarations, and runtime package metadata
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/typert/generator/tests/type-model.spec.ts[2m > [22mWorkspaceAnalyzer[2m > [22mbuilds independent face models with an explicit cross-face type graph
+[31m[1mError[22m: Snapshot `WorkspaceAnalyzer > builds independent face models with an explicit cross-face type graph 1` mismatched[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -6118,11 +6118,11 @@[39m
+[2m                  "ReexportedZodType",[22m
+[2m                  "ZodType",[22m
+[2m                ],[22m
+[2m                "name": "ReexportedZodType",[22m
+[2m                "subpath": ".",[22m
+[32m-               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/classic/schemas.d.cts#ZodType",[39m
+[31m+               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.6.2/node_modules/zod/v4/classic/schemas.d.cts#ZodType",[39m
+[2m              },[22m
+[2m            ],[22m
+[2m            "invocations": [],[22m
+[2m            "name": "@fixture/client",[22m
+[2m            "objects": [],[22m
+
+[36m [2m❯[22m packages/typert/generator/tests/type-model.spec.ts:[2m195:19[22m[39m
+    [90m193|[39m       text: "'demo/ready'(agent: Agent<{ ready: true }>, payload: Box<…
+    [90m194|[39m     })
+    [90m195|[39m     expect(model).toMatchSnapshot()
+    [90m   |[39m                   [31m^[39m
+    [90m196|[39m   })
+    [90m197|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/typert/generator/tests/type-model.spec.ts[2m > [22mWorkspaceAnalyzer[2m > [22mbuilds independent face models with an explicit cross-face type graph
+[31m[1mError[22m: Snapshot `WorkspaceAnalyzer > builds independent face models with an explicit cross-face type graph 1` mismatched[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -6118,11 +6118,11 @@[39m
+[2m                  "ReexportedZodType",[22m
+[2m                  "ZodType",[22m
+[2m                ],[22m
+[2m                "name": "ReexportedZodType",[22m
+[2m                "subpath": ".",[22m
+[32m-               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/classic/schemas.d.cts#ZodType",[39m
+[31m+               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.6.2/node_modules/zod/v4/classic/schemas.d.cts#ZodType",[39m
+[2m              },[22m
+[2m            ],[22m
+[2m            "invocations": [],[22m
+[2m            "name": "@fixture/client",[22m
+[2m            "objects": [],[22m
+
+[36m [2m❯[22m packages/typert/generator/tests/type-model.spec.ts:[2m195:19[22m[39m
+    [90m193|[39m       text: "'demo/ready'(agent: Agent<{ ready: true }>, payload: Box<…
+    [90m194|[39m     })
+    [90m195|[39m     expect(model).toMatchSnapshot()
+    [90m   |[39m                   [31m^[39m
+    [90m196|[39m   })
+    [90m197|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m  Snapshots [22m [1m[31m2 failed[39m[22m
+[2m Test Files [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[33m112 skipped[39m[90m (114)[39m
+[2m   Start at [22m 11:57:08
+[2m   Duration [22m 5.88s[2m (tests 84%, transform 10%, import 5%, setup 1%)[22m

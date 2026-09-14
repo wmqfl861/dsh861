@@ -1,0 +1,93 @@
+{
+  "aggregate": "node-compat",
+  "failFast": true,
+  "maxConcurrency": 4,
+  "concurrencySource": "$DSH_GATE_CONCURRENCY",
+  "summary": {
+    "passed": 4,
+    "failed": 0,
+    "skipped": 0
+  },
+  "gates": [
+    {
+      "id": "source-worker-smoke",
+      "label": "source worker smoke",
+      "displayCommand": "pnpm exec vitest run packages/workflow/workflow-worker-thread/tests/source-worker.compat.spec.ts",
+      "status": "passed",
+      "aborted": false,
+      "allowFailure": false,
+      "durationMs": 10208.516597,
+      "exitCode": 0,
+      "signalCode": null,
+      "error": null,
+      "logFile": null,
+      "paths": [
+        {
+          "path": "packages/workflow/workflow-worker-thread/tests/source-worker.compat.spec.ts",
+          "blob": "9f689077b25bafedb161aaa66e4f3f970d0d8ab3"
+        }
+      ],
+      "unmatchedPaths": []
+    },
+    {
+      "id": "jsonl-zstd-smoke",
+      "label": "JSONL Zstandard smoke",
+      "displayCommand": "pnpm exec vitest run packages/session/session-persistence-jsonl/tests/zstd.compat.spec.ts",
+      "status": "passed",
+      "aborted": false,
+      "allowFailure": false,
+      "durationMs": 7026.985732,
+      "exitCode": 0,
+      "signalCode": null,
+      "error": null,
+      "logFile": null,
+      "paths": [
+        {
+          "path": "packages/session/session-persistence-jsonl/tests/zstd.compat.spec.ts",
+          "blob": "cb1389698376b733014702c8ff2d5cd0e0e5c54a"
+        }
+      ],
+      "unmatchedPaths": []
+    },
+    {
+      "id": "dsh-source-launch-smoke",
+      "label": "dsh source-launch smoke",
+      "displayCommand": "pnpm exec vitest run apps/cli/tests/source-launch.compat.spec.ts",
+      "status": "passed",
+      "aborted": false,
+      "allowFailure": false,
+      "durationMs": 7831.535797,
+      "exitCode": 0,
+      "signalCode": null,
+      "error": null,
+      "logFile": null,
+      "paths": [
+        {
+          "path": "apps/cli/tests/source-launch.compat.spec.ts",
+          "blob": "975e4c3591291bbc95da08b6675848d65c1eede8"
+        }
+      ],
+      "unmatchedPaths": []
+    },
+    {
+      "id": "vitest-jsdom-smoke",
+      "label": "Vitest jsdom smoke",
+      "displayCommand": "pnpm exec vitest run scripts/vitest-environment.compat.spec.ts",
+      "status": "passed",
+      "aborted": false,
+      "allowFailure": false,
+      "durationMs": 9190.376897,
+      "exitCode": 0,
+      "signalCode": null,
+      "error": null,
+      "logFile": null,
+      "paths": [
+        {
+          "path": "scripts/vitest-environment.compat.spec.ts",
+          "blob": "fae1fc29fd581c2480b48a9f5d2aecb7e2d4533f"
+        }
+      ],
+      "unmatchedPaths": []
+    }
+  ]
+}

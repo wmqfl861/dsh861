@@ -1,0 +1,115 @@
+{
+  "round": "r31-local-implementation",
+  "executor": "ZCode built-in execution subagent (relay identity recorded verbatim)",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pickupAccepted": {
+    "remoteTipCheckedReadonly": "201206cb4c83581b3d44620831434fbf2e337df9 (git ls-remote; identical to local HEAD)",
+    "localBase": "201206cb4c83581b3d44620831434fbf2e337df9",
+    "workingTreeBefore": "clean",
+    "noNewRemoteCommit": true,
+    "noFallbackToEd277": true
+  },
+  "bundleIntake": {
+    "outerSha256": "7a5b5188c3d7765071ffc78ea2a3068326cc7a42cee22233cf802d170da68002 (126136 bytes, matched)",
+    "sha256sums": "33/33 members verified",
+    "record": "../remote-intake/intake-verification.json"
+  },
+  "candidate": {
+    "generator": "python <bundle>\\prepare_candidate.py --root C:\\Albert\\project\\dsh861 --output C:\\dsh-r31-20260914-01\\r31.patch (read-only generator; no working-tree change)",
+    "patchBytes": 10805,
+    "patchSha256": "357259812a599d327e5e26c4c181d1425a931582730a1257eb0bbd90102af2e7",
+    "patchCopyHeldOutsideTheRepo": "C:\\dsh-r31-20260914-01\\r31.patch (not committed; see archive.candidatePatchFile)",
+    "applyCheck": "git apply --check passed; git apply applied 4 files (+137/-10)",
+    "targetBlobs": {
+      "scripts/gate-evidence.ts": "7c18cedd65ab584918445af20a6bbf530ebfb9d8",
+      "scripts/run-gates.ts": "ac47eea702ddf81d6818af4c3a03c283c1d662c7",
+      "scripts/gate-evidence.spec.ts": "7cf828510ed6750d5dba37a21d6a50e24343f938",
+      "packages/typert/generator/tests/__snapshots__/type-model.spec.ts.snap": "da7510736be4e53fd5696bc8662485015387ef11"
+    }
+  },
+  "integrationFix": {
+    "finding": "first full-repo oxlint run failed: typescript(no-dynamic-delete) at scripts/gate-evidence.ts:127 on `delete environment[GATE_EVIDENCE_DIR_ENV]` in the candidate's claimGateEvidenceRequest",
+    "fix": "minimal edit to `Reflect.deleteProperty(environment, GATE_EVIDENCE_DIR_ENV)`, the pattern run-gates.spec.ts withEnv/withPnpmEntrypoint already use; no other candidate line touched",
+    "firstFailurePreserved": "logs/06-lint-first-fail-no-dynamic-delete.log (exit 1, 1 error)",
+    "behaviorRecheck": "logs/08-scripts-targeted-after-lint-fix.log — same 306 passed | 12 skipped, exit 0"
+  },
+  "toolchain": { "node": "26.8.2", "pnpm": "12.4.1", "path": "C:\\dsh-r24-upgrade-20260912-01 (explicit PATH)" },
+  "f1NestedEvidenceOwnership": {
+    "source": "gateEvidenceRequest kept read-only and exported; claimGateEvidenceRequest added (resolver first, deletes only DSH_GATE_EVIDENCE_DIR from the passed environment, only when a request exists); scripts/run-gates.ts main() is the sole caller (import + call site switched; grep confirms no remaining gateEvidenceRequest call in run-gates.ts)",
+    "mainWiringProof": "logs/04-cli-main-wiring-node-compat.log — real CLI `pnpm run check:node-compat` (= tsx scripts/run-gates.ts node-compat, the production nested command) with DSH_GATE_EVIDENCE_DIR set and existing switch DSH_NODE_COMPAT_SKIP_TYPECHECK=1: 4 gates passed, exit 0, export written by main via the claimed request (cli-main-wiring-evidence/identity.json aggregate=node-compat, 5 files)",
+    "specTests": [
+      "keeps the read-only resolver available without consuming the switch",
+      "consumes only the directory switch and keeps identity metadata with the request",
+      "leaves absent and empty switches unchanged when claiming is disabled",
+      "keeps nested aggregates from writing before the outer failure is exported (real node child via --import tsx/esm checks node-compat / ci-lint-contracts-ready / ci-consumers modes see no switch; directory stays empty; outer failure then exports with exitCode 7 and its log)"
+    ],
+    "unchanged": "runGate scheduling/child env assembly, non-empty-directory refusal, directory deletion never performed, exit codes, upload conditions, test selection"
+  },
+  "f2TypertSnapshotPath": {
+    "zodFacts": "packages/typert/generator/package.json devDependency zod ^4.6.2; pnpm-lock.yaml resolves zod@4.6.2 (no other version); installed node_modules resolves 4.6.2",
+    "baselineBeforeSnapshotChange": {
+      "command": "pnpm exec vitest run packages/typert/generator/tests/type-model.spec.ts -t \"builds independent face models with an explicit cross-face type graph\"",
+      "result": "2 failed | 112 skipped (114), exit 1 — both failures are the same root cause seen through two vitest projects",
+      "singleDiff": "ReexportedZodType external symbol path zod@4.4.3 (snapshot) vs zod@4.6.2 (actual), snapshot line 6453, exactly one occurrence of zod@4.4.3 and zero of zod@4.6.2 before the change",
+      "log": "logs/01-baseline-typert-before-snapshot-change.log"
+    },
+    "appliedChange": "one full path string zod@4.4.3 -> zod@4.6.2 in the snapshot; no -u, no normalizer/analyzer/lock/model-golden change, structural assertions untouched",
+    "after": { "result": "2 passed | 112 skipped (114), exit 0", "log": "logs/03-typert-after-snapshot-fix.log", "occurrences": "zod@4.4.3 = 0, zod@4.6.2 = 1" },
+    "otherDifferences": "none surfaced by the targeted run; no other diff hunk exists in the snapshot file"
+  },
+  "f3StoredCommitAncestry": {
+    "source": "readGitIdentity switches from `git show -s --format=%P` to `git cat-file commit HEAD`; parses only `parent ` header lines before the first blank line; headParent kept (first parent), headParents added (full list); error path records headParents: []; identity export carries both",
+    "specTest": "stored commit ancestry > keeps both merge parents in a depth-one checkout without reading the message as headers — self-built file:// depth=1 clone of a two-parent merge fixture; asserts is-shallow, asserts %P is empty there, asserts exported identity records headParents [base, head] and headParent=base, and a forged `parent <sha>` line inside the commit message does not enter the list",
+    "nonShallowCrossCheck": "cli-main-wiring-evidence/identity.json on this full clone records headParent = headParents[0] = ed2776d9580bbbec0550d6e2be50a258a7dcc5eb",
+    "unchanged": "no fetch --unshallow, no full history, no CI fetch-depth change, no re-clone of the project"
+  },
+  "verification": {
+    "scriptsTargeted": {
+      "command": "pnpm exec vitest run scripts/gate-evidence.spec.ts scripts/run-gates.spec.ts scripts/ci-workflow.spec.ts",
+      "runs": [
+        "after patch: 6 files, 306 passed | 12 skipped (318), exit 0 (logs/02)",
+        "after the lint integration fix, identical rerun: 306 passed | 12 skipped, exit 0 (logs/08)"
+      ],
+      "newTestsExecutedInBothVitestProjects": 5,
+      "gateEvidenceSpecCaseCount": "26 file-level cases per project (21 pre-r31 + 5 new), 1 pre-existing skip per project"
+    },
+    "typecheck": { "command": "pnpm run build:lib:host (tsc -b tsconfig.host.json covers scripts/**)", "exitCode": 0 },
+    "lint": { "command": "pnpm exec tsx scripts/run-oxlint.ts .", "runs": ["first: exit 1, 1 error no-dynamic-delete (preserved, logs/06)", "after integration fix: 0 warnings, 0 errors, exit 0 (logs/07)"] },
+    "docQuick": { "command": "pnpm run test:docs", "exitCode": 0, "result": "16 passed, 0 failed, 0 skipped (includes agent-note format and translation pairing over the updated bilingual note)" },
+    "duplication": { "command": "pnpm run duplication", "exitCode": 0, "result": "0 clones" }
+  },
+  "docsAndHandoff": {
+    "agentNote": "updated the existing 2026-09-14-gate-failure-evidence-artifacts triplet in place (same decision evolving, not a new decision): Problem gains the two ownership defects, Decision gains the claim semantics and cat-file ancestry facts, Alternatives considered gains the two rejected repairs; F2 is a mechanical one-string snapshot maintenance with no separate note",
+    "pairing": "verify-translation-pairing --write re-recorded after both sides were edited",
+    "handoff": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md updated: r30 accepted at 201206cb, run 34799140559 artifacts downloaded and byte-verified with the consumers aggregate mismatch recorded truthfully, coverage first failure attributed, r31 entry point and pending new CI stated"
+  },
+  "phaseStatusHonesty": {
+    "candidateAppliedAndLocallyVerified": true,
+    "run34799140559ArtifactsVerified": "yes — see ../remote-intake/intake-verification.json",
+    "consumersAnnouncedPassing": false,
+    "newCiAfterR31Push": "not yet happened; not claimed",
+    "prBodyPublished": false
+  },
+  "notExecuted": [
+    "full coverage aggregates and full consumers build (per task: targeted spec entries and the existing check:node-compat CLI entry only)",
+    "Gateway212, Loader122, exe/wheel matrix, whole upgrade round reruns, six known Windows golden failures (r29/r30 scope, preserved)",
+    "snapshot -u refresh, normalizer changes, lock changes, model goldens",
+    "WMI/PowerShell abort-flake reruns: r30 evidence stands; no new failure occurred in this round's runs, so no new classification was needed",
+    "PR body publication: no gh on this host; nothing installed, no token requested, no global credentials read",
+    "push (gated on the independent fresh-context review per task ordering; r30 precedent)"
+  ],
+  "independentReview": {
+    "status": "pending",
+    "note": "Per the task ordering, a fresh-context independent review of the r31 candidate+integration fix+evidence is requested before push; the r30 review PASS is not reused as r31 review evidence."
+  },
+  "archive": {
+    "file": "logs.tar.xz",
+    "tarHeaders": "owner 0 / group 0 / numeric (zeroed) and all member mtimes set to the epoch (1970-01-01T00:00:00Z), matching the r29/r30 archive convention",
+    "sha256": "a66cc6bae726b3d41ddd8e6943ba5f27f49dd4cb1e3e24929e985b8f10b16549",
+    "accountNameScan": "byte-level scan for the local account name in logs.tar.xz: 0 occurrences",
+    "logNormalization": "archived log files are LF-only, have per-line trailing whitespace stripped, and end with exactly one trailing newline; commands, outputs, exit codes, and conclusions are unaltered",
+    "cliEvidenceScope": "cli-main-wiring-evidence/ is the complete 5-file export of the CLI wiring run (identity.json, gate-results.json, manifest.json, aggregate-stdout.log, and the byte-exact empty aggregate-stderr.log; manifest hashes cover the exact bytes, so export artifacts are not re-normalized)",
+    "candidatePatchFile": "candidate.patch is not committed: unified-diff context lines (a single space) trip the whitespace gate, and the patch is byte-reconstructible from remote-intake/candidate-replacements.json plus remote-intake/prepare_candidate.py against the recorded input blobs; its sha256 and byte length are recorded under candidate"
+  }
+}

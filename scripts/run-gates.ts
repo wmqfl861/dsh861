@@ -21,7 +21,7 @@ import {
 import { pnpmInvocation } from './pnpm-invocation.ts'
 import {
   exportGateEvidence,
-  gateEvidenceRequest,
+  claimGateEvidenceRequest,
   mirrorProcessOutput,
   type CapturedOutput,
 } from './gate-evidence.ts'
@@ -121,7 +121,7 @@ async function main(args: string[]): Promise<number> {
 
   // Evidence export observes the runner's own output so streamed gates leave
   // logs too; the switch unset means no mirror, no files, no behavior change.
-  const evidence = gateEvidenceRequest(mode, process.env)
+  const evidence = claimGateEvidenceRequest(mode, process.env)
   const mirror = evidence === undefined ? undefined : mirrorProcessOutput()
   let results: GateResult[]
   try {

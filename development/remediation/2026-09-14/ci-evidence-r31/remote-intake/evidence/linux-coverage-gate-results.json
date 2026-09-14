@@ -1,0 +1,79 @@
+{
+  "aggregate": "ci-coverage",
+  "failFast": true,
+  "maxConcurrency": 3,
+  "concurrencySource": "4 available CPU(s)",
+  "summary": {
+    "passed": 1,
+    "failed": 1,
+    "skipped": 1
+  },
+  "gates": [
+    {
+      "id": "native-system",
+      "label": "build:native-system",
+      "displayCommand": "pnpm run build:native-system",
+      "status": "passed",
+      "aborted": false,
+      "allowFailure": false,
+      "durationMs": 525.9266140000001,
+      "exitCode": 0,
+      "signalCode": null,
+      "error": null,
+      "logFile": null,
+      "paths": [],
+      "unmatchedPaths": []
+    },
+    {
+      "id": "coverage",
+      "label": "test:coverage",
+      "displayCommand": "DSH_COVERAGE_PARTITIONS=4 pnpm run test:coverage:partitioned",
+      "status": "skipped",
+      "aborted": false,
+      "allowFailure": false,
+      "durationMs": 0,
+      "exitCode": null,
+      "signalCode": null,
+      "error": "aborted by fail-fast: test:coverage-exempt-heavy failed",
+      "logFile": null,
+      "paths": [],
+      "unmatchedPaths": []
+    },
+    {
+      "id": "coverage-exempt-heavy",
+      "label": "test:coverage-exempt-heavy",
+      "displayCommand": "pnpm exec vitest run packages/typert/ packages/experimental/webworker-runtime/tests/ scripts/install-lefthook.spec.ts scripts/oxlint-contract.spec.ts scripts/change-scope.spec.ts scripts/translation-pairing-merge.spec.ts packages/experimental/webworker-packer/tests/image-loadable.spec.ts --testTimeout=90000 --expect.poll.timeout=90000 --hookTimeout=90000",
+      "status": "failed",
+      "aborted": false,
+      "allowFailure": false,
+      "durationMs": 386046.907749,
+      "exitCode": 1,
+      "signalCode": null,
+      "error": null,
+      "logFile": "logs/coverage-exempt-heavy.log",
+      "paths": [
+        {
+          "path": "scripts/install-lefthook.spec.ts",
+          "blob": "b6b2831fb6117260b5583b52bdceb0bc34a7ebff"
+        },
+        {
+          "path": "scripts/oxlint-contract.spec.ts",
+          "blob": "b28311d012edac1899c2cd189133ea48a9d8d5c2"
+        },
+        {
+          "path": "scripts/change-scope.spec.ts",
+          "blob": "423df6ea6b3007b855b4862790bead908388ecd6"
+        },
+        {
+          "path": "scripts/translation-pairing-merge.spec.ts",
+          "blob": "ed42841246fbf1b93e060d6db5db2add6c28b3ff"
+        },
+        {
+          "path": "packages/experimental/webworker-packer/tests/image-loadable.spec.ts",
+          "blob": "453b6b3e9c8d8d08c5591071ce8123f9e3883295"
+        }
+      ],
+      "unmatchedPaths": []
+    }
+  ]
+}

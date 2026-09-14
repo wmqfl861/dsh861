@@ -1,0 +1,125 @@
+[
+  {
+    "artifactId": 10331470931,
+    "label": "consumers",
+    "zipSha256": "43222cb85855721199bd79470a5d839f23b3ccbcacbbc4ee5fee96d8f01b854c",
+    "zipBytes": 2212,
+    "memberCount": 5,
+    "memberHashCount": 4,
+    "allDigestsAndSizesMatch": true,
+    "identity": {
+      "repository": "wmqfl861/dsh861",
+      "pr": "13",
+      "runId": "34799140559",
+      "runAttempt": "1",
+      "job": "node-24-consumers",
+      "aggregate": "node-compat",
+      "prHead": "201206cb4c83581b3d44620831434fbf2e337df9",
+      "prBase": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+      "checkout": {
+        "githubSha": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+        "githubRef": "refs/pull/13/merge"
+      },
+      "git": {
+        "head": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+        "headParent": null
+      },
+      "runtime": {
+        "node": "26.8.2",
+        "pnpm": "12.4.1",
+        "platform": "linux",
+        "arch": "x64"
+      },
+      "exportedAt": "2026-09-14T02:26:16.328Z"
+    },
+    "aggregate": "node-compat",
+    "summary": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    "expectedAggregateMatches": false
+  },
+  {
+    "artifactId": 10330329733,
+    "label": "linux-coverage",
+    "zipSha256": "8cd1b360b0daf4c2be629e56b059984a817c5154183644002aa8eaf8395d6a90",
+    "zipBytes": 34532,
+    "memberCount": 6,
+    "memberHashCount": 5,
+    "allDigestsAndSizesMatch": true,
+    "identity": {
+      "repository": "wmqfl861/dsh861",
+      "pr": "13",
+      "runId": "34799140559",
+      "runAttempt": "1",
+      "job": "node-24-coverage",
+      "aggregate": "ci-coverage",
+      "prHead": "201206cb4c83581b3d44620831434fbf2e337df9",
+      "prBase": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+      "checkout": {
+        "githubSha": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+        "githubRef": "refs/pull/13/merge"
+      },
+      "git": {
+        "head": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+        "headParent": null
+      },
+      "runtime": {
+        "node": "26.8.2",
+        "pnpm": "12.4.1",
+        "platform": "linux",
+        "arch": "x64"
+      },
+      "exportedAt": "2026-09-14T02:32:16.539Z"
+    },
+    "aggregate": "ci-coverage",
+    "summary": {
+      "passed": 1,
+      "failed": 1,
+      "skipped": 1
+    },
+    "expectedAggregateMatches": true
+  },
+  {
+    "artifactId": 10330871978,
+    "label": "windows-coverage",
+    "zipSha256": "e1e8b8e538bf6dcea5c26337793861da172c98e5c933daf2a1e5f064104a7094",
+    "zipBytes": 68384,
+    "memberCount": 6,
+    "memberHashCount": 5,
+    "allDigestsAndSizesMatch": true,
+    "identity": {
+      "repository": "wmqfl861/dsh861",
+      "pr": "13",
+      "runId": "34799140559",
+      "runAttempt": "1",
+      "job": "windows-coverage",
+      "aggregate": "ci-coverage",
+      "prHead": "201206cb4c83581b3d44620831434fbf2e337df9",
+      "prBase": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+      "checkout": {
+        "githubSha": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+        "githubRef": "refs/pull/13/merge"
+      },
+      "git": {
+        "head": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+        "headParent": null
+      },
+      "runtime": {
+        "node": "26.8.2",
+        "pnpm": "12.4.1",
+        "platform": "win32",
+        "arch": "x64"
+      },
+      "exportedAt": "2026-09-14T02:39:51.505Z"
+    },
+    "aggregate": "ci-coverage",
+    "summary": {
+      "passed": 1,
+      "failed": 1,
+      "skipped": 1
+    },
+    "expectedAggregateMatches": true
+  }
+]

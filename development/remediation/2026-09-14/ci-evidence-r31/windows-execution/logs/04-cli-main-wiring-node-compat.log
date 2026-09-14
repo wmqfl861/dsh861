@@ -1,0 +1,14 @@
+$ tsx scripts/run-gates.ts node-compat
+run-gates: node-compat running 4 gate(s) with 4 worker(s) from 20 available CPU(s).
+run-gates: start source worker smoke
+run-gates: start JSONL Zstandard smoke
+run-gates: start dsh source-launch smoke
+run-gates: start Vitest jsdom smoke
+run-gates: PASS JSONL Zstandard smoke (3.88s)
+run-gates: PASS dsh source-launch smoke (5.09s)
+run-gates: PASS source worker smoke (6.24s)
+run-gates: PASS Vitest jsdom smoke (6.61s)
+
+run-gates: 4 passed, 0 failed, 0 skipped in 6.68s.
+run-gates: gate evidence written to C:\dsh-r31-20260914-01\cli-main-wiring\evidence (5 files).
+EXIT=0
