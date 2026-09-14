@@ -451,10 +451,20 @@ class Transformer {
         const name = record.name as string
         const binding = this.importedLocals.get(name)
         if (binding === undefined || this.scopes.some(scope => scope.has(name))) break
+        // The named read is a member expression, so a bare use as a callee or
+        // template tag would call the function with the held module as its
+        // receiver. Native ESM calls an imported function receiver-free; the
+        // comma expression reads the value first and restores that. `new` and
+        // value positions are unaffected: a constructor ignores the receiver,
+        // and the default accessor is already a parenthesized call.
+        const valueCallPosition = (parent.type === 'CallExpression' || parent.type === 'OptionalCallExpression')
+          ? context.key === 'callee'
+          : parent.type === 'TaggedTemplateExpression' && context.key === 'tag'
         const read = this.importedRead(binding)
+        const callRead = valueCallPosition && binding.interop === 'named' ? `(0,${read})` : read
         const shorthand = parent.type === 'Property' && context.key === 'value'
           && (parent as Node & { shorthand?: boolean }).shorthand === true
-        this.replace(record.start, record.end, shorthand ? `${name}:${read}` : read)
+        this.replace(record.start, record.end, shorthand ? `${name}:${callRead}` : callRead)
         break
       }
       case 'VariableDeclarator': {
@@ -581,9 +591,14 @@ class Transformer {
       }
       case 'SwitchStatement': {
         next = { ...next, moduleScope: false }
+        // The discriminant evaluates in the enclosing scope, before the
+        // switch's shared case scope exists: a case-body declaration must not
+        // shadow an import the discriminant reads. The cases (tests included)
+        // then share that one lexical scope.
+        this.visit(record.discriminant, { ...next, parent: record, key: 'discriminant' })
         this.scopes.push(switchScopeNames(record))
         try {
-          this.recurse(record, next)
+          this.visit(record.cases, { ...next, parent: record, key: 'cases' })
         } finally {
           this.scopes.pop()
         }
@@ -820,17 +835,20 @@ function functionScopeNames(node: Node): ReadonlySet<string> {
   return names
 }
 
+/** Add one statement's lexical declarations (let/const/class/function) to `into`. */
+function collectLexicalNames(statement: Node, into: Set<string>): void {
+  if (statement.type === 'VariableDeclaration' && statement.kind !== 'var') {
+    for (const declarator of statement.declarations as Node[]) patternNames(declarator.id, into)
+  } else if (statement.type === 'FunctionDeclaration' || statement.type === 'ClassDeclaration') {
+    const id = statement.id as Node | null
+    if (id !== null) into.add(id.name as string)
+  }
+}
+
 /** Names a block's direct statement list declares lexically (let/const/class/function). */
 function blockScopeNames(block: Node): ReadonlySet<string> {
   const names = new Set<string>()
-  for (const statement of block.body as Node[]) {
-    if (statement.type === 'VariableDeclaration' && statement.kind !== 'var') {
-      for (const declarator of statement.declarations as Node[]) patternNames(declarator.id, names)
-    } else if (statement.type === 'FunctionDeclaration' || statement.type === 'ClassDeclaration') {
-      const id = statement.id as Node | null
-      if (id !== null) names.add(id.name as string)
-    }
-  }
+  for (const statement of block.body as Node[]) collectLexicalNames(statement, names)
   return names
 }
 
@@ -838,14 +856,7 @@ function blockScopeNames(block: Node): ReadonlySet<string> {
 function switchScopeNames(switchNode: Node): ReadonlySet<string> {
   const names = new Set<string>()
   for (const caseClause of switchNode.cases as Node[]) {
-    for (const statement of caseClause.consequent as Node[]) {
-      if (statement.type === 'VariableDeclaration' && statement.kind !== 'var') {
-        for (const declarator of statement.declarations as Node[]) patternNames(declarator.id, names)
-      } else if (statement.type === 'FunctionDeclaration' || statement.type === 'ClassDeclaration') {
-        const id = statement.id as Node | null
-        if (id !== null) names.add(id.name as string)
-      }
-    }
+    for (const statement of caseClause.consequent as Node[]) collectLexicalNames(statement, names)
   }
   return names
 }

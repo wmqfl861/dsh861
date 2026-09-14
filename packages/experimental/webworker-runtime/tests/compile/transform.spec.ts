@@ -851,3 +851,109 @@ refuses('unparseable source is refused', 'export const = \n', 'parse failed')
   check('default import constructs the imported class', exports.made().value, 1)
   check('named import constructs the imported class', exports.madeNamed().value, 2)
 }
+
+{
+  // Calling an imported binding — directly, optionally, or as a template tag —
+  // runs it receiver-free, as native ESM does. The named read is a member
+  // expression, so using it verbatim as the callee or tag would bind the held
+  // module as `this` inside the imported function.
+  const code = transformModule(
+    [
+      "import { probe } from 'p'",
+      'export const direct = () => probe()',
+      'export const optional = () => probe?.(1)',
+      'export const tagged = () => probe`x`',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('imported call surfaces', code)
+  function Probe(this: unknown): boolean { return this === undefined }
+  const exports = runBody(code, () => ({ probe: Probe })) as {
+    direct: () => boolean
+    optional: () => boolean
+    tagged: () => boolean
+  }
+  check('direct call of a named import is receiver-free', exports.direct(), true)
+  check('optional call of a named import is receiver-free', exports.optional(), true)
+  check('template tag from a named import is receiver-free', exports.tagged(), true)
+}
+
+{
+  // The receiver fix is scoped to imported callees and tags: a namespace
+  // member call keeps the namespace object as its receiver, an aliased import
+  // is a plain local-variable call, an object-literal method keeps its object,
+  // and every read of one imported function yields the module's own object.
+  const code = transformModule(
+    [
+      "import { probe, mode } from 'p'",
+      "import * as ns from 'p'",
+      'export const viaNamespace = () => ns.probe()',
+      'export const viaAlias = () => { const alias = probe; return alias() }',
+      'export const identity = () => probe === ns.probe',
+      'export const objectMethod = () => ({ marker: "object", self() { return this } }).self().marker',
+      'export const modeRead = () => mode',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('imported-call receiver controls', code)
+  function Probe(this: unknown): boolean { return this === undefined }
+  const module = { probe: Probe, mode: 'import' }
+  const exports = runBody(code, () => module) as {
+    viaNamespace: () => boolean
+    viaAlias: () => boolean
+    identity: () => boolean
+    objectMethod: () => string
+    modeRead: () => string
+  }
+  check('namespace member call keeps its object receiver', exports.viaNamespace(), false)
+  check('aliased import still calls receiver-free', exports.viaAlias(), true)
+  check('imported function identity survives every read', exports.identity(), true)
+  check('a genuine object method keeps its object receiver', exports.objectMethod(), 'object')
+  check('value reads of imports stay untouched', exports.modeRead(), 'import')
+}
+
+{
+  // The switch discriminant evaluates in the enclosing scope, before the
+  // switch's one shared case scope exists: a case-body declaration must not
+  // shadow an import at the discriminant. The case body itself still sees its
+  // own declaration, so `result` records the case-local const.
+  const code = transformModule(
+    [
+      "import { selected } from 'p'",
+      'export let result = 0',
+      'switch (selected) { case 1: const selected = 2; result = selected; break; }',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('switch discriminant scope', code)
+  const attempt = (): unknown => {
+    try {
+      return (runBody(code, () => ({ selected: 1 })) as { result: number }).result
+    } catch (reason) {
+      return `threw: ${(reason as Error).message}`
+    }
+  }
+  check('discriminant reads the import despite a same-named case binding', attempt(), 2)
+}
+
+{
+  // Inside the cases the shared switch scope still applies: a const declared
+  // in one case shadows the import for a later, fall-through case body.
+  const code = transformModule(
+    [
+      "import { mode, value } from 'p'",
+      'export let first = ""',
+      'export let second = ""',
+      'switch (mode) { case 1: const value = "local"; first = value; case 2: second = value; break; }',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('switch cases share one lexical scope', code)
+  const exports = runBody(code, () => ({ mode: 1, value: 'import' })) as { first: string; second: string }
+  check('first case initializes its own const', exports.first, 'local')
+  check('fall-through case sees the earlier case const, not the import', exports.second, 'local')
+}
