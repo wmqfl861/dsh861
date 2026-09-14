@@ -466,3 +466,38 @@ describe('claim precedence over text-ref entities', () => {
     expect(leaf()).toEqual({ type: 'text', style: TOKEN_STYLE, text: token })
   })
 })
+
+describe('claim token split under incremental typing', () => {
+  const TOKEN_STYLE = 'color: var(--dsw-alias-state-warn-label)'
+
+  // Typing one character into the already-styled token node rewrites the
+  // first leaf whole (that is what an input event does). The split must keep
+  // the overflow unstyled: splitText copies the style to every part, and two
+  // adjacent equally-styled text nodes merge back into one, re-split, and
+  // end in Lexical error #14 (reported when typing after a claim, most often
+  // through IME composition).
+  it.each(['x', '这'])('keeps the %j overflow unstyled instead of looping', (extra) => {
+    const editor = makeEditor()
+    registerClaimDecoration(editor, () => '/plan')
+    editor.update(() => {
+      const paragraph = $createParagraphNode()
+      paragraph.append($createTextNode('/plan'))
+      $getRoot().clear().append(paragraph)
+    }, { discrete: true })
+    editor.update(() => {
+      const first = ($getRoot().getFirstChild() as ParagraphNode).getFirstChild()
+      if ($isTextNode(first)) first.setTextContent(`/plan${extra}`)
+    }, { discrete: true })
+    const leaves = editor.getEditorState().read(() => {
+      const block = $getRoot().getFirstChild() as ParagraphNode
+      return block.getChildren().map(child => ({
+        text: child.getTextContent(),
+        style: $isTextNode(child) ? child.getStyle() : 'atomic',
+      }))
+    })
+    expect(leaves).toEqual([
+      { text: '/plan', style: TOKEN_STYLE },
+      { text: extra, style: '' },
+    ])
+  })
+})

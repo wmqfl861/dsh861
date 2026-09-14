@@ -44,8 +44,14 @@ export function registerClaimDecoration(editor: LexicalEditor, activeToken: () =
     if (text.length > token.length) {
       // Typing at the token boundary lands in the styled node; split the
       // overflow back out so only the token itself carries the color.
-      const [tokenNode] = node.splitText(token.length)
+      // splitText copies the style to every part, so the overflow half must
+      // clear it again: with both halves styled, Lexical's text normalization
+      // merges them back, the transform re-splits, and the cycle ends in
+      // Lexical error #14 (reported when typing after a claim, most often
+      // through IME composition).
+      const [tokenNode, overflowNode] = node.splitText(token.length)
       if (tokenNode !== undefined && tokenNode.getStyle() !== TOKEN_STYLE) tokenNode.setStyle(TOKEN_STYLE)
+      if (overflowNode !== undefined && overflowNode.getStyle() === TOKEN_STYLE) overflowNode.setStyle('')
       return
     }
     if (node.getStyle() !== TOKEN_STYLE) node.setStyle(TOKEN_STYLE)
