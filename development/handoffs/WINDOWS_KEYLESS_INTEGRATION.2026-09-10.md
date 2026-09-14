@@ -12,11 +12,9 @@ Windows coverage前置组仍失败：thread-safe的Chokidar5写入稳定用例�
 
 ## 当前唯一任务
 
-[r34任务](../remediation/2026-09-15/chokidar-timing-r34/LOCAL_AGENT_TASK.md)与[远端回执](../remediation/2026-09-15/chokidar-timing-r34/verification.json)是接续入口。候选已直接修改Chokidar spec，不是待应用patch。取件按最终交接消息的完整SHA，核对祖先及文件blob，再执行实际两个库版本/两个project。
+r34 取件 `33d82004f536bf54881e2f96f07ac06a541fa398`（父=b6b7c758，blob 核验一致，ff-only 快进）已本地真实验证：thread-safe 与 process-bound 两 project × Chokidar4/5 两夹具 ×7 用例=28/28 通过；负控真实执行（临时关闭 awaitWriteFinish→"稳定前无事件"断言 8 失败、首失留存→恢复原字节复验 28/28）；无未处理拒绝/watcher 残留，后续真实时钟用例不受污染。门禁先败后过：lint 首失为候选新增行显式 `onceEvent<void>` 触发 oxlint 规则，最小整改一行改回同文件既有推断写法（语义等价，spec blob 变为 `b8458db29e24c59d23e7b3f897bc8483b7ae8110`）；test:docs 首失为 Note 配对未录，按点名命令写入后 16/16。typecheck/duplication 一次通过。证据见 [r34 windows-execution](../remediation/2026-09-15/chokidar-timing-r34/windows-execution/FINDINGS.md)（logs/01–14）。
 
-候选仅在写入稳定场景控制Date与timeout/interval，保留生产Loader/VFS/安装包、30ms/5ms和一次add契约；增加稳定前不发事件、add读到完整内容与稍后独立写入应发change的断言。watcher关闭后恢复真实时钟。完整Vitest/Windows集成、类型/lint/duplication/docs及独立复审尚未由远端执行，不能把2项显式轮询模型实验称作真实Chokidar通过。
-
-原10ms真实等待不保证实际间隔短于30ms，CI也没有逐次写入时间。已提出并处理测试前提风险，但具体CI延迟链尚未实证；本地真实执行若暴露其他缺陷，保留首失后窄修，不改变事件预期或提高阈值掩盖。
+当前状态：本地执行完成；主会话转达全新上下文独立复审 9/9 全项 PASS、无需整改。已按交付规则正常 hooks 分组提交并非强推推送同分支（完整远端 SHA 见本轮回执/提交记录）。复审结论不等于新 CI 已发生或 Linux coverage 已有结论；CI 延迟链归因仍属机制性（轮询模型+受控时钟），非逐次写入时间实证。
 
 ## 交付规则与范围
 
