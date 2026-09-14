@@ -14,6 +14,10 @@ r30 接收 SHA 为 `201206cb4c83581b3d44620831434fbf2e337df9`，整改复审经�
 
 [r31 本地任务](../remediation/2026-09-14/ci-evidence-r31/LOCAL_AGENT_TASK.md)是当前接续入口。三项定向修复（嵌套 aggregate 证据目录认领、Typert 快照单处版本路径、浅克隆父链读取）已应用并通过定向验证，[Windows 执行回执](../remediation/2026-09-14/ci-evidence-r31/windows-execution/)记录基线复现、main 接线 CLI 实跑、新增五用例与类型/lint 结果；源码与证据经全新上下文独立复审到 PASS 后提交推送。r31 提交后的新 CI 尚未发生，不得提前宣布通过；远端可用读取/下载通道核对后续 artifact。
 
+## r32：六个 Web 浏览器消费者失败（2026-09-14）
+
+升级分支上六个 Web 浏览器消费者测试文件失败，已全部定因并在拥有者处修复，[证据索引](../remediation/2026-09-14/web-consumers-r32/FINDINGS.md)按文件留存首失、根因、修复与复测（logs 00-36）。要点：built-boot 为 jsdom 30 选择器行为（改 `getAttribute` 查找）；preset golden 为 js-yaml 5 诊断措辞单行（Windows 分隔符伪差不归一化）；lifecycle-chrome 为 composer 两处真缺陷（claim-decor `splitText` 样式泄漏致 Lexical #14 transform 死循环——与上游 Discussion #6052 同因；Lexical 0.50 组合填充滞留 DOM 吞 Backspace）；preview-boot 为三层（测试 `respond()` win32 分隔符、worker transform 具名导入急切读取致 zod core/util 循环 TDZ、default 访问器构造优先级），transform 语义升级为 `dsh-worker-transform/2` 并配 15 条新用例（项目计数 270→300）；queue-actions（CI-only React #185）与 sidebar-scrollbar（CI-only thumb/hover 透明）本机不可复现，分别按机制归因于 claim 循环的 React 嵌套更新风暴与用例间 linger 过期，已做加固（无断言删改、无错误过滤）。六文件 CI 并行形态合跑 32/33（唯一失败即上述 Windows 伪差）。决策记录见 [Agent Note](../../../.agents/notes/implemented/bug-fix/2026-09-14-web-consumers-r32-upgrade-remediation.md)。本段所列源码与证据已按拥有者分组提交，推送前待独立复审；未闭合项为该 Windows 伪差与两项待 CI 确认的归因。
+
 ## 已结案的勘误与非本轮任务
 
 r28 本机 static 实际46/1，无本机47/47原始日志，不能拿CI摘录冒充。两处陈旧日志名的核对结果保持在r29回执，不改封存r28材料。`push-attempt1.log` 是复推成功记录，首次失败输出缺失；负向回归的7ms是用例耗时，实际失败为150<240。不要再要求补造这些缺失历史。
