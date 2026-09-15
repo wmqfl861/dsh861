@@ -1,0 +1,24 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/preview-workflow.spec.ts[2m > [22mPR preview workflow[2m > [22mkeeps the immutable full build and restore-only dependency cache
+[31m[1mAssertionError[22m: expected '26' to be '24' // Object.is equality[39m
+
+Expected: [32m"2[7m4[27m"[39m
+Received: [31m"2[7m6[27m"[39m
+
+[36m [2m❯[22m scripts/preview-workflow.spec.ts:[2m28:47[22m[39m
+    [90m 26|[39m
+    [90m 27|[39m   it('keeps the immutable full build and restore-only dependency cache…
+    [90m 28|[39m     expect(workflow.env.PRIMARY_NODE_VERSION).toBe('24')
+    [90m   |[39m                                               [31m^[39m
+    [90m 29|[39m     expect(workflow.env.DSH_TELEMETRY_DISABLED).toBe('1')
+    [90m 30|[39m     const commands = preview.steps.map(step => step.run)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m

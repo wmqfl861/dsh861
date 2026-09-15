@@ -1,0 +1,12 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m [30m[45m thread-safe [49m[39m scripts/test-proxy-environment.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m scripts/ci-compatible-selfhosted.spec.ts [2m([22m[2m6 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m[33m 346[2mms[22m[39m
+   [32m✓[39m Node compatibility self-hosted routing [2m(6)[22m
+     [33m[2m✓[22m[39m overrides runner exports inside setup-node without affecting later Node processes[33m 322[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m12 passed[39m[22m[2m | [22m[33m2 skipped[39m[90m (14)[39m
+[2m   Start at [22m 21:13:00
+[2m   Duration [22m 946ms[2m (transform 53%, tests 32%, setup 10%, import 4%, worker 1%)[22m
