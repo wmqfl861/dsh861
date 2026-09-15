@@ -1463,6 +1463,60 @@ function processTableArgs(platform: 'win32' | 'posix'): string[] {
 }
 
 /**
+ * The enumeration subprocess surface the asynchronous enumeration wiring
+ * drives: the captured stdout pipe, the `error` and `close` lifecycle
+ * notifications, and termination. Structural, so the `ChildProcess` returned
+ * by `spawn` with piped stdout and EventEmitter-based test doubles that
+ * replay its notifications both satisfy it.
+ */
+interface EnumerationChild {
+  stdout: NodeJS.ReadableStream
+  kill(signal?: NodeJS.Signals): boolean
+  on(event: 'error', listener: (error: Error) => void): void
+  on(event: 'close', listener: (exitCode: number | null, signalCode: NodeJS.Signals | null) => void): void
+}
+
+/**
+ * Wire one enumeration subprocess into a descendant-list promise: stdout is
+ * accumulated until the child closes, the close handler walks the captured
+ * table, and a settle (normal close, error, or cancel) terminates the child so
+ * the gate never waits on its stdio handles.
+ * @param root - the pid whose descendants are wanted.
+ * @param child - the spawned process-table enumeration subprocess.
+ * @returns the descendant-list promise and the cancel handle the sampler uses
+ * when the gate settles first.
+ */
+export function wireDescendantEnumeration(root: number, child: EnumerationChild): { promise: Promise<number[]>; cancel: () => void } {
+  child.stdout.setEncoding('utf8')
+  let stdout = ''
+  let settled = false
+  let settle!: (value: number[]) => void
+  const promise = new Promise<number[]>((resolve) => { settle = resolve })
+  const finish = (value: number[]) => {
+    if (settled) return
+    settled = true
+    // The enumeration completed (or was cancelled): stop the subprocess so
+    // the gate does not wait on its stdio handles.
+    child.kill('SIGTERM')
+    settle(value)
+  }
+  child.stdout.on('data', (chunk: string) => { stdout += chunk })
+  child.on('error', () => { finish([]) })
+  child.on('close', () => {
+    // Check before touching the captured output: cancel and error settle the
+    // promise first, and a close that arrives after that must not re-parse
+    // and re-walk the table — finish's own guard runs too late, because the
+    // argument expression is evaluated before the call.
+    if (settled) return
+    finish(collectDescendants(root, parsePidPpidLines(stdout)))
+  })
+  return {
+    promise,
+    cancel: () => { finish([]) },
+  }
+}
+
+/**
  * Asynchronous descendant enumeration, so a slow WMI/CIM call (bounded by a
  * 10-second timeout) cannot block the event loop: the sampler runs it while
  * the gate's output streams and exit handling must keep flowing. Returns the
@@ -1488,26 +1542,7 @@ function descendantPidsAsync(root: number, platform: NodeJS.Platform): { promise
     stdio: ['ignore', 'pipe', 'ignore'],
     timeout: platform === 'win32' ? 10000 : undefined,
   })
-  child.stdout.setEncoding('utf8')
-  let stdout = ''
-  let settled = false
-  let settle!: (value: number[]) => void
-  const promise = new Promise<number[]>((resolve) => { settle = resolve })
-  const finish = (value: number[]) => {
-    if (settled) return
-    settled = true
-    // The enumeration completed (or was cancelled): stop the subprocess so
-    // the gate does not wait on its stdio handles.
-    child.kill('SIGTERM')
-    settle(value)
-  }
-  child.stdout.on('data', (chunk: string) => { stdout += chunk })
-  child.on('error', () => { finish([]) })
-  child.on('close', () => { finish(collectDescendants(root, parsePidPpidLines(stdout))) })
-  return {
-    promise,
-    cancel: () => { finish([]) },
-  }
+  return wireDescendantEnumeration(root, child)
 }
 
 /** Parse `pid ppid` rows from a process-table dump. Both the POSIX `ps -axo
@@ -1544,21 +1579,33 @@ export function taskkillArgs(rootPid: number, descendants: number[]): string[][]
   return [rootPid, ...descendants].map(pid => ['/PID', String(pid), '/T', '/F'])
 }
 
-/** Breadth-first walk of the pid/ppid rows starting at `root`. */
-function collectDescendants(root: number, rows: Array<[number, number]>): number[] {
+/**
+ * Breadth-first walk of the pid/ppid rows starting at `root`.
+ * @param root - the pid whose descendants are wanted; it need not have a row
+ * of its own in the table.
+ * @param rows - pid/ppid pairs from one process-table snapshot.
+ * @returns every pid reachable from `root` through the rows, each once, in
+ * first-discovery breadth-first order; `root` itself is never included.
+ */
+export function collectDescendants(root: number, rows: Array<[number, number]>): number[] {
   const byParent = new Map<number, number[]>()
   for (const [pid, ppid] of rows) {
     const children = byParent.get(ppid) ?? []
     children.push(pid)
     byParent.set(ppid, children)
   }
+  const seen = new Set([root])
+  const queue = [root]
   const result: number[] = []
-  const queue = byParent.get(root) ?? []
   for (let index = 0; index < queue.length; index += 1) {
-    const pid = queue[index]
-    if (pid === undefined) continue
-    result.push(pid)
-    queue.push(...(byParent.get(pid) ?? []))
+    const parent = queue[index]
+    if (parent === undefined) continue
+    for (const pid of byParent.get(parent) ?? []) {
+      if (seen.has(pid)) continue
+      seen.add(pid)
+      queue.push(pid)
+      result.push(pid)
+    }
   }
   return result
 }
