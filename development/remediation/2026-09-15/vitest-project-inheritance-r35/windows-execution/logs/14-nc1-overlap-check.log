@@ -1,0 +1,1 @@
+THREW: coverage inventory: "scripts/archived-agent-notes.spec.ts" is claimed by projects "thread-safe" and "process-bound"; every file must belong to exactly one Vitest project.

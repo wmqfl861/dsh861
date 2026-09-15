@@ -1,0 +1,44 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[45m thread-safe [49m[39m scripts/vitest-project-inheritance.spec.ts [2m([22m[2m3 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m2 skipped[39m[2m)[22m[33m 1341[2mms[22m[39m
+   [31m❯[39m vitest inline project inheritance [2m(3)[22m
+[31m     [31m×[31m resolves each project with the shared setup scripts and one copy of each target plugin[39m[33m 1340[2mms[22m[39m
+     [2m[90m↓[39m[22m lists this spec under exactly one project
+     [2m[90m↓[39m[22m narrows a generated partition config without re-inheriting the root include
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/vitest-project-inheritance.spec.ts[2m > [22mvitest inline project inheritance[2m > [22mresolves each project with the shared setup scripts and one copy of each target plugin
+[31m[1mAssertionError[22m: expected [] to deeply equal [ 'test-invariants.ts', …(1) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [[39m
+[32m-   "test-invariants.ts",[39m
+[32m-   "test-proxy-environment.ts",[39m
+[32m- ][39m
+[31m+ [][39m
+
+[36m [2m❯[22m scripts/vitest-project-inheritance.spec.ts:[2m91:10[22m[39m
+    [90m 89|[39m     for (const project of projects) {
+    [90m 90|[39m       expect(project.setupFiles.map(file => file.split('/').at(-1)).so…
+    [90m 91|[39m         .toEqual(['test-invariants.ts', 'test-proxy-environment.ts'])
+    [90m   |[39m          [31m^[39m
+    [90m 92|[39m       expect(new Set(project.setupFiles).size).toBe(2)
+    [90m 93|[39m       expect(project.targetPlugins['vite-tsconfig-paths']).toBe(1)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m2 skipped[39m[90m (3)[39m
+[2m   Start at [22m 11:38:24
+[2m   Duration [22m 1.70s[2m (tests 92%, transform 5%, import 2%, worker 1%)[22m

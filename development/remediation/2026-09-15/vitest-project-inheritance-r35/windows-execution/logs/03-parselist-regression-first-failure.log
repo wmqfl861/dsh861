@@ -1,0 +1,167 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns every single-worker partition before one merged threshold check
+[22m[39mcoverage-partitions: start partition 1/3
+coverage-partitions: start partition 2/3
+coverage-partitions: start partition 3/3
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns every single-worker partition before one merged threshold check
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mstarts the heaviest partition first for fail-fast
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mstarts the heaviest partition first for fail-fast
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mgives each project only its own files in the partition config
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mgives each project only its own files in the partition config
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns a native pnpm entrypoint directly
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns a native pnpm entrypoint directly
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mmerges normal test failures and returns their failed status
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mmerges normal test failures and returns their failed status
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mrejects a missing partition blob before merge
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mreports signal termination before missing-blob validation
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mwaits for every partition after one spawn failure
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mwaits for every partition after one spawn failure
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2munlinks a link-shaped coverage path without touching its target
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2munlinks a link-shaped coverage path without touching its target
+[22m[39mcoverage-partitions: start merged coverage report
+
+ [31m❯[39m [30m[45m thread-safe [49m[39m scripts/coverage-partitions.spec.ts [2m([22m[2m44 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[33m 1184[2mms[22m[39m
+   [32m✓[39m coverage partition count [2m(9)[22m
+     [32m✓[39m parses undefined as undefined[32m 2[2mms[22m[39m
+     [32m✓[39m parses "" as undefined[32m 0[2mms[22m[39m
+     [32m✓[39m parses "2" as 2[32m 0[2mms[22m[39m
+     [32m✓[39m parses "3" as 3[32m 0[2mms[22m[39m
+     [32m✓[39m rejects "0"[32m 1[2mms[22m[39m
+     [32m✓[39m rejects "1"[32m 0[2mms[22m[39m
+     [32m✓[39m rejects "2.5"[32m 1[2mms[22m[39m
+     [32m✓[39m rejects "02"[32m 0[2mms[22m[39m
+     [32m✓[39m rejects "many"[32m 0[2mms[22m[39m
+   [32m✓[39m coverage partition timeout [2m(3)[22m
+     [32m✓[39m applies one configured timeout to tests, polling, and hooks[32m 1[2mms[22m[39m
+     [32m✓[39m keeps Vitest defaults when the timeout is absent[32m 0[2mms[22m[39m
+     [32m✓[39m rejects invalid timeout input[32m 1[2mms[22m[39m
+   [32m✓[39m coverage forwarded arguments [2m(2)[22m
+     [32m✓[39m removes one package-script separator[32m 0[2mms[22m[39m
+     [32m✓[39m preserves direct arguments and a subsequent Vitest separator[32m 0[2mms[22m[39m
+   [32m✓[39m weighted partition assignment [2m(6)[22m
+     [32m✓[39m seeds the heaviest files into different partitions[32m 1[2mms[22m[39m
+     [32m✓[39m balances total weight across partitions[32m 32[2mms[22m[39m
+     [32m✓[39m steers assignment by weight, not by file count[32m 0[2mms[22m[39m
+     [32m✓[39m leaves trailing empty buckets when files are scarce[32m 0[2mms[22m[39m
+     [32m✓[39m returns one empty bucket per partition for an empty inventory[32m 0[2mms[22m[39m
+     [32m✓[39m assigns unknown-weight files evenly[32m 0[2mms[22m[39m
+   [31m❯[39m coverage file inventory [2m(14)[22m
+     [32m✓[39m parses vitest list --filesOnly output, keeps project ownership, and drops exempt suites[32m 33[2mms[22m[39m
+     [32m✓[39m removes every Typert package from instrumented files and project assignments[32m 42[2mms[22m[39m
+[31m     [31m×[31m rejects one file claimed by two projects (thread-safe first)[39m[32m 13[2mms[22m[39m
+[31m     [31m×[31m rejects one file claimed by two projects (process-bound first)[39m[32m 7[2mms[22m[39m
+     [32m✓[39m keeps one inventory entry for a file repeated under the same project[32m 6[2mms[22m[39m
+     [32m✓[39m ignores test-level lines joined by the " > " separator[32m 6[2mms[22m[39m
+     [32m✓[39m parses CRLF output, .tsx specs, and a sorted inventory[32m 5[2mms[22m[39m
+[31m     [31m×[31m treats backslash and forward-slash spellings of one file as the same file[39m[32m 10[2mms[22m[39m
+     [32m✓[39m drops files matched by every one of the seven exempt selectors[32m 42[2mms[22m[39m
+     [32m✓[39m skips exempt files before the single-ownership check[32m 25[2mms[22m[39m
+     [32m✓[39m averages recorded durations per file from the results cache[32m 18[2mms[22m[39m
+     [32m✓[39m prefers the persisted duration file over the vitest cache[32m 16[2mms[22m[39m
+     [32m✓[39m merges new durations into the persisted file[32m 7[2mms[22m[39m
+     [32m✓[39m extracts per-file durations from partition json reports[32m 5[2mms[22m[39m
+   [32m✓[39m coverage partition coordinator [2m(10)[22m
+     [32m✓[39m runs every single-worker partition before one merged threshold check[32m 25[2mms[22m[39m
+     [32m✓[39m rejects an empty partition assignment before spawning any command[32m 11[2mms[22m[39m
+     [32m✓[39m starts the heaviest partition first for fail-fast[32m 21[2mms[22m[39m
+     [32m✓[39m gives each project only its own files in the partition config[32m 19[2mms[22m[39m
+     [32m✓[39m runs a native pnpm entrypoint directly[32m 19[2mms[22m[39m
+     [32m✓[39m merges normal test failures and returns their failed status[32m 21[2mms[22m[39m
+     [32m✓[39m rejects a missing partition blob before merge[32m 19[2mms[22m[39m
+     [32m✓[39m reports signal termination before missing-blob validation[32m 19[2mms[22m[39m
+     [32m✓[39m waits for every partition after one spawn failure[32m 19[2mms[22m[39m
+     [33m[2m✓[22m[39m unlinks a link-shaped coverage path without touching its target[33m 729[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 3 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/coverage-partitions.spec.ts[2m > [22mcoverage file inventory[2m > [22mrejects one file claimed by two projects (thread-safe first)
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/coverage-partitions.spec.ts[2m > [22mcoverage file inventory[2m > [22mrejects one file claimed by two projects (process-bound first)
+[31m[1mAssertionError[22m: expected [Function] to throw an error[39m
+
+[32m- Expected:[39m
+null
+
+[31m+ Received:[39m
+undefined
+
+[36m [2m❯[22m scripts/coverage-partitions.spec.ts:[2m241:8[22m[39m
+    [90m239|[39m     ].join('\n')
+    [90m240|[39m     expect(() => parseListOutput(output, root))
+    [90m241|[39m       .toThrow(/(?=.*packages\/a\/tests\/shared\.spec\.ts)(?=.*thread-…
+    [90m   |[39m        [31m^[39m
+    [90m242|[39m   })
+    [90m243|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/coverage-partitions.spec.ts[2m > [22mcoverage file inventory[2m > [22mtreats backslash and forward-slash spellings of one file as the same file
+[31m[1mAssertionError[22m: expected [ 'packages/a/tests/a.spec.ts', …(1) ] to deeply equal [ 'packages/a/tests/a.spec.ts' ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[2m    "packages/a/tests/a.spec.ts",[22m
+[31m+   "packages\\a\\tests\\a.spec.ts",[39m
+[2m  ][22m
+
+[36m [2m❯[22m scripts/coverage-partitions.spec.ts:[2m285:29[22m[39m
+    [90m283|[39m     ].join('\n')
+    [90m284|[39m     const inventory = parseListOutput(output, root)
+    [90m285|[39m     expect(inventory.files).toEqual(['packages/a/tests/a.spec.ts'])
+    [90m   |[39m                             [31m^[39m
+    [90m286|[39m     expect(inventory.projectOf.get('packages/a/tests/a.spec.ts')).toBe…
+    [90m287|[39m   })
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m41 passed[39m[22m[90m (44)[39m
+[2m   Start at [22m 11:09:57
+[2m   Duration [22m 2.36s[2m (tests 60%, transform 35%, setup 4%, import 1%, worker 1%)[22m

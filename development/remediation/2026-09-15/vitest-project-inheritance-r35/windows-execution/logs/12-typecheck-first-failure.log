@@ -1,0 +1,13 @@
+$ npm run build:lib:host && npm run typecheck:contracts-ready
+
+> @deepseek-ai/dsh-root@0.1.5-rc.2 build:lib:host
+> tsc -b tsconfig.host.json && tsdown --env.DSH_BUILD_FACE host
+
+scripts/vitest-project-inheritance.spec.ts(8,30): error TS6307: File 'C:/Albert/project/dsh861/vitest.config.ts' is not listed within the file list of project 'C:/Albert/project/dsh861/tsconfig.host.json'. Projects must list all files or use an 'include' pattern.
+vitest.config.ts(216,5): error TS2769: No overload matches this call.
+  The last overload gave the following error.
+    Type '{ provider: "v8"; include: string[]; exclude: string[]; thresholds: { perFile: true; statements: number; branches: number; functions: number; lines: number; } | undefined; reporter: string[]; }' is not assignable to type 'CoverageOptions' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+      Types of property 'thresholds' are incompatible.
+        Type '{ perFile: true; statements: number; branches: number; functions: number; lines: number; } | undefined' is not assignable to type 'Thresholds | ({ [glob: string]: Pick<Thresholds, "branches" | "functions" | "lines" | "perFile" | "statements" | 100>; } & Thresholds)'.
+          Type 'undefined' is not assignable to type 'Thresholds | ({ [glob: string]: Pick<Thresholds, "branches" | "functions" | "lines" | "perFile" | "statements" | 100>; } & Thresholds)'.
+[ELIFECYCLE] Command failed with exit code 1.

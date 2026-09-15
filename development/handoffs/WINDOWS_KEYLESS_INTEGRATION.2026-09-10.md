@@ -12,9 +12,11 @@ Windows coverage前置组仍失败：thread-safe的Chokidar5写入稳定用例�
 
 ## 当前唯一任务
 
-r34 取件 `33d82004f536bf54881e2f96f07ac06a541fa398`（父=b6b7c758，blob 核验一致，ff-only 快进）已本地真实验证：thread-safe 与 process-bound 两 project × Chokidar4/5 两夹具 ×7 用例=28/28 通过；负控真实执行（临时关闭 awaitWriteFinish→"稳定前无事件"断言 8 失败、首失留存→恢复原字节复验 28/28）；无未处理拒绝/watcher 残留，后续真实时钟用例不受污染。门禁先败后过：lint 首失为候选新增行显式 `onceEvent<void>` 触发 oxlint 规则，最小整改一行改回同文件既有推断写法（语义等价，spec blob 变为 `b8458db29e24c59d23e7b3f897bc8483b7ae8110`）；test:docs 首失为 Note 配对未录，按点名命令写入后 16/16。typecheck/duplication 一次通过。证据见 [r34 windows-execution](../remediation/2026-09-15/chokidar-timing-r34/windows-execution/FINDINGS.md)（logs/01–14）。
+r34 已完成：独立复审 9/9 PASS 后按交付规则分组提交并非强推推送同分支（记录见 [r34 windows-execution](../remediation/2026-09-15/chokidar-timing-r34/windows-execution/FINDINGS.md)，logs/01–14；r33/r34 历史回执保持原字节）。
 
-当前状态：本地执行完成；主会话转达全新上下文独立复审 9/9 全项 PASS、无需整改。已按交付规则正常 hooks 分组提交并非强推推送同分支（完整远端 SHA 见本轮回执/提交记录）。复审结论不等于新 CI 已发生或 Linux coverage 已有结论；CI 延迟链归因仍属机制性（轮询模型+受控时钟），非逐次写入时间实证。
+r35 修复 Vitest 5 内联项目继承造成的测试范围重叠与覆盖清单项目归属冲突，取件 `b5e6fd857ca737aa32196c02a3707a99d3703b54`（fetch 后远端无新提交、本地领先、三个基线 blob 核对一致）。根因实测（Vitest 5.0.0 源码+真实输出）：内联项目默认继承声明文件且数组经 Vite mergeConfig 串联，根 `test.include` 并入两项目（普通模式 1236 个唯一文件中 1229 个双归属、process-bound 膨胀到 1236 个；r34 chokidar 单 spec 双项目 28 用例即此）且根插件与项目插件叠加注册；coverage 不受 `extends` 影响（每项目一律取 globalConfig.coverage）。修复：两内联项目顶层 `extends: false`（非 `extends: true` 隐藏警告）+ 共享 `testSetupFiles` 常量显式接线；项目插件/esbuild/execArgv/forks/平台规则与根 coverage include-exclude/阈值/reporter/分区模式不变；`parseListOutput` 豁免前置展开+反斜杠归一+同文件异项目抛错（含文件与两项目名）+JSDoc 同步，其余实现未替换。真实验证（实际安装 Vitest）：两模式唯一文件并集修复前后零差异（1236/1191，不靠重复执行凑数）、两项目交集空、process-bound 恰为 win32 允许的 7 个清单文件、每项目两目标插件各 1 次、两初始化脚本不重复不丢失；新增 `scripts/vitest-project-inheritance.spec.ts`（真实 createVitest 子进程探针 + 过滤 list 唯一归属 + 真实 Vitest 枚举协调器生成的分区配置，证明缩小分区不重新继承根部宽泛 include、空侧不扩展为运行全部；临时目录自建自清理）。解析器回归先对原函数留存真实首失（3 failed | 41 passed）再修复复测 44/44。负控真实执行：恢复隐式继承→真实 `parseListOutput` 对真实 list 输出抛错+最终版回归 4 failed（插件重复/setup 翻倍/spec 双归属）；仅移除项目 setupFiles→项目解析 setupFiles 为空+接线回归失败；恢复后 blob 复验 `f65397a8…` 字节一致、复验绿。定向测试 4 文件/82 用例通过（chokidar 仅 thread-safe 14 用例，不再双项目重复）。门禁先败后过（首失留存）：typecheck 首失为首版 spec 静态导入 vitest.config.ts 触发 TS6307（重写为子进程探针后过）；lint 首失为一处引号（一行整改后 0 警告 0 错误）；test:docs 首失为 Note 配对未录（点名命令写入后 16/16）；duplication 0 clones。中英 Note 已配对。主会话"10/10、162 组差分"仅属隔离验证，未复用为仓库结果。证据见 [r35 windows-execution](../remediation/2026-09-15/vitest-project-inheritance-r35/windows-execution/FINDINGS.md)（logs/01–28）。
+
+当前状态：本地执行完成，工作树改动待主会话派发全新上下文独立复审；复审 PASS 前不提交、不推送。完整 coverage 与 Linux 通道本轮未运行（维持无结论）；新源码 CI 未发生；不提前宣布升级阶段完成。
 
 ## 交付规则与范围
 
