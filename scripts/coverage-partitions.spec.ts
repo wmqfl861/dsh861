@@ -228,6 +228,105 @@ describe('coverage file inventory', () => {
     expect([...inventory.projectOf]).toEqual([[retained, 'thread-safe']])
   })
 
+  it.each([
+    ['thread-safe', 'process-bound'],
+    ['process-bound', 'thread-safe'],
+  ])('rejects one file claimed by two projects (%s first)', async (first, second) => {
+    const root = await temporaryRoot()
+    const output = [
+      `[${first}] packages/a/tests/shared.spec.ts`,
+      `[${second}] packages/a/tests/shared.spec.ts`,
+    ].join('\n')
+    expect(() => parseListOutput(output, root))
+      .toThrow(/(?=.*packages\/a\/tests\/shared\.spec\.ts)(?=.*thread-safe)(?=.*process-bound)/)
+  })
+
+  it('keeps one inventory entry for a file repeated under the same project', async () => {
+    const root = await temporaryRoot()
+    const output = [
+      '[thread-safe] packages/a/tests/a.spec.ts',
+      '[thread-safe] packages/a/tests/a.spec.ts',
+    ].join('\n')
+    const inventory = parseListOutput(output, root)
+    expect(inventory.files).toEqual(['packages/a/tests/a.spec.ts'])
+    expect(inventory.projectOf.get('packages/a/tests/a.spec.ts')).toBe('thread-safe')
+  })
+
+  it('ignores test-level lines joined by the " > " separator', async () => {
+    const root = await temporaryRoot()
+    const output = [
+      '[thread-safe] packages/a/tests/a.spec.ts',
+      '[thread-safe] packages/a/tests/a.spec.ts > suite > a case ending in .spec.ts',
+      '[process-bound] packages/a/tests/a.spec.ts > suite > case',
+    ].join('\n')
+    const inventory = parseListOutput(output, root)
+    expect(inventory.files).toEqual(['packages/a/tests/a.spec.ts'])
+    expect(inventory.projectOf.get('packages/a/tests/a.spec.ts')).toBe('thread-safe')
+  })
+
+  it('parses CRLF output, .tsx specs, and a sorted inventory', async () => {
+    const root = await temporaryRoot()
+    const output = [
+      '[thread-safe] packages/b/tests/z.spec.tsx',
+      '[process-bound] packages/a/tests/a.spec.ts',
+    ].join('\r\n') + '\r\n'
+    const inventory = parseListOutput(output, root)
+    expect(inventory.files).toEqual(['packages/a/tests/a.spec.ts', 'packages/b/tests/z.spec.tsx'])
+    expect(inventory.projectOf.get('packages/b/tests/z.spec.tsx')).toBe('thread-safe')
+  })
+
+  it('treats backslash and forward-slash spellings of one file as the same file', async () => {
+    const root = await temporaryRoot()
+    const output = [
+      '[thread-safe] packages\\a\\tests\\a.spec.ts',
+      '[thread-safe] packages/a/tests/a.spec.ts',
+    ].join('\n')
+    const inventory = parseListOutput(output, root)
+    expect(inventory.files).toEqual(['packages/a/tests/a.spec.ts'])
+    expect(inventory.projectOf.get('packages/a/tests/a.spec.ts')).toBe('thread-safe')
+  })
+
+  it('drops files matched by every one of the seven exempt selectors', async () => {
+    const root = await temporaryRoot()
+    const exemptFiles = [
+      'packages/typert/generator/tests/type-model.spec.ts',
+      'packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts',
+      'scripts/install-lefthook.spec.ts',
+      'scripts/oxlint-contract.spec.ts',
+      'scripts/change-scope.spec.ts',
+      'scripts/translation-pairing-merge.spec.ts',
+      'packages/experimental/webworker-packer/tests/image-loadable.spec.ts',
+    ]
+    for (const file of exemptFiles) {
+      await mkdir(dirname(join(root, file)), { recursive: true })
+      await writeFile(join(root, file), '')
+    }
+    const retained = 'packages/api/gateway/tests/rpc.spec.ts'
+    const inventory = parseListOutput(
+      [...exemptFiles, retained].map(file => `[thread-safe] ${file}`).join('\n'),
+      root,
+    )
+    expect(inventory.files).toEqual([retained])
+    expect([...inventory.projectOf.keys()]).toEqual([retained])
+  })
+
+  it('skips exempt files before the single-ownership check', async () => {
+    const root = await temporaryRoot()
+    // chokidar.spec.ts sits under the webworker-runtime exempt selector, so
+    // its two project claims must neither throw nor survive in the inventory.
+    const exemptFile = 'packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts'
+    await mkdir(dirname(join(root, exemptFile)), { recursive: true })
+    await writeFile(join(root, exemptFile), '')
+    const output = [
+      `[thread-safe] ${exemptFile}`,
+      `[process-bound] ${exemptFile}`,
+      '[thread-safe] packages/a/tests/a.spec.ts',
+    ].join('\n')
+    const inventory = parseListOutput(output, root)
+    expect(inventory.files).toEqual(['packages/a/tests/a.spec.ts'])
+    expect(inventory.projectOf.has(exemptFile)).toBe(false)
+  })
+
   it('averages recorded durations per file from the results cache', async () => {
     const root = await temporaryRoot()
     await writeVitestCache(root, [

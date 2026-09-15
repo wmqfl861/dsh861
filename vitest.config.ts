@@ -155,11 +155,21 @@ const processBoundTests = [
   'packages/workflow/workflow-worker-thread/tests/session.spec.ts',
 ]
 
+// Setup scripts shared by the root test config and both inline projects.
+// Vitest 5 merges an inline project's options over this file's resolved Vite
+// config (Vite's mergeConfig concatenates arrays), so a project that extends
+// the file inherits the root test.include next to its own and registers the
+// root plugins beside the project's own copies — every plain file then matches
+// both projects and runs twice. Each project below sets top-level
+// `extends: false` and must therefore declare these scripts itself: without
+// inheritance the root test.setupFiles no longer reaches it.
+const testSetupFiles = ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts']
+
 export default defineConfig({
   esbuild: vitestEsbuild,
   plugins: [pathsPlugin(), standardDecoratorPlugin()],
   test: {
-    setupFiles: ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts'],
+    setupFiles: testSetupFiles,
     // .tsx: client component specs (jsdom via per-file @vitest-environment pragma).
     include: testIncludes,
     exclude: platformUnsupportedTests,
@@ -167,10 +177,12 @@ export default defineConfig({
     // Node stability; process-bound suites stay separate for inventory control.
     projects: [
       {
+        extends: false,
         esbuild: vitestEsbuild,
         plugins: [pathsPlugin(), standardDecoratorPlugin()],
         test: {
           name: 'thread-safe',
+          setupFiles: testSetupFiles,
           execArgv: vitestExecArgv,
           // Node 24 has aborted in its CJS lexer (v8::ToLocalChecked Empty
           // MaybeLocal in cjs_lexer::Parse) from worker threads on macOS,
@@ -185,10 +197,12 @@ export default defineConfig({
         },
       },
       {
+        extends: false,
         esbuild: vitestEsbuild,
         plugins: [pathsPlugin(), standardDecoratorPlugin()],
         test: {
           name: 'process-bound',
+          setupFiles: testSetupFiles,
           execArgv: vitestExecArgv,
           pool: 'forks',
           include: processBoundTests,
