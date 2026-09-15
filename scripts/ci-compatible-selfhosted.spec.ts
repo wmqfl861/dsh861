@@ -150,7 +150,9 @@ describe('Node compatibility self-hosted routing', () => {
     const index = job.steps.findIndex(step => step.name === 'Isolate compatibility caches')
     const step = job.steps[index]!
     expect(index).toBeGreaterThan(0)
-    expect(index).toBeLessThan(job.steps.findIndex(candidate => candidate.uses === 'pnpm/action-setup@v4'))
+    const pnpmSetupIndex = job.steps.findIndex(candidate => candidate.uses === 'pnpm/action-setup@v6')
+    expect(pnpmSetupIndex).toBeGreaterThanOrEqual(0)
+    expect(index).toBeLessThan(pnpmSetupIndex)
     expect(step.if).toBe("runner.environment == 'self-hosted'")
     const root = mkdtempSync(join(tmpdir(), 'ci-compatible-selfhosted-'))
     try {
