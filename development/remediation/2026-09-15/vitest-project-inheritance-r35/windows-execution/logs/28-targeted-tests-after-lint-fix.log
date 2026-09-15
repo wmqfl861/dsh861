@@ -1,0 +1,90 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns every single-worker partition before one merged threshold check
+[22m[39mcoverage-partitions: start partition 1/3
+coverage-partitions: start partition 2/3
+coverage-partitions: start partition 3/3
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns every single-worker partition before one merged threshold check
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mstarts the heaviest partition first for fail-fast
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mstarts the heaviest partition first for fail-fast
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mgives each project only its own files in the partition config
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mgives each project only its own files in the partition config
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns a native pnpm entrypoint directly
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mruns a native pnpm entrypoint directly
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mmerges normal test failures and returns their failed status
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mmerges normal test failures and returns their failed status
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mrejects a missing partition blob before merge
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mreports signal termination before missing-blob validation
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mwaits for every partition after one spawn failure
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2mwaits for every partition after one spawn failure
+[22m[39mcoverage-partitions: start merged coverage report
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2munlinks a link-shaped coverage path without touching its target
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/coverage-partitions.spec.ts[2m > [22m[2mcoverage partition coordinator[2m > [22m[2munlinks a link-shaped coverage path without touching its target
+[22m[39mcoverage-partitions: start merged coverage report
+
+ [32m✓[39m [30m[45m thread-safe [49m[39m scripts/coverage-partitions.spec.ts [2m([22m[2m44 tests[22m[2m)[22m[33m 381[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts [2m([22m[2m14 tests[22m[2m)[22m[33m 435[2mms[22m[39m
+[90mstderr[2m | packages/context/time-context/tests/time-context.spec.ts[2m > [22m[2mconfiguration and lifecycle[2m > [22m[2mfails loud for an invalid explicit zone or an unavailable process zone
+[22m[39m[vitest] The DateTimeFormat mock did not use 'function' or 'class' in its implementation, see https://vitest.dev/api/vi#vi-spyon for examples.
+
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/context/time-context/tests/time-context.spec.ts [2m([22m[2m21 tests[22m[2m)[22m[33m 354[2mms[22m[39m
+[90mstdout[2m | scripts/vitest-project-inheritance.spec.ts[2m > [22m[2mvitest inline project inheritance[2m > [22m[2mnarrows a generated partition config without re-inheriting the root include
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/vitest-project-inheritance.spec.ts[2m > [22m[2mvitest inline project inheritance[2m > [22m[2mnarrows a generated partition config without re-inheriting the root include
+[22m[39mcoverage-partitions: start merged coverage report
+
+ [32m✓[39m [30m[45m thread-safe [49m[39m scripts/vitest-project-inheritance.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 4311[2mms[22m[39m
+   [32m✓[39m vitest inline project inheritance [2m(3)[22m
+     [33m[2m✓[22m[39m resolves each project with the shared setup scripts and one copy of each target plugin[33m 1481[2mms[22m[39m
+     [33m[2m✓[22m[39m lists this spec under exactly one project[33m 1408[2mms[22m[39m
+     [33m[2m✓[22m[39m narrows a generated partition config without re-inheriting the root include[33m 1420[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[32m82 passed[39m[22m[90m (82)[39m
+[2m   Start at [22m 11:51:35
+[2m   Duration [22m 5.12s[2m (tests 56%, transform 35%, import 7%, setup 3%)[22m

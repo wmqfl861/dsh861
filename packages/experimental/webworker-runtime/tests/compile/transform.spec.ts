@@ -731,3 +731,229 @@ refuses('unparseable source is refused', 'export const = \n', 'parse failed')
     true,
   )
 }
+
+// ---------------------------------------------------------------------------
+// 11. Live import bindings. A cyclic module pair touches an import inside a
+//     function while the exporting module has not finished evaluating; an
+//     eager `const local = held[name]` at the require site trips the temporal
+//     dead zone there (zod's core/util cycle is the shipped example). Use
+//     sites must read through the required module's exports instead.
+// ---------------------------------------------------------------------------
+
+{
+  // The zod-shaped cycle: util requires core at its top while core is
+  // mid-evaluation, and only touches the binding inside a function.
+  const core = transformModule(
+    [
+      "import { readsMarker } from './util.js'",
+      'export const marker = "core"',
+      'export const globalConfig = { jitless: false }',
+      'export function cross() { return readsMarker() }',
+      '',
+    ].join('\n'),
+    'core.js',
+  )
+  const util = transformModule(
+    [
+      "import { globalConfig, marker } from './core.js'",
+      'export function readsConfig() { return globalConfig.jitless }',
+      'export function readsMarker() { return marker }',
+      'export const eager = 1',
+      '',
+    ].join('\n'),
+    'util.js',
+  )
+  const cache = new Map<string, Record<string, unknown>>()
+  const require = (specifier: string): Record<string, unknown> => {
+    const cached = cache.get(specifier)
+    if (cached !== undefined) return cached
+    const exports: Record<string, unknown> = {}
+    cache.set(specifier, exports)
+    const code = specifier === './core.js' ? core : util
+    // eslint-disable-next-line @typescript-eslint/no-implied-eval -- runBody's wrapper shape, populating a caller-made exports
+    const factory = new Function(...WRAPPER_PARAMS, code) as (...args: unknown[]) => void
+    factory(exports, require, { exports }, `/vfs/${specifier}`, '/vfs', { url: `file:///vfs/${specifier}` })
+    return exports
+  }
+  const coreExports = require('./core.js') as { globalConfig: { jitless: boolean }; cross: () => unknown }
+  const utilExports = cache.get('./util.js') as { readsConfig: () => boolean; readsMarker: () => unknown }
+  check('cyclic module pair evaluates without a dead zone', typeof utilExports.readsMarker, 'function')
+  check('cyclic read sees the initialized binding', utilExports.readsMarker(), 'core')
+  check('cyclic read through a nested function sees it too', coreExports.cross(), 'core')
+  check('cyclic object binding stays live', utilExports.readsConfig(), false)
+
+  lacks('cyclic import emits no eager specifier const', util, 'const globalConfig=')
+  contains('cyclic import reads through the held module', util, 'return __dsh$m1["globalConfig"].jitless')
+}
+
+{
+  // Shadowed names keep their local meaning; only true references rewrite.
+  const code = transformModule(
+    [
+      "import { a } from 'p'",
+      'export function param(a) { return a }',
+      'export const block = () => { const a = 2; return a }',
+      'export const outer = () => a',
+      'export const shorthand = () => ({ a })',
+      'export const memberKey = () => ({ a: 1, b: 2 }).a',
+      'export let assigned = 0',
+      'export function setAssigned(v) { assigned = v }',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  const exports = runBody(code, () => ({ a: 'import' })) as {
+    param: (value: string) => string
+    block: () => number
+    outer: () => string
+    shorthand: () => { a: string }
+    memberKey: () => number
+    setAssigned: (value: number) => void
+  }
+  check('parameter shadow keeps its argument', exports.param('local'), 'local')
+  check('block shadow keeps its local const', exports.block(), 2)
+  check('outer reference reads the import', exports.outer(), 'import')
+  check('shorthand property expands to the import read', exports.shorthand().a, 'import')
+  check('member key stays a key', exports.memberKey(), 1)
+}
+
+{
+  // A re-export of an imported binding must read through the module, and a
+  // reference before the import statement (legal hoisting) must still rewrite.
+  const reexport = transformModule("import { a } from 'p'\nexport { a }\n", 'probe.js')
+  const hoisted = transformModule('export const out = later()\nfunction later() { return a }\nimport { a } from "p"\n', 'probe.js')
+  contains('re-export reads through the held module', reexport, '__dsh$def(exports,"a",()=>__dsh$m1["a"])')
+  const exports = runBody(hoisted, () => ({ a: 'late-import' })) as { out: string }
+  check('hoisted reference before its import rewrites', exports.out, 'late-import')
+}
+
+{
+  // A default import used as a constructor must construct the imported value:
+  // the interop accessor is a call expression and needs parentheses under
+  // `new`, or the constructor invocation binds to the helper itself.
+  const code = transformModule(
+    [
+      "import Ctor from 'p'",
+      "import { Named } from 'q'",
+      'export const made = () => new Ctor(1)',
+      'export const madeNamed = () => new Named(2)',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  class DefaultCtor { constructor(public value: number) {} }
+  class NamedCtor { constructor(public value: number) {} }
+  const exports = runBody(code, (specifier: string) =>
+    specifier === 'p' ? { __esModule: true, default: DefaultCtor } : { Named: NamedCtor }) as {
+    made: () => DefaultCtor
+    madeNamed: () => NamedCtor
+  }
+  check('default import constructs the imported class', exports.made().value, 1)
+  check('named import constructs the imported class', exports.madeNamed().value, 2)
+}
+
+{
+  // Calling an imported binding — directly, optionally, or as a template tag —
+  // runs it receiver-free, as native ESM does. The named read is a member
+  // expression, so using it verbatim as the callee or tag would bind the held
+  // module as `this` inside the imported function.
+  const code = transformModule(
+    [
+      "import { probe } from 'p'",
+      'export const direct = () => probe()',
+      'export const optional = () => probe?.(1)',
+      'export const tagged = () => probe`x`',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('imported call surfaces', code)
+  function Probe(this: unknown): boolean { return this === undefined }
+  const exports = runBody(code, () => ({ probe: Probe })) as {
+    direct: () => boolean
+    optional: () => boolean
+    tagged: () => boolean
+  }
+  check('direct call of a named import is receiver-free', exports.direct(), true)
+  check('optional call of a named import is receiver-free', exports.optional(), true)
+  check('template tag from a named import is receiver-free', exports.tagged(), true)
+}
+
+{
+  // The receiver fix is scoped to imported callees and tags: a namespace
+  // member call keeps the namespace object as its receiver, an aliased import
+  // is a plain local-variable call, an object-literal method keeps its object,
+  // and every read of one imported function yields the module's own object.
+  const code = transformModule(
+    [
+      "import { probe, mode } from 'p'",
+      "import * as ns from 'p'",
+      'export const viaNamespace = () => ns.probe()',
+      'export const viaAlias = () => { const alias = probe; return alias() }',
+      'export const identity = () => probe === ns.probe',
+      'export const objectMethod = () => ({ marker: "object", self() { return this } }).self().marker',
+      'export const modeRead = () => mode',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('imported-call receiver controls', code)
+  function Probe(this: unknown): boolean { return this === undefined }
+  const module = { probe: Probe, mode: 'import' }
+  const exports = runBody(code, () => module) as {
+    viaNamespace: () => boolean
+    viaAlias: () => boolean
+    identity: () => boolean
+    objectMethod: () => string
+    modeRead: () => string
+  }
+  check('namespace member call keeps its object receiver', exports.viaNamespace(), false)
+  check('aliased import still calls receiver-free', exports.viaAlias(), true)
+  check('imported function identity survives every read', exports.identity(), true)
+  check('a genuine object method keeps its object receiver', exports.objectMethod(), 'object')
+  check('value reads of imports stay untouched', exports.modeRead(), 'import')
+}
+
+{
+  // The switch discriminant evaluates in the enclosing scope, before the
+  // switch's one shared case scope exists: a case-body declaration must not
+  // shadow an import at the discriminant. The case body itself still sees its
+  // own declaration, so `result` records the case-local const.
+  const code = transformModule(
+    [
+      "import { selected } from 'p'",
+      'export let result = 0',
+      'switch (selected) { case 1: const selected = 2; result = selected; break; }',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('switch discriminant scope', code)
+  const attempt = (): unknown => {
+    try {
+      return (runBody(code, () => ({ selected: 1 })) as { result: number }).result
+    } catch (reason) {
+      return `threw: ${(reason as Error).message}`
+    }
+  }
+  check('discriminant reads the import despite a same-named case binding', attempt(), 2)
+}
+
+{
+  // Inside the cases the shared switch scope still applies: a const declared
+  // in one case shadows the import for a later, fall-through case body.
+  const code = transformModule(
+    [
+      "import { mode, value } from 'p'",
+      'export let first = ""',
+      'export let second = ""',
+      'switch (mode) { case 1: const value = "local"; first = value; case 2: second = value; break; }',
+      '',
+    ].join('\n'),
+    'probe.js',
+  )
+  parsesAsScript('switch cases share one lexical scope', code)
+  const exports = runBody(code, () => ({ mode: 1, value: 'import' })) as { first: string; second: string }
+  check('first case initializes its own const', exports.first, 'local')
+  check('fall-through case sees the earlier case const, not the import', exports.second, 'local')
+}

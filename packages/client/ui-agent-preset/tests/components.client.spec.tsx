@@ -27,6 +27,7 @@ const ROSTER_READY: AgentPresetSettingsState = {
 }
 
 const SEAT_READY: AgentPresetSeatState = {
+  showPicker: true,
   current: 'standard',
   options: [
     { id: 'standard', trust: 'system', name: '标准模式', description: '完整的编码 agent。' },
@@ -80,6 +81,12 @@ function renderLabel(
 }
 
 describe('the new-session chip', () => {
+  it('renders nothing while the picker is disabled', () => {
+    renderSeat({ showPicker: false })
+
+    expect(screen.queryByRole('button')).toBeNull()
+  })
+
   it('reads the roster once and shows the staged preset by name', async () => {
     const actions = renderSeat()
 
@@ -177,7 +184,8 @@ describe('a refused switch', () => {
 
       // Transient by design: it holds long enough to read a cause that names
       // packages, then leaves rather than sitting over the screen.
-      act(() => { vi.advanceTimersByTime(9001) })
+      // React 19 commits the timer-driven removal on the following act flush.
+      await act(async () => { await vi.advanceTimersByTimeAsync(9001) })
       expect(screen.queryByRole('alert')).toBeNull()
     } finally {
       vi.useRealTimers()

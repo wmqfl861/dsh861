@@ -11,7 +11,7 @@ import { setImmediate as tick } from 'node:timers/promises'
 import { fileURLToPath } from 'node:url'
 import vm from 'node:vm'
 import test from 'node:test'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 
 // Actual owner source and real marker files; helper, launcher and win32 are
 // explicit test doubles. This is not native job/ACL/credential verification.

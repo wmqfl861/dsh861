@@ -60,7 +60,7 @@ export class Entry {
   public subgroup?: EntryGroup
   public subtree?: EntryTree
 
-  _initTask?: Promise<void>
+  _initTask?: Promise<void> | undefined
   _disposing = 0
 
   constructor(public loader: Loader) {
@@ -272,6 +272,11 @@ export class Entry {
     } catch (error) {
       throw updateError('apply', this.options, error)
     }
+    // failures are already reported by the fiber; we only need it to settle
+    this.fiber?.await().catch(() => {}).finally(() => {
+      if (this.loader.getTasks().length) return
+      this.ctx.reflect.notify(['loader'])
+    })
   }
 
   private async _init() {

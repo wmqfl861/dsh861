@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: marked caller retains its identity through a service shadow
+ok 1 - marked caller retains its identity through a service shadow
+  ---
+  duration_ms: 0.742611
+  type: 'test'
+  ...
+# Subtest: child caller inherits the marked identity
+ok 2 - child caller inherits the marked identity
+  ---
+  duration_ms: 0.159116
+  type: 'test'
+  ...
+# Subtest: own metadata overrides the inherited identity
+ok 3 - own metadata overrides the inherited identity
+  ---
+  duration_ms: 0.111215
+  type: 'test'
+  ...
+# Subtest: unmarked service-shadow caller returns no fixture identity
+ok 4 - unmarked service-shadow caller returns no fixture identity
+  ---
+  duration_ms: 0.224192
+  type: 'test'
+  ...
+# Subtest: unmarked sibling does not inherit another scope identity
+ok 5 - unmarked sibling does not inherit another scope identity
+  ---
+  duration_ms: 0.134039
+  type: 'test'
+  ...
+# Subtest: unshadowed unmarked root has no identity
+ok 6 - unshadowed unmarked root has no identity
+  ---
+  duration_ms: 0.097354
+  type: 'test'
+  ...
+# Subtest: identity lookup does not default an empty identity
+ok 7 - identity lookup does not default an empty identity
+  ---
+  duration_ms: 0.27015
+  type: 'test'
+  ...
+# Subtest: unrelated undeclared service reads remain rejected
+ok 8 - unrelated undeclared service reads remain rejected
+  ---
+  duration_ms: 0.433472
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 11.520445

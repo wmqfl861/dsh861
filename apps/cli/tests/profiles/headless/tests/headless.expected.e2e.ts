@@ -8,10 +8,9 @@ import {
   normalizeSessionSnapshot,
   normalizeSessionSnapshots,
   normalizeStdout,
-  scrubRequestHeaders,
+  scrubModelRequestBulk,
   type NormalizeContext,
 } from '@deepseek-ai/dsh-session-snapshot'
-import { prepareSessionEventNotificationsForComparison } from '@deepseek-ai/dsh-llm-replay'
 import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@deepseek-ai/dsh-loader-smoke'
 import {
   decompressZstdFrame,
@@ -63,6 +62,9 @@ interface DeepSeekDefaultsServer {
   close(): Promise<void>
 }
 
+/** Mock keep-alive cadence the fixture's streamIdleTimeoutMs must dominate. */
+const KEEP_ALIVE_INTERVAL_MS = 60
+
 /** Compare one current Session with an older committed generation in memory. */
 async function expectSessionSnapshot(
   actual: string,
@@ -75,14 +77,14 @@ async function expectSessionSnapshot(
   expect(parseJsonl(normalizedActual ?? '')).toEqual(parseJsonl(normalizedExpected ?? ''))
 }
 
-/** Compare current headless session-event wrappers with a committed v1 stream. */
+/** Compare the complete current-writer headless notification sequence. */
 async function expectHeadlessStream(normalized: string, expectedPath: string): Promise<void> {
-  const expected = prepareSessionEventNotificationsForComparison(await readFile(expectedPath, 'utf8'))
+  const expected = await readFile(expectedPath, 'utf8')
   expect(parseJsonl(normalized)).toEqual(parseJsonl(expected))
 }
 
 /** Serve one deterministic DeepSeek-compatible response while retaining its request body. */
-async function deepseekDefaultsServer(): Promise<DeepSeekDefaultsServer> {
+async function deepseekDefaultsServer(options: { waitForTitleRequest?: boolean } = {}): Promise<DeepSeekDefaultsServer> {
   const requests: JsonObject[] = []
   const server = createServer((request: IncomingMessage, response: ServerResponse) => {
     let body = ''
@@ -93,9 +95,11 @@ async function deepseekDefaultsServer(): Promise<DeepSeekDefaultsServer> {
       response.writeHead(200, { 'content-type': 'text/event-stream' })
       let keepAlives = 3
       const write = (): void => {
-        if (keepAlives-- > 0) {
+        // One-shot teardown may cancel background title work after the main response.
+        if (keepAlives-- > 0
+          || (options.waitForTitleRequest === true && !requests.some(request => request.max_tokens === 64))) {
           response.write(': keep-alive\n\n')
-          setTimeout(write, 60)
+          timer = setTimeout(write, KEEP_ALIVE_INTERVAL_MS)
           return
         }
         response.end([
@@ -105,7 +109,8 @@ async function deepseekDefaultsServer(): Promise<DeepSeekDefaultsServer> {
           '',
         ].join('\n\n'))
       }
-      setTimeout(write, 60)
+      let timer = setTimeout(write, KEEP_ALIVE_INTERVAL_MS)
+      response.once('close', () => { clearTimeout(timer) })
     })
   })
   await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
@@ -150,7 +155,7 @@ function normalizeHeadlessStream(rawStdout: string, cwd: string): string {
     }
     return record.event as JsonObject
   })
-  const normalizedEvents = parseJsonl(scrubRequestHeaders(normalizeSessionLog(
+  const normalizedEvents = parseJsonl(scrubModelRequestBulk(normalizeSessionLog(
     `${events.map(event => JSON.stringify(event)).join('\n')}\n`,
     context,
   )))
@@ -443,6 +448,14 @@ describe('headless stream-json snapshots', () => {
   }, LOADER_SMOKE_TEST_TIMEOUT_MS)
 
   it('keeps provider comments alive and sends DeepSeek defaults through the one-shot app', async () => {
+    // Negative regression for the phantom third request: a 150ms idle budget
+    // over this server's keep-alive cadence let scheduler jitter abort the
+    // main stream (llm/retry, STREAM_IDLE_TIMEOUT) and re-dispatch a second
+    // main request after the title request. The budget must stay a clear
+    // multiple of the cadence or the retry surfaces as a request-count flake.
+    const fixtureText = await readFile(deepseekDefaultsConfigPath, 'utf8')
+    const idleBudgetMs = Number(/streamIdleTimeoutMs:\s*(\d+)/.exec(fixtureText)?.[1])
+    expect(idleBudgetMs).toBeGreaterThanOrEqual(4 * KEEP_ALIVE_INTERVAL_MS)
     const server = await deepseekDefaultsServer()
     try {
       const result = await runLoaderSmoke({
@@ -497,8 +510,45 @@ describe('headless stream-json snapshots', () => {
     }
   }, LOADER_SMOKE_TEST_TIMEOUT_MS)
 
+  it('keeps the compatibility stream open until the title request arrives', async () => {
+    const server = await deepseekDefaultsServer({ waitForTitleRequest: true })
+    try {
+      const response = await fetch(server.url, {
+        method: 'POST',
+        body: JSON.stringify({ max_tokens: 1024 }),
+      })
+      const reader = response.body!.getReader()
+      try {
+        const decoder = new TextDecoder()
+        let body = ''
+        // Four heartbeats cross the ordinary fixture's three-heartbeat response.
+        while (body.split(': keep-alive\n\n').length < 5) {
+          const chunk = await reader.read()
+          expect(chunk.done).toBe(false)
+          body += decoder.decode(chunk.value)
+          expect(body).not.toContain('data:')
+        }
+        const title = await fetch(server.url, {
+          method: 'POST',
+          body: JSON.stringify({ max_tokens: 64 }),
+        })
+        for (;;) {
+          const chunk = await reader.read()
+          if (chunk.done) break
+          body += decoder.decode(chunk.value)
+        }
+        expect(body).toContain('data: [DONE]')
+        expect(await title.text()).toContain('data: [DONE]')
+      } finally {
+        await reader.cancel()
+      }
+    } finally {
+      await server.close()
+    }
+  })
+
   it('sends pi-ai DeepSeek compatibility through the one-shot app', async () => {
-    const server = await deepseekDefaultsServer()
+    const server = await deepseekDefaultsServer({ waitForTitleRequest: true })
     try {
       const result = await runLoaderSmoke({
         label: 'pi-ai DeepSeek compatibility headless stream-json snapshot',

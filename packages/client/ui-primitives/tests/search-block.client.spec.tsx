@@ -195,7 +195,8 @@ describe('SearchBlock copy', () => {
     // A second click while the ok label shows is a no-op.
     fireEvent.click(screen.getByRole('button', { name: '复制成功' }))
     expect(writeText).toHaveBeenCalledTimes(1)
-    await vi.advanceTimersByTimeAsync(1000)
+    // React 19 commits the timer-driven state update on the following act flush, not inside the timer callback.
+    await act(async () => { await vi.advanceTimersByTimeAsync(1000) })
     expect(screen.getByRole('button', { name: '复制' })).toBeTruthy()
   })
 

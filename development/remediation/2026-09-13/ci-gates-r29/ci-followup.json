@@ -1,0 +1,71 @@
+{
+  "round": "r29-remote-ci-followup",
+  "sourceCandidateSha": "321172e13c0962fdb3c745f2e3317015fc5802fb",
+  "sourceBaseSha": "ccc5aa51d50fb4e51c3a89658db8d769811221d4",
+  "productAccepted": false,
+  "p0bAccepted": false,
+  "independentReviewCompleted": false,
+  "scope": "Evidence/task companion only; does not change the three source fixtures from sourceCandidateSha. Read alongside verification.json, whose CI observations refer to the r28 baseline.",
+  "candidateCi": {
+    "runId": 34768688465,
+    "runNumber": 15,
+    "runAttempt": 1,
+    "checkoutSha": "7187c6f70dcea5df7917105a5857a944b38c6f79",
+    "checkoutDescription": "Merge 321172e13c0962fdb3c745f2e3317015fc5802fb into 5434305c5dcf7ddc3ebf939226647b7b608335e6",
+    "statusAtObservation": "in_progress",
+    "static": {
+      "jobId": 103754182530,
+      "status": "completed",
+      "conclusion": "success",
+      "runner": "ubuntu-24.04",
+      "actualNode": "26.8.2",
+      "pnpm": "12.4.1",
+      "command": "pnpm run check:ci:static",
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 116.62,
+      "evidenceKind": "Job-list success cross-checked with decoded log checkout identity, Cordis config PASS, and final gate summary. Excerpts below are not a complete raw log archive.",
+      "exactLogExcerpts": [
+        "2026-09-13T16:28:53.0874101Z HEAD is now at 7187c6f70d Merge 321172e13c0962fdb3c745f2e3317015fc5802fb into 5434305c5dcf7ddc3ebf939226647b7b608335e6",
+        "2026-09-13T16:29:21.2093800Z run-gates: PASS Cordis config (1.89s)",
+        "2026-09-13T16:31:14.5012485Z run-gates: 47 passed, 0 failed, 0 skipped in 116.62s."
+      ],
+      "boundary": "This establishes the candidate's Linux static lane, not local hooks, full Vitest, Windows observational, or overall PR acceptance. It is not the missing historical r28 local 47/47 log."
+    },
+    "otherJobsAtObservation": {
+      "consumers": { "jobId": 103754182474, "status": "completed", "conclusion": "failure", "failureStep": "Run compatibility, snapshot, and artifact gates", "newFailureLogNotYetValidated": true },
+      "linuxCoverage": { "jobId": 103754182349, "status": "in_progress" },
+      "windowsCoverage": { "jobId": 103754182491, "status": "in_progress" },
+      "windowsObservational": { "jobId": 103754182499, "status": "in_progress", "builtLibPassNotYetEstablished": true },
+      "runtimeWindows": { "jobId": 103754348954, "status": "in_progress" },
+      "runtimeLinux": { "jobId": 103754348864, "status": "completed", "conclusion": "success", "stepsVerified": ["Build single-exe", "Install local SDK and runtime wheels into a clean venv (POSIX)", "Run installed-wheel keyless black-box tests (POSIX)", "Check Linux GLIBC requirements", "Run wheel in a manylinux 2.28 container"] }
+    }
+  },
+  "excludedCoverageDiagnoses": {
+    "reason": "Baseline decoded coverage log responses named paths that do not exist in the matching HEAD's checked Git subtrees. Checkout/source-map provenance remains unresolved. Do not use these responses to patch code or announce a Gateway regression.",
+    "windowsJobId": 103744493830,
+    "windowsReportedPath": "packages/api/gateway/tests/gateway.spec.ts",
+    "windowsPathFetch": "404",
+    "gatewayTree": "bad98a71c511f71d25960fc68c44a862ed783763",
+    "actualGatewayTestPaths": ["tests/gateway.client.spec.ts", "tests/gateway.host.spec.ts", "tests/gateway-stream.host.spec.ts"],
+    "confirmedExistingR27Fix": { "path": "packages/api/gateway/tests/gateway.client.spec.ts", "blob": "1a76248d5db73e4a9c501a58ab328845db500053", "observation": "The direct lookup and caller Context cases still use fixtureContextTag Symbol and retain one-call assertions." },
+    "linuxJobId": 103744493809,
+    "linuxReportedPath": "packages/fs/tool-present/tests/present-open.host.spec.ts",
+    "linuxPathFetch": "404",
+    "toolPresentTree": "03e631b130e2fcb8f6c65e2b051e33d6163d8847",
+    "actualToolPresentTestPaths": ["tests/built-errors.e2e.ts", "tests/present.spec.ts"],
+    "actionTaken": "No production or test source was changed on the basis of these mismatched coverage responses. Preserve r27 and obtain independently matched original logs or a real reproduction first.",
+    "partialCoverageBoundary": "Coverage collected after fail-fast aborts is not complete-run coverage. Do not lower thresholds or treat partial merge percentages as an established full-suite coverage regression."
+  },
+  "consumersSourceCrossCheck": {
+    "path": "apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts",
+    "blob": "48ea951be09b747f888b0545f8e7af10d628212a",
+    "test": "keeps provider comments alive and sends DeepSeek defaults through the one-shot app",
+    "confirmedSource": "Loopback mock server retains parsed request bodies; test expects exactly two requests, distinguishing main max_tokens=256000 and title max_tokens=64.",
+    "baselineObservedFailure": "Expected two requests, received three.",
+    "rootCause": "not established; no count/golden/runtime change made",
+    "nextEvidence": "Capture mock-only request classification, order, and matching session retry/title events in a real full-workspace run. Determine whether the third request is a main retry, title retry, duplicate title scheduling, or something else; these are hypotheses, not findings."
+  },
+  "nextTask": "LOCAL_AGENT_TASK.md"
+}

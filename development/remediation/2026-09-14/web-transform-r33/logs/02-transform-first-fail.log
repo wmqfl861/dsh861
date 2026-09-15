@@ -1,0 +1,427 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[1m[30m[43m Vitest [49m[39m[22m [33mThe "process-bound" project applies the same plugin multiple times: "vite-tsconfig-paths", "dsh-standard-decorators". Since Vitest 5, an inline project extends the config file that declares it by default, so the plugins from "vitest.config.ts" already apply to this project and don't need to be listed again.
+Remove the duplicated plugins from the project, or set `extends: false` to not inherit the declaring config. Setting the `extends` option explicitly hides this warning.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[1m[30m[43m Vitest [49m[39m[22m [33mThe "thread-safe" project applies the same plugin multiple times: "vite-tsconfig-paths", "dsh-standard-decorators". Since Vitest 5, an inline project extends the config file that declares it by default, so the plugins from "vitest.config.ts" already apply to this project and don't need to be listed again.
+Remove the duplicated plugins from the project, or set `extends: false` to not inherit the declaring config. Setting the `extends` option explicitly hides this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mLOWERING_VERSION is a non-empty string[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mWRAPPER_PARAMS is the frozen 7-parameter shape[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mevery wrapper parameter is a usable identifier[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered=true for a module that needed rewriting[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered code differs from source[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered=false for plain CommonJS[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22munlowered code is the input verbatim[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered=true for CommonJS carrying a suspension point[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mCommonJS await still routes through __als[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered mirrors code !== source[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mliteral createRequire call is a module request[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22maliased createRequire import is indexed before traversal[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mstored, rebased, and shadowed createRequire calls stay runtime-only[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mside-effect import becomes a bare require[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mside-effect import[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mside-effect import actually requires at run time[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamed imports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamed import binds by imported name, honouring the alias[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault and namespace imports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault import of an __esModule module reads .default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault import of plain CommonJS is the module object[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamespace of plain CommonJS keeps the named key[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamespace of plain CommonJS synthesizes default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported declarations[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmodule bodies get the __esModule marker[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22muse strict is part of the prologue[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported const is published[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported function is published[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported class is published[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlive binding[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlive binding starts at its initializer[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlive binding observes a later assignment[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported local is an accessor[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmulti-declarator export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmulti-declarator export publishes every binding[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdestructuring exports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mobject pattern export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mobject rest export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22marray pattern export with hole[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22marray rest export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mobject pattern publishes the local name, not the source key[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlocal export clause[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlocal export clause publishes under the exported name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlocal export clause does not publish the local name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export clause[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export publishes the name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export publishes the alias[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export is live against the source module[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport all[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * copies named keys[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * skips default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * does not overwrite an existing export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport all as namespace[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * as ns publishes a namespace object[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault export value[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault export lands on exports.default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault export function[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault-exported function keeps self-reference[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export as default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export as default publishes default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport.meta[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport.meta becomes the wrapper parameter[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport.meta.url resolves through the wrapper[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import becomes the helper call[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import resolves to a namespace object[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import namespace has a default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait rewrite[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait is wrapped in resume(await pause([32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait still yields its value[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait goes pause-then-resume[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait rejection[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrejection surfaces through resume[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrejection path also goes pause-then-resume[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await uses the iterator helper[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await closes on abrupt completion[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await over an async source collects values[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnormal completion does not close the iterator[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await with break[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await accepts a sync source of promises[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mbreak closes the iterator exactly once[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await destructuring[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await destructures each step[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await single-statement body[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await with a non-block body runs correctly[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield rewrite[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield is wrapped in afterYield(snapshot(), yield ...)[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfirst yield produces its value[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22msent value returns through afterYield[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield recorded snapshot and afterYield[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield* rewrite[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield* forwards inner values then continues[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: imports and exports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: await in a function[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: for-await (body re-emitted)[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: yield* (statement desugared)[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: export * with following lines[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: multi-line import clause[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtop-level await is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtop-level for-await is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlabeled for-await is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport attributes are refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mvalue-position yield* is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22massignment around yield* is refused, never silently dropped[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22ma call around yield* is refused, never silently dropped[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22malready-lowered source is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22munparseable source is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrefusal names the file[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrefusal names the offending line[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 1: dynamic import in a CommonJS file is still rewritten[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 1[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2: bare export {} is removed[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2: no export keyword survives[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2: emitted body still marks __esModule[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 3[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 3: every declarator is exported, initializer or not[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 6: a method named import is not rewritten[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 6[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 6: the method is still callable under its own name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 7[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 7: export with an interposed comment still publishes[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target survives verbatim[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target is not replaced by the meta parameter[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target compares true for a direct construction[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target compares false for a subclass[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang is not left in the emitted body[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang: line count still survives[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang: the module still works[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexit gate over combined edits[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22midentical sources return the identical cached body[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdistinct sources produce distinct bodies[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic module pair evaluates without a dead zone[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic read sees the initialized binding[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic read through a nested function sees it too[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic object binding stays live[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic import emits no eager specifier const[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic import reads through the held module[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mparameter shadow keeps its argument[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mblock shadow keeps its local const[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mouter reference reads the import[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshorthand property expands to the import read[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmember key stays a key[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export reads through the held module[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mhoisted reference before its import rewrites[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault import constructs the imported class[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamed import constructs the imported class[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimported call surfaces[32m 0[2mms[22m[39m
+ [31m×[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdirect call of a named import is receiver-free[32m 9[2mms[22m[39m
+[31m   → expected 'false' to be 'true' // Object.is equality[39m
+ [31m×[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22moptional call of a named import is receiver-free[32m 1[2mms[22m[39m
+[31m   → expected 'false' to be 'true' // Object.is equality[39m
+ [31m×[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtemplate tag from a named import is receiver-free[32m 1[2mms[22m[39m
+[31m   → expected 'false' to be 'true' // Object.is equality[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimported-call receiver controls[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamespace member call keeps its object receiver[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22maliased import still calls receiver-free[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimported function identity survives every read[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22ma genuine object method keeps its object receiver[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mvalue reads of imports stay untouched[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mswitch discriminant scope[32m 0[2mms[22m[39m
+ [31m×[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdiscriminant reads the import despite a same-named case binding[32m 1[2mms[22m[39m
+[31m   → expected '"threw: selected is not defined"' to be '2' // Object.is equality[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mswitch cases share one lexical scope[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfirst case initializes its own const[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfall-through case sees the earlier case const, not the import[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mLOWERING_VERSION is a non-empty string[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mWRAPPER_PARAMS is the frozen 7-parameter shape[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mevery wrapper parameter is a usable identifier[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered=true for a module that needed rewriting[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered code differs from source[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered=false for plain CommonJS[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22munlowered code is the input verbatim[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered=true for CommonJS carrying a suspension point[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mCommonJS await still routes through __als[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlowered mirrors code !== source[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mliteral createRequire call is a module request[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22maliased createRequire import is indexed before traversal[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mstored, rebased, and shadowed createRequire calls stay runtime-only[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mside-effect import becomes a bare require[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mside-effect import[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mside-effect import actually requires at run time[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamed imports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamed import binds by imported name, honouring the alias[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault and namespace imports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault import of an __esModule module reads .default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault import of plain CommonJS is the module object[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamespace of plain CommonJS keeps the named key[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamespace of plain CommonJS synthesizes default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported declarations[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmodule bodies get the __esModule marker[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22muse strict is part of the prologue[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported const is published[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported function is published[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported class is published[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlive binding[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlive binding starts at its initializer[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlive binding observes a later assignment[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexported local is an accessor[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmulti-declarator export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmulti-declarator export publishes every binding[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdestructuring exports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mobject pattern export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mobject rest export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22marray pattern export with hole[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22marray rest export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mobject pattern publishes the local name, not the source key[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlocal export clause[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlocal export clause publishes under the exported name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlocal export clause does not publish the local name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export clause[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export publishes the name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export publishes the alias[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export is live against the source module[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport all[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * copies named keys[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * skips default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * does not overwrite an existing export[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport all as namespace[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexport * as ns publishes a namespace object[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault export value[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault export lands on exports.default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault export function[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault-exported function keeps self-reference[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export as default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export as default publishes default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport.meta[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport.meta becomes the wrapper parameter[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport.meta.url resolves through the wrapper[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import becomes the helper call[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import resolves to a namespace object[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdynamic import namespace has a default[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait rewrite[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait is wrapped in resume(await pause([32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait still yields its value[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait goes pause-then-resume[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mawait rejection[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrejection surfaces through resume[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrejection path also goes pause-then-resume[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await uses the iterator helper[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await closes on abrupt completion[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await over an async source collects values[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnormal completion does not close the iterator[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await with break[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await accepts a sync source of promises[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mbreak closes the iterator exactly once[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await destructuring[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await destructures each step[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await single-statement body[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfor-await with a non-block body runs correctly[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield rewrite[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield is wrapped in afterYield(snapshot(), yield ...)[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfirst yield produces its value[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22msent value returns through afterYield[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield recorded snapshot and afterYield[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield* rewrite[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22myield* forwards inner values then continues[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: imports and exports[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: await in a function[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: for-await (body re-emitted)[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: yield* (statement desugared)[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: export * with following lines[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mline count survives: multi-line import clause[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtop-level await is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtop-level for-await is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mlabeled for-await is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimport attributes are refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mvalue-position yield* is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22massignment around yield* is refused, never silently dropped[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22ma call around yield* is refused, never silently dropped[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22malready-lowered source is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22munparseable source is refused[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrefusal names the file[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mrefusal names the offending line[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 1: dynamic import in a CommonJS file is still rewritten[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 1[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2: bare export {} is removed[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2: no export keyword survives[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 2: emitted body still marks __esModule[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 3[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 3: every declarator is exported, initializer or not[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 6: a method named import is not rewritten[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 6[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 6: the method is still callable under its own name[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 7[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 7: export with an interposed comment still publishes[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target survives verbatim[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target is not replaced by the meta parameter[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target compares true for a direct construction[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtrap 8: new.target compares false for a subclass[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang is not left in the emitted body[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang: line count still survives[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshebang: the module still works[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mexit gate over combined edits[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22midentical sources return the identical cached body[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdistinct sources produce distinct bodies[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic module pair evaluates without a dead zone[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic read sees the initialized binding[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic read through a nested function sees it too[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic object binding stays live[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic import emits no eager specifier const[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mcyclic import reads through the held module[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mparameter shadow keeps its argument[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mblock shadow keeps its local const[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mouter reference reads the import[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mshorthand property expands to the import read[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mmember key stays a key[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mre-export reads through the held module[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mhoisted reference before its import rewrites[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdefault import constructs the imported class[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamed import constructs the imported class[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimported call surfaces[32m 1[2mms[22m[39m
+ [31m×[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdirect call of a named import is receiver-free[32m 9[2mms[22m[39m
+[31m   → expected 'false' to be 'true' // Object.is equality[39m
+ [31m×[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22moptional call of a named import is receiver-free[32m 1[2mms[22m[39m
+[31m   → expected 'false' to be 'true' // Object.is equality[39m
+ [31m×[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtemplate tag from a named import is receiver-free[32m 1[2mms[22m[39m
+[31m   → expected 'false' to be 'true' // Object.is equality[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimported-call receiver controls[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mnamespace member call keeps its object receiver[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22maliased import still calls receiver-free[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mimported function identity survives every read[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22ma genuine object method keeps its object receiver[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mvalue reads of imports stay untouched[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mswitch discriminant scope[32m 0[2mms[22m[39m
+ [31m×[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdiscriminant reads the import despite a same-named case binding[32m 1[2mms[22m[39m
+[31m   → expected '"threw: selected is not defined"' to be '2' // Object.is equality[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mswitch cases share one lexical scope[32m 1[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfirst case initializes its own const[32m 0[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mfall-through case sees the earlier case const, not the import[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 8 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdirect call of a named import is receiver-free
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22moptional call of a named import is receiver-free
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtemplate tag from a named import is receiver-free
+[31m[1mAssertionError[22m: expected 'false' to be 'true' // Object.is equality[39m
+
+Expected: [32m"[7mtru[27me"[39m
+Received: [31m"[7mfals[27me"[39m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts:[2m36:36[22m[39m
+    [90m 34|[39m const check = (label: string, actual: unknown, expected: unknown): voi…
+    [90m 35|[39m   const [seen, wanted] = [JSON.stringify(actual), JSON.stringify(expec…
+    [90m 36|[39m   test(label, () => { expect(seen).toBe(wanted) })
+    [90m   |[39m                                    [31m^[39m
+    [90m 37|[39m }
+    [90m 38|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdiscriminant reads the import despite a same-named case binding
+[31m[1mAssertionError[22m: expected '"threw: selected is not defined"' to be '2' // Object.is equality[39m
+
+Expected: [32m"2"[39m
+Received: [31m""threw: selected is not defined""[39m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts:[2m36:36[22m[39m
+    [90m 34|[39m const check = (label: string, actual: unknown, expected: unknown): voi…
+    [90m 35|[39m   const [seen, wanted] = [JSON.stringify(actual), JSON.stringify(expec…
+    [90m 36|[39m   test(label, () => { expect(seen).toBe(wanted) })
+    [90m   |[39m                                    [31m^[39m
+    [90m 37|[39m }
+    [90m 38|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdirect call of a named import is receiver-free
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22moptional call of a named import is receiver-free
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mtemplate tag from a named import is receiver-free
+[31m[1mAssertionError[22m: expected 'false' to be 'true' // Object.is equality[39m
+
+Expected: [32m"[7mtru[27me"[39m
+Received: [31m"[7mfals[27me"[39m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts:[2m36:36[22m[39m
+    [90m 34|[39m const check = (label: string, actual: unknown, expected: unknown): voi…
+    [90m 35|[39m   const [seen, wanted] = [JSON.stringify(actual), JSON.stringify(expec…
+    [90m 36|[39m   test(label, () => { expect(seen).toBe(wanted) })
+    [90m   |[39m                                    [31m^[39m
+    [90m 37|[39m }
+    [90m 38|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts[2m > [22mdiscriminant reads the import despite a same-named case binding
+[31m[1mAssertionError[22m: expected '"threw: selected is not defined"' to be '2' // Object.is equality[39m
+
+Expected: [32m"2"[39m
+Received: [31m""threw: selected is not defined""[39m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/compile/transform.spec.ts:[2m36:36[22m[39m
+    [90m 34|[39m const check = (label: string, actual: unknown, expected: unknown): voi…
+    [90m 35|[39m   const [seen, wanted] = [JSON.stringify(actual), JSON.stringify(expec…
+    [90m 36|[39m   test(label, () => { expect(seen).toBe(wanted) })
+    [90m   |[39m                                    [31m^[39m
+    [90m 37|[39m }
+    [90m 38|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[31m8 failed[39m[22m[2m | [22m[1m[32m322 passed[39m[22m[90m (330)[39m
+[2m   Start at [22m 00:24:02
+[2m   Duration [22m 1.24s[2m (transform 74%, import 10%, setup 10%, tests 5%, worker 1%)[22m

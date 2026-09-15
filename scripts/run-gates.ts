@@ -19,6 +19,12 @@ import {
   parseCoveragePartitionCount,
 } from './coverage-partitions.ts'
 import { pnpmInvocation } from './pnpm-invocation.ts'
+import {
+  exportGateEvidence,
+  claimGateEvidenceRequest,
+  mirrorProcessOutput,
+  type CapturedOutput,
+} from './gate-evidence.ts'
 
 /** A named aggregate exposed by the gate runner. */
 export type Mode =
@@ -27,6 +33,7 @@ export type Mode =
   | 'ci-static'
   | 'ci-lint-contracts-ready'
   | 'ci-coverage'
+  | 'ci-bench'
   | 'ci-snapshot'
   | 'ci-artifacts'
   | 'ci-consumers'
@@ -112,11 +119,43 @@ async function main(args: string[]): Promise<number> {
   const startedAt = performance.now()
   console.log(`run-gates: ${mode} running ${gates.length} gate(s) with ${maxConcurrency} worker(s) from ${concurrencySource}${failFast ? ', fail-fast after first blocking failure' : ''}.`)
 
-  const results = await runGates(gates, maxConcurrency, runGate, printResult, cliGateOptions(failFast))
-  printSummary(results, performance.now() - startedAt)
-  return results.some(result => result.gate.allowFailure !== true && (result.status === 'failed' || result.status === 'skipped'))
-    ? 1
-    : 0
+  // Evidence export observes the runner's own output so streamed gates leave
+  // logs too; the switch unset means no mirror, no files, no behavior change.
+  const evidence = claimGateEvidenceRequest(mode, process.env)
+  const mirror = evidence === undefined ? undefined : mirrorProcessOutput()
+  let results: GateResult[]
+  try {
+    results = await runGates(gates, maxConcurrency, runGate, printResult, cliGateOptions(failFast))
+    printSummary(results, performance.now() - startedAt)
+  } finally {
+    mirror?.restore()
+  }
+  const unsuccessful = results.some(result => result.gate.allowFailure !== true && (result.status === 'failed' || result.status === 'skipped'))
+  if (evidence !== undefined) {
+    try {
+      const files = exportGateEvidence({
+        ...evidence,
+        root,
+        failFast,
+        maxConcurrency,
+        concurrencySource,
+        results,
+        aggregateStdout: mirror?.stdout.read() ?? emptyCapture(),
+        aggregateStderr: mirror?.stderr.read() ?? emptyCapture(),
+      })
+      console.log(`run-gates: gate evidence written to ${evidence.directory} (${files.length} files).`)
+    } catch (error) {
+      // An export failure must not mask the aggregate's own outcome, and must
+      // not turn a failed aggregate green either: the exit code is untouched.
+      console.error(`run-gates: gate evidence export failed: ${error instanceof Error ? error.message : String(error)}`)
+    }
+  }
+  return unsuccessful ? 1 : 0
+}
+
+/** The empty capture used only when the mirror was never installed. */
+function emptyCapture(): CapturedOutput {
+  return { text: '', originalBytes: 0, omittedBytes: 0 }
 }
 
 /**
@@ -137,6 +176,7 @@ function parseMode(raw: string | undefined): Mode {
     case 'ci-static':
     case 'ci-lint-contracts-ready':
     case 'ci-coverage':
+    case 'ci-bench':
     case 'ci-snapshot':
     case 'ci-artifacts':
     case 'ci-consumers':
@@ -151,7 +191,7 @@ function parseMode(raw: string | undefined): Mode {
       return raw
     default:
       throw new Error(
-        `run-gates: expected mode ci-primary | ci-linux-primary | ci-static | ci-lint-contracts-ready | ci-coverage | ci-snapshot | ci-artifacts | ci-consumers | ci-windows-blocking | ci-windows-complete | ci-windows-observational | node-compat | check-all | hygiene | doc-sync | doc-quick, got ${JSON.stringify(raw)}.`,
+        `run-gates: expected mode ci-primary | ci-linux-primary | ci-static | ci-lint-contracts-ready | ci-coverage | ci-bench | ci-snapshot | ci-artifacts | ci-consumers | ci-windows-blocking | ci-windows-complete | ci-windows-observational | node-compat | check-all | hygiene | doc-sync | doc-quick, got ${JSON.stringify(raw)}.`,
       )
   }
 }
@@ -242,6 +282,8 @@ export function gatesForMode(selected: Mode): Gate[] {
       ]
     case 'ci-coverage':
       return coverageGates()
+    case 'ci-bench':
+      return [pnpmScript('bench', 'test:bench', { label: 'performance benchmarks' })]
     case 'ci-snapshot':
       return [ciBuildGate(), snapshotGate()]
     case 'ci-artifacts':
@@ -262,6 +304,7 @@ export function gatesForMode(selected: Mode): Gate[] {
         pnpmScript('cordis-config', 'verify-cordis-config', { label: 'Cordis config' }),
         pnpmScript('client-domain-graph', 'verify-client-domain-graph', { label: 'client domain graph' }),
         pnpmScript('test', 'test'),
+        pnpmScript('approval-policy', 'test:approval-policy', { label: 'Weighted approval policy' }),
         pnpmScript('issue-management', 'test:issue-management', { label: 'Issue management policy' }),
         pnpmScript('duplication', 'duplication'),
         snapshotGate(),
@@ -305,6 +348,7 @@ function ciSharedStaticGates(): Gate[] {
     pnpmScript('client-packages', 'verify-client-packages', { label: 'client packages' }),
     pnpmScript('client-ui-i18n', 'verify-client-ui-i18n', { label: 'client UI i18n' }),
     pnpmScript('no-bare-dispatcher', 'verify-no-bare-dispatcher', { label: 'proxy-aware dispatchers' }),
+    pnpmScript('approval-policy', 'test:approval-policy', { label: 'Weighted approval policy' }),
     pnpmScript('issue-management', 'test:issue-management', { label: 'Issue management policy' }),
   ]
 }
@@ -625,7 +669,8 @@ function coverageGates(): Gate[] {
       streamOutput: true,
     })
   return [
-    instrumented,
+    pnpmScript('native-system', 'build:native-system'),
+    { ...instrumented, needs: ['native-system'] },
     pnpmExec('coverage-exempt-heavy', [
       'vitest',
       'run',
@@ -634,6 +679,7 @@ function coverageGates(): Gate[] {
       ...timeouts,
     ], {
       label: 'test:coverage-exempt-heavy',
+      needs: ['native-system'],
     }),
   ]
 }
@@ -741,6 +787,7 @@ function docSyncLeafGates(options: {
     pnpmScript('package-paths', 'verify-package-paths', { label: 'package paths' }),
     pnpmScript('tsconfig-paths', 'verify-tsconfig-paths', { label: 'tsconfig paths' }),
     pnpmScript('config-source-ownership', 'verify-config-source-ownership', { label: 'config source ownership' }),
+    pnpmScript('package-readme-summaries', 'verify-package-readme-summaries', { label: 'package README Summaries', quick: true }),
     pnpmScript('package-readme-model-experience', 'verify-package-readme-model-experience', { label: 'package README model experience', quick: true }),
     pnpmScript('agent-note-classification', 'verify-agent-note-classification', { label: 'agent note classification', quick: true }),
     pnpmScript('agent-note-format', 'verify-agent-note-format', { label: 'agent note format', quick: true }),
@@ -778,6 +825,8 @@ function builtBinSmokeGate(needs: string[] = ['build']): Gate {
     'apps/cli/tests/built-bin.e2e.ts',
     'packages/host/directory-picker-native/tests/built-worker.e2e.ts',
     'packages/sdk/server/tests/built-scope-carrier.e2e.ts',
+    'packages/fs/tool-present/tests/built-errors.e2e.ts',
+    'packages/subprocess/subprocess-local/tests/spawn-runner-built.e2e.ts',
     'packages/subagent/subagent-codex/tests/loader-composition.e2e.ts',
     'packages/subagent/subagent-claude-code/tests/loader-composition.e2e.ts',
     'packages/api/remotes/tests/built-lib.e2e.ts',
@@ -787,6 +836,7 @@ function builtBinSmokeGate(needs: string[] = ['build']): Gate {
     // unbuilt, so these files self-skip there.
     'packages/workflow/workflow-worker-thread/tests/built-worker.e2e.ts',
     'packages/code-runtime/code-runtime-worker-thread/tests/built-lib.e2e.ts',
+    'packages/session/session-persistence-jsonl/tests/built-migration-worker.e2e.ts',
     'packages/lsp/lsp-stdio/tests/built-lib.e2e.ts',
   ], {
     label: 'built-bin smoke',

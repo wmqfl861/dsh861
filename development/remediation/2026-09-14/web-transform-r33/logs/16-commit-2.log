@@ -1,0 +1,1165 @@
+[38;2;0;0;0m╭[38;2;5;5;5m─[38;2;11;11;11m─[38;2;16;16;16m─[38;2;19;19;19m─[38;2;23;23;23m─[38;2;26;26;26m─[38;2;29;29;29m─[38;2;32;32;32m─[38;2;35;35;35m─[38;2;39;39;39m─[38;2;42;42;42m─[38;2;45;45;45m─[38;2;49;49;49m─[38;2;52;52;52m─[38;2;56;56;56m─[38;2;56;56;56m─[38;2;52;52;52m─[38;2;49;49;49m─[38;2;45;45;45m─[38;2;42;42;42m─[38;2;39;39;39m─[38;2;35;35;35m─[38;2;32;32;32m─[38;2;29;29;29m─[38;2;26;26;26m─[38;2;23;23;23m─[38;2;19;19;19m─[38;2;16;16;16m─[38;2;11;11;11m─[38;2;5;5;5m─[38;2;0;0;0m─[38;2;0;0;0m─[38;2;5;5;5m─[38;2;11;11;11m─[38;2;16;16;16m─[38;2;19;19;19m─[38;2;23;23;23m─[38;2;26;26;26m─[38;2;29;29;29m─[38;2;32;32;32m─[38;2;35;35;35m─[38;2;39;39;39m─[38;2;42;42;42m╮[m
+[38;2;0;0;0m│[m 🥊 lefthook  v2.1.12   hook:  [1mpre-commit[m [38;2;52;52;52m│[m
+[38;2;6;6;6m╰[38;2;12;12;12m─[38;2;17;17;17m─[38;2;20;20;20m─[38;2;24;24;24m─[38;2;27;27;27m─[38;2;31;31;31m─[38;2;34;34;34m─[38;2;38;38;38m─[38;2;41;41;41m─[38;2;45;45;45m─[38;2;48;48;48m─[38;2;52;52;52m─[38;2;56;56;56m─[38;2;56;56;56m─[38;2;52;52;52m─[38;2;48;48;48m─[38;2;45;45;45m─[38;2;41;41;41m─[38;2;38;38;38m─[38;2;34;34;34m─[38;2;31;31;31m─[38;2;27;27;27m─[38;2;24;24;24m─[38;2;20;20;20m─[38;2;17;17;17m─[38;2;12;12;12m─[38;2;6;6;6m─[38;2;0;0;0m─[38;2;0;0;0m─[38;2;5;5;5m─[38;2;11;11;11m─[38;2;16;16;16m─[38;2;19;19;19m─[38;2;23;23;23m─[38;2;26;26;26m─[38;2;29;29;29m─[38;2;32;32;32m─[38;2;35;35;35m─[38;2;39;39;39m─[38;2;42;42;42m─[38;2;45;45;45m─[38;2;49;49;49m─[38;2;52;52;52m╯[m
+┃  translation pairing (staged records) ❯
+verify-translation-pairing: 1 named staged pair(s) consistent; the corpus-wide check still runs in doc-sync.
+
+│  archived agent notes (skip) no matching staged files
+│  lint (staged) (skip) no files for inspection
+│  third-party notices (staged) (skip) no matching staged files
+┃  whitespace (staged) ❯
+development/remediation/2026-09-14/web-transform-r33/logs/02-transform-first-fail.log:428: new blank line at EOF.
+development/remediation/2026-09-14/web-transform-r33/logs/03-transform-packer-pass.log:37: new blank line at EOF.
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:7: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:8: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\apps\cli\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:9: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\apps\desktop\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:10: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\apps\desktop-host\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:11: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\loader\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:12: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\schemastery\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:13: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\gateway\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:14: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\logger-console\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:15: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\remotes\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:16: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\session-controller\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:17: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\workspace-files\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:18: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\boot\app-boot\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:19: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\workspace-controller\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:20: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\file-upload\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:21: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\hmr\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:22: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\connection\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:23: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-agent-preset\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:24: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\modules\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:25: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\store\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:26: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-approval\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:27: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\resources\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:28: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-brand-official\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:29: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-chat\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:30: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-attachment\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:31: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-deliverables\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:32: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-conversation\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:33: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-directory-picker-browse\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:34: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-commands\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:35: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-directory-picker-native\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:36: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-jobs\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:37: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-dockkit\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:38: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-input-trigger\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:39: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-layout\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:40: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-goal\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:41: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-message-feedback\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:42: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-permission-presets\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:43: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-open-in-app\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:44: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-model-selection\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:45: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-primitives\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:46: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-reference\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:47: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:48: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-session\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:49: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-schedule\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:50: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-renderer\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:51: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-models\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:52: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-plugin-inventory\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:53: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-general\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:54: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:55: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar-right\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:56: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar-documentpreview\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:57: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar-files\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:58: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-plugins\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:59: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-skill\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:60: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-tool\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:61: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-theme\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:62: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-slots\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:63: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-trajectory\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:64: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-subagent\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:65: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-user-questions\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:66: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-workflow-run\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:67: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-workspace\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:68: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\code-runtime\code-runtime-worker-thread\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:69: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\web\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:70: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\time-context\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:71: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent-default-model\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:72: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent-loop\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:73: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:74: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\scope\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:75: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\session\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:76: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\compaction\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:77: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\cordis-client-runner\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:78: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\ui-cordis\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:79: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\goal\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:80: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\locale\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:81: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\goal-round-driver\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:82: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\agent-team\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:83: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\client-ui-agent-team\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:84: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\code-runtime-python\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:85: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\inspector\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:86: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-plan\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:87: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker-browse\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:88: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\webworker-packer\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:89: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker-native\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:90: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\webworker-runtime\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:91: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\open-in-app\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:92: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\user-approval\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:93: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm-retry\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:94: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox-policy\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:95: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox-windows-acl\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:96: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\schedule\schedule\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:97: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-v0-to-v1\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:98: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:99: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-v2-to-v3\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:100: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-catalog\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:101: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-v1-to-v2\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:102: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-persistence-jsonl\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:103: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\session-log-export\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:104: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\settings\settings\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:105: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\tool-subagent\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:106: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subprocess\subprocess-local\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:107: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\client-runtime\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:108: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\llm-mock-server\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:109: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\remote-mock\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:110: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\registry\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:111: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\workflow-worker-thread\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:112: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\include\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:113: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\hmr\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:114: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\timer\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:115: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\group\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:116: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\cosmokit\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:117: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\cordis\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:118: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\boot\cmdline\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:119: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\settings-controller\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:120: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\acp\acp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:121: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\headless\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:122: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\sdk-app\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:123: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\sdk-minimal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:124: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\acp-app\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:125: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\attachment\attachment-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:126: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\base\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:127: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\attachment\attachment\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:128: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\session-reference\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:129: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\agent-instructions\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:130: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\file-reference-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:131: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\code-runtime\code-runtime\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:132: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\web-app\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:133: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\system-prompt\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:134: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\command-compact\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:135: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\tools\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:136: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\compaction-basic\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:137: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\tmux-context\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:138: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\file-reference\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:139: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\compaction-tool-result-pruner\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:140: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\credentials\credentials-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:141: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs-sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:142: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent-tool-presentation\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:143: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\tool-cordis\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:144: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\credentials\authorization\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:145: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-fs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:146: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\cordis-host-runner\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:147: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\credentials\credentials\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:148: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:149: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs-observation-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:150: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:151: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-present\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:152: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\command-goal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:153: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-str-replace-editor\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:154: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\e2b\fs-e2b\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:155: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\guard\repeat-tool-reminder\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:156: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\tool-goal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:157: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-fs-search\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:158: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\hooks\hooks-codex\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:159: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\e2b\subprocess-e2b\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:160: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\identity\anonymous-user-id\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:161: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\e2b\e2b\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:162: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\guard\timeout-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:163: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\tool-agent-team\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:164: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\hooks\hook-protocol\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:165: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\feedback\message-feedback\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:166: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\agent-team-profile\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:167: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\agent-team-web-profile\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:168: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\webserver\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:169: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\feedback\command-feedback\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:170: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker-auto\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:171: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\hooks\hooks-claude-code\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:172: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\plugin-inventory\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:173: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:174: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\frontend-static\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:175: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\tool-ask-user\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:176: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\jobs\jobs-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:177: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\commands\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:178: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\permission-presets\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:179: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\jobs\tool-jobs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:180: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\user-questions\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:181: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:182: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\jobs\jobs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:183: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\plan\plan-mode\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:184: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\lsp\lsp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:185: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:186: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\lsp\tool-lsp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:187: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\lsp\lsp-stdio\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:188: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\mcp\mcp-client\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:189: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\plugin-package-inventory-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:190: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\preset\persona\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:191: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:192: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\token-meter\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:193: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:194: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\runtime-diagnostics\invariants\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:195: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\deepseek-llm-api-extensions\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:196: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\preset\agent-presets\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:197: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sdk\client\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:198: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm-pi-ai\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:199: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sdk\server\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:200: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sdk\protocol\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:201: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-telemetry-otel\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:202: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-checkpoint-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:203: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-telemetry\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:204: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-log-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:205: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-stats\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:206: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-projection\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:207: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title-first-prompt-llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:208: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-projection-cache\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:209: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-turn-outline\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:210: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:211: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\skill\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:212: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title-llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:213: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\tool-skill\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:214: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\bash-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:215: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\shell\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:216: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-persistence\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:217: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\skill-filesystem\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:218: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\pwsh-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:219: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title-all-prompts-llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:220: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\skill-badge\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:221: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\bash-sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:222: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\spill\spill-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:223: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-pwsh\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:224: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\spill\spill\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:225: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\session-query\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:226: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\spill\spill-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:227: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-bash-persistent\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:228: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-bash\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:229: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:230: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\shell-env\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:231: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-dsh-sdk\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:232: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\session-query-sqlite\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:233: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-pwsh-persistent\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:234: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\pwsh-sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:235: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\tool-subagent-control\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:236: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-claude-code\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:237: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\settings\settings-file\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:238: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-in-process-driver\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:239: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subprocess\win32-process\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:240: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subprocess\subprocess\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:241: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-acp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:242: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-spawn-in-process\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:243: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-codex\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:244: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\terminal\terminal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:245: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-fork-in-process\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:246: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\tool-session-query\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:247: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\terminal\tool-terminal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:248: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage-sqlite\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:249: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\agent-loop-testkit\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:250: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\terminal\terminal-bash\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:251: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage-json\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:252: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\loader-smoke\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:253: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage-domain\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:254: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\generator\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:255: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:256: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\llm-replay\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:257: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-search-perplexity\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:258: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\todo\tool-todo\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:259: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\loader\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:260: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\session-snapshot\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:261: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-fetch-http\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:262: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\tool-web\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:263: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:264: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\atomic-write\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:265: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-search-exa\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:266: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\protocol\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:267: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\webhook\webhook\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:268: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\tool-ralph\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:269: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\tool-workflow\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:270: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-search-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:271: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\workflow\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:272: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\brand\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:273: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\native-command\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:274: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\crypto\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:275: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\timeout\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:276: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\http-proxy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:277: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\package-manifest\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:278: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\launch-environment\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:279: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\webhook\webhook-github\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:280: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\deque\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:281: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\output-retention\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:282: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\chunked-list\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:283: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\home-paths\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:284: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\time\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:285: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\values\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:286: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workspace\workspace\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:287: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\workspace-path\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/05-typecheck.log:2627: new blank line at EOF.
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:7: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:8: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\apps\cli\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:9: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\apps\desktop\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:10: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\apps\desktop-host\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:11: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\loader\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:12: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\schemastery\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:13: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\remotes\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:14: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\logger-console\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:15: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\gateway\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:16: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\workspace-files\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:17: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\session-controller\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:18: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\workspace-controller\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:19: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\boot\app-boot\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:20: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\connection\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:21: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\locale\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:22: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\file-upload\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:23: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\resources\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:24: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\store\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:25: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\hmr\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:26: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-agent-preset\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:27: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-attachment\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:28: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-brand-official\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:29: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\modules\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:30: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-chat\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:31: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-commands\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:32: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-approval\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:33: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-conversation\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:34: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-directory-picker-native\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:35: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-dockkit\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:36: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-directory-picker-browse\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:37: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-deliverables\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:38: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-layout\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:39: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-jobs\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:40: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-message-feedback\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:41: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-input-trigger\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:42: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-goal\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:43: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-model-selection\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:44: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-open-in-app\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:45: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-primitives\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:46: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-reference\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:47: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-renderer\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:48: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-plan\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:49: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-session\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:50: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-permission-presets\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:51: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-schedule\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:52: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-general\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:53: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-plugin-inventory\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:54: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:55: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-plugins\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:56: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-settings-models\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:57: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:58: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar-documentpreview\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:59: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-slots\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:60: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar-files\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:61: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-sidebar-right\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:62: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-skill\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:63: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-theme\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:64: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-subagent\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:65: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-trajectory\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:66: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-user-questions\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:67: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-workspace\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:68: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-tool\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:69: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\code-runtime\code-runtime-worker-thread\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:70: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\ui-workflow-run\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:71: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\compaction\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:72: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\client\web\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:73: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:74: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent-default-model\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:75: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent-loop\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:76: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\scope\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:77: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\session\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:78: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\time-context\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:79: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\agent-team\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:80: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\code-runtime-python\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:81: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\client-ui-agent-team\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:82: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\webworker-packer\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:83: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\inspector\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:84: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\webworker-runtime\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:85: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\cordis-client-runner\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:86: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\ui-cordis\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:87: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\goal-round-driver\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:88: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\goal\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:89: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker-browse\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:90: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker-native\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:91: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\user-approval\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:92: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\open-in-app\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:93: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm-retry\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:94: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\schedule\schedule\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:95: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox-policy\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:96: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:97: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-catalog\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:98: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-v0-to-v1\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:99: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox-windows-acl\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:100: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-v1-to-v2\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:101: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-persistence-jsonl\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:102: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-format-v2-to-v3\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:103: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\session-log-export\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:104: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\settings\settings\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:105: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subprocess\subprocess-local\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:106: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\tool-subagent\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:107: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\llm-mock-server\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:108: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\remote-mock\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:109: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\client-runtime\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:110: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\registry\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:111: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\workflow-worker-thread\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:112: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\cosmokit\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:113: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\cordis\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:114: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\attachment\attachment-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:115: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\timer\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:116: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\include\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:117: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\base\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:118: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\api\settings-controller\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:119: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\group\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:120: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\boot\cmdline\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:121: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\headless\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:122: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\code-runtime\code-runtime\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:123: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\acp\acp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:124: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\attachment\attachment\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:125: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\web-app\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:126: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\vendor\hmr\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:127: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\file-reference-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:128: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\sdk-minimal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:129: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\acp-app\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:130: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\bundle\sdk-app\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:131: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\session-reference\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:132: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\compaction-basic\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:133: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\tmux-context\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:134: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\command-compact\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:135: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\file-reference\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:136: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\agent-tool-presentation\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:137: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\compaction\compaction-tool-result-pruner\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:138: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\tools\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:139: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\credentials\credentials\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:140: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\context\agent-instructions\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:141: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\e2b\fs-e2b\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:142: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\core\system-prompt\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:143: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\e2b\e2b\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:144: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\agent-team-profile\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:145: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\credentials\authorization\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:146: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\credentials\credentials-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:147: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\e2b\subprocess-e2b\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:148: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:149: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\tool-agent-team\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:150: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\agent-team-web-profile\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:151: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\cordis-host-runner\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:152: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-str-replace-editor\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:153: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-fs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:154: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:155: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs-observation-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:156: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\fs-sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:157: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\command-goal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:158: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\extensions\tool-cordis\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:159: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-present\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:160: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\guard\repeat-tool-reminder\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:161: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\feedback\message-feedback\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:162: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\goal\tool-goal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:163: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\feedback\command-feedback\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:164: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\fs\tool-fs-search\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:165: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\hooks\hooks-claude-code\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:166: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\hooks\hook-protocol\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:167: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker-auto\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:168: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\guard\timeout-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:169: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\hooks\hooks-codex\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:170: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\commands\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:171: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\identity\anonymous-user-id\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:172: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\webserver\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:173: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\frontend-static\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:174: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\directory-picker\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:175: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\jobs\jobs-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:176: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\host\plugin-inventory\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:177: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\token-meter\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:178: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\permission-presets\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:179: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\jobs\jobs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:180: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\tool-ask-user\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:181: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\interaction\user-questions\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:182: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm-pi-ai\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:183: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:184: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\plugin-package-inventory-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:185: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\runtime-diagnostics\invariants\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:186: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\lsp\lsp-stdio\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:187: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\jobs\tool-jobs\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:188: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\deepseek-llm-api-extensions\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:189: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\plan\plan-mode\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:190: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\llm\llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:191: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\lsp\lsp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:192: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sdk\server\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:193: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sdk\client\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:194: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\preset\persona\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:195: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\mcp\mcp-client\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:196: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\lsp\tool-lsp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:197: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:198: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\preset\agent-presets\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:199: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sandbox\sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:200: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-stats\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:201: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-projection\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:202: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title-first-prompt-llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:203: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-projection-cache\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:204: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-checkpoint-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:205: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-log-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:206: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\sdk\protocol\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:207: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title-llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:208: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-persistence\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:209: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\skill\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:210: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-turn-outline\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:211: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title-all-prompts-llm\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:212: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\session-query-sqlite\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:213: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\bash-sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:214: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-title\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:215: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-telemetry-otel\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:216: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\skill-badge\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:217: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\tool-session-query\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:218: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\bash-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:219: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\pwsh-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:220: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\shell-env\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:221: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session-query\session-query\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:222: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\pwsh-sandbox\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:223: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\session\session-telemetry\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:224: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\shell\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:225: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\spill\spill-local\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:226: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\settings\settings-file\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:227: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\tool-skill\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:228: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-pwsh\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:229: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-bash\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:230: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\spill\spill\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:231: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-bash-persistent\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:232: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\skill\skill-filesystem\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:233: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage-sqlite\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:234: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage-domain\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:235: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-acp\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:236: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\shell\tool-pwsh-persistent\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:237: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subprocess\subprocess\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:238: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-claude-code\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:239: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\spill\spill-policy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:240: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:241: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-in-process-driver\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:242: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subprocess\win32-process\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:243: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-fork-in-process\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:244: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-dsh-sdk\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:245: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-spawn-in-process\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:246: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\tool-subagent-control\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:247: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:248: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\storage\storage-json\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:249: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\loader-smoke\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:250: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\session-snapshot\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:251: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\terminal\terminal-bash\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:252: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\llm-replay\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:253: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\test-support\agent-loop-testkit\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:254: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\terminal\tool-terminal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:255: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\terminal\terminal\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:256: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\brand\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:257: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\atomic-write\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:258: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\protocol\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:259: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\generator\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:260: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\subagent\subagent-codex\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:261: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\typert\loader\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:262: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\todo\tool-todo\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:263: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\deque\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:264: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\crypto\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:265: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\time\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:266: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\http-proxy\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:267: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\chunked-list\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:268: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\launch-environment\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:269: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\output-retention\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:270: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\native-command\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:271: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\package-manifest\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:272: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\workspace-path\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:273: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\tool-ralph\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:274: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\values\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:275: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:276: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\webhook\webhook-github\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:277: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\home-paths\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:278: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-fetch-http\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:279: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-search-deepseek\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:280: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-search-perplexity\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:281: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\workflow\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:282: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\util\timeout\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:283: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\webhook\webhook\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:284: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\tool-web\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:285: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workspace\workspace\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:286: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\workflow\tool-workflow\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/06-lint.log:287: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\web\web-search-exa\package.json
+development/remediation/2026-09-14/web-transform-r33/logs/07-transform-packer-after-bump.log:27: new blank line at EOF.
+development/remediation/2026-09-14/web-transform-r33/logs/08-build-preview.log:3: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\webworker-runtime\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/08-build-preview.log:46: trailing whitespace.
++ℹ config file: C:\Albert\project\dsh861\packages\experimental\webworker-packer\tsdown.config.ts
+development/remediation/2026-09-14/web-transform-r33/logs/08-build-preview.log:167: trailing whitespace.
++[33m[plugin builtin:vite-reporter]
+development/remediation/2026-09-14/web-transform-r33/logs/09-preview-boot-e2e.log:13: new blank line at EOF.
+development/remediation/2026-09-14/web-transform-r33/logs/12-emitted-samples.txt:12: new blank line at EOF.
+development/remediation/2026-09-14/web-transform-r33/logs/15-commit-1.log:4: trailing whitespace.
++┃  translation pairing (staged records) ❯
+development/remediation/2026-09-14/web-transform-r33/logs/15-commit-1.log:8: trailing whitespace.
++┃  lint (staged) ❯
+development/remediation/2026-09-14/web-transform-r33/logs/15-commit-1.log:37: trailing whitespace.
++┃  third-party notices (staged) ❯
+development/remediation/2026-09-14/web-transform-r33/logs/15-commit-1.log:40: trailing whitespace.
++┃  whitespace (staged) ❯
+development/remediation/2026-09-14/web-transform-r33/logs/15-commit-1.log:42: trailing whitespace.
++┃  vendor manifest guard ❯
+
+exit status 2
+┃  vendor manifest guard ❯
+
+[38;2;56;56;56m  ────────────────────────────────────[m
+summary: (done in 1.78 seconds)
+✔️ translation pairing (staged records) (1.25 seconds)
+✔️ vendor manifest guard (0.29 seconds)
+🥊 whitespace (staged) (0.09 seconds)

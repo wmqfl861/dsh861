@@ -1,0 +1,28 @@
+{
+  "repository": null,
+  "pr": null,
+  "runId": null,
+  "runAttempt": null,
+  "job": null,
+  "aggregate": "node-compat",
+  "prHead": null,
+  "prBase": null,
+  "checkout": {
+    "githubSha": null,
+    "githubRef": null
+  },
+  "git": {
+    "head": "201206cb4c83581b3d44620831434fbf2e337df9",
+    "headParent": "ed2776d9580bbbec0550d6e2be50a258a7dcc5eb",
+    "headParents": [
+      "ed2776d9580bbbec0550d6e2be50a258a7dcc5eb"
+    ]
+  },
+  "runtime": {
+    "node": "26.8.2",
+    "pnpm": "12.4.1",
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "exportedAt": "2026-09-14T04:06:53.627Z"
+}

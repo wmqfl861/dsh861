@@ -1,0 +1,170 @@
+import { readdir, readFile, writeFile } from 'node:fs/promises'
+import { createServer } from 'node:http'
+import type { IncomingMessage, ServerResponse } from 'node:http'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { LOADER_SMOKE_TEST_TIMEOUT_MS, runLoaderSmoke } from '@deepseek-ai/dsh-loader-smoke'
+import { describe, it } from 'vitest'
+
+/**
+ * r29 scratch diagnostic: classify the third mock request of the DeepSeek
+ * defaults scenario without touching the compared snapshot test. Writes a
+ * standalone JSON diagnosis; asserts nothing about request count.
+ */
+
+interface JsonObject {
+  [key: string]: unknown
+}
+
+const diagOut = process.env.DSH_R29_DIAG_OUT ?? 'third-request-diagnosis.json'
+
+async function diagServer(): Promise<{
+  url: string
+  requests: JsonObject[]
+  close(): Promise<void>
+}> {
+  const requests: JsonObject[] = []
+  const server = createServer((request: IncomingMessage, response: ServerResponse) => {
+    let body = ''
+    request.setEncoding('utf8')
+    request.on('data', (chunk: string) => { body += chunk })
+    request.on('end', () => {
+      requests.push(JSON.parse(body) as JsonObject)
+      response.writeHead(200, { 'content-type': 'text/event-stream' })
+      let keepAlives = 3
+      const write = (): void => {
+        if (keepAlives-- > 0) {
+          response.write(': keep-alive\n\n')
+          timer = setTimeout(write, 60)
+          return
+        }
+        response.end([
+          'data: {"choices":[{"delta":{"content":"DEFAULTS_OK"}}]}',
+          'data: {"choices":[{"delta":{},"finish_reason":"stop"}],"usage":{"prompt_tokens":3,"completion_tokens":1}}',
+          'data: [DONE]',
+          '',
+        ].join('\n\n'))
+      }
+      let timer = setTimeout(write, 60)
+      response.once('close', () => { clearTimeout(timer) })
+    })
+  })
+  await new Promise<void>(resolve => server.listen(0, '127.0.0.1', resolve))
+  const address = server.address()
+  if (address === null || typeof address === 'string') throw new Error('diag server has no port')
+  return {
+    url: `http://127.0.0.1:${address.port}`,
+    requests,
+    close: () => new Promise(resolve => server.close(() => { resolve() })),
+  }
+}
+
+function summarizeRequests(requests: readonly JsonObject[]): unknown[] {
+  return requests.map((request, index) => {
+    const messages = Array.isArray(request.messages) ? request.messages : []
+    return {
+      order: index + 1,
+      fieldNames: Object.keys(request),
+      fieldCount: Object.keys(request).length,
+      max_tokens: request.max_tokens,
+      model: request.model,
+      stream: request.stream,
+      thinking: request.thinking,
+      reasoning_effort: request.reasoning_effort,
+      temperature: request.temperature,
+      messageCount: messages.length,
+      messageRoles: messages.map((message): unknown =>
+        message !== null && typeof message === 'object' && 'role' in message
+          ? (message as JsonObject).role
+          : null),
+      lastUserSnippet: typeof messages.at(-1)?.content === 'string'
+        ? `${(messages.at(-1)?.content as string).slice(0, 80)}…`
+        : '[structured]',
+    }
+  })
+}
+
+function summarizeStdoutEvents(stdout: string): unknown[] {
+  const records = stdout.split('\n')
+    .filter(line => line.trim().length > 0)
+    .map(line => JSON.parse(line) as JsonObject)
+  return records
+    .map(record => record.event)
+    .filter((event): event is JsonObject =>
+      event !== null && typeof event === 'object' && !Array.isArray(event))
+    .filter(event => {
+      const type = typeof event.type === 'string' ? event.type : ''
+      return type.includes('request') || type.includes('retry') || type.includes('title')
+        || type.includes('llm/') || type.includes('turn')
+    })
+    .map(event => ({
+      seq: event.seq,
+      type: event.type,
+      data: event.data === null || event.data === undefined ? null : JSON.parse(JSON.stringify(event.data, (_key, value: unknown) =>
+        typeof value === 'string' && value.length > 160 ? `${value.slice(0, 160)}…` : value)),
+    }))
+}
+
+async function persistedEventSummaries(cwd: string): Promise<unknown[]> {
+  const files = (await readdir(join(cwd, '.sessions'), { recursive: true }))
+    .filter(file => file.endsWith('.jsonl'))
+  const summaries: unknown[] = []
+  for (const file of files) {
+    const content = await readFile(join(cwd, '.sessions', file), 'utf8')
+    for (const line of content.split('\n').filter(line => line.trim().length > 0)) {
+      const record = JSON.parse(line) as JsonObject
+      const type = typeof record.type === 'string' ? record.type : ''
+      if (type.includes('request') || type.includes('retry') || type.includes('title')) {
+        summaries.push({
+          file,
+          seq: record.seq,
+          type: record.type,
+          data: record.data === null || record.data === undefined ? null : JSON.parse(JSON.stringify(record.data, (_key, value: unknown) =>
+            typeof value === 'string' && value.length > 160 ? `${value.slice(0, 160)}…` : value)),
+        })
+      }
+    }
+  }
+  return summaries
+}
+
+describe('r29 scratch diagnostics', () => {
+  it('classifies every mock request of the DeepSeek defaults one-shot run', async () => {
+    const runs: unknown[] = []
+    let deviant = -1
+    const maxRuns = Number(process.env.DSH_R29_DIAG_RUNS ?? 8)
+    for (let iteration = 1; iteration <= maxRuns && deviant === -1; iteration++) {
+      const server = await diagServer()
+      try {
+        const result = await runLoaderSmoke({
+          label: `r29 diag third-request classification ${iteration}`,
+          tempDirPrefix: `headless-diag-third-request-${iteration}-`,
+          binScript: fileURLToPath(new URL('../../../../../../packages/test-support/loader-smoke/tests/fixtures/headless-driver.ts', import.meta.url)),
+          libBinScript: fileURLToPath(new URL('../../../../../../packages/test-support/loader-smoke/tests/fixtures/headless-driver.ts', import.meta.url)),
+          configPath: fileURLToPath(new URL('./fixtures/deepseek-defaults.patch.yml', import.meta.url)),
+          binArgs: [
+            fileURLToPath(new URL('./fixtures/deepseek-defaults.patch.yml', import.meta.url)),
+            'return the deterministic response',
+          ],
+          tsconfigPath: fileURLToPath(new URL('../../../../../../tsconfig.json', import.meta.url)),
+          env: {
+            DEEPSEEK_API_KEY: 'snapshot-key',
+            DSH_SNAPSHOT_BASE_URL: server.url,
+            NODE_OPTIONS: [process.env.NODE_OPTIONS, '--disable-warning=ExperimentalWarning'].filter(Boolean).join(' '),
+          },
+        })
+        runs.push({
+          iteration,
+          requestCount: server.requests.length,
+          requests: summarizeRequests(server.requests),
+          stdoutEvents: summarizeStdoutEvents(result.stdout),
+          stderr: result.stderr,
+        })
+        if (server.requests.length !== 2) deviant = iteration
+      } finally {
+        await server.close()
+      }
+    }
+    await writeFile(diagOut, `${JSON.stringify({ deviantIteration: deviant, runs }, null, 2)}\n`)
+  }, 480_000)
+})

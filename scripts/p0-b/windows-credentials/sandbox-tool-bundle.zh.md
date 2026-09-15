@@ -2,11 +2,11 @@
 
 [English](sandbox-tool-bundle.md) | 中文
 
-[prepare-sandbox-tool-bundle.mjs](prepare-sandbox-tool-bundle.mjs)按[已审查的 0.149.1 清单](sandbox-tool-bundle.0.149.1.json)核验三个本地文件，并复制到新目录。它不下载、安装、执行或激活程序。结果是三文件的沙箱诊断候选，不是完整 Codex 发行包或已工作的沙箱。
+[prepare-sandbox-tool-bundle.mjs](prepare-sandbox-tool-bundle.mjs)按[已审查的 0.154.0 清单](sandbox-tool-bundle.0.154.0.json)核验三个本地文件，并复制到新目录。它不下载、安装、执行或激活程序。结果是三文件的沙箱诊断候选，不是完整 Codex 发行包或已工作的沙箱。
 
 ## 输入与完整性
 
-清单固定仓库钉版主程序，以及同一官方版本的原始 x64 setup、runner 资产。公布的资产摘要不是压缩包摘要。辅助程序的大小和哈希来自发布 API；与之匹配不等于 Authenticode 或 Sigstore 验证。文件缺失、长度错误、字节变化、目录或链接输入均在分配目标目录前被拒绝。复制时和完整输出核验时都会再次核对哈希。
+当前清单固定同一官方版本的原始 x64 主程序、setup 和 runner。包管理器安装的主程序只有在字节匹配该原始资产摘要时才能代入，版本号相同本身不够。公布的资产摘要不是压缩包摘要。辅助程序的大小和哈希来自发布 API；与之匹配不等于 Authenticode 或 Sigstore 验证。文件缺失、长度错误、字节变化、目录或链接输入均在分配目标目录前被拒绝。复制时和完整输出核验时都会再次核对哈希。
 
 调用方须持续保护来源及已有暂存父目录，避免恶意并发替换。准备器以有界分块读取，绝不启动来源文件。它在随机自有目录中建立独立副本，使用原生相邻文件名，不建硬链接、不读取全局配置、不回退 PATH。拒绝暂存到 node_modules 或 Codex 命名的 home/sandbox 目录中。文件模式和身份检查不是 Windows ACL 或对抗性文件系统保证。
 
@@ -14,7 +14,7 @@
 
 ## 本地准备
 
-无凭据取得两个精确的公开发布资产后，以明确的本地绝对路径调用 CLI。它始终加载相邻的已提交清单，不接受命令行清单覆盖。复用仓库钉版主程序，不复制全局程序或旧 runner。只读取下列显式路径；占位符须替换成实际路径。
+无凭据取得两个精确的公开发布资产后，以明确的本地绝对路径调用 CLI。默认加载已提交的 0.154.0 清单。可选 `--version` 仅接受拥有相邻已提交清单的精确稳定版；清单缺失就拒绝，不回退。没有任意清单路径选项。保留的 0.149.1 清单只用于历史复现，不能把旧证据自动用于新程序。复用仓库钉版主程序，不复制全局程序或旧 runner。只读取下列显式路径；占位符须替换成实际路径。
 
 ```powershell
 node scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.mjs --parent '<existing-staging-parent>' --codex '<pinned-codex.exe>' --setup '<downloaded-setup.exe>' --runner '<downloaded-runner.exe>'

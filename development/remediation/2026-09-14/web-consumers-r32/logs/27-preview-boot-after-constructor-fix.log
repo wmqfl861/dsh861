@@ -1,0 +1,468 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] dsh web: http://127.0.0.1:3080/?token=DaKX7wF3eWUJEF3upmjPL8yCOsekr10xvzmegMEzDig
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker host: tree active (modules=652, data overlays=0, preset root overlay=applied, direct lane=connection.createSharedFetchHandler, als causality=snapshot/restore, image lowering=dsh-worker-transform/2)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker tunnel: serving (unary /api lane=route with 401/403 retry, privileged set=none, queued=1)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /open-in-app/apps
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /plugins/events
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] dsh web: http://127.0.0.1:3080/?token=DusqB3iAlgUITRmftCCFbr4axDhOT_7HKaYH8jXP5rc
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker host: tree active (modules=652, data overlays=1, preset root overlay=applied, direct lane=connection.createSharedFetchHandler, als causality=snapshot/restore, image lowering=dsh-worker-transform/2)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker tunnel: serving (unary /api lane=route with 401/403 retry, privileged set=none, queued=1)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /open-in-app/apps
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /plugins/events
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/settings/describe settings/describe -> 200 {"type":"server-response","rpcId":"9eaf86d7-2751-44d6-806b-fdbf4e5b19bc","result":{"ok":true,"value":{"writable":true,"hasDocument":true,"namespaces":[{"ns":"agent-default-model","schema":{"uid":86,"refs":{"82":{"type":"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/dynamicCordisRunner/syncInspectManifest dynamicCordisRunner/syncInspectManifest -> 200 {"type":"server-response","rpcId":"301e3c32-3108-485b-ad10-a3b9dad130cd","result":{"ok":true,"value":null}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"b792c0c4-c8b3-442c-a31d-d21fbb65f854","result":{"ok":true,"value":{"DEEPSEEK_API_KEY":{"configured":false,"writable":true}}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/dynamicCordisRunner/inventory dynamicCordisRunner/inventory -> 200 {"type":"server-response","rpcId":"489e20ee-f247-409b-bb4d-782180f5f0fa","result":{"ok":true,"value":[]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/modelCatalog session/modelCatalog -> 200 {"type":"server-response","rpcId":"70650185-eece-49c5-a20b-4e1975f0feae","result":{"ok":true,"value":{"default":{"provider":"deepseek-official","model":"deepseek-flash"},"routableProviders":["deepseek-official"],"groups"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/agentPresets/list agentPresets/list -> 200 {"type":"server-response","rpcId":"6fc8eadf-e2ef-4ada-b5f2-05ec12e38d59","result":{"ok":true,"value":{"presets":[{"id":"standard","trust":"system","isDefault":true,"name":"标准模式","description":"功能完整的编码 Agent，支持文件编辑、Shell、
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/agentPresets/list agentPresets/list -> 200 {"type":"server-response","rpcId":"a04dce64-a352-4be6-95db-24ea6927e753","result":{"ok":true,"value":{"presets":[{"id":"standard","trust":"system","isDefault":true,"name":"标准模式","description":"功能完整的编码 Agent，支持文件编辑、Shell、
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/list session/list -> 200 {"type":"server-response","rpcId":"9f4e2b0e-25a8-4998-9642-a5aed488b41c","result":{"ok":true,"value":{"items":[{"sessionId":"preview-follow-up-builder","updatedAt":1787472200000,"running":false,"blank":false,"parentSessi
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/dynamicCordisRunner/inventory dynamicCordisRunner/inventory -> 200 {"type":"server-response","rpcId":"6f1364d0-658e-4807-a8c7-a7d2b9cf2c59","result":{"ok":true,"value":[]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/modelCatalog session/modelCatalog -> 200 {"type":"server-response","rpcId":"0dc0d366-72a2-4be7-97cd-940528871128","result":{"ok":true,"value":{"default":{"provider":"deepseek-official","model":"deepseek-flash"},"routableProviders":["deepseek-official"],"groups"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/agentPresets/list agentPresets/list -> 200 {"type":"server-response","rpcId":"7f15a273-3978-4e8a-a950-852dd543e482","result":{"ok":true,"value":{"presets":[{"id":"standard","trust":"system","isDefault":true,"name":"标准模式","description":"功能完整的编码 Agent，支持文件编辑、Shell、
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/create with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"8bd2c46f-37b4-4eae-b0ce-027ff09b8d24","result":{"ok":true,"value":{"DEEPSEEK_API_KEY":{"configured":false,"writable":true}}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/settings/describe settings/describe -> 200 {"type":"server-response","rpcId":"0a8f979f-a2ab-4202-a84e-40b79e7cf1f9","result":{"ok":true,"value":{"writable":true,"hasDocument":true,"namespaces":[{"ns":"agent-default-model","schema":{"uid":86,"refs":{"82":{"type":"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/dynamicCordisRunner/syncInspectManifest dynamicCordisRunner/syncInspectManifest -> 200 {"type":"server-response","rpcId":"c88358cd-d43d-43c1-95ac-99eafe323332","result":{"ok":true,"value":null}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/create session/create -> 200 {"type":"server-response","rpcId":"f013d2cd-f74e-419b-9c97-b30e537cd0f1","result":{"ok":true,"value":{"sessionId":"session-8440fbcf-e246-45ed-8079-49a5f7b6cf12","agentPreset":"standard"}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"1361b63d-822c-46b8-9b57-7da58138407a","result":{"ok":true,"value":{"DEEPSEEK_API_KEY":{"configured":false,"writable":true}}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused subagents/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused commands/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused skills/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/subagents/list subagents/list -> 200 {"type":"server-response","rpcId":"fbe38c75-9a59-4e18-9860-ea8d9b420fe5","result":{"ok":true,"value":{"entries":[],"parentAvailable":true}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/dynamicCordisRunner/inventory dynamicCordisRunner/inventory -> 200 {"type":"server-response","rpcId":"b8b50041-092c-4400-8456-a1fa16506519","result":{"ok":true,"value":[]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/commands/list commands/list -> 200 {"type":"server-response","rpcId":"70f6d3ff-0b2a-45fb-8377-625e08e85f6b","result":{"ok":true,"value":[{"definitionId":"@deepseek-ai/dsh-command-compact","name":"compact","description":"Compact older conversation history"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/skills/list skills/list -> 200 {"type":"server-response","rpcId":"728684eb-ed92-4a2f-a95f-7fd165f4e23a","result":{"ok":true,"value":{"skills":[{"name":"preview-tour","path":"/dsh/workspace/.agents/skills/preview-tour/SKILL.md","description":"Inspect t
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/mutate with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/settings/mutate settings/mutate -> 200 {"type":"server-response","rpcId":"a70e34e7-3a4f-43fa-8573-15049b0e293c","result":{"ok":true,"value":{"ns":"ui-onboarding","schema":{"uid":986,"refs":{"985":{"type":"string","meta":{}},"986":{"type":"object","meta":{"def
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listConfigurableProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/modelCatalog session/modelCatalog -> 200 {"type":"server-response","rpcId":"d0e771c2-5beb-483a-a116-fe7e64f57492","result":{"ok":true,"value":{"default":{"provider":"deepseek-official","model":"deepseek-flash"},"routableProviders":["deepseek-official"],"groups"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/settings/describe settings/describe -> 200 {"type":"server-response","rpcId":"04812032-a34d-4eff-bbb9-1505cbf966e2","result":{"ok":true,"value":{"writable":true,"hasDocument":true,"namespaces":[{"ns":"agent-default-model","schema":{"uid":86,"refs":{"82":{"type":"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listProviders llm/listProviders -> 200 {"type":"server-response","rpcId":"0b35b99a-a477-4f63-9771-0ed48f4d5f7c","result":{"ok":true,"value":[{"id":"deepseek-official","name":"DeepSeek"}]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listConfigurableProviders llm/listConfigurableProviders -> 200 {"type":"server-response","rpcId":"baa61635-82f0-4517-b4de-03ed02532e57","result":{"ok":true,"value":[{"provider":"amazon-bedrock","displayName":"amazon-bedrock","settingsNs":"llm-pi-ai","settingsPath":["providers","amaz
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/settings/describe settings/describe -> 200 {"type":"server-response","rpcId":"5c34afe4-fd4e-4b68-aafd-d51561f07907","result":{"ok":true,"value":{"writable":true,"hasDocument":true,"namespaces":[{"ns":"agent-default-model","schema":{"uid":86,"refs":{"82":{"type":"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"04fa1ff5-c19b-402e-8a7f-7b8a27b23c62","result":{"ok":true,"value":{"DEEPSEEK_API_KEY":{"configured":false,"writable":true}}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"714a5240-c6b7-4be1-8d9b-b0056c98ff52","result":{"ok":true,"value":{"AMAZON_BEDROCK_API_KEY":{"configured":false,"writable":true},"ANT_LING_API_KEY":{"configured":false,"writable":true},
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"a9d5b9c8-8bc1-46d6-b3bd-c7bfe9918c3c","result":{"ok":true,"value":{"DEEPSEEK_API_KEY":{"configured":false,"writable":true}}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/session/list session/list -> 200 {"type":"server-response","rpcId":"preview-session-list","result":{"ok":true,"value":{"items":[{"sessionId":"session-8440fbcf-e246-45ed-8079-49a5f7b6cf12","updatedAt":1789394193647,"running":false,"blank":true,"cwd":"/ds
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/rename with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/session/rename session/rename -> 200 {"type":"server-response","rpcId":"preview-session-rename","result":{"ok":true,"value":{"title":"WebWorker Preview Showcase","seq":203}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/rename with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/session/rename session/rename -> 200 {"type":"server-response","rpcId":"preview-session-rename","result":{"ok":true,"value":{"title":"WebWorker Preview Showcase","seq":204}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused skills/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/skills/list skills/list -> 200 {"type":"server-response","rpcId":"preview-skills-list","result":{"ok":true,"value":{"skills":[{"name":"preview-tour","path":"/dsh/workspace/.agents/skills/preview-tour/SKILL.md","description":"Inspect the bundled Previe
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused directoryPicker/createDirectory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/directoryPicker/createDirectory directoryPicker/createDirectory -> 200 {"type":"server-response","rpcId":"preview-directoryPicker-createDirectory","result":{"ok":true,"value":"/dsh/workspace/.agents/skills/runtime-created"}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused skills/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/skills/list skills/list -> 200 {"type":"server-response","rpcId":"preview-skills-list","result":{"ok":true,"value":{"skills":[{"name":"preview-tour","path":"/dsh/workspace/.agents/skills/preview-tour/SKILL.md","description":"Inspect the bundled Previe
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/settings/describe settings/describe -> 200 {"type":"server-response","rpcId":"preview-settings-describe","result":{"ok":true,"value":{"writable":true,"hasDocument":true,"namespaces":[{"ns":"agent-default-model","schema":{"uid":86,"refs":{"82":{"type":"string","me
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/update with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listConfigurableProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/settings/update settings/update -> 200 {"type":"server-response","rpcId":"preview-settings-update","result":{"ok":true,"value":{"ns":"shell","schema":{"uid":485,"refs":{"474":{"type":"string","meta":{}},"476":{"type":"number","meta":{"default":120000}},"478":
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/set with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listProviders llm/listProviders -> 200 {"type":"server-response","rpcId":"c26f51c6-cf9b-4c97-a4b6-ee32d2d4406e","result":{"ok":true,"value":[{"id":"deepseek-official","name":"DeepSeek"}]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listConfigurableProviders llm/listConfigurableProviders -> 200 {"type":"server-response","rpcId":"a11f7b60-8fe9-4bd0-a933-0774fabbbbb6","result":{"ok":true,"value":[{"provider":"amazon-bedrock","displayName":"amazon-bedrock","settingsNs":"llm-pi-ai","settingsPath":["providers","amaz
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/modelCatalog session/modelCatalog -> 200 {"type":"server-response","rpcId":"dc3d9c97-fc0b-46e6-99db-00287edd341e","result":{"ok":true,"value":{"default":{"provider":"deepseek-official","model":"deepseek-flash"},"routableProviders":["deepseek-official"],"groups"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/settings/describe settings/describe -> 200 {"type":"server-response","rpcId":"83fead88-c68f-42d3-9e86-9b3ca456f8a0","result":{"ok":true,"value":{"writable":true,"hasDocument":true,"namespaces":[{"ns":"agent-default-model","schema":{"uid":86,"refs":{"82":{"type":"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listConfigurableProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/credentials/set credentials/set -> 200 {"type":"server-response","rpcId":"preview-credentials-set","result":{"ok":true}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listProviders llm/listProviders -> 200 {"type":"server-response","rpcId":"a5eb4367-db18-4a81-b23e-41970d2fcaa9","result":{"ok":true,"value":[{"id":"deepseek-official","name":"DeepSeek"}]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listConfigurableProviders llm/listConfigurableProviders -> 200 {"type":"server-response","rpcId":"887bf175-bd2a-4093-8509-30bcf5945dd9","result":{"ok":true,"value":[{"provider":"amazon-bedrock","displayName":"amazon-bedrock","settingsNs":"llm-pi-ai","settingsPath":["providers","amaz
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/modelCatalog session/modelCatalog -> 200 {"type":"server-response","rpcId":"f15a23d9-9d1d-417e-ba06-8ca89723e695","result":{"ok":true,"value":{"default":{"provider":"deepseek-official","model":"deepseek-flash"},"routableProviders":["deepseek-official"],"groups"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"98aedb2c-1cbf-4cfd-bce8-da2d5b2a7e8d","result":{"ok":true,"value":{"DEEPSEEK_API_KEY":{"configured":false,"writable":true}}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"8de56922-df40-451a-946c-382b849014d6","result":{"ok":true,"value":{"AMAZON_BEDROCK_API_KEY":{"configured":false,"writable":true},"ANT_LING_API_KEY":{"configured":false,"writable":true},
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"preview-credentials-describe","result":{"ok":true,"value":{"PREVIEW_TEST_SECRET":{"configured":true,"source":"file","writable":true}}}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"557d83bf-0b7c-4ad3-a075-81f6d689e856","result":{"ok":true,"value":{"AMAZON_BEDROCK_API_KEY":{"configured":false,"writable":true},"ANT_LING_API_KEY":{"configured":false,"writable":true},
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/unset with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listConfigurableProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] /api/credentials/unset credentials/unset -> 200 {"type":"server-response","rpcId":"preview-credentials-unset","result":{"ok":true}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listProviders llm/listProviders -> 200 {"type":"server-response","rpcId":"ea4d5834-8a21-42ca-bca9-3387debc2030","result":{"ok":true,"value":[{"id":"deepseek-official","name":"DeepSeek"}]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/llm/listConfigurableProviders llm/listConfigurableProviders -> 200 {"type":"server-response","rpcId":"b6081562-c666-4fb5-b702-ec6bd43c98b8","result":{"ok":true,"value":[{"provider":"amazon-bedrock","displayName":"amazon-bedrock","settingsNs":"llm-pi-ai","settingsPath":["providers","amaz
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/modelCatalog session/modelCatalog -> 200 {"type":"server-response","rpcId":"9582661a-ed9e-4c2d-b371-00e354502110","result":{"ok":true,"value":{"default":{"provider":"deepseek-official","model":"deepseek-flash"},"routableProviders":["deepseek-official"],"groups"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/credentials/describe credentials/describe -> 200 {"type":"server-response","rpcId":"2a4f4fe5-555b-423d-896e-b7c7b4f63176","result":{"ok":true,"value":{"AMAZON_BEDROCK_API_KEY":{"configured":false,"writable":true},"ANT_LING_API_KEY":{"configured":false,"writable":true},
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused subagents/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused commands/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused skills/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/subagents/list subagents/list -> 200 {"type":"server-response","rpcId":"b1b03e86-7bcd-4f70-a09a-7c197e6fa5ec","result":{"ok":true,"value":{"entries":[{"kind":"child","id":"preview-architecture-review","mode":"one-shot","label":"Review preview architecture",
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/dynamicCordisRunner/inventory dynamicCordisRunner/inventory -> 200 {"type":"server-response","rpcId":"ae017f82-8622-41c8-a440-0ea558064424","result":{"ok":true,"value":[]}}
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/commands/list commands/list -> 200 {"type":"server-response","rpcId":"8a592e7a-ba1e-4fda-9627-f8a32689aa7f","result":{"ok":true,"value":[{"definitionId":"@deepseek-ai/dsh-command-compact","name":"compact","description":"Compact older conversation history"
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/skills/list skills/list -> 200 {"type":"server-response","rpcId":"01e4931e-aa89-433b-8d08-0487dce06d06","result":{"ok":true,"value":{"skills":[{"name":"preview-tour","path":"/dsh/workspace/.agents/skills/preview-tour/SKILL.md","description":"Inspect t
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/agentPresets/list agentPresets/list -> 200 {"type":"server-response","rpcId":"8e83d9a8-7f1e-40fa-90f7-a2053c4c1a28","result":{"ok":true,"value":{"presets":[{"id":"standard","trust":"system","isDefault":true,"name":"标准模式","description":"功能完整的编码 Agent，支持文件编辑、Shell、
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused subagents/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/subagents/list subagents/list -> 200 {"type":"server-response","rpcId":"069c9d43-1e5d-432a-ab94-01797769425c","result":{"ok":true,"value":{"entries":[{"kind":"child","id":"preview-architecture-review","mode":"one-shot","label":"Review preview architecture",
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/page with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] [zz-preview-rpc] http://127.0.0.1:56535/api/session/page session/page -> 200 {"type":"server-response","rpcId":"86265290-6b36-43af-8660-87b13c90199b","result":{"ok":true,"value":{"records":[{"type":"event","event":{"type":"turn/start","data":{"turn":1},"seq":0,"time":1787472000000}},{"type":"even
+
+ [32m✓[39m apps/web/tests/preview-boot.e2e.ts [2m([22m[2m1 test[22m[2m)[22m[33m 21815[2mms[22m[39m
+   [33m[2m✓[22m[39m boots the packed worker deployment to an interactive page[33m 21814[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 21:56:10
+[2m   Duration [22m 24.70s[2m (tests 89%, transform 8%, import 3%)[22m

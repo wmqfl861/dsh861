@@ -1,4 +1,4 @@
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 
 const decoratorSyntax = /^\s*@[A-Za-z_$][\w$]*/m
 
@@ -7,6 +7,16 @@ const decoratorSyntax = /^\s*@[A-Za-z_$][\w$]*/m
  * Node lists the positive spelling in `allowedNodeEnvironmentFlags` for this negatable flag.
  */
 export const vitestExecArgv = process.allowedNodeEnvironmentFlags.has('--webstorage') ? ['--no-webstorage'] : []
+
+/**
+ * Transform JSX with the automatic runtime in every test surface.
+ *
+ * Vite's esbuild transform reads `compilerOptions.jsx` from the file's nearest tsconfig. Face-split
+ * packages keep a solution-only root tsconfig without compiler options (the faces carry them), so
+ * without this preset their `.tsx` specs fall back to the classic `React.createElement` transform
+ * and fail with `React is not defined`. The value mirrors `tsconfig.base.client.json`.
+ */
+export const vitestEsbuild = { jsx: 'automatic' } as const
 
 /**
  * Transform standard TypeScript decorators before Vite's default parser sees source files.
@@ -24,7 +34,9 @@ export function standardDecoratorPlugin() {
         compilerOptions: {
           target: ts.ScriptTarget.ES2024,
           module: ts.ModuleKind.ESNext,
-          jsx: file.endsWith('x') ? ts.JsxEmit.ReactJSX : undefined,
+          // A conditional spread keeps the key absent for non-JSX files; an explicit
+          // `undefined` value fails `exactOptionalPropertyTypes` under the host program.
+          ...(file.endsWith('x') ? { jsx: ts.JsxEmit.ReactJSX } : {}),
           sourceMap: true,
         },
       })

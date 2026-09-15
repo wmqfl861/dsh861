@@ -5,6 +5,8 @@ import { isAbsolute, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const names = { codex: 'codex.exe', setup: 'codex-windows-sandbox-setup.exe', runner: 'codex-command-runner.exe' }
+const currentVersion = '0.154.0'
+const stableVersion = value => typeof value === 'string' && /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)$/.test(value)
 const sha256 = value => createHash('sha256').update(value).digest('hex')
 const exact = (value, keys) => value !== null && typeof value === 'object' && !Array.isArray(value)
   && Object.keys(value).length === keys.length && keys.every(key => Object.hasOwn(value, key))
@@ -61,7 +63,7 @@ async function verifiedCopy(source, pin, destination) {
  * Sources and staging parents must be protected from hostile concurrent replacement by the caller.
  * Hash checks establish bytes at inspection, not OS isolation, publisher signature or safe execution.
  * @param {{parent:string,sources:{codex:string,setup:string,runner:string}}} specification - explicit local source files and existing staging parent.
- * @param {object} trustedManifest - reviewed release pins; the CLI always loads the adjacent fixed manifest.
+ * @param {object} trustedManifest - reviewed release pins; the CLI loads only an adjacent checked-in version manifest.
  * @returns {Promise<object>} verified inactive directory, verification function and exact owned cleanup.
  */
 export async function prepareSandboxToolBundle(specification, trustedManifest) {
@@ -69,7 +71,7 @@ export async function prepareSandboxToolBundle(specification, trustedManifest) {
   if (!exact(spec, ['parent', 'sources']) || !absolute(spec.parent)
     || !exact(spec.sources, Object.keys(names)) || !Object.values(spec.sources).every(absolute)
     || manifest?.version !== 1 || manifest.product !== 'codex-windows-sandbox-tools'
-    || manifest.codexVersion !== '0.149.1' || manifest.target !== 'x86_64-pc-windows-msvc'
+    || !stableVersion(manifest.codexVersion) || manifest.target !== 'x86_64-pc-windows-msvc'
     || !Array.isArray(manifest.artifacts) || manifest.artifacts.length !== 3) refuse('BUNDLE_SPEC_INVALID')
   const pins = Object.keys(names).map(role => {
     const matches = manifest.artifacts.filter(pin => pin?.role === role)
@@ -152,14 +154,21 @@ const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(imp
 if (isMain) {
   try {
     const args = process.argv.slice(2), values = Object.create(null)
-    if (args.length !== 8) refuse('BUNDLE_ARGUMENTS_INVALID')
+    if (args.length !== 8 && args.length !== 10) refuse('BUNDLE_ARGUMENTS_INVALID')
     for (let index = 0; index < args.length; index += 2) {
       const key = args[index].slice(2)
-      if (args[index] !== '--' + key || !['parent', 'codex', 'setup', 'runner'].includes(key)
+      if (args[index] !== '--' + key || !['parent', 'codex', 'setup', 'runner', 'version'].includes(key)
         || Object.hasOwn(values, key)) refuse('BUNDLE_ARGUMENTS_INVALID')
       values[key] = args[index + 1]
     }
-    const manifest = JSON.parse(await readFile(new URL('./sandbox-tool-bundle.0.149.1.json', import.meta.url), 'utf8'))
+    if (!['parent', 'codex', 'setup', 'runner'].every(key => Object.hasOwn(values, key))) refuse('BUNDLE_ARGUMENTS_INVALID')
+    const version = values.version ?? currentVersion
+    if (!stableVersion(version)) refuse('BUNDLE_VERSION_INVALID')
+    let manifest
+    try {
+      manifest = JSON.parse(await readFile(new URL(`./sandbox-tool-bundle.${version}.json`, import.meta.url), 'utf8'))
+    } catch { refuse('BUNDLE_VERSION_UNAVAILABLE') }
+    if (manifest.codexVersion !== version) refuse('BUNDLE_MANIFEST_INVALID')
     const bundle = await prepareSandboxToolBundle({ parent: values.parent,
       sources: { codex: values.codex, setup: values.setup, runner: values.runner } }, manifest)
     process.stdout.write(JSON.stringify({ ...bundle.receipt, directory: bundle.directory }) + '\n')

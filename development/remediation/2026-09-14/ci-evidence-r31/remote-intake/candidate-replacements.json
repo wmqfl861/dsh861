@@ -1,0 +1,78 @@
+{
+  "sourceHead": "201206cb4c83581b3d44620831434fbf2e337df9",
+  "status": "proposed, not applied to repository source; full project tests and independent review required locally",
+  "changes": [
+    {
+      "path": "scripts/gate-evidence.ts",
+      "expectedBlob": "7c18cedd65ab584918445af20a6bbf530ebfb9d8",
+      "replacements": [
+        {
+          "old": "export function gateEvidenceRequest(mode: string, environment: NodeJS.ProcessEnv): GateEvidenceRequest | undefined {\n  const directory = environment[GATE_EVIDENCE_DIR_ENV]\n  if (directory === undefined || directory === '') return undefined\n  return { directory, mode, environment }\n}\n",
+          "new": "export function gateEvidenceRequest(mode: string, environment: NodeJS.ProcessEnv): GateEvidenceRequest | undefined {\n  const directory = environment[GATE_EVIDENCE_DIR_ENV]\n  if (directory === undefined || directory === '') return undefined\n  return { directory, mode, environment }\n}\n\n/**\n * Claim this CLI's evidence destination without enabling child aggregates.\n * The resolved request keeps its directory and identity metadata; descendants\n * inherit the remaining environment without the evidence-directory switch.\n * @param mode - aggregate mode name to record.\n * @param environment - environment whose directory switch is consumed when set.\n * @returns the current aggregate's request, or undefined without changing an unset or empty switch.\n */\nexport function claimGateEvidenceRequest(mode: string, environment: NodeJS.ProcessEnv): GateEvidenceRequest | undefined {\n  const request = gateEvidenceRequest(mode, environment)\n  if (request !== undefined) delete environment[GATE_EVIDENCE_DIR_ENV]\n  return request\n}\n"
+        },
+        {
+          "old": "  headParent: string | null\n",
+          "new": "  headParent: string | null\n  headParents: string[]\n"
+        },
+        {
+          "old": "    const parents = runGit(root, ['show', '-s', '--format=%P', '-n1', 'HEAD'], 'resolving evidence HEAD parent')\n      .toString('utf8')\n      .trim()\n      .split(' ')\n      .filter(Boolean)\n    return { head, headParent: parents[0] ?? null }\n",
+          "new": "    const commit = runGit(root, ['cat-file', 'commit', 'HEAD'], 'reading evidence commit headers').toString('utf8')\n    const headers = commit.split('\\n\\n', 1)[0] ?? ''\n    const parents = headers.split('\\n')\n      .filter(header => header.startsWith('parent '))\n      .map(header => header.slice('parent '.length))\n    return { head, headParent: parents[0] ?? null, headParents: parents }\n"
+        },
+        {
+          "old": "    return { head: null, headParent: null, error: error instanceof Error ? error.message : String(error) }",
+          "new": "    return { head: null, headParent: null, headParents: [], error: error instanceof Error ? error.message : String(error) }"
+        },
+        {
+          "old": "      headParent: git.headParent,\n",
+          "new": "      headParent: git.headParent,\n      headParents: git.headParents,\n"
+        }
+      ]
+    },
+    {
+      "path": "scripts/run-gates.ts",
+      "expectedBlob": "ac47eea702ddf81d6818af4c3a03c283c1d662c7",
+      "replacements": [
+        {
+          "old": "  gateEvidenceRequest,\n",
+          "new": "  claimGateEvidenceRequest,\n"
+        },
+        {
+          "old": "  const evidence = gateEvidenceRequest(mode, process.env)\n",
+          "new": "  const evidence = claimGateEvidenceRequest(mode, process.env)\n"
+        }
+      ]
+    },
+    {
+      "path": "scripts/gate-evidence.spec.ts",
+      "expectedBlob": "7cf828510ed6750d5dba37a21d6a50e24343f938",
+      "replacements": [
+        {
+          "old": "  captureBoundedStream,\n",
+          "new": "  captureBoundedStream,\n  claimGateEvidenceRequest,\n"
+        },
+        {
+          "old": "describe('log sanitization', () => {",
+          "new": "describe('evidence destination ownership', () => {\n  it('keeps the read-only resolver available without consuming the switch', () => {\n    const environment = { [GATE_EVIDENCE_DIR_ENV]: '/tmp/evidence' }\n    expect(gateEvidenceRequest('ci-consumers', environment)?.directory).toBe('/tmp/evidence')\n    expect(environment[GATE_EVIDENCE_DIR_ENV]).toBe('/tmp/evidence')\n  })\n\n  it('consumes only the directory switch and keeps identity metadata with the request', () => {\n    const environment = { ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: '/tmp/evidence' }\n    const request = claimGateEvidenceRequest('ci-consumers', environment)\n    expect(request?.directory).toBe('/tmp/evidence')\n    expect(request?.mode).toBe('ci-consumers')\n    expect(request?.environment).toBe(environment)\n    expect(environment).toEqual(identityEnvironment())\n    expect(claimGateEvidenceRequest('ci-consumers', environment)).toBeUndefined()\n    expect(gateEvidenceRequest('node-compat', environment)).toBeUndefined()\n  })\n\n  it('leaves absent and empty switches unchanged when claiming is disabled', () => {\n    const absent = identityEnvironment()\n    const empty = { ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: '' }\n    expect(claimGateEvidenceRequest('ci-consumers', absent)).toBeUndefined()\n    expect(claimGateEvidenceRequest('ci-consumers', empty)).toBeUndefined()\n    expect(absent).toEqual(identityEnvironment())\n    expect(empty).toEqual({ ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: '' })\n  })\n\n  it('keeps nested aggregates from writing before the outer failure is exported', () => {\n    const directory = mkdtempSync(join(tmpdir(), 'dsh-gate-owner-'))\n    const environment = { ...identityEnvironment(), [GATE_EVIDENCE_DIR_ENV]: directory }\n    try {\n      const request = claimGateEvidenceRequest('ci-consumers', environment)\n      if (request === undefined) throw new Error('the outer aggregate did not claim its evidence')\n      const child = spawnSync(process.execPath, [\n        '--import', 'tsx/esm', '--input-type=module', '-e',\n        `import { gateEvidenceRequest } from './scripts/gate-evidence.ts'\n         for (const mode of ['node-compat', 'ci-lint-contracts-ready', 'ci-consumers']) {\n           if (gateEvidenceRequest(mode, process.env) !== undefined) {\n             throw new Error('a child inherited the outer evidence destination')\n           }\n         }\n         process.stdout.write('nested aggregates disabled\\\\n')`,\n      ], { cwd: repoRoot, env: environment, encoding: 'utf8', timeout: 15_000 })\n      expect(child.error).toBeUndefined()\n      expect(child.status, child.stderr).toBe(0)\n      expect(child.stdout).toContain('nested aggregates disabled')\n      expect(readdirSync(directory)).toEqual([])\n      const failure: GateResult = {\n        gate: gate('outer-failure'),\n        status: 'failed',\n        durationMs: 1,\n        output: [{ stream: 'stderr', text: 'outer failure remains visible\\n' }],\n        exitCode: 7,\n        signalCode: null,\n      }\n      exportGateEvidence(exportOptions({ ...request, results: [failure] }))\n      expect(readJson(join(directory, 'identity.json'))).toMatchObject({ aggregate: 'ci-consumers' })\n      expect(readJson(join(directory, 'gate-results.json'))).toMatchObject({\n        aggregate: 'ci-consumers',\n        summary: { passed: 0, failed: 1, skipped: 0 },\n        gates: [{ id: 'outer-failure', status: 'failed', exitCode: 7 }],\n      })\n      expect(readText(join(directory, 'logs', 'outer-failure.log'))).toContain('outer failure remains visible')\n    } finally {\n      rmSync(directory, { recursive: true, force: true })\n    }\n  }, 20_000)\n})\n\ndescribe('log sanitization', () => {"
+        },
+        {
+          "old": "import { join, resolve } from 'node:path'\n",
+          "new": "import { join, resolve } from 'node:path'\nimport { pathToFileURL } from 'node:url'\n"
+        },
+        {
+          "old": "describe('process output mirroring', () => {",
+          "new": "describe('stored commit ancestry', () => {\n  it('keeps both merge parents in a depth-one checkout without reading the message as headers', () => {\n    const directory = mkdtempSync(join(tmpdir(), 'dsh-parent-evidence-'))\n    const source = join(directory, 'source')\n    const shallow = join(directory, 'shallow')\n    mkdirSync(source)\n    const fixtureGit = (cwd: string, args: string[], input?: string): string => {\n      const result = spawnSync('git', [\n        '-C', cwd, '-c', 'user.name=Evidence Fixture',\n        '-c', 'user.email=fixture@example.invalid', ...args,\n      ], { encoding: 'utf8', input })\n      expect(result.error).toBeUndefined()\n      expect(result.status, result.stderr).toBe(0)\n      return result.stdout.trim()\n    }\n    try {\n      fixtureGit(source, ['init', '--initial-branch=main'])\n      const tree = fixtureGit(source, ['hash-object', '-t', 'tree', '--stdin', '-w'], '')\n      const root = fixtureGit(source, ['commit-tree', tree, '-m', 'root'])\n      const base = fixtureGit(source, ['commit-tree', tree, '-p', root, '-m', 'base'])\n      const head = fixtureGit(source, ['commit-tree', tree, '-p', root, '-m', 'head'])\n      const forged = 'f'.repeat(40)\n      const merge = fixtureGit(source, ['commit-tree', tree, '-p', base, '-p', head, '-m', `merge fixture\n\nparent ${forged}`])\n      fixtureGit(source, ['update-ref', 'refs/heads/main', merge])\n      fixtureGit(directory, ['clone', '--quiet', '--depth=1', pathToFileURL(source).href, shallow])\n      expect(fixtureGit(shallow, ['rev-parse', '--is-shallow-repository'])).toBe('true')\n      expect(fixtureGit(shallow, ['show', '-s', '--format=%P', '-n1', 'HEAD'])).toBe('')\n      const output = join(directory, 'evidence')\n      exportGateEvidence(exportOptions({ root: shallow, directory: output }))\n      expect(readJson(join(output, 'identity.json'))).toMatchObject({\n        git: { head: merge, headParent: base, headParents: [base, head] },\n      })\n    } finally {\n      rmSync(directory, { recursive: true, force: true })\n    }\n  }, 20_000)\n})\n\ndescribe('process output mirroring', () => {"
+        }
+      ]
+    },
+    {
+      "path": "packages/typert/generator/tests/__snapshots__/type-model.spec.ts.snap",
+      "expectedBlob": "da7510736be4e53fd5696bc8662485015387ef11",
+      "replacements": [
+        {
+          "old": "<external>:../../../../../../node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/classic/schemas.d.cts#ZodType",
+          "new": "<external>:../../../../../../node_modules/.pnpm/zod@4.6.2/node_modules/zod/v4/classic/schemas.d.cts#ZodType"
+        }
+      ]
+    }
+  ]
+}

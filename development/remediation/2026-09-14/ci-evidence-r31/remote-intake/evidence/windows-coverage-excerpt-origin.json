@@ -1,0 +1,7 @@
+{
+  "sourceArchive": "dsh861-r30-windows-coverage-run34799140559-attempt1.zip",
+  "sourceMember": "logs/coverage-exempt-heavy.log",
+  "sourceSha256": "282c29ce154b855576ce037ca2454ae566dfe30c788f908ea1bf2aaaf9f5efc2",
+  "transformation": "ANSI SGR removed; contiguous Failed Tests section retained until GitHub annotation lines; excerpt, not complete original",
+  "excerptSha256": "929f9d35cc2e68351eba52c16d8427e854a88b3d095af63e5034e41b83cbfb03"
+}

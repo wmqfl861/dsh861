@@ -1,0 +1,46 @@
+[
+  {
+    "name": "NC1-missing-proxy-init (shared constant loses the proxy setup entry)",
+    "exit": 1,
+    "expectedFailureSeen": true,
+    "applied": true
+  },
+  {
+    "name": "NC1-missing-proxy-init (shared constant loses the proxy setup entry) [restore]",
+    "blobRestored": true,
+    "greenAfterRestore": true
+  },
+  {
+    "name": "NC2-unknown-reference (slot names a constant with no array-literal declaration)",
+    "exit": 1,
+    "expectedFailureSeen": true,
+    "applied": true
+  },
+  {
+    "name": "NC2-unknown-reference (slot names a constant with no array-literal declaration) [restore]",
+    "blobRestored": true,
+    "greenAfterRestore": true
+  },
+  {
+    "name": "NC3-single-project-disconnect (process-bound project lists its own setup without the proxy entry)",
+    "exit": 1,
+    "expectedFailureSeen": true,
+    "applied": true
+  },
+  {
+    "name": "NC3-single-project-disconnect (process-bound project lists its own setup without the proxy entry) [restore]",
+    "blobRestored": true,
+    "greenAfterRestore": true
+  },
+  {
+    "name": "NC5-void-restore (rejects assertion discarded with void again)",
+    "exit": 1,
+    "expectedFailureSeen": true,
+    "applied": true
+  },
+  {
+    "name": "NC5-void-restore (rejects assertion discarded with void again) [restore]",
+    "blobRestored": true,
+    "greenAfterRestore": true
+  }
+]

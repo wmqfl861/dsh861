@@ -15,7 +15,8 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import yaml from 'js-yaml'
+import * as yaml from 'js-yaml'
+import { defineScalarTag, NOT_RESOLVED } from 'js-yaml'
 import { describe, expect, it } from 'vitest'
 
 const repoRoot = fileURLToPath(new URL('../../../', import.meta.url))
@@ -37,11 +38,12 @@ interface PatchEntry extends ConfigRow {
   insert?: ConfigRow[]
 }
 
-const jsExprType = new yaml.Type('tag:yaml.org,2002:js', {
-  kind: 'scalar',
-  construct: value => String(value),
+// js-yaml 5 custom scalar: `resolve` both gates and constructs (v4's construct collapsed into it).
+const jsExprType = defineScalarTag('tag:yaml.org,2002:js', {
+  resolve: value => (typeof value === 'string' ? value : NOT_RESOLVED),
+  identify: (value): value is string => typeof value === 'string',
 })
-const configSchema = yaml.JSON_SCHEMA.extend(jsExprType)
+const configSchema = yaml.JSON_SCHEMA.withTags(jsExprType)
 
 /** Boot the built Web CLI, wait for its settled URL, then dispose through SIGTERM. */
 function runBuiltWeb(cwd: string): Promise<{ stdout: string; stderr: string; code: number }> {

@@ -1,0 +1,225 @@
+{
+  "round": "r25-execution",
+  "kind": "upgrade-consumer-repair-verification-and-major-migration",
+  "recordedAt": "2026-09-13T05:40:00.000Z",
+  "baseCommit": "675b4324ab3f6c5c98938dd3a76c1225f74dd432",
+  "pullRequest": 13,
+  "actor": "ZCode built-in execution subagent under standing dependency/lock authorization; not the designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Windows 10.0.26200 x64",
+    "node": "26.8.2 (project-local C:\\dsh-r24-upgrade-20260912-01\\node-v26.8.2-win-x64)",
+    "pnpm": "12.4.1 (project-local; store C:\\dsh-r24-upgrade-20260912-01\\pnpm-store)",
+    "vitest": "5.0.0 (final), 4.1.11 at first verification",
+    "typescriptBuild": "7.0.2, classic API via @typescript/typescript6 6.0.2"
+  },
+  "receivedRepairs": {
+    "vitestSharedSpec": {
+      "command": "pnpm exec vitest run scripts/vitest-shared.spec.ts",
+      "passed": 5,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "codexInstalledTools": {
+      "command": "node --test scripts/p0-b/windows-credentials/codex-installed-tools.test.mjs",
+      "firstRun": {
+        "passed": 7,
+        "failed": 2,
+        "exitCode": 1,
+        "cause": "Windows 8.3 short-name TEMP vs realpath long-name comparison"
+      },
+      "afterPathFix": {
+        "passed": 9,
+        "failed": 0,
+        "exitCode": 0
+      },
+      "final": {
+        "passed": 11,
+        "failed": 0,
+        "exitCode": 0,
+        "addedControls": [
+          "refuses helpers outside the declared resources directory",
+          "rejects installed layout metadata for a different release"
+        ]
+      }
+    },
+    "actualProjectResolution": {
+      "firstRun": {
+        "error": "ENOENT codex-windows-sandbox-setup.exe under bin/"
+      },
+      "rootCause": "0.154.0 platform package ships vendor/<target>/codex-package.json layout metadata: entrypoint bin/codex.exe, resourcesDir codex-resources holding setup and runner",
+      "fix": "layout-driven resolution in codex-installed-tools.mjs validating layoutVersion/version/target/entrypoint/resourcesDir",
+      "final": {
+        "codex": "node_modules/.pnpm/@openai+codex@0.154.0-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/bin/codex.exe",
+        "setup": "node_modules/.pnpm/@openai+codex@0.154.0-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/codex-resources/codex-windows-sandbox-setup.exe",
+        "runner": "node_modules/.pnpm/@openai+codex@0.154.0-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/codex-resources/codex-command-runner.exe",
+        "digests": "all three match sandbox-tool-bundle.0.154.0.json pins (size + streamed sha256)"
+      }
+    }
+  },
+  "classicApiConsumers": [
+    {
+      "path": "snapshots/session/headless.snapshot.ts",
+      "fix": "import ts from '@typescript/typescript6'"
+    },
+    {
+      "path": "packages/subagent/subagent-codex/tests/private-stderr-provider.fixture.mjs",
+      "fix": "default fallback '@typescript/typescript6' with DSH_TEST_TYPESCRIPT_PATH override kept; devDependency declared"
+    }
+  ],
+  "providerLoaderRegressions": {
+    "subagentCodexSuites": {
+      "files": [
+        "private-stderr.spec.ts",
+        "private-stderr-provider.spec.ts",
+        "subagent-codex.spec.ts"
+      ],
+      "final": "71/71 pass, exit 0",
+      "fixes": [
+        "stale 0.153.4 constants -> 0.154.0",
+        "import.meta.resolve -> createRequire in spec",
+        "loader-smoke tsx resolution + pathToFileURL for --import"
+      ]
+    },
+    "loaderCompositionE2e": {
+      "vitestPools": "blocked by Node 26.8.2-on-Windows platform defect: pool grandchildren hang with zero output; file-stdio probe exposes ncrypto::CSPRNG(nullptr,0) abort (exit 134); single-variable probe reproduces the abort from bash with only SystemRoot set; short-lived children and tsx micro-files work from workers",
+      "directVerification": {
+        "harness": "runLoaderSmoke invoked directly (same PATH:'' isolation, 60s budget)",
+        "exitCode": 0,
+        "ms": 5588,
+        "stderrEmpty": true,
+        "assertions": {
+          "providers": true,
+          "tools": true,
+          "jobTools": true,
+          "starts": true,
+          "providerCount": true
+        }
+      }
+    }
+  },
+  "majorMigrations": {
+    "groupA": {
+      "react": "19.3.0",
+      "react-dom": "19.3.0",
+      "@types/react": "~19.3.0",
+      "@types/react-dom": "~19.3.0",
+      "zustand": "5.0.15",
+      "immer": "11.1.18",
+      "@lexical/*": "^0.50.0 (bare lexical ^0.50.0 unified after dual-instance discovery)",
+      "js-yaml": "^5.4.2 (root included; 7x @types/js-yaml removed; default imports -> namespace; vendor include migrated to defineScalarTag/withTags; empty !!js body rejected; empty document classified as validation failure)",
+      "jsdom": "30.0.1",
+      "@types/jsdom": "^30.0.0",
+      "mermaid": "12.0.0",
+      "typescript-language-server": "^6.0.0"
+    },
+    "groupB": {
+      "vite": "^8.3.0",
+      "@vitejs/plugin-react": "^6.1.1",
+      "vitest": "^5.0.0",
+      "@vitest/coverage-v8": "^5.0.0",
+      "configMigrations": [
+        "inline projects inherit root config: duplicated setupFiles removed (double registration had failed 186 files/1322 tests)",
+        "expect.poll callbacks receive { signal }: readFontSize polls wrapped in no-argument closures",
+        "Assertion augmentation second type parameter (storage registry.spec)",
+        "shared vitestEsbuild jsx preset wired into 8 configs + 2 inline projects for face-split packages"
+      ]
+    },
+    "patches": {
+      "@yao-pkg/pkg": "6.22.0 patch regenerated via pnpm patch (same patchChildProcess removal; hunk located uniquely in 6.22.0 bundle)"
+    },
+    "node-pty": "retained at 1.2.0-beta.15; npm latest stable 1.1.0 is older than the beta baseline, no migration target exists"
+  },
+  "validation": {
+    "typecheck": "pnpm run typecheck exit 0 (14 React-19 type fixes; 6 js-yaml v4-API leftovers migrated; 2 latent issues in 675b4324's new spec fixed: tsconfig.host include + exactOptionalPropertyTypes jsx key)",
+    "build": "pnpm run build exit 0 (244 client artifacts recorded; vite 8 web dist 14MB)",
+    "clientSuites": "5270 tests: 5269 pass + 1 fail (present-open.host EPERM symlink - machine lacks symlink privilege; no UAC/Defender/ACL changes made)",
+    "webSuite": "102 files against real built artifacts in real chromium: all pass (smoke-real 4 pass + 8 keyless self-skips after playwright chromium download)",
+    "lint": "pnpm run lint exit 0 (45 -> 0: dispatch un-deprecated in vendored fork, MutableRefObject -> RefObject, React-19 ReactNode void prefixes, typed waterfall/source-map assertions)",
+    "docSync": "pnpm run doc-sync exit 0 after catalog regeneration (0 failed gates on the final run; earlier iterations regenerated the config/client/cordis catalogs and refreshed their bilingual pair records)",
+    "frozenLock": "pnpm install --frozen-lockfile --store-dir C:/dsh-r24-upgrade-20260912-01/pnpm-store exit 0 ('Lockfile is up to date', 584ms, after the clean reinstall; re-run on the fully committed tree with the corrected patch hash before the final push)"
+  },
+  "vendorSync": {
+    "repository": "cordiverse/cordis",
+    "from": "56b3d4f725681cf4556c1a8695a709cc3b6eed74",
+    "to": "f8ea3cd50f1a5724e8e715995bcde131c9c12b2c",
+    "commits": 30,
+    "method": "git merge-file three-way per file (base/upstream-old, ours/vendored, theirs/upstream-new); 25 conflict hunks adjudicated across 7 files",
+    "semantics": {
+      "adopted": [
+        "EntryChange journal (tree.commit replaces write)",
+        "symbol event names + events cleanup",
+        "waterfall next() double-call guard",
+        "Fiber.update task-return with handled rejection",
+        "loader bare-specifier project anchoring (resolve.ts)",
+        "owned-API internal loader classification (retires mod 19)"
+      ],
+      "preserved": [
+        "lazy config resolution (raw config through Fiber.update, resolved via internal/config on activation)",
+        "transactional replace/rollback and move rollback",
+        "awaited group disposal",
+        "Include whole-file reconciliation under commit()"
+      ],
+      "adjusted": [
+        "Fiber.restart acts on this (repository callers invoke fibers directly; ctx.fiber can name another instance of the runtime)",
+        "failed-fiber epoch guard narrowed to INACTIVE->ready transitions (service recovery retries; teardown containment holds)",
+        "EventsService.dispatch kept as supported iteration surface"
+      ]
+    },
+    "regressions": {
+      "appBoot": "225/225 pass",
+      "webserver": "pass",
+      "directoryPickerLoaderComposition": "15/16; 'unmounts the backend when the surface entry fails to load' fails deterministically: root tree retains the backend entry after the setup-catch unmount under the new teardown ordering; diagnostics (store-key tracking, group-recreate counters, unmount logging) captured; open item"
+    },
+    "blocked": {
+      "deepseek-harness/cosmokit": "404",
+      "deepseek-harness/schemastery": "404",
+      "deepseek-harness/cordis": "404",
+      "note": "forks unreachable without credentials; their vendored packages stay at fork baseline except include's js-yaml range (vendor README entry 21)"
+    }
+  },
+  "protectedUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "all historical receipts/manifests/plans"
+  ],
+  "productAccepted": false,
+  "executionAuthorized": true,
+  "modelExecutionAuthorized": false,
+  "nextNodeAllowed": false,
+  "platformDefectEvidence": {
+    "defect": "Node 26.8.2 on Windows hangs or aborts node children of Vitest pool processes; loader-composition.e2e therefore verified through the same runLoaderSmoke harness invoked directly",
+    "matrix": [
+      {
+        "probe": "spawn driver from Vitest worker (forks and threads pools), pipes",
+        "result": "60s timeout, zero output, 3/3 attempts"
+      },
+      {
+        "probe": "same spawn, file-redirected stdio, child env includes SystemRoot",
+        "result": "exit 134 in 203ms, ncrypto::CSPRNG(nullptr,0) assertion at node::InitializeOncePerProcessInternal"
+      },
+      {
+        "probe": "same spawn, file-redirected stdio, no SystemRoot",
+        "result": "30s true hang, no crash output"
+      },
+      {
+        "probe": "plain shell, minimal env {SystemRoot: C:/WINDOWS} single variable",
+        "result": "exit 134 CSPRNG assertion (the variable alone triggers it)"
+      },
+      {
+        "probe": "plain shell, empty env / PATH-only / TSX_TSCONFIG-only / DSH-only",
+        "result": "exit 0"
+      },
+      {
+        "probe": "worker spawn of node --version or a tsx-loaded tiny .ts file",
+        "result": "exit 0 (short-lived children unaffected)"
+      },
+      {
+        "probe": "direct runLoaderSmoke invocation (same empty-PATH isolation, 60s budget)",
+        "result": "exit 0 in 5588ms, stderr empty, all five composition assertions true"
+      }
+    ],
+    "logs": "C:/dsh-r25-20260912-01/ on the executing machine: client-full.log, vitest5-client.log, loader-composition-direct.json, and the probe transcripts",
+    "vendorTypecheck": "pnpm exec tsc -b vendor/cordis vendor/loader exit 0 on the merged sources (VENDOR_TSC=0), rerun green after every adjudication round"
+  }
+}

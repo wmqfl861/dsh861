@@ -1,0 +1,124 @@
+{
+  "round": "r28",
+  "recordedOn": "2026-09-13",
+  "kind": "r27-reception-and-linux-artifact-build-triage",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pullRequest": 13,
+  "baseCommit": "fa1a3751720558a0040633b322ee73cb1c5f3c54",
+  "actor": "ChatGPT source/log triage; not designated Codex planner or OpenCode reviewer",
+  "r27Reception": {
+    "receipt": "development/remediation/2026-09-13/gateway-scope-r27/windows-execution/verification.json",
+    "reportedTests": {
+      "passed": 212,
+      "failed": 0,
+      "unhandled": 0
+    },
+    "userReportedIndependentReview": "PASS",
+    "reranWindows": false,
+    "independentlyVerifiedArchive": false,
+    "sourcePatchAlreadyApplied": true
+  },
+  "ciObserved": {
+    "runId": 34754759281,
+    "jobId": 103717195665,
+    "jobUrl": "https://github.com/wmqfl861/dsh861/actions/runs/34754759281/job/103717195665",
+    "checkoutRef": "refs/pull/13/merge",
+    "testedMergeCommit": "41c81747f67bff78d7eb4fd7c740f9c180a4a0a",
+    "environment": {
+      "os": "Ubuntu 24.04",
+      "node": "26.8.2",
+      "pnpm": "12.4.1",
+      "tsdown": "0.22.3",
+      "rolldown": "1.0.0-rc.3"
+    },
+    "frozenInstall": "completed successfully in the fetched log",
+    "command": "pnpm run build:lib",
+    "hostSequence": "tsc -b tsconfig.host.json && tsdown --env.DSH_BUILD_FACE host",
+    "typeScriptStage": "completed before tsdown",
+    "failingStage": "host tsdown bundle",
+    "exitCode": 1,
+    "dependency": "@tailwindcss/vite@4.3.1",
+    "unresolvedSpecifier": "@tailwindcss/cli/package.json",
+    "reportedImporter": "dist/index.mjs:1:653",
+    "error": "[UNRESOLVED_IMPORT] Could not resolve \"@tailwindcss/cli/package.json\"",
+    "observedCodeFragment": "var R=createRequire(import.meta.url); var M=R.resolve(\"@tailwindcss/cli/package.json\");",
+    "entryNamesObserved": [
+      "@deepseek-ai/dsh-css-compile-tailwind",
+      "@deepseek-ai/dsh-vite-client-build"
+    ],
+    "logAssurance": "Connector-decoded job log was read; this record is a selected factual transcription, not an independently downloaded or hashed full original log. Job display labels differed across reads; the numeric IDs and command identify the evidence.",
+    "workflowStatusLimit": "Workflow was reported queued while jobs had results. Pending/self-hosted and failed artifact work must be reported separately."
+  },
+  "diagnosis": {
+    "rootCause": "NOT_PROVEN",
+    "possibilitiesToDistinguish": [
+      "missing runtime dependency in the actual owning package",
+      "bundle inclusion or external-dependency configuration",
+      "package-context resolution changed by emitted artifact placement",
+      "installed artifact or lock metadata differing from the expected exact published version"
+    ],
+    "noBlindFix": "No root devDependency addition, blanket externalization, node_modules edit or error suppression was made."
+  },
+  "sourceRetrievalLimit": {
+    "fixedRef": "fa1a3751720558a0040633b322ee73cb1c5f3c54",
+    "observations": [
+      "tsdown.config.ts reads returned inconsistent text/blob identities at the same ref",
+      "follow-up reads of some returned blob identifiers failed with 404",
+      "several inferred package paths were not resolvable"
+    ],
+    "interpretation": "The owning manifests and configuration were not reliably recovered. Do not infer repository corruption, deleted source or the correct fix from these responses. Use local exact Git objects and installed dependency metadata.",
+    "runtimeChangesMade": false
+  },
+  "delivery": {
+    "newFiles": [
+      "development/remediation/2026-09-13/artifact-build-r28/verification.json",
+      "development/remediation/2026-09-13/artifact-build-r28/LOCAL_AGENT_PROMPT.md"
+    ],
+    "updatedHandoff": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+    "patchToApply": false,
+    "fixedGitHubCommitRequired": true
+  },
+  "notRun": [
+    "local reproduction of pnpm run build:lib",
+    "source fix or dependency-lock regeneration",
+    "new artifact tests or Linux build after a fix",
+    "full repository type/lint/docs gates",
+    "independent review of a source candidate",
+    "model calls or system sandbox initialization"
+  ],
+  "protectedUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "pnpm-lock.yaml in this triage commit",
+    "patches/@yao-pkg__pkg@6.22.0.patch",
+    "all runtime and test source",
+    "all historical evidence"
+  ],
+  "nextLocal": "Follow LOCAL_AGENT_PROMPT.md to reproduce in the exact complete checkout, fix the owning package or build resolution minimally, validate emitted artifacts and actual Linux CI, and return source plus raw execution evidence.",
+  "projectUpgradeExecutionAuthorized": true,
+  "systemChangesAuthorized": false,
+  "modelExecutionAuthorized": false,
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "authorDocumentChecks": {
+    "utf8AndFinalNewline": true,
+    "trailingWhitespace": false,
+    "markdownFenceBalance": true,
+    "jsonRoundTrip": true,
+    "repositoryDocumentationGate": "NOT_RUN"
+  },
+  "files": {
+    "LOCAL_AGENT_PROMPT.md": {
+      "bytes": 7284,
+      "sha256": "cdbbf9724d47961bdacec3a499a4cd1655a3fa1f7cf524d139a31182e7bdba15",
+      "gitBlob": "49c867ede4805aad6a43d70ae645d55ea2a4fdd0"
+    },
+    "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md": {
+      "bytes": 4282,
+      "sha256": "9420aa0c582bf31b1debfcfa2c4c8dd38336811da3dfa55a32bf44c309c9bea4",
+      "gitBlob": "12fe09a817081e41ae7fd5f3e978841f405d2e87"
+    }
+  }
+}

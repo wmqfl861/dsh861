@@ -40,6 +40,6 @@ Status: implemented
 
 本 Agent Note 的 `implemented` 状态记录流程决定已采用。节点完成以绑定候选的审核回执和验证证据为依据；本 Note 不声称任何节点或检查已通过。
 
-[明确变更范围报告](2026-07-27-explicit-change-scope-report.zh.md)继续负责 Git 各层变更发现，[浏览器证据链](2026-08-08-browser-gif-evidence-chain.zh.md)约束 GUI 运行录制。两者均保有独立的理由与机制。
+[明确变更范围报告](../../archived/process/2026-07-27-explicit-change-scope-report.md)继续负责 Git 各层变更发现，[浏览器证据链](2026-08-08-browser-gif-evidence-chain.zh.md)约束 GUI 运行录制。两者均保有独立的理由与机制。
 
 [产品 subagent 后端](../feature/2026-08-04-claude-code-and-codex-subagent-backends.zh.md)负责运行时集成及其测试层级。[定期人工审核维护](../../proposed/process/2026-07-13-human-review-skill-maintenance.zh.md)仍是维护审核 skill（技能）的提案。本节点流程不取代这两份记录。
