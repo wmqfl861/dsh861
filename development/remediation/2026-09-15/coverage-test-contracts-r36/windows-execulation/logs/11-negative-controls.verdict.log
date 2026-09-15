@@ -1,1 +1,0 @@
-NEGATIVE CONTROL VERDICT: PASS (every mutation failed its spec, every restore byte-identical, every post-restore run green)

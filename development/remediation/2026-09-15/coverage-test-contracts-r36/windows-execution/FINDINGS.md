@@ -54,7 +54,9 @@ CI artifacts 34931728218 未下载（本机无 gh、不安装不建）；完整�
 
 ## P1 整改：证据物化（独立复审后）
 
-独立复审判定：logs/01–19 与 negative-controls.mjs 共 33 个文件在首次 shell 重定向写入后呈"幽灵"态（枚举可见、读取失败），仅 FINDINGS.md 与 logs/20 真实。整改：以 Node 原生 fs 从 `C:\dsh-r36-20260915-01` 原件重新物化 33 文件（同上声明规范化，写入后同进程 readFileSync 回读字节一致，logs/21）；全新进程复验 35/35 字节一致（logs/22）；主机级（非沙箱）`ls` 逐文件可见非空 35/35、`git hash-object` 逐文件可读 35/35 且哈希入清单（logs/23）。整改验证件（21–23）亦经同一 Node 物化路径入盘，最终证据树为 38 个 logs/ 文件 + 本 FINDINGS.md。五 spec、Note 内容与 logs/20 未触碰。
+独立复审判定：logs/01–19 与 negative-controls.mjs 共 33 个文件在首次 shell 重定向写入后呈"幽灵"态（枚举可见、读取失败），仅 FINDINGS.md 与 logs/20 真实。整改：以 Node 原生 fs 从 `C:\dsh-r36-20260915-01` 原件重新物化 33 文件（同上声明规范化，写入后同进程 readFileSync 回读字节一致，logs/21）；全新进程复验 35/35 字节一致（logs/22）；主机级（非沙箱）`ls` 逐文件可见非空 35/35、`git hash-object` 逐文件可读 35/35 且哈希入清单（logs/23）。整改验证件（21–23）亦经同一 Node 物化路径入盘。
+
+根因（hex 级取证，logs/28–29 源件在 scratch 目录）：首次 shell 写入实际落入了与 `windows-execution` 一字之差的同名目录（hex `…65786963 756c 6174696f6e`，小写 L），显示层把两者渲染成同一字符串，视觉与多数工具视图均无法区分；Node 物化按显式 ASCII 路径落入真目录，随后 `git add` 把两棵目录树一并收入提交 6642254b10（其树含 72 个证据路径）。外科处置：以父目录 readdir 的 Buffer 名定位异名目录（仅经 Node 进程内传递，不经命令行层），先全量清点（33 文件与首批清单一致，无独有内容）再 `fs.rmSync` 删除，复验父目录仅余正确目录（hex `…7469 6f6e`）；`git add -A` 暂存 33 条幽灵路径删除与本 FINDINGS 更新，追加提交（不 amend、不改历史）。最终树：windows-execution/ 下 FINDINGS.md + logs/ 38 文件（01–23 与负控脚本），提交 6642254b10 中的幽灵树以删除提交显式纠正、轨迹留档。五 spec、Note 内容与 logs/20 未触碰。
 
 ## 清理与状态
 
