@@ -1,0 +1,88 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/context/session-reference/tests/session-reference.spec.ts (47 tests | 1 failed) 520ms
+   ✓ session reference URI and inline mentions (2)
+     ✓ round-trips arbitrary session ids and replaces mentions with readable labels 4ms
+     ✓ rejects malformed explicit references and base64url-shaped bare candidates 1ms
+   ✓ session reference spill outcomes (11)
+     ✓ leaves intact references unchanged without saving 24ms
+     ✓ saves the full captured transcript for huge single message 15ms
+     ✓ saves the full captured transcript for whole dropped messages 8ms
+     ✓ saves the full captured transcript for tiny preview 9ms
+     ✓ saves the full captured transcript for escaped controls 7ms
+     ✓ keeps per-reference locators distinct and durable beside an intact reference 9ms
+     ✓ spills only the captured projection even when the source changes during saving 11ms
+     ✓ reports unavailable when optional storage is missing 6ms
+     ✓ reports unavailable when optional storage is failure 7ms
+     ✓ never publishes context when cancellation arrives during-save 8ms
+     ✓ never publishes context when cancellation arrives after-save 7ms
+   ❯ model-relative reference budgets (15)
+     ✓ bounds each source with config {} and capacity 200001 30ms
+     ✓ bounds each source with config {} and capacity 8000 13ms
+     ✓ bounds each source with config {"referenceContextFraction":0.1} and capacity 200001 14ms
+     ✓ bounds each source with config {"referenceContextFraction":0} and capacity 200001 13ms
+     ✓ bounds each source with config {"maxReferenceBytes":360} and capacity 200001 6ms
+     ✓ uses the assembled selection, not the header, seed, or next selected model 28ms
+     ✓ uses the floor for absent metadata, service, or assembled route and ignores diagnostic assemblies 36ms
+     ✓ uses the floor when the real LLM runtime has no adapter for the route 15ms
+     ✓ does not swallow other LLM errors or cancellation coincident with an absent adapter 8ms
+     ✓ propagates lookup errors and cancels an unresolved lookup without reading sources 7ms
+     × removes both listeners when the resolver fiber is disposed 33ms
+     ✓ rejects invalid fraction -0.1 for direct construction 4ms
+     ✓ rejects invalid fraction 1.1 for direct construction 2ms
+     ✓ rejects invalid fraction NaN for direct construction 1ms
+     ✓ rejects invalid fraction Infinity for direct construction 1ms
+   ✓ session reference discovery and preparation (19)
+     ✓ matches candidate metadata and titles before ranking by cwd 9ms
+     ✓ reads an attached session's current title, ahead of any checkpoint 18ms
+     ✓ labels a cold session from its checkpoint and reads no log 7ms
+     ✓ labels a session no projection answers for by its id, still without a log read 6ms
+     ✓ labels every session by id when no projection face is composed 6ms
+     ✓ serves the Remote face with the configured limit and canonical mentions 6ms
+     ✓ prepares direct mentions at pre-step and keeps ordinary and plugin messages unchanged 7ms
+     ✓ does not prepare a rejected pre-step and rejects malformed direct mentions 7ms
+     ✓ still matches an unlabeled session on its own metadata 4ms
+     ✓ projects only the current user/assistant surface and records snapshot metadata 11ms
+     ✓ records the current source format generation without rebasing its frozen sequence 6ms
+     ✓ excludes injected context when projecting a referenced session 4ms
+     ✓ keeps source text inside tag-safe JSON framing without changing its value 6ms
+     ✓ deduplicates before enforcing the cap and rejects self, excess, read failure, and cancellation 66ms
+     ✓ retains compact checkpoints and latest messages within an exact per-reference UTF-8 budget 7ms
+     ✓ applies the full byte limit independently to each of three references 5ms
+     ✓ fails without producing a partial context when fixed prompt data cannot fit 5ms
+     ✓ keeps target replay independent after source mutation, compaction, and deletion 4ms
+     ✓ rejects direct invalid configuration before service publication 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/context/session-reference/tests/session-reference.spec.ts > model-relative reference budgets > removes both listeners when the resolver fiber is disposed
+AssertionError: expected 2 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 2
+
+ ❯ packages/context/session-reference/tests/session-reference.spec.ts:656:26
+    654|       read.mockClear()
+    655|       const afterDispose = await ctx.systemPrompt.assemble({ agent, sc…
+    656|       expect(routeReads).toBe(0)
+       |                          ^
+    657|       expect(afterDispose.variables).toMatchObject({ provider: 'dispos…
+    658|       const seed = { kind: 'enter' as const, messages: [mention()] }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 46 passed (47)
+   Start at  14:42:31
+   Duration  2.04s (transform 57%, tests 29%, import 11%, setup 3%)

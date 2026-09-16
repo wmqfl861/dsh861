@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
-import { agentEvents, installModelSelection, type Agent, type ModelSelectionRef } from '@deepseek-ai/dsh-agent'
+import { agentEvents, installModelSelection, type Agent, type ModelSelectionRef, type PreStepDecision } from '@deepseek-ai/dsh-agent'
 import { CompactionId, compactCheckpointSource } from '@deepseek-ai/dsh-compaction'
 import LlmRuntime, { createMessage, createSystemMessage, createToolResultMessage, createUserMessage, LlmError, ToolCallId } from '@deepseek-ai/dsh-llm'
 import SessionStore, { Session, SessionId, SessionSeq } from '@deepseek-ai/dsh-session'
@@ -597,18 +597,105 @@ describe('model-relative reference budgets', () => {
   })
 
   it('removes both listeners when the resolver fiber is disposed', async () => {
-    const { ctx, agent, source, resolve, resolverFiber } = await setup()
+    const { ctx, agent, source, resolverFiber } = await setup()
     const resolver = ctx.sessionReferenceResolver
-    await resolverFiber.dispose()
     ctx.systemPrompt.variable('provider', () => 'disposed')
     ctx.systemPrompt.variable('model', () => 'disposed')
-    await ctx.systemPrompt.assemble({ agent, scope: agent })
-    await resolver.prepare(agent, [], [{ sessionId: source.id }])
-    expect(resolve).toHaveBeenLastCalledWith('seed', 'seed', undefined)
-    const message = createUserMessage({ source: { kind: 'user' }, content: [{ type: 'text', text: formatSessionReferenceMention({ sessionId: source.id }) }] })
-    const seed = { kind: 'enter' as const, messages: [message] }
-    await expect(agentEvents(ctx, agent).waterfall('agent/pre-step', { messages: [message], turn: 1, step: 1, signal: new AbortController().signal },
-      () => Promise.resolve(seed))).resolves.toBe(seed)
+    // Probe inside the resolver's prepend listener: wrap the assembly the
+    // chain returns and count reads of the route variables. The real resolver
+    // callback destructures exactly `provider` and `model` per execution, so
+    // one execution reads twice and a removed (or duplicated) listener reads
+    // zero (or four) times.
+    let routeReads = 0
+    const disposeProbe = ctx.on('system-prompt/assemble', async (_assembly, _context, next) => {
+      const inner = await next()
+      return {
+        ...inner,
+        variables: new Proxy(inner.variables, {
+          get(target, prop): string | undefined {
+            if (prop === 'provider' || prop === 'model') routeReads += 1
+            return Reflect.get(target, prop) as string | undefined
+          },
+        }),
+      }
+    })
+    const read = vi.spyOn(ctx.sessionQuery, 'readSurface')
+    const mention = () => createUserMessage({
+      source: { kind: 'user' },
+      content: [{ type: 'text', text: formatSessionReferenceMention({ sessionId: source.id }) }],
+    })
+    const dispatchPreStep = (seed: PreStepDecision & { kind: 'enter' }) => agentEvents(ctx, agent).waterfall(
+      'agent/pre-step',
+      { messages: seed.messages, turn: 1, step: 1, signal: new AbortController().signal },
+      () => Promise.resolve(seed),
+    )
+    let reinstalled: ReturnType<Context['plugin']> | undefined
+    try {
+      // Live positive controls through the production dispatch paths: the
+      // assemble callback participates and the pre-step callback appends
+      // reference context for a real canonical mention. Each route-variable
+      // count is read before the test touches the returned variables itself.
+      const assembled = await ctx.systemPrompt.assemble({ agent, scope: agent })
+      expect(routeReads).toBe(2)
+      expect(assembled.variables).toMatchObject({ provider: 'disposed', model: 'disposed' })
+      const live = await dispatchPreStep({ kind: 'enter', messages: [mention()] })
+      if (live.kind !== 'enter') throw new Error('expected the live resolver to admit the step')
+      const liveContext = live.messages[1]
+      if (liveContext === undefined) throw new Error('expected the live resolver to append reference context')
+      expect(liveContext.source).toMatchObject({ kind: 'session-reference' })
+      expect(contextText({ additionalContext: liveContext })).toContain('"sessionId":"source"')
+      expect(read).toHaveBeenCalledTimes(1)
+
+      // Disposal withdraws the service while the root context stays alive,
+      // and neither listener executes through the real event paths anymore.
+      await resolverFiber.dispose()
+      expect(ctx.get('sessionReferenceResolver')).toBeUndefined()
+      routeReads = 0
+      read.mockClear()
+      const afterDispose = await ctx.systemPrompt.assemble({ agent, scope: agent })
+      expect(routeReads).toBe(0)
+      expect(afterDispose.variables).toMatchObject({ provider: 'disposed', model: 'disposed' })
+      const seed = { kind: 'enter' as const, messages: [mention()] }
+      const untouched = await dispatchPreStep(seed)
+      expect(untouched).toBe(seed)
+      if (untouched.kind !== 'enter') throw new Error('expected the disposed resolver to pass the step through')
+      expect(untouched.messages).toBe(seed.messages)
+      expect(read).not.toHaveBeenCalled()
+
+      // The stale instance is rejected at its revoked dependency, separately
+      // from the listener-removal evidence above.
+      const stale = await resolver.prepare(agent, [], [{ sessionId: source.id }]).then(
+        () => { throw new Error('destroyed resolver unexpectedly prepared a reference') },
+        (error: unknown) => error,
+      )
+      expect(stale).toMatchObject({ code: 'SESSION_REFERENCE_READ_FAILED' })
+      expect((stale as Error).cause).toBeInstanceOf(Error)
+      expect(String((stale as Error).cause)).toContain(
+        'cannot get required service "sessionQuery" in inactive context',
+      )
+      expect(read).not.toHaveBeenCalled()
+
+      // Reinstalling restores exactly one copy of each callback.
+      reinstalled = ctx.plugin(SessionReferenceResolver)
+      await reinstalled
+      expect(ctx.get('sessionReferenceResolver')).not.toBe(resolver)
+      routeReads = 0
+      read.mockClear()
+      const reAssembled = await ctx.systemPrompt.assemble({ agent, scope: agent })
+      expect(routeReads).toBe(2)
+      expect(reAssembled.variables).toMatchObject({ provider: 'disposed', model: 'disposed' })
+      const restored = await dispatchPreStep({ kind: 'enter', messages: [mention()] })
+      if (restored.kind !== 'enter') throw new Error('expected the reinstalled resolver to admit the step')
+      expect(restored.messages).toHaveLength(2)
+      const restoredContext = restored.messages[1]
+      if (restoredContext === undefined) throw new Error('expected the reinstalled resolver to append reference context')
+      expect(contextText({ additionalContext: restoredContext })).toContain('"sessionId":"source"')
+      expect(read).toHaveBeenCalledTimes(1)
+    } finally {
+      await reinstalled?.dispose()
+      disposeProbe()
+      read.mockRestore()
+    }
   })
 
   it.each([-0.1, 1.1, NaN, Infinity])('rejects invalid fraction %s for direct construction', async (referenceContextFraction) => {

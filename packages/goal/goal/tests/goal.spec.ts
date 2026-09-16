@@ -267,14 +267,25 @@ describe('GoalService creation and replay', () => {
     ctx.agents.register(stub.agent)
     const goal = ctx.goals.create(stub.agent, { objective: 'survive service reload' })
 
-    await fiber.dispose()
-    expect(ctx.get('goals')).toBeUndefined()
-    expect(ctx.sessionProjections.stateOf(stub.session, 'goal')).toBeUndefined()
-    expect(() => first.get(stub.agent)).toThrow('goal projection is not registered')
+    try {
+      await fiber.dispose()
+      // Live-root observation: the withdrawn service and its projection are
+      // gone from the still-active context, independent of the stale instance.
+      expect(ctx.get('goals')).toBeUndefined()
+      expect(ctx.sessionProjections.stateOf(stub.session, 'goal')).toBeUndefined()
+      // The stale instance cannot bypass its revoked dependencies: Cordis
+      // rejects the required-agents access in the inactive context before any
+      // projection logic runs.
+      expect(() => first.get(stub.agent)).toThrow(
+        'cannot get required service "agents" in inactive context',
+      )
 
-    await ctx.plugin(GoalService)
-    expect(ctx.goals).not.toBe(first)
-    expect(ctx.goals.get(stub.agent)).toMatchObject({ id: goal.id, activation: 'disarmed' })
+      await ctx.plugin(GoalService)
+      expect(ctx.goals).not.toBe(first)
+      expect(ctx.goals.get(stub.agent)).toMatchObject({ id: goal.id, activation: 'disarmed' })
+    } finally {
+      await ctx.fiber.dispose()
+    }
   })
 
   it('requires the exact live registry instance for reads and mutations', async () => {

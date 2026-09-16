@@ -2,13 +2,14 @@
 
 import { describe, expect, it, vi } from 'vitest'
 import { Context } from '@deepseek-ai/cordis'
-import AgentRegistry, { agentEvents } from '@deepseek-ai/dsh-agent'
+import AgentRegistry, { agentEvents, assembleContextFor } from '@deepseek-ai/dsh-agent'
 import type { Agent, AgentHandle, CreateAgentOptions } from '@deepseek-ai/dsh-agent'
 import { createUserMessage, ReasoningEffortId } from '@deepseek-ai/dsh-llm'
 import type { LlmCallConfig } from '@deepseek-ai/dsh-llm'
 import SessionStore, { SESSION_FORMAT_VERSION, SessionLogOffset, SessionSeq } from '@deepseek-ai/dsh-session'
 import type { Session, SessionEvent, SessionHeader, SessionId } from '@deepseek-ai/dsh-session'
 import SystemPrompt from '@deepseek-ai/dsh-system-prompt'
+import type { PromptAssembly } from '@deepseek-ai/dsh-system-prompt'
 import type { Workspace } from '@deepseek-ai/dsh-workspace'
 import {
   createSessionTestRemote, installSessionReadTestServices, testSessionPersistence,
@@ -286,19 +287,33 @@ describe('sessions.fork', () => {
     if (!response.ok) return
     const child = ctx.agents.get(response.value.sessionId)
     if (child === undefined) throw new Error('fork did not publish the child agent')
-    const assembly = await child.ctx.systemPrompt.assemble()
-    expect(assembly.variables).toMatchObject({
-      provider: 'inherited-provider',
-      model: 'inherited-model',
+    // `systemPrompt` on the child scope needs a declared injection: observe the
+    // real assembly from an injecting test plugin fiber under `child.ctx`, with
+    // the child's own assembly scope, instead of reading the property directly.
+    let observations = 0
+    let assembly: PromptAssembly | undefined
+    const observer = child.ctx.inject(['systemPrompt'], async (observingCtx) => {
+      observations += 1
+      assembly = await observingCtx.systemPrompt.assemble(assembleContextFor(child))
     })
-    const fallback: LlmCallConfig = { provider: 'default-provider', model: 'default-model' }
-    await expect(agentEvents(child.ctx, child).waterfall(
-      'agent/request', { turn: 1, step: 0, signal: new AbortController().signal }, () => Promise.resolve(fallback),
-    )).resolves.toMatchObject({
-      provider: 'inherited-provider',
-      model: 'inherited-model',
-      reasoningEffort: 'high',
-    })
-    await ctx.fiber.dispose()
+    try {
+      await observer
+      expect(observations).toBe(1)
+      expect(assembly?.variables).toMatchObject({
+        provider: 'inherited-provider',
+        model: 'inherited-model',
+      })
+      const fallback: LlmCallConfig = { provider: 'default-provider', model: 'default-model' }
+      await expect(agentEvents(child.ctx, child).waterfall(
+        'agent/request', { turn: 1, step: 0, signal: new AbortController().signal }, () => Promise.resolve(fallback),
+      )).resolves.toMatchObject({
+        provider: 'inherited-provider',
+        model: 'inherited-model',
+        reasoningEffort: 'high',
+      })
+    } finally {
+      await observer.dispose()
+      await ctx.fiber.dispose()
+    }
   })
 })

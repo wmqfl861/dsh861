@@ -1,0 +1,233 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/api/gateway/tests/gateway.host.spec.ts (44 tests | 1 failed) 237ms
+   ❯ TypertGatewayService (44)
+     ✓ invokes a strict direct method with schema decoding and a live lookup 16ms
+     ✓ resolves strict Remote Scope identity without adding a business argument 3ms
+     ✓ derives SRC direct lookup and JSON parameters from marker and parameter names 3ms
+     ✓ does not downgrade an observed SRC lookup after its provider unloads 3ms
+     ✓ derives SRC Remote Scope identity and preserves the scoped Proxy receiver 2ms
+     ✓ derives exported, empty, inherited, and distinct-namespace SRC methods 3ms
+     ✓ rejects SRC wire collisions and unavailable Context providers 7ms
+     ✓ re-reads Service and providers on every strict invocation 3ms
+     ✓ re-reads and contains Context providers 3ms
+     ✓ preserves a Host Context policy rejection for the active RPC adapter 3ms
+     ✓ reports Context provider metadata mismatch and unresolved identities 3ms
+     × contains lookup provider failures and missing identities 11ms
+     ✓ never downgrades an observed strict endpoint after definition disposal 2ms
+     ✓ seeds the no-downgrade guard from definitions present before Gateway startup 2ms
+     ✓ retains the no-downgrade guard across Gateway Service reloads 3ms
+     ✓ rejects ambiguous SRC endpoints independently of reflection order 3ms
+     ✓ rejects SRC signatures that cannot map one wire field to each position 8ms
+     ✓ rejects a SRC parameter matching more than one lookup provider 2ms
+     ✓ requires exact wire fields before invoking business code 2ms
+     ✓ validates strict input without decoding the business result 3ms
+     ✓ does not inspect non-JSON business results 2ms
+     ✓ rejects non-JSON SRC input 0 2ms
+     ✓ rejects non-JSON SRC input 1 2ms
+     ✓ rejects non-JSON SRC input 2 4ms
+     ✓ rejects non-JSON SRC input 3 2ms
+     ✓ rejects non-JSON SRC input 4 2ms
+     ✓ rejects non-JSON SRC input 5 2ms
+     ✓ rejects non-JSON SRC input 6 2ms
+     ✓ rejects non-JSON SRC input 7 2ms
+     ✓ rejects non-JSON SRC input 8 2ms
+     ✓ admits an omitted SRC field and hands the Host method undefined 3ms
+     ✓ rejects cyclic SRC input without inspecting SRC results 3ms
+     ✓ accepts dense JSON and rejects decorated arrays and object properties 4ms
+     ✓ validates strict provider identity against generated wire metadata 3ms
+     ✓ validates binding identity and active method availability 3ms
+     ✓ requires a visible binding and supports explicitly provided plain Services 3ms
+     ✓ reports a SRC marker whose prototype implementation disappeared 2ms
+     ✓ preserves business exception identity after invocation begins 2ms
+     ✓ reports an absent endpoint without retaining receiver state 2ms
+     ✓ mounts a shared /api interceptor through an optional Connection and returns existing RPC results 6ms
+     ✓ claims and validates in-process Remote event results for the active Client generation 5ms
+     ✓ preserves a lookup policy rejection through the Connection RPC result 3ms
+     ✓ caches SRC ownership until the Cordis Service set changes 3ms
+     ✓ dispatches claimed invocations through /api and leaves unclaimed endpoints to its fallback 85ms
+ ❯  thread-safe  packages/goal/goal/tests/goal.spec.ts (36 tests | 1 failed) 151ms
+   ❯ GoalService creation and replay (11)
+     ✓ does not activate without the required projection registry 3ms
+     ✓ applies the configured default and writes one durable goal change 10ms
+     ✓ uses 256 rounds by default and validates create input inside create 5ms
+     ✓ also resolves the default when constructed directly without Cordis config normalization 3ms
+     ✓ rejects invalid direct configuration 9ms
+     ✓ restores a seeded goal and rounds with activation disarmed 10ms
+     ✓ inherits the completed-turn goal prefix through SessionStore.fork with child activation disarmed 5ms
+     ✓ disarms live activation on every session-start edge 5ms
+     ✓ lets a lifecycle owner disarm without writing a durable revision 5ms
+     × removes the service and projection with the providing fiber 9ms
+     ✓ requires the exact live registry instance for reads and mutations 6ms
+   ✓ GoalService mutations (14)
+     ✓ adapts Remote creation and reuses business methods for later mutations 5ms
+     ✓ edits with compare-and-set revisions and rejects empty edits 5ms
+     ✓ supports pause, resume, block, and completion transitions 7ms
+     ✓ allows completion from every stopped phase and replacement only after completion 10ms
+     ✓ rejects replacement and invalid phase transitions while a resumable goal exists 5ms
+     ✓ records canonical blocker reasons and enforces the round cap on resume 9ms
+     ✓ clears through a revisioned tombstone and permits a fresh goal 4ms
+     ✓ keeps per-goal mutation timestamps monotonic when the wall clock moves backward 4ms
+     ✓ contains goal notification failures and preserves later listeners 4ms
+     ✓ commits consecutive revisions through durable goal events 5ms
+     ✓ publishes a mutation consistently to a reentrant session observer 4ms
+     ✓ does not delegate goal persistence to agent injection 3ms
+     ✓ observes an external goal change and disarms local activation 4ms
+     ✓ rejects a corrupt append while preserving the valid prefix 4ms
+   ✓ goal replay validation (11)
+     ✓ keeps durable goal state independent from inbox changes 1ms
+     ✓ ignores unrelated metadata and non-goal round sources 1ms
+     ✓ rejects rounds attributed to another goal 0ms
+     ✓ rejects unsupported versions, operations, and extra top-level fields 0ms
+     ✓ rejects invalid create and missing-current mutation sequences 1ms
+     ✓ rejects stale identity, counters, timestamps, and definition changes 1ms
+     ✓ rejects invalid replayed lifecycle phase transitions 1ms
+     ✓ rejects invalid clear continuity and goal id reuse 1ms
+     ✓ rejects non-positive goal round sources 0ms
+     ✓ rejects malformed snapshots, refs, counters, and timestamps 1ms
+     ✓ folds a clear tombstone after a snapshot 0ms
+ ❯  thread-safe  packages/api/session-controller/tests/session-fork.host.spec.ts (8 tests | 1 failed) 107ms
+   ❯ sessions.fork (8)
+     ✓ cuts at the anchored completed turn and records lineage and cwd 36ms
+     ✓ attaches a subagent fork to its nearest workspace-owning ancestor 11ms
+     ✓ forks a persisted subagent without resuming its Agent 10ms
+     ✓ uses the last completed turn only for omitted and past-end anchors 10ms
+     ✓ rejects invalid fork anchors before reading or creating a Session 7ms
+     ✓ cuts through an aborted turn: stopped is closed, not open 9ms
+     ✓ rejects an in-log anchor whose turn is still open 9ms
+     × installs the latest logged model selection before the child can run 13ms
+ ❯  thread-safe  packages/context/session-reference/tests/session-reference.spec.ts (47 tests | 1 failed) 442ms
+   ✓ session reference URI and inline mentions (2)
+     ✓ round-trips arbitrary session ids and replaces mentions with readable labels 3ms
+     ✓ rejects malformed explicit references and base64url-shaped bare candidates 1ms
+   ✓ session reference spill outcomes (11)
+     ✓ leaves intact references unchanged without saving 18ms
+     ✓ saves the full captured transcript for huge single message 14ms
+     ✓ saves the full captured transcript for whole dropped messages 6ms
+     ✓ saves the full captured transcript for tiny preview 7ms
+     ✓ saves the full captured transcript for escaped controls 6ms
+     ✓ keeps per-reference locators distinct and durable beside an intact reference 7ms
+     ✓ spills only the captured projection even when the source changes during saving 9ms
+     ✓ reports unavailable when optional storage is missing 5ms
+     ✓ reports unavailable when optional storage is failure 5ms
+     ✓ never publishes context when cancellation arrives during-save 7ms
+     ✓ never publishes context when cancellation arrives after-save 7ms
+   ❯ model-relative reference budgets (15)
+     ✓ bounds each source with config {} and capacity 200001 24ms
+     ✓ bounds each source with config {} and capacity 8000 10ms
+     ✓ bounds each source with config {"referenceContextFraction":0.1} and capacity 200001 13ms
+     ✓ bounds each source with config {"referenceContextFraction":0} and capacity 200001 14ms
+     ✓ bounds each source with config {"maxReferenceBytes":360} and capacity 200001 7ms
+     ✓ uses the assembled selection, not the header, seed, or next selected model 25ms
+     ✓ uses the floor for absent metadata, service, or assembled route and ignores diagnostic assemblies 29ms
+     ✓ uses the floor when the real LLM runtime has no adapter for the route 10ms
+     ✓ does not swallow other LLM errors or cancellation coincident with an absent adapter 5ms
+     ✓ propagates lookup errors and cancels an unresolved lookup without reading sources 5ms
+     × removes both listeners when the resolver fiber is disposed 12ms
+     ✓ rejects invalid fraction -0.1 for direct construction 1ms
+     ✓ rejects invalid fraction 1.1 for direct construction 1ms
+     ✓ rejects invalid fraction NaN for direct construction 1ms
+     ✓ rejects invalid fraction Infinity for direct construction 1ms
+   ✓ session reference discovery and preparation (19)
+     ✓ matches candidate metadata and titles before ranking by cwd 8ms
+     ✓ reads an attached session's current title, ahead of any checkpoint 35ms
+     ✓ labels a cold session from its checkpoint and reads no log 3ms
+     ✓ labels a session no projection answers for by its id, still without a log read 3ms
+     ✓ labels every session by id when no projection face is composed 3ms
+     ✓ serves the Remote face with the configured limit and canonical mentions 4ms
+     ✓ prepares direct mentions at pre-step and keeps ordinary and plugin messages unchanged 5ms
+     ✓ does not prepare a rejected pre-step and rejects malformed direct mentions 4ms
+     ✓ still matches an unlabeled session on its own metadata 4ms
+     ✓ projects only the current user/assistant surface and records snapshot metadata 6ms
+     ✓ records the current source format generation without rebasing its frozen sequence 6ms
+     ✓ excludes injected context when projecting a referenced session 4ms
+     ✓ keeps source text inside tag-safe JSON framing without changing its value 4ms
+     ✓ deduplicates before enforcing the cap and rejects self, excess, read failure, and cancellation 71ms
+     ✓ retains compact checkpoints and latest messages within an exact per-reference UTF-8 budget 5ms
+     ✓ applies the full byte limit independently to each of three references 6ms
+     ✓ fails without producing a partial context when fixed prompt data cannot fit 3ms
+     ✓ keeps target replay independent after source mutation, compaction, and deletion 5ms
+     ✓ rejects direct invalid configuration before service publication 6ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/api/gateway/tests/gateway.host.spec.ts > TypertGatewayService > contains lookup provider failures and missing identities
+AssertionError: promise rejected "Error: cannot get property "fixtureScope"…" instead of resolving
+ ❯ packages/api/gateway/tests/gateway.host.spec.ts:645:8
+    643|       method: 'create',
+    644|       args: { agentId: 'agent-1', request: { title: 'ship' } },
+    645|     })).resolves.toMatchObject({ agentId: 'agent-1', title: 'ship' })
+       |        ^
+    646|   })
+    647|
+
+Caused by: Error: cannot get property "fixtureScope" without inject
+ ❯ Proxy.create packages/api/gateway/tests/gateway.host.spec.ts:70:42
+ ❯ Object.apply vendor/cordis/src/utils.ts:162:40
+ ❯ Proxy.invoke packages/api/gateway/src/index.ts:309:28
+ ❯ packages/api/gateway/tests/gateway.host.spec.ts:641:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL   thread-safe  packages/api/session-controller/tests/session-fork.host.spec.ts > sessions.fork > installs the latest logged model selection before the child can run
+Error: cannot get property "systemPrompt" without inject
+ ❯ packages/api/session-controller/tests/session-fork.host.spec.ts:289:38
+    287|     const child = ctx.agents.get(response.value.sessionId)
+    288|     if (child === undefined) throw new Error('fork did not publish the…
+    289|     const assembly = await child.ctx.systemPrompt.assemble()
+       |                                      ^
+    290|     expect(assembly.variables).toMatchObject({
+    291|       provider: 'inherited-provider',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL   thread-safe  packages/context/session-reference/tests/session-reference.spec.ts > model-relative reference budgets > removes both listeners when the resolver fiber is disposed
+SessionReferenceError: failed to read referenced session: cannot get required service "sessionQuery" in inactive context
+ ❯ Proxy.prepare packages/context/session-reference/src/index.ts:321:13
+    319|     } catch (error: unknown) {
+    320|       if (signal?.aborted === true) throw cancelled(signal)
+    321|       throw new SessionReferenceError(
+       |             ^
+    322|         `failed to read referenced session: ${error instanceof Error ?…
+    323|         'SESSION_REFERENCE_READ_FAILED',
+ ❯ packages/context/session-reference/tests/session-reference.spec.ts:606:5
+
+Caused by: Error: cannot get required service "sessionQuery" in inactive context
+ ❯ packages/context/session-reference/src/index.ts:315:36
+ ❯ Proxy.prepare packages/context/session-reference/src/index.ts:313:28
+ ❯ packages/context/session-reference/tests/session-reference.spec.ts:606:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL   thread-safe  packages/goal/goal/tests/goal.spec.ts > GoalService creation and replay > removes the service and projection with the providing fiber
+AssertionError: expected [Function] to throw error including 'goal projection is not registered' but got 'cannot get required service "agents" …'
+
+Expected: "goal projection is not registered"
+Received: "cannot get required service "agents" in inactive context"
+
+ ❯ packages/goal/goal/tests/goal.spec.ts:273:41
+    271|     expect(ctx.get('goals')).toBeUndefined()
+    272|     expect(ctx.sessionProjections.stateOf(stub.session, 'goal')).toBeU…
+    273|     expect(() => first.get(stub.agent)).toThrow('goal projection is no…
+       |                                         ^
+    274|
+    275|     await ctx.plugin(GoalService)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  4 failed (4)
+      Tests  4 failed | 131 passed (135)
+   Start at  14:09:57
+   Duration  2.48s (transform 75%, tests 12%, import 10%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 5.79s · 75% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

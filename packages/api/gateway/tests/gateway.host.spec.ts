@@ -638,11 +638,16 @@ describe('TypertGatewayService', () => {
       ...agentLookup({ id: 'agent-1' }),
       resolve: async id => ({ id }),
     })
-    await expect(ctx.typertGateway.invoke({
+    // `fixtureScope` is calling-context metadata, not a service: an absent
+    // field would be an undeclared property read in the service scope, so this
+    // scenario defines the field explicitly (value undefined) to exercise the
+    // fixture's `?? 'root'` fallback on the recovery path.
+    const caller = ctx.extend({ fixtureScope: undefined })
+    await expect(caller.typertGateway.invoke({
       namespace: 'goals',
       method: 'create',
       args: { agentId: 'agent-1', request: { title: 'ship' } },
-    })).resolves.toMatchObject({ agentId: 'agent-1', title: 'ship' })
+    })).resolves.toEqual({ agentId: 'agent-1', title: 'ship', scope: 'root' })
   })
 
   it('never downgrades an observed strict endpoint after definition disposal', async () => {
