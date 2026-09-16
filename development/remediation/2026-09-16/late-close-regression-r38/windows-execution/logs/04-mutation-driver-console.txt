@@ -1,0 +1,5 @@
+original: 70048 bytes, sha256=496f79f5d97731f0e9464187e8208806bcac6bb897e6bd1472927de753a4b6ae, git-blob=664e1a0ef88f86b524dee39f684cd34e3cbba4a6
+mutated: 70024 bytes, sha256=2578b210e329c55589997e63b16580fe5af7e0cc7ef6ab267c26045dd78a22a0, git-blob=a22be13fcea0c172c7552f3f142b416a7b133835
+focused run under mutation: status=0 error=none
+restored: 70048 bytes, byte-equal=true, sha256=496f79f5d97731f0e9464187e8208806bcac6bb897e6bd1472927de753a4b6ae, git-blob=664e1a0ef88f86b524dee39f684cd34e3cbba4a6
+driver summary: vitest-status=0 (nonzero expected), restore verified against blob 664e1a0ef88f86b524dee39f684cd34e3cbba4a6

@@ -1,0 +1,243 @@
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  scripts/run-gates.spec.ts (116 tests | 5 failed | 105 skipped) 361ms
+   ↓ gate graph validation (63)
+     ↓ constructs and executes preflight for a valid non-empty ci-primary graph
+     ↓ constructs and executes preflight for a valid non-empty ci-linux-primary graph
+     ↓ constructs and executes preflight for a valid non-empty ci-static graph
+     ↓ constructs and executes preflight for a valid non-empty ci-lint-contracts-ready graph
+     ↓ constructs and executes preflight for a valid non-empty ci-coverage graph
+     ↓ constructs and executes preflight for a valid non-empty ci-bench graph
+     ↓ constructs and executes preflight for a valid non-empty ci-snapshot graph
+     ↓ constructs and executes preflight for a valid non-empty ci-artifacts graph
+     ↓ constructs and executes preflight for a valid non-empty ci-consumers graph
+     ↓ constructs and executes preflight for a valid non-empty ci-windows-blocking graph
+     ↓ constructs and executes preflight for a valid non-empty ci-windows-complete graph
+     ↓ constructs and executes preflight for a valid non-empty ci-windows-observational graph
+     ↓ constructs and executes preflight for a valid non-empty node-compat graph
+     ↓ constructs and executes preflight for a valid non-empty check-all graph
+     ↓ constructs and executes preflight for a valid non-empty hygiene graph
+     ↓ constructs and executes preflight for a valid non-empty doc-sync graph
+     ↓ constructs and executes preflight for a valid non-empty doc-quick graph
+     ↓ builds the native addon before benchmarks through the ci-bench script chain
+     ↓ keeps the public repository link policy in the documentation gate
+     ↓ keeps package-group subsystem ownership in the documentation gate
+     ↓ keeps the package README Summary limit in the documentation gate
+     ↓ derives the quick documentation aggregate from marked doc-sync leaves
+     ↓ keeps the hygiene aggregate aligned with the package script checks
+     ↓ schedules the longest documentation leaves before short checks
+     ↓ launches a native pnpm entrypoint directly
+     ↓ keeps the DSH package license policy in ci-primary
+     ↓ keeps the DSH package license policy in ci-static
+     ↓ keeps the DSH package license policy in check-all
+     ↓ keeps package dependency enforcement in ci-primary
+     ↓ keeps package dependency enforcement in ci-static
+     ↓ keeps package dependency enforcement in check-all
+     ↓ keeps package dependency enforcement in hygiene
+     ↓ keeps the client dependency policy in ci-primary
+     ↓ keeps the client dependency policy in ci-static
+     ↓ keeps the client dependency policy in check-all
+     ↓ keeps weighted approval policy tests in ci-primary
+     ↓ keeps weighted approval policy tests in ci-static
+     ↓ keeps weighted approval policy tests in check-all
+     ↓ keeps hard-coded Client UI copy enforcement in ci-primary
+     ↓ keeps hard-coded Client UI copy enforcement in ci-static
+     ↓ keeps hard-coded Client UI copy enforcement in check-all
+     ↓ keeps hard-coded Client UI copy enforcement in hygiene
+     ↓ keeps application entrypoint enforcement in ci-primary
+     ↓ keeps application entrypoint enforcement in ci-static
+     ↓ keeps application entrypoint enforcement in check-all
+     ↓ keeps application entrypoint enforcement in hygiene
+     ↓ keeps native Windows coverage blocking and behind the complete build
+     ↓ runs the Windows built-bin smoke after other observational gates settle
+     ↓ applies one configured test, polling, and hook timeout to both coverage gates
+     ↓ keeps Vitest timeout defaults when the coverage override is absent
+     ↓ rejects an invalid coverage timeout before starting a gate
+     ↓ selects partitioned coverage only when explicitly configured
+     ↓ rejects an invalid coverage partition count before starting a gate
+     ↓ rejects empty before starting a child
+     ↓ rejects duplicate ids before starting a child
+     ↓ rejects unknown dependencies before starting a child
+     ↓ rejects unknown ordering predecessors before starting a child
+     ↓ rejects cycles before starting a child
+     ↓ rejects mixed cycles before starting a child
+     ↓ rejects an invalid worker count before starting a child
+     ↓ skips dependents after their prerequisite fails
+     ↓ runs an ordered follower after its predecessor fails
+     ↓ runs an ordered follower after its predecessor is skipped
+   ↓ Oxlint gate (2)
+     ↓ uses the package script when no worker bound is configured
+     ↓ surfaces the configured worker bound on the shared package script
+   ↓ Typert contract preparation (3)
+     ↓ prepares primary source consumers once before they run
+     ↓ reuses contracts from the validated consumer build
+     ↓ keeps standalone doc sync responsible for preparation
+   ↓ Node compatibility graph (1)
+     ↓ runs the jsdom environment smoke on every advertised Node line
+   ↓ Node 24 lane ownership (2)
+     ↓ keeps the static lane source-only
+     ↓ owns the build and orders its artifact consumers
+   ↓ Linux primary graph (1)
+     ↓ adds the same compare-only web gate after built client artifacts
+   ↓ gate process outcomes (2)
+     ↓ streams selected gate output without retaining it
+     ↓ reports signal termination independently from exit status
+   ↓ fail-fast scheduling (12)
+     ↓ aborts the aggregate at the first blocking failure
+     ↓ does not abort on a non-blocking gate failure
+     ↓ runs independent gates to completion when fail-fast is disabled
+     ↓ kills the child when the abort signal fires
+     ↓ marks a zero-exit child as aborted when the signal fired
+     ↓ kills the whole gate process tree when the abort signal fires
+     ↓ forwards host interruption signals to the abort path
+     ↓ pairs host signal forwarding with fail-fast at the CLI entrypoint
+     ↓ rejects host signal forwarding without fail-fast
+     ↓ leaves an un-aborted child running to completion
+     ↓ kills a detached descendant that outlived the child when the abort arrives later
+     ↓ keeps a reparented detached descendant tracked across a sampler tick
+   ↓ process-table parsing (3)
+     ↓ parses `pid ppid` rows from a POSIX ps dump
+     ↓ parses Windows PowerShell Get-CimInstance output of the same shape
+     ↓ drops blank and malformed lines
+   ↓ Windows tree termination (2)
+     ↓ targets the root first and each captured descendant after it
+     ↓ terminates the root alone when no descendant was captured
+   ↓ descendant graph walk (9)
+     ↓ returns an empty list for an empty table
+     ↓ walks multi-level descendants in breadth-first discovery order
+     ↓ finds the children of a root that has no row of its own
+     ↓ lists each descendant once when rows repeat a pid
+     ↓ keeps one entry for a pid reachable on multiple paths
+     ↓ leaves the input rows unchanged
+     ↓ returns every pid of a wide root child list
+     ↓ returns every pid of a wide non-root child list without argument spreading
+     ↓ walks a deep chain without recursion
+   ↓ descendant graph walk with cycles (5)
+     ↓ stops at a pid that is its own parent
+     ↓ stops when a cycle returns to the root and keeps the root out of the result
+     ↓ ignores a cycle that no descendant of the root reaches
+     ↓ keeps the other descendants when one branch cycles back to the root
+     ↓ matches independent per-pid reachability on seeded random tables
+   ❯ asynchronous enumeration wiring (10)
+     ✓ resolves the walked descendants when the enumeration closes 4ms
+     ✓ accumulates the table across multiple stdout chunks 1ms
+     ✓ settles empty on enumeration error and a late close changes nothing 1ms
+     ✓ settles empty on cancel; a late or repeated close neither re-settles nor kills again 1ms
+     ✓ parses the captured table exactly once when a single close settles the enumeration 2ms
+     × parses only on the first close when close is delivered twice 12ms
+     × does not parse again when close arrives after cancel 3ms
+     × does not parse again when close arrives twice after cancel 2ms
+     × does not parse again when close arrives after error 2ms
+     × does not parse again when close arrives twice after error 2ms
+   ✓ asynchronous enumeration late-close protection (1)
+     ✓ does not re-walk the captured table when close arrives after cancel 328ms
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 6 passed | 105 skipped (116)
+   Start at  09:28:45
+   Duration  1.52s (transform 56%, tests 32%, setup 7%, import 3%, worker 1%)
+
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > parses only on the first close when close is delivered twice
+AssertionError: expected 2 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ scripts/run-gates.spec.ts:1363:20
+    1361|     const parses = emitCloseCountingParses(child, 2)
+    1362|
+    1363|     expect(parses).toBe(1)
+       |                    ^
+    1364|     await expect(enumeration.promise).resolves.toEqual([2, 3])
+    1365|     expect(child.kills).toEqual(['SIGTERM'])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives after cancel
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ scripts/run-gates.spec.ts:1375:20
+    1373|     const parses = emitCloseCountingParses(child, 1)
+    1374|
+    1375|     expect(parses).toBe(0)
+       |                    ^
+    1376|     await expect(enumeration.promise).resolves.toEqual([])
+    1377|     expect(child.kills).toEqual(['SIGTERM'])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives twice after cancel
+AssertionError: expected 2 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 2
+
+ ❯ scripts/run-gates.spec.ts:1387:20
+    1385|     const parses = emitCloseCountingParses(child, 2)
+    1386|
+    1387|     expect(parses).toBe(0)
+       |                    ^
+    1388|     await expect(enumeration.promise).resolves.toEqual([])
+    1389|     expect(child.kills).toEqual(['SIGTERM'])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives after error
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ scripts/run-gates.spec.ts:1399:20
+    1397|     const parses = emitCloseCountingParses(child, 1)
+    1398|
+    1399|     expect(parses).toBe(0)
+       |                    ^
+    1400|     await expect(enumeration.promise).resolves.toEqual([])
+    1401|     expect(child.kills).toEqual(['SIGTERM'])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives twice after error
+AssertionError: expected 2 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 2
+
+ ❯ scripts/run-gates.spec.ts:1411:20
+    1409|     const parses = emitCloseCountingParses(child, 2)
+    1410|
+    1411|     expect(parses).toBe(0)
+       |                    ^
+    1412|     await expect(enumeration.promise).resolves.toEqual([])
+    1413|     expect(child.kills).toEqual(['SIGTERM'])
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯

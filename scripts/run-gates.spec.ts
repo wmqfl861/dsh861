@@ -1062,6 +1062,38 @@ class FakeEnumerationChild extends EventEmitter {
 }
 
 /**
+ * Deliver synchronous close notifications while counting the real parser's
+ * `split('\n')` entry calls inside the dispatch, without changing the
+ * implementation under test. The spy keeps the original `split` behavior and
+ * its scope contains only the synchronous `emitClose` calls — no awaits, no
+ * assertions, no other work — so the count isolates what the close handler
+ * itself parsed. `mockRestore` clears the call history, so the count is copied
+ * before it; restoring in `finally` keeps the prototype intact even when a
+ * close throws, and the descriptor check after restore proves later tests see
+ * the original function back in place (functions compare by reference inside
+ * descriptor equality).
+ * @param child - the fake enumeration child to deliver close notifications.
+ * @param closes - how many close notifications to deliver inside the spy scope.
+ * @returns the number of `split('\n')` calls observed during the dispatches.
+ */
+function emitCloseCountingParses(child: FakeEnumerationChild, closes: number): number {
+  const originalDescriptor = Object.getOwnPropertyDescriptor(String.prototype, 'split')
+  const spy = vi.spyOn(String.prototype, 'split')
+  let parses = 0
+  try {
+    for (let close = 0; close < closes; close += 1) child.emitClose()
+  } finally {
+    // The recorded args are checked structurally: the spy's static tuple picks
+    // split's Symbol.split-object overload, whose first element cannot be
+    // compared to a string literal without widening.
+    parses = spy.mock.calls.filter((call: unknown[]) => call[0] === '\n').length
+    spy.mockRestore()
+  }
+  expect(Object.getOwnPropertyDescriptor(String.prototype, 'split')).toEqual(originalDescriptor)
+  return parses
+}
+
+/**
  * Deterministic pseudo-random tables for the seeded property check: every
  * pid 1..64 picks its own ppid anywhere in 1..64 — the root itself is a row,
  * so its own parent chain can lead back into its subtree and root cycles
@@ -1290,8 +1322,9 @@ describe('asynchronous enumeration wiring', () => {
 
   it('settles empty on cancel; a late or repeated close neither re-settles nor kills again', async () => {
     // That a late close must not re-walk the table at all is proven by the
-    // cyclic late-close child below; an acyclic table cannot distinguish a
-    // discarded re-walk from none, so this test pins the settle and kill
+    // parse-count regressions below: result and kill counts alone cannot
+    // distinguish a discarded re-walk from none, and the guarded walk now
+    // terminates on cyclic tables too, so this test pins the settle and kill
     // counts.
     const child = new FakeEnumerationChild()
     const enumeration = wireDescendantEnumeration(1, child)
@@ -1305,14 +1338,90 @@ describe('asynchronous enumeration wiring', () => {
     await expect(enumeration.promise).resolves.toEqual([])
     expect(child.kills).toEqual(['SIGTERM'])
   })
+
+  it('parses the captured table exactly once when a single close settles the enumeration', async () => {
+    const child = new FakeEnumerationChild()
+    const enumeration = wireDescendantEnumeration(1, child)
+    child.stdout.write('2 1\n3 2\n')
+    // Positive control for the parse-count observation: the spy must observe
+    // the real parser's single split('\n') entry, and the promise must carry
+    // the real walker's descendants, so an observer that always counts zero
+    // cannot pass this test.
+    const parses = emitCloseCountingParses(child, 1)
+
+    expect(parses).toBe(1)
+    await expect(enumeration.promise).resolves.toEqual([2, 3])
+    expect(child.kills).toEqual(['SIGTERM'])
+  })
+
+  it('parses only on the first close when close is delivered twice', async () => {
+    const child = new FakeEnumerationChild()
+    const enumeration = wireDescendantEnumeration(1, child)
+    child.stdout.write('2 1\n3 2\n')
+    const parses = emitCloseCountingParses(child, 2)
+
+    expect(parses).toBe(1)
+    await expect(enumeration.promise).resolves.toEqual([2, 3])
+    expect(child.kills).toEqual(['SIGTERM'])
+  })
+
+  it('does not parse again when close arrives after cancel', async () => {
+    const child = new FakeEnumerationChild()
+    const enumeration = wireDescendantEnumeration(1, child)
+    child.stdout.write('2 1\n3 2\n')
+    enumeration.cancel()
+    const parses = emitCloseCountingParses(child, 1)
+
+    expect(parses).toBe(0)
+    await expect(enumeration.promise).resolves.toEqual([])
+    expect(child.kills).toEqual(['SIGTERM'])
+  })
+
+  it('does not parse again when close arrives twice after cancel', async () => {
+    const child = new FakeEnumerationChild()
+    const enumeration = wireDescendantEnumeration(1, child)
+    child.stdout.write('2 1\n3 2\n')
+    enumeration.cancel()
+    const parses = emitCloseCountingParses(child, 2)
+
+    expect(parses).toBe(0)
+    await expect(enumeration.promise).resolves.toEqual([])
+    expect(child.kills).toEqual(['SIGTERM'])
+  })
+
+  it('does not parse again when close arrives after error', async () => {
+    const child = new FakeEnumerationChild()
+    const enumeration = wireDescendantEnumeration(1, child)
+    child.stdout.write('2 1\n3 2\n')
+    child.emitError()
+    const parses = emitCloseCountingParses(child, 1)
+
+    expect(parses).toBe(0)
+    await expect(enumeration.promise).resolves.toEqual([])
+    expect(child.kills).toEqual(['SIGTERM'])
+  })
+
+  it('does not parse again when close arrives twice after error', async () => {
+    const child = new FakeEnumerationChild()
+    const enumeration = wireDescendantEnumeration(1, child)
+    child.stdout.write('2 1\n3 2\n')
+    child.emitError()
+    const parses = emitCloseCountingParses(child, 2)
+
+    expect(parses).toBe(0)
+    await expect(enumeration.promise).resolves.toEqual([])
+    expect(child.kills).toEqual(['SIGTERM'])
+  })
 })
 
 describe('asynchronous enumeration late-close protection', () => {
   it('does not re-walk the captured table when close arrives after cancel', () => {
-    // The cyclic table makes the pre-fix close handler re-walk the captured
-    // table after cancel already settled the promise, and that walk never
-    // terminates; the child's own subprocess timeout is the runaway
-    // protection, and the repository walk runs in the child, not here.
+    // The cyclic table exercises the late close against the cycle shape the
+    // original crash reproduced with, inside the runaway-protection child
+    // (the repository walk runs there, not here). The guarded walk terminates
+    // on cyclic tables, so non-termination is not asserted; the parse-count
+    // regressions above are what rejects a close handler that re-parses and
+    // re-walks after cancel settled the promise.
     const run = runScenarioInChild('late-close', { root: 1, stdoutText: '2 1\n1 2\n' }, 10000)
 
     expect(run.completed, run.detail).toBe(true)
