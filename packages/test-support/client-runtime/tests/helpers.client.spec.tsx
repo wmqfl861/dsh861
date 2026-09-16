@@ -77,6 +77,10 @@ describe('fixture helpers', () => {
 
   it('drives panel hooks, retains keyed selection on owner updates, and releases the default source', async () => {
     const runtime = await SlotTestRuntime.create()
+    const entryErrors: unknown[] = []
+    const stopEntryErrors = runtime.slots.onEntryError((key, _entry, error) => {
+      if (key === 'trt.panel-info') entryErrors.push(error)
+    })
     try {
       await runtime.declare({ 'trt.panel-info': { kind: 'keyed', scope: 'root' } })
       runtime.slots.register({ name: 'trt.panel-info', key: 'probe' },
@@ -89,16 +93,40 @@ describe('fixture helpers', () => {
       expect(view.container.textContent).toBe('first:custom')
       view.update({ label: 'next' })
       expect(view.container.textContent).toBe('next:custom')
+      const span = view.container.querySelector('span')
+      expect(span).toBeInstanceOf(HTMLSpanElement)
       const replacement = createSnapshotStore<PanelInfo>({ activePanelId: null })
-      await act(async () => {
-        runtime.releasePanelInfoSource()
-        await runtime.mount({
-          inject: ['slots'],
-          apply(ctx) { ctx.slots.provideRoot({ hooks: { panelInfo: replacement } }) },
-        })
+      // Releasing the default source and providing the replacement must run in
+      // one synchronous apply callback: an await between them lets React flush
+      // a source-less root binding and crash the already-mounted entry.
+      await runtime.mount({
+        inject: ['slots'],
+        apply(ctx) {
+          runtime.releasePanelInfoSource()
+          ctx.slots.provideRoot({ hooks: { panelInfo: replacement } })
+        },
       })
       expect(view.container.textContent).toBe('next:conversation')
+      expect(entryErrors).toEqual([])
+      expect(view.container.querySelector('[data-slot-error]')).toBeNull()
+      expect(view.container.querySelector('span')).toBe(span)
+      expect(span?.isConnected).toBe(true)
+      act(() => { replacement.set({ activePanelId: 'custom' as MainPanelId }) })
+      expect(view.container.textContent).toBe('next:custom')
+      act(() => { runtime.panelInfo.set({ activePanelId: 'legacy' as MainPanelId }) })
+      expect(view.container.textContent).toBe('next:custom')
+      act(() => { replacement.set({ activePanelId: null }) })
+      expect(view.container.textContent).toBe('next:conversation')
+      view.update({ label: 'final' })
+      expect(view.container.textContent).toBe('final:conversation')
+      runtime.releasePanelInfoSource()
+      expect(view.container.textContent).toBe('final:conversation')
+      act(() => { replacement.set({ activePanelId: 'custom' as MainPanelId }) })
+      expect(view.container.textContent).toBe('final:custom')
+      await runtime.dispose()
+      expect(entryErrors).toEqual([])
     } finally {
+      stopEntryErrors()
       await runtime.dispose()
     }
   })
