@@ -1,0 +1,121 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (10 tests) 372ms
+ ❯  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests | 1 failed) 1641ms
+   ❯ dsh-tool-team (12)
+     ✓ installs the complete scoped schema and shared-checkout policy for roots and teammates 226ms
+     ✓ returns actionable no-progress output and renders structured wait cancellation 226ms
+     ✓ adapts roster, mailbox, wait, and task CAS operations to canonical JSON 224ms
+     ✓ adapts optional task filters, mutations, pagination, and default waiting 183ms
+     ✓ removes and reinstalls every scoped registration across plugin HMR without stopping the child 154ms
+     ✓ shadows legacy global control names only inside Team member scopes 23ms
+     ✓ rolls back partial scoped installation after a same-scope collision 26ms
+     ✓ resolves direct-apply defaults without Loader schema normalization 118ms
+     ✓ reinstalls Team scope before a cold-resumed teammate request 202ms
+     ✓ fails safely without a calling Agent and has the function-plugin export shape 24ms
+     ✓ uses configured fresh and fork provider names 88ms
+     × owns every setup runtime and storage through suite teardown 145ms
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests | 1 failed) 2081ms
+   ❯ dsh-tool-subagent-control (12)
+     ✓ registers send_message once, globally, with the two required parameters 46ms
+     ✓ keeps the send_message definition and ordering byte-identical in a fork child 232ms
+     ✓ JSON-encodes a caller-supplied parent id in the initial return instruction 115ms
+     ✓ lets a continuable child steer its direct parent with send_message 162ms
+     ✓ cold-resumes a settled child and reports delivery 207ms
+     ✓ steers the nearest step of an open turn 188ms
+     ✓ reports a delivery failure as an errored, not-delivered result 18ms
+     ✓ rejects a caller that is not the child's durable direct parent 130ms
+     ✓ fails loud when invoked without a calling agent 16ms
+     ✓ unregisters with its plugin fiber (HMR safety) 9ms
+     × ends a held model gate and releases write ownership through suite teardown 133ms
+     ✓ has the namespace-plugin export shape (no stray default) 0ms
+   ✓ dsh-tool-subagent-control interrupt_agent (6)
+     ✓ registers interrupt_agent with the single agent_id parameter and current-turn wording 15ms
+     ✓ interrupts a running direct child with the parent cause, parking its queue 172ms
+     ✓ lets a deep live ancestor interrupt a descendant it did not directly create 260ms
+     ✓ rejects self, sibling, and unrelated callers without touching the target 245ms
+     ✓ accepts an absent target as a no-op without cold-resuming it 111ms
+     ✓ fails loud when invoked without a calling agent 19ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts > dsh-tool-team > owns every setup runtime and storage through suite teardown
+AssertionError: promise rejected "AggregateError: dispose of owned fixture … { errors: [ …(2) ] }" instead of resolving
+ ❯ packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:36
+    493|       // One test created two setups: the suite's real cleanup must cl…
+    494|       // runtimes — including the hanging teammate — before either dir…
+    495|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+    496|       expect(existsSync(settled.storageRoot)).toBe(false)
+    497|       expect(existsSync(active.storageRoot)).toBe(false)
+
+Caused by: AggregateError: dispose of owned fixture C:\Users\<local-user>~1\AppData\Local\Temp\dsh-tool-team-oBB0yT logged 2 error(s): child fiber, child fiber
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:167:23
+ ❯ packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errors: [ { stack: 'Error: Agent Teams projection is not registered
+    at TeamJournal.state (C:/Albert/project/dsh861/packages/experimental/agent-team/src/journal.ts:31:41)
+    at TeamRoster.liveChildrenByRoot (C:/Albert/project/dsh861/packages/experimental/agent-team/src/roster.ts:228:26)
+    at TeamService.disposeRuntime (C:/Albert/project/dsh861/packages/experimental/agent-team/src/index.ts:313:48)
+    at C:/Albert/project/dsh861/packages/experimental/agent-team/src/index.ts:120:11
+    at Proxy.__vite_ssr_import_1__.RegistryService.plugin (C:/Albert/project/dsh861/scripts/test-invariants.ts:82:32)
+    at setup (C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:67:13)
+    at C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:469:20
+    at file:///C:/Albert/project/dsh861/node_modules/.pnpm/vitest@5.0.0_@opentelemetry_0a4bad894e8486b2953adf924e4b79ce/node_modules/vitest/dist/chunks/run.CQOUYP-x.js:2783:20', message: 'Agent Teams projection is not registered', constructor: 'Function<Error>', name: 'Error', toString: 'Function<toString>' }, { stack: 'SubagentError: continuable subagent teardown failed for 1 activation(s): agent "b78ea062-5314-43d8-8a41-c7e6c121e464" cannot read inbox state: its projection registration is not active
+    at ContinuableActivationRegistry.disposeRoots (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:530:13)
+    at ContinuableActivationRegistry.drain (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:335:5)
+    at Proxy.__vite_ssr_import_1__.RegistryService.plugin (C:/Albert/project/dsh861/scripts/test-invariants.ts:76:27)
+    at Proxy.inject (C:/Albert/project/dsh861/vendor/cordis/src/registry.ts:301:17)
+    at new SubagentRuntime (C:/Albert/project/dsh861/packages/subagent/subagent/src/index.ts:201:9)
+    at Fiber.execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:254:30)
+    at C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:367:45
+    at composeError (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:279:25)
+    at Fiber._execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:359:12)
+    at Fiber._reload (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:670:20)', message: 'continuable subagent teardown failed for 1 activation(s): agent "b78ea062-5314-43d8-8a41-c7e6c121e464" cannot read inbox state: its projection registration is not active', code: 'ACTIVATION_TEARDOWN_FAILED', name: 'SubagentError', constructor: 'Function<SubagentError>', toString: 'Function<toString>' } ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts > dsh-tool-subagent-control > ends a held model gate and releases write ownership through suite teardown
+AssertionError: promise rejected "AggregateError: dispose of owned fixture … { errors: [ SubagentError: … { code: '…' } ] }" instead of resolving
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:36
+    385|       // real afterEach cleanup must cancel it, release the write owne…
+    386|       // and delete the storage root without the manual release.
+    387|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+    388|       expect(existsSync(root)).toBe(false)
+    389|     } finally {
+
+Caused by: AggregateError: dispose of owned fixture C:\Users\<local-user>~1\AppData\Local\Temp\dsh-tool-subagent-control-Zz03Aw logged 1 error(s): child fiber
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:167:23
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errors: [ { stack: 'SubagentError: continuable subagent teardown failed for 1 activation(s): agent "f70faec7-b9fa-45fb-a402-d3e53081a065" cannot read inbox state: its projection registration is not active
+    at ContinuableActivationRegistry.disposeRoots (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:530:13)
+    at ContinuableActivationRegistry.drain (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:335:5)
+    at Proxy.__vite_ssr_import_1__.RegistryService.plugin (C:/Albert/project/dsh861/scripts/test-invariants.ts:76:27)
+    at Proxy.inject (C:/Albert/project/dsh861/vendor/cordis/src/registry.ts:301:17)
+    at new SubagentRuntime (C:/Albert/project/dsh861/packages/subagent/subagent/src/index.ts:201:9)
+    at Fiber.execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:254:30)
+    at C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:367:45
+    at composeError (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:279:25)
+    at Fiber._execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:359:12)
+    at Fiber._reload (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:670:20)', message: 'continuable subagent teardown failed for 1 activation(s): agent "f70faec7-b9fa-45fb-a402-d3e53081a065" cannot read inbox state: its projection registration is not active', code: 'ACTIVATION_TEARDOWN_FAILED', name: 'SubagentError', constructor: 'Function<SubagentError>', toString: 'Function<toString>' } ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  2 failed | 38 passed (40)
+   Start at  02:08:57
+   Duration  4.65s (transform 49%, tests 38%, import 11%, setup 1%)
+
+  Transform   thread-safe  transforming modules took 5.27s · 49% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
