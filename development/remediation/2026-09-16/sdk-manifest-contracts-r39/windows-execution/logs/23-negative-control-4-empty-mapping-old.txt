@@ -1,0 +1,79 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/test-support/session-snapshot/tests/manifest.spec.ts (44 tests | 1 failed | 6 skipped) 29ms
+   ❯ snapshot manifest (44)
+     ↓ parses an owning scenario
+     ↓ parses an explicitly retained Session generation and its migration coverage
+     ↓ keeps explicitly retained generations read-only while current fixtures track writer output
+     ↓ parses a read-only session reference
+     ↓ parses composition, recording, header, and exceptional replay metadata
+     ↓ parses independently optional header and input fields
+     × rejects invalid metadata 12ms
+     ✓ rejects invalid metadata 3ms
+     ✓ rejects invalid metadata 1ms
+     ✓ rejects invalid metadata 1ms
+     ✓ rejects invalid metadata 1ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 1ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 1ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/test-support/session-snapshot/tests/manifest.spec.ts > snapshot manifest > rejects invalid metadata
+AssertionError: expected [Function] to throw error including 'manifest must be a mapping' but got 'session-snapshot: case/snapshot.yml: …'
+
+Expected: "manifest must be a mapping"
+Received: "session-snapshot: case/snapshot.yml: invalid YAML: YAMLException: expected a document, but the input is empty"
+
+ ❯ packages/test-support/session-snapshot/tests/manifest.spec.ts:201:70
+    199|     ['version: 1\nprofile: !!js acp\n', 'invalid YAML'],
+    200|   ])('rejects invalid metadata', (source, message) => {
+    201|     expect(() => parseSnapshotManifest(source, 'case/snapshot.yml')).t…
+       |                                                                      ^
+    202|   })
+    203| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 37 passed | 6 skipped (44)
+   Start at  12:25:35
+   Duration  594ms (transform 74%, setup 13%, tests 8%, import 4%, worker 1%)

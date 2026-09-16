@@ -58,8 +58,8 @@ type QueryFactory = (params: {
 
 const queryMock = vi.hoisted(() => vi.fn<QueryFactory>())
 
-const CLAUDE_AGENT_SDK_VERSION = '0.3.263'
-const CLAUDE_CODE_VERSION = '2.1.263'
+const CLAUDE_AGENT_SDK_VERSION = '0.3.269'
+const CLAUDE_CODE_VERSION = '2.1.269'
 const CLAUDE_PLATFORM_PACKAGES = [
   '@anthropic-ai/claude-agent-sdk-darwin-arm64',
   '@anthropic-ai/claude-agent-sdk-darwin-x64',
@@ -354,9 +354,9 @@ describe('task admission and package contracts', () => {
     )
     expect(manifest.dependencies).toHaveProperty(
       '@modelcontextprotocol/sdk',
-      '^1.29.0',
+      '^1.30.0',
     )
-    expect(manifest.dependencies).toHaveProperty('zod', '^4.4.3')
+    expect(manifest.dependencies).toHaveProperty('zod', '^4.6.2')
     expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh-subagent-codex')
 
     const sdkRoot = dirname(fileURLToPath(

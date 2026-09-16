@@ -1,0 +1,35 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/test-support/session-snapshot/tests/manifest.spec.ts (44 tests) 22ms
+ ✓  thread-safe  packages/subagent/subagent-claude-code/tests/subagent-claude-code.spec.ts (42 tests) 148ms
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"claude-safe-model","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"claude-bypass-model","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+ ✓  thread-safe  packages/subagent/subagent-claude-code/tests/real-product.spec.ts (8 tests) 24971ms
+   ✓ real Claude Agent SDK 0.3.269 and its distributed Claude Code 2.1.269 fixture (8)
+     ✓ inherits host settings and sends the exact task and fake key to local Messages 1398ms
+     ✓ maps a real SDK max-turns result to safe query-run facts 1299ms
+     ✓ runs two named instances concurrently and unloads one without revoking its run 8638ms
+     ✓ maps a real CLI process failure to its exit outcome 1204ms
+     ✓ overrides interactive settings, denies a write, and returns a safe diagnostic 1320ms
+     ✓ runs an explicitly selected bypass write in the isolated workspace 1319ms
+     ✓ returns the completed plan without approving execution 1446ms
+     ✓ settles cancellation and leaves the real SDK-spawned CLI tree quiescent 8344ms
+
+ Test Files  3 passed (3)
+      Tests  94 passed (94)
+   Start at  12:26:22
+   Duration  27.25s (tests 84%, transform 11%, import 4%, setup 1%)
