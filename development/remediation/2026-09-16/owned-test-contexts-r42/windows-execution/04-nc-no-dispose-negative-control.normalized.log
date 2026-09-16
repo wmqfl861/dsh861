@@ -1,0 +1,160 @@
+=== command: C:/dsh-r24-upgrade-20260912-01/pnpm-12.4.1/pnpm.exe exec vitest run --project thread-safe packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts packages/experimental/tool-agent-team/tests/tool-team.spec.ts packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts
+=== exit code: 1
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (5 tests | 5 failed) 134ms
+   ❯ owned test contexts (5)
+     × closes a materialized write handle and releases its lock before deleting the root 82ms
+     × keeps the root until a held disposer settles 12ms
+     × cleans a fixture whose setup failed after its resources existed 17ms
+     × still cleans healthy fixtures when one observation vetoes a deletion 16ms
+     × owns a rootless context and tolerates a repeated cleanup 4ms
+ ❯  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests | 1 failed) 1874ms
+   ❯ dsh-tool-team (12)
+     ✓ installs the complete scoped schema and shared-checkout policy for roots and teammates 194ms
+     ✓ returns actionable no-progress output and renders structured wait cancellation 185ms
+     ✓ adapts roster, mailbox, wait, and task CAS operations to canonical JSON 194ms
+     ✓ adapts optional task filters, mutations, pagination, and default waiting 276ms
+     ✓ removes and reinstalls every scoped registration across plugin HMR without stopping the child 184ms
+     ✓ shadows legacy global control names only inside Team member scopes 35ms
+     ✓ rolls back partial scoped installation after a same-scope collision 51ms
+     ✓ resolves direct-apply defaults without Loader schema normalization 129ms
+     ✓ reinstalls Team scope before a cold-resumed teammate request 254ms
+     ✓ fails safely without a calling Agent and has the function-plugin export shape 33ms
+     ✓ uses configured fresh and fork provider names 134ms
+     × owns every setup runtime and storage through suite teardown 201ms
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests | 1 failed) 2052ms
+   ❯ dsh-tool-subagent-control (12)
+     ✓ registers send_message once, globally, with the two required parameters 27ms
+     ✓ keeps the send_message definition and ordering byte-identical in a fork child 191ms
+     ✓ JSON-encodes a caller-supplied parent id in the initial return instruction 89ms
+     ✓ lets a continuable child steer its direct parent with send_message 150ms
+     ✓ cold-resumes a settled child and reports delivery 172ms
+     ✓ steers the nearest step of an open turn 193ms
+     ✓ reports a delivery failure as an errored, not-delivered result 30ms
+     ✓ rejects a caller that is not the child's durable direct parent 153ms
+     ✓ fails loud when invoked without a calling agent 23ms
+     ✓ unregisters with its plugin fiber (HMR safety) 15ms
+     × ends a held model gate and releases write ownership through suite teardown 139ms
+     ✓ has the namespace-plugin export shape (no stray default) 1ms
+   ✓ dsh-tool-subagent-control interrupt_agent (6)
+     ✓ registers interrupt_agent with the single agent_id parameter and current-turn wording 28ms
+     ✓ interrupts a running direct child with the parent cause, parking its queue 187ms
+     ✓ lets a deep live ancestor interrupt a descendant it did not directly create 259ms
+     ✓ rejects self, sibling, and unrelated callers without touching the target 252ms
+     ✓ accepts an absent target as a no-op without cold-resuming it 115ms
+     ✓ fails loud when invoked without a calling agent 25ms
+
+ Test Files  3 failed (3)
+      Tests  7 failed | 28 passed (35)
+   Start at  21:32:12
+   Duration  4.47s (transform 48%, tests 41%, import 9%, setup 1%)
+
+  Transform   thread-safe  transforming modules took 4.84s · 48% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts > dsh-tool-team > owns every setup runtime and storage through suite teardown
+AssertionError: promise rejected "AggregateError: owned test context cleanu… { errors: [ …(2) ] }" instead of resolving
+ ❯ packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:36
+    493|       // One test created two setups: the suite's real cleanup must cl…
+    494|       // runtimes — including the hanging teammate — before either dir…
+    495|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+    496|       expect(existsSync(settled.storageRoot)).toBe(false)
+    497|       expect(existsSync(active.storageRoot)).toBe(false)
+
+Caused by: AggregateError: owned test context cleanup failed
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:98:36
+ ❯ packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errors: [ { stack: 'SessionAlreadyOwnedError: session "tool-team-lead" is already owned by an active write handle
+    at SessionWriteLease.acquire (C:/Albert/project/dsh861/packages/session/session-persistence-jsonl/src/lease.ts:82:78)
+    at Proxy.open (C:/Albert/project/dsh861/packages/session/session-persistence-jsonl/src/index.ts:370:15)
+    at Object.settled.fixture.afterDispose (C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:486:26)
+    at OwnedTestContexts.cleanup (C:/Albert/project/dsh861/packages/subagent/tool-subagent-control/tests/owned-contexts.ts:84:9)
+    at C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:7
+    at file:///C:/Albert/project/dsh861/node_modules/.pnpm/vitest@5.0.0_@opentelemetry_0a4bad894e8486b2953adf924e4b79ce/node_modules/vitest/dist/chunks/run.CQOUYP-x.js:2783:20', message: 'session "tool-team-lead" is already owned by an active write handle', sessionId: 'tool-team-lead', name: 'SessionAlreadyOwnedError', constructor: 'Function<SessionAlreadyOwnedError>', toString: 'Function<toString>' }, { stack: 'SessionAlreadyOwnedError: session "c396c5ee-06b2-4aca-8fcb-0a78979c1e20" is already owned by an active write handle
+    at SessionWriteLease.acquire (C:/Albert/project/dsh861/packages/session/session-persistence-jsonl/src/lease.ts:82:78)
+    at Proxy.open (C:/Albert/project/dsh861/packages/session/session-persistence-jsonl/src/index.ts:370:15)
+    at Object.active.fixture.afterDispose (C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:490:26)
+    at OwnedTestContexts.cleanup (C:/Albert/project/dsh861/packages/subagent/tool-subagent-control/tests/owned-contexts.ts:84:9)
+    at C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:7
+    at file:///C:/Albert/project/dsh861/node_modules/.pnpm/vitest@5.0.0_@opentelemetry_0a4bad894e8486b2953adf924e4b79ce/node_modules/vitest/dist/chunks/run.CQOUYP-x.js:2783:20', message: 'session "c396c5ee-06b2-4aca-8fcb-0a78979c1e20" is already owned by an active write handle', sessionId: 'c396c5ee-06b2-4aca-8fcb-0a78979c1e20', name: 'SessionAlreadyOwnedError', constructor: 'Function<SessionAlreadyOwnedError>', toString: 'Function<toString>' } ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > closes a materialized write handle and releases its lock before deleting the root
+AssertionError: promise rejected "SessionAlreadyOwnedError: session "owned-… { sessionId: '…' }" instead of resolving
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:74:36
+     72|         await takeover.close()
+     73|       }
+     74|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+     75|       expect(existsSync(root)).toBe(false)
+     76|       servicesGone(ctx)
+
+Caused by: SessionAlreadyOwnedError: session "owned-lead" is already owned by an active write handle
+ ❯ SessionWriteLease.acquire packages/session/session-persistence-jsonl/src/lease.ts:82:78
+ ❯ Proxy.open packages/session/session-persistence-jsonl/src/index.ts:370:15
+ ❯ Object.fixture.afterDispose packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:71:26
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:84:9
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:74:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { sessionId: 'owned-lead' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > keeps the root until a held disposer settles
+AssertionError: expected 'cleanup-settled' to be 'disposer-reached' // Object.is equality
+
+Expected: "disposer-reached"
+Received: "cleanup-settled"
+
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:100:19
+     98|       cleanupDone.then(() => 'cleanup-settled' as const),
+     99|     ])
+    100|     expect(first).toBe('disposer-reached')
+       |                   ^
+    101|     await drainMacrotasks()
+    102|     // While the disposer is held, cleanup cannot settle and the root …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > cleans a fixture whose setup failed after its resources existed
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > still cleans healthy fixtures when one observation vetoes a deletion
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > owns a rootless context and tolerates a repeated cleanup
+PrettyFormatPluginError: cannot get property "$$typeof" without inject
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts > dsh-tool-subagent-control > ends a held model gate and releases write ownership through suite teardown
+AssertionError: promise rejected "SessionAlreadyOwnedError: session "98b919… { sessionId: '…' }" instead of resolving
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:36
+    385|       // real afterEach cleanup must cancel it, release the write owne…
+    386|       // and delete the storage root without the manual release.
+    387|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+    388|       expect(existsSync(root)).toBe(false)
+    389|     } finally {
+
+Caused by: SessionAlreadyOwnedError: session "98b919eb-850b-4a8e-a4d8-db3c9ca7f967" is already owned by an active write handle
+ ❯ SessionWriteLease.acquire packages/session/session-persistence-jsonl/src/lease.ts:82:78
+ ❯ Proxy.open packages/session/session-persistence-jsonl/src/index.ts:370:15
+ ❯ Object.fixture.afterDispose packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:381:26
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:84:9
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { sessionId: '98b919eb-850b-4a8e-a4d8-db3c9ca7f967' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
