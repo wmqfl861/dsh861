@@ -18,6 +18,11 @@ import { createMessage, createUserMessage, ReasoningEffortId } from '@deepseek-a
 import { SessionSeq, SESSION_FORMAT_VERSION, SessionId, type SessionEvent, type SessionHeader } from '@deepseek-ai/dsh-session'
 import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
 import { describe, expect, it } from 'vitest'
+import {
+  selectDirectSubagentChild,
+  selectSessionLogById,
+  type PersistedSessionLog,
+} from './session-log-identity.ts'
 
 const fixtureDir = fileURLToPath(new URL('./expected/subagent-inheritance', import.meta.url))
 const replayOverride = join(fixtureDir, 'replay.override.json')
@@ -121,14 +126,21 @@ describe('parent-only override inheritance snapshot', () => {
         // Collect both persisted logs (parent resumed turn + child run).
         const sessionsDir = join(runCwd, '.sessions')
         const files = (await readdir(sessionsDir, { recursive: true })).filter(file => file.endsWith('.jsonl'))
-        const logs = await Promise.all(files.map(async file => readFile(join(sessionsDir, file), 'utf8')))
-        const headerOf = (content: string): Record<string, unknown> =>
-          JSON.parse(content.split('\n')[0] ?? '{}') as Record<string, unknown>
-        const parent = logs.find(content => content.includes('"subagent-inheritance-parent"'))
-        const child = logs.find(content => typeof headerOf(content).parentSession === 'string')
-        if (parent === undefined || child === undefined) throw new Error('missing persisted parent or child log')
+        const logs: PersistedSessionLog[] = await Promise.all(files.map(async file => ({
+          content: await readFile(join(sessionsDir, file), 'utf8'),
+          source: file,
+        })))
+        // The parent is the log whose header asserts the parent Session id —
+        // the child's header also carries that id inside `parentSession`, so
+        // full-text containment would return whichever log readdir lists first.
+        const parent = selectSessionLogById(logs, sessionId)
+        // The delegated child is the one log that asserts this parent, its own
+        // Session id, and the subagent origin — not any log with a parent link.
+        const child = selectDirectSubagentChild(logs, sessionId)
+        expect(child.source).not.toBe(parent.source)
+        expect(child.header.id).not.toBe(parent.header.id)
 
-        const childRecords = child.trimEnd().split('\n').map(
+        const childRecords = child.content.trimEnd().split('\n').map(
           line => JSON.parse(line) as Record<string, unknown>,
         )
         expect(childRecords[1]).toMatchObject({
@@ -147,7 +159,7 @@ describe('parent-only override inheritance snapshot', () => {
             || record.data.source.plugin !== '@deepseek-ai/dsh-system-prompt') return []
           return record.data.content?.flatMap(block => block.type === 'text' && typeof block.text === 'string' ? [block.text] : []) ?? []
         })
-        const policyContexts = [...runtimeContexts(parent), ...runtimeContexts(child)]
+        const policyContexts = [...runtimeContexts(parent.content), ...runtimeContexts(child.content)]
         expect(policyContexts).toHaveLength(2)
         for (const context of policyContexts) {
           expect(context).toContain('Any available operation enforced by the DSH file sandbox cannot modify files in the standing mode.')
@@ -157,9 +169,9 @@ describe('parent-only override inheritance snapshot', () => {
           expect(context).not.toContain('terminal sessions')
         }
 
-        const context: NormalizeContext = { sessionIds: [sessionId, String(headerOf(child).id)], cwd }
-        const normalizedParent = normalizeSessionSnapshot(parent, context)
-        const normalizedChild = normalizeSessionSnapshot(child, context)
+        const context: NormalizeContext = { sessionIds: [sessionId, child.header.id], cwd }
+        const normalizedParent = normalizeSessionSnapshot(parent.content, context)
+        const normalizedChild = normalizeSessionSnapshot(child.content, context)
         if (refreshing) {
           await writeFile(parentExpected, normalizedParent)
           await writeFile(childExpected, normalizedChild)

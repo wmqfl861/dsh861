@@ -1,0 +1,28 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > traces a raw in-worker spawn of the headless driver
+[trace +0ms] execPath=C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64\node.exe platform=win32 arch=x64
+[trace +59ms] spawn issued, pid=22396, spawned=undefined
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > traces a raw in-worker spawn of the headless driver
+[trace +60ms] spawn event fired
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > traces a raw in-worker spawn of the headless driver
+[trace +45064ms] 45s cap reached; killing
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > traces a raw in-worker spawn of the headless driver
+[trace +45066ms] done: timeout
+
+ ✓ apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts (1 test) 45075ms
+   ✓ r45 diagnostic (1)
+     ✓ traces a raw in-worker spawn of the headless driver 45073ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  00:52:42
+   Duration  45.88s (tests 99%, transform 1%)
+
+EXIT:0

@@ -19,6 +19,11 @@ import { createMessage, createUserMessage } from '@deepseek-ai/dsh-llm'
 import { SessionSeq, SESSION_FORMAT_VERSION, SessionId, type SessionEvent, type SessionHeader } from '@deepseek-ai/dsh-session'
 import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
 import { describe, expect, it } from 'vitest'
+import {
+  selectDirectSubagentChild,
+  selectSessionLogById,
+  type PersistedSessionLog,
+} from './session-log-identity.ts'
 
 const fixtureDir = fileURLToPath(new URL('./expected/subagent-diagnostic', import.meta.url))
 const replayOverride = join(fixtureDir, 'replay.override.json')
@@ -117,16 +122,25 @@ describe('descriptor-less cold child diagnostic snapshot', () => {
       inspect: async (runCwd) => {
         const sessionsDir = join(runCwd, '.sessions')
         const files = (await readdir(sessionsDir, { recursive: true })).filter(file => file.endsWith('.jsonl'))
-        const logs = await Promise.all(files.map(async file => readFile(join(sessionsDir, file), 'utf8')))
-        const parent = logs.find(content => content.includes('"subagent-diagnostic-parent"'))
-        if (parent === undefined) throw new Error('missing persisted parent log')
+        const logs: PersistedSessionLog[] = await Promise.all(files.map(async file => ({
+          content: await readFile(join(sessionsDir, file), 'utf8'),
+          source: file,
+        })))
+        // The parent is the log whose header asserts the parent Session id —
+        // the child's header also carries that id inside `parentSession`, so
+        // full-text containment would return whichever log readdir lists first.
+        const parent = selectSessionLogById(logs, parentId)
+        // The seeded child exists as its own log with the delegated identity
+        // (parent link plus subagent origin) the diagnostic classifies.
+        const child = selectDirectSubagentChild(logs, parentId, { childId })
+        expect(child.source).not.toBe(parent.source)
 
         // THE model-visible fact: the descriptor-less child is reported, not
         // silently dropped, and its reason is the corrupt classification.
-        expect(parent).toContain(`${childId} [diagnostic: corrupt]`)
+        expect(parent.content).toContain(`${childId} [diagnostic: corrupt]`)
 
         const context: NormalizeContext = { sessionIds: [parentId, childId], cwd }
-        const normalizedParent = normalizeSessionSnapshot(parent, context)
+        const normalizedParent = normalizeSessionSnapshot(parent.content, context)
         if (refreshing) {
           await writeFile(parentExpected, normalizedParent)
         }

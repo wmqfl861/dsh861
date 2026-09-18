@@ -1,0 +1,147 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts (15 tests | 6 failed) 17ms
+   ❯ session-log-identity selection (15)
+     × selects the parent and its child under every enumeration order 8ms
+     × rejects a parent id that only event bodies reference 3ms
+     × rejects duplicate parent logs by source 1ms
+     × rejects an empty log set for both selectors 1ms
+     × rejects an unparsable first record by source, even beside a valid parent 0ms
+     ✓ rejects a first record that is not a session header 0ms
+     × rejects a session header with no string id 0ms
+     ✓ accepts header field order and CRLF line endings and returns the original bytes 0ms
+     ✓ does not select another parent's child even when it enumerates first 0ms
+     ✓ rejects zero direct subagent children 0ms
+     ✓ rejects sibling direct subagent children of one parent 0ms
+     ✓ rejects a pinned child id that no direct child of the parent asserts 0ms
+     ✓ does not select a grandchild as a direct child 0ms
+     ✓ requires the subagent origin on the child header 0ms
+     ✓ leaves the input logs and their order unchanged 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > selects the parent and its child under every enumeration order
+AssertionError: order child.jsonl,parent.jsonl,reference.jsonl,other-child.jsonl: expected 'child.jsonl' to be 'parent.jsonl' // Object.is equality
+
+Expected: "parent.jsonl"
+Received: "child.jsonl"
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:56:88
+     54|     for (const order of orders) {
+     55|       const selectedParent = selectSessionLogById(order, PARENT_ID)
+     56|       expect(selectedParent.source, `order ${order.map(log => log.sour…
+       |                                                                                        ^
+     57|       expect(selectedParent.content).toBe(parent.content)
+     58|       const selectedChild = selectDirectSubagentChild(order, PARENT_ID)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects a parent id that only event bodies reference
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:67:8
+     65|   it('rejects a parent id that only event bodies reference', () => {
+     66|     expect(() => selectSessionLogById([referenceLog()], PARENT_ID))
+     67|       .toThrow(/no persisted session log with id "fixture-parent"; fou…
+       |        ^
+     68|   })
+     69|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects duplicate parent logs by source
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:76:8
+     74|     }, [{ type: 'turn/start', seq: 0, time: 10, data: { turn: 1 } }])
+     75|     expect(() => selectSessionLogById([first, second], PARENT_ID))
+     76|       .toThrow(/duplicate persisted session logs with id "fixture-pare…
+       |        ^
+     77|   })
+     78|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects an empty log set for both selectors
+AssertionError: expected [Function] to throw error matching /no persisted session log with id "fix…/ but got 'no persisted session log with id "fix…'
+
+- Expected:
+/no persisted session log with id "fixture-parent"; found: none/
+
++ Received:
+"no persisted session log with id \"fixture-parent\""
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:80:55
+     78|
+     79|   it('rejects an empty log set for both selectors', () => {
+     80|     expect(() => selectSessionLogById([], PARENT_ID)).toThrow(/no pers…
+       |                                                       ^
+     81|     expect(() => selectDirectSubagentChild([], PARENT_ID)).toThrow(/no…
+     82|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects an unparsable first record by source, even beside a valid parent
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:87:8
+     85|     const corrupt: PersistedSessionLog = { source: 'corrupt.jsonl', co…
+     86|     expect(() => selectSessionLogById([corrupt, parentLog()], PARENT_I…
+     87|       .toThrow(/session log corrupt\.jsonl: first record is not valid …
+       |        ^
+     88|     expect(() => selectDirectSubagentChild([corrupt, parentLog()], PAR…
+     89|       .toThrow(/session log corrupt\.jsonl: first record is not valid …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects a session header with no string id
+AssertionError: expected [Function] to throw error matching /session log id-less\.jsonl: session h…/ but got 'no persisted session log with id "fix…'
+
+- Expected:
+/session log id-less\.jsonl: session header has no string id/
+
++ Received:
+"no persisted session log with id \"fixture-parent\""
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:106:61
+    104|       content: `${header({ type: 'session', version: 3, createdAt: 1, …
+    105|     }
+    106|     expect(() => selectSessionLogById([idLess], PARENT_ID)).toThrow(/s…
+       |                                                             ^
+    107|   })
+    108|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 9 passed (15)
+   Start at  01:09:29
+   Duration  682ms (transform 81%, setup 12%, tests 4%, import 2%, worker 2%)
+
+NC1_EXIT:1

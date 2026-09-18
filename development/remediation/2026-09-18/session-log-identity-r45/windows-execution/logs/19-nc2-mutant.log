@@ -1,0 +1,180 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts (15 tests | 8 failed) 19ms
+   ❯ session-log-identity selection (15)
+     × selects the parent and its child under every enumeration order 8ms
+     ✓ rejects a parent id that only event bodies reference 1ms
+     ✓ rejects duplicate parent logs by source 0ms
+     × rejects an empty log set for both selectors 2ms
+     ✓ rejects an unparsable first record by source, even beside a valid parent 0ms
+     ✓ rejects a first record that is not a session header 0ms
+     ✓ rejects a session header with no string id 0ms
+     ✓ accepts header field order and CRLF line endings and returns the original bytes 0ms
+     × does not select another parent's child even when it enumerates first 1ms
+     × rejects zero direct subagent children 1ms
+     × rejects sibling direct subagent children of one parent 1ms
+     × rejects a pinned child id that no direct child of the parent asserts 1ms
+     × does not select a grandchild as a direct child 1ms
+     × requires the subagent origin on the child header 1ms
+     ✓ leaves the input logs and their order unchanged 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > selects the parent and its child under every enumeration order
+AssertionError: order parent.jsonl,reference.jsonl,other-child.jsonl,child.jsonl: expected 'other-child.jsonl' to be 'child.jsonl' // Object.is equality
+
+Expected: "child.jsonl"
+Received: "other-child.jsonl"
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:59:87
+     57|       expect(selectedParent.content).toBe(parent.content)
+     58|       const selectedChild = selectDirectSubagentChild(order, PARENT_ID)
+     59|       expect(selectedChild.source, `order ${order.map(log => log.sourc…
+       |                                                                                       ^
+     60|       expect(selectedChild.header.id).toBe(CHILD_ID)
+     61|     }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects an empty log set for both selectors
+AssertionError: expected [Function] to throw error matching /no direct subagent child of "fixture-…/ but got 'no direct subagent child of "fixture-…'
+
+- Expected:
+/no direct subagent child of "fixture-parent"; found: none/
+
++ Received:
+"no direct subagent child of \"fixture-parent\""
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:81:60
+     79|   it('rejects an empty log set for both selectors', () => {
+     80|     expect(() => selectSessionLogById([], PARENT_ID)).toThrow(/no pers…
+     81|     expect(() => selectDirectSubagentChild([], PARENT_ID)).toThrow(/no…
+       |                                                            ^
+     82|   })
+     83|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > does not select another parent's child even when it enumerates first
+AssertionError: expected 'other-child.jsonl' to be 'child.jsonl' // Object.is equality
+
+Expected: "child.jsonl"
+Received: "other-child.jsonl"
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:119:29
+    117|   it('does not select another parent\'s child even when it enumerates …
+    118|     const selected = selectDirectSubagentChild([otherChildLog(), child…
+    119|     expect(selected.source).toBe('child.jsonl')
+       |                             ^
+    120|     expect(selected.header.parentSession).toBe(PARENT_ID)
+    121|   })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects zero direct subagent children
+AssertionError: expected [Function] to throw error matching /no direct subagent child of "fixture-…/ but got 'no direct subagent child of "fixture-…'
+
+- Expected:
+/no direct subagent child of "fixture-parent"; found: parent\.jsonl \(id fixture-parent\), reference\.jsonl \(id reference-session\)/
+
++ Received:
+"no direct subagent child of \"fixture-parent\""
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:125:8
+    123|   it('rejects zero direct subagent children', () => {
+    124|     expect(() => selectDirectSubagentChild([parentLog(), referenceLog(…
+    125|       .toThrow(/no direct subagent child of "fixture-parent"; found: p…
+       |        ^
+    126|   })
+    127|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects sibling direct subagent children of one parent
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:130:8
+    128|   it('rejects sibling direct subagent children of one parent', () => {
+    129|     expect(() => selectDirectSubagentChild([parentLog(), childLog(), c…
+    130|       .toThrow(/duplicate direct subagent children of "fixture-parent"…
+       |        ^
+    131|   })
+    132|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > rejects a pinned child id that no direct child of the parent asserts
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:135:8
+    133|   it('rejects a pinned child id that no direct child of the parent ass…
+    134|     expect(() => selectDirectSubagentChild([parentLog(), otherChildLog…
+    135|       .toThrow(/no direct subagent child of "fixture-parent" with id "…
+       |        ^
+    136|   })
+    137|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > does not select a grandchild as a direct child
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:142:83
+    140|     const withChild = selectDirectSubagentChild([parentLog(), childLog…
+    141|     expect(withChild.source).toBe('child.jsonl')
+    142|     expect(() => selectDirectSubagentChild([parentLog(), grandchild], …
+       |                                                                                   ^
+    143|   })
+    144|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL   thread-safe  apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts > session-log-identity selection > requires the subagent origin on the child header
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts:149:82
+    147|       type: 'session', version: 3, id: 'plain-fork', createdAt: 2, cwd…
+    148|     })
+    149|     expect(() => selectDirectSubagentChild([parentLog(), plainFork], P…
+       |                                                                                  ^
+    150|   })
+    151|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 7 passed (15)
+   Start at  01:10:10
+   Duration  853ms (transform 81%, setup 12%, tests 4%, worker 1%, import 1%)

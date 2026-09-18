@@ -1,0 +1,39 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe bare-print +157ms] stdout: "bare alive\n"
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe bare-print +169ms] outcome: close code=0 signal=null; totalOut=11B totalErr=0B
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe bare-esm +136ms] stdout: "esm alive\n"
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe bare-esm +148ms] outcome: close code=0 signal=null; totalOut=10B totalErr=0B
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe tsx-print +221ms] stdout: "tsx alive\n"
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe tsx-print +235ms] outcome: close code=0 signal=null; totalOut=10B totalErr=0B
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe tsx-driver-import +783ms] stderr: "C:\\Albert\\project\\dsh861\\packages\\test-support\\loader-smoke\\tests\\fixtures\\headless-driver.ts:13\r\n  "
+
+stdout | apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts > r45 diagnostic > probes spawned-child liveness stages
+[probe tsx-driver-import +797ms] outcome: close code=1 signal=null; totalOut=0B totalErr=585B
+
+ ✓ apps/cli/tests/profiles/headless/tests/r45-diag.expected.e2e.ts (1 test) 1357ms
+   ✓ r45 diagnostic (1)
+     ✓ probes spawned-child liveness stages 1355ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  00:55:14
+   Duration  2.11s (tests 75%, transform 21%, setup 3%)
+
+EXIT:0
