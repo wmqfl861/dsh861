@@ -204,16 +204,41 @@ export class SubagentRuntime extends TypertRemoteService {
         observeActivation: (provider, childId, parent) => this.observeActivation(provider, childId, parent),
       })
       this.continuations = manager
-      childCtx.effect(() => () => {
-        /* v8 ignore else -- one injected binding owns the slot until its fiber disposes. */
-        if (this.continuations === manager) this.continuations = undefined
-      }, 'subagents.continuationBinding()')
+      // The manager lives in the injected child fiber; this composite effect on
+      // the service fiber collects that fiber's exact structural disposer. Its
+      // teardown settles the manager's COMPLETE lifetime first — drain and
+      // structural release — and clears the slot by exact identity only
+      // afterwards; a drain rejection cannot skip the clear (the effect chain
+      // would skip a disposer after a rejected one).
+      ctx.effect(function* (this: SubagentRuntime) {
+        yield childCtx.fiber.dispose
+        yield () => this.settleManagerLifetime(childCtx, manager)
+      }.bind(this), 'subagents.continuationBinding()')
     })
     ctx.inject(['sessionProjections'], (projectionCtx) => {
       projectionCtx.sessionProjections.register(subagentCatalogProjectionDefinition)
       projectionCtx.sessionProjections.register(subagentTimingProjectionDefinition)
       projectionCtx.sessionProjections.register(subagentIdentityProjectionDefinition)
     })
+  }
+
+  /**
+   * Settle the injected manager lifetime's structural release, then clear the
+   * continuation slot by exact manager identity, reporting the lifetime's
+   * failure after the clear so neither step can skip the other.
+   */
+  private async settleManagerLifetime(childCtx: Context, manager: SubagentContinuationManager): Promise<void> {
+    let failure: unknown
+    let failed = false
+    try {
+      await childCtx.fiber.dispose()
+    } catch (error: unknown) {
+      failure = error
+      failed = true
+    }
+    /* v8 ignore else -- one injected binding owns the slot until its lifetime settles. */
+    if (this.continuations === manager) this.continuations = undefined
+    if (failed) throw failure
   }
 
   /**

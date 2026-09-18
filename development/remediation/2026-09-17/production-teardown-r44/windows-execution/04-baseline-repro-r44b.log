@@ -1,0 +1,59 @@
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (10 tests) 418ms
+ ❯  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests | 1 failed) 1809ms
+   ❯ dsh-tool-team (12)
+     ✓ installs the complete scoped schema and shared-checkout policy for roots and teammates 248ms
+     ✓ returns actionable no-progress output and renders structured wait cancellation 278ms
+     ✓ adapts roster, mailbox, wait, and task CAS operations to canonical JSON 265ms
+     ✓ adapts optional task filters, mutations, pagination, and default waiting 201ms
+     ✓ removes and reinstalls every scoped registration across plugin HMR without stopping the child 155ms
+     ✓ shadows legacy global control names only inside Team member scopes 24ms
+     ✓ rolls back partial scoped installation after a same-scope collision 30ms
+     ✓ resolves direct-apply defaults without Loader schema normalization 130ms
+     ✓ reinstalls Team scope before a cold-resumed teammate request 207ms
+     ✓ fails safely without a calling Agent and has the function-plugin export shape 21ms
+     ✓ uses configured fresh and fork provider names 96ms
+     × owns every setup runtime and storage through suite teardown 152ms
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests | 1 failed) 2241ms
+   ❯ dsh-tool-subagent-control (12)
+     ✓ registers send_message once, globally, with the two required parameters 48ms
+     ✓ keeps the send_message definition and ordering byte-identical in a fork child 248ms
+     ✓ JSON-encodes a caller-supplied parent id in the initial return instruction 136ms
+     ✓ lets a continuable child steer its direct parent with send_message 191ms
+     ✓ cold-resumes a settled child and reports delivery 243ms
+     ✓ steers the nearest step of an open turn 209ms
+     ✓ reports a delivery failure as an errored, not-delivered result 18ms
+     ✓ rejects a caller that is not the child's durable direct parent 131ms
+     ✓ fails loud when invoked without a calling agent 17ms
+     ✓ unregisters with its plugin fiber (HMR safety) 11ms
+     × ends a held model gate and releases write ownership through suite teardown 135ms
+     ✓ has the namespace-plugin export shape (no stray default) 0ms
+   ✓ dsh-tool-subagent-control interrupt_agent (6)
+     ✓ registers interrupt_agent with the single agent_id parameter and current-turn wording 19ms
+     ✓ interrupts a running direct child with the parent cause, parking its queue 187ms
+     ✓ lets a deep live ancestor interrupt a descendant it did not directly create 256ms
+     ✓ rejects self, sibling, and unrelated callers without touching the target 259ms
+     ✓ accepts an absent target as a no-op without cold-resuming it 112ms
+     ✓ fails loud when invoked without a calling agent 18ms
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  2 failed | 38 passed (40)
+   Start at  13:45:38
+   Duration  5.08s (transform 49%, tests 38%, import 11%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 5.78s · 49% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+
+## invocation (r44-B executor, 2026-09-17)
+
+start_utc=2026-09-17T05:45:35Z
+argv: pnpm exec vitest run --project thread-safe packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts packages/experimental/tool-agent-team/tests/tool-team.spec.ts
+node=v26.8.2 pnpm=12.4.1
+exit_code=1
+end_utc=2026-09-17T05:45:44Z
+stdout_bytes=4890
+stderr_bytes=8767

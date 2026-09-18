@@ -147,11 +147,20 @@ export class ReactLoopAgent implements Agent {
   }
 
   cancel(cause: AgentCancelCause, options: CancelOptions = {}): void {
+    let clearFailure: { readonly error: unknown } | undefined
     if (!options.keepInbox) {
-      this.inbox.clear()
+      // A failing inbox clear must not strand the driver: capture it, still
+      // perform the abort below, then rethrow so the teardown transaction
+      // collects the original error alongside the remaining obligations.
+      try {
+        this.inbox.clear()
+      } catch (error: unknown) {
+        clearFailure = { error }
+      }
       if (this.phase.kind !== 'idle') this.phase.wakeRequested = false
     }
     if (this.phase.kind !== 'idle') this.phase.abort.abort(cause)
+    if (clearFailure !== undefined) throw clearFailure.error
   }
 
   runMaintenance<T>(job: (signal: AbortSignal) => Promise<T>): Promise<T> {

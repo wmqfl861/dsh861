@@ -104,6 +104,7 @@ kind: "package-reference"
 - **注册受 effect 作用域约束**——移除提供方会阻止新启动，但绝不撤销已接受的运行。
 - **Agent 消息权限基于确切相邻关系**——`sendMessage()` 要求确切在线 sender；每个 sender 都可以指定直接可继续 child，只有具备驻留可继续 Activation 的 sender 可以指定自己的直接 parent。
 - **描述符仅进日志**——它是会话事件，不进入模型历史，并跨压缩（compaction）保留；可继续描述符会显式记录解析后的子级提供方、模型与推理强度，用于冷恢复。
+- **关闭记录先于 create 或 resume 返回而存在**——所有者在物化期间关闭时回滚该记录，绝不咨询驻留的 start 或 capture；该 continuation 的管理器槽位只在被注入子 fiber 的完整生命周期——drain、结构释放与错误观察——settle 之后按精确 identity 清除，因此并发关闭加入的是真实 drain，而不是观察到"无 manager 的 no-op"。
 
 </details>
 

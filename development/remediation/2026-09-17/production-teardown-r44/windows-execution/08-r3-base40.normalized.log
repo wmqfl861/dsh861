@@ -1,0 +1,28 @@
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (10 tests) 310ms
+ ❯  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests | 1 failed) 1709ms
+   ❯ dsh-tool-team (12)
+     ✓ installs the complete scoped schema and shared-checkout policy for roots and teammates 246ms
+     ✓ returns actionable no-progress output and renders structured wait cancellation 263ms
+     ✓ adapts roster, mailbox, wait, and task CAS operations to canonical JSON 222ms
+     ✓ adapts optional task filters, mutations, pagination, and default waiting 187ms
+     ✓ removes and reinstalls every scoped registration across plugin HMR without stopping the child 136ms
+     ✓ shadows legacy global control names only inside Team member scopes 22ms
+     ✓ rolls back partial scoped installation after a same-scope collision 34ms
+     ✓ resolves direct-apply defaults without Loader schema normalization 126ms
+     ✓ reinstalls Team scope before a cold-resumed teammate request 205ms
+     ✓ fails safely without a calling Agent and has the function-plugin export shape 23ms
+     ✓ uses configured fresh and fork provider names 100ms
+     × owns every setup runtime and storage through suite teardown 143ms
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests) 2164ms
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  1 failed | 39 passed (40)
+   Start at  15:11:23
+   Duration  4.67s (transform 48%, tests 39%, import 11%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 5.16s · 48% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

@@ -2045,8 +2045,11 @@ describe('continuable review regressions', () => {
     const activation = continuationActivations(ctx).get(started.childId)!
     const realDispose = activation.handle.dispose.bind(activation.handle)
     activation.observer.capture = () => { throw new Error('capture failed') }
+    // The shared handle teardown now carries pre-release preparation outcomes
+    // in its own rejection, so the fixture's independent handle-side failure
+    // is injected beside whatever the real teardown already reported.
     activation.handle.dispose = async () => {
-      await realDispose()
+      await realDispose().catch(() => undefined)
       throw new Error('scoped cleanup failed')
     }
 

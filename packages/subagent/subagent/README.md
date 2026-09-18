@@ -104,6 +104,7 @@ Successful local child creation appends a `subagent/catalog` fact to the parent 
 - **Registration is effect-scoped** — removing a provider blocks new starts but never revokes accepted runs.
 - **Agent-message authority is exact adjacency** — `sendMessage()` requires the exact live sender; every sender may target a direct continuable child, while only a sender with a resident continuable Activation may target its direct parent.
 - **The descriptor is log-only** — a session event absent from model history and retained across compaction; a continuable descriptor records the resolved child provider, model, and reasoning effort explicitly for cold resume.
+- **The close record exists before create or resume returns** — an owner that closes during materialization rolls the record back without ever consulting a resident start or capture; the manager's slot for that continuation clears by exact identity only after the injected child fiber's complete lifetime — drain, structural release, and error observation — has settled, so a concurrent close joins the real drain instead of observing a manager-less no-op.
 
 </details>
 

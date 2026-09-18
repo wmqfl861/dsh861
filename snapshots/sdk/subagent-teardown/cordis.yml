@@ -1,0 +1,6 @@
+# Live-recording patch for the subagent-teardown composition: the scenario
+# plugin gates the continuable child's second model call and closes it
+# through the real service entry once the pending inbox exists.
+- insert:
+    - id: subagent-teardown-trigger
+      name: './teardown-trigger.mjs'

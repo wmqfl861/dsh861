@@ -110,6 +110,8 @@ Input reaches the driver through one inbox. Some messages wake it immediately; i
 
 The loop sends immutable requests while keeping cancellation live. It reuses message-freeze provenance only for identities it has fully frozen; [agent-loop](../packages/core/agent-loop/README.md) owns the request construction rules.
 
+Teardown is owned, not raced: the closing factory publishes the shared completion first and reports failures only after every obligation settles; teardown gates clear by exact identity after the fiber's lifetime, and a timeout never means quiescence ([decision](../.agents/notes/implemented/architecture/2026-09-17-production-teardown-ownership.md)).
+
 Details: the [sequence diagram](agent-lifecycle.md), the [tool pipeline](tool-execution-pipeline.md), and [cancellation and error recovery](subsystems/core.md#the-agent-handle).
 
 ## Session log

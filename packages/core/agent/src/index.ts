@@ -53,6 +53,41 @@ export type AgentSetup = (
 ) => AgentSetupCommit | Promise<AgentSetupCommit | void> | void
 
 /**
+ * Typed teardown participation for one exact agent lifecycle. The factory
+ * calls these hooks from inside the memoized handle teardown, so a domain
+ * owner can run its own release-order obligations while the scope, registry
+ * entries, and write handle are still legal to use.
+ *
+ * Both hooks bind to the exact {@link Agent} of one lifecycle; a same-id
+ * successor never inherits them. A hook callback must never await the
+ * completion it is given, nor the Activation-level close transaction built on
+ * it — that would wait for the teardown currently calling the hook.
+ */
+export interface AgentTeardownHooks {
+  /**
+   * Synchronously notify that this exact agent's real teardown began, and
+   * hand over the shared completion promise of the one memoized cleanup.
+   * Called before any reentrant cancel, hook, or release step runs, so every
+   * racing owner can join the same cleanup instead of starting a second one.
+   * @param agent - the exact agent whose teardown began.
+   * @param completion - the shared memoized teardown; resolves after every
+   *   release obligation settled, rejects with the collected failures.
+   */
+  begin(agent: Agent, completion: Promise<void>): void
+  /**
+   * Run domain preparation that must complete before the agent's scope,
+   * registry entry, and write handle are released: join or start owned
+   * children's closures, wait for real quiescence, flush and capture final
+   * facts. May reject; the remaining release obligations still run and the
+   * original error stays in the final rejection. Must not await this agent's
+   * own completion or Activation close.
+   * @param agent - the exact agent about to release its resources.
+   * @returns when the domain preparation is done.
+   */
+  beforeRelease(agent: Agent): Promise<void>
+}
+
+/**
  * Options for programmatically creating an agent through the registry factory
  * ({@link AgentRegistry.create}). The caller supplies the single live
  * `sessionId` shared by the agent registry and session log (e.g. an
@@ -98,6 +133,15 @@ export interface CreateAgentOptions {
   /** Optional creation-only cancellation signal; detached before the returned handle becomes visible. */
   readonly signal?: AbortSignal
   /**
+   * Typed teardown participation for this exact lifecycle. The factory calls
+   * {@link AgentTeardownHooks.begin} synchronously at teardown start and
+   * {@link AgentTeardownHooks.beforeRelease} inside the same memoized
+   * cleanup, before the scope and write handle release. Callers that supply
+   * no hooks keep the ordinary teardown; a factory that cannot honor the
+   * hooks it accepted must fail loud rather than ignore them.
+   */
+  readonly teardown?: AgentTeardownHooks
+  /**
    * Creation-time composition of the agent's scoped world. The factory awaits
    * setup after minting `agentCtx` but BEFORE inserting or announcing either
    * the session or agent, so observers can never see a partially configured
@@ -131,6 +175,11 @@ export interface ResumeAgentOptions {
   readonly agentOptions?: AgentOptions
   /** Optional creation-only cancellation signal for persistence load/setup; detached before return. */
   readonly signal?: AbortSignal
+  /**
+   * Typed teardown participation for this exact lifecycle, with the same
+   * contract as {@link CreateAgentOptions.teardown}.
+   */
+  readonly teardown?: AgentTeardownHooks
   /**
    * Resume-time composition of the agent's fresh scoped world. Persistence is
    * loaded first; the factory then mints `agentCtx` and awaits setup while the

@@ -28,6 +28,7 @@ const snapshotAdapters = [
   'apps/web/tests/preset-migration.snapshot.ts',
   'snapshots/acp/acp.snapshot.ts',
   'snapshots/sdk/sdk.snapshot.ts',
+  'snapshots/sdk/teardown.snapshot.ts',
   'snapshots/session/headless.snapshot.ts',
 ] as const
 

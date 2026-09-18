@@ -14,6 +14,7 @@ import type {
   Agent,
   AgentHandle,
   AgentOptions,
+  AgentTeardownHooks,
   CreateAgentOptions,
 } from '@deepseek-ai/dsh-agent'
 import { errorChain } from '@deepseek-ai/dsh-llm'
@@ -149,6 +150,17 @@ export class ChildLock {
   }
 }
 
+/** How one Activation's shared pre-release preparation was first entered. */
+type PreparationEntry = 'parent' | 'owner' | 'natural'
+
+/** Close-facts binding one materialization's exact child Agent lifecycle. */
+interface TeardownRecord {
+  /** Whether the handle owner's real teardown already began before publication settled. */
+  begun: boolean
+  /** The handle teardown completion `begin` handed over, if it ran. */
+  completion: Promise<void> | undefined
+}
+
 /** Own the complete process-local lifetime of continuable child Activations. */
 export class ContinuableActivationRegistry {
   /** Child session id → its live Activation. Process-local, never durable. */
@@ -166,6 +178,10 @@ export class ContinuableActivationRegistry {
    * poisoning a later same-id replacement.
    */
   private readonly closingScopes = new Map<Agent, Set<Agent>>()
+  /** Close-facts per exact child Agent, created before its create/resume runs. */
+  private readonly teardownRecords = new WeakMap<Agent, TeardownRecord>()
+  /** One shared pre-release preparation Promise per exact Activation (P(x)). */
+  private readonly preparations = new WeakMap<Activation, Promise<void>>()
   private draining = false
 
   /**
@@ -194,8 +210,36 @@ export class ContinuableActivationRegistry {
     })
     ctx.effect(function* (this: ContinuableActivationRegistry) {
       yield scope.dispose
-      yield () => this.drain()
+      yield () => this.drainThenReleaseScope(scope)
     }.bind(this), 'subagents.continuations()')
+  }
+
+  /**
+   * Drain every Activation, then structurally release the activationOwner
+   * scope, reporting both failures together. The explicit transaction exists
+   * because the effect chain skips a disposer after a rejected one; a drain
+   * rejection must not skip the scope release.
+   */
+  private async drainThenReleaseScope(scope: { dispose(): Promise<void> | void }): Promise<void> {
+    const failures: unknown[] = []
+    try {
+      await this.drain()
+    } catch (error: unknown) {
+      failures.push(error)
+    }
+    try {
+      await scope.dispose()
+    } catch (error: unknown) {
+      failures.push(error)
+    }
+    if (failures.length === 1) throw failures[0]
+    if (failures.length > 1) {
+      throw new SubagentError(
+        `continuable subagent lifetime release failed at ${failures.length} boundaries`,
+        'ACTIVATION_TEARDOWN_FAILED',
+        { cause: new AggregateError(failures) },
+      )
+    }
   }
 
   /**
@@ -531,6 +575,7 @@ export class ContinuableActivationRegistry {
         `continuable subagent teardown failed for ${reasons.length} ${failureSubject}: `
         + reasons.map(reason => errorChain(reason)).join('; '),
         'ACTIVATION_TEARDOWN_FAILED',
+        { cause: reasons.length === 1 ? reasons[0] : new AggregateError(reasons) },
       )
     }
   }
@@ -586,6 +631,29 @@ export class ContinuableActivationRegistry {
       applyChildComposition(childCtx, parent, inputs.composition)
     }
     const observer = this.observeActivation(provider, childId, parent)
+    // Close-facts exist before create/resume: a handle teardown beginning while
+    // the child is still unpublished is recorded here, and the published epoch
+    // joins the already-started teardown instead of publishing past it.
+    const record: TeardownRecord = { begun: false, completion: undefined }
+    const hooks: AgentTeardownHooks = {
+      begin: (agent, completion): void => {
+        if (!this.teardownRecords.has(agent)) this.teardownRecords.set(agent, record)
+        const bound = this.teardownRecords.get(agent)
+        if (bound === undefined) return
+        bound.begun = true
+        bound.completion = completion
+        const live = this.resident.get(agent.id)
+        if (live !== undefined && live.handle.agent === agent) {
+          // Join the resident epoch's one close transaction; begin never awaits it.
+          void this.dispose(live)
+        }
+      },
+      beforeRelease: (agent): Promise<void> => {
+        const live = this.resident.get(agent.id)
+        if (live === undefined || live.handle.agent !== agent) return Promise.resolve()
+        return this.prepareRelease(live, 'owner')
+      },
+    }
     const handle: AgentHandle = create === undefined
       ? await this.ownerCtx.agents.resume({
         resumeSessionId: childId,
@@ -593,6 +661,7 @@ export class ContinuableActivationRegistry {
         agentOptions: inputs.agentOptions,
         signal: inputs.signal,
         setup,
+        teardown: hooks,
       })
       : await this.ownerCtx.agents.create({
         sessionId: childId,
@@ -603,7 +672,9 @@ export class ContinuableActivationRegistry {
         agentOptions: inputs.agentOptions,
         signal: inputs.signal,
         setup,
+        teardown: hooks,
       })
+    this.teardownRecords.set(handle.agent, record)
 
     const activation: Activation = {
       childId,
@@ -626,6 +697,9 @@ export class ContinuableActivationRegistry {
       handle.agent.ctx.on('agent/inbox/claimed', wakeOnInboxRemoval)
       handle.agent.ctx.on('agent/inbox/discarded', wakeOnInboxRemoval)
       observer.start(handle.agent)
+      // A handle teardown that began before publication joins the resident
+      // epoch's close transaction now, under the owner entry (no parent cancel).
+      if (record.begun) void this.dispose(activation)
     } catch (error: unknown) {
       /* v8 ignore next -- rollback failure must not mask the admission failure
        * that prevented this operation from returning an accepted message id. */
@@ -742,55 +816,104 @@ export class ContinuableActivationRegistry {
     return 'ready'
   }
 
-  /** Propagate stop synchronously, then finish the child-first release. */
-  private async finishDisposal(activation: Activation, finalStateFlushed: boolean): Promise<void> {
-    this.wake(activation)
-    const { childId } = activation
-    const failures: SubagentError[] = []
-    if (finalStateFlushed) {
-      try {
-        activation.observer.capture(activation.handle.agent)
-      } catch (error: unknown) {
-        failures.push(new SubagentError(
-          `subagent "${childId}" activation teardown failed: ${errorChain(error)}`,
-          'ACTIVATION_TEARDOWN_FAILED',
-          { cause: error },
-        ))
+  /**
+   * One shared pre-release preparation per exact Activation (P(x)): stop the
+   * driver under the first entry's cause, close every owned child through its
+   * own full close transaction, wait for real quiescence, flush, and capture
+   * the final facts while the child is still registered. Memoized: later
+   * entries join the same preparation. Never waits on this Activation's own
+   * close transaction or handle completion, so it cannot self-wait.
+   */
+  private prepareRelease(activation: Activation, entry: PreparationEntry): Promise<void> {
+    const existing = this.preparations.get(activation)
+    if (existing !== undefined) return existing
+    const preparation = (async () => {
+      this.wake(activation)
+      const { childId } = activation
+      const failures: unknown[] = []
+      if (entry === 'parent') {
+        // No owner teardown began: stop the driver under the parent cause.
+        // A failing inbox clear still performs its abort and rethrows here.
+        try {
+          activation.handle.agent.cancel({ kind: 'parent' })
+        } catch (error: unknown) {
+          failures.push(error)
+        }
       }
-    } else {
-      activation.handle.agent.cancel({ kind: 'parent' })
       const idle = activation.handle.agent.whenIdle()
+      // Child-first: close the stable owned-child set through each child's own
+      // complete close transaction before this parent's remaining preparation.
       const children = [...activation.ownedChildren]
         .map(child => this.resident.get(child))
         .filter((child): child is Activation => child !== undefined)
-      const childDisposals = children.map(child => this.dispose(child))
-      try {
-        const childFailures = await Promise.all(childDisposals.map(async (disposal) => {
-          try {
-            await disposal
-            return undefined
-          } catch (error: unknown) {
-            return error
-          }
-        }))
-        const reasons = childFailures.filter(reason => reason !== undefined)
-        if (reasons.length > 0) {
-          failures.push(new SubagentError(
-            `subagent "${childId}" child teardown failed: ${reasons.map(reason => errorChain(reason)).join('; ')}`,
-            'ACTIVATION_TEARDOWN_FAILED',
-          ))
+      const childFailures = await Promise.all(children.map(async (child) => {
+        try {
+          await this.dispose(child)
+          return undefined
+        } catch (error: unknown) {
+          return error
         }
-        await idle
-        await this.flushFinalState(activation)
-        activation.observer.capture(activation.handle.agent)
-      } catch (error: unknown) {
+      }))
+      const childReasons = childFailures.filter(reason => reason !== undefined)
+      if (childReasons.length > 0) {
         failures.push(new SubagentError(
-          `subagent "${childId}" activation teardown failed: ${errorChain(error)}`,
+          `subagent "${childId}" child teardown failed: ${childReasons.map(reason => errorChain(reason)).join('; ')}`,
           'ACTIVATION_TEARDOWN_FAILED',
-          { cause: error },
+          { cause: childReasons.length === 1 ? childReasons[0] : new AggregateError(childReasons) },
         ))
       }
+      try {
+        await idle
+      } catch (error: unknown) {
+        failures.push(error)
+      }
+      // The natural settlement already flushed through its maintenance window;
+      // every other entry still performs the best-effort final flush.
+      if (entry !== 'natural') {
+        await this.flushFinalState(activation)
+      }
+      try {
+        activation.observer.capture(activation.handle.agent)
+      } catch (error: unknown) {
+        failures.push(error)
+      }
+      if (failures.length === 1 && failures[0] instanceof SubagentError) throw failures[0]
+      if (failures.length === 1) {
+        throw new SubagentError(
+          `subagent "${childId}" activation teardown failed: ${errorChain(failures[0])}`,
+          'ACTIVATION_TEARDOWN_FAILED',
+          { cause: failures[0] },
+        )
+      }
+      if (failures.length > 1) {
+        throw new SubagentError(
+          `subagent "${childId}" activation teardown failed at ${failures.length} boundaries: `
+          + failures.map(item => errorChain(item)).join('; '),
+          'ACTIVATION_TEARDOWN_FAILED',
+          { cause: new AggregateError(failures) },
+        )
+      }
+    })()
+    this.preparations.set(activation, preparation)
+    return preparation
+  }
+
+  /** Complete one Activation's close: shared preparation, handle join, terminal, bookkeeping. */
+  private async finishDisposal(activation: Activation, finalStateFlushed: boolean): Promise<void> {
+    this.wake(activation)
+    const { childId } = activation
+    const failures: unknown[] = []
+    // The owner entry applies when the handle teardown already began; the
+    // natural entry applies when settlement already flushed and captured.
+    const ownerBegan = this.teardownRecords.get(activation.handle.agent)?.begun === true
+    const entry: PreparationEntry = ownerBegan ? 'owner' : finalStateFlushed ? 'natural' : 'parent'
+    try {
+      await this.prepareRelease(activation, entry)
+    } catch (error: unknown) {
+      failures.push(error)
     }
+    // Join the one memoized handle teardown every owner shares; its failure
+    // never skips the terminal publication or bookkeeping below.
     try {
       await activation.handle.dispose()
     } catch (error: unknown) {
@@ -802,8 +925,14 @@ export class ContinuableActivationRegistry {
     }
 
     let failure: SubagentError | undefined
-    if (failures.length === 1) {
+    if (failures.length === 1 && failures[0] instanceof SubagentError) {
       failure = failures[0]
+    } else if (failures.length === 1) {
+      failure = new SubagentError(
+        `subagent "${childId}" activation teardown failed: ${errorChain(failures[0])}`,
+        'ACTIVATION_TEARDOWN_FAILED',
+        { cause: failures[0] },
+      )
     } else if (failures.length > 1) {
       failure = new SubagentError(
         `subagent "${childId}" activation teardown failed at ${failures.length} boundaries: `

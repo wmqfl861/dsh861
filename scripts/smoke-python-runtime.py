@@ -99,6 +99,21 @@ RESTART_SECOND_PROMPT = "Complete the second isolated Python SDK process turn."
 RESTART_SECOND_TEXT = "PROCESS_TWO_OK"
 RESTART_FIRST_SESSION_ID = "process-one"
 RESTART_SECOND_SESSION_ID = "process-two"
+TEARDOWN_PROMPT = (
+    "Follow these steps exactly, then stop. 1. Call the subagent tool once with "
+    "run_in_background set to true, description 'Reply with CHILD_OK', and the prompt "
+    "'Reply with exactly the word CHILD_OK and nothing else.' 2. Send that agent the "
+    "message: Now reply with exactly SECOND_OK. 3. Reply with exactly DONE and nothing else."
+)
+TEARDOWN_FINAL_TEXT = "DONE"
+TEARDOWN_CHILD_PROMPT = "Reply with exactly the word CHILD_OK and nothing else."
+TEARDOWN_CHILD_TEXT = "CHILD_OK"
+TEARDOWN_SETTLED_PREFIX = "Background subagent"
+TEARDOWN_SETTLED_TEXT = "SUBAGENT_SETTLED_NOTED"
+TEARDOWN_SESSION_ID = "teardown-python"
+TEARDOWN_TRIGGER_PLUGIN = (
+    Path(__file__).resolve().parent.parent / "snapshots" / "sdk" / "subagent-teardown" / "teardown-trigger.mjs"
+)
 SNAPSHOT_PLUGIN_CODE = """\
 return (ctx) => {
   harness.registerTool(ctx, harness.defineTool({
@@ -144,6 +159,10 @@ RESTART_SNAPSHOT_DIRECTORY = (
 RESTART_SNAPSHOT_FILENAMES = (
     "result.json", "requests.json", "session.1.v3.jsonl", "session.2.v3.jsonl",
 )
+TEARDOWN_SNAPSHOT_DIRECTORY = (
+    Path(__file__).resolve().parent / "snapshots" / "python-sdk-single-exe" / "production-teardown"
+)
+TEARDOWN_SNAPSHOT_FILENAMES = ("result.json", "session.v3.jsonl", "session.1.v3.jsonl")
 MCP_SERVER_SCRIPT = """\
 import json
 import os
@@ -337,6 +356,9 @@ def completion_chunks(body: dict[str, object]) -> list[dict[str, object]]:
         minimal = minimal_tool_followup(call_id, tool_name, tool_text)
         if minimal is not None:
             return minimal
+        teardown = teardown_tool_followup(call_id, tool_name, tool_text)
+        if teardown is not None:
+            return teardown
         advanced = advanced_tool_followup(body, call_id, tool_name, tool_text)
         if advanced is not None:
             return advanced
@@ -353,6 +375,15 @@ def completion_chunks(body: dict[str, object]) -> list[dict[str, object]]:
         for message in reversed(messages)
         if isinstance(message, dict) and message.get("role") == "user"
     ]
+    teardown_started = any(
+        isinstance(message, dict)
+        and isinstance(message.get("tool_calls"), list)
+        and any(
+            isinstance(call, dict) and str(call.get("id", "")).startswith("teardown-")
+            for call in message["tool_calls"]
+        )
+        for message in messages
+    )
     minimal_prompt = next((prompt for prompt in user_prompts if prompt == MINIMAL_PROMPT), None)
     # The minimal composition's assembled system prompt, advertised tool schemas, and
     # model-visible messages are pinned by its snapshot, not asserted here.
@@ -374,6 +405,8 @@ def completion_chunks(body: dict[str, object]) -> list[dict[str, object]]:
         RESTART_FIRST_PROMPT,
         RESTART_SECOND_PROMPT,
         PROFILE_PLUGIN_PROMPT,
+        TEARDOWN_PROMPT,
+        TEARDOWN_CHILD_PROMPT,
     }
     prompt = next(
         (candidate for candidate in user_prompts if candidate in scenario_prompts),
@@ -393,6 +426,29 @@ def completion_chunks(body: dict[str, object]) -> list[dict[str, object]]:
                 "name": "Snapshot Double",
                 "purpose": "Expose a deterministic doubling tool for executable snapshot verification.",
                 "code": {"host": SNAPSHOT_PLUGIN_CODE},
+            },
+        )
+    teardown_child_prompt = next(
+        (prompt for prompt in user_prompts if prompt.startswith(TEARDOWN_CHILD_PROMPT)), None
+    )
+    if teardown_child_prompt is not None and not teardown_started:
+        return text_chunks(TEARDOWN_CHILD_TEXT)
+    if teardown_started:
+        # Once the spawn chain began, the root only ever sees the settlement
+        # notice; the historical task prompt must not re-fire the spawn.
+        if message_text(latest.get("content")).startswith(TEARDOWN_SETTLED_PREFIX):
+            return text_chunks(TEARDOWN_SETTLED_TEXT)
+        raise AssertionError(
+            f"unexpected teardown settlement request: {message_text(latest.get('content'))[:200]}"
+        )
+    if prompt == TEARDOWN_PROMPT:
+        return tool_call_chunks(
+            "teardown-spawn",
+            "subagent",
+            {
+                "description": "Reply with CHILD_OK",
+                "prompt": TEARDOWN_CHILD_PROMPT,
+                "run_in_background": True,
             },
         )
     if prompt == RESTART_FIRST_PROMPT:
@@ -523,6 +579,33 @@ def spawn_node_tool_followup(
     if "PKG_EXECPATH=ABSENT" not in tool_text:
         raise AssertionError(f"PKG_EXECPATH reached the shell child environment: {tool_text}")
     return text_chunks(SPAWN_NODE_TEXT)
+
+
+def teardown_tool_followup(
+    call_id: str,
+    tool_name: str,
+    tool_text: str,
+) -> list[dict[str, object]] | None:
+    """Advance the production-teardown scenario's deterministic parent chain."""
+    if not call_id.startswith("teardown-"):
+        return None
+    if call_id == "teardown-spawn" and tool_name == "subagent":
+        match = re.search(
+            r"started subagent ([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})",
+            tool_text,
+        )
+        if match is None:
+            raise AssertionError(f"subagent tool result carries no child identity: {tool_text}")
+        return tool_call_chunks(
+            "teardown-send",
+            "send_message",
+            {"agent_id": match.group(1), "message": "Now reply with exactly SECOND_OK."},
+        )
+    if call_id == "teardown-send" and tool_name == "send_message":
+        if "message delivered" not in tool_text:
+            raise AssertionError(f"send_message did not deliver to the continuable child: {tool_text}")
+        return text_chunks(TEARDOWN_FINAL_TEXT)
+    raise AssertionError(f"unexpected teardown follow-up: {call_id} {tool_name}: {tool_text}")
 
 
 def minimal_tool_followup(
@@ -735,14 +818,292 @@ class MockModel:
         self.thread.join(timeout=5)
 
 
+def assert_teardown_gate(gate_root: Path, what: str, done: "Callable[[dict[str, object]], bool]") -> dict[str, object]:
+    """Poll the scenario trigger plugin's published state until `done` holds."""
+    state_path = gate_root / "state.json"
+    deadline = time.monotonic() + 60.0
+    last: dict[str, object] = {}
+    while True:
+        last = json.loads(state_path.read_text(encoding="utf-8"))
+        if done(last):
+            return last
+        if time.monotonic() > deadline:
+            raise AssertionError(f"sdk-teardown gate: {what} not reached within 60s: {json.dumps(last)}")
+        time.sleep(0.05)
+
+
+def build_teardown_snapshot_files(
+    first: "RunResult",
+    second: "RunResult",
+    logs: dict[str, list[dict[str, object]]],
+    child_id: str,
+    cwd: Path,
+) -> dict[str, str]:
+    """Render the two-turn SDK results and both persisted logs into stable outputs."""
+    replacements = [
+        (str(cwd), "{{cwd}}"),
+        (TEARDOWN_SESSION_ID, "{{parent}}"),
+        (child_id, "{{child}}"),
+    ]
+    replacements.sort(key=lambda pair: len(pair[0]), reverse=True)
+
+    def project_result(result: "RunResult") -> dict[str, object]:
+        value = {
+            "session_id": result.session_id,
+            "final_response": result.final_response,
+            "events": result.events,
+            "notifications": [
+                {"method": notification.method, "payload": notification.payload}
+                for notification in result.notifications
+            ],
+        }
+        return normalize_snapshot_value(value, replacements)
+
+    def project_records(session_id: str) -> list[dict[str, object]]:
+        projected = []
+        message_ids: dict[str, str] = {}
+        for record in logs[session_id]:
+            projected_record = normalize_snapshot_value(record, replacements)
+            if isinstance(projected_record, dict):
+                projected_record = dict(projected_record)
+                data = projected_record.get("data")
+                if isinstance(data, dict):
+                    message = data.get("message")
+                    if isinstance(message, dict):
+                        identifier = message.get("id")
+                        if isinstance(identifier, str) and re.fullmatch(
+                            r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", identifier
+                        ):
+                            token = message_ids.setdefault(
+                                identifier, f"{{{{message:{len(message_ids) + 1}}}}}"
+                            )
+                            message["id"] = token
+            projected.append(projected_record)
+        return project_session_snapshot(projected)
+
+    parent_content = render_jsonl(project_records(TEARDOWN_SESSION_ID))
+    child_content = render_jsonl(project_records(child_id))
+    return {
+        "result.json": json.dumps(
+            {"first": project_result(first), "second": project_result(second)},
+            indent=2,
+            ensure_ascii=False,
+        ) + "\n",
+        snapshot_session_filename(0, session_header_version(parent_content, "teardown parent")): parent_content,
+        snapshot_session_filename(1, session_header_version(child_content, "teardown child")): child_content,
+    }
+
+
+def smoke_sdk_teardown(base_url: str, dsh_bin: Path, update_snapshots: bool) -> None:
+    """Drive the production close of a continuable child through the built CLI."""
+    import threading
+    from deepseek_harness import DeepSeekHarness, RunResult
+
+    node = shutil.which("node")
+    if node is None:
+        raise AssertionError("sdk-teardown requires node on PATH to launch the built CLI")
+    with tempfile.TemporaryDirectory(prefix="dsh-sdk-teardown-") as temporary:
+        root = Path(temporary).resolve()
+        dsh_home = root / "home"
+        sessions = dsh_home / "sessions"
+        patch = write_profile_patch(root, "teardown.patch.yml", sessions, [
+            {
+                "id": "tool-subagent",
+                "config": {
+                    "provider": "spawn",
+                    "toolName": "subagent",
+                    "backgroundMode": "continuable",
+                    "maxDepth": 1,
+                },
+            },
+            {"insert": [
+                {"id": "sdk-teardown-trigger", "name": TEARDOWN_TRIGGER_PLUGIN.as_uri()},
+            ]},
+        ])
+        gate_root = root / ".dsh" / "teardown-gate"
+        # The private _launch_args path skips _default_launch_args entirely, so
+        # this scenario owns the complete environment: the isolated DSH_HOME,
+        # the manual gate mode, and the permission preset.
+        env = {
+            "DSH_HOME": str(dsh_home),
+            "DSH_TEARDOWN_MANUAL": "1",
+            "DSH_PERMISSION_MODE": "danger-full-access",
+            "DSH_TELEMETRY_DISABLED": "1",
+            "DSH_AGENTS_HOME": str(root / ".agents"),
+        }
+        harness = DeepSeekHarness(
+            provider="deepseek-official",
+            model="smoke-model",
+            cwd=str(root),
+            dsh_home=str(dsh_home),
+            env=env,
+            api_key="sk-keyless-smoke",
+            base_url=base_url,
+            request_timeout_seconds=60,
+            _launch_args=(
+                node,
+                str(dsh_bin),
+                "--profile",
+                "sdk",
+                "--patch",
+                str(patch),
+            ),
+        )
+        with harness:
+            subscription = harness.client.subscribe_session_notifications(TEARDOWN_SESSION_ID)
+            finished_children: list[str] = []
+            root_events: list[dict[str, object]] = []
+
+            def collect(notification: object) -> None:
+                payload = getattr(notification, "payload", {})
+                if notification.method == "subagent.finished":
+                    child = payload.get("childSessionId")
+                    if isinstance(child, str):
+                        finished_children.append(child)
+                if (
+                    notification.method == "session.event"
+                    and payload.get("sessionId") == TEARDOWN_SESSION_ID
+                    and isinstance(payload.get("event"), dict)
+                ):
+                    root_events.append(payload["event"])
+
+            collecting = threading.Event()
+            collecting.set()
+
+            def collect_loop() -> None:
+                while collecting.is_set():
+                    subscription.drain(collect)
+                    time.sleep(0.02)
+
+            collector = threading.Thread(target=collect_loop, daemon=True)
+            collector.start()
+            first = harness.run(TEARDOWN_PROMPT, session_id=TEARDOWN_SESSION_ID)
+
+            armed = assert_teardown_gate(
+                gate_root,
+                "armed close",
+                lambda state: bool(state.get("ready")) and not bool(state.get("triggered")),
+            )
+            if not armed.get("held") or int(armed.get("pendingInbox") or 0) < 1:
+                raise AssertionError(f"sdk-teardown gate not armed behind a held call: {json.dumps(armed)}")
+            held = json.loads((gate_root / "held.json").read_text(encoding="utf-8"))
+            child_id = str(held["childSessionId"])
+
+            pre_child = read_session_logs(sessions)[child_id]
+            pre_child_last = pre_child[-1].get("seq") if pre_child else None
+            if pre_child and pre_child[-1].get("type") == "turn/end":
+                raise AssertionError("sdk-teardown child already terminal before the close")
+
+            (gate_root / "trigger").write_text("", encoding="utf-8")
+            settled = assert_teardown_gate(
+                gate_root,
+                "settled close",
+                lambda state: bool(state.get("triggered")) and bool(state.get("cancelled"))
+                and bool(state.get("closed")) and state.get("closeError") == "",
+            )
+            if settled.get("trigger") != f"subagents.drainContinuableChildren(parent, [{child_id}])":
+                raise AssertionError(f"sdk-teardown closed through an unexpected entry: {json.dumps(settled)}")
+
+            deadline = time.monotonic() + 30.0
+            while child_id not in finished_children:
+                if time.monotonic() > deadline:
+                    raise AssertionError("sdk-teardown child finish notification not observed live")
+                time.sleep(0.05)
+            settlement_deadline = time.monotonic() + 30.0
+            while True:
+                probe = read_session_logs(sessions).get(child_id, [])
+                ends = [record for record in probe if record.get("type") == "turn/end"]
+                if ends:
+                    reason = ends[-1].get("data", {}).get("reason", {})
+                    if reason.get("kind") != "aborted" or reason.get("reason", {}).get("kind") != "parent":
+                        raise AssertionError(f"sdk-teardown child terminal carries wrong cancel: {json.dumps(reason)}")
+                    break
+                if time.monotonic() > settlement_deadline:
+                    raise AssertionError("sdk-teardown child terminal never persisted")
+                time.sleep(0.05)
+            # The close itself settles the background child: the runtime delivers
+            # the stopped-notice turn autonomously on the live root session.
+            notice_deadline = time.monotonic() + 30.0
+            while True:
+                settlement = [
+                    event for event in root_events
+                    if event.get("type") == "turn/end" and event.get("data", {}).get("turn") == 2
+                ]
+                if settlement:
+                    reason = settlement[-1].get("data", {}).get("reason", {})
+                    if reason.get("kind") != "completed":
+                        raise AssertionError(f"sdk-teardown settlement turn ended wrong: {json.dumps(reason)}")
+                    break
+                if time.monotonic() > notice_deadline:
+                    raise AssertionError("sdk-teardown settlement turn never completed")
+                time.sleep(0.05)
+            time.sleep(0.2)
+            collecting.clear()
+            subscription.close()
+            settlement_events = []
+            capturing = False
+            for event in root_events:
+                if event.get("type") == "turn/start" and event.get("data", {}).get("turn") == 2:
+                    capturing = True
+                if capturing:
+                    settlement_events.append(event)
+                if event.get("type") == "turn/end" and event.get("data", {}).get("turn") == 2:
+                    break
+            second_final = ""
+            for event in reversed(settlement_events):
+                if event.get("type") != "assistant/message":
+                    continue
+                message = event.get("data", {}).get("message", {})
+                second_final = "".join(
+                    block.get("text", "")
+                    for block in message.get("content", [])
+                    if isinstance(block, dict) and block.get("type") == "text"
+                )
+                break
+            second = RunResult(
+                session_id=TEARDOWN_SESSION_ID,
+                final_response=second_final,
+                finish_reason="completed",
+                events=settlement_events,
+                notifications=[],
+            )
+
+        logs = read_session_logs(sessions)
+        if set(logs) != {TEARDOWN_SESSION_ID, child_id}:
+            raise AssertionError(f"sdk-teardown expected parent plus child logs: {sorted(logs)}")
+        child_records = logs[child_id]
+        attempts = [record for record in child_records if record.get("type") == "assistant/attempt"]
+        if not attempts or attempts[-1].get("data", {}).get("stream"):
+            raise AssertionError("sdk-teardown cancelled attempt forwarded chunks")
+        suffix = [
+            record for record in child_records
+            if isinstance(record.get("seq"), int) and isinstance(pre_child_last, int)
+            and record["seq"] > pre_child_last
+        ]
+        if not suffix:
+            raise AssertionError("sdk-teardown close appended no child suffix")
+        if first.final_response != TEARDOWN_FINAL_TEXT or second.final_response != TEARDOWN_SETTLED_TEXT:
+            raise AssertionError(
+                f"sdk-teardown responses differ: {first.final_response!r}, {second.final_response!r}"
+            )
+
+        files = build_teardown_snapshot_files(first, second, logs, child_id, root)
+        compare_snapshot_files(files, update_snapshots, TEARDOWN_SNAPSHOT_DIRECTORY, TEARDOWN_SNAPSHOT_FILENAMES)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--scenario",
-        choices=("all", "sdk-default", "sdk-custom", "sdk-minimal", "sdk-minimal-in-history", "sdk-fs-search", "sdk-spawn-node", "sdk-mcp", "sdk-snapshot", "sdk-restart", "sdk-profile-plugin", "sdk-live", "runner", "direct"),
+        choices=("all", "sdk-default", "sdk-custom", "sdk-minimal", "sdk-minimal-in-history", "sdk-fs-search", "sdk-spawn-node", "sdk-mcp", "sdk-snapshot", "sdk-restart", "sdk-teardown", "sdk-profile-plugin", "sdk-live", "runner", "direct"),
         default="all",
     )
     parser.add_argument("--exe", type=Path)
+    parser.add_argument(
+        "--dsh-bin",
+        type=Path,
+        help="built dsh CLI entry (node script) for the sdk-teardown scenario; never a source-tree file",
+    )
     parser.add_argument(
         "--installed-wheel",
         action="store_true",
@@ -752,6 +1113,14 @@ def main() -> None:
     args = parser.parse_args()
     if args.installed_wheel and args.exe is not None:
         parser.error("--installed-wheel resolves the wheel's own runtime and cannot be combined with --exe")
+    if args.installed_wheel and args.dsh_bin is not None:
+        parser.error("--installed-wheel resolves the wheel's own runtime and cannot be combined with --dsh-bin")
+    if args.exe is not None and args.dsh_bin is not None:
+        parser.error("--exe and --dsh-bin select different runtime launch modes; provide at most one")
+    if args.dsh_bin is not None and args.scenario != "sdk-teardown":
+        parser.error("--dsh-bin only serves --scenario sdk-teardown; this run mode never joins other scenarios")
+    if args.scenario == "sdk-teardown" and args.dsh_bin is None:
+        parser.error("--scenario sdk-teardown requires --dsh-bin pointing at this candidate's built CLI entry")
     if args.scenario == "sdk-live" and not args.installed_wheel:
         parser.error("--scenario sdk-live requires --installed-wheel")
     if args.scenario == "sdk-profile-plugin" and not args.installed_wheel:
@@ -760,10 +1129,22 @@ def main() -> None:
         args.exe = assert_installed_wheel_environment()
     if args.scenario in {"all", "sdk-custom", "sdk-minimal", "sdk-minimal-in-history", "sdk-fs-search", "sdk-spawn-node", "sdk-snapshot", "sdk-restart", "runner", "direct"} and args.exe is None:
         parser.error("--exe is required for custom, minimal, fs-search, spawn-node, snapshot, restart, runner, and direct scenarios")
-    if args.update_snapshots and args.scenario not in {"all", "sdk-minimal", "sdk-minimal-in-history", "sdk-snapshot", "sdk-restart"}:
-        parser.error("--update-snapshots requires --scenario sdk-minimal, sdk-minimal-in-history, sdk-snapshot, sdk-restart, or all")
+    if args.update_snapshots and args.scenario not in {"all", "sdk-minimal", "sdk-minimal-in-history", "sdk-snapshot", "sdk-restart", "sdk-teardown"}:
+        parser.error("--update-snapshots requires --scenario sdk-minimal, sdk-minimal-in-history, sdk-snapshot, sdk-restart, sdk-teardown, or all")
     if args.exe is not None and not args.exe.is_file():
         parser.error(f"runtime executable does not exist: {args.exe}")
+    if args.dsh_bin is not None:
+        resolved_dsh_bin = args.dsh_bin.expanduser().resolve()
+        if not resolved_dsh_bin.is_file():
+            parser.error(f"--dsh-bin is not a file: {resolved_dsh_bin}")
+        if not resolved_dsh_bin.is_absolute():
+            parser.error(f"--dsh-bin must resolve to an absolute path: {resolved_dsh_bin}")
+        expected_entry = (Path(__file__).resolve().parent.parent / "apps" / "cli" / "lib" / "bin.js").resolve()
+        if resolved_dsh_bin != expected_entry:
+            parser.error(
+                f"--dsh-bin must be this candidate's built CLI entry {expected_entry}, got {resolved_dsh_bin}"
+            )
+        args.dsh_bin = resolved_dsh_bin
 
     if args.scenario in {"all", "runner"}:
         assert args.exe is not None
@@ -803,6 +1184,9 @@ def main() -> None:
         if args.scenario in {"all", "sdk-restart"}:
             assert args.exe is not None
             smoke_sdk_restart_snapshot(model.url, args.exe.resolve(), args.update_snapshots)
+        if args.scenario == "sdk-teardown":
+            assert args.dsh_bin is not None
+            smoke_sdk_teardown(model.url, args.dsh_bin, args.update_snapshots)
         if args.installed_wheel and args.scenario in {"all", "sdk-profile-plugin"}:
             smoke_sdk_profile_plugin(model.url)
         if args.scenario in {"all", "direct"}:

@@ -147,7 +147,7 @@ Team events are appended to the exact live Lead Session and flushed before the o
 
 ### Disposal
 
-Disposal closes admission, aborts and awaits admitted creation and mailbox-dispatch transactions, then asks the continuation owner to release the roster's exact live direct children and their descendants; non-Team continuable children of the Lead remain untouched. Cleanup failures make disposal fail visibly, bounded by `disposalTimeoutMs`.
+The Team projection lives in a dedicated injected child fiber whose exact disposer the service-side effect collects, so a close rejection cannot skip the projection's release. `closeRuntime` is a one-time joinable transaction: ancestor unload starts it synchronously through fiber-status events, and every entry — disposal, ancestor unload, a later join — settles the same promise. Disposal closes admission, keeps real holds on admitted creation and mailbox-dispatch transactions and on every selected child's full drain, resamples members that complete provisioning at the boundary, filters runtime cancellation from the reported errors, and only then asks the continuation owner to release the roster's exact live direct children and their descendants; non-Team continuable children of the Lead remain untouched. `disposalTimeoutMs` bounds how long disposal waits before reporting a timeout error; it never replaces the wait, and cleanup failures make disposal fail visibly.
 
 </details>
 

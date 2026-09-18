@@ -114,6 +114,8 @@ turn/end
 
 循环发送不可变请求，同时保留实时取消能力。只有已由该循环完整冻结的消息对象身份才能复用冻结证明；[agent-loop](../packages/core/agent-loop/README.zh.md)拥有请求构造规则。
 
+Teardown 是被拥有的，而不是被竞速的：关闭中的 factory 先发布共享 completion，全部义务 settle 后才报告失败；teardown 把关者只在所属 fiber 生命周期后按精确 identity 清除，超时绝不意味着静止（[决策](../.agents/notes/implemented/architecture/2026-09-17-production-teardown-ownership.zh.md)）。
+
 详情见[时序图](agent-lifecycle.zh.md)、[工具流水线](tool-execution-pipeline.zh.md)和[取消与错误恢复](subsystems/core.zh.md#the-agent-handle)。
 
 ## 会话日志

@@ -147,7 +147,7 @@ Team 事件追加到精确的 live Lead 会话，并在操作报告成功或唤�
 
 ### Dispose
 
-dispose 会关闭准入、中止并等待已获准的创建与 mailbox dispatch 事务，再让 continuation owner 释放 roster 中确切的 live direct child 及其后代；Lead 的非 Team continuable child 不受影响。cleanup 失败会让 dispose 明确失败，并以 `disposalTimeoutMs` 为上限。
+Team 投影位于一个专用注入子 fiber 中，其精确 disposer 由服务侧 effect 收集，因此 close 被拒绝也不会跳过投影的释放。`closeRuntime` 是一次性可加入事务：祖先卸载经 fiber 状态事件同步启动它，每个入口——dispose、祖先卸载、后续加入——都 settle 同一 Promise。Dispose 关闭准入，对已获准的创建与 mailbox dispatch 事务以及每个所选子级的完整 drain 保留真实持有，对在边界处完成 provisioning 的成员重新采样，从上报错误中过滤运行时取消，然后才让 continuation owner 释放 roster 中确切的 live direct child 及其后代；Lead 的非 Team continuable child 不受影响。`disposalTimeoutMs` 限定的是 dispose 在报告超时错误前等待的时长；它绝不替代等待本身，cleanup 失败会让 dispose 明确失败。
 
 </details>
 
