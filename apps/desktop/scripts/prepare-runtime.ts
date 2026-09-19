@@ -81,7 +81,9 @@ async function prepareNode(platform: RuntimePlatform, arch: RuntimeArch): Promis
 
 function preparePnpm(): string {
   const require = createRequire(import.meta.url)
-  const manifestPath = require.resolve('pnpm')
+  // pnpm ships no main/exports entry (its bin is a native binary), so resolve the
+  // manifest subpath instead of the package root.
+  const manifestPath = require.resolve('pnpm/package.json')
   const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as { version?: unknown }
   if (typeof manifest.version !== 'string') throw new Error('desktop runtime: pnpm manifest has no version')
   const packageDir = dirname(manifestPath)

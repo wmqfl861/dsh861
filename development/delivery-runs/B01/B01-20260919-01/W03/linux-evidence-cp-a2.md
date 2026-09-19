@@ -20,7 +20,7 @@ CP-A2 脚本 diff（对 CP-A）仅一处：链接证据检查接受两种形态�
 
 - 步骤 9 "Install dependencies and prepare bubblewrap"：14:05:19 → 14:05:36（**success**，17s）。
 - 步骤 10 "Run exhaustive coverage"：14:05:36 → 14:19:11（13m35s，failure）；步骤 11 gate-evidence 上传 success。
-- 脚本自校验结构下 exit 0 ⇒ 下载+hash、逐字段 dpkg 契约、tar/deb 审计、私有 libcap pc/pkg-config、Meson setup/compile、`[7/7]` 链接（两形态证据）、ELF elf64-x86-64、NEEDED 无 libcap、ldd 无解析、`bubblewrap 0.12.0`、binary hash 记录、sysctl+功能 probe、`$GITHUB_PATH` 发布**全部通过**（任一失败脚本即 exit 1）。
+- 脚本自校验结构下 exit 0 ⇒ 下载+hash、逐字段 dpkg 契约、tar/deb 审计、私有 libcap pc/pkg-config、Meson setup/compile、`[7/7]` 链接（两形态证据）、ELF elf64-x86-64、NEEDED 无 libcap、ldd 无解析、`bubblewrap 0.12.0`、binary hash 记录、功能 probe、`$GITHUB_PATH` 发布**全部通过**。〔G5 修正（CP1 附带条件，2026-09-19 收尾轮并入）：以上各项在脚本中"失败即 exit 1"；**sysctl 例外**——`sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0` 为告警式（`|| echo 'apparmor userns knob absent — the functional probe decides'`），失败不退出；**功能 probe 才是致命校验**，且 PATH 发布在其后。〕
 
 ### 2.2 `node 24 / snapshots and artifacts`（105909256654）— 作业级 failure，**准备 SUCCESS**
 
@@ -76,8 +76,8 @@ CP-A2 脚本 diff（对 CP-A）仅一处：链接证据检查接受两种形态�
 - `sandbox.yml` 独立 apt 入口：**NOT_CLOSED**（blob `cdcb229a` 未变）。
 - **整体 A3**：按 formal-plan §5.2 的判据（需两条准备+链接/ELF/hash/probe+安全分项），构建面齐备、安全分项缺 → **A3 仍未满足（安全分项 NOT_RUN）**；是否以"精确阻塞"形式交付该分项由总控按计划裁定。
 
-## 6. W04 的 Linux 侧解锁信息（F4.2/F4.3）
+## 6. W04 的 Linux 侧解锁信息（F4.2/F4.3）〔C1 修正版，2026-09-19 收尾轮〕
 
-- consumers lane 的 sdk snapshot 通道已**真实运行**（准备通过后 gates 执行 2m11s；sdk snapshot 属 `snapshotGate(validatedBuild)`，与 expected-output 并列）。
-- surfaced 失败注释仅 expected-output 一项（headless pi-ai）；**未出现 sdk snapshot/sidecar 断言注释 —— 提示 F4.2/F4.3 的 Linux sidecar 比较很可能通过，但非结论性**（注释提取可能截断）。
-- **权威判定源**：gate-evidence artifact `10586416150`（9,145 bytes，name `gate-evidence-node-24-consumers-run35447649954-attempt1`）——匿名下载 401，需总控下载后按 gate 表确认 `snapshot` gate 结论。若 snapshot gate 为 passed，W04 的 F4.2/F4.3 即解锁（Linux 完整比较已跑）。
+- **本节初版表述有误，已被 gate-results 实测取代**：初版写"sdk snapshot 通道已真实运行、很可能通过"——错误。consumers gate-evidence 的 `gate-results.json` 实测：aggregate `ci-consumers`、**failFast=true**、summary 6 passed / 1 failed / 4 skipped；**`snapshot`（test:snapshot）gate 为 `skipped`，error 字段 `aborted by fail-fast: test:expected failed`**。即 sdk snapshot 通道在 run 35447649954 中**从未执行**（`test:expected` 99.6s 失败触发 fail-fast，同批 skipped 的还有 lint-and-duplication、web-snapshot、built-bin-smoke）。"未浮现 sidecar 断言"只是因为它没有跑，不构成任何通过信号。
+- 证据来源更新：artifact `10586416150`（`gate-evidence-node-24-consumers-run35447649954-attempt1`，9,145 bytes）已由 CP1 下载并经哈希验证，展开于 `C:\dsh-b01-w03\gate-evidence-snapshots\`（identity/gate-results/manifest/aggregate-stdout/aggregate-stderr/logs）。"需总控下载"的指引已过时。
+- **F4.2/F4.3 判定**：CP-A2 轮未解锁（通道未运行）；解锁条件是后续候选中 `test:expected` 先绿、`snapshot` gate 实际执行且通过。

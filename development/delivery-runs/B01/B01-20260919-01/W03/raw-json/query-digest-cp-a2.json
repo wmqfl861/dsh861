@@ -299,5 +299,13 @@
       "endpoint": "GET /actions/artifacts/10586416150/zip (anonymous)",
       "result": "401 Requires authentication"
     }
-  ]
+  ],
+  "evidence_hygiene_gaps": {
+    "added": "2026-09-19 CP-A3 close-out round (C3, from interim CP1)",
+    "gaps": [
+      "Placeholder timestamps: the annotations entry ts 20260919T1410-1418Z and the 401-probe entry ts 20260919T141xZ are coarse markers, not exact query times.",
+      "Entries without raw-file correspondence: all three annotation fetches (check-runs 105909256654 / 105909256819 / 105909256858) were piped live to stdout and never saved as raw JSON files; their content lives only in this digest.",
+      "Misleading filename: raw/artifact-consumers-gate-evidence-20260919T141610Z.zip (120 bytes) is actually a 401 JSON body saved with a .zip name; retained as-is, noted for hygiene (CR-1 third entry)."
+    ]
+  }
 }

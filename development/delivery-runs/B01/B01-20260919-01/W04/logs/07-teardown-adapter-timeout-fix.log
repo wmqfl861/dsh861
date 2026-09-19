@@ -1,0 +1,22 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstdout[2m | snapshots/sdk/teardown.snapshot.ts[2m > [22m[2mproduction-teardown close evidence over dsh --profile sdk[2m > [22m[2mholds, releases, and observes the real close for subagent-teardown
+[22m[39mteardown-snapshot subagent-teardown: child 96e382b3-6f68-485e-b274-46107c3a7786 pre-seq 19 -> post-seq 24, root pre-seq 26 -> suffix 8 events, takeover claims 2, notifications 1
+
+[90mstdout[2m | snapshots/sdk/teardown.snapshot.ts[2m > [22m[2mproduction-teardown close evidence over dsh --profile sdk[2m > [22m[2mholds, releases, and observes the real close for agent-team-teardown
+[22m[39mteardown-snapshot agent-team-teardown: child de3128a2-e349-48fb-82c4-daaa7a82b265 pre-seq 20 -> post-seq 24, root pre-seq 32 -> suffix 8 events, takeover claims 2, notifications 1, team message team-message-1c22fbce-5839-4bfb-8674-38b378b1c1a0 delivered@32 before the close suffix
+
+ [32m✓[39m snapshots/sdk/teardown.snapshot.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 28558[2mms[22m[39m
+   [32m✓[39m production-teardown close evidence over dsh --profile sdk [2m(2)[22m
+     [33m[2m✓[22m[39m holds, releases, and observes the real close for subagent-teardown[33m 13804[2mms[22m[39m
+     [33m[2m✓[22m[39m holds, releases, and observes the real close for agent-team-teardown[33m 14752[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 20:14:31
+[2m   Duration [22m 33.22s[2m (tests 87%, transform 9%, import 4%)[22m
+
+EXIT=0

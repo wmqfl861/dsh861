@@ -1,0 +1,12 @@
+Debugger listening on ws://127.0.0.1:9229/6e1a2a05-f1bf-428c-9ed7-6114a49937f2
+For help, see: https://nodejs.org/learn/getting-started/debugging
+
+DevTools listening on ws://127.0.0.1:9222/devtools/browser/db44bdf0-c666-4209-a1c0-8da8bbfae700
+[22788:0919/211553.258:INFO:CONSOLE:2] "%cElectron Security Warning (Insecure Content-Security-Policy) font-weight: bold; This renderer process has either no Content Security
+  Policy set or a policy with "unsafe-eval" enabled. This exposes users of
+  this app to unnecessary security risks.
+
+For more information and help, consult
+https://electronjs.org/docs/tutorial/security.
+This warning will not show up
+once the app is packaged.", source: node:electron/js2c/sandbox_bundle (2)

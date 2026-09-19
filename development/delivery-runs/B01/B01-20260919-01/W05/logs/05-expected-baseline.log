@@ -1,0 +1,67 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 10576[2mms[22m[39m
+   [31m❯[39m descriptor-less cold child diagnostic snapshot [2m(1)[22m
+[31m     [31m×[31m surfaces the unreadable child as a corrupt diagnostic through the assembled headless app[39m[33m 10574[2mms[22m[39m
+ [32m✓[39m apps/cli/tests/profiles/headless/tests/subagent-inheritance.expected.e2e.ts [2m([22m[2m1 test[22m[2m)[22m[33m 10712[2mms[22m[39m
+   [32m✓[39m parent-only override inheritance snapshot [2m(1)[22m
+     [33m[2m✓[22m[39m confines a delegated child through the assembled headless app[33m 10710[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts[2m > [22mdescriptor-less cold child diagnostic snapshot[2m > [22msurfaces the unreadable child as a corrupt diagnostic through the assembled headless app
+[31m[1mAssertionError[22m: expected [ Array(1) ] to deeply equal [ Array(1) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -187,11 +187,11 @@[39m
+[2m        "data": {[22m
+[2m          "content": [[22m
+[2m            {[22m
+[2m              "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.[22m
+
+[32m- Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.[39m
+[31m+ Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w05\\\\tmp\\\\dsh-subagent-diag-7JSpMQ\". Some platform temporary areas may also be writable.[39m
+
+[2m  Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              "type": "text",[22m
+[2m            },[22m
+[2m          ],[22m
+[33m@@ -202,11 +202,11 @@[39m
+[2m            "kind": "plugin",[22m
+[2m            "plugin": "@deepseek-ai/dsh-system-prompt",[22m
+[2m            "sections": [[22m
+[2m              {[22m
+[2m                "name": "sandbox:policy",[22m
+[32m-               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.",[39m
+[31m+               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w05\\\\tmp\\\\dsh-subagent-diag-7JSpMQ\". Some platform temporary areas may also be writable.",[39m
+[2m              },[22m
+[2m              {[22m
+[2m                "name": "approval:policy",[22m
+[2m                "text": "Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              },[22m
+
+[36m [2m❯[22m expectSession apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts:[2m46:6[22m[39m
+    [90m 44|[39m     .map(line => JSON.parse(line) as Record<string, unknown>)
+    [90m 45|[39m   expect(normalizeSessionSnapshots([actual], fixtureContext(actual)).m…
+    [90m 46|[39m     .toEqual(normalizeSessionSnapshots([expected], fixtureContext(expe…
+    [90m   |[39m      [31m^[39m
+    [90m 47|[39m }
+    [90m 48|[39m
+[90m [2m❯[22m Object.inspect apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts:[2m147:9[22m[39m
+[90m [2m❯[22m runLoaderSmoke packages/test-support/loader-smoke/src/index.ts:[2m230:5[22m[39m
+[90m [2m❯[22m apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts:[2m106:20[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 20:54:45
+[2m   Duration [22m 13.81s[2m (tests 79%, transform 13%, import 7%)[22m
+
+EXIT=1

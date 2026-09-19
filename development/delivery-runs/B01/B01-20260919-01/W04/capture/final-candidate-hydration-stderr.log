@@ -1,0 +1,59 @@
+
+=== wrapper spawn 2026-09-19T12:25:24.330Z argv=["--profile","sdk","--patch","C:\\dsh-b01-w04\\tmp\\sdk-snapshot-subagent-teardown-27kzzf\\.snapshot-patches\\0-cordis.yml","--patch","C:\\dsh-b01-w04\\tmp\\sdk-snapshot-subagent-teardown-27kzzf\\.snapshot-patches\\1-cordis.snapshot.yml","--patch","C:\\dsh-b01-w04\\tmp\\sdk-snapshot-subagent-teardown-27kzzf\\.snapshot-patches\\2-model.cordis.yml"]
+file:///C:/Albert/project/dsh861/packages/boot/app-boot/lib/index.js:1550
+		throw new Error(`${binName}: ${stage}: ${detail}${stack}`, { cause });
+		      ^
+
+Error: dsh: plugin tree failed to load: failed to apply loader entry include (cordis:include): failed to apply loader entry llm-replay (file:///C:/Albert/project/dsh861/snapshots/sdk/subagent-teardown/llm-replay-entry.mjs): session snapshot line 1 contains invalid JSON
+SyntaxError: Bad escaped character in JSON at position 87 (line 1 column 88)
+    at JSON.parse (<anonymous>)
+    at parseSessionFixture (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:47:17)
+    at readPrimaryFixture (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:474:9)
+    at loadSessionScripts (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:507:25)
+    at installLlmReplay (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:698:18)
+    at new apply (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:785:2)
+    at Fiber.execute (file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:1106:24)
+    at file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:1180:34
+    at composeError (file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:205:18)
+    at Fiber._execute (file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:1175:10)
+    at boot (file:///C:/Albert/project/dsh861/packages/boot/app-boot/lib/index.js:1550:9)
+    at async runProfile (file:///C:/Albert/project/dsh861/apps/cli/lib/profile-boot-Dk-7KqJc.js:311:14)
+    at async runCli (file:///C:/Albert/project/dsh861/apps/cli/lib/bin.js:146:4)
+    at async file:///C:/Albert/project/dsh861/apps/cli/lib/bin.js:168:23 {
+  [cause]: Error: failed to apply loader entry include (cordis:include): failed to apply loader entry llm-replay (file:///C:/Albert/project/dsh861/snapshots/sdk/subagent-teardown/llm-replay-entry.mjs): session snapshot line 1 contains invalid JSON
+      at updateError (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:410:9)
+      at Entry._init (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:634:10) {
+    [cause]: Error: failed to apply loader entry llm-replay (file:///C:/Albert/project/dsh861/snapshots/sdk/subagent-teardown/llm-replay-entry.mjs): session snapshot line 1 contains invalid JSON
+        at updateError (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:410:9)
+        at Entry._init (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:634:10)
+        at async Entry.init (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:606:4)
+        at async Entry.update (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:527:37)
+        at async EntryGroup.create (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:69:4)
+        at async Promise.allSettled (index 88)
+        at async EntryGroup.update (file:///C:/Albert/project/dsh861/vendor/loader/lib/index.js:107:21)
+        at async Include._apply (file:///C:/Albert/project/dsh861/packages/boot/app-boot/lib/index.js:240:3) {
+      [cause]: Error: session snapshot line 1 contains invalid JSON
+          at parseSessionFixture (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:49:10)
+          at readPrimaryFixture (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:474:9)
+          ... 4 lines matching cause stack trace ...
+          at file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:1180:34
+          at file:///C:/dsh-b01-w04/tmp/sdk-snapshot-subagent-teardown-27kzzf/.dsh/profiles/sdk/#llm-replay
+          at file:///C:/dsh-b01-w04/tmp/sdk-snapshot-subagent-teardown-27kzzf/.dsh/profiles/sdk/#include {
+        [cause]: SyntaxError: Bad escaped character in JSON at position 87 (line 1 column 88)
+            at JSON.parse (<anonymous>)
+            at parseSessionFixture (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:47:17)
+            at readPrimaryFixture (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:474:9)
+            at loadSessionScripts (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:507:25)
+            at installLlmReplay (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:698:18)
+            at new apply (file:///C:/Albert/project/dsh861/packages/test-support/llm-replay/lib/index.js:785:2)
+            at Fiber.execute (file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:1106:24)
+            at file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:1180:34
+            at composeError (file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:205:18)
+            at Fiber._execute (file:///C:/Albert/project/dsh861/vendor/cordis/lib/index.js:1175:10)
+      }
+    }
+  }
+}
+
+Node.js v26.8.2
+=== wrapper exit code=1 signal=null

@@ -1,0 +1,88 @@
+{
+  "deferTitleMs": "2700",
+  "requestCount": 4,
+  "arrivals": [
+    {
+      "index": 0,
+      "atMs": 0,
+      "maxTokens": 1024
+    },
+    {
+      "index": 1,
+      "atMs": 1134,
+      "maxTokens": 1024
+    },
+    {
+      "index": 2,
+      "atMs": 2717,
+      "maxTokens": 64
+    },
+    {
+      "index": 3,
+      "atMs": 3200,
+      "maxTokens": 1024
+    }
+  ],
+  "requestBodies": [
+    {
+      "model": "deepseek-v4-flash",
+      "max_tokens": 1024,
+      "stream": true,
+      "messageCount": 3,
+      "firstUserRole": "system"
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "max_tokens": 1024,
+      "stream": true,
+      "messageCount": 3,
+      "firstUserRole": "system"
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "max_tokens": 64,
+      "stream": true,
+      "messageCount": 2,
+      "firstUserRole": "system"
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "max_tokens": 1024,
+      "stream": true,
+      "messageCount": 3,
+      "firstUserRole": "system"
+    }
+  ],
+  "retryEvents": [
+    {
+      "retryId": "7c391feb-b92d-4d52-91aa-f253c9e9077d",
+      "turn": 1,
+      "step": 1,
+      "provider": "deepseek",
+      "mode": "normal",
+      "policyKey": "[\"normal\",5,[\"EMPTY_RESPONSE\",\"RATE_LIMIT\",\"SERVER\",\"TIMEOUT\",\"TRANSPORT\"],500,10000,0.1]",
+      "retry": 1,
+      "maxRetries": 5,
+      "delayMs": 461.5574033932238,
+      "failure": {
+        "message": "pi-ai stream idle timeout after 1000ms",
+        "code": "TIMEOUT"
+      }
+    },
+    {
+      "retryId": "7c391feb-b92d-4d52-91aa-f253c9e9077d",
+      "turn": 1,
+      "step": 1,
+      "provider": "deepseek",
+      "mode": "normal",
+      "policyKey": "[\"normal\",5,[\"EMPTY_RESPONSE\",\"RATE_LIMIT\",\"SERVER\",\"TIMEOUT\",\"TRANSPORT\"],500,10000,0.1]",
+      "retry": 2,
+      "maxRetries": 5,
+      "delayMs": 1033.3769591217394,
+      "failure": {
+        "message": "pi-ai stream idle timeout after 1000ms",
+        "code": "TIMEOUT"
+      }
+    }
+  ]
+}

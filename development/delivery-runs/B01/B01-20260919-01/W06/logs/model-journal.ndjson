@@ -1,0 +1,17 @@
+{"type":"provider-disposed","at":"2026-09-19T12:53:09.635Z"}
+{"type":"provider-disposed","at":"2026-09-19T13:05:28.830Z"}
+{"type":"provider-disposed","at":"2026-09-19T13:14:35.622Z"}
+{"type":"request-start","purpose":"chat","marker":"<system-reminder>\nA skill is a reusable set of task-specific ins","at":"2026-09-19T13:17:23.074Z"}
+{"type":"request-start","purpose":"session-title","marker":"Generate the session title from this JSON array of human message","at":"2026-09-19T13:17:23.077Z"}
+{"type":"request-finish","outcome":"title","at":"2026-09-19T13:17:23.078Z"}
+{"type":"request-end","at":"2026-09-19T13:17:23.081Z"}
+{"type":"request-finish","outcome":"final","marker":"B01-PREVIEW-FINAL-1789823843078","at":"2026-09-19T13:17:24.154Z"}
+{"type":"request-end","at":"2026-09-19T13:17:24.156Z"}
+{"type":"request-start","purpose":"chat","marker":"B01-SLOW 保持运行的任务，等待取消。B01-SLOW 第二次：保持运行等待取消。","at":"2026-09-19T13:25:14.017Z"}
+{"type":"child-spawn","pid":33848,"pidFile":"C:\\dsh-b01-w06\\state\\slow-child.pid","at":"2026-09-19T13:25:14.037Z"}
+{"type":"child-killed","pid":33848,"reason":"[object Object]","at":"2026-09-19T13:25:51.167Z"}
+{"type":"request-abort","round":37,"at":"2026-09-19T13:25:51.169Z"}
+{"type":"child-killed","pid":33848,"reason":"[object Object]","at":"2026-09-19T13:25:51.170Z"}
+{"type":"request-end","at":"2026-09-19T13:25:51.171Z"}
+{"type":"provider-disposed","at":"2026-09-19T13:26:11.131Z"}
+{"type":"provider-disposed","at":"2026-09-19T13:30:17.319Z"}

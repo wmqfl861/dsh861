@@ -1,0 +1,42 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts [2m([22m[2m13 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m12 skipped[39m[2m)[22m[32m 7[2mms[22m[39m
+   [31m❯[39m headless stream-json snapshots [2m(13)[22m
+     [2m[90m↓[39m[22m runs one task through the product headless profile command
+     [2m[90m↓[39m[22m prints a terminal model failure through the product headless profile command
+     [2m[90m↓[39m[22m prints the original Loader activation error through the assembled one-shot app
+     [2m[90m↓[39m[22m retries a transient provider failure through the one-shot app
+     [2m[90m↓[39m[22m logs actionable missing-credential guidance through the one-shot app
+     [2m[90m↓[39m[22m logs actionable invalid-credential guidance through the one-shot app
+     [2m[90m↓[39m[22m logs the model default and a dynamic next-step reasoning effort
+     [2m[90m↓[39m[22m keeps provider comments alive and sends DeepSeek defaults through the one-shot app
+     [2m[90m↓[39m[22m keeps the compatibility stream open until the title request arrives
+[31m     [31m×[31m sends pi-ai DeepSeek compatibility through the one-shot app[39m[32m 5[2mms[22m[39m
+     [2m[90m↓[39m[22m runs a keyless Agent Team with peer mail, dependent tasks, waiting, and Lead aggregation
+     [2m[90m↓[39m[22m replays persisted goal tools through the one-shot app
+     [2m[90m↓[39m[22m delivers a continuable child result without parent polling
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts[2m > [22mheadless stream-json snapshots[2m > [22msends pi-ai DeepSeek compatibility through the one-shot app
+[31m[1mAssertionError[22m: expected 1000 to be greater than or equal to 10000[39m
+[36m [2m❯[22m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m570:26[22m[39m
+    [90m568|[39m     const fixtureText = await readFile(piAiDefaultsConfigPath, 'utf8')
+    [90m569|[39m     const idleBudgetMs = Number(/streamIdleTimeoutMs:\s*(\d+)/.exec(fi…
+    [90m570|[39m     expect(idleBudgetMs).toBeGreaterThanOrEqual(PI_AI_MIN_STREAM_IDLE_…
+    [90m   |[39m                          [31m^[39m
+    [90m571|[39m     const server = await deepseekDefaultsServer({ waitForTitleRequest:…
+    [90m572|[39m     try {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m12 skipped[39m[90m (13)[39m
+[2m   Start at [22m 23:36:49
+[2m   Duration [22m 2.01s[2m (transform 74%, import 22%, setup 3%)[22m
+
+EXIT=1

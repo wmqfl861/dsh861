@@ -1,0 +1,79 @@
+/**
+ * W07 本机构建兼容 shim v2（不修改任何仓库文件；见 W07/FINDINGS.md F2）。
+ *
+ * 根因（已用合成 zip 复现）：锁定依赖链 extract-zip@2.0.1 → yauzl@2.10.0 →
+ * fd-slicer@1.1.0 的 FdSlicer ReadStream 在本机 Node 24.17.0 与 26.8.2 下，
+ * 对大于 readableState.highWaterMark（64 KiB）的条目在推送约 1.5 个
+ * high-water mark 后不再产生数据：prepare:runtime（只读文件，锁归总控）解压
+ * node-v24.17.0-win-x64.zip 时挂起（unsettled top-level await, exit 13）。
+ *
+ * 措施：以 Node 内建 Readable + 定位 fs.read 重写 FdSlicer.prototype.
+ * createReadStream（沿用 fd-slicer 的 pend 串行与 ref/unref fd 生命周期；
+ * end 语义保持排他）。不改仓库字节；仅经 NODE_OPTIONS="--require 本文件"
+ * 注入本任务构建进程树（product Host 子进程与 prepare:dsh 的 pnpm 子进程
+ * 本就过滤 NODE_OPTIONS，不受影响）。
+ */
+'use strict'
+
+const fs = require('node:fs')
+const { Readable } = require('node:stream')
+const Module = require('node:module')
+
+const originalLoad = Module._load
+Module._load = function patchedLoad(request, parent, isMain) {
+  const loaded = originalLoad.apply(this, arguments)
+  if (request === 'fd-slicer' && loaded !== null && typeof loaded === 'object' && loaded.FdSlicer && !loaded.__b01W07Compat) {
+    const FdSlicer = loaded.FdSlicer
+    FdSlicer.prototype.createReadStream = function b01CompatCreateReadStream(options) {
+      const context = this
+      const opts = options === undefined ? {} : options
+      const start = opts.start === undefined ? 0 : opts.start
+      const end = opts.end === undefined ? null : opts.end // fd-slicer end is exclusive
+      const readable = new Readable({})
+      let pos = start
+      readable._read = function compatRead(requested) {
+        if (readable.destroyed) return
+        const remaining = end === null ? Math.max(requested, 1) : end - pos
+        if (remaining <= 0) {
+          readable.push(null)
+          return
+        }
+        const toRead = Math.min(remaining, 1 << 16)
+        context.pend.go(function pendRead(pendDone) {
+          if (readable.destroyed) {
+            pendDone()
+            return
+          }
+          const buffer = Buffer.allocUnsafeSlow(toRead)
+          fs.read(context.fd, buffer, 0, toRead, pos, function compatReadDone(err, bytesRead) {
+            pendDone()
+            if (readable.destroyed) return
+            if (err !== null) {
+              readable.destroy(err)
+              return
+            }
+            if (bytesRead === 0) {
+              readable.push(null)
+              return
+            }
+            pos += bytesRead
+            readable.push(buffer.subarray(0, bytesRead))
+          })
+        })
+      }
+      context.ref()
+      let released = false
+      const release = function releaseFd() {
+        if (released) return
+        released = true
+        context.unref()
+      }
+      readable.once('end', release)
+      readable.once('close', release)
+      readable.once('error', release)
+      return readable
+    }
+    loaded.__b01W07Compat = true
+  }
+  return loaded
+}

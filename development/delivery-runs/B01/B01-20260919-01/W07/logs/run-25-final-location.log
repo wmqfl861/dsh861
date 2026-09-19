@@ -1,0 +1,7 @@
+W07 launch: exe=C:\dsh-b01-w07\product\win-unpacked\DeepSeek Harness.exe
+W07 launch: DSH_HOME=C:\dsh-b01-w07\home APPDATA=C:\dsh-b01-w07\appdata
+W07 launch: cdp=9222 preview-state=C:\dsh-b01-w07\state
+
+
+DevTools listening on ws://127.0.0.1:9222/devtools/browser/5b28de2d-3e1e-47f4-97d0-c2f579e58360
+W07 launch: exe exited code=0

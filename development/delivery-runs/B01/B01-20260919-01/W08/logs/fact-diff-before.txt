@@ -1,0 +1,7 @@
+en rows: 72, zh rows: 72
+differences: 5
+  [null] agent-preset/selected declaredSource: en="packages/preset/agent-presets/src/types.ts:82" zh="packages/preset/agent-presets/src/types.ts:80"
+  [null] subagent/end declaredSource: en="packages/subagent/subagent/src/index.ts:170" zh="packages/subagent/subagent/src/index.ts:168"
+  [null] subagent/provider-added declaredSource: en="packages/subagent/subagent/src/index.ts:144" zh="packages/subagent/subagent/src/index.ts:142"
+  [null] subagent/provider-removed declaredSource: en="packages/subagent/subagent/src/index.ts:150" zh="packages/subagent/subagent/src/index.ts:148"
+  [null] subagent/start declaredSource: en="packages/subagent/subagent/src/index.ts:161" zh="packages/subagent/subagent/src/index.ts:159"

@@ -1,0 +1,129 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[45m thread-safe [49m[39m scripts/event-producer-consumer-pair.spec.ts [2m([22m[2m6 tests[22m[2m | [22m[31m4 failed[39m[2m)[22m[32m 54[2mms[22m[39m
+   [31m❯[39m event-producer-consumer bilingual content check [2m(6)[22m
+[31m     [31m×[31m states identical machine facts in both languages of the committed matrix[39m[32m 16[2mms[22m[39m
+     [32m✓[39m keeps every declared-in anchor on the event declaration line in source[32m 28[2mms[22m[39m
+[31m     [31m×[31m rejects a restored stale declaration line number on one side[39m[32m 4[2mms[22m[39m
+[31m     [31m×[31m rejects a listener dropped from one language[39m[32m 2[2mms[22m[39m
+[31m     [31m×[31m rejects a stale anchor even when both languages agree on it[39m[32m 2[2mms[22m[39m
+     [32m✓[39m folds paired-document locale links but rejects other link drift[32m 0[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 4 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/event-producer-consumer-pair.spec.ts[2m > [22mevent-producer-consumer bilingual content check[2m > [22mstates identical machine facts in both languages of the committed matrix
+[31m[1mAssertionError[22m: expected [ …(12) ] to deeply equal [][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "en table row 16 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 17 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 18 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 19 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 20 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 62 dispatchers: package list cell \"`webserver` (`emit`)\"",[39m
+[31m+   "zh table row 16 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 17 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 18 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 19 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 20 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 62 dispatchers: package list cell \"`webserver` (`emit`)\"",[39m
+[31m+ ][39m
+
+[36m [2m❯[22m scripts/event-producer-consumer-pair.spec.ts:[2m246:71[22m[39m
+    [90m244|[39m describe('event-producer-consumer bilingual content check', () => {
+    [90m245|[39m   it('states identical machine facts in both languages of the committe…
+    [90m246|[39m     expect(factDifferences(parseMatrix(enText), parseMatrix(zhText))).…
+    [90m   |[39m                                                                       [31m^[39m
+    [90m247|[39m   })
+    [90m248|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/event-producer-consumer-pair.spec.ts[2m > [22mevent-producer-consumer bilingual content check[2m > [22mrejects a restored stale declaration line number on one side
+[31m[1mAssertionError[22m: expected [ …(13) ] to have a length of 1 but got 13[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 1[39m
+[31m+ 13[39m
+
+[36m [2m❯[22m scripts/event-producer-consumer-pair.spec.ts:[2m258:25[22m[39m
+    [90m256|[39m   it('rejects a restored stale declaration line number on one side', (…
+    [90m257|[39m     const differences = factDifferences(parseMatrix(enText), parseMatr…
+    [90m258|[39m     expect(differences).toHaveLength(1)
+    [90m   |[39m                         [31m^[39m
+    [90m259|[39m     expect(differences[0]).toContain('agent-preset/selected: declared …
+    [90m260|[39m     expect(differences[0]).toContain('types.ts:80')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/event-producer-consumer-pair.spec.ts[2m > [22mevent-producer-consumer bilingual content check[2m > [22mrejects a listener dropped from one language
+[31m[1mAssertionError[22m: expected [ …(13) ] to have a length of 1 but got 13[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 1[39m
+[31m+ 13[39m
+
+[36m [2m❯[22m scripts/event-producer-consumer-pair.spec.ts:[2m265:25[22m[39m
+    [90m263|[39m   it('rejects a listener dropped from one language', () => {
+    [90m264|[39m     const differences = factDifferences(parseMatrix(enText), parseMatr…
+    [90m265|[39m     expect(differences).toHaveLength(1)
+    [90m   |[39m                         [31m^[39m
+    [90m266|[39m     expect(differences[0]).toContain('subagent/provider-added: listene…
+    [90m267|[39m     expect(differences[0]).toContain('tool-subagent')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/event-producer-consumer-pair.spec.ts[2m > [22mevent-producer-consumer bilingual content check[2m > [22mrejects a stale anchor even when both languages agree on it
+[31m[1mAssertionError[22m: expected [ …(12) ] to deeply equal [][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "en table row 16 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 17 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 18 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 19 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 20 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "en table row 62 dispatchers: package list cell \"`webserver` (`emit`)\"",[39m
+[31m+   "zh table row 16 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 17 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 18 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 19 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 20 dispatchers: package list cell \"`session-controller` (`emit`)\"",[39m
+[31m+   "zh table row 62 dispatchers: package list cell \"`webserver` (`emit`)\"",[39m
+[31m+ ][39m
+
+[36m [2m❯[22m scripts/event-producer-consumer-pair.spec.ts:[2m274:73[22m[39m
+    [90m272|[39m       line.replace('packages/preset/agent-presets/src/types.ts:82', 'p…
+    [90m273|[39m     // Cross-language agreement holds; only the source-anchor check ca…
+    [90m274|[39m     expect(factDifferences(parseMatrix(staleEn), parseMatrix(staleZh))…
+    [90m   |[39m                                                                         [31m^[39m
+    [90m275|[39m     expect([
+    [90m276|[39m       ...anchorViolations(parseMatrix(staleEn), 'en'),
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (6)[39m
+[2m   Start at [22m 19:50:16
+[2m   Duration [22m 634ms[2m (transform 71%, tests 14%, setup 12%, worker 2%, import 1%)[22m
+
+EXIT=1

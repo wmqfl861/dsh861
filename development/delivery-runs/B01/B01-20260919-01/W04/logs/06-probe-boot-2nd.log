@@ -1,0 +1,6 @@
+[2041ms] SEND: initialize
+[16353ms] STDOUT: {"jsonrpc":"2.0","id":1,"result":{"serverInfo":{"name":"deepseek-harness-sdk-runtime","version":"0.0.1"}}}
+
+[45043ms] KILL: probe deadline 45s
+[45063ms] EXIT: code=null signal=SIGKILL
+EXIT=0

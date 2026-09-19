@@ -1,0 +1,10 @@
+subagent-teardown/session.v3.jsonl: line1 length 130, first {{cwd}} at index 84
+  line1[72..102]: "0697,\"cwd\":\"{{cwd}}\",\"isSeeded"
+  total {{cwd}}=1; followed by '/': 0; followed by '\': 0
+  hydration raw: line 1 FAILS: Bad escaped character in JSON at position 87 (line 1 column 88)
+  hydration json-escaped: line 1 parses OK
+agent-team-teardown/session.v3.jsonl: line1 length 130, first {{cwd}} at index 84
+  line1[72..102]: "0000,\"cwd\":\"{{cwd}}\",\"isSeeded"
+  total {{cwd}}=1; followed by '/': 0; followed by '\': 0
+  hydration raw: line 1 FAILS: Bad escaped character in JSON at position 87 (line 1 column 88)
+  hydration json-escaped: line 1 parses OK

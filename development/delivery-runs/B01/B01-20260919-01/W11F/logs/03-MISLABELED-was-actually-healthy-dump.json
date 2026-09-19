@@ -1,0 +1,33 @@
+{
+  "deferTitleMs": "0",
+  "requestCount": 2,
+  "arrivals": [
+    {
+      "index": 0,
+      "atMs": 0,
+      "maxTokens": 1024
+    },
+    {
+      "index": 1,
+      "atMs": 1,
+      "maxTokens": 64
+    }
+  ],
+  "requestBodies": [
+    {
+      "model": "deepseek-v4-flash",
+      "max_tokens": 1024,
+      "stream": true,
+      "messageCount": 3,
+      "firstUserRole": "system"
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "max_tokens": 64,
+      "stream": true,
+      "messageCount": 2,
+      "firstUserRole": "system"
+    }
+  ],
+  "retryEvents": []
+}

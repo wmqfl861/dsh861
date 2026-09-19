@@ -1,7 +1,7 @@
 /** Exercise filtered Desktop native and HTML dependencies under its bundled Node. */
 
 import assert from 'node:assert/strict'
-import { closeSync, mkdtempSync, openSync, readFileSync, readSync, writeFileSync } from 'node:fs'
+import { closeSync, mkdtempSync, openSync, readFileSync, writeFileSync } from 'node:fs'
 import { rm } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
@@ -64,17 +64,24 @@ async function checkPty() {
   }
 }
 
-/** fs-ext implements seek on Windows through SetFilePointerEx and on POSIX through lseek. */
-function checkFsExt() {
-  const fsExt = requireRuntime('fs-ext')
-  const file = join(scratch, 'seek.txt')
-  writeFileSync(file, 'abcdef', { flag: 'wx', mode: 0o600 })
+/**
+ * The flock entry replaced fs-ext: it must resolve from the packaged runtime and
+ * keep its platform gate. Windows session locking stays on the Koffi path
+ * (checkKoffi); POSIX lockers import this entry, so its presence is the
+ * packaging fact under test. On win32 acquiring through it must refuse with the
+ * documented platform error rather than loading a native binding.
+ */
+async function checkSystemFlockGate() {
+  const flock = requireRuntime('@deepseek-ai/node-addon-system/flock')
+  assert.equal(typeof flock.tryLockExclusive, 'function')
+  if (process.platform !== 'win32') return
+  const file = join(scratch, 'flock-gate.txt')
+  writeFileSync(file, 'gate', { flag: 'wx', mode: 0o600 })
   const fd = openSync(file, 'r')
   try {
-    assert.equal(fsExt.seekSync(fd, 2, fsExt.constants.SEEK_SET), 2)
-    const bytes = Buffer.alloc(4)
-    assert.equal(readSync(fd, bytes, 0, bytes.length, null), 4)
-    assert.equal(bytes.toString(), 'cdef')
+    await assert.rejects(flock.tryLockExclusive(fd), (error) => (
+      error instanceof Error && error.code === 'ERR_FLOCK_UNSUPPORTED_PLATFORM'
+    ))
   } finally {
     closeSync(fd)
   }
@@ -121,7 +128,7 @@ function checkHtml() {
 }
 
 try {
-  checkFsExt()
+  await checkSystemFlockGate()
   checkKoffi()
   await checkSharp()
   checkHtml()
@@ -134,5 +141,5 @@ try {
 // Natural event-loop drain includes node-pty's worker and console-list helper teardown.
 process.once('beforeExit', () => {
   console.log(JSON.stringify({ node: process.versions.node, platform: process.platform, arch: process.arch,
-    fsExt: true, koffi: true, sharp: true, html: true, pty: true }))
+    flockGate: true, koffi: true, sharp: true, html: true, pty: true }))
 })

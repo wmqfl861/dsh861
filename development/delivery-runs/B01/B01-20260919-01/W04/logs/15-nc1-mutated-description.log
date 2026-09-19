@@ -1,0 +1,68 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m snapshots/sdk/sdk.snapshot.ts [2m([22m[2m20 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m19 skipped[39m[2m)[22m[33m 19349[2mms[22m[39m
+   [31m❯[39m TypeScript SDK snapshots over the jsonrpc runtime [2m(20)[22m
+     [2m[90m↓[39m[22m replays agent-team-teardown through dsh --profile sdk
+     [2m[90m↓[39m[22m replays bash-tool through dsh --profile sdk
+     [2m[90m↓[39m[22m replays inline-image-prompt through dsh --profile sdk
+     [2m[90m↓[39m[22m replays max-tokens-continue through dsh --profile sdk
+     [2m[90m↓[39m[22m replays multi-turn through dsh --profile sdk
+     [2m[90m↓[39m[22m replays persistent-tools through dsh --profile sdk
+     [2m[90m↓[39m[22m replays ptc-turn through dsh --profile sdk
+     [2m[90m↓[39m[22m replays session-title-after-turn through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-continuable through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-continuable-inheritance through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-dsh-sdk-diagnostic through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-dsh-sdk-dynamic-route through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-fork-in-process through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-list-agents through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-mixed through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-send-message through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-spawn-in-process through dsh --profile sdk
+[31m     [31m×[31m replays subagent-teardown through dsh --profile sdk[39m[33m 19347[2mms[22m[39m
+     [2m[90m↓[39m[22m replays system-prompt-in-history through dsh --profile sdk
+     [2m[90m↓[39m[22m replays text-turn through dsh --profile sdk
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m snapshots/sdk/sdk.snapshot.ts[2m > [22mTypeScript SDK snapshots over the jsonrpc runtime[2m > [22mreplays subagent-teardown through dsh --profile sdk
+[31m[1mAssertionError[22m: subagent-teardown: session 0 header 1: expected { config: { …(2) }, …(1) } to deeply equal { config: { …(2) }, …(1) }[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -218,11 +218,11 @@[39m
+[2m          },[22m
+[2m          "type": "object",[22m
+[2m        },[22m
+[2m      },[22m
+[2m      {[22m
+[32m-       "description": "MUTATED Execute a PowerShell command (`pwsh -Command`) and return its stdout/stderr. Eac",[39m
+[31m+       "description": "Execute a PowerShell command (`pwsh -Command`) and return its stdout/stderr. Each call runs in a fresh pwsh process: no state (cwd, variables, functions) persists between calls — pass `workdir` instead of using `cd`. Paths use native Windows form (`C:\\...`); read environment variables with `$env:NAME`. Non-zero exits are reported as `[exit code: N]`. Current harness environment facts are exposed through managed `$env:DSH_*` variables; inspect them when needed. Commands may run under a file sandbox; a blocked file operation is reported as `[sandbox: file access denied under <mode> mode]` — a policy denial, not a bug in the command; do not retry another way. Long output is truncated to its tail; the full output is saved to a file whose path is reported when available. On Windows a force-killed command settles as `[exit code: 1]` without a signal marker — treat it as an interruption, not a command failure. Set `run_in_background: true` for long-running commands: the call returns a job id immediately; read its output with `job_output` and stop it with `job_kill`. Under the Windows sandbox, read-only pwsh runs in PowerShell ConstrainedLanguage mode, while workspace-write stays in FullLanguage unless host policy says otherwise. In read-only, prefer cmdlets and core types (`[string]`, `[datetime]`, `[regex]`, `[guid]`); .NET static calls (`[System.IO.*]::`, `[math]::`), `Add-Type`, COM objects, and reflection fail with \"only core types\" errors. `-f` formatting, property access, and core cmdlets work. In both confined modes, programs cannot open named pipes, so a command that captures another program's output through piped stdio (Node.js `child_process.spawn`/`exec` with the default `stdio: 'pipe'`) fails with EPERM, while `stdio: 'inherit'` and `stdio: 'ignore'` spawns work and PowerShell's own pipelines are unaffected. That EPERM is the documented boundary: do not retry the command another way — escalate the exact command once or restructure it to avoid capturing output. Attempting a command the sandbox may deny is safe and expected: run it and read the marker rather than assuming the denial. When a command is denied and a wider mode would let it succeed, escalate immediately in the same turn — the one sanctioned exception to a denial: retry the exact same command once with `sandbox_permissions` (the narrowest wider mode that suffices) plus a one-sentence `justification`. Do not detour through chat to ask permission first — the approval prompt raised by that retry is how the user consents. If the session states approval prompts are disabled, there is no exception: a denial is final — do not set `sandbox_permissions`. Never escalate speculatively: ground the request in a real denial — normally the one this command just hit; escalating up front is fine only when this session already denied the same access. A rejected escalation is final for that command — stop and explain, never work around it — but it does not forbid attempting or escalating other commands later.",[39m
+[2m        "name": "pwsh",[22m
+[2m        "parameters": {[22m
+[2m          "properties": {[22m
+[2m            "command": {[22m
+[2m              "description": "The PowerShell command to execute.",[22m
+
+[36m [2m❯[22m verifyHeaders snapshots/sdk/sdk.snapshot.ts:[2m817:83[22m[39m
+    [90m815|[39m         ? configured
+    [90m816|[39m         : { ...configured as JsonObject, tools: selectedSchemas }
+    [90m817|[39m       expect(header, `${scenario.name}: session ${logIndex} header ${i…
+    [90m   |[39m                                                                                   [31m^[39m
+    [90m818|[39m     }
+    [90m819|[39m     if (prompts.length > 0) {
+[90m [2m❯[22m snapshots/sdk/sdk.snapshot.ts:[2m922:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m19 skipped[39m[90m (20)[39m
+[2m   Start at [22m 20:28:23
+[2m   Duration [22m 26.17s[2m (tests 76%, transform 17%, import 7%, setup 1%)[22m
+
+EXIT=1

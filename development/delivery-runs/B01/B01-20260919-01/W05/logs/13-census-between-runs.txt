@@ -1,0 +1,25 @@
+EXIT=0.CommandLine : �޷�����EXIT=0.CommandLine����ʶ��Ϊ cmdlet���������ű��ļ�������г�������ơ��������Ƶ�ƴд��
+�������·������ȷ��·����ȷ��Ȼ������һ�Ρ�
+����λ�� ��:1 �ַ�: 93
++ ... .exe' OR Name='pnpm.exe'" | Where-Object { EXIT=0.CommandLine -match  ...
++                                                ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (EXIT=0.CommandLine:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+EXIT=0.CommandLine : �޷�����EXIT=0.CommandLine����ʶ��Ϊ cmdlet���������ű��ļ�������г�������ơ��������Ƶ�ƴд��
+�������·������ȷ��·����ȷ��Ȼ������һ�Ρ�
+����λ�� ��:1 �ַ�: 93
++ ... .exe' OR Name='pnpm.exe'" | Where-Object { EXIT=0.CommandLine -match  ...
++                                                ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (EXIT=0.CommandLine:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+EXIT=0.CommandLine : �޷�����EXIT=0.CommandLine����ʶ��Ϊ cmdlet���������ű��ļ�������г�������ơ��������Ƶ�ƴд��
+�������·������ȷ��·����ȷ��Ȼ������һ�Ρ�
+����λ�� ��:1 �ַ�: 93
++ ... .exe' OR Name='pnpm.exe'" | Where-Object { EXIT=0.CommandLine -match  ...
++                                                ~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (EXIT=0.CommandLine:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+0

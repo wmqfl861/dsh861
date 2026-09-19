@@ -1,0 +1,55 @@
+diff --git a/apps/cli/tests/profiles/headless/tests/fixtures/pi-ai-defaults.patch.yml b/apps/cli/tests/profiles/headless/tests/fixtures/pi-ai-defaults.patch.yml
+index ec5e74d781..cf0ac2825c 100644
+--- a/apps/cli/tests/profiles/headless/tests/fixtures/pi-ai-defaults.patch.yml
++++ b/apps/cli/tests/profiles/headless/tests/fixtures/pi-ai-defaults.patch.yml
+@@ -18,7 +18,11 @@
+         modelOverrides:
+           deepseek-v4-flash:
+             maxTokens: 1024
+-        streamIdleTimeoutMs: 1000
++        # The pi-ai idle watchdog sees only content chunks, so this budget spans
++        # the title request's dispatch lag plus the mock's keep-alive tail; it
++        # must dominate CI scheduler jitter or the main request retries and
++        # breaks the scenario's two-request contract.
++        streamIdleTimeoutMs: 20000
+
+ - id: agent-loop
+   config:
+diff --git a/apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts b/apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts
+index d733bbad1b..653c14f74d 100644
+--- a/apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts
++++ b/apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts
+@@ -65,6 +65,16 @@ interface DeepSeekDefaultsServer {
+ /** Mock keep-alive cadence the fixture's streamIdleTimeoutMs must dominate. */
+ const KEEP_ALIVE_INTERVAL_MS = 60
+
++/**
++ * Minimum pi-ai idle budget. The pi-ai adapter's idle watchdog sees only
++ * content chunks — SSE keep-alive comments never become pi-ai events — so this
++ * budget spans the title request's dispatch lag plus the mock's keep-alive
++ * tail, not the keep-alive cadence itself. On Linux CI (run 41) the title
++ * request arrived only after three 1000ms budgets plus backoff; a smaller
++ * budget resurfaces as a phantom-request count flake.
++ */
++const PI_AI_MIN_STREAM_IDLE_TIMEOUT_MS = 10_000
++
+ /** Compare one current Session with an older committed generation in memory. */
+ async function expectSessionSnapshot(
+   actual: string,
+@@ -548,6 +558,16 @@ describe('headless stream-json snapshots', () => {
+   })
+
+   it('sends pi-ai DeepSeek compatibility through the one-shot app', async () => {
++    // Negative regression for the phantom-request family: this server holds the
++    // main stream on keep-alive comments until the title request arrives, and
++    // those comments are invisible to the pi-ai idle watchdog, so the fixture's
++    // idle budget must dominate the title dispatch lag. A budget that scheduler
++    // jitter can exceed aborts the main stream (llm/retry, STREAM_IDLE_TIMEOUT)
++    // and re-dispatches it after the title request, breaking the two-request
++    // contract below.
++    const fixtureText = await readFile(piAiDefaultsConfigPath, 'utf8')
++    const idleBudgetMs = Number(/streamIdleTimeoutMs:\s*(\d+)/.exec(fixtureText)?.[1])
++    expect(idleBudgetMs).toBeGreaterThanOrEqual(PI_AI_MIN_STREAM_IDLE_TIMEOUT_MS)
+     const server = await deepseekDefaultsServer({ waitForTitleRequest: true })
+     try {
+       const result = await runLoaderSmoke({

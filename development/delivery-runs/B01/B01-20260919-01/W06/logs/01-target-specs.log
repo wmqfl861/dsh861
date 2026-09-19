@@ -1,0 +1,40 @@
+# 01 target spec run (2026-09-19)
+command: node node_modules/vitest/vitest.mjs run --project thread-safe apps/desktop/tests/{backend-controller,host-process,host-protocol,development-project,runtime-file-policy}.spec.ts
+node: C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64\node.exe (v26.8.2)
+PATH prefix: C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64;C:\dsh-r24-upgrade-20260912-01\pnpm-12.4.1
+TMP/TEMP/TMPDIR: C:\dsh-b01-w06\tmp\01-tests
+wrapper: C:\dsh-b01-w06\run-tests-01.sh
+EXIT=0
+
+## stdout
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m [30m[45m thread-safe [49m[39m apps/desktop/tests/host-protocol.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m apps/desktop/tests/backend-controller.spec.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m apps/desktop/tests/development-project.spec.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 285[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m apps/desktop/tests/runtime-file-policy.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 793[2mms[22m[39m
+   [33m[2m✓[22m[39m omits development artifacts while preserving executable modules, assets and license files[33m 788[2mms[22m[39m
+ [32m✓[39m [30m[45m thread-safe [49m[39m apps/desktop/tests/host-process.spec.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 1933[2mms[22m[39m
+   [32m✓[39m desktop host process [2m(8)[22m
+     [33m[2m✓[22m[39m reports a fatal event after readiness once and stops the child[33m 330[2mms[22m[39m
+     [33m[2m✓[22m[39m ignores a response end that arrives after the renderer cancels its stream[33m 331[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects invalid response framing and a clean exit before readiness[33m 355[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m25 passed[39m[22m[90m (25)[39m
+[2m   Start at [22m 19:50:31
+[2m   Duration [22m 3.32s[2m (transform 45%, tests 40%, import 9%, setup 5%, worker 1%)[22m
+
+[2m  Transform [22m [30m[45m thread-safe [49m[39m [33mtransforming modules took 3.38s[39m[2m · 45% of tracked time, re-done on every run[22m
+[2m            [22m [2mpersist transforms across runs with [22m[33mfsModuleCache: true[39m
+[2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#caching-between-reruns[22m
+
+
+## stderr
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`

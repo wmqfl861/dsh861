@@ -1,0 +1,32 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m snapshots/sdk/teardown.snapshot.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[33m 36446[2mms[22m[39m
+   [31m❯[39m production-teardown close evidence over dsh --profile sdk [2m(2)[22m
+[31m     [31m×[31m holds, releases, and observes the real close for subagent-teardown[39m[33m 18320[2mms[22m[39m
+[31m     [31m×[31m holds, releases, and observes the real close for agent-team-teardown[39m[33m 18124[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m snapshots/sdk/teardown.snapshot.ts[2m > [22mproduction-teardown close evidence over dsh --profile sdk[2m > [22mholds, releases, and observes the real close for subagent-teardown
+[41m[1m FAIL [22m[49m snapshots/sdk/teardown.snapshot.ts[2m > [22mproduction-teardown close evidence over dsh --profile sdk[2m > [22mholds, releases, and observes the real close for agent-team-teardown
+[31m[1mRequestTimeoutError[22m: initialize timed out after 10000ms waiting for dsh profile "sdk"[39m
+[36m [2m❯[22m Timeout.<anonymous> packages/sdk/client/src/client.ts:[2m329:23[22m[39m
+    [90m327|[39m       const timer = setTimeout(() => {
+    [90m328|[39m         const stderr = this.stderrTail.length === 0 ? '' : `; stderr t…
+    [90m329|[39m         abandon.abort(new RequestTimeoutError(`${method} timed out aft…
+    [90m   |[39m                       [31m^[39m
+    [90m330|[39m       }, timeout)
+    [90m331|[39m       try {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 20:00:14
+[2m   Duration [22m 44.52s[2m (tests 84%, transform 11%, import 5%)[22m
+
+EXIT=1

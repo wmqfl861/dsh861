@@ -1,0 +1,53 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m snapshots/sdk/sdk.snapshot.ts [2m([22m[2m20 tests[22m[2m | [22m[31m2 failed[39m[2m | [22m[33m18 skipped[39m[2m)[22m[33m 6042[2mms[22m[39m
+   [31m❯[39m TypeScript SDK snapshots over the jsonrpc runtime [2m(20)[22m
+[31m     [31m×[31m replays agent-team-teardown through dsh --profile sdk[39m[33m 3135[2mms[22m[39m
+     [2m[90m↓[39m[22m replays bash-tool through dsh --profile sdk
+     [2m[90m↓[39m[22m replays inline-image-prompt through dsh --profile sdk
+     [2m[90m↓[39m[22m replays max-tokens-continue through dsh --profile sdk
+     [2m[90m↓[39m[22m replays multi-turn through dsh --profile sdk
+     [2m[90m↓[39m[22m replays persistent-tools through dsh --profile sdk
+     [2m[90m↓[39m[22m replays ptc-turn through dsh --profile sdk
+     [2m[90m↓[39m[22m replays session-title-after-turn through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-continuable through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-continuable-inheritance through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-dsh-sdk-diagnostic through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-dsh-sdk-dynamic-route through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-fork-in-process through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-list-agents through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-mixed through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-send-message through dsh --profile sdk
+     [2m[90m↓[39m[22m replays subagent-spawn-in-process through dsh --profile sdk
+[31m     [31m×[31m replays subagent-teardown through dsh --profile sdk[39m[33m 2905[2mms[22m[39m
+     [2m[90m↓[39m[22m replays system-prompt-in-history through dsh --profile sdk
+     [2m[90m↓[39m[22m replays text-turn through dsh --profile sdk
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m snapshots/sdk/sdk.snapshot.ts[2m > [22mTypeScript SDK snapshots over the jsonrpc runtime[2m > [22mreplays agent-team-teardown through dsh --profile sdk
+[41m[1m FAIL [22m[49m snapshots/sdk/sdk.snapshot.ts[2m > [22mTypeScript SDK snapshots over the jsonrpc runtime[2m > [22mreplays subagent-teardown through dsh --profile sdk
+[31m[1mJsonRpcResponseError[22m: cannot create effect on inactive context[39m
+[36m [2m❯[22m JsonRpcLineTransport.handleIncomingResponse packages/sdk/protocol/src/transport.ts:[2m246:22[22m[39m
+    [90m244|[39m     if (frame.error && typeof frame.error === 'object') {
+    [90m245|[39m       const error = frame.error as Record<string, unknown>
+    [90m246|[39m       pending.reject(new JsonRpcResponseError(
+    [90m   |[39m                      [31m^[39m
+    [90m247|[39m         typeof error.code === 'number' ? error.code : undefined,
+    [90m248|[39m         typeof error.message === 'string' ? error.message : 'JSON-RPC …
+[90m [2m❯[22m JsonRpcLineTransport.handleLine packages/sdk/protocol/src/transport.ts:[2m218:12[22m[39m
+[90m [2m❯[22m JsonRpcLineTransport.drainLines packages/sdk/protocol/src/transport.ts:[2m187:17[22m[39m
+[90m [2m❯[22m Socket.onData packages/sdk/protocol/src/transport.ts:[2m177:10[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[33m18 skipped[39m[90m (20)[39m
+[2m   Start at [22m 20:57:09
+[2m   Duration [22m 8.02s[2m (tests 78%, transform 15%, import 6%, setup 1%)[22m
+
+EXIT=1

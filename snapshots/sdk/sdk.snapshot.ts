@@ -233,6 +233,89 @@ function sourceScenario(owner: CorpusScenario, source: string | undefined): Corp
   return scenario
 }
 
+/**
+ * Scenarios whose parent header expectation is platform-gated by the base
+ * bundle (`tool-pwsh` on win32, `tool-bash` elsewhere): the parent's
+ * model-facing tool schemas and system prompt are per-platform expectations
+ * (the shell tool contributes both its schema and its system-prompt section).
+ * On win32 these scenarios read explicit `.win32` header sidecars (tool
+ * schemas and system prompt) from their own directory instead of the shared
+ * class-pin sources; every sidecar must exist — a missing or unreadable file
+ * fails loud rather than comparing the other platform's bytes. A scenario
+ * absent from this registry keeps the platform-neutral shared sources, and a
+ * win32 run of it that assembles a different header fails the comparisons
+ * themselves.
+ */
+const WIN32_PARENT_HEADER_SIDECARS: ReadonlySet<string> = new Set([
+  'sdk/subagent-teardown',
+  'sdk/agent-team-teardown',
+])
+
+/**
+ * Scenarios whose non-win32 parent header also diverges from the shared
+ * class-pin sources: the team composition mounts team tools and team prompt
+ * guidance on every platform, so non-win32 runs read explicit `.default`
+ * parent sidecars from the scenario directory. `sdk/subagent-teardown` is
+ * absent: CI run 42 (Linux, 35450138445) compared its parent schemas and
+ * parent prompt against the shared `session/text-turn` sources and passed.
+ */
+const DEFAULT_PARENT_HEADER_SIDECARS: ReadonlySet<string> = new Set([
+  'sdk/agent-team-teardown',
+])
+
+/**
+ * Scenarios whose child sidecars are platform-gated on every platform: the
+ * child assembles the platform shell tool (its schema and prompt section),
+ * so non-win32 runs read `.default` child sidecars while win32 keeps the
+ * unsuffixed child sidecars committed by r46 — whose bytes are win32
+ * captures. The `.default` child bytes come from run 42's real Linux
+ * received headers and the prompt-section derivations documented in the W04
+ * round-2 evidence.
+ */
+const DEFAULT_CHILD_HEADER_SIDECARS: ReadonlySet<string> = new Set([
+  'sdk/subagent-teardown',
+  'sdk/agent-team-teardown',
+])
+
+function win32ParentHeaderSidecar(scenario: CorpusScenario): boolean {
+  return process.platform === 'win32' && WIN32_PARENT_HEADER_SIDECARS.has(scenario.key)
+}
+
+function defaultParentHeaderSidecar(scenario: CorpusScenario): boolean {
+  return process.platform !== 'win32' && DEFAULT_PARENT_HEADER_SIDECARS.has(scenario.key)
+}
+
+function defaultChildHeaderSidecar(scenario: CorpusScenario): boolean {
+  return process.platform !== 'win32' && DEFAULT_CHILD_HEADER_SIDECARS.has(scenario.key)
+}
+
+/** The parent (class-pin) tool-schema sidecar for the running platform. */
+function parentToolSchemasSidecar(scenario: CorpusScenario, schemaOwner: CorpusScenario): string {
+  if (win32ParentHeaderSidecar(scenario)) return join(scenario.dir, 'tool-schemas.win32.expected.json')
+  if (defaultParentHeaderSidecar(scenario)) return join(scenario.dir, 'tool-schemas.default.expected.json')
+  return join(schemaOwner.dir, 'tool-schemas.expected.json')
+}
+
+/** The parent (class-pin) system-prompt sidecar for the running platform. */
+function parentSystemPromptSidecar(scenario: CorpusScenario, promptOwner: CorpusScenario): string {
+  if (win32ParentHeaderSidecar(scenario)) return join(scenario.dir, 'system-prompt.win32.expected.md')
+  if (defaultParentHeaderSidecar(scenario)) return join(scenario.dir, 'system-prompt.default.expected.md')
+  return join(promptOwner.dir, 'system-prompt.expected.md')
+}
+
+/** One child tool-schema sidecar for the running platform. */
+function childToolSchemasSidecar(scenario: CorpusScenario, index: number): string {
+  if (win32ParentHeaderSidecar(scenario)) return join(scenario.dir, `tool-schemas.${index}.win32.expected.json`)
+  if (defaultChildHeaderSidecar(scenario)) return join(scenario.dir, `tool-schemas.${index}.default.expected.json`)
+  return join(scenario.dir, `tool-schemas.${index}.expected.json`)
+}
+
+/** One child system-prompt sidecar for the running platform. */
+function childSystemPromptSidecar(scenario: CorpusScenario, index: number): string {
+  if (defaultChildHeaderSidecar(scenario)) return join(scenario.dir, `system-prompt.${index}.default.expected.md`)
+  return join(scenario.dir, `system-prompt.${index}.expected.md`)
+}
+
 interface PersistedLog {
   readonly path: string
   readonly content: string
@@ -342,7 +425,11 @@ async function hydrateReplayFixtures(scenario: CorpusScenario, cwd: string): Pro
   await mkdir(root, { recursive: true })
   return Promise.all((await fixtureFiles(scenario)).map(async (source) => {
     const destination = join(root, basename(source))
-    await writeFile(destination, (await readFile(source, 'utf8')).replaceAll('{{cwd}}', cwd))
+    // The committed fixtures embed {{cwd}} inside JSON string values, so the
+    // hydrated replacement must stay valid JSON: a raw host path whose
+    // separator is a backslash would produce illegal JSON escapes.
+    const hydratedCwd = JSON.stringify(cwd).slice(1, -1)
+    await writeFile(destination, (await readFile(source, 'utf8')).replaceAll('{{cwd}}', hydratedCwd))
     return destination
   }))
 }
@@ -589,6 +676,10 @@ async function runScenario(scenario: CorpusScenario): Promise<{
     processCwd: cwd,
     env,
     requestTimeoutMs: 110_000,
+    // Cold-booting a fresh $DSH_HOME populates $DSH_HOME/profiles/node_modules
+    // with the whole dependency-closure symlinks; on slower developer disks
+    // that exceeds the 10s product default for the SDK handshake.
+    initializeTimeoutMs: 60_000,
     cwd,
     provider: route.provider,
     model: route.model,
@@ -687,13 +778,13 @@ async function writeHeaderSidecars(
     const schemas = normalizedToolSchemas(primary.content, ctx)
     if (scenario.manifest.header.systemPromptSource === undefined) {
       await writeFile(
-        join(scenario.dir, 'system-prompt.expected.md'),
+        parentSystemPromptSidecar(scenario, scenario),
         formatSystemPromptSnapshot(prompts[0] as string, prompts.slice(1)),
       )
     }
     if (scenario.manifest.header.toolSchemasSource === undefined) {
       await writeFile(
-        join(scenario.dir, 'tool-schemas.expected.json'),
+        parentToolSchemasSidecar(scenario, scenario),
         formatToolSchemasSnapshot(schemas[0] as unknown[], schemas.slice(1)),
       )
     }
@@ -702,7 +793,7 @@ async function writeHeaderSidecars(
     const child = ordered[index]
     if (child === undefined) throw new Error(`${scenario.name}: no child ${index} prompt to snapshot`)
     const prompts = normalizedSystemPrompts(child.content, ctx)
-    await writeFile(join(scenario.dir, `system-prompt.${index}.expected.md`), formatSystemPromptSnapshot(
+    await writeFile(childSystemPromptSidecar(scenario, index), formatSystemPromptSnapshot(
       prompts[0] as string,
       prompts.slice(1),
     ))
@@ -711,7 +802,7 @@ async function writeHeaderSidecars(
     const child = ordered[index]
     if (child === undefined) throw new Error(`${scenario.name}: no child ${index} schemas to snapshot`)
     const schemas = normalizedToolSchemas(child.content, ctx)
-    await writeFile(join(scenario.dir, `tool-schemas.${index}.expected.json`), formatToolSchemasSnapshot(
+    await writeFile(childToolSchemasSidecar(scenario, index), formatToolSchemasSnapshot(
       schemas[0] as unknown[],
       schemas.slice(1),
     ))
@@ -735,8 +826,8 @@ async function verifyHeaders(
   })
   const promptOwner = sourceScenario(pin, pin.manifest.header.systemPromptSource)
   const schemaOwner = sourceScenario(pin, pin.manifest.header.toolSchemasSource)
-  const prompt = await readFile(join(promptOwner.dir, 'system-prompt.expected.md'), 'utf8')
-  const schemas = parseToolSchemasSnapshot(await readFile(join(schemaOwner.dir, 'tool-schemas.expected.json'), 'utf8'))
+  const prompt = await readFile(parentSystemPromptSidecar(scenario, promptOwner), 'utf8')
+  const schemas = parseToolSchemasSnapshot(await readFile(parentToolSchemasSidecar(scenario, schemaOwner), 'utf8'))
   const schemaSets = [schemas.initial, ...schemas.changes]
   const reconstructed = pinned.map((header, index) => restorePinnedToolSchemas(
     header,
@@ -746,10 +837,10 @@ async function verifyHeaders(
   const childPrompts = new Map<number, string>()
   const childSchemas = new Map<number, unknown[][]>()
   for (const index of scenario.manifest.header.childSystemPrompts ?? []) {
-    childPrompts.set(index, await readFile(join(scenario.dir, `system-prompt.${index}.expected.md`), 'utf8'))
+    childPrompts.set(index, await readFile(childSystemPromptSidecar(scenario, index), 'utf8'))
   }
   for (const index of scenario.manifest.header.childToolSchemas ?? []) {
-    const child = parseToolSchemasSnapshot(await readFile(join(scenario.dir, `tool-schemas.${index}.expected.json`), 'utf8'))
+    const child = parseToolSchemasSnapshot(await readFile(childToolSchemasSidecar(scenario, index), 'utf8'))
     childSchemas.set(index, [child.initial, ...child.changes])
   }
 

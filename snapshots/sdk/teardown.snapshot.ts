@@ -393,6 +393,10 @@ describe('production-teardown close evidence over dsh --profile sdk', () => {
         processCwd: cwd,
         env,
         requestTimeoutMs: 110_000,
+        // Cold-booting a fresh $DSH_HOME populates $DSH_HOME/profiles/node_modules
+        // with the whole dependency-closure symlinks; on slower developer disks
+        // that exceeds the 10s product default for the SDK handshake.
+        initializeTimeoutMs: 60_000,
         cwd,
         provider: route.provider,
         model: route.model,

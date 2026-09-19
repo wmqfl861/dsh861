@@ -560,5 +560,13 @@
         "rendered page -> Sign in to view logs"
       ]
     }
-  ]
+  ],
+  "evidence_hygiene_gaps": {
+    "added": "2026-09-19 CP-A3 close-out round (C3, from interim CP1)",
+    "gaps": [
+      "Placeholder timestamps: entries with ts values 20260919T133xZ / 20260919T134xZ / 20260919T132x-133xZ are coarse markers, not exact query times.",
+      "Entries without raw-file correspondence: the old-run annotations entries (check-runs 105880239998 / 105880240119) were piped live to stdout and never saved as raw files; their content lives only in this digest.",
+      "Misleading filename: raw/artifact-consumers-gate-evidence-*.zip from this round is actually a JSON 401 body (anonymous artifact download attempt), not a zip archive."
+    ]
+  }
 }

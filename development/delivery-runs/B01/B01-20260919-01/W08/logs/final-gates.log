@@ -1,0 +1,64 @@
+=== pairing re-record for the fixed zh side (named pair only) ===
+
+$ pnpm run verify-translation-pairing --write docs/event-producer-consumer.md
+$ tsx scripts/verify-translation-pairing.ts "--write" "docs/event-producer-consumer.md"
+verify-translation-pairing: recorded docs/event-producer-consumer.i18n.yaml
+verify-translation-pairing: 1 record(s) written; run the check to validate the pairs.
+EXIT=0
+=== gate: named-pair pairing check ===
+
+$ pnpm run verify-translation-pairing docs/event-producer-consumer.md
+$ tsx scripts/verify-translation-pairing.ts "docs/event-producer-consumer.md"
+verify-translation-pairing: 1 named pair(s) consistent; the corpus-wide check still runs in doc-sync.
+EXIT=0
+=== gate: markdown links ===
+
+$ pnpm run verify-md-links
+$ tsx scripts/verify-md-links.ts
+verify-md-links: 1679 file(s) checked, all relative cross-links and fragments resolve.
+EXIT=0
+=== gate: markdown wrap ===
+
+$ pnpm run verify-md-wrap
+$ tsx scripts/verify-md-wrap.ts
+verify-md-wrap: 1688 file(s) checked, no hard-wrapped prose paragraphs.
+EXIT=0
+=== gate: doc graphs (six generated docs vs source) ===
+
+$ pnpm run verify-doc-graphs
+$ tsx scripts/gen-doc-graphs.ts --check
+gen-doc-graphs: 6 graph doc(s) are up to date.
+EXIT=0
+=== final state ===
+
+$ git status --porcelain
+ M development/delivery-runs/B01/B01-20260919-01/STATUS.run.json
+ M development/remediation/2026-09-19/private-bubblewrap-build-r48/comment-draft.md
+ M docs/event-producer-consumer.i18n.yaml
+ M docs/event-producer-consumer.zh.md
+ M scripts/prepare-ci-bubblewrap.sh
+ M scripts/prepare-ci-bubblewrap.spec.ts
+?? apps/desktop/tests/fixtures/b01-preview-model.mjs
+?? apps/desktop/tests/fixtures/b01-preview.cordis.patch.yml
+?? development/delivery-runs/B01/B01-20260919-01/W01/
+?? development/delivery-runs/B01/B01-20260919-01/W04/
+?? development/delivery-runs/B01/B01-20260919-01/W06/
+?? development/delivery-runs/B01/B01-20260919-01/W08/
+?? development/delivery-runs/B01/B01-20260919-01/W09/
+?? development/delivery-runs/B01/B01-20260919-01/plan/
+?? development/remediation/2026-09-17/production-teardown-r44/planning/cli-availability-probe.md
+?? development/remediation/2026-09-17/production-teardown-r44/review/BLOCKED-opencode-hard-review.md
+?? development/remediation/2026-09-17/production-teardown-r44/windows-execution/01-first-failure.normalized.log
+?? development/remediation/2026-09-19/ci-bubblewrap-acquisition-r47/windows-execution/r47s/
+?? scripts/event-producer-consumer-pair.spec.ts
+?? scripts/prepare-ci-bubblewrap-test-support.ts
+EXIT=0
+
+$ git hash-object docs/event-producer-consumer.md docs/event-producer-consumer.zh.md docs/event-producer-consumer.i18n.yaml scripts/event-producer-consumer-pair.spec.ts
+4f42fe342086af1bbe7c71dd48a4e30d469b34f5
+a612f9939a1c10eb8dad2196f0b18296e9fc12d1
+f720b5be0d9a5b61b09ace807ccf8a5c27c3935e
+56e364436bf0f49d5847d9c346a29c0df4b1a583
+EXIT=0
+=== done ===
+SCRIPT_EXIT=0

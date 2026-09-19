@@ -139,7 +139,15 @@ describe('descriptor-less cold child diagnostic snapshot', () => {
         // silently dropped, and its reason is the corrupt classification.
         expect(parent.content).toContain(`${childId} [diagnostic: corrupt]`)
 
-        const context: NormalizeContext = { sessionIds: [parentId, childId], cwd }
+        // The workspace-write policy text embeds the workspace root through
+        // JSON.stringify, so a backslash-separator cwd appears with its
+        // escapes doubled; that spelling must tokenize to {{cwd}} as well or
+        // the golden compare diverges on win32.
+        const context: NormalizeContext = {
+          sessionIds: [parentId, childId],
+          cwd,
+          cwdAliases: [JSON.stringify(cwd).slice(1, -1)],
+        }
         const normalizedParent = normalizeSessionSnapshot(parent.content, context)
         if (refreshing) {
           await writeFile(parentExpected, normalizedParent)

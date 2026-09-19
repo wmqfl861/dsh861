@@ -1,0 +1,26 @@
+# B01 测试模式（keyless 预览 profile 配置）。
+#
+# 事故后收紧（见 W06/INCIDENT-1.md）：
+# - 本文件只由 b01-preview-launch.mjs 装配进测试独有 project（C:\dsh-b01-w06\
+#   之下），绝不进入 apps/desktop/.desktop-build/development/ 或任何真实客户
+#   端读取的位置；启动辅助内有路径防呆断言。
+# - 全部条目以 DSH_B01_PREVIEW=1 环境守卫：不带该变量的任何加载（含误装配
+#   场景）看到的层完全惰性——llm-deepseek 与 web-search-deepseek 保持启用、
+#   默认模型保持产品值、b01-preview-model 插入条目禁用。
+# - 被装配的 b01-preview-model.mjs 为零裸包导入 fixture（由启动辅助复制到
+#   同目录并以 ./ 相对引用）。
+- id: llm-deepseek
+  disabled: !!js process.env.DSH_B01_PREVIEW === '1'
+
+- id: web-search-deepseek
+  disabled: !!js process.env.DSH_B01_PREVIEW === '1'
+
+- id: agent-default-model
+  config:
+    provider: !!js process.env.DSH_B01_PREVIEW==='1'?'b01-preview':'deepseek-official'
+    model: !!js process.env.DSH_B01_PREVIEW==='1'?'b01-preview-model':'deepseek-flash'
+
+- insert:
+    - id: b01-preview-model
+      name: './b01-preview-model.mjs'
+      disabled: !!js process.env.DSH_B01_PREVIEW !== '1'

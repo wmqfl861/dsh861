@@ -1,0 +1,6 @@
+matching processes: 3
+  pid 45920: C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64\node.exe --import tsx/esm apps/desktop/tests/fixtures/b01-preview-launch.mjs
+  pid 100184: C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64\node.exe --inspect=127.0.0.1:9230 C:\dsh-b01-w06\app\.desktop-build\development\project\
+  pid 88652: C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64\node.exe C:\dsh-b01-w06\cdp-driver.mjs shot 07-minimized-test
+leftover run dirs under C:\dsh-b01-w05\tmp: 1 (dsh-spill-BI5LWn)
+leftover run dirs under C:\dsh-b01-w05\tmp-W05 ünïcode 空格: root absent
