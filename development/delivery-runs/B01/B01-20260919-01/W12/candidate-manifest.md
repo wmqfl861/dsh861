@@ -107,3 +107,7 @@ r44 六文件 + r43 observer 涉及的 `packages/` 全域：diff 零命中（§2
 ## 5. 组合完整性交叉核验（W12 补充）
 
 关键源码 blob 与各包 FINDINGS 记录的终态身份全部一致（§2.1 右列 + 实测）：sdk.snapshot.ts=1463e72a、teardown.snapshot.ts=911fc5fc、prepare 脚本=cf6f7a13、headless.expected.e2e.ts=653c14f7、pi-ai fixture=cf0ac282、subagent-diagnostic=0e1e6ffa、W08 三件=a612f993/f720b5be/a168c30a。即：**CP-A4 整合提交携带的正是各包复核通过的终态字节，无中间态混入**。
+
+## Erratum (W13 hard-review note 1)
+
+The section 2 heading says "48 files"; the table lists 33 files (the count annotation was off; the table itself is self-consistent). Recorded per the W13 reviewer note; table content unchanged.

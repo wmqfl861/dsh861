@@ -2,12 +2,12 @@
   "schema_version": 1,
   "phase": "B01",
   "template_only": false,
-  "status": "running",
+  "status": "phase_complete_partial_with_blockers",
   "source_baseline": "7f63d03538759306f8363d5a912c1e99fbe015bf",
   "run_id": "B01-20260919-01",
-  "candidate_manifest_sha256": null,
+  "candidate_manifest_sha256": "see W12/candidate-manifest.md + freeze commits",
   "formal_plan": "development/delivery-runs/B01/B01-20260919-01/plan/formal-plan.v1.md sha256=70d56121797715ae85742822735993da16b7b44eb45dc385908a3141df3a4fc9",
-  "formal_hard_review": null,
+  "formal_hard_review": "W13 PASS (round 1): real argv --variant max, opencode 1.18.31 sha 0242a0dc, 18m03s, exit 0, 8-point verdict, stdout e2ef34af; reviewer upholds PARTIAL_WITH_BLOCKERS form",
   "owner_preview_artifact": null,
   "formal_node": "P0-B",
   "formal_node_status_at_read": "blocked",
@@ -26,7 +26,7 @@
     "W10": "accepted",
     "W11": "accepted",
     "W12": "accepted",
-    "W13": "planned",
+    "W13": "accepted",
     "W11-F": "accepted"
   },
   "mandatory_acceptance": {
@@ -115,6 +115,7 @@
     "W12 integration phase started in parallel with CI observation",
     "W12 accepted: combination checks green (W07xW06 25/25, expected lib-mode 2/2 official carrier - src-mode 30s timeouts attributed to environment with evidence, shared lane 2/2, adapter 2/2); manifest 338 files/7 commits attributed, protection surface zero drift; A1/A2/A6/A7 evidenced, A3/A4/A5 partial with precise blockers; open items U1-U6+G ledger; 3 Note triplets generated+pairing 853 consistent+test:docs 16/16; hard-review prompt ready with ONE placeholder (CP-A4 CI conclusions). Phase form: PARTIAL_WITH_BLOCKERS",
     "CP-A4 CI terminal verification (run 35460812553, gate-table authoritative): test:expected PASSED 92.05s (pi-ai deterministic - W11-F terminal GREEN), test:snapshot PASSED 142.24s (five-item checklist GREEN - W04/A4 Linux closes, both platforms now evidenced), prepare pipelines 4th consecutive pass. Sole failure = lint:contracts-ready 4x no-unnecessary-condition in W02 test-support (local lint vs CI contracts-ready variant rule gap) -> W02 micro-fix dispatched for CP-A5. A4 -> evidenced (windows+linux).",
-    "CP-A5 delivered: e1e31b080b pushed (89dce53b80..e1e31b080b), push exit 0. B01 candidate frozen at e1e31b080b. CI re-verification triggering (expected: consumers aggregate green or only pre-existing G-group reds remain)."
+    "CP-A5 delivered: e1e31b080b pushed (89dce53b80..e1e31b080b), push exit 0. B01 candidate frozen at e1e31b080b. CI re-verification triggering (expected: consumers aggregate green or only pre-existing G-group reds remain).",
+    "W13 hard review PASS one-round; 3 non-blocking errata annotated (manifest count, W04 blob transcription, W13 00-start self-corrected)"
   ]
 }

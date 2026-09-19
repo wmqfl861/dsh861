@@ -51,3 +51,7 @@ Real keyless runs of the dedicated adapter (`teardown.snapshot.ts`, 2/2, log 07)
 Logs 23/24 re-ran the corpus check and the shared lane on the exact final bytes (write-path symmetry refactor after log 22; output-identical, replay-unreachable). Final candidate blobs: `sdk.snapshot.ts` → `2f66035e9620f1a7965450eeb31c438bfe12ed41` (SHA-256 `541b5d7a93be9384d2d80963ebad12268b693beef2d2e8bc976964e524a19dc9`), `teardown.snapshot.ts` → `911fc5fc092ccd93d33c797b8d8c655d48b76de0`.
 
 Restoration receipts: `agent-team/session.v3.jsonl` SHA-256 `196e2c05…` (unmodified in `git status`); both mutated sidecars restored to inventory hashes; `sdk.snapshot.ts` reverted from the temporary verification scaffold to SHA-256 `2ff4eee9…` (raw `{{cwd}}` replacement preserved for W05).
+
+## Erratum (W13 hard-review note 2)
+
+Line 23 carries a 2-character transcription slip in one blob value (same class as the B2 doc erratum). The authoritative sidecar identities are the W04/round-2.md table (corrected in CP1) and the git blobs themselves; this line is retained as historical text per freeze discipline.
