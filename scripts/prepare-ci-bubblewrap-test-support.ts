@@ -51,6 +51,36 @@ export const CI_LABELED_CONTROL_REORDERED = [
   'Package: libcap-dev',
 ].join('\n')
 
+/**
+ * Runner-private libcap library directory of CI run 35445600344. It anchors
+ * the provenance of the link-line fixture below and is the prefix the
+ * scenario renderer relocates into the run's own private tree.
+ */
+export const CI_RUNNER_PRIVATE_LIBCAP_LIB = '/home/runner/work/_temp/dsh-bubblewrap-private/libcap/usr/lib/x86_64-linux-gnu'
+
+/**
+ * The [7/7] bwrap link command exactly as recorded by CI run 35445600344
+ * (job 105903866688, log lines 482/485): Meson links the private static
+ * archive as a direct absolute operand with `-Wl,--as-needed
+ * -Wl,--no-undefined` and no `-L`/`-lcap` pair at all. The pre-rework link
+ * check demanded the `-L`+`-lcap` shape and failed a fully successful link.
+ */
+export const CI_LINK_LINE_ABSOLUTE_LIBCAP_A = '[7/7] cc  -o bwrap bwrap.p/bubblewrap.c.o bwrap.p/bind-mount.c.o bwrap.p/network.c.o bwrap.p/utils.c.o bwrap.p/chroot_realpath.c.o bwrap.p/safe_openat.c.o -Wl,--as-needed -Wl,--no-undefined /home/runner/work/_temp/dsh-bubblewrap-private/libcap/usr/lib/x86_64-linux-gnu/libcap.a'
+
+/**
+ * Renders the CI link line with the private archive operand relocated into
+ * a scenario's own private libdir, so the script's check compares against
+ * the path that run actually created while every other byte of the recorded
+ * line stays frozen.
+ * @param privateLibdir Scenario-private libcap library directory.
+ * @returns The CI link line with the runner directory replaced.
+ */
+export const ciAbsoluteLibcapALinkLine = (privateLibdir: string): string =>
+  CI_LINK_LINE_ABSOLUTE_LIBCAP_A.replace(
+    `${CI_RUNNER_PRIVATE_LIBCAP_LIB}/libcap.a`,
+    `${privateLibdir}/libcap.a`,
+  )
+
 /** One parent-provided environment variable entry with its stored casing. */
 export interface RawEnvEntry {
   readonly name: string

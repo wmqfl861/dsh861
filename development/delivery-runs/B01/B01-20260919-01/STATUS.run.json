@@ -16,11 +16,11 @@
     "W00": "accepted",
     "W01": "accepted",
     "W02": "accepted",
-    "W03": "planned",
+    "W03": "blocked_dependency",
     "W04": "wait_ci",
     "W05": "accepted",
-    "W06": "running",
-    "W07": "planned",
+    "W06": "accepted",
+    "W07": "running",
     "W08": "accepted",
     "W09": "accepted",
     "W10": "accepted",
@@ -33,7 +33,7 @@
     "B01-A2": "not_run",
     "B01-A3": "not_run",
     "B01-A4": "windows_evidenced (both expected cases + shared lane 2 scenarios + adapter all real-pass; Linux side awaits W03)",
-    "B01-A5": "not_run",
+    "B01-A5": "partial (6/7 program-verified per CP1; native dialog sub-path to human verify; W07 to re-capture proctree//json/version artifacts)",
     "B01-A6": "not_run",
     "B01-A7": "not_run",
     "B01-A8": "not_run",
@@ -82,6 +82,12 @@
     "CP-A formation started",
     "W05 CP1: ACCEPTED (root cause byte-proven, fix no-scope-creep, 4 reruns independent green, NC closed; W04 re-verify 1/2/4/5 confirmed, 3 hash-checked; F4.1 closed)",
     "W08 TS rework: 22x TS18048 fixed by single fail-loud guard (blob a168c30a), file-level host-config tsc exit 0, spec 6/6; integration typecheck-2 exit 0",
-    "CP-A: committing W01+W02 family + run bookkeeping; pushing to trigger CI for W03"
+    "CP-A: committing W01+W02 family + run bookkeeping; pushing to trigger CI for W03",
+    "CP-A delivered: commit 8d0dc41139 (W01+W02 family + run bookkeeping), push exit 0, fast-forward 7f63d035..8d0dc411; whitespace-gate normalization recorded (formal-plan trailing spaces + 8 logs EOF blank lines, originals+dual hashes at C:/dsh-b01-cp-a/)",
+    "W06 self-check: 25/25 desktop specs x2, real Electron 44.3.0 journey (7 actions, screenshots+hashes), cancel/close-reopen/error-injection evidenced, INCIDENT-1 rework with 3 hard conditions, real client path zero-write verified pre/post",
+    "W03 CI forensics (logs downloaded via authorized channel): Linux jobs progressed past dpkg contract (W01 fix WORKED) + meson configure + 6/7 compile + [7/7] LINK SUCCEEDED with private absolute libcap.a; failure = script:326 expected -L/-lcap shape. Static = AGENTS.md budget (owner directive section) -> FIXED 16ae3047 (condensed + ceiling 2081 justified). Observational = spec 10-line clone -> W01 rework. Windows coverage gates -> W11 (artifact 10584629291).",
+    "W01 rework dispatched: link-evidence two-shape acceptance + clone dedup",
+    "W06 CP1: changes_requested -> CR-1/CR-2+N1-3 text corrections landed -> controller spot-verified (29 records, empty file removed, manifest self-hash note, W07 re-capture x2) -> accepted. Electron materialization judged within red lines (pinned npm dep + package script + in-store artifact)",
+    "W01 rework-2 verified: two-shape link evidence (cf6f7a13), clone dedup (1ab9fed9/af3d9dcd), 63+1 tests, NC-C/NC-D closed, bash-n OK, duplication 0 clones (controller re-verified). CP-A2 forming."
   ]
 }

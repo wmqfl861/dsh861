@@ -1196,25 +1196,27 @@ describe('scenario child environment construction (path-variable uniqueness)', (
     expect(Object.keys(env).every(name => name === 'PATH' || name === 'STUB_SENTINEL')).toBe(true)
   })
 
-  it.each([
-    {
-      label: 'Path first',
-      entries: [
-        { name: 'Path', value: windowsParentPath },
-        { name: 'PATH', value: 'C:\\tools;C:\\vendor\\bin' },
-      ],
-    },
-    {
-      label: 'PATH first',
-      entries: [
-        { name: 'PATH', value: 'C:\\tools;C:\\vendor\\bin' },
-        { name: 'Path', value: windowsParentPath },
-      ],
-    },
-  ] as const)('win32: a parent carrying both PATH and Path ($label) yields the identical single stub-first PATH', ({ entries }) => {
+  it('win32: a parent carrying both Path and PATH (Path first) still yields the same single stub-first PATH', () => {
     const env = buildScenarioChildEnv({
       pathEntries: [stubBin, usrBin],
-      parentPathEntries: entries,
+      parentPathEntries: [
+        { name: 'Path', value: windowsParentPath },
+        { name: 'PATH', value: 'C:\tools;C:\vendor\bin' },
+      ],
+      testVars: {},
+      platform: 'win32',
+    })
+    expect(Object.keys(env).filter(name => name.toLowerCase() === 'path')).toEqual(['PATH'])
+    expect(env.PATH).toBe(`${stubBin}:${usrBin}`)
+  })
+
+  it('win32: a parent carrying both PATH and Path (PATH first) yields the identical single PATH', () => {
+    const env = buildScenarioChildEnv({
+      pathEntries: [stubBin, usrBin],
+      parentPathEntries: [
+        { name: 'PATH', value: 'C:\tools;C:\vendor\bin' },
+        { name: 'Path', value: windowsParentPath },
+      ],
       testVars: {},
       platform: 'win32',
     })

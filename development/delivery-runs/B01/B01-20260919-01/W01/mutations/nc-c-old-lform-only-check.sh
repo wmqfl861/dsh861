@@ -329,8 +329,7 @@ bwrap_bin="${build_dir}/bwrap"
 link_line="$(grep ' -o bwrap ' "$build_log" | tail -n 1 || true)"
 [[ -n "$link_line" ]] || fail "no bwrap link command is recorded in ${build_log}"
 echo "bwrap link command: ${link_line}"
-if [[ "$link_line" != *" -L${libcap_lib}"* || "$link_line" != *'-lcap'* ]] \
-  && [[ "$link_line" != *"${libcap_lib}/libcap.a"* ]]; then
+if [[ "$link_line" != *" -L${libcap_lib}"* || "$link_line" != *'-lcap'* ]]; then
   fail "the link command does not reference the private libcap directory ${libcap_lib}"
 fi
 
