@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "phase": "B01",
+  "source_baseline": "7f63d03538759306f8363d5a912c1e99fbe015bf",
+  "purpose": "Scheduling aid for the work packages, not a replacement for formal node approval.",
+  "defaults": {
+    "implementation_slots": 2,
+    "maximum_implementation_slots": 3,
+    "independent_review_slots": 1,
+    "heavy_build_slots": 1,
+    "light_test_slots": 2,
+    "git_writers": 1
+  },
+  "dependency_semantics": {
+    "start_after": "All listed tasks have accepted outputs, except conclusion_only dependencies.",
+    "evidence_after": "Work can start earlier, but cannot be accepted before this evidence is available.",
+    "conclusion_only": "The dependency may be accepted or explicitly blocked/deferred with an evidence-backed conclusion; this does not waive mandatory acceptance.",
+    "final_report_after": "All listed work is stopped in a known state; missing mandatory evidence produces PARTIAL_WITH_BLOCKERS, never READY_FOR_OWNER_PREVIEW."
+  },
+  "tasks": [
+    {"id":"W00","wave":0,"role":"coordinator","start_after":[],"evidence_after":[],"resources":["git","planning"],"scope":"Intake, actual plan, ownership and CP0"},
+    {"id":"W01","wave":1,"role":"infrastructure","start_after":["W00"],"evidence_after":[],"resources":["prepare-script","prepare-spec"],"scope":"Real dpkg control-field and command-exit contract"},
+    {"id":"W02","wave":1,"role":"infrastructure-test","start_after":["W01"],"evidence_after":[],"resources":["prepare-spec","windows-test-slot"],"scope":"Windows stub provenance and launch environment"},
+    {"id":"W03","wave":2,"role":"verification","start_after":["W02"],"evidence_after":[],"resources":["ci-checkpoint-A"],"scope":"Actual Linux build, ABI, probe and publication evidence"},
+    {"id":"W04","wave":1,"role":"snapshots","start_after":["W00"],"evidence_after":["W03"],"resources":["shared-sdk-snapshots","snapshot-generator"],"scope":"Explicit cross-platform teardown schema and full replay"},
+    {"id":"W05","wave":2,"role":"snapshots","start_after":["W04"],"conclusion_only":["W04"],"evidence_after":[],"resources":["shared-sdk-snapshots","headless-expected","windows-test-slot"],"scope":"Windows cwd/profile failures, without normalizer or global-state bypass"},
+    {"id":"W06","wave":1,"role":"desktop","start_after":["W00"],"evidence_after":[],"resources":["desktop-sources","desktop-runtime","heavy-build"],"scope":"Real isolated Electron startup and interaction"},
+    {"id":"W07","wave":2,"role":"desktop","start_after":["W06"],"evidence_after":[],"resources":["desktop-runtime","heavy-build"],"scope":"Runnable Windows preview and optional unsigned installer"},
+    {"id":"W08","wave":2,"role":"documentation","start_after":["W00"],"evidence_after":[],"resources":["event-doc-pair","snapshot-generator"],"scope":"Source-derived bilingual event facts and stale line references"},
+    {"id":"W09","wave":1,"role":"product-inventory","start_after":["W00"],"evidence_after":[],"resources":["acceptance-inventory"],"scope":"Read-only evidence inventory for all 32 product acceptance criteria"},
+    {"id":"W10","wave":2,"role":"product-inventory","start_after":["W09"],"evidence_after":[],"resources":["node-readiness-report"],"scope":"Exact P0-B prerequisites and consolidated owner inputs; no successor activation"},
+    {"id":"W11","wave":2,"role":"verification","start_after":["W03"],"conclusion_only":["W03"],"evidence_after":[],"resources":["ci-inventory"],"scope":"Current-run failure and coverage classification"},
+    {"id":"W12","wave":3,"role":"coordinator","start_after":["W03","W04","W05","W06","W07","W08","W09","W10","W11"],"conclusion_only":["W03","W04","W05","W06","W07","W08","W09","W10","W11"],"evidence_after":[],"resources":["git","integration","heavy-build"],"scope":"Integration, mandatory user journeys and complete candidate manifest"},
+    {"id":"W13","wave":3,"role":"designated-hard-review","start_after":["W12"],"conclusion_only":["W12"],"evidence_after":[],"resources":["candidate-freeze","git"],"scope":"Full fixed-candidate review, normal delivery or precise partial report"}
+  ],
+  "final_report_after":["W00","W01","W02","W03","W04","W05","W06","W07","W08","W09","W10","W11","W12","W13"],
+  "invariants":[
+    "W01 and W02 never edit prepare-ci-bubblewrap.spec.ts concurrently.",
+    "Only the coordinator integrates files, runs shared generators, changes refs or pushes.",
+    "A task waiting for CI does not block unrelated desktop, documentation or read-only inventory work.",
+    "A task under review is frozen; the final candidate freeze applies to every writer.",
+    "If W04 is waiting only for Linux evidence, it may hand a frozen local snapshot to W05; W04 remains unaccepted until its evidence arrives.",
+    "No task enters P0-C or declares product acceptance merely because the maintenance batch is complete.",
+    "No missing mandatory result becomes optional through conclusion_only scheduling."
+  ]
+}
