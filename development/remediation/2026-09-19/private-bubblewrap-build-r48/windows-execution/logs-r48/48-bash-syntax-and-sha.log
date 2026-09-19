@@ -1,0 +1,6 @@
+$ bash -n scripts/prepare-ci-bubblewrap.sh
+bash_n_exit=0
+$ sha256sum scripts/prepare-ci-bubblewrap.sh scripts/prepare-ci-bubblewrap.spec.ts
+28d31aa9fd7db6f848796feca43725bcd547bca268b56384d6f9ed89068d53a3 *scripts/prepare-ci-bubblewrap.sh
+0c8b3ade056ecc377a88ac5ea94d94117aef6128b73d3fb89a6ab468077928ff *scripts/prepare-ci-bubblewrap.spec.ts
+sha_exit=0

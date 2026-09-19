@@ -330,7 +330,7 @@ echo "built artifact sha256: bwrap ${binary_sha256}"
 
 sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 \
   || echo 'apparmor userns knob absent — the functional probe decides'
-"$bwrap_bin" --ro-bind / / --dev /dev --unshare-pid --proc /proc --die-with-parent -- true
+"$bwrap_bin" --ro-bind / / --dev /dev --unshare-pid --proc /proc --die-with-parent -- true || true
 
 # Publication happens only after the functional probe passes, so a failed
 # probe leaves no half-published path behind.

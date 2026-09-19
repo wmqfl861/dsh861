@@ -1,0 +1,36 @@
++ cd C:/dsh-r48-tqt3s7/metadata
++ for pocket in noble noble-updates noble-security
++ curl --fail --silent --show-error --retry 3 --retry-all-errors -o InRelease-noble -w 'noble InRelease http_code=%{http_code} size=%{size_download}\n' https://archive.ubuntu.com/ubuntu/dists/noble/InRelease
+noble InRelease http_code=200 size=255850
++ echo EXIT_InRelease_noble=0
+EXIT_InRelease_noble=0
++ curl --fail --silent --show-error --retry 3 --retry-all-errors -o Packages-noble-main-binary-amd64.gz -w 'noble Packages http_code=%{http_code} size=%{size_download}\n' https://archive.ubuntu.com/ubuntu/dists/noble/main/binary-amd64/Packages.gz
+noble Packages http_code=200 size=1808488
++ echo EXIT_Packages_noble=0
+EXIT_Packages_noble=0
++ for pocket in noble noble-updates noble-security
++ curl --fail --silent --show-error --retry 3 --retry-all-errors -o InRelease-noble-updates -w 'noble-updates InRelease http_code=%{http_code} size=%{size_download}\n' https://archive.ubuntu.com/ubuntu/dists/noble-updates/InRelease
+noble-updates InRelease http_code=200 size=126125
++ echo EXIT_InRelease_noble-updates=0
+EXIT_InRelease_noble-updates=0
++ curl --fail --silent --show-error --retry 3 --retry-all-errors -o Packages-noble-updates-main-binary-amd64.gz -w 'noble-updates Packages http_code=%{http_code} size=%{size_download}\n' https://archive.ubuntu.com/ubuntu/dists/noble-updates/main/binary-amd64/Packages.gz
+noble-updates Packages http_code=200 size=1579921
++ echo EXIT_Packages_noble-updates=0
+EXIT_Packages_noble-updates=0
++ for pocket in noble noble-updates noble-security
++ curl --fail --silent --show-error --retry 3 --retry-all-errors -o InRelease-noble-security -w 'noble-security InRelease http_code=%{http_code} size=%{size_download}\n' https://archive.ubuntu.com/ubuntu/dists/noble-security/InRelease
+curl: (56) schannel: server closed abruptly (missing close_notify)
+noble-security InRelease http_code=200 size=126127
++ echo EXIT_InRelease_noble-security=0
+EXIT_InRelease_noble-security=0
++ curl --fail --silent --show-error --retry 3 --retry-all-errors -o Packages-noble-security-main-binary-amd64.gz -w 'noble-security Packages http_code=%{http_code} size=%{size_download}\n' https://archive.ubuntu.com/ubuntu/dists/noble-security/main/binary-amd64/Packages.gz
+noble-security Packages http_code=200 size=1244969
++ echo EXIT_Packages_noble-security=0
+EXIT_Packages_noble-security=0
++ sha256sum InRelease-noble InRelease-noble-security InRelease-noble-updates Packages-noble-main-binary-amd64.gz Packages-noble-security-main-binary-amd64.gz Packages-noble-updates-main-binary-amd64.gz
+cdb2f31d809f589719a53c6ad15f255b27569c4059542ada282aaa21b8e164b0 *InRelease-noble
+603d902fbcedd1666b0897c005771162a7b36288a56aac6a5f557556d53d66de *InRelease-noble-security
+c289aeff4060ef624022b902403b74fa05c3182e975533ff5e199db39b08ed4b *InRelease-noble-updates
+e0d7e4cbb09d2aa7f9e104a1488817417bc9d85f3e5d9a21156a52ec641ae531 *Packages-noble-main-binary-amd64.gz
+e06fc640457672f6178289f29b7a3e63e77842bd09bbe9a29f51df63e25753b4 *Packages-noble-security-main-binary-amd64.gz
+da2bc015c88567e3215fa38c172f9a10b47d09d42c015bc4fa9f16776e5b1c39 *Packages-noble-updates-main-binary-amd64.gz
