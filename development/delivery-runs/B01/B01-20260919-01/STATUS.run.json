@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "phase": "B01",
+  "template_only": false,
+  "status": "running",
+  "source_baseline": "7f63d03538759306f8363d5a912c1e99fbe015bf",
+  "run_id": "B01-20260919-01",
+  "candidate_manifest_sha256": null,
+  "formal_plan": null,
+  "formal_hard_review": null,
+  "owner_preview_artifact": null,
+  "formal_node": "P0-B",
+  "formal_node_status_at_read": "blocked",
+  "successor_node_authorized": false,
+  "tasks": {
+    "W00": "running",
+    "W01": "planned",
+    "W02": "planned",
+    "W03": "planned",
+    "W04": "planned",
+    "W05": "planned",
+    "W06": "planned",
+    "W07": "planned",
+    "W08": "planned",
+    "W09": "planned",
+    "W10": "planned",
+    "W11": "planned",
+    "W12": "planned",
+    "W13": "planned"
+  },
+  "mandatory_acceptance": {
+    "B01-A1": "not_run",
+    "B01-A2": "not_run",
+    "B01-A3": "not_run",
+    "B01-A4": "not_run",
+    "B01-A5": "not_run",
+    "B01-A6": "not_run",
+    "B01-A7": "not_run",
+    "B01-A8": "not_run",
+    "B01-A9": "not_run"
+  },
+  "inherited_blockers": [
+    {
+      "id": "CI-LINUX-CONTROL",
+      "kind": "observed",
+      "detail": "Run35436610274: dpkg-deb multi-field output has field labels; preparation fails before compile.",
+      "owner": "W01"
+    },
+    {
+      "id": "CI-WINDOWS-STUBS",
+      "kind": "observed_with_unproven_cause",
+      "detail": "Run35436610274: prepare spec 27 failed / 9 passed; many stop at platform refusal. Actual command provenance must be proven.",
+      "owner": "W02"
+    },
+    {
+      "id": "FORMAL-P0-B",
+      "kind": "formal_state",
+      "detail": "P0-B still blocked; old reasons need current evidence classification, not automatic approval.",
+      "owner": "W10"
+    },
+    {
+      "id": "SANDBOX-OTHER-ENTRY",
+      "kind": "out_of_batch_scope",
+      "detail": "sandbox.yml separate apt entry is not migrated; do not claim repository-wide CVE closure.",
+      "owner": "W11"
+    }
+  ],
+  "resume_policy": "Copy this seed into the current delivery-runs/B01/run-id record. Preserve this published template and all prior run evidence.",
+  "evidence": []
+}
