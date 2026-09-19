@@ -1,0 +1,150 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts [2m([22m[2m61 tests[22m[2m | [22m[31m4 failed[39m[2m | [22m[33m56 skipped[39m[2m)[22m[32m 52[2mms[22m[39m
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh pinned identities (source-level) [2m(4)[22m
+     [2m[90m↓[39m[22m keeps the three pinned inputs with publisher-recorded digests and sources
+     [2m[90m↓[39m[22m verifies each digest before its archive is unpacked or executed
+     [2m[90m↓[39m[22m publishes only after the functional probe passes
+     [2m[90m↓[39m[22m adds no package transaction, no global library path, and no sandbox weakening
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) [2m(32)[22m
+     [2m[90m↓[39m[22m builds, verifies, and publishes from the three pinned inputs, in order, once
+     [2m[90m↓[39m[22m still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success
+     [2m[90m↓[39m[22m stops at a global 404 with the downloader exit code and never hashes, unpacks, or probes
+     [2m[90m↓[39m[22m stops at a connection failure with the downloader exit code
+     [2m[90m↓[39m[22m stops when only the meson download fails, after the bubblewrap input was already verified
+     [2m[90m↓[39m[22m stops when only the libcap download fails, after both tarballs were already extracted
+     [2m[90m↓[39m[22m rejects a bubblewrap digest mismatch and never unpacks anything
+     [2m[90m↓[39m[22m rejects a meson digest mismatch after the bubblewrap extraction but before the meson unpack
+     [2m[90m↓[39m[22m rejects a libcap digest mismatch before any deb handling
+     [2m[90m↓[39m[22m rejects a traversal member name in the bubblewrap listing before extraction
+     [2m[90m↓[39m[22m rejects an absolute member path in the deb listing before extraction
+     [2m[90m↓[39m[22m rejects a symlink that escapes the extraction root in the meson metadata listing
+     [2m[90m↓[39m[22m rejects a device member in the deb metadata listing before extraction
+     [2m[90m↓[39m[22m fails loud when a build tool is missing, before any download
+     [2m[90m↓[39m[22m rejects a libcap-dev control identity that does not match the pin
+     [2m[90m↓[39m[22m rejects a libcap-dev payload without the static library
+     [2m[90m↓[39m[22m stops at a deb extraction failure before dependency resolution
+     [2m[90m↓[39m[22m rejects a private libcap that pkg-config resolves to the wrong version
+     [2m[90m↓[39m[22m stops at a meson configure failure before any compile
+     [2m[90m↓[39m[22m stops at a compile failure with no artifact, hash record, probe, or publication
+     [2m[90m↓[39m[22m rejects a link command with no private libcap directory reference
+     [2m[90m↓[39m[22m rejects a link command that fell back to the host libcap directory
+     [2m[90m↓[39m[22m rejects a built binary that is not an x86-64 ELF
+     [2m[90m↓[39m[22m rejects a built binary with a dynamic libcap dependency
+     [2m[90m↓[39m[22m rejects a built binary whose ldd resolves libcap
+     [2m[90m↓[39m[22m rejects a built binary with the wrong version identity before any probe
+     [2m[90m↓[39m[22m keeps a functional-probe failure fatal and publishes nothing
+     [2m[90m↓[39m[22m refuses a non-Linux host before any download
+     [2m[90m↓[39m[22m refuses a non-x86_64 host before any download
+     [2m[90m↓[39m[22m fails loud when RUNNER_TEMP is missing, before any download
+     [2m[90m↓[39m[22m fails loud when GITHUB_PATH is missing, before any download
+     [2m[90m↓[39m[22m stops at a tarball extraction failure before the next input downloads
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh deb control-field protocol (per-field argv contract) [2m(12)[22m
+     [2m[90m↓[39m[22m reads each control field through its own single-field dpkg-deb call and accepts the pinned identities
+     [2m[90m↓[39m[22m accepts a legal single-line value whose output ends without a newline
+     [2m[90m↓[39m[22m rejects labeled single-field output (the CI run 35436610274 first-failure shape)
+     [2m[90m↓[39m[22m rejects the labeled multi-field control block when a per-field read receives it
+     [2m[90m↓[39m[22m rejects the labeled control block in non-argv order identically
+     [2m[90m↓[39m[22m rejects a field read that exits nonzero even though its stdout is the correct value
+     [2m[90m↓[39m[22m rejects a missing Package control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a missing Version control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a missing Architecture control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a duplicate control record line
+     [2m[90m↓[39m[22m rejects a wrong Package identity
+     [2m[90m↓[39m[22m rejects a wrong Architecture identity
+   [31m❯[39m scenario child environment construction (path-variable uniqueness) [2m(5)[22m
+[31m     [31m×[31m win32: emits exactly one PATH key, stub first, and never inherits parent path content[39m[32m 27[2mms[22m[39m
+[31m     [31m×[31m win32: a parent carrying both Path and PATH (Path first) still yields the same single stub-first PATH[39m[32m 7[2mms[22m[39m
+[31m     [31m×[31m win32: a parent carrying both PATH and Path (PATH first) yields the identical single PATH[39m[32m 6[2mms[22m[39m
+[31m     [31m×[31m posix: appends the exact parent PATH after the explicit entries and ignores differently-cased variables[39m[32m 3[2mms[22m[39m
+     [32m✓[39m rejects test vars that occupy a path-named key (misconfiguration fails loud)[32m 4[2mms[22m[39m
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh stub-source identity and launch environment (W02) [2m(8)[22m
+     [2m[90m↓[39m[22m executes through the resolved absolute Bash with a stub-first PATH and records the source evidence
+     [2m[90m↓[39m[22m runs unchanged when the parent environment carries both Path and PATH variants (Path first)
+     [2m[90m↓[39m[22m runs unchanged when the parent environment carries both PATH and Path variants (PATH first)
+     [2m[90m↓[39m[22m runs unchanged inside a temporary path containing spaces and non-ASCII characters
+     [2m[90m↓[39m[22m host tool directory preceding the stub bin [2m(1)[22m
+       [2m[90m↓[39m[22m resolves the real host uname and stops at the platform gate before any stub runs
+     [2m[90m↓[39m[22m refuses to run when the uname stub is missing: the source check rejects the host fallback first
+     [2m[90m↓[39m[22m non-executable stub (platform enforces the exec bit) [2m(1)[22m
+       [2m[90m↓[39m[22m refuses to run when the uname stub is present but not executable
+     [2m[90m↓[39m[22m explains the empty-stdout branch: a stub-driven platform refusal yields empty stdout, not a failed launch
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 4 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mscenario child environment construction (path-variable uniqueness)[2m > [22mwin32: emits exactly one PATH key, stub first, and never inherits parent path content
+[31m[1mAssertionError[22m: expected '/w02/irrelevant/stub-bin;/c/Program F…' to be '/w02/irrelevant/stub-bin:/c/Program F…' // Object.is equality[39m
+
+Expected: [32m"/w02/irrelevant/stub-bin[7m:[27m/c/Program Files/Git/usr/bin"[39m
+Received: [31m"/w02/irrelevant/stub-bin[7m;[27m/c/Program Files/Git/usr/bin[7m;C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64;C:\dsh-r24-upgrade-20260912-01\pnpm-12.4.1;C:\Users\Joyce Gu\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Joyce Gu\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\Joyce Gu\AppData\Local\Microsoft\WindowsApps;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Joyce Gu\.local\bin;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312\Scripts;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Launcher;C:\Users\Joyce Gu\AppData\Roaming\npm;C:\Users\Joyce Gu\AppData\Local\Microsoft\WinGet\Packages\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\bun-windows-x64;C:\Users\Joyce Gu\.bun\bin;C:\Program Files\ZCode\resources\tools\ripgrep;C:\Program Files\ZCode\resources\tools\ugrep;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl[27m"[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1158:22[22m[39m
+    [90m1156|[39m     })
+    [90m1157|[39m     expect(Object.keys(env).filter(name => name.toLowerCase() === 'pat…
+    [90m1158|[39m     expect(env.PATH).toBe(`${stubBin}:${usrBin}`)
+    [90m   |[39m                      [31m^[39m
+    [90m1159|[39m     // Windows semicolon lists and drive-letter paths must never be sp…
+    [90m1160|[39m     // into the colon-separated POSIX PATH the Bash child resolves thr…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mscenario child environment construction (path-variable uniqueness)[2m > [22mwin32: a parent carrying both Path and PATH (Path first) still yields the same single stub-first PATH
+[31m[1mAssertionError[22m: expected '/w02/irrelevant/stub-bin;/c/Program F…' to be '/w02/irrelevant/stub-bin:/c/Program F…' // Object.is equality[39m
+
+Expected: [32m"/w02/irrelevant/stub-bin[7m:[27m/c/Program Files/Git/usr/bin"[39m
+Received: [31m"/w02/irrelevant/stub-bin[7m;[27m/c/Program Files/Git/usr/bin[7m;C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64;C:\dsh-r24-upgrade-20260912-01\pnpm-12.4.1;C:\Users\Joyce Gu\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Joyce Gu\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\Joyce Gu\AppData\Local\Microsoft\WindowsApps;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Joyce Gu\.local\bin;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312\Scripts;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Launcher;C:\Users\Joyce Gu\AppData\Roaming\npm;C:\Users\Joyce Gu\AppData\Local\Microsoft\WinGet\Packages\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\bun-windows-x64;C:\Users\Joyce Gu\.bun\bin;C:\Program Files\ZCode\resources\tools\ripgrep;C:\Program Files\ZCode\resources\tools\ugrep;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl[27m"[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1177:22[22m[39m
+    [90m1175|[39m     })
+    [90m1176|[39m     expect(Object.keys(env).filter(name => name.toLowerCase() === 'pat…
+    [90m1177|[39m     expect(env.PATH).toBe(`${stubBin}:${usrBin}`)
+    [90m   |[39m                      [31m^[39m
+    [90m1178|[39m   })
+    [90m1179|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mscenario child environment construction (path-variable uniqueness)[2m > [22mwin32: a parent carrying both PATH and Path (PATH first) yields the identical single PATH
+[31m[1mAssertionError[22m: expected '/w02/irrelevant/stub-bin;/c/Program F…' to be '/w02/irrelevant/stub-bin:/c/Program F…' // Object.is equality[39m
+
+Expected: [32m"/w02/irrelevant/stub-bin[7m:[27m/c/Program Files/Git/usr/bin"[39m
+Received: [31m"/w02/irrelevant/stub-bin[7m;[27m/c/Program Files/Git/usr/bin[7m;C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64;C:\dsh-r24-upgrade-20260912-01\pnpm-12.4.1;C:\Users\Joyce Gu\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Joyce Gu\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\Joyce Gu\AppData\Local\Microsoft\WindowsApps;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Joyce Gu\.local\bin;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312\Scripts;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Launcher;C:\Users\Joyce Gu\AppData\Roaming\npm;C:\Users\Joyce Gu\AppData\Local\Microsoft\WinGet\Packages\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\bun-windows-x64;C:\Users\Joyce Gu\.bun\bin;C:\Program Files\ZCode\resources\tools\ripgrep;C:\Program Files\ZCode\resources\tools\ugrep;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl[27m"[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1191:22[22m[39m
+    [90m1189|[39m     })
+    [90m1190|[39m     expect(Object.keys(env).filter(name => name.toLowerCase() === 'pat…
+    [90m1191|[39m     expect(env.PATH).toBe(`${stubBin}:${usrBin}`)
+    [90m   |[39m                      [31m^[39m
+    [90m1192|[39m   })
+    [90m1193|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mscenario child environment construction (path-variable uniqueness)[2m > [22mposix: appends the exact parent PATH after the explicit entries and ignores differently-cased variables
+[31m[1mAssertionError[22m: expected '/w02/irrelevant/stub-bin:C:\dsh-r24-u…' to be '/w02/irrelevant/stub-bin:/usr/local/b…' // Object.is equality[39m
+
+Expected: [32m"/w02/irrelevant/stub-bin:[7m/[27musr[7m/[27mlocal[7m/[27mbin[7m:/[27musr[7m/[27mbin[7m:/bin[27m"[39m
+Received: [31m"/w02/irrelevant/stub-bin:[7mC:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64;C:\dsh-r24-upgrade-20260912-01\pnpm-12.4.1;C:\Users\Joyce Gu\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\[27musr[7m\[27mlocal[7m\[27mbin[7m;C:\Program Files\Git\[27musr[7m\[27mbin[7m;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Joyce Gu\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Users\Joyce Gu\AppData\Local\Microsoft\WindowsApps;C:\Program Files\dotnet;C:\Program Files\Git\cmd;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\Users\Joyce Gu\.local\bin;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312\Scripts;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Python312;C:\Users\Joyce Gu\AppData\Local\Programs\Python\Launcher;C:\Users\Joyce Gu\AppData\Roaming\npm;C:\Users\Joyce Gu\AppData\Local\Microsoft\WinGet\Packages\Oven-sh.Bun_Microsoft.Winget.Source_8wekyb3d8bbwe\bun-windows-x64;C:\Users\Joyce Gu\.bun\bin;C:\Program Files\ZCode\resources\tools\ripgrep;C:\Program Files\ZCode\resources\tools\ugrep;C:\Program Files\nodejs;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl[27m"[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1205:22[22m[39m
+    [90m1203|[39m     })
+    [90m1204|[39m     expect(Object.keys(env).filter(name => name.toLowerCase() === 'pat…
+    [90m1205|[39m     expect(env.PATH).toBe(`${stubBin}:${posixParentPath}`)
+    [90m   |[39m                      [31m^[39m
+    [90m1206|[39m   })
+    [90m1207|[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[2m | [22m[33m56 skipped[39m[90m (61)[39m
+[2m   Start at [22m 20:49:49
+[2m   Duration [22m 3.37s[2m (transform 46%, import 38%, setup 11%, worker 2%, tests 2%)[22m

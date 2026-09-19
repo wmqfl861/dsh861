@@ -226,7 +226,7 @@ fetch_verified "$LIBCAP_URL" "$LIBCAP_SHA256" "$libcap_archive"
 # unlabeled value that matches the pin exactly.
 libcap_field_stderr="${root}/libcap-control-field.stderr"
 deb_package_status=0
-deb_package="$(dpkg-deb --field "$libcap_archive" Package 2>"$libcap_field_stderr")" || deb_package_status=$?
+deb_package="$(dpkg-deb --field "$libcap_archive" Package 2>"$libcap_field_stderr")" || true
 ((deb_package_status == 0)) \
   || fail "dpkg-deb --field Package exited ${deb_package_status}: $(cat "$libcap_field_stderr" 2>/dev/null)"
 [[ -n "$deb_package" ]] || fail "dpkg-deb --field Package returned no value; the control field is missing"
@@ -235,7 +235,7 @@ deb_package="$(dpkg-deb --field "$libcap_archive" Package 2>"$libcap_field_stder
   || fail "dpkg-deb --field Package returned labeled output '${deb_package}'; the bare single-line value was required"
 [[ "$deb_package" == 'libcap-dev' ]] || fail "libcap-dev control Package is '${deb_package}'"
 deb_version_status=0
-deb_version="$(dpkg-deb --field "$libcap_archive" Version 2>"$libcap_field_stderr")" || deb_version_status=$?
+deb_version="$(dpkg-deb --field "$libcap_archive" Version 2>"$libcap_field_stderr")" || true
 ((deb_version_status == 0)) \
   || fail "dpkg-deb --field Version exited ${deb_version_status}: $(cat "$libcap_field_stderr" 2>/dev/null)"
 [[ -n "$deb_version" ]] || fail "dpkg-deb --field Version returned no value; the control field is missing"
@@ -244,7 +244,7 @@ deb_version="$(dpkg-deb --field "$libcap_archive" Version 2>"$libcap_field_stder
   || fail "dpkg-deb --field Version returned labeled output '${deb_version}'; the bare single-line value was required"
 [[ "$deb_version" == "$LIBCAP_VERSION" ]] || fail "libcap-dev control Version is '${deb_version}', expected '${LIBCAP_VERSION}'"
 deb_architecture_status=0
-deb_architecture="$(dpkg-deb --field "$libcap_archive" Architecture 2>"$libcap_field_stderr")" || deb_architecture_status=$?
+deb_architecture="$(dpkg-deb --field "$libcap_archive" Architecture 2>"$libcap_field_stderr")" || true
 ((deb_architecture_status == 0)) \
   || fail "dpkg-deb --field Architecture exited ${deb_architecture_status}: $(cat "$libcap_field_stderr" 2>/dev/null)"
 [[ -n "$deb_architecture" ]] || fail "dpkg-deb --field Architecture returned no value; the control field is missing"

@@ -1,0 +1,13 @@
+command: bash /c/dsh-b01-w01/nc-b.sh (driver; vitest: node node_modules/vitest/vitest.mjs run --project thread-safe scripts/prepare-ci-bubblewrap.spec.ts -t 'deb control-field protocol')
+mutation: NC-B — swallow only the three field-read exit statuses (|| deb_*_status=$? -> || true), applied via node string replace (mutate_node_exit=0); mutant bash -n exit 0
+date: 2026-09-19T12:01:35Z
+pre_mutation_working_blob: 4c03966fd769a3075a086a6a7daa1cbdfba413a3
+backup_sha256: 0ded0a117fa5d3d7510b0ae4d3ec63cffb9e12875258fa8701bef1ee692f312a
+mutant_blob: 34f7506ffee579e284f324b2d8737cd181502840
+mutant_sha256: dfeb6b111ee8bf24fa0ada89a83d1621020d454bab697bc95fc6de6f85cc8f81
+run-05 (mutated) vitest exit_code: 1 — Tests 1 failed | 11 passed | 36 skipped (48).
+  The single failure is exactly 'rejects a field read that exits nonzero even though its stdout is the correct value'; all value-shape rejections still pass (mutation only disabled exit propagation).
+run-06 (post-restore) vitest exit_code: 0 — Tests 12 passed | 36 skipped (48)
+post_restore_blob: 4c03966fd769a3075a086a6a7daa1cbdfba413a3 (byte-exact; sha256 matches backup)
+raw: run-05-nc-b.stdout.txt, run-06-nc-b-restore-positive.stdout.txt, nc-b-driver.log
+mutant copy: development/delivery-runs/B01/B01-20260919-01/W01/mutations/nc-b-swallow-field-exit.sh

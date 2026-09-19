@@ -216,43 +216,11 @@ meson_entry="${tools_root}/meson-${MESON_VERSION}/meson.py"
 # listing are verified read-only; `dpkg-deb --extract` unpacks payload files
 # only and never runs a maintainer script.
 fetch_verified "$LIBCAP_URL" "$LIBCAP_SHA256" "$libcap_archive"
-# Each control field is its own single-field `dpkg-deb --field` invocation
-# whose exit status and stderr are captured directly — never through a pipe
-# or process substitution, the mechanism that hid subcommand failures before
-# W01. The real tool answers multi-field requests with labeled `Field:
-# value` lines in control-file order (CI run 35436610274 served `Package:
-# libcap-dev` to the old bare-value comparison), so fields are never
-# requested in bulk and each read accepts only a non-empty, single-line,
-# unlabeled value that matches the pin exactly.
-libcap_field_stderr="${root}/libcap-control-field.stderr"
-deb_package_status=0
-deb_package="$(dpkg-deb --field "$libcap_archive" Package 2>"$libcap_field_stderr")" || deb_package_status=$?
-((deb_package_status == 0)) \
-  || fail "dpkg-deb --field Package exited ${deb_package_status}: $(cat "$libcap_field_stderr" 2>/dev/null)"
-[[ -n "$deb_package" ]] || fail "dpkg-deb --field Package returned no value; the control field is missing"
-[[ "$deb_package" != *$'\n'* ]] || fail "dpkg-deb --field Package returned multiple records; exactly one was required"
-[[ "$deb_package" != 'Package:'* ]] \
-  || fail "dpkg-deb --field Package returned labeled output '${deb_package}'; the bare single-line value was required"
-[[ "$deb_package" == 'libcap-dev' ]] || fail "libcap-dev control Package is '${deb_package}'"
-deb_version_status=0
-deb_version="$(dpkg-deb --field "$libcap_archive" Version 2>"$libcap_field_stderr")" || deb_version_status=$?
-((deb_version_status == 0)) \
-  || fail "dpkg-deb --field Version exited ${deb_version_status}: $(cat "$libcap_field_stderr" 2>/dev/null)"
-[[ -n "$deb_version" ]] || fail "dpkg-deb --field Version returned no value; the control field is missing"
-[[ "$deb_version" != *$'\n'* ]] || fail "dpkg-deb --field Version returned multiple records; exactly one was required"
-[[ "$deb_version" != 'Version:'* ]] \
-  || fail "dpkg-deb --field Version returned labeled output '${deb_version}'; the bare single-line value was required"
-[[ "$deb_version" == "$LIBCAP_VERSION" ]] || fail "libcap-dev control Version is '${deb_version}', expected '${LIBCAP_VERSION}'"
-deb_architecture_status=0
-deb_architecture="$(dpkg-deb --field "$libcap_archive" Architecture 2>"$libcap_field_stderr")" || deb_architecture_status=$?
-((deb_architecture_status == 0)) \
-  || fail "dpkg-deb --field Architecture exited ${deb_architecture_status}: $(cat "$libcap_field_stderr" 2>/dev/null)"
-[[ -n "$deb_architecture" ]] || fail "dpkg-deb --field Architecture returned no value; the control field is missing"
-[[ "$deb_architecture" != *$'\n'* ]] \
-  || fail "dpkg-deb --field Architecture returned multiple records; exactly one was required"
-[[ "$deb_architecture" != 'Architecture:'* ]] \
-  || fail "dpkg-deb --field Architecture returned labeled output '${deb_architecture}'; the bare single-line value was required"
-[[ "$deb_architecture" == 'amd64' ]] || fail "libcap-dev control Architecture is '${deb_architecture}', expected 'amd64'"
+mapfile -t control < <(dpkg-deb --field "$libcap_archive" Package Version Architecture)
+((${#control[@]} == 3)) || fail "libcap-dev control fields are unreadable in ${libcap_archive}"
+[[ "${control[0]}" == 'libcap-dev' ]] || fail "libcap-dev control Package is '${control[0]}'"
+[[ "${control[1]}" == "$LIBCAP_VERSION" ]] || fail "libcap-dev control Version is '${control[1]}', expected '${LIBCAP_VERSION}'"
+[[ "${control[2]}" == 'amd64' ]] || fail "libcap-dev control Architecture is '${control[2]}', expected 'amd64'"
 if ! dpkg-deb --fsys-tarfile "$libcap_archive" | tar -tf - | audit_member_names; then
   fail "rejected unsafe member names in ${libcap_archive}"
 fi

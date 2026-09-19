@@ -1,0 +1,7 @@
+command: node node_modules/vitest/vitest.mjs run --project thread-safe scripts/prepare-ci-bubblewrap.spec.ts
+env: PATH prefixed with C:/dsh-r24-upgrade-20260912-01/node-v26.8.2-win-x64; TMP=TEMP=C:/dsh-b01-w01/tmp
+date: 2026-09-19T11:50:51Z
+exit_code: 0
+result: Test Files 1 passed (1); Tests 48 passed (48); Duration 129.94s (tests 100%)
+raw: C:/dsh-b01-w01/raw/run-02-full-spec.stdout.txt, run-02-full-spec.stderr.txt, run-02-full-spec.exit.txt
+script blob at run: 4c03966fd769a3075a086a6a7daa1cbdfba413a3
