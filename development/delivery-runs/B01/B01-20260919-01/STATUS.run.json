@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "phase": "B01",
+  "template_only": false,
+  "status": "running",
+  "source_baseline": "7f63d03538759306f8363d5a912c1e99fbe015bf",
+  "run_id": "B01-20260919-01",
+  "candidate_manifest_sha256": null,
+  "formal_plan": "development/delivery-runs/B01/B01-20260919-01/plan/formal-plan.v1.md sha256=70d56121797715ae85742822735993da16b7b44eb45dc385908a3141df3a4fc9",
+  "formal_hard_review": null,
+  "owner_preview_artifact": null,
+  "formal_node": "P0-B",
+  "formal_node_status_at_read": "blocked",
+  "successor_node_authorized": false,
+  "tasks": {
+    "W00": "accepted",
+    "W01": "accepted",
+    "W02": "accepted",
+    "W03": "running",
+    "W04": "wait_ci",
+    "W05": "accepted",
+    "W06": "accepted",
+    "W07": "running",
+    "W08": "accepted",
+    "W09": "accepted",
+    "W10": "accepted",
+    "W11": "running",
+    "W12": "planned",
+    "W13": "planned"
+  },
+  "mandatory_acceptance": {
+    "B01-A1": "not_run",
+    "B01-A2": "not_run",
+    "B01-A3": "partial: build-side evidenced on real CI; security sub-item blocked (-Dtests=false, no upstream-test channel)",
+    "B01-A4": "linux target cases evidenced + windows evidenced; shared-auto Linux lane blocked by pre-existing pi-ai expected failure (W11)",
+    "B01-A5": "partial (6/7 program-verified per CP1; native dialog sub-path to human verify; W07 to re-capture proctree//json/version artifacts)",
+    "B01-A6": "not_run",
+    "B01-A7": "not_run",
+    "B01-A8": "not_run",
+    "B01-A9": "not_run"
+  },
+  "inherited_blockers": [
+    {
+      "id": "CI-LINUX-CONTROL",
+      "kind": "observed",
+      "detail": "Run35436610274: dpkg-deb multi-field output has field labels; preparation fails before compile.",
+      "owner": "W01"
+    },
+    {
+      "id": "CI-WINDOWS-STUBS",
+      "kind": "observed_with_unproven_cause",
+      "detail": "Run35436610274: prepare spec 27 failed / 9 passed; many stop at platform refusal. Actual command provenance must be proven.",
+      "owner": "W02"
+    },
+    {
+      "id": "FORMAL-P0-B",
+      "kind": "formal_state",
+      "detail": "P0-B still blocked; old reasons need current evidence classification, not automatic approval.",
+      "owner": "W10"
+    },
+    {
+      "id": "SANDBOX-OTHER-ENTRY",
+      "kind": "out_of_batch_scope",
+      "detail": "sandbox.yml separate apt entry is not migrated; do not claim repository-wide CVE closure.",
+      "owner": "W11"
+    }
+  ],
+  "resume_policy": "Copy this seed into the current delivery-runs/B01/run-id record. Preserve this published template and all prior run evidence.",
+  "evidence": [
+    "W00: codex gpt-6-astra/max exit0 251364tok",
+    "CP0: PASS unconditional (plan/blob24/deps/quotas/protection/D01-D13)",
+    "Owner directive 2026-09-19: maximize parallel sub-agents when independent, recycle immediately, dispatch next ready task; recorded in AGENTS.md (parallel sub-agent execution). W04+W08 dispatched raising streams to 5.",
+    "W08 CP1: accepted (5 line-number fixes verified against real declaration lines, content spec 6/6 rerun, hash-blindspot NC proven, generator zero-drift confirmed; N1-N3 non-blocking)",
+    "W01 CP1: accepted (D03 protocol verified, 48/48 rerun, NC hash chain closed, no weakening; spec+test-support locks handed to W02)",
+    "W09 CP1 incremental: accepted (I-1/I-2/I-3 verified, E68/E69 blobs confirmed, no side changes; R-1/R-2 non-blocking)",
+    "INCIDENT W06-1 2026-09-19 ~20:2x: W06 launch helper copied b01-preview.cordis.patch.yml into apps/desktop/.desktop-build/development/project/ (user-visible dev project); real owner client failed to start (loader entry b01-preview-model, cosmokit unresolvable from project ctx). Controller removed the injected file; development project back to original 4-file state (no cordis.patch.yml). W06 frozen pending rework: fixture must not import bare @deepseek-ai/* from project context AND assembly must be scoped to test-owned home the real client never reads.",
+    "W10 CP1: accepted (H1-H3 evidence real, C1-C7 statuses verified against state.json/precheck records, no mislabeling, protection surface zero drift; G-1/G-2/N-1 non-blocking)",
+    "W04 self-check done: win32 sidecar registry (4 real-run-derived files), 3 NCs verified, frozen handoff to W05 (sdk.snapshot.ts 2f66035e / teardown.snapshot.ts 911fc5fc); Windows unverified = hydration (W05) + parent prompt sidecar registration pending; Linux unverified = W03",
+    "W04 CP1: local_pass, zero change requests (sidecar no-weakening verified, 4 sidecars real-run provenance independently re-derived, adapter/corpus/trigger rerun green, 3 NCs hash-chained, timeout 60s judged reasonable init budget not red-line, boundaries honest). Final acceptance pending W03 Linux evidence (agent-team parent sidecar default-platform + child regen on Linux).",
+    "W05 self-check: hydration root cause byte-proven ({{cwd}} in JSON header line 1 -> parse fail at 87), fix via JSON.stringify spelling + cwdAliases (no normalizer change), 2 expected cases REAL 2/2, shared lane 2/2 after prompt sidecar registration, adapter 2/2, identity 15/15, NC verified",
+    "W02 CP1: accepted (root-cause chain verified, 60+1 rerun, sentinel mechanism audited, NC-B CI-signature match, zero weakening; OBS-1 doc correction to fold into CP-A record)",
+    "CP-A formation started",
+    "W05 CP1: ACCEPTED (root cause byte-proven, fix no-scope-creep, 4 reruns independent green, NC closed; W04 re-verify 1/2/4/5 confirmed, 3 hash-checked; F4.1 closed)",
+    "W08 TS rework: 22x TS18048 fixed by single fail-loud guard (blob a168c30a), file-level host-config tsc exit 0, spec 6/6; integration typecheck-2 exit 0",
+    "CP-A: committing W01+W02 family + run bookkeeping; pushing to trigger CI for W03",
+    "CP-A delivered: commit 8d0dc41139 (W01+W02 family + run bookkeeping), push exit 0, fast-forward 7f63d035..8d0dc411; whitespace-gate normalization recorded (formal-plan trailing spaces + 8 logs EOF blank lines, originals+dual hashes at C:/dsh-b01-cp-a/)",
+    "W06 self-check: 25/25 desktop specs x2, real Electron 44.3.0 journey (7 actions, screenshots+hashes), cancel/close-reopen/error-injection evidenced, INCIDENT-1 rework with 3 hard conditions, real client path zero-write verified pre/post",
+    "W03 CI forensics (logs downloaded via authorized channel): Linux jobs progressed past dpkg contract (W01 fix WORKED) + meson configure + 6/7 compile + [7/7] LINK SUCCEEDED with private absolute libcap.a; failure = script:326 expected -L/-lcap shape. Static = AGENTS.md budget (owner directive section) -> FIXED 16ae3047 (condensed + ceiling 2081 justified). Observational = spec 10-line clone -> W01 rework. Windows coverage gates -> W11 (artifact 10584629291).",
+    "W01 rework dispatched: link-evidence two-shape acceptance + clone dedup",
+    "W06 CP1: changes_requested -> CR-1/CR-2+N1-3 text corrections landed -> controller spot-verified (29 records, empty file removed, manifest self-hash note, W07 re-capture x2) -> accepted. Electron materialization judged within red lines (pinned npm dep + package script + in-store artifact)",
+    "W01 rework-2 verified: two-shape link evidence (cf6f7a13), clone dedup (1ab9fed9/af3d9dcd), 63+1 tests, NC-C/NC-D closed, bash-n OK, duplication 0 clones (controller re-verified). CP-A2 forming.",
+    "CP-A2 delivered: 1863a0ddfd pushed (8d0dc411..1863a0dd fast-forward, carrying 16ae3047 doc-budget fix + link-evidence rework), push exit 0; CI triggering on new head; W03 resuming observation",
+    "W03 CP-A2 round (run 35447649954): BOTH Linux prepare pipelines FULLY PASSED (A3 build-side achieved: download/hash/audit/meson/6+1 compile/absolute-libcap.a link/ELF/NEEDED/ldd/version 0.12.0/probe/GITHUB_PATH). static+observational regreened. Remaining: 4 W02-spec Linux portability failures (rework dispatched); test:expected pi-ai pre-existing failure fail-fast-aborts snapshot gate (W04 Linux evidence BLOCKED BY IT -> W11 classify first); A4 Linux side of two target expected cases PASSED; A3 security sub-item NOT_RUN (-Dtests=false) precise blocker; artifacts downloaded: coverage 10586561821, snapshots 10586416150",
+    "Concurrency raised per owner: W11 starts now on two completed CI runs (W03 conclusion_only satisfied for classification); W03 interim CP1 dispatched in parallel",
+    "W02 Linux rework verified: 4 CI failures root-caused (real tools on runner PATH / bare-bash POSIX dual / pipeline log race), fixed zero-weakening (posixParentPath omit knob, absolute bash, EOF-ordered stdin log), NC-A/NC-B replayed, Windows 64|1 green; blobs 7c5dfc42/4558bf48, duplication 0. CP-A3 forming"
+  ]
+}

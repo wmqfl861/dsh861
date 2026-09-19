@@ -1,0 +1,12 @@
+command: bash /c/dsh-b01-w01/nc-a.sh (driver; vitest: node node_modules/vitest/vitest.mjs run --project thread-safe scripts/prepare-ci-bubblewrap.spec.ts -t 'deb control-field protocol')
+mutation: NC-A — restore the pre-W01 script verbatim (old multi-field bare-value assumption) via git cat-file blob 7d2428e2fa84b7fda9aeec24fa1de661cb90cb46; no checkout/reset/stash
+date: 2026-09-19T11:55:42Z
+pre_mutation_working_blob: 4c03966fd769a3075a086a6a7daa1cbdfba413a3
+backup_sha256: 0ded0a117fa5d3d7510b0ae4d3ec63cffb9e12875258fa8701bef1ee692f312a
+mutant_blob: 7d2428e2fa84b7fda9aeec24fa1de661cb90cb46
+mutant_sha256: 28d31aa9fd7db6f848796feca43725bcd547bca268b56384d6f9ed89068d53a3
+run-03 (mutated) vitest exit_code: 1 — Tests 12 failed | 36 skipped (48): ALL 12 protocol regressions reject the old script
+run-04 (post-restore) vitest exit_code: 0 — Tests 12 passed | 36 skipped (48)
+post_restore_blob: 4c03966fd769a3075a086a6a7daa1cbdfba413a3 (byte-exact; sha256 matches backup)
+raw: run-03-nc-a.stdout.txt, run-04-nc-a-restore-positive.stdout.txt, nc-a-driver.log
+mutant copy: development/delivery-runs/B01/B01-20260919-01/W01/mutations/nc-a-old-multifield-bare-values.sh

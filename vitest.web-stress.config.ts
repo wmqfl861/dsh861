@@ -1,9 +1,10 @@
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
-import { vitestExecArgv } from './vitest.shared.ts'
+import { vitestExecArgv, vitestEsbuild } from './vitest.shared.ts'
 
 /** Opt-in browser performance lane; no default Vitest config includes *.stress.ts. */
 export default defineConfig({
+  esbuild: vitestEsbuild,
   plugins: [tsconfigPaths({ projects: ['./tsconfig.base.json'] })],
   test: {
     execArgv: vitestExecArgv,

@@ -1,0 +1,13 @@
+{
+  "kind": "synthetic Git fixture testing only candidate generation, not repository source",
+  "sourceCheckBypassedInShippedTool": false,
+  "fixtureUsesOwnCommitAndBlobs": true,
+  "readOnlyGeneration": true,
+  "gitApplyCheck": true,
+  "gitApplyOnSyntheticFixture": true,
+  "dirtySourceRefused": true,
+  "missingOrDuplicateAnchorRefused": true,
+  "pathSetChangeRefused": true,
+  "candidatePaths": 4,
+  "fullProjectTests": false
+}

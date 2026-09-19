@@ -21,7 +21,7 @@ permissions:
   pull-requests: write
 
 env:
-  PRIMARY_NODE_VERSION: '24'
+  PRIMARY_NODE_VERSION: '26'
   # Cloudflare Pages project receiving the upload. Its preview deployments are
   # the surface the Access application protects; the project's production branch
   # is deliberately a name no deployment uses, so no unprotected URL exists.
@@ -32,14 +32,14 @@ env:
 
 jobs:
   preview:
-    runs-on: dsh-ubuntu-24-04-16core
+    runs-on: ubuntu-24.04
     name: cloudflare pages preview
     steps:
       - uses: actions/checkout@v6
         with:
           persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           dest: ${{ runner.temp }}/setup-pnpm
 

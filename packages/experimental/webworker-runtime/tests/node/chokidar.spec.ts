@@ -2,7 +2,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { lowerModuleSource } from '../../src/compile/transform.ts'
 import { WorkerModuleLoader } from '../../src/module-system/module-loader.ts'
 import { createNodeBuiltins } from '../../src/node/builtins.ts'
@@ -77,7 +77,12 @@ beforeEach(() => {
 })
 
 afterEach(async () => {
-  await Promise.all(openWatchers.splice(0).map(async (watcher) => { await watcher.close() }))
+  try {
+    await Promise.all(openWatchers.splice(0).map(async (watcher) => { await watcher.close() }))
+  } finally {
+    // Close watchers against the clock that created their timers before restoring it.
+    if (vi.isFakeTimers()) vi.useRealTimers()
+  }
 })
 
 /** Await one emitter event while rejecting hangs deterministically. */
@@ -108,6 +113,19 @@ function watchPath(path: string, options: import('chokidar').ChokidarOptions = {
     ...options,
   })
   openWatchers.push(watcher)
+  return watcher
+}
+
+/** Control elapsed stability time without replacing Chokidar, its stats, or its events. */
+async function watchWriteFinishWithClock(): Promise<import('chokidar').FSWatcher> {
+  // Leave nextTick, queueMicrotask and setImmediate native in both Vitest pools.
+  vi.useFakeTimers({ toFake: ['Date', 'setTimeout', 'clearTimeout', 'setInterval', 'clearInterval'] })
+  const watcher = watchPath(ROOT, {
+    awaitWriteFinish: { stabilityThreshold: 30, pollInterval: 5 },
+  })
+  const ready = onceEvent(watcher, 'ready')
+  await vi.advanceTimersByTimeAsync(0)
+  await ready
   return watcher
 }
 
@@ -181,20 +199,50 @@ describe.each(CHOKIDAR_FIXTURES)('$label running unchanged', (fixture) => {
 
   it('waits for a write burst to stabilize before publishing one add', async () => {
     const path = `${ROOT}/settling.md`
-    const watcher = watchPath(ROOT, {
-      awaitWriteFinish: { stabilityThreshold: 30, pollInterval: 5 },
-    })
-    await onceEvent(watcher, 'ready')
+    const watcher = await watchWriteFinishWithClock()
+    const events: string[] = []
+    const contents: string[] = []
+    watcher.on('all', (event) => { events.push(event) })
+    watcher.on('add', (file) => { contents.push(vfs.readFileSync(file, 'utf8') as string) })
+    const added = onceEvent<string>(watcher, 'add')
+    vfs.writeFileSync(path, 'a')
+    await vi.advanceTimersByTimeAsync(10)
+    expect(events).toEqual([])
+    vfs.appendFileSync(path, 'b')
+    await vi.advanceTimersByTimeAsync(10)
+    expect(events).toEqual([])
+    vfs.appendFileSync(path, 'c')
+    await vi.advanceTimersByTimeAsync(29)
+    expect(events).toEqual([])
+    // Allow the final stat observation plus the unchanged 30ms stability interval.
+    await vi.advanceTimersByTimeAsync(11)
+    expect(events).toEqual(['add'])
+    await expect(added).resolves.toBe(path)
+    expect(contents).toEqual(['abc'])
+    await vi.advanceTimersByTimeAsync(60)
+    expect(events).toEqual(['add'])
+  })
+
+  it('publishes a later stabilized write as change instead of suppressing it', async () => {
+    const path = `${ROOT}/separate-write.md`
+    const watcher = await watchWriteFinishWithClock()
     const events: string[] = []
     watcher.on('all', (event) => { events.push(event) })
     const added = onceEvent<string>(watcher, 'add')
     vfs.writeFileSync(path, 'a')
-    await delay(10)
-    vfs.appendFileSync(path, 'b')
-    await delay(10)
-    vfs.appendFileSync(path, 'c')
-    await expect(added).resolves.toBe(path)
+    await vi.advanceTimersByTimeAsync(40)
     expect(events).toEqual(['add'])
+    await expect(added).resolves.toBe(path)
+    const changed = onceEvent<string>(watcher, 'change')
+    vfs.appendFileSync(path, 'b')
+    await vi.advanceTimersByTimeAsync(29)
+    expect(events).toEqual(['add'])
+    await vi.advanceTimersByTimeAsync(11)
+    expect(events).toEqual(['add', 'change'])
+    await expect(changed).resolves.toBe(path)
+    expect(vfs.readFileSync(path, 'utf8')).toBe('ab')
+    await vi.advanceTimersByTimeAsync(60)
+    expect(events).toEqual(['add', 'change'])
   })
 
   it('emits nothing after close has reached quiescence', async () => {

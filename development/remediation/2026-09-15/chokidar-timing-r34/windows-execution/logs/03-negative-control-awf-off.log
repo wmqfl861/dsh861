@@ -1,0 +1,143 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[1m[30m[43m Vitest [49m[39m[22m [33mThe "process-bound" project applies the same plugin multiple times: "vite-tsconfig-paths", "dsh-standard-decorators". Since Vitest 5, an inline project extends the config file that declares it by default, so the plugins from "vitest.config.ts" already apply to this project and don't need to be listed again.
+Remove the duplicated plugins from the project, or set `extends: false` to not inherit the declaring config. Setting the `extends` option explicitly hides this warning.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[1m[30m[43m Vitest [49m[39m[22m [33mThe "thread-safe" project applies the same plugin multiple times: "vite-tsconfig-paths", "dsh-standard-decorators". Since Vitest 5, an inline project extends the config file that declares it by default, so the plugins from "vitest.config.ts" already apply to this project and don't need to be listed again.
+Remove the duplicated plugins from the project, or set `extends: false` to not inherit the declaring config. Setting the `extends` option explicitly hides this warning.[39m
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts [2m([22m[2m14 tests[22m[2m | [22m[31m4 failed[39m[2m)[22m[33m 406[2mms[22m[39m
+   [31m❯[39m Chokidar 4 from settings and credentials running unchanged [2m(7)[22m
+     [32m✓[39m reaches ready and reports a file lifecycle through fs.watch[32m 113[2mms[22m[39m
+     [32m✓[39m watches a missing file through its existing parent[32m 6[2mms[22m[39m
+     [32m✓[39m discovers directory children through watchFile polling mode[32m 25[2mms[22m[39m
+     [32m✓[39m normalizes a short unlink/add replacement into one atomic change[32m 76[2mms[22m[39m
+[31m     [31m×[31m waits for a write burst to stabilize before publishing one add[39m[32m 13[2mms[22m[39m
+[31m     [31m×[31m publishes a later stabilized write as change instead of suppressing it[39m[32m 7[2mms[22m[39m
+     [32m✓[39m emits nothing after close has reached quiescence[32m 4[2mms[22m[39m
+   [31m❯[39m Chokidar 5 from skill-filesystem running unchanged [2m(7)[22m
+     [32m✓[39m reaches ready and reports a file lifecycle through fs.watch[32m 53[2mms[22m[39m
+     [32m✓[39m watches a missing file through its existing parent[32m 5[2mms[22m[39m
+     [32m✓[39m discovers directory children through watchFile polling mode[32m 10[2mms[22m[39m
+     [32m✓[39m normalizes a short unlink/add replacement into one atomic change[32m 77[2mms[22m[39m
+[31m     [31m×[31m waits for a write burst to stabilize before publishing one add[39m[32m 6[2mms[22m[39m
+[31m     [31m×[31m publishes a later stabilized write as change instead of suppressing it[39m[32m 6[2mms[22m[39m
+     [32m✓[39m emits nothing after close has reached quiescence[32m 3[2mms[22m[39m
+ [31m❯[39m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts [2m([22m[2m14 tests[22m[2m | [22m[31m4 failed[39m[2m)[22m[33m 435[2mms[22m[39m
+   [31m❯[39m Chokidar 4 from settings and credentials running unchanged [2m(7)[22m
+     [32m✓[39m reaches ready and reports a file lifecycle through fs.watch[32m 109[2mms[22m[39m
+     [32m✓[39m watches a missing file through its existing parent[32m 5[2mms[22m[39m
+     [32m✓[39m discovers directory children through watchFile polling mode[32m 24[2mms[22m[39m
+     [32m✓[39m normalizes a short unlink/add replacement into one atomic change[32m 77[2mms[22m[39m
+[31m     [31m×[31m waits for a write burst to stabilize before publishing one add[39m[32m 18[2mms[22m[39m
+[31m     [31m×[31m publishes a later stabilized write as change instead of suppressing it[39m[32m 7[2mms[22m[39m
+     [32m✓[39m emits nothing after close has reached quiescence[32m 5[2mms[22m[39m
+   [31m❯[39m Chokidar 5 from skill-filesystem running unchanged [2m(7)[22m
+     [32m✓[39m reaches ready and reports a file lifecycle through fs.watch[32m 63[2mms[22m[39m
+     [32m✓[39m watches a missing file through its existing parent[32m 5[2mms[22m[39m
+     [32m✓[39m discovers directory children through watchFile polling mode[32m 26[2mms[22m[39m
+     [32m✓[39m normalizes a short unlink/add replacement into one atomic change[32m 78[2mms[22m[39m
+[31m     [31m×[31m waits for a write burst to stabilize before publishing one add[39m[32m 7[2mms[22m[39m
+[31m     [31m×[31m publishes a later stabilized write as change instead of suppressing it[39m[32m 6[2mms[22m[39m
+     [32m✓[39m emits nothing after close has reached quiescence[32m 3[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 8 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 4 from settings and credentials running unchanged[2m > [22mwaits for a write burst to stabilize before publishing one add
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 5 from skill-filesystem running unchanged[2m > [22mwaits for a write burst to stabilize before publishing one add
+[31m[1mAssertionError[22m: expected [ 'add' ] to deeply equal [][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "add",[39m
+[31m+ ][39m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts:[2m210:20[22m[39m
+    [90m208|[39m     vfs.writeFileSync(path, 'a')
+    [90m209|[39m     await vi.advanceTimersByTimeAsync(10)
+    [90m210|[39m     expect(events).toEqual([])
+    [90m   |[39m                    [31m^[39m
+    [90m211|[39m     vfs.appendFileSync(path, 'b')
+    [90m212|[39m     await vi.advanceTimersByTimeAsync(10)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 4 from settings and credentials running unchanged[2m > [22mpublishes a later stabilized write as change instead of suppressing it
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 5 from skill-filesystem running unchanged[2m > [22mpublishes a later stabilized write as change instead of suppressing it
+[31m[1mAssertionError[22m: expected [ 'add', 'change' ] to deeply equal [ 'add' ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[2m    "add",[22m
+[31m+   "change",[39m
+[2m  ][22m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts:[2m239:20[22m[39m
+    [90m237|[39m     vfs.appendFileSync(path, 'b')
+    [90m238|[39m     await vi.advanceTimersByTimeAsync(29)
+    [90m239|[39m     expect(events).toEqual(['add'])
+    [90m   |[39m                    [31m^[39m
+    [90m240|[39m     await vi.advanceTimersByTimeAsync(11)
+    [90m241|[39m     expect(events).toEqual(['add', 'change'])
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 4 from settings and credentials running unchanged[2m > [22mwaits for a write burst to stabilize before publishing one add
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 5 from skill-filesystem running unchanged[2m > [22mwaits for a write burst to stabilize before publishing one add
+[31m[1mAssertionError[22m: expected [ 'add' ] to deeply equal [][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [][39m
+[31m+ [[39m
+[31m+   "add",[39m
+[31m+ ][39m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts:[2m210:20[22m[39m
+    [90m208|[39m     vfs.writeFileSync(path, 'a')
+    [90m209|[39m     await vi.advanceTimersByTimeAsync(10)
+    [90m210|[39m     expect(events).toEqual([])
+    [90m   |[39m                    [31m^[39m
+    [90m211|[39m     vfs.appendFileSync(path, 'b')
+    [90m212|[39m     await vi.advanceTimersByTimeAsync(10)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 4 from settings and credentials running unchanged[2m > [22mpublishes a later stabilized write as change instead of suppressing it
+[41m[1m FAIL [22m[49m [30m[42m process-bound [49m[39m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts[2m > [22mChokidar 5 from skill-filesystem running unchanged[2m > [22mpublishes a later stabilized write as change instead of suppressing it
+[31m[1mAssertionError[22m: expected [ 'add', 'change' ] to deeply equal [ 'add' ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  [[22m
+[2m    "add",[22m
+[31m+   "change",[39m
+[2m  ][22m
+
+[36m [2m❯[22m packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts:[2m239:20[22m[39m
+    [90m237|[39m     vfs.appendFileSync(path, 'b')
+    [90m238|[39m     await vi.advanceTimersByTimeAsync(29)
+    [90m239|[39m     expect(events).toEqual(['add'])
+    [90m   |[39m                    [31m^[39m
+    [90m240|[39m     await vi.advanceTimersByTimeAsync(11)
+    [90m241|[39m     expect(events).toEqual(['add', 'change'])
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[31m8 failed[39m[22m[2m | [22m[1m[32m20 passed[39m[22m[90m (28)[39m
+[2m   Start at [22m 06:39:08
+[2m   Duration [22m 1.87s[2m (transform 60%, tests 26%, import 10%, setup 3%)[22m

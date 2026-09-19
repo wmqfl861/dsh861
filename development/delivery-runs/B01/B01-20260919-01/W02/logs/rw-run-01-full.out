@@ -1,0 +1,65 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts [2m([22m[2m65 tests[22m[2m | [22m[33m1 skipped[39m[2m)[22m[33m 143269[2mms[22m[39m
+   [32m✓[39m prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) [2m(35)[22m
+     [33m[2m✓[22m[39m builds, verifies, and publishes from the three pinned inputs, in order, once[33m 3335[2mms[22m[39m
+     [33m[2m✓[22m[39m still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success[33m 3653[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a global 404 with the downloader exit code and never hashes, unpacks, or probes[33m 679[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a connection failure with the downloader exit code[33m 693[2mms[22m[39m
+     [33m[2m✓[22m[39m stops when only the meson download fails, after the bubblewrap input was already verified[33m 1198[2mms[22m[39m
+     [33m[2m✓[22m[39m stops when only the libcap download fails, after both tarballs were already extracted[33m 1584[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a bubblewrap digest mismatch and never unpacks anything[33m 946[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a meson digest mismatch after the bubblewrap extraction but before the meson unpack[33m 1191[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap digest mismatch before any deb handling[33m 1557[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a traversal member name in the bubblewrap listing before extraction[33m 808[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects an absolute member path in the deb listing before extraction[33m 1965[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a symlink that escapes the extraction root in the meson metadata listing[33m 1548[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a device member in the deb metadata listing before extraction[33m 2360[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap-dev control identity that does not match the pin[33m 1795[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap-dev payload without the static library[33m 2301[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a deb extraction failure before dependency resolution[33m 2212[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a private libcap that pkg-config resolves to the wrong version[33m 2339[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a meson configure failure before any compile[33m 2593[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a compile failure with no artifact, hash record, probe, or publication[33m 3961[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a link command with no private libcap directory reference[33m 4056[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a link command that fell back to the host libcap directory[33m 4717[2mms[22m[39m
+     [33m[2m✓[22m[39m accepts the -L plus -lcap private search-path link form (form a)[33m 4892[2mms[22m[39m
+     [33m[2m✓[22m[39m accepts the CI-observed absolute private libcap.a operand link form (run 35445600344, form b)[33m 4791[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a link command that names the host libcap.a operand[33m 3383[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary that is not an x86-64 ELF[33m 3867[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary with a dynamic libcap dependency[33m 4332[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary whose ldd resolves libcap[33m 5023[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary with the wrong version identity before any probe[33m 4544[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps a functional-probe failure fatal and publishes nothing[33m 4524[2mms[22m[39m
+     [33m[2m✓[22m[39m refuses a non-x86_64 host before any download[33m 324[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a tarball extraction failure before the next input downloads[33m 1304[2mms[22m[39m
+   [32m✓[39m prepare-ci-bubblewrap.sh deb control-field protocol (per-field argv contract) [2m(12)[22m
+     [33m[2m✓[22m[39m reads each control field through its own single-field dpkg-deb call and accepts the pinned identities[33m 5174[2mms[22m[39m
+     [33m[2m✓[22m[39m accepts a legal single-line value whose output ends without a newline[33m 4323[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects labeled single-field output (the CI run 35436610274 first-failure shape)[33m 3163[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects the labeled multi-field control block when a per-field read receives it[33m 1872[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects the labeled control block in non-argv order identically[33m 2827[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a field read that exits nonzero even though its stdout is the correct value[33m 2165[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a missing Package control field that returns an empty value with exit 0[33m 3893[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a missing Version control field that returns an empty value with exit 0[33m 1921[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a missing Architecture control field that returns an empty value with exit 0[33m 3612[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a duplicate control record line[33m 1900[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a wrong Package identity[33m 3487[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a wrong Architecture identity[33m 2229[2mms[22m[39m
+   [32m✓[39m prepare-ci-bubblewrap.sh stub-source identity and launch environment (W02) [2m(8)[22m
+     [33m[2m✓[22m[39m executes through the resolved absolute Bash with a stub-first PATH and records the source evidence[33m 5753[2mms[22m[39m
+     [33m[2m✓[22m[39m runs unchanged when the parent environment carries both Path and PATH variants (Path first)[33m 5656[2mms[22m[39m
+     [33m[2m✓[22m[39m runs unchanged when the parent environment carries both PATH and Path variants (PATH first)[33m 5653[2mms[22m[39m
+     [33m[2m✓[22m[39m runs unchanged inside a temporary path containing spaces and non-ASCII characters[33m 5160[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m64 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (65)[39m
+[2m   Start at [22m 22:40:37
+[2m   Duration [22m 144.11s[2m (tests 100%)[22m

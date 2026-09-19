@@ -1,0 +1,14 @@
+command: bash /c/dsh-b01-w01/nc-c.sh (attempt 2; attempt 1 void: replace-exact.mjs ESM require error — mutation never applied, preserved in raw/void-attempts/)
+mutation: NC-C — the two-form link condition reverts to the pre-rework single-form check (137 bytes -> 81 bytes at offset 16687; mutant bash -n exit 0)
+date: 2026-09-19T14:00:05Z
+pre_mutation_working_blob: cf6f7a13811e7c0fdcabd6a74dd989d195c94af7
+backup_sha256: 8e6746df9c2b4a636d283f81c97702e498a2e0c05f877e85bac975f409d829a9
+mutant_blob: cf6c8d22aa755ab8c5d4f88374751f32e1a4fcfa
+mutant_sha256: 5bfdae43bcca8109c0b1d47a57870e790dafcf085d2757e3f85d8055938d3446
+run-10 (mutated) vitest exit_code: 1 — Tests 1 failed | 5 passed | 58 skipped (64), filter 'link'.
+  The single failure is exactly 'accepts the CI-observed absolute private libcap.a operand link form (run 35445600344, form b)': AssertionError expected 0 received 1 — the old check rejects the real CI link form.
+  Form a (-L+-lcap) and both host/no-private rejections still pass under the old check, so the mutation only removed form-b acceptance and was caught precisely.
+run-11 (post-restore) vitest exit_code: 0
+post_restore_blob: cf6f7a13811e7c0fdcabd6a74dd989d195c94af7 (byte-exact; sha256 matches backup)
+raw: run-10-nc-c.stdout.txt, run-11-nc-c-restore-positive.stdout.txt, nc-c-driver.log, void-attempts/
+mutant copy: mutations/nc-c-old-lform-only-check.sh

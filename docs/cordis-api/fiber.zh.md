@@ -36,7 +36,7 @@ effect(execute: () => Effect, label?: string): AsyncDisposable<Promise<void>>
 
 **返回**一个用于撤销该作用的清理函数，并在清理完成后结算。
 
-[源码](../../vendor/cordis/src/fiber.ts#L415)
+[源码](../../vendor/cordis/src/fiber.ts#L416)
 
 ### ctx.fiber
 
@@ -143,7 +143,7 @@ get name()
 
 插件的显示名称，继承自最近的具名祖先；如果不存在，则为 `'root'`。
 
-[源码](../../vendor/cordis/src/fiber.ts#L336)
+[源码](../../vendor/cordis/src/fiber.ts#L337)
 
 ### fiber.assertActive()
 
@@ -161,7 +161,7 @@ assertActive()
 
 **返回**：fiber 仍处于活动状态时不返回任何内容。
 
-[源码](../../vendor/cordis/src/fiber.ts#L351)
+[源码](../../vendor/cordis/src/fiber.ts#L352)
 
 ### fiber.effect(execute, label?)
 
@@ -192,7 +192,7 @@ effect(execute: () => Effect, label?: string): AsyncDisposable<Promise<void>>
 
 **返回**一个用于撤销该作用的清理函数，并在清理完成后结算。
 
-[源码](../../vendor/cordis/src/fiber.ts#L415)
+[源码](../../vendor/cordis/src/fiber.ts#L416)
 
 ### fiber.getEffects()
 
@@ -209,7 +209,7 @@ getEffects()
 
 **返回**：每个带标签的活动作用对应一棵 `EffectMeta` 树。
 
-[源码](../../vendor/cordis/src/fiber.ts#L568)
+[源码](../../vendor/cordis/src/fiber.ts#L569)
 
 ### fiber.await()
 
@@ -227,7 +227,7 @@ async await()
 
 **返回**：进入稳定状态后的此 fiber。
 
-[源码](../../vendor/cordis/src/fiber.ts#L704)
+[源码](../../vendor/cordis/src/fiber.ts#L720)
 
 ### fiber.restart()
 
@@ -245,7 +245,7 @@ dispose 此插件，并立即使用其当前配置重新加载。
 
 **返回**一个在重新加载完成后兑现的 promise。
 
-[源码](../../vendor/cordis/src/fiber.ts#L718)
+[源码](../../vendor/cordis/src/fiber.ts#L734)
 
 ### fiber.update(config, noSave?)
 
@@ -254,14 +254,15 @@ dispose 此插件，并立即使用其当前配置重新加载。
  * Validate and apply new config, then restart the plugin.
  *
  * Runs the `internal/update` waterfall first, so update hooks (and HMR)
- * can veto or replace the restart.
+ * can veto or replace the restart. Config resolution stays lazy (see
+ * `_resolveConfig`): a fiber that cannot yet activate keeps the raw config.
  *
  * @param config — the new raw config; validated before anything restarts.
  * @param noSave — hint for persistence hooks not to write the change back.
  * @returns the update waterfall result; the default restart returns a promise.
  * @throws when validation, an update listener, or the restarted plugin fails.
  */
-update(config: any, noSave = false)
+update(config: any, noSave = false): Awaitable<void>
 ```
 
 校验并应用新配置，然后重新启动插件。
@@ -273,7 +274,7 @@ update(config: any, noSave = false)
 
 **返回**更新 waterfall 的结果；默认的重新启动操作返回一个 promise。
 
-[源码](../../vendor/cordis/src/fiber.ts#L736)
+[源码](../../vendor/cordis/src/fiber.ts#L756)
 
 ## Effect
 

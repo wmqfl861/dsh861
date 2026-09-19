@@ -1,0 +1,68 @@
+{
+  "round": "r24",
+  "kind": "latest-stable-upgrade-full-execution",
+  "recordedAt": "2026-09-12T13:40:00+00:00",
+  "actor": "ZCode built-in execution subagent (r24 executor), per owner authorization in the dispatch prompt",
+  "environment": {
+    "os": "Windows 10.0.26200 x64 (Git Bash)",
+    "node": "26.8.2 (project-local C:\\dsh-r24-upgrade-20260912-01\\node-v26.8.2-win-x64)",
+    "pnpm": "12.4.1 (project-local C:\\dsh-r24-upgrade-20260912-01\\pnpm-12.4.1\\pnpm.exe)",
+    "uv": "0.12.13 (project-local C:\\dsh-r24-upgrade-20260912-01\\uv-0.12.13\\uv.exe)",
+    "storeAndCaches": "C:\\dsh-r24-upgrade-20260912-01\\pnpm-store, pnpm-state, uv-cache (new numbered directory; global tools untouched)"
+  },
+  "commits": [
+    { "sha": "f526b21297", "subject": "Merge remote-tracking branch 'upstream/master' (c291e796, merge-base d347e70) with regenerated lock, notices, allowBuilds review" },
+    { "sha": "eae59ee4d6", "subject": "fix(subagent-codex): drop the private-stderr pid passthrough for the merged handle seam" },
+    { "sha": "0aca432492", "subject": "chore(deps): refresh the r24 fixed batch across the merged workspace (grok 1.0.30, 130 manifests)" },
+    { "sha": "e7008575f9", "subject": "build(typescript): migrate to the TypeScript 7 native compiler with the official TS6 compatibility package" },
+    { "sha": "cc47123850", "subject": "fix(gates): absorb the upstream merge into the documentation and lint gates" }
+  ],
+  "checks": {
+    "pnpmInstall": "exit 0; supply-chain policies 1538 entries verified",
+    "pnpmFrozenLockfile": "exit 0 ('Lockfile is up to date, resolution step is skipped')",
+    "typecheck": "exit 0 under typescript 7.0.2 (host tsc -b + tsdown + client contracts)",
+    "lint": "oxlint exit 0, 0 warnings 0 errors, 3589 files, 90 rules",
+    "sandboxToolTests": {
+      "command": "node --test scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.test.mjs scripts/p0-b/windows-credentials/sandbox-tool-upgrade.test.mjs",
+      "passed": 35,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "testDocs": "run-gates doc-quick: 16 passed, 0 failed (translation pairing 825 pairs, md-links 1627 files, doc budgets 8 within ceiling)",
+    "pythonLock": "uv lock --check exit 0 before; uv lock --upgrade refreshed 6 packages within constraints"
+  },
+  "codexByteVerification": {
+    "method": "sha256 + byte size of the npm-installed @openai/codex-win32-x64 0.154.0 payload compared to the checked-in sandbox-tool-bundle.0.154.0.json pin and to the live GitHub release asset API",
+    "results": {
+      "codex.exe": "298169136 bytes, be96b992178b1e467c225800da0d65f2c86d5eba1ef0b14632f65db381cbdfde (all three sources equal)",
+      "codex-windows-sandbox-setup.exe": "15467312 bytes, ea27f90a0746e2464a829cd6e1de0dcafb77c8be603de899661e8c006ef33937 (equal)",
+      "codex-command-runner.exe": "8218416 bytes, a57ca8beb786a05f36c97309e8a716610c70ced9946dc1437bbbaf4566c0c403 (equal)"
+    }
+  },
+  "cliProbes": {
+    "environment": "isolated HOME/USERPROFILE under C:\\dsh-r24-upgrade-20260912-01\\cli-probe-home, credential env vars unset, --version only",
+    "codex": "codex-cli 0.154.0",
+    "claude": "2.1.269 (Claude Code)",
+    "opencode": "1.18.30",
+    "grok": "grok 1.0.30 (04b7ffed98c6) via node bin/grok with GROK_HOME inside the probe directory (package postinstall denied by policy)"
+  },
+  "firstFailuresRetained": {
+    "noticesGenerator": "first run failed 'cannot resolve repository for @xai-official/grok' then 'opencode-ai' before the OVERRIDES metadata entries; fixed by adding publisher-page/anomalyco repository metadata",
+    "pnpmIgnoredBuilds": "first install failed ERR_PNPM_IGNORED_BUILDS for claude-code/grok/opencode and later pnpm@12.4.1; each script reviewed then explicitly decided in allowBuilds (grok denied: writes ~/.grok/bin)",
+    "os5AccessDenied": "one install failed removing node_modules/eslint-plugin-sonarjs (os error 5, transient lock); cleared and retried",
+    "ts7TypeOnlyImports": "TS7 native compiler rejected four Branded ids used as values in cordis-host-runner; fixed with brandString<T>() per the dsh-brand convention",
+    "docGates": "md-links broken on the archived explicit-change-scope-report link, pairing divergence and stale records, AGENTS.md over ceiling; all fixed (links repointed, pairs re-recorded, redundant sentence dropped, ceiling 1950->2030 justified by the fork-mandated governance section)"
+  },
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "historical records and sandbox-tool-bundle.0.149.1.json"
+  ],
+  "notRun": [
+    "full vitest unit suite (CI owns exhaustive coverage; the pre-push/typecheck/lint/docs subset validated this change locally per AGENTS.md)",
+    "real-API e2e (no DEEPSEEK_API_KEY in scope by instruction)",
+    "vendor cordis 30-commit sync (deferred with evidence)",
+    "PR #13 body edit (gh CLI absent in this environment)"
+  ]
+}

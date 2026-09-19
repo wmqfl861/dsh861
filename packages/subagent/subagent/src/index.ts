@@ -52,12 +52,16 @@ import type {
 import type {
   ContinuableCreateRequest,
   ContinuableCreateSpec,
+  ContinuableStart,
+  ContinuableStartSpec,
   ResolvedSubagentStartRequest,
   SubagentCapabilities,
+  SubagentInterruptAuthority,
   SubagentProvider,
   SubagentRun,
   SubagentRunEndInfo,
   SubagentRunInfo,
+  SubagentSendMessageOptions,
   SubagentStartRequest,
 } from './types.ts'
 import { SubagentError } from './error.ts'
@@ -65,29 +69,30 @@ import { assertSubagentMaxDepth } from './depth.ts'
 import { createActivationObserver, createLifecycleEmitter, observeRun } from './lifecycle.ts'
 import type { ActivationObserver, LifecycleEmitter } from './lifecycle.ts'
 import SubagentContinuationManager from './continuation.ts'
-import type {
-  ContinuableStart,
-  ContinuableStartSpec,
-  SubagentInterruptAuthority,
-  SubagentSendMessageOptions,
-} from './continuation.ts'
+import type { SubagentDelivery } from './inbox.ts'
 import { listChildren as listSubagentChildren, listDescendants as listSubagentDescendants } from './list-children.ts'
 import type { SubagentDescendantListEntry, SubagentListEntry } from './list-children.ts'
 import { snapshotSubagentDescriptor } from './descriptor.ts'
 import { subagentIdentityProjectionDefinition, subagentTimingProjectionDefinition } from './projection.ts'
-import { deliverSubagentPrompt, type HostPromptDeliveryMode } from './internal.ts'
+import { establishCatalogChild, subagentCatalogProjectionDefinition } from './catalog.ts'
+import { deliverSubagentPrompt } from './internal.ts'
 
+export type {} from './catalog.ts'
 export * from './out-of-process.ts'
 export { AssistantOutputFold, finalAssistantOutput } from './assistant-output.ts'
 export { SubagentRunId } from './types.ts'
 export type {
   ContinuableCreateRequest,
   ContinuableCreateSpec,
+  ContinuableStart,
+  ContinuableStartSpec,
   ResolvedSubagentStartRequest,
   SubagentCapabilities,
+  SubagentInterruptAuthority,
   SubagentProvider,
   SubagentResult,
   SubagentRun,
+  SubagentSendMessageOptions,
   SubagentStartRequest,
   SubagentStopReason,
   SubagentStopReasonMap,
@@ -119,14 +124,7 @@ export {
   SubagentDepthError,
 } from './child-agent.ts'
 export type { ChildComposition, DelegatedPolicyOverrides } from './child-agent.ts'
-export type {
-  AgentMessageSource,
-  ContinuableStart,
-  ContinuableStartSpec,
-  SubagentInterruptAuthority,
-  SubagentSendMessageOptions,
-  SubagentSettledMessageSource,
-} from './continuation.ts'
+export type { AgentMessageSource, SubagentSettledMessageSource } from './continuation-messages.ts'
 export type * from './control-types.ts'
 export type { SubagentDescendantListEntry } from './list-children.ts'
 export type { SubagentRunEndInfo, SubagentRunInfo } from './types.ts'
@@ -206,15 +204,41 @@ export class SubagentRuntime extends TypertRemoteService {
         observeActivation: (provider, childId, parent) => this.observeActivation(provider, childId, parent),
       })
       this.continuations = manager
-      childCtx.effect(() => () => {
-        /* v8 ignore else -- one injected binding owns the slot until its fiber disposes. */
-        if (this.continuations === manager) this.continuations = undefined
-      }, 'subagents.continuationBinding()')
+      // The manager lives in the injected child fiber; this composite effect on
+      // the service fiber collects that fiber's exact structural disposer. Its
+      // teardown settles the manager's COMPLETE lifetime first — drain and
+      // structural release — and clears the slot by exact identity only
+      // afterwards; a drain rejection cannot skip the clear (the effect chain
+      // would skip a disposer after a rejected one).
+      ctx.effect(function* (this: SubagentRuntime) {
+        yield childCtx.fiber.dispose
+        yield () => this.settleManagerLifetime(childCtx, manager)
+      }.bind(this), 'subagents.continuationBinding()')
     })
     ctx.inject(['sessionProjections'], (projectionCtx) => {
+      projectionCtx.sessionProjections.register(subagentCatalogProjectionDefinition)
       projectionCtx.sessionProjections.register(subagentTimingProjectionDefinition)
       projectionCtx.sessionProjections.register(subagentIdentityProjectionDefinition)
     })
+  }
+
+  /**
+   * Settle the injected manager lifetime's structural release, then clear the
+   * continuation slot by exact manager identity, reporting the lifetime's
+   * failure after the clear so neither step can skip the other.
+   */
+  private async settleManagerLifetime(childCtx: Context, manager: SubagentContinuationManager): Promise<void> {
+    let failure: unknown
+    let failed = false
+    try {
+      await childCtx.fiber.dispose()
+    } catch (error: unknown) {
+      failure = error
+      failed = true
+    }
+    /* v8 ignore else -- one injected binding owns the slot until its lifetime settles. */
+    if (this.continuations === manager) this.continuations = undefined
+    if (failed) throw failure
   }
 
   /**
@@ -271,7 +295,7 @@ export class SubagentRuntime extends TypertRemoteService {
     content: ContentBlock[],
     source: MessageSource,
     signal: AbortSignal,
-    delivery: HostPromptDeliveryMode,
+    delivery: SubagentDelivery,
   ): Promise<MessageId> {
     return delivery === 'steer'
       ? this.requireContinuations().steerPrompt(parent, childId, content, source, signal)
@@ -397,11 +421,12 @@ export class SubagentRuntime extends TypertRemoteService {
    * Deliver one browser-authored message to a continuable child through the
    * exact live direct parent, retaining the caller-minted request identity and
    * validated browser zone on the accepted message. Success identifies the
-   * message the child's FIFO inbox accepted; later execution is independent of
-   * this call.
+   * message the child's inbox accepted; later execution is independent of this
+   * call. Queue delivery targets a later turn; steer delivery targets the
+   * nearest step and retains the Agent loop's best-effort fallback semantics.
    * Image parts are admitted and persisted through the attachment store
    * before delivery, and the child's model must accept image input.
-   * @param request - durable address, minted identity, content, and optional browser zone.
+   * @param request - durable address, delivery, minted identity, content, and optional browser zone.
    * @param signal - carrier cancellation, owning the call until inbox acceptance.
    * @returns the accepted message's inbox identity.
    * @throws {RemoteError} `gateway/bad-request`, `subagent/attachment-invalid`,
@@ -411,7 +436,7 @@ export class SubagentRuntime extends TypertRemoteService {
    */
   @Remote('prompt')
   async prompt(request: SubagentPromptRequest, signal: AbortSignal): Promise<SubagentPromptReceipt> {
-    const { parentSessionId, childSessionId, clientTimeZone } = request
+    const { parentSessionId, childSessionId, clientTimeZone, delivery } = request
     validateControlRequest('subagent.prompt', request)
     const canonicalTimeZone = clientTimeZone === undefined
       ? undefined
@@ -454,7 +479,7 @@ export class SubagentRuntime extends TypertRemoteService {
           content,
           source,
           signal,
-          'queue',
+          delivery,
         ),
       }
     } catch (error: unknown) {
@@ -547,6 +572,8 @@ export class SubagentRuntime extends TypertRemoteService {
    * fulfills; a rejection therefore has no run for the caller to dispose and
    * emits no run lifecycle events. Post-publication turn and infrastructure
    * failures settle through the returned run.
+   * A catalog append failure disposes the run and handles its result rejection;
+   * the caller receives the catalog error even if disposal also fails.
    * @param name - the provider to use.
    * @param request - child label, prompt, parent, signal, and optional capabilities.
    * @returns the published holder-owned run.
@@ -562,7 +589,25 @@ export class SubagentRuntime extends TypertRemoteService {
       ...request.label !== undefined ? { label: request.label } : {},
     })
     const resolved: ResolvedSubagentStartRequest = { ...request, descriptor }
-    return observeRun(this.emitLifecycle, name, request.parent, await provider.start(resolved))
+    const run = await provider.start(resolved)
+    const child = run.localAgent?.session
+    if (child !== undefined) {
+      try {
+        establishCatalogChild(request.parent.session, child.header, descriptor)
+      } catch (error: unknown) {
+        // No caller receives this run; the catalog error owns the failed start.
+        void run.result.catch(() => undefined)
+        try {
+          await run.dispose()
+        } catch (cleanupError: unknown) {
+          this.ctx.logger.warn(
+            `subagent: disposal after catalog append failure also failed: ${String(cleanupError)}`,
+          )
+        }
+        throw error
+      }
+    }
+    return observeRun(this.emitLifecycle, name, request.parent, run)
   }
 
   /**

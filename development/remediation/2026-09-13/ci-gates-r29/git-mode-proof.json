@@ -1,0 +1,44 @@
+{
+  "kind": "offline-git-checkout-proof",
+  "fullRepositoryTest": false,
+  "platform": "posix",
+  "gitVersion": "git version 2.47.3",
+  "cases": [
+    {
+      "version": "baseline",
+      "coreSymlinks": "true",
+      "indexMode": "120000",
+      "blob": "336d59ae50cfc6b95c3ece43e3fd30e2c13e32ea",
+      "readable": false,
+      "readError": "ENOENT",
+      "indexRegressionAccepts": false
+    },
+    {
+      "version": "candidate",
+      "coreSymlinks": "true",
+      "indexMode": "100644",
+      "blob": "2a4483236bc2e2d05b4f6fc5f7192eeddf010cf9",
+      "readable": true,
+      "readError": null,
+      "indexRegressionAccepts": true
+    },
+    {
+      "version": "baseline",
+      "coreSymlinks": "false",
+      "indexMode": "120000",
+      "blob": "336d59ae50cfc6b95c3ece43e3fd30e2c13e32ea",
+      "readable": true,
+      "readError": null,
+      "indexRegressionAccepts": false
+    },
+    {
+      "version": "candidate",
+      "coreSymlinks": "false",
+      "indexMode": "100644",
+      "blob": "2a4483236bc2e2d05b4f6fc5f7192eeddf010cf9",
+      "readable": true,
+      "readError": null,
+      "indexRegressionAccepts": true
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+http_code=200
+url_effective=https://snapshot.ubuntu.com/ubuntu/20260901T000000Z/pool/main/b/bubblewrap/bubblewrap_0.9.0-1ubuntu0.1_amd64.deb
+num_redirects=0
+size_download=50178
+exit_will_follow
+curl_exit=0

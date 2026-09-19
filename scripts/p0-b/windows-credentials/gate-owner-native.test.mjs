@@ -8,7 +8,7 @@ import * as paths from 'node:path'
 import { fileURLToPath } from 'node:url'
 import vm from 'node:vm'
 import test from 'node:test'
-import ts from 'typescript'
+import ts from '@typescript/typescript6'
 
 // Real Windows helper and launcher; a spawn observer retains only this test's
 // child handles. No process enumeration, production credentials, model or network.

@@ -1,0 +1,190 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts [2m([22m[2m61 tests[22m[2m | [22m[31m6 failed[39m[2m | [22m[33m54 skipped[39m[2m)[22m[33m 1424[2mms[22m[39m
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh pinned identities (source-level) [2m(4)[22m
+     [2m[90m↓[39m[22m keeps the three pinned inputs with publisher-recorded digests and sources
+     [2m[90m↓[39m[22m verifies each digest before its archive is unpacked or executed
+     [2m[90m↓[39m[22m publishes only after the functional probe passes
+     [2m[90m↓[39m[22m adds no package transaction, no global library path, and no sandbox weakening
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) [2m(32)[22m
+     [2m[90m↓[39m[22m builds, verifies, and publishes from the three pinned inputs, in order, once
+     [2m[90m↓[39m[22m still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success
+     [2m[90m↓[39m[22m stops at a global 404 with the downloader exit code and never hashes, unpacks, or probes
+     [2m[90m↓[39m[22m stops at a connection failure with the downloader exit code
+     [2m[90m↓[39m[22m stops when only the meson download fails, after the bubblewrap input was already verified
+     [2m[90m↓[39m[22m stops when only the libcap download fails, after both tarballs were already extracted
+     [2m[90m↓[39m[22m rejects a bubblewrap digest mismatch and never unpacks anything
+     [2m[90m↓[39m[22m rejects a meson digest mismatch after the bubblewrap extraction but before the meson unpack
+     [2m[90m↓[39m[22m rejects a libcap digest mismatch before any deb handling
+     [2m[90m↓[39m[22m rejects a traversal member name in the bubblewrap listing before extraction
+     [2m[90m↓[39m[22m rejects an absolute member path in the deb listing before extraction
+     [2m[90m↓[39m[22m rejects a symlink that escapes the extraction root in the meson metadata listing
+     [2m[90m↓[39m[22m rejects a device member in the deb metadata listing before extraction
+     [2m[90m↓[39m[22m fails loud when a build tool is missing, before any download
+     [2m[90m↓[39m[22m rejects a libcap-dev control identity that does not match the pin
+     [2m[90m↓[39m[22m rejects a libcap-dev payload without the static library
+     [2m[90m↓[39m[22m stops at a deb extraction failure before dependency resolution
+     [2m[90m↓[39m[22m rejects a private libcap that pkg-config resolves to the wrong version
+     [2m[90m↓[39m[22m stops at a meson configure failure before any compile
+     [2m[90m↓[39m[22m stops at a compile failure with no artifact, hash record, probe, or publication
+     [2m[90m↓[39m[22m rejects a link command with no private libcap directory reference
+     [2m[90m↓[39m[22m rejects a link command that fell back to the host libcap directory
+     [2m[90m↓[39m[22m rejects a built binary that is not an x86-64 ELF
+     [2m[90m↓[39m[22m rejects a built binary with a dynamic libcap dependency
+     [2m[90m↓[39m[22m rejects a built binary whose ldd resolves libcap
+     [2m[90m↓[39m[22m rejects a built binary with the wrong version identity before any probe
+     [2m[90m↓[39m[22m keeps a functional-probe failure fatal and publishes nothing
+     [2m[90m↓[39m[22m refuses a non-Linux host before any download
+     [2m[90m↓[39m[22m refuses a non-x86_64 host before any download
+     [2m[90m↓[39m[22m fails loud when RUNNER_TEMP is missing, before any download
+     [2m[90m↓[39m[22m fails loud when GITHUB_PATH is missing, before any download
+     [2m[90m↓[39m[22m stops at a tarball extraction failure before the next input downloads
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh deb control-field protocol (per-field argv contract) [2m(12)[22m
+     [2m[90m↓[39m[22m reads each control field through its own single-field dpkg-deb call and accepts the pinned identities
+     [2m[90m↓[39m[22m accepts a legal single-line value whose output ends without a newline
+     [2m[90m↓[39m[22m rejects labeled single-field output (the CI run 35436610274 first-failure shape)
+     [2m[90m↓[39m[22m rejects the labeled multi-field control block when a per-field read receives it
+     [2m[90m↓[39m[22m rejects the labeled control block in non-argv order identically
+     [2m[90m↓[39m[22m rejects a field read that exits nonzero even though its stdout is the correct value
+     [2m[90m↓[39m[22m rejects a missing Package control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a missing Version control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a missing Architecture control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a duplicate control record line
+     [2m[90m↓[39m[22m rejects a wrong Package identity
+     [2m[90m↓[39m[22m rejects a wrong Architecture identity
+   [2m[90m↓[39m[22m scenario child environment construction (path-variable uniqueness) [2m(5)[22m
+     [2m[90m↓[39m[22m win32: emits exactly one PATH key, stub first, and never inherits parent path content
+     [2m[90m↓[39m[22m win32: a parent carrying both Path and PATH (Path first) still yields the same single stub-first PATH
+     [2m[90m↓[39m[22m win32: a parent carrying both PATH and Path (PATH first) yields the identical single PATH
+     [2m[90m↓[39m[22m posix: appends the exact parent PATH after the explicit entries and ignores differently-cased variables
+     [2m[90m↓[39m[22m rejects test vars that occupy a path-named key (misconfiguration fails loud)
+   [31m❯[39m prepare-ci-bubblewrap.sh stub-source identity and launch environment (W02) [2m(8)[22m
+[31m     [31m×[31m executes through the resolved absolute Bash with a stub-first PATH and records the source evidence[39m[32m 189[2mms[22m[39m
+[31m     [31m×[31m runs unchanged when the parent environment carries both Path and PATH variants (Path first)[39m[32m 187[2mms[22m[39m
+[31m     [31m×[31m runs unchanged when the parent environment carries both PATH and Path variants (PATH first)[39m[32m 259[2mms[22m[39m
+[31m     [31m×[31m runs unchanged inside a temporary path containing spaces and non-ASCII characters[39m[32m 186[2mms[22m[39m
+     [32m✓[39m host tool directory preceding the stub bin [2m(1)[22m
+       [32m✓[39m resolves the real host uname and stops at the platform gate before any stub runs[32m 258[2mms[22m[39m
+[31m     [31m×[31m refuses to run when the uname stub is missing: the source check rejects the host fallback first[39m[32m 153[2mms[22m[39m
+     [2m[90m↓[39m[22m non-executable stub (platform enforces the exec bit) [2m(1)[22m
+       [2m[90m↓[39m[22m refuses to run when the uname stub is present but not executable
+[31m     [31m×[31m explains the empty-stdout branch: a stub-driven platform refusal yields empty stdout, not a failed launch[39m[32m 153[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 6 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh stub-source identity and launch environment (W02)[2m > [22mexecutes through the resolved absolute Bash with a stub-first PATH and records the source evidence
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1235:27[22m[39m
+    [90m1233|[39m       expect(result.bashCommand).toBe('bash')
+    [90m1234|[39m     }
+    [90m1235|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m1236|[39m     expect(result.spawnError).toBe(null)
+    [90m1237|[39m     expect(result.signal).toBe(null)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh stub-source identity and launch environment (W02)[2m > [22mruns unchanged when the parent environment carries both Path and PATH variants (Path first)
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1254:27[22m[39m
+    [90m1252|[39m       ],
+    [90m1253|[39m     })
+    [90m1254|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m1255|[39m     expect(result.unameResolution).toBe(result.expectedUnameResolution)
+    [90m1256|[39m     expect(result.stdout).toContain('published private-build bubblewra…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh stub-source identity and launch environment (W02)[2m > [22mruns unchanged when the parent environment carries both PATH and Path variants (PATH first)
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1267:27[22m[39m
+    [90m1265|[39m       ],
+    [90m1266|[39m     })
+    [90m1267|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m1268|[39m     expect(result.unameResolution).toBe(result.expectedUnameResolution)
+    [90m1269|[39m     expect(result.stdout).toContain('published private-build bubblewra…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh stub-source identity and launch environment (W02)[2m > [22mruns unchanged inside a temporary path containing spaces and non-ASCII characters
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1277:27[22m[39m
+    [90m1275|[39m     expect(result.runnerTempChildPath).toContain('准备 probe-')
+    [90m1276|[39m     expect(result.runnerTempChildPath).toContain(' ')
+    [90m1277|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m1278|[39m     expect(result.builtBwrapExists).toBe(true)
+    [90m1279|[39m     expect(result.githubPathContent).toBe(`${result.runnerTempChildPat…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh stub-source identity and launch environment (W02)[2m > [22mrefuses to run when the uname stub is missing: the source check rejects the host fallback first
+[31m[1mAssertionError[22m: expected undefined to be an instance of Error[39m
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1306:20[22m[39m
+    [90m1304|[39m       thrown = error
+    [90m1305|[39m     }
+    [90m1306|[39m     expect(thrown).toBeInstanceOf(Error)
+    [90m   |[39m                    [31m^[39m
+    [90m1307|[39m     const message = (thrown as Error).message
+    [90m1308|[39m     expect(message).toMatch(/^stub-source check failed: command -v una…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh stub-source identity and launch environment (W02)[2m > [22mexplains the empty-stdout branch: a stub-driven platform refusal yields empty stdout, not a failed launch
+[31m[1mAssertionError[22m: expected '/c/Program Files/Git/usr/bin/uname' to be '/c/dsh-b01-w02/tmp/dsh-prepare-ci-bub…' // Object.is equality[39m
+
+Expected: [32m"/c/[7mdsh-b01-w02/tmp/dsh-prepare-ci-bubblewrap-dXa65w/run-m0pydh[27m/bin/uname"[39m
+Received: [31m"/c/[7mProgram Files/Git/usr[27m/bin/uname"[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1339:36[22m[39m
+    [90m1337|[39m     expect(result.spawnError).toBe(null)
+    [90m1338|[39m     expect(result.signal).toBe(null)
+    [90m1339|[39m     expect(result.unameResolution).toBe(result.expectedUnameResolution)
+    [90m   |[39m                                    [31m^[39m
+    [90m1340|[39m     expect(result.identityRecords.some(line => line.startsWith(`uname …
+    [90m1341|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[2m | [22m[33m54 skipped[39m[90m (61)[39m
+[2m   Start at [22m 20:51:59
+[2m   Duration [22m 2.42s[2m (tests 68%, import 17%, transform 13%, setup 2%)[22m

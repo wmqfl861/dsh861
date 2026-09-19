@@ -1,0 +1,20 @@
+t=: 9348 cpu=3.6s mem=232MB | 72620 cpu=0.9s mem=99MB
+t=: 9348 cpu=3.7s mem=235MB | 72620 cpu=1.0s mem=105MB | 4044 cpu=1.4s mem=84MB
+t=: 9348 cpu=3.7s mem=235MB | 72620 cpu=1.0s mem=105MB | 4044 cpu=1.5s mem=84MB
+t=: 9348 cpu=3.9s mem=164MB | 72620 cpu=1.0s mem=105MB | 4044 cpu=1.5s mem=84MB
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:
+t=:

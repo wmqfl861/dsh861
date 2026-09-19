@@ -1,0 +1,184 @@
+[
+  {
+    "raw": "C:/dsh-r46-tmp/raw/01-first-failure-spec.log",
+    "rawSha256": "a726c13ca0902a2657d5c37d8f4620f6fb57964396dd38a1e3adabbd7c256e80",
+    "repo": "logs/01-first-failure-spec.log",
+    "repoSha256": "a4a62ecdfa5ce7bbfc0737f03036bec5b43d85a4040f287a0d99623b1c70a3c0",
+    "bytes": 8425
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/01a-first-failure-driver-result.json",
+    "rawSha256": "35f6b1c3ee64f678db7171c14879b785bf59e54edb649a35241d6c79969539c5",
+    "repo": "logs/01a-first-failure-driver-result.json",
+    "repoSha256": "35f6b1c3ee64f678db7171c14879b785bf59e54edb649a35241d6c79969539c5",
+    "bytes": 12968
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/01b-first-failure-driver-stderr.log",
+    "rawSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "repo": "logs/01b-first-failure-driver-stderr.log",
+    "repoSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "bytes": 0
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/02-positive-spec.log",
+    "rawSha256": "64e0acbe5a8b92cad3b5b4e7edbd6320c1d417ad1c47457e60b82ca086c0d317",
+    "repo": "logs/02-positive-spec.log",
+    "repoSha256": "e9ffc00f45cbfdc9c84f5befa54f03bf66ce9f3ebf2a10a2982a7785abc8f829",
+    "bytes": 1455
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/03-nc1-mutant.log",
+    "rawSha256": "6f97eee5c8f0b5d42b424805e620a8ec230bc5e0cf3a0e0d20196ef2f1302f5c",
+    "repo": "logs/03-nc1-mutant.log",
+    "repoSha256": "1831ca0840194d350b2b9467556ccd1e5c57414ffc0558abf7f229d676a2a094",
+    "bytes": 7523
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/04-nc1-restored-positive.log",
+    "rawSha256": "0a02409e1d98bf55dac563bbe3603b525d1817357398cbab32ec56a3bf988cef",
+    "repo": "logs/04-nc1-restored-positive.log",
+    "repoSha256": "93c3cef7ba16443fab23f6d70a6d675e11330a451da87162d23b998e35ca9d66",
+    "bytes": 1444
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/05-nc2-mutant.log",
+    "rawSha256": "6055eeb2b3ae220047fbdb62d3b0aba92b0a0ae2edde1473290c40462bc91b65",
+    "repo": "logs/05-nc2-mutant.log",
+    "repoSha256": "f43cbc77166759d071ed4876ba48c4bacc79cbb42be39295b7b9960f5ad1c398",
+    "bytes": 4686
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/06-nc2-restored-positive.log",
+    "rawSha256": "7657e4380efddd53af2c7cb0dcbab5d251ffb9899d495f2dc629af5ba37deea5",
+    "repo": "logs/06-nc2-restored-positive.log",
+    "repoSha256": "68920aa097058c830e5a366ba725a1159fd8cd66db8a4cd920611f76b0462235",
+    "bytes": 1444
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/07-teardown-snapshot.log",
+    "rawSha256": "f170d02cb350d6a619f36ce60c7562aadbe0292d6a52ef925c19b677c9bf7d2a",
+    "repo": "logs/07-teardown-snapshot.log",
+    "repoSha256": "c463674e20d29418fd2d043ffe0e8a8ee5a840f68921b34034ef83935c421f88",
+    "bytes": 1685
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/08-shared-auto-lane.log",
+    "rawSha256": "bce27586d979c0f5823fd2ac347e77602c5590da84de15f5f35a923bf94478b1",
+    "repo": "logs/08-shared-auto-lane.log",
+    "repoSha256": "b776e1f82a67c987ca86fefb675b37cc34fa76c1677be4275d0da027052af9e7",
+    "bytes": 3067
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/09-typecheck.log",
+    "rawSha256": "09740cb41b1792e4cc8ee367da8cc443df14ba6f18acf04ddc45b3ee115cbe35",
+    "repo": "logs/09-typecheck-first-attempt.log",
+    "repoSha256": "09740cb41b1792e4cc8ee367da8cc443df14ba6f18acf04ddc45b3ee115cbe35",
+    "bytes": 375
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/10-typecheck-r2.log",
+    "rawSha256": "6c1a6e4ebb86df048fa4b937c5705e9741213c98595289e9a14cc8ad7b158c38",
+    "repo": "logs/10-typecheck-r2.log",
+    "repoSha256": "69c12b44a1469fbd6c712132c6de4537fae5d94c36e1b6770606a605c959ed70",
+    "bytes": 180768
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/16-spec-final.log",
+    "rawSha256": "0786c812564782d55e7c991699908dda05964fe581b8930620d54fe7f7e28a2c",
+    "repo": "logs/16-spec-final.log",
+    "repoSha256": "c7e6e70e2cd07a9c7780ceb92f4fbf4b560cc6e825b96f1f7e2ba5173ad8aa08",
+    "bytes": 1444
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/17-doc-quick.log",
+    "rawSha256": "d2032b887c90f4c7680b5198d4f6be482ef53b62323d7220ff42361739187854",
+    "repo": "logs/17-doc-quick-broken-shim-path-mistake.log",
+    "repoSha256": "44c702043bf1fe3be4d9cef00c6cd4edf7137db20ac27669a71d9b69b11c6fd3",
+    "bytes": 220
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/18-doc-quick-r2.log",
+    "rawSha256": "7ae303cc8676c458c900cb752245769decb76c6e50e8d40871da1cb7f652613e",
+    "repo": "logs/18-doc-quick-r2.log",
+    "repoSha256": "7ae303cc8676c458c900cb752245769decb76c6e50e8d40871da1cb7f652613e",
+    "bytes": 2286
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/19-corpus-gate.log",
+    "rawSha256": "cd3d69411dfa39127de474760478af82baaed9c9d1764c6885f8fdf3e970d430",
+    "repo": "logs/19-corpus-gate.log",
+    "repoSha256": "60a47c2b347443ec90a5180dda51d86e85a741e4f9fc4934aac26e2c19df3eba",
+    "bytes": 733
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/20-teardown-final.log",
+    "rawSha256": "20144352b5f3b15f4832d71136f1f2930f23a379155ca436b4038d9ddd0f4e9c",
+    "repo": "logs/20-teardown-final.log",
+    "repoSha256": "aa006e63ca66082dbe91dcfe3ca39a932222b9f8ed2e24e0079d9f3ca54b930a",
+    "bytes": 1676
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/21-typecheck-final2.log",
+    "rawSha256": "e39b1d82323b31c3b5b1657ff746f9887f25dfda5e966a5834ed4a4d2ac87923",
+    "repo": "logs/21-typecheck-broken-shim-path-mistake.log",
+    "repoSha256": "def7c2e08fe7f5698db9bd7c4d9397d3ce4a8caa391fa3e9fc3cf7621ecaaa16",
+    "bytes": 241
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/22-typecheck-final3.log",
+    "rawSha256": "a030029343a051f00880b9a46283a5a44f6aa6b7a1846c87abbaadbefb049b40",
+    "repo": "logs/22-typecheck-final3.log",
+    "repoSha256": "35f6e1581248828293573d0e7e235272930a86b7082528254261c91dcf3aee54",
+    "bytes": 182268
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/23-lint-final.log",
+    "rawSha256": "4158cb615cc4ea9e57c92f2abf95001b3a5be132b4b43520053c8efda4dad797",
+    "repo": "logs/23-lint-final.log",
+    "repoSha256": "76dfdd857c8f171a9236b1325e98849b4ea7ef1e02ed58209258284ac315d694",
+    "bytes": 181623
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/24-doc-quick-final.log",
+    "rawSha256": "258fdd913c62b462110a61c470f6fa4b107ea0966243b0db36c301cf884dfccb",
+    "repo": "logs/24-doc-quick-final.log",
+    "repoSha256": "258fdd913c62b462110a61c470f6fa4b107ea0966243b0db36c301cf884dfccb",
+    "bytes": 1549
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/11-lint.log",
+    "rawSha256": "74feb44c8b7675d1127b12e33eeb196144e6a83fb730d48a82dfd7d07d68cf57",
+    "repo": "logs/11-lint.log",
+    "repoSha256": "5921b4e6b3f96388f8cd142e7b4593778b4ad5f01f904da6d0b6eaf25a9fcb66",
+    "bytes": 171323
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/12-lint-r2.log",
+    "rawSha256": "72f52d3a1ac7966ebb35d87a32217a0e9c303904607247a70ff6586c414fd31e",
+    "repo": "logs/12-lint-r2.log",
+    "repoSha256": "582fc54b265ab25cb2677e0948eb5bbfbf8bcd935cc8f782f1f91181ff676e44",
+    "bytes": 188471
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/13-lint-r3.log",
+    "rawSha256": "8e299c0226cecf43b0ecdcedd6234edb98e417462d6380d963d351ab5ed0dcf3",
+    "repo": "logs/13-lint-r3.log",
+    "repoSha256": "ce50002ca8dfb3638886898666f962f150324ef97410cd209ad7f8bea312baec",
+    "bytes": 168440
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/14-typecheck-final.log",
+    "rawSha256": "e97ac1bd444a8467f5583d05f0697c14841cb2e281a9ee6cfb686e04d9b63d57",
+    "repo": "logs/14-typecheck-final.log",
+    "repoSha256": "4839938cbcbc7a1c17a2959b2317221c0a55dc2268fce99a22c4481a9ee6b1ad",
+    "bytes": 195766
+  },
+  {
+    "raw": "C:/dsh-r46-tmp/raw/15-duplication.log",
+    "rawSha256": "250238648e007dfe158f44c0e1e44b7dd1b5dd083a5443b4b0e02d915ee13fac",
+    "repo": "logs/15-duplication.log",
+    "repoSha256": "250238648e007dfe158f44c0e1e44b7dd1b5dd083a5443b4b0e02d915ee13fac",
+    "bytes": 2350
+  }
+]

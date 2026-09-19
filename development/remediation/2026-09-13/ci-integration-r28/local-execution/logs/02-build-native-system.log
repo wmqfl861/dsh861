@@ -1,0 +1,2 @@
+$ tsx native/system/scripts/build.ts --host-addon-only
+EXIT: 0

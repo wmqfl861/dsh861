@@ -1,0 +1,233 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] dsh web: http://127.0.0.1:3080/?token=AemeTZ5WduB6OXse17dsoEnQftKhKuXWIaAss0zOP5Y
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker host: tree active (modules=652, data overlays=0, preset root overlay=applied, direct lane=connection.createSharedFetchHandler, als causality=snapshot/restore, image lowering=dsh-worker-transform/2)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker tunnel: serving (unary /api lane=route with 401/403 retry, privileged set=none, queued=1)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /open-in-app/apps
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /plugins/events
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:log] dsh web: http://127.0.0.1:3080/?token=-samkmziXZvTM2fTerhB-EO74t5Z6tAF-fpK6f2ny6Q
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker host: tree active (modules=652, data overlays=1, preset root overlay=applied, direct lane=connection.createSharedFetchHandler, als causality=snapshot/restore, image lowering=dsh-worker-transform/2)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:info] webworker tunnel: serving (unary /api lane=route with 401/403 retry, privileged set=none, queued=1)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /open-in-app/apps
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/inventory with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused agentPresets/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-http-404] /plugins/events
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] Failed to load resource: the server responded with a status of 404 (Not Found)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused dynamicCordisRunner/syncInspectManifest with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/create with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] preset-tree: TypeError: __dsh$default is not a constructor
+    at eval (packages/web/tool-web/lib/index.js:337:18)
+    at E.load (http://127.0.0.1:60389/preview/worker-4VaGJYlc.js:1:7202)
+    at Object.import (http://127.0.0.1:60389/preview/worker-4VaGJYlc.js:1:3599)
+    at PresetTree.import (packages/preset/agent-presets/lib/index.js:679:25)
+    at Entry._init (vendor/loader/lib/index.js:629:94)
+    at Entry.init (vendor/loader/lib/index.js:608:61)
+    at Entry.update (vendor/loader/lib/index.js:529:74)
+    at EntryGroup.create (vendor/loader/lib/index.js:71:42)
+    at eval (vendor/loader/lib/index.js:109:101)
+    at Array.map (<anonymous>)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:error] preset-tree: Error: failed to import loader entry tool-web (@deepseek-ai/dsh-tool-web): __dsh$default is not a constructor
+    at updateError (vendor/loader/lib/index.js:412:9)
+    at Entry._init (vendor/loader/lib/index.js:631:10)
+    at async Entry.init (vendor/loader/lib/index.js:608:17)
+    at async Entry.update (vendor/loader/lib/index.js:529:50)
+    at async EntryGroup.create (vendor/loader/lib/index.js:71:17)
+    at async Promise.allSettled (index 16)
+    at async EntryGroup.update (vendor/loader/lib/index.js:109:34)
+    at async PresetTree._apply (vendor/include/lib/index.js:240:16)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:warning] initial workspace selection failed: SessionCreateError: session create failed: agent-preset/invalid: agent-presets: preset "standard" failed to mount: failed to import loader entry tool-web (@deepseek-ai/dsh-tool-web): __dsh$default is not a constructor (/dsh/node_modules/@deepseek-ai/dsh-agent-presets/presets/standard/agent.cordis.yml)
+    at ClientSessions.create (blob:http://127.0.0.1:60389/4a99b087-b13a-4ec3-9d6a-592e48641133:7625:27)
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/mutate with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/modelCatalog with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused llm/listConfigurableProviders with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused settings/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused credentials/describe with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused session/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-console:debug] webworker tunnel: route lane refused workspace/list with 401; answering on the direct lane
+
+[90mstdout[2m | apps/web/tests/preview-boot.e2e.ts[2m > [22m[2mboots the packed worker deployment to an interactive page
+[22m[39m[zz-preview-rpc-probe] {"sessions":{"type":"server-response","rpcId":"zz-session/list","result":{"ok":true,"value":{"items":[{"sessionId":"preview-follow-up-builder","updatedAt":1787472200000,"running":false,"blank":false,"parentSessionId":"preview-showcase","origin":"subagent","cwd":"/dsh/workspace"},{"sessionId":"preview-architecture-review","updatedAt":1787472100000,"running":false,"blank":false,"parentSessionId":"preview-showcase","origin":"subagent","cwd":"/dsh/workspace"},{"sessionId":"preview-showcase","updatedAt":1787472000000,"running":false,"blank":false,"cwd":"/dsh/workspace","projections":{"asOfSeq":198,"values":{"title":"WebWorker Preview Showcase"}}}]}}},"workspaces":"ERR SyntaxError: Failed to execute 'json' on 'Response': Unexpected token 'o', \"not found\" is not valid JSON"}
+
+ [31m❯[39m apps/web/tests/preview-boot.e2e.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 50186[2mms[22m[39m
+[31m   [31m×[31m boots the packed worker deployment to an interactive page[39m[33m 50185[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/web/tests/preview-boot.e2e.ts[2m > [22mboots the packed worker deployment to an interactive page
+[31m[1mTimeoutError[22m: locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-composer-input][data-placeholder="Describe what you want to build, / commands, @ files or sessions"]') to be visible[22m
+[39m
+[36m [2m❯[22m bootPreview apps/web/tests/preview-boot.e2e.ts:[2m333:8[22m[39m
+    [90m331|[39m     await configureLater.click()
+    [90m332|[39m     await page.locator('[data-composer-input][data-placeholder="Descri…
+    [90m333|[39m       .waitFor({ timeout: 30_000 })
+    [90m   |[39m        [31m^[39m
+    [90m334|[39m
+    [90m335|[39m     const exercised = await page.evaluate(async ({ seededSessionId, se…
+[90m [2m❯[22m apps/web/tests/preview-boot.e2e.ts:[2m268:9[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m   Start at [22m 21:38:20
+[2m   Duration [22m 53.14s[2m (tests 95%, transform 4%, import 2%)[22m

@@ -1,0 +1,29 @@
+{
+ "label": "exempt",
+ "unionBefore": 1191,
+ "unionAfter": 1191,
+ "unionsIdentical": true,
+ "lostFiles": [],
+ "gainedFiles": [],
+ "threadSafe": {
+  "before": 1184,
+  "after": 1184
+ },
+ "processBound": {
+  "before": 1191,
+  "after": 7
+ },
+ "duplicateOwnershipBefore": 1184,
+ "duplicateOwnershipAfter": 0,
+ "intersectionAfter": 0,
+ "intersectionSample": [],
+ "processBoundFilesAfter": [
+  "packages/boot/app-boot/tests/app-boot.spec.ts",
+  "packages/context/time-context/tests/time-context.spec.ts",
+  "packages/llm/llm-pi-ai/tests/adapter.spec.ts",
+  "packages/session/session-persistence-jsonl/tests/jsonl.spec.ts",
+  "packages/subagent/subagent-acp/tests/subagent-acp.spec.ts",
+  "packages/subprocess/subprocess-local/tests/process-exit.spec.ts",
+  "packages/workflow/workflow-worker-thread/tests/session.spec.ts"
+ ]
+}

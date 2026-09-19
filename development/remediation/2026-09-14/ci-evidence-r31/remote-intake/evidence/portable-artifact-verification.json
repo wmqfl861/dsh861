@@ -1,0 +1,41 @@
+[
+  {
+    "artifact": "consumers",
+    "integrity": "PASS",
+    "checkedFileHashes": 4,
+    "aggregate": "node-compat",
+    "expectedAggregateMatches": false,
+    "summary": {
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    "recordedParent": null
+  },
+  {
+    "artifact": "linux-coverage",
+    "integrity": "PASS",
+    "checkedFileHashes": 5,
+    "aggregate": "ci-coverage",
+    "expectedAggregateMatches": true,
+    "summary": {
+      "passed": 1,
+      "failed": 1,
+      "skipped": 1
+    },
+    "recordedParent": null
+  },
+  {
+    "artifact": "windows-coverage",
+    "integrity": "PASS",
+    "checkedFileHashes": 5,
+    "aggregate": "ci-coverage",
+    "expectedAggregateMatches": true,
+    "summary": {
+      "passed": 1,
+      "failed": 1,
+      "skipped": 1
+    },
+    "recordedParent": null
+  }
+]

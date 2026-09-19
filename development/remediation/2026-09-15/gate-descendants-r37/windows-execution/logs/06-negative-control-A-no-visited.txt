@@ -1,0 +1,854 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-primary graph
+run-gates: start runtime closure
+run-gates: start application entrypoints
+run-gates: start constraints
+run-gates: start package dependencies
+run-gates: start DSH package licenses
+run-gates: start package invariants
+run-gates: start Cordis config
+run-gates: start optional dependency imports
+run-gates: start client packages
+run-gates: start client UI i18n
+run-gates: start proxy-aware dispatchers
+run-gates: start Weighted approval policy
+run-gates: start Issue management policy
+run-gates: start Typert contracts
+run-gates: start duplication
+run-gates: start build:native-system
+run-gates: start source worker smoke
+run-gates: start JSONL Zstandard smoke
+run-gates: start dsh source-launch smoke
+run-gates: start Vitest jsdom smoke
+run-gates: start documentation build
+run-gates: start doc graphs
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start cordis catalog
+run-gates: start Cordis inspect catalog
+run-gates: start verify-mermaid
+run-gates: start scoped events
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start client catalog
+run-gates: start export jsdoc
+run-gates: start tool catalog
+run-gates: start config catalog
+run-gates: start persistence catalog
+run-gates: start Session format catalog
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start subsystem pages
+run-gates: start package paths
+run-gates: start tsconfig paths
+run-gates: start config source ownership
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start documentation site checks
+run-gates: start package README limitations
+run-gates: start module graph
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-primary graph
+run-gates: start typecheck:contracts-ready
+run-gates: start lint:contracts-ready
+run-gates: start doc-typecheck:contracts-ready
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-primary graph
+run-gates: start test:coverage
+run-gates: start test:coverage-exempt-heavy
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-primary graph
+run-gates: start build
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-primary graph
+run-gates: start test:snapshot
+run-gates: start publint
+run-gates: start node-next types
+run-gates: start built package invariants
+run-gates: start built-bin smoke
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-linux-primary graph
+run-gates: start runtime closure
+run-gates: start application entrypoints
+run-gates: start constraints
+run-gates: start package dependencies
+run-gates: start DSH package licenses
+run-gates: start package invariants
+run-gates: start Cordis config
+run-gates: start optional dependency imports
+run-gates: start client packages
+run-gates: start client UI i18n
+run-gates: start proxy-aware dispatchers
+run-gates: start Weighted approval policy
+run-gates: start Issue management policy
+run-gates: start Typert contracts
+run-gates: start duplication
+run-gates: start build:native-system
+run-gates: start source worker smoke
+run-gates: start JSONL Zstandard smoke
+run-gates: start dsh source-launch smoke
+run-gates: start Vitest jsdom smoke
+run-gates: start documentation build
+run-gates: start doc graphs
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start cordis catalog
+run-gates: start Cordis inspect catalog
+run-gates: start verify-mermaid
+run-gates: start scoped events
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start client catalog
+run-gates: start export jsdoc
+run-gates: start tool catalog
+run-gates: start config catalog
+run-gates: start persistence catalog
+run-gates: start Session format catalog
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start subsystem pages
+run-gates: start package paths
+run-gates: start tsconfig paths
+run-gates: start config source ownership
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start documentation site checks
+run-gates: start package README limitations
+run-gates: start module graph
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-linux-primary graph
+run-gates: start typecheck:contracts-ready
+run-gates: start lint:contracts-ready
+run-gates: start doc-typecheck:contracts-ready
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-linux-primary graph
+run-gates: start test:coverage
+run-gates: start test:coverage-exempt-heavy
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-linux-primary graph
+run-gates: start build
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-linux-primary graph
+run-gates: start test:snapshot
+run-gates: start publint
+run-gates: start node-next types
+run-gates: start built package invariants
+run-gates: start built-bin smoke
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-linux-primary graph
+run-gates: start web browser snapshot
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-static graph
+run-gates: start runtime closure
+run-gates: start application entrypoints
+run-gates: start constraints
+run-gates: start package dependencies
+run-gates: start DSH package licenses
+run-gates: start package invariants
+run-gates: start Cordis config
+run-gates: start optional dependency imports
+run-gates: start client packages
+run-gates: start client UI i18n
+run-gates: start proxy-aware dispatchers
+run-gates: start Weighted approval policy
+run-gates: start Issue management policy
+run-gates: start documentation build
+run-gates: start doc graphs
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start cordis catalog
+run-gates: start Cordis inspect catalog
+run-gates: start verify-mermaid
+run-gates: start scoped events
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start client catalog
+run-gates: start export jsdoc
+run-gates: start tool catalog
+run-gates: start config catalog
+run-gates: start persistence catalog
+run-gates: start Session format catalog
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start subsystem pages
+run-gates: start package paths
+run-gates: start tsconfig paths
+run-gates: start config source ownership
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start documentation site checks
+run-gates: start package README limitations
+run-gates: start module graph
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-lint-contracts-ready graph
+run-gates: start lint:contracts-ready
+run-gates: start duplication
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-coverage graph
+run-gates: start build:native-system
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-coverage graph
+run-gates: start test:coverage
+run-gates: start test:coverage-exempt-heavy
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-bench graph
+run-gates: start performance benchmarks
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-snapshot graph
+run-gates: start build
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-snapshot graph
+run-gates: start test:snapshot
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-artifacts graph
+run-gates: start build
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-artifacts graph
+run-gates: start publint
+run-gates: start node-next types
+run-gates: start built package invariants
+run-gates: start built-bin smoke
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-consumers graph
+run-gates: start build
+run-gates: start Node compatibility
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-consumers graph
+run-gates: start publint
+run-gates: start built package invariants
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-consumers graph
+run-gates: start lint and duplication
+run-gates: start test:snapshot
+run-gates: start test:expected
+run-gates: start doc-typecheck:contracts-ready
+run-gates: start node-next types
+run-gates: start built-bin smoke
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-consumers graph
+run-gates: start web browser snapshot
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-blocking graph
+run-gates: start build
+run-gates: start production site
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-complete graph
+run-gates: start build
+run-gates: start production site
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-complete graph
+run-gates: start build:native-system
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-complete graph
+run-gates: start test:coverage
+run-gates: start test:coverage-exempt-heavy
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-complete graph
+run-gates: start runtime closure
+run-gates: start application entrypoints
+run-gates: start constraints
+run-gates: start package dependencies
+run-gates: start DSH package licenses
+run-gates: start package invariants
+run-gates: start Cordis config
+run-gates: start optional dependency imports
+run-gates: start client packages
+run-gates: start client UI i18n
+run-gates: start proxy-aware dispatchers
+run-gates: start Weighted approval policy
+run-gates: start Issue management policy
+run-gates: start doc-typecheck:contracts-ready
+run-gates: start doc graphs
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start cordis catalog
+run-gates: start Cordis inspect catalog
+run-gates: start verify-mermaid
+run-gates: start scoped events
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start client catalog
+run-gates: start export jsdoc
+run-gates: start tool catalog
+run-gates: start config catalog
+run-gates: start persistence catalog
+run-gates: start Session format catalog
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start subsystem pages
+run-gates: start package paths
+run-gates: start tsconfig paths
+run-gates: start config source ownership
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start documentation site checks
+run-gates: start package README limitations
+run-gates: start module graph
+run-gates: start duplication
+run-gates: start publint
+run-gates: start node-next types
+run-gates: start built package invariants
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-complete graph
+run-gates: start built-bin smoke
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-observational graph
+run-gates: start runtime closure
+run-gates: start application entrypoints
+run-gates: start constraints
+run-gates: start package dependencies
+run-gates: start DSH package licenses
+run-gates: start package invariants
+run-gates: start Cordis config
+run-gates: start optional dependency imports
+run-gates: start client packages
+run-gates: start client UI i18n
+run-gates: start proxy-aware dispatchers
+run-gates: start Weighted approval policy
+run-gates: start Issue management policy
+run-gates: start build
+run-gates: start documentation build
+run-gates: start doc graphs
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start cordis catalog
+run-gates: start Cordis inspect catalog
+run-gates: start verify-mermaid
+run-gates: start scoped events
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start client catalog
+run-gates: start export jsdoc
+run-gates: start tool catalog
+run-gates: start config catalog
+run-gates: start persistence catalog
+run-gates: start Session format catalog
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start subsystem pages
+run-gates: start package paths
+run-gates: start tsconfig paths
+run-gates: start config source ownership
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start documentation site checks
+run-gates: start package README limitations
+run-gates: start module graph
+run-gates: start duplication
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-observational graph
+run-gates: start doc-typecheck:contracts-ready
+run-gates: start publint
+run-gates: start node-next types
+run-gates: start built package invariants
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty ci-windows-observational graph
+run-gates: start built-bin smoke
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty node-compat graph
+run-gates: start typecheck
+run-gates: start source worker smoke
+run-gates: start JSONL Zstandard smoke
+run-gates: start dsh source-launch smoke
+run-gates: start Vitest jsdom smoke
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty check-all graph
+run-gates: start runtime closure
+run-gates: start Cordis config
+run-gates: start client domain graph
+run-gates: start test
+run-gates: start Weighted approval policy
+run-gates: start Issue management policy
+run-gates: start duplication
+run-gates: start build
+run-gates: start build:web
+run-gates: start vendor rescope
+run-gates: start constraints
+run-gates: start package dependencies
+run-gates: start application entrypoints
+run-gates: start DSH package licenses
+run-gates: start package invariants
+run-gates: start optional dependency imports
+run-gates: start client packages
+run-gates: start client UI i18n
+run-gates: start proxy-aware dispatchers
+run-gates: start documentation build
+run-gates: start doc graphs
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start cordis catalog
+run-gates: start Cordis inspect catalog
+run-gates: start verify-mermaid
+run-gates: start scoped events
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start client catalog
+run-gates: start export jsdoc
+run-gates: start tool catalog
+run-gates: start config catalog
+run-gates: start persistence catalog
+run-gates: start Session format catalog
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start subsystem pages
+run-gates: start package paths
+run-gates: start tsconfig paths
+run-gates: start config source ownership
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start documentation site checks
+run-gates: start package README limitations
+run-gates: start module graph
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty check-all graph
+run-gates: start test:snapshot
+run-gates: start test:expected
+run-gates: start publint
+run-gates: start built package invariants
+run-gates: start node-next types
+run-gates: start doc-typecheck:contracts-ready
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty hygiene graph
+run-gates: start vendor rescope
+run-gates: start publint
+run-gates: start constraints
+run-gates: start package dependencies
+run-gates: start application entrypoints
+run-gates: start DSH package licenses
+run-gates: start package invariants
+run-gates: start built package invariants
+run-gates: start node-next types
+run-gates: start optional dependency imports
+run-gates: start client packages
+run-gates: start client UI i18n
+run-gates: start proxy-aware dispatchers
+run-gates: start Cordis config
+run-gates: start runtime closure
+run-gates: start vendored links
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty doc-sync graph
+run-gates: start doc-typecheck
+run-gates: start documentation build
+run-gates: start doc graphs
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start cordis catalog
+run-gates: start Cordis inspect catalog
+run-gates: start verify-mermaid
+run-gates: start scoped events
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start client catalog
+run-gates: start export jsdoc
+run-gates: start tool catalog
+run-gates: start config catalog
+run-gates: start persistence catalog
+run-gates: start Session format catalog
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start subsystem pages
+run-gates: start package paths
+run-gates: start tsconfig paths
+run-gates: start config source ownership
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start documentation site checks
+run-gates: start package README limitations
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > constructs and executes preflight for a valid non-empty doc-quick graph
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: start public repository links
+run-gates: start doc refs
+run-gates: start package README Summaries
+run-gates: start package README model experience
+run-gates: start agent note classification
+run-gates: start agent note format
+run-gates: start archived agent notes
+run-gates: start skill invocation metadata
+run-gates: start translation prompt
+run-gates: start doc budgets
+run-gates: start documentation standard tests
+run-gates: start package README limitations
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > skips dependents after their prerequisite fails
+run-gates: start root
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > runs an ordered follower after its predecessor fails
+run-gates: start root
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > runs an ordered follower after its predecessor fails
+run-gates: start follower
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > runs an ordered follower after its predecessor is skipped
+run-gates: start root
+
+stdout | scripts/run-gates.spec.ts > gate graph validation > runs an ordered follower after its predecessor is skipped
+run-gates: start follower
+
+stdout | scripts/run-gates.spec.ts > fail-fast scheduling > aborts the aggregate at the first blocking failure
+run-gates: start slow
+run-gates: start fast
+
+stderr | scripts/run-gates.spec.ts > fail-fast scheduling > aborts the aggregate at the first blocking failure
+run-gates: fail-fast aborting: slow failed.
+
+stdout | scripts/run-gates.spec.ts > fail-fast scheduling > does not abort on a non-blocking gate failure
+run-gates: start observational
+run-gates: start root
+
+stdout | scripts/run-gates.spec.ts > fail-fast scheduling > runs independent gates to completion when fail-fast is disabled
+run-gates: start root
+run-gates: start sibling
+
+stdout | scripts/run-gates.spec.ts > fail-fast scheduling > forwards host interruption signals to the abort path
+run-gates: start slow
+
+ ❯  thread-safe  scripts/run-gates.spec.ts (110 tests | 6 failed | 5 skipped) 36308ms
+   ✓ gate graph validation (63)
+     ✓ constructs and executes preflight for a valid non-empty ci-primary graph 14ms
+     ✓ constructs and executes preflight for a valid non-empty ci-linux-primary graph 6ms
+     ✓ constructs and executes preflight for a valid non-empty ci-static graph 3ms
+     ✓ constructs and executes preflight for a valid non-empty ci-lint-contracts-ready graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty ci-coverage graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty ci-bench graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty ci-snapshot graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty ci-artifacts graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty ci-consumers graph 2ms
+     ✓ constructs and executes preflight for a valid non-empty ci-windows-blocking graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty ci-windows-complete graph 4ms
+     ✓ constructs and executes preflight for a valid non-empty ci-windows-observational graph 3ms
+     ✓ constructs and executes preflight for a valid non-empty node-compat graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty check-all graph 3ms
+     ✓ constructs and executes preflight for a valid non-empty hygiene graph 1ms
+     ✓ constructs and executes preflight for a valid non-empty doc-sync graph 2ms
+     ✓ constructs and executes preflight for a valid non-empty doc-quick graph 1ms
+     ✓ builds the native addon before benchmarks through the ci-bench script chain 2ms
+     ✓ keeps the public repository link policy in the documentation gate 6ms
+     ✓ keeps package-group subsystem ownership in the documentation gate 0ms
+     ✓ keeps the package README Summary limit in the documentation gate 0ms
+     ✓ derives the quick documentation aggregate from marked doc-sync leaves 1ms
+     ✓ keeps the hygiene aggregate aligned with the package script checks 0ms
+     ✓ schedules the longest documentation leaves before short checks 0ms
+     ✓ launches a native pnpm entrypoint directly 0ms
+     ✓ keeps the DSH package license policy in ci-primary 0ms
+     ✓ keeps the DSH package license policy in ci-static 0ms
+     ✓ keeps the DSH package license policy in check-all 0ms
+     ✓ keeps package dependency enforcement in ci-primary 0ms
+     ✓ keeps package dependency enforcement in ci-static 0ms
+     ✓ keeps package dependency enforcement in check-all 0ms
+     ✓ keeps package dependency enforcement in hygiene 0ms
+     ✓ keeps the client dependency policy in ci-primary 0ms
+     ✓ keeps the client dependency policy in ci-static 0ms
+     ✓ keeps the client dependency policy in check-all 0ms
+     ✓ keeps weighted approval policy tests in ci-primary 0ms
+     ✓ keeps weighted approval policy tests in ci-static 0ms
+     ✓ keeps weighted approval policy tests in check-all 0ms
+     ✓ keeps hard-coded Client UI copy enforcement in ci-primary 0ms
+     ✓ keeps hard-coded Client UI copy enforcement in ci-static 0ms
+     ✓ keeps hard-coded Client UI copy enforcement in check-all 0ms
+     ✓ keeps hard-coded Client UI copy enforcement in hygiene 0ms
+     ✓ keeps application entrypoint enforcement in ci-primary 0ms
+     ✓ keeps application entrypoint enforcement in ci-static 0ms
+     ✓ keeps application entrypoint enforcement in check-all 0ms
+     ✓ keeps application entrypoint enforcement in hygiene 0ms
+     ✓ keeps native Windows coverage blocking and behind the complete build 3ms
+     ✓ runs the Windows built-bin smoke after other observational gates settle 1ms
+     ✓ applies one configured test, polling, and hook timeout to both coverage gates 1ms
+     ✓ keeps Vitest timeout defaults when the coverage override is absent 1ms
+     ✓ rejects an invalid coverage timeout before starting a gate 1ms
+     ✓ selects partitioned coverage only when explicitly configured 0ms
+     ✓ rejects an invalid coverage partition count before starting a gate 0ms
+     ✓ rejects empty before starting a child 1ms
+     ✓ rejects duplicate ids before starting a child 0ms
+     ✓ rejects unknown dependencies before starting a child 0ms
+     ✓ rejects unknown ordering predecessors before starting a child 0ms
+     ✓ rejects cycles before starting a child 0ms
+     ✓ rejects mixed cycles before starting a child 0ms
+     ✓ rejects an invalid worker count before starting a child 0ms
+     ✓ skips dependents after their prerequisite fails 1ms
+     ✓ runs an ordered follower after its predecessor fails 0ms
+     ✓ runs an ordered follower after its predecessor is skipped 0ms
+   ✓ Oxlint gate (2)
+     ✓ uses the package script when no worker bound is configured 0ms
+     ✓ surfaces the configured worker bound on the shared package script 0ms
+   ✓ Typert contract preparation (3)
+     ✓ prepares primary source consumers once before they run 1ms
+     ✓ reuses contracts from the validated consumer build 0ms
+     ✓ keeps standalone doc sync responsible for preparation 0ms
+   ✓ Node compatibility graph (1)
+     ✓ runs the jsdom environment smoke on every advertised Node line 0ms
+   ✓ Node 24 lane ownership (2)
+     ✓ keeps the static lane source-only 0ms
+     ✓ owns the build and orders its artifact consumers 1ms
+   ✓ Linux primary graph (1)
+     ✓ adds the same compare-only web gate after built client artifacts 0ms
+   ✓ gate process outcomes (2)
+     ✓ streams selected gate output without retaining it 119ms
+     ↓ reports signal termination independently from exit status
+   ✓ fail-fast scheduling (12)
+     ✓ aborts the aggregate at the first blocking failure 1ms
+     ✓ does not abort on a non-blocking gate failure 0ms
+     ✓ runs independent gates to completion when fail-fast is disabled 0ms
+     ✓ kills the child when the abort signal fires 2774ms
+     ↓ marks a zero-exit child as aborted when the signal fired
+     ↓ kills the whole gate process tree when the abort signal fires
+     ✓ forwards host interruption signals to the abort path 2ms
+     ✓ pairs host signal forwarding with fail-fast at the CLI entrypoint 0ms
+     ✓ rejects host signal forwarding without fail-fast 1ms
+     ✓ leaves an un-aborted child running to completion 779ms
+     ↓ kills a detached descendant that outlived the child when the abort arrives later
+     ↓ keeps a reparented detached descendant tracked across a sampler tick
+   ✓ process-table parsing (3)
+     ✓ parses `pid ppid` rows from a POSIX ps dump 0ms
+     ✓ parses Windows PowerShell Get-CimInstance output of the same shape 0ms
+     ✓ drops blank and malformed lines 0ms
+   ✓ Windows tree termination (2)
+     ✓ targets the root first and each captured descendant after it 0ms
+     ✓ terminates the root alone when no descendant was captured 0ms
+   ❯ descendant graph walk (9)
+     ✓ returns an empty list for an empty table 0ms
+     ✓ walks multi-level descendants in breadth-first discovery order 0ms
+     ✓ finds the children of a root that has no row of its own 0ms
+     × lists each descendant once when rows repeat a pid 16ms
+     × keeps one entry for a pid reachable on multiple paths 2ms
+     ✓ leaves the input rows unchanged 1ms
+     ✓ returns every pid of a wide root child list 79ms
+     ✓ returns every pid of a wide non-root child list without argument spreading 98ms
+     ✓ walks a deep chain without recursion 64ms
+   ❯ descendant graph walk with cycles (5)
+     × stops at a pid that is its own parent 10344ms
+     × stops when a cycle returns to the root and keeps the root out of the result 7723ms
+     ✓ ignores a cycle that no descendant of the root reaches 415ms
+     × keeps the other descendants when one branch cycles back to the root 7212ms
+     × matches independent per-pid reachability on seeded random tables 6362ms
+   ✓ asynchronous enumeration wiring (4)
+     ✓ resolves the walked descendants when the enumeration closes 1ms
+     ✓ accumulates the table across multiple stdout chunks 0ms
+     ✓ settles empty on enumeration error and a late close changes nothing 1ms
+     ✓ settles empty on cancel; a late or repeated close neither re-settles nor kills again 1ms
+   ✓ asynchronous enumeration late-close protection (1)
+     ✓ does not re-walk the captured table when close arrives after cancel 229ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > descendant graph walk > lists each descendant once when rows repeat a pid
+AssertionError: expected [ 2, 2, 3, 3 ] to deeply equal [ 2, 3 ]
+
+- Expected
++ Received
+
+  [
+    2,
++   2,
++   3,
+    3,
+  ]
+
+ ❯ scripts/run-gates.spec.ts:1138:41
+    1136|     const rows: Array<[number, number]> = [[2, 1], [2, 1], [3, 2]]
+    1137|
+    1138|     expect(collectDescendants(1, rows)).toEqual([2, 3])
+       |                                         ^
+    1139|   })
+    1140|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > descendant graph walk > keeps one entry for a pid reachable on multiple paths
+AssertionError: expected [ 2, 3, 2 ] to deeply equal [ 2, 3 ]
+
+- Expected
++ Received
+
+  [
+    2,
+    3,
++   2,
+  ]
+
+ ❯ scripts/run-gates.spec.ts:1144:41
+    1142|     const rows: Array<[number, number]> = [[2, 1], [3, 1], [2, 3]]
+    1143|
+    1144|     expect(collectDescendants(1, rows)).toEqual([2, 3])
+       |                                         ^
+    1145|   })
+    1146|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > descendant graph walk with cycles > stops at a pid that is its own parent
+AssertionError: status=null signal=SIGTERM error=spawnSync C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64\node.exe ETIMEDOUT stderr=: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ scripts/run-gates.spec.ts:1203:39
+    1201|     const run = runScenarioInChild<number[]>('walk', { root: 2, rows: …
+    1202|
+    1203|     expect(run.completed, run.detail).toBe(true)
+       |                                       ^
+    1204|     expect(run.value).toEqual([])
+    1205|   }, 20000)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > descendant graph walk with cycles > stops when a cycle returns to the root and keeps the root out of the result
+AssertionError: status=1 signal=null error=none stderr=C:\Albert\project\dsh861\scripts\run-gates.ts:1603
+      queue.push(pid)
+            ^
+
+RangeError: Invalid array length
+    at Array.push (<anonymous>)
+    at collectDescendants (C:\Albert\project\dsh861\scripts\run-gates.ts:1603:13)
+    at file:///C:/Users/JOYCEG%7E1/AppData/Local/Temp/dsh-run-gates-scenario-JPXgtM/scenario.mjs:23:11
+
+Node.js v26.8.2
+: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ collectDescendants scripts/run-gates.ts:1603:13
+    1601|     if (parent === undefined) continue
+    1602|     for (const pid of byParent.get(parent) ?? []) {
+    1603|       queue.push(pid)
+       |             ^
+    1604|       result.push(pid)
+    1605|     }
+ ❯ ../../../Users/JOYCEG%7E1/AppData/Local/Temp/dsh-run-gates-scenario-JPXgtM/scenario.mjs:23:11
+ ❯ scripts/run-gates.spec.ts:1210:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > descendant graph walk with cycles > keeps the other descendants when one branch cycles back to the root
+AssertionError: status=1 signal=null error=none stderr=C:\Albert\project\dsh861\scripts\run-gates.ts:1603
+      queue.push(pid)
+            ^
+
+RangeError: Invalid array length
+    at Array.push (<anonymous>)
+    at collectDescendants (C:\Albert\project\dsh861\scripts\run-gates.ts:1603:13)
+    at file:///C:/Users/JOYCEG%7E1/AppData/Local/Temp/dsh-run-gates-scenario-W5usBV/scenario.mjs:23:11
+
+Node.js v26.8.2
+: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ collectDescendants scripts/run-gates.ts:1603:13
+    1601|     if (parent === undefined) continue
+    1602|     for (const pid of byParent.get(parent) ?? []) {
+    1603|       queue.push(pid)
+       |             ^
+    1604|       result.push(pid)
+    1605|     }
+ ❯ ../../../Users/JOYCEG%7E1/AppData/Local/Temp/dsh-run-gates-scenario-W5usBV/scenario.mjs:23:11
+ ❯ scripts/run-gates.spec.ts:1224:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL   thread-safe  scripts/run-gates.spec.ts > descendant graph walk with cycles > matches independent per-pid reachability on seeded random tables
+AssertionError: status=1 signal=null error=none stderr=C:\Albert\project\dsh861\scripts\run-gates.ts:1603
+      queue.push(pid)
+            ^
+
+RangeError: Invalid array length
+    at Array.push (<anonymous>)
+    at collectDescendants (C:\Albert\project\dsh861\scripts\run-gates.ts:1603:13)
+    at file:///C:/Users/JOYCEG%7E1/AppData/Local/Temp/dsh-run-gates-scenario-3oaVKC/scenario.mjs:25:39
+    at Array.map (<anonymous>)
+    at file:///C:/User: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ collectDescendants scripts/run-gates.ts:1603:13
+    1601|     if (parent === undefined) continue
+    1602|     for (const pid of byParent.get(parent) ?? []) {
+    1603|       queue.push(pid)
+       |             ^
+    1604|       result.push(pid)
+    1605|     }
+ ❯ ../../../Users/JOYCEG%7E1/AppData/Local/Temp/dsh-run-gates-scenario-3oaVKC/scenario.mjs:25:39
+ ❯ scripts/run-gates.spec.ts:1232:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 99 passed | 5 skipped (110)
+   Start at  00:56:22
+   Duration  37.19s (tests 99%, transform 1%)

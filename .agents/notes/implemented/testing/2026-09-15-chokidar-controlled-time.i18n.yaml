@@ -1,0 +1,6 @@
+# Bilingual-pair consistency record (docs/i18n/README.md): the git blob hash of each
+# side as of the last confirmed-consistent state. Both languages carry equal authority;
+# after editing either side, bring the other along and re-record with:
+#   pnpm run verify-translation-pairing --write .agents/notes/implemented/testing/2026-09-15-chokidar-controlled-time.md
+2026-09-15-chokidar-controlled-time.md: 0ea10d3f90c245ebc1b6e5686403d193b53f4eca
+2026-09-15-chokidar-controlled-time.zh.md: 73cd29a50b44480efd5f1da2adc8055272a614bc

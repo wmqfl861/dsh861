@@ -1,0 +1,86 @@
+# r44-B fixed candidate manifest (re-frozen for the r44-B bilingual minimal correction, HEAD e8d1858ca6a65710c346007e48809580f6064beb)
+
+Delta vs candidate-r44b4.md (63 items, manifest SHA-256 74cc534912d901a3db249934f4936adec21c5093413b25d5aaa98a56f93bc613): 61 rows byte-identical; exactly two rows updated by the r44-B bilingual minimal correction (task PR #13 issuecomment 5724697192): docs/event-producer-consumer.zh.md L88 internal/status row gains agent-team (single unique-anchor line replacement, +14 bytes), and docs/event-producer-consumer.i18n.yaml re-records the pair via verify-translation-pairing --write docs/event-producer-consumer.md (en blob 4f42fe342086af1bbe7c71dd48a4e30d469b34f5 unchanged). English doc, production sources, tests, snapshots, and all other candidate bytes unchanged.
+
+| file | bytes | git blob (worktree) | SHA-256 |
+|---|---|---|---|
+| `packages/core/agent/src/index.ts` | 33803 | `17a35d1bf113e5dc2cbca4f0e3c1f940cab8ca07` | `36093f4b2764557b4fed55a67eefac77c856fe9a64e0b6b959561727a51df636` |
+| `packages/core/agent-loop/src/index.ts` | 45936 | `6df307bee573a93ddbf97a6dc87b86965a568c5f` | `9745800d96b0237d6f1673f0ea06b3ea8f2ac0da4c58cf59a3f7ebb57a5465af` |
+| `packages/core/agent-loop/src/agent.ts` | 25322 | `321fc0c13625579711eb998c20a375402b3770b9` | `7934bb04f0fa9c3f4486a91a99fe52ff7521eb322f5f2a267362e70b9a8bd4ff` |
+| `packages/subagent/subagent/src/continuation-activation.ts` | 39483 | `6b9968ba2dc47dd266ca86f48253a85697afc771` | `612fa4e8c26ed2540db0176b8e2c998087fb0573e769d6825a97d74f02b5ad34` |
+| `packages/subagent/subagent/src/index.ts` | 30514 | `f68fe09fc73c1e438c698f9de64296390d60745e` | `906a4d94359c9fc36b7d0ee25a02767f4310b31b72e64d8781f3c06b7fd146a1` |
+| `packages/experimental/agent-team/src/index.ts` | 17846 | `2ccbbe95cafadf727ceb8c93376f8bd0a8e82bb3` | `2efd7a0d0786d9ac6b6d9314842b4c40cffd6930ad22203b9fdbbde7d01c3795` |
+| `packages/core/agent-loop/tests/teardown-ownership.spec.ts` | 25722 | `c206bdf43740eebd3b07cb8ed2fbaef227119e4d` | `cd516ef8c8493c8d8c6ec76040f141f590e94fa4a792df2bcfbb080c829500c3` |
+| `packages/subagent/subagent/tests/continuation-teardown.spec.ts` | 25502 | `5d78e4540f1109a935f913855668b291d784086e` | `ab67f0ba0aed250d7642342f5a052cb9d09373d357dc8d13c8650566c87216d5` |
+| `packages/experimental/agent-team/tests/teardown.spec.ts` | 13009 | `2c167535dc149d8195959a9ba34a8ba4b4e1207c` | `e31debc0713d378cc4957e6e875021e6c3d81743d389adc0f2e7d7fcc1f25872` |
+| `packages/experimental/agent-team/tests/team.spec.ts` | 82119 | `6533c283356226bb7321973638bef0423f7e6760` | `6886b15eb146e5c93b28839da2f22d2aa8537697b44d5d1c8b90ca48e474597e` |
+| `packages/subagent/subagent/tests/continuation.spec.ts` | 164044 | `2847affde2474e6b761aec340db8c8eb2f4eba86` | `6880be121f1f2469c0072b76610a54b3909e3b9ef6504c6b088f707ea38b8f02` |
+| `packages/extensions/tool-cordis/src/api-catalog.ts` | 472788 | `6ec3d307bc56660d761c2ca2ea09b6f0bbd7026d` | `d7b1f38279725fc5cf17787c3b8b1d47a43d0d7019cb58f22654bb025e4e6c3e` |
+| `snapshots/sdk/teardown.snapshot.ts` | 25387 | `6b78bda5931bbb72f36e20258501da6446838679` | `b7d1255c5bd0b9953e48ed4ae1889d77c806035d4ab4b829430ba7fc95ae2770` |
+| `snapshots/sdk/subagent-teardown/snapshot.yml` | 279 | `0d14236cdd3679e66661011a06f2a691f7baa076` | `2e667306bd3dc2a23675ff96fdab43f04f74a33732f431f1ee12072aefc4a49b` |
+| `snapshots/sdk/subagent-teardown/cordis.yml` | 293 | `087e75fbd9c3c1f6da60c6c11f6200051986de5f` | `a905432ab0935ef5a0f00075f84d5ef58e9ca347431ed4203c7619372af59f04` |
+| `snapshots/sdk/subagent-teardown/cordis.snapshot.yml` | 1624 | `017237f40280f8cdd70ea949b9b837e94ff06aa6` | `4adaa97978bc3b1beba817b458f1e58dadc41dfe30c71b9cd0ffcfc22a8533dc` |
+| `snapshots/sdk/subagent-teardown/teardown-trigger.mjs` | 7318 | `3e0e412487e9a10f81aa174407704cbca1b6f398` | `446cf729cc3edd388558e3a49c4b86318bc47602f8efdf48c197649df782bd55` |
+| `snapshots/sdk/subagent-teardown/llm-replay-entry.mjs` | 849 | `1ce67f68d36b036690c9791966e622d3f20d8488` | `1d6a9108902e35b134415631efbd7538a5910ef8f81d3d3cf48eac83c0fd83e3` |
+| `snapshots/sdk/subagent-teardown/session.v3.jsonl` | 10281 | `75d90991d7311ab7fa07aec7f76f6f76350e79d9` | `f001bde509266e30cfa9eb29f2e0a849d088a1ea4ccb36526f7a0403845ada69` |
+| `snapshots/sdk/subagent-teardown/session.1.v3.jsonl` | 6715 | `63ae4f2c283d2471f9af96c2957a175ed7cd6c5f` | `6fed9575da7252a100d7c3b3b4f2d6e08d9fc8b8d180376a97f9ca06ca0f7c77` |
+| `snapshots/sdk/subagent-teardown/system-prompt.1.expected.md` | 4879 | `6c8864e07c5c6bcb01b139f77e66a3d23769bf49` | `30580d961de47e5ab0a6ddaf242eb63550ad41e7471de00cca8034f3886784be` |
+| `snapshots/sdk/subagent-teardown/tool-schemas.1.expected.json` | 32926 | `3b51e3002f91bc2d5820a386d79aec8120d20457` | `bb3b0d0a6d213953e88db2fd39318e1ae166f8ea021b0023fed084f049ca9559` |
+| `snapshots/sdk/agent-team-teardown/snapshot.yml` | 310 | `596255b7d9b92c385e53e4e08280851860172421` | `d435f565ea2eb3b012cbd95b5fd239c2b91ab46dde5bf1b3734aa1e43e616143` |
+| `snapshots/sdk/agent-team-teardown/cordis.yml` | 352 | `0e62a6f1eee8f62d41b3240dff197f8e824b56d7` | `c9add228a661cd927a9e8cc881bd162154775579576c84f05b9811f2a372dbf2` |
+| `snapshots/sdk/agent-team-teardown/cordis.snapshot.yml` | 1779 | `893136629eab10ca678e735d6fec4e8de092b01e` | `e3739fc949071b218b750afce4e8eeee60587fa1dfb5875f8bb9bf7478f08859` |
+| `snapshots/sdk/agent-team-teardown/teardown-trigger.mjs` | 7807 | `c2e3c48601463a897871da2e0c80a3408f289dd7` | `511a9daf0a509d4233b7ff6729af6e16a637f2f3e025328f28590d48ac57eda9` |
+| `snapshots/sdk/agent-team-teardown/llm-replay-entry.mjs` | 849 | `1ce67f68d36b036690c9791966e622d3f20d8488` | `1d6a9108902e35b134415631efbd7538a5910ef8f81d3d3cf48eac83c0fd83e3` |
+| `snapshots/sdk/agent-team-teardown/agent-team-entry.mjs` | 854 | `a3b2f5ca03aca63963d1fd5af6709adaa04b968a` | `12989974b197f4415443af1c922487b1a2d9a6931c3a4be6f9c9f09926238836` |
+| `snapshots/sdk/agent-team-teardown/tool-agent-team-entry.mjs` | 892 | `2d7fe702ff01498c2e0accc496c72f49ad11a184` | `62ff2ea241f8ad20c6d676455d3255a9edbc513ca1abc752227fa36a96c27d11` |
+| `snapshots/sdk/agent-team-teardown/replay.override.json` | 3233 | `418b2a3d8e9b09fc05405d08f86c4d19135a8e44` | `467d48d96868479a18f4e4e2003072f0008d9d949197508679c0c92d15cc3885` |
+| `snapshots/sdk/agent-team-teardown/session.v3.jsonl` | 11586 | `9c5e55515eb6a74b5fbd150cb90ed99527fa59ba` | `196e2c05cbdb466329dde258e751a485570a76e65123f166619c1a8305a533ef` |
+| `snapshots/sdk/agent-team-teardown/session.1.v3.jsonl` | 5910 | `7937d330c6db62e2f180a905a831acdbf0f5e042` | `fa01773a1f8d0e15bbdef87c538c0c70eae76b86576d2ef864e0bf58d626aa0b` |
+| `snapshots/sdk/agent-team-teardown/system-prompt.1.expected.md` | 6619 | `ec2a637086258bf9df40696cbec64dc860c833f8` | `f769bd322b237ca273c3c79ae7e55275f5e839669cd6fc1209d781c1d59725b3` |
+| `snapshots/sdk/agent-team-teardown/tool-schemas.1.expected.json` | 36731 | `e55ca1d010350dcd288839b0967761ee932c24e3` | `22edc948119a07d61d7c6eba7d10de8063b26978d2ae4f0e1fe38d1a8965d36e` |
+| `scripts/session-snapshot-corpus.corpus.ts` | 9895 | `dce4cda1000bea2bc673ae6bce61292277a8eb60` | `dc1e00a9ce877dc09752eafdf4ebb7dd261c3c952b585952b242dec8573276d1` |
+| `scripts/smoke-python-runtime.py` | 122860 | `29c7099dd1b703a0f04a886f4f1052948f0f1260` | `a83d43ec6bbad2bd6f20bfddae6adb7b09baa6dcda4a252995b75f57db106064` |
+| `scripts/snapshots/python-sdk-single-exe/production-teardown/result.json` | 46894 | `0ca82bd15a8835dac151bd42806742def63c6a1e` | `9a8c874b91f3d8e7d863eeb29d8e628ca5f03c04a0e01eabe339e92b17df431b` |
+| `scripts/snapshots/python-sdk-single-exe/production-teardown/session.v3.jsonl` | 10313 | `173e2d7252052689d42ea295f8f3856e25f6eb8f` | `b6efb572d3e6304978d9048d911c502b228c83790078d2384f0cdf0020be2382` |
+| `scripts/snapshots/python-sdk-single-exe/production-teardown/session.1.v3.jsonl` | 7035 | `182a8ee41cdaf1f40b074ef5e9bbe3fb3c08aff5` | `0918ea6603f1c835c21c679a8a600c546dad930b40f63b62908f72434f70850f` |
+| `docs/config-catalog.md` | 155778 | `602f9773bd06a16fa37e49d7e9cd3b48efba2b57` | `d2eb5c13c0f426d7b628076f56a64ee1fd0a697ec2655e7ce3918f8aa447611a` |
+| `docs/config-catalog.zh.md` | 156417 | `dfab063b8063e14477d435e66ae042fbcb809e0a` | `ae7a9bced7c964e0911e0c0491b4a177473e23ca87231a7008cd858a7ff8d860` |
+| `docs/config-catalog.i18n.yaml` | 438 | `a3b8612ec22b03dd67c80143563e0888a18285e9` | `4356053dee94f7dc808a5b9d65e9440737148793db0cc795e386fdd3640523d3` |
+| `docs/event-producer-consumer.md` | 24358 | `4f42fe342086af1bbe7c71dd48a4e30d469b34f5` | `d459cf72de8bb0c89064ab6992ae7f4f98c4b6b30bcd71abcb469f79e16a8125` |
+| `docs/event-producer-consumer.zh.md` | 24593 | `714564a8ad9c0e067aa6c29a3c83aa2d61f99872` | `2e8fbd3062d93cd834b15b4037bcd078f32d74d6cbc93fe3691f08cf0d1c6297` |
+| `docs/event-producer-consumer.i18n.yaml` | 465 | `c38a0c3e742c1f665c79f68f0e51c1e892662f1a` | `fc8401758e51251c8bc50f8af3a7f29a100d1b2dbd0f681a0b0f0baa31997ce5` |
+| `.agents/notes/implemented/architecture/2026-09-17-production-teardown-ownership.md` | 2537 | `43ce0d6bcd6c9530361cb66eb733666456eca3ce` | `07c5fe73892774abc7c5e6e0ae4a9baa696bd8a8de3e96740b569ebacc55662a` |
+| `.agents/notes/implemented/architecture/2026-09-17-production-teardown-ownership.zh.md` | 2143 | `5330d817708141db0bf28e6a39f96a6aff1bfdb7` | `ae38885e78e684dc628506fc8c8f47499cfa1080db669c5b73249e9ebcb70a88` |
+| `.agents/notes/implemented/architecture/2026-09-17-production-teardown-ownership.i18n.yaml` | 550 | `c8388d5e0fc566fefbb6e68c5e083cbf1011b906` | `0f44b7a4253d7d70d11c7c93f058d1b340a28d3c405b3ec8d10349ad01344fbe` |
+| `packages/core/agent/README.md` | 15932 | `748b15849d2866c39223619a3904d1e74fd73be1` | `d121d55685e378ea5732e20bb4164c3be25131605c2dfa7db4f5f28a12926c1c` |
+| `packages/core/agent/README.zh.md` | 15062 | `80dd7021049b79e2b59f1e4569aa53eb9dc0b57e` | `4e0dcc60843d71b095de93255e7eb79295ff05e27f8aef482a6aba48c3a43ede` |
+| `packages/core/agent/README.i18n.yaml` | 429 | `d435625cf8866fab8be99749686f69681be665a9` | `1de8bd07d4fad68f4f3d7cdcb5dbb5de40092ae8e943d21087e58909eca89449` |
+| `packages/core/agent-loop/README.md` | 20810 | `b857f0d8a56a2f8da69e13ac0b9544eb161e1e4b` | `44f8bb64917aee0ac464c14b4b4b6e94de45afe56242d140afff6769e3ac006e` |
+| `packages/core/agent-loop/README.zh.md` | 19756 | `fb819d9ebbf941bbe423042b5c522037944c0623` | `694c842036b83457c4816f066ba98ab13fbb0461f3c82e11c449f96bfbc25146` |
+| `packages/core/agent-loop/README.i18n.yaml` | 434 | `87340be916d8098343a5e3f68d7580e82efcfe00` | `11347a29d9c0a10d0f4418b527921b3c8111620cef275abb98c1226427b2c940` |
+| `packages/subagent/subagent/README.md` | 17286 | `bfaef54370555521fee24ebca21f3fdbdc650f98` | `6912de3eb52f8ee1e08eb2be3972d216260d544f1d3a48c4cebbca8806749fc9` |
+| `packages/subagent/subagent/README.zh.md` | 16171 | `5cf1de9372fd62e69825f8add55afb1a50ccb857` | `9d5176e56bd0fb55f1fb06cdc8e9e75f31f5320b0f4ed26dbdb677bd514c48f8` |
+| `packages/subagent/subagent/README.i18n.yaml` | 436 | `97f3f6b0b7f3d36f8d19622fec6f17a966949c35` | `ef3ef2a8c0c63a76a95ad1bdc28d436c99133ac8173bf05444774642ec06623b` |
+| `packages/experimental/agent-team/README.md` | 17333 | `8208a0e744003d19fde9ab6f4a6a4ef07000b0c9` | `e618ac29bf68711af866d7ecabf9d6e9d820f18ab545b61d7eafe2b645e1e24e` |
+| `packages/experimental/agent-team/README.zh.md` | 15953 | `e5da42600181b2bbb756a069459e5f7197783c35` | `c89f7c875e9589367e1e52fd03f197002e02be67f927cb5351f15036726ceba3` |
+| `packages/experimental/agent-team/README.i18n.yaml` | 442 | `f10ee5626b0c113cb85e9aed52ff221718c5f228` | `38afae4951c0aa3af7c214e362383b78f663aec164637df7b06b5d7a0cb8e71f` |
+| `docs/architecture.md` | 18452 | `9b652c804e7901ead3f1223a17c5170f81773bfb` | `53822c85be23c9e0891c07840bdd786ad182e72a02b91816941cb0eb70d477bf` |
+| `docs/architecture.zh.md` | 18185 | `923ea84e7b1a2c3c0222cdb7e69a005d143f2eb2` | `257b68286360b57971b0a463110c7d608bc07c8f92bb1350ce19b6d56294cf81` |
+| `docs/architecture.i18n.yaml` | 432 | `5e295a004b916fb43bebf61d64f01570936928bb` | `153695a5d35d9301b4b061386206abbde2a38b246e8d78eb93d299ff006b3dd1` |
+
+## S3 ratification set (eight supporting/generated items pending owner ratification; numbering per receipt comment 5724684848, #5/#6/#7 = event-producer-consumer trio)
+
+Only #6 and #7 hashes moved in this re-freeze; #1-#5 and #8 are byte-identical to candidate-r44b4 (verified by full 63-triple recomputation: exactly 2 mismatches, both listed above).
+
+| # | file | r44b4 SHA-256 | r44b5 SHA-256 | changed |
+|---|---|---|---|---|
+| 1 | scripts/session-snapshot-corpus.corpus.ts | dc1e00a9ce877dc09752eafdf4ebb7dd261c3c952b585952b242dec8573276d1 | dc1e00a9ce877dc09752eafdf4ebb7dd261c3c952b585952b242dec8573276d1 | no |
+| 2 | docs/config-catalog.md | d2eb5c13c0f426d7b628076f56a64ee1fd0a697ec2655e7ce3918f8aa447611a | d2eb5c13c0f426d7b628076f56a64ee1fd0a697ec2655e7ce3918f8aa447611a | no |
+| 3 | docs/config-catalog.zh.md | ae7a9bced7c964e0911e0c0491b4a177473e23ca87231a7008cd858a7ff8d860 | ae7a9bced7c964e0911e0c0491b4a177473e23ca87231a7008cd858a7ff8d860 | no |
+| 4 | docs/config-catalog.i18n.yaml | 4356053dee94f7dc808a5b9d65e9440737148793db0cc795e386fdd3640523d3 | 4356053dee94f7dc808a5b9d65e9440737148793db0cc795e386fdd3640523d3 | no |
+| 5 | docs/event-producer-consumer.md | d459cf72de8bb0c89064ab6992ae7f4f98c4b6b30bcd71abcb469f79e16a8125 | d459cf72de8bb0c89064ab6992ae7f4f98c4b6b30bcd71abcb469f79e16a8125 | no |
+| 6 | docs/event-producer-consumer.zh.md | 60497305d5776f873e18cd0677624a165b04450f232cf141c038aa8787765ea8 | 2e8fbd3062d93cd834b15b4037bcd078f32d74d6cbc93fe3691f08cf0d1c6297 | yes |
+| 7 | docs/event-producer-consumer.i18n.yaml | 06bad0399b048e42b776c1c15ef4b02abb6d8d53b8dcdf3e4678ec14684ffcbe | fc8401758e51251c8bc50f8af3a7f29a100d1b2dbd0f681a0b0f0baa31997ce5 | yes |
+| 8 | packages/extensions/tool-cordis/src/api-catalog.ts | d7b1f38279725fc5cf17787c3b8b1d47a43d0d7019cb58f22654bb025e4e6c3e | d7b1f38279725fc5cf17787c3b8b1d47a43d0d7019cb58f22654bb025e4e6c3e | no |
+
+Note: no standalone eight-item S3 table existed locally before this re-freeze; this table reconstructs the ratification set from the candidate manifest (files not literally named in the owner approval) with numbering anchored to the receipt comment (its #5/#6/#7 reference the event-producer-consumer trio). Old S3 declaration 38-s3-declaration-api-catalog.md and old manifests are preserved unmodified.

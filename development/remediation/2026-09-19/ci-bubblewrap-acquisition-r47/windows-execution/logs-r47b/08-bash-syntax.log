@@ -1,0 +1,4 @@
+# argv: bash -n <script>  (three targets: working script, nc1 mutant, nc2 mutant)
+bash_n_working_script=0
+bash_n_nc1_mutant=0
+bash_n_nc2_mutant=0

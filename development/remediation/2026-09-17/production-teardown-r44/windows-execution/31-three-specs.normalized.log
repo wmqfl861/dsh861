@@ -1,0 +1,21 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/core/agent-loop/tests/teardown-ownership.spec.ts (11 tests) 753ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/teardown.spec.ts (8 tests) 1306ms
+ ✓  thread-safe  packages/subagent/subagent/tests/continuation-teardown.spec.ts (13 tests) 1697ms
+
+ Test Files  3 passed (3)
+      Tests  32 passed (32)
+   Start at  16:12:57
+   Duration  6.98s (transform 59%, tests 22%, import 18%, setup 1%)
+
+  Transform   thread-safe  transforming modules took 10.31s · 59% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

@@ -1,0 +1,43 @@
+你是 dsh861 仓库（本地路径 C:\Albert\project\dsh861，分支 chore/latest-stable-upgrade-20260912，HEAD 9d0db65683b7925e37dc84578e23cba2a83e589c）r44 轮次的指定规划者：真实 Codex CLI，模型 gpt-6-astra，model_reasoning_effort=max（NODE_DEVELOPMENT_RULES.md 第 1、2 节的固定调用设置）。你的唯一任务：产出 r44 生产 teardown 修复的正式详细计划。你不实施、不修改任何文件（你处于只读沙箱）、不读取任何密钥/凭据/用户 .env、不调用任何其他代理或工具产品。你只阅读仓库源码与证据，然后把完整计划作为你回复正文的唯一内容输出（Markdown，中文，保留全部英文代码标识符与路径原文；不要输出与计划无关的寒暄或过程叙述）。
+
+【权威任务来源——必读，逐字遵循】
+1. development/remediation/2026-09-17/production-teardown-r44/planning/task-comment-5701865211.md —— 所有者 r44 任务 A–H 全文（含 B 节固定 blob 候选清单、C 节归因歧义、D 节修复原则、E 节验收、F 节执行门禁、G/H 边界）。
+2. development/remediation/2026-09-17/production-teardown-r44/planning/receipt-comment-5701849308.md —— r43 接收、CI 取证与源码复核（第 5 节已证实的结构与归因校正）。
+其中与本提示有出入时，以任务评论为准。
+
+【本轮已核实的源码证据——必读（是指针与已核实事实，不是方案；你引用前应对照源码自行确认）】
+3. development/remediation/2026-09-17/production-teardown-r44/planning/source-evidence-ownership-map.md —— 本轮逐行核实的所有权/并发/堆栈拼接事实（A：Cordis _unload 并发、effect 内串行、composeError 注册栈拼接、traceable ctx 归属、projection ref-count；B：Team 投影 root-fiber 所有权与 disposeRuntime 读取链；C：ContinuableActivationRegistry 结构、finishDisposal 异常安全缺口、inbox 投影随 agent scope 存活；D：r43 观察器与两个失败用例；E：适用规则）。
+4. development/remediation/2026-09-17/production-teardown-r44/windows-execution/01-first-failure.normalized.log —— 本轮复现：exit 1，2 failed / 38 passed（40），与 r43/CI 相同两失败。
+5. development/remediation/2026-09-16/cleanup-error-observation-r43/windows-execution/FINDINGS.md 与同目录 10-exposed-defects-diagnosis.md（r43 证据，冻结不改）。
+
+【必读规则与前置（仓库根）】
+6. AGENTS.md（根）、NODE_DEVELOPMENT_RULES.md、packages/AGENTS.md、docs/architecture.md、docs/defensive-patterns.md、docs/testing.md、snapshots/AGENTS.md、.agents/skills/dsh-pre-push-checks/SKILL.md。
+7. development/nodes/P0-B/state.json（P0-B blocked，不改状态、不发明节点通过记录；本计划是升级收尾下的修复子任务，不是 P0-C，也不解除 P0-B blocked）。
+
+【必读源码（首要候选 + 只读辅助，见任务评论 B 节）】
+- 首要候选：packages/experimental/agent-team/src/index.ts（blob 6fa0500e）；packages/subagent/subagent/src/continuation-activation.ts（blob df2b6da4）；仅当计划确需调整 continuation owner 接线时：packages/subagent/subagent/src/index.ts（blob 8a91e06e）。
+- 只读辅助：packages/experimental/agent-team/src/{journal,roster,lifecycle,projection,mailbox}.ts；packages/subagent/subagent/src/{inbox,continuation,lifecycle,error}.ts；packages/core/agent-loop/src/{agent,inbox}.ts；packages/core/agent/src/index.ts（AgentHandle/AgentRegistry 结构所有权）；packages/session/session-projection/src/index.ts；vendor/cordis/src/{fiber,context,registry,utils}.ts。
+- 测试侧（保护，不改其语义）：packages/subagent/tool-subagent-control/tests/{owned-contexts.ts,owned-contexts.spec.ts,tool-subagent-control.spec.ts}；packages/experimental/tool-agent-team/tests/tool-team.spec.ts。
+
+【计划必须解决（任务 C/D 节，缺一不可）】
+1. Team 投影真实所有权：投影保持有效直到 runtime 排空后再注销；证明注销从并行独立 root effect 转移到覆盖整个 drain 的同一生命周期，而不是把两行代码放一起或机械把 ctx.root 改成 ctx；journal.state 不得在投影缺失时返回空 Team、不得跳过 liveChildrenByRoot、不得只捕获 "projection not registered" 后返回成功；运行期真正缺投影仍 fail loud；保持正常 HMR 注销、重新注册/重放、权限与 live roster 语义。
+2. Subagent 关闭顺序与异常安全：核实真实 owner、AgentHandle、inbox 投影、continuation owner scope 的生命周期；区分仍活动 Agent 与同一 handle 已由其他 owner 开始关闭（后者应按实际所有权证据加入已有 memoized 清理，不得凭投影缺失推断已清理）；finishDisposal 中 cancel/capture/child/handle 任一步失败后其余释放义务仍须执行，原始错误与后续错误均可报告；保留取消原因、inbox 处理、child-first、持久事件与终态唯一性；禁止统一 keepInbox:true、字符串匹配吞错、把 ACTIVATION_TEARDOWN_FAILED 降级 warning、清空 resident 自证、跳过 handle.close、让 whenIdle 提前成功、或先 dispose Agent 再无条件读取其投影。
+3. 时序归因校正：composeError 拼接的注册栈（_reload 等帧）不能作为销毁时实时重载的证据；计划须规定用真实 fiber 事件、disposer 入口/完成与 Promise/deferred 握手证明顺序；不改写 r43 历史诊断。
+4. 若严谨方案必须触及受保护只读面（AgentLoop/core inbox、session-projection 注册框架、scope、持久化、vendor），给出不能在首要范围解决的时序证据、最小文件集合与所需授权；否则一律在两个领域包内解决。
+
+【验收计划必须逐项落排（任务 E 节）】
+- 两个原始失败转绿（不改两用例"正常 teardown 应 resolve"期待、不改成 expected fail、不接受 AggregateError 吞并）；三套现有 40 用例全过；新增用例另列数量；两个写锁 afterDispose 探针必须真正执行。
+- 真实生产入口覆盖：单 Team/Subagent 插件 HMR、root 整体卸载、挂起模型 gate、已存在子/孙 activation、重复/并发关闭；本地 fake 模型、同一真实 dispose 路径；观察 runtime 停止、agent/session registry 退出、handle close 完成、原目录写所有权释放之后才删目录（非"无错误日志"自证）。
+- 顺序观测：deferred/Promise 握手暂停清理，证明投影保持到最后合法使用、结构性注销不越过 drain；根与子 owner 参与时同样成立。
+- 异常安全：注入有身份 sentinel（cancel/子关闭等），验证其他 child/handle/ownership 仍清理、原始失败可报告、测试级清理拒绝并保留诊断目录。
+- 非回归：权限、selected child/descendant 隔离、未受影响 parent 树、fork/冷恢复、inbox/终态事件、Team roster/CAS/wait 与 HMR；终态不重复、不丢应持久化事件；按仓库政策定 keyless 快照需求。
+- 两个独立负控：分别恢复 Team 旧所有权/过早注销、Subagent 旧关闭顺序/异常早退，各由对应真实回归拒绝；固定候选、独立运行、可靠 finally 恢复，bytes/blob/SHA-256 与真实退出码入证据；不得以关闭 r43 observer 代替。
+- 受保护保留目录只做测试驱动最终清理，不按前缀批量删除、不先删再重建伪证锁释放。
+
+【门禁与交付（任务 F 节）】
+- 基础组合（加入计划新增的 owner-local lifecycle spec 后）：pnpm exec vitest run --project thread-safe packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts packages/experimental/tool-agent-team/tests/tool-team.spec.ts；按实际影响跑必要类型/lint/duplication/doc-sync 与必要 keyless 记录/内建产物 smoke；逐项说明额外验收的必要性，不默认全矩阵也不偷跑。
+- 证据目录 development/remediation/2026-09-17/production-teardown-r44/{planning,windows-execution,review}；每次物理运行独立日志、真实退出码、raw/normalized 双 SHA-256；新增中英文 Agent Note 与配对、必要 README/JSDoc；历史证据与 r29–r43 冻结记录不动。
+- 执行顺序说明：本轮（r44）只交付本计划（指定 OpenCode 硬审在本机暂不可用——见 planning/cli-availability-probe.md——生产源码未动）；实施、验收矩阵、门禁与硬审按本计划在授权的后继轮执行。计划本身按"实施将被执行"写完整。
+
+【计划输出要求（NODE_DEVELOPMENT_RULES 第 4 节最低内容 + 本任务）】
+计划以 Markdown 输出，包含：计划标识（建议标题 "r44 production-teardown repair plan v1"，定位为升级收尾/P0-B blocked 下的修复子任务）、版本、前置与授权依据、需求映射（对应任务 A–H 与 D1/D2/C）、范围与明确排除项、经源码核实的目标文件与每个文件的必要变更与行为责任（含关键函数/锚点）、实施步骤顺序（先共享 subagent 关闭路径，再整合 Team 关闭；独立只读分析可并行）、每步测试输入与命令、预期结果、失败与恢复处理（含两个负控的精确改动点与恢复）、产物路径、完成标准、可并行任务划分、风险与回滚。计划不得包含违反任务禁止项的做法（见上）；不得规划修改模型配置、P0-B state、锁、pkg 补丁、vendor、workflow、历史证据；不得规划真实模型 API/E2B 调用。

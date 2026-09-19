@@ -1,0 +1,109 @@
+stubBinMsys=/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin
+stubBinWinForm=C:/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin
+usrBinMsys=/c/Program Files/Git/usr/bin
+probe tmp=C:\dsh-b01-w02\tmp\w02-probe-Ml6l6O
+
+### P1 confirmed bash identity
+status=0 error=null
+stdout:
+ok
+OSTYPE=cygwin
+MINGW64_NT-10.0-26200
+x86_64
+
+
+### P1 where.exe bash
+status=0 error=null
+stdout:
+C:\Program Files\Git\usr\bin\bash.exe
+C:\Windows\System32\bash.exe
+C:\Users\Joyce Gu\AppData\Local\Microsoft\WindowsApps\bash.exe
+
+
+### P2a single PATH key (posix form), stub+usr/bin, no SystemRoot
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin/uname
+stub-uname -s
+PATH=/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin:/c/Program Files/Git/usr/bin
+/c/Program Files/Git/usr/bin/cat
+
+
+### P2b single PATH key + SystemRoot
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin/uname
+/c/Program Files/Git/usr/bin/cat
+stub-uname -s
+
+
+### P2c PATH=stub bin only
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin/uname
+PATH=/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin
+
+
+### P2d single Path key (posix form value)
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin/uname
+/c/Program Files/Git/usr/bin/cat
+PATH=/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin:/c/Program Files/Git/usr/bin
+
+
+### P2e PATH windows semicolon form
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin/uname
+PATH=/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin:/usr/bin
+
+
+### P3 /usr/bin census (PATH=/c/Program Files/Git/usr/bin only)
+{
+  "curl": "(absent)",
+  "dpkg-deb": "(absent)",
+  "sudo": "(absent)",
+  "cc": "(absent)",
+  "ninja": "(absent)",
+  "pkg-config": "(absent)",
+  "objdump": "(absent)",
+  "ldd": "/c/Program Files/Git/usr/bin/ldd",
+  "uname": "/c/Program Files/Git/usr/bin/uname",
+  "tar": "/c/Program Files/Git/usr/bin/tar",
+  "sha256sum": "/c/Program Files/Git/usr/bin/sha256sum",
+  "grep": "/c/Program Files/Git/usr/bin/grep",
+  "tee": "/c/Program Files/Git/usr/bin/tee",
+  "tail": "/c/Program Files/Git/usr/bin/tail",
+  "cat": "/c/Program Files/Git/usr/bin/cat",
+  "cp": "/c/Program Files/Git/usr/bin/cp",
+  "chmod": "/c/Program Files/Git/usr/bin/chmod",
+  "ln": "/c/Program Files/Git/usr/bin/ln",
+  "rm": "/c/Program Files/Git/usr/bin/rm",
+  "mkdir": "/c/Program Files/Git/usr/bin/mkdir"
+}
+
+### P4 exec-bit enforcement (mode 0644 script)
+status=0 error=null
+stdout:
+exit=0
+
+
+### P4 control (mode 0755 script)
+status=0 error=null
+stdout:
+exit=0
+
+
+### P5a OLD assembly, Path-cased parent (Windows CI shape): child uname resolution
+status=null error=Error: spawnSync bash ENOENT
+
+### P5b OLD assembly, PATH-cased posix parent (local shape)
+status=null error=Error: spawnSync bash ENOENT
+
+### P5c BOTH Path(win) and PATH(posix stub-first) present
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin/uname
+stub-uname -s
+PATH=/c/dsh-b01-w02/tmp/w02-probe-Ml6l6O/bin:/c/Program Files/Git/usr/bin

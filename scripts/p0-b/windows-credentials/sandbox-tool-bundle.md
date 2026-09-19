@@ -2,11 +2,11 @@
 
 English | [中文](sandbox-tool-bundle.zh.md)
 
-[prepare-sandbox-tool-bundle.mjs](prepare-sandbox-tool-bundle.mjs) verifies three local files against the [reviewed 0.149.1 manifest](sandbox-tool-bundle.0.149.1.json) and copies them into a fresh directory. It does not download, install, execute or activate any program. The result is a three-file sandbox diagnostic candidate, not a complete Codex distribution or a working sandbox.
+[prepare-sandbox-tool-bundle.mjs](prepare-sandbox-tool-bundle.mjs) verifies three local files against the [reviewed 0.154.0 manifest](sandbox-tool-bundle.0.154.0.json) and copies them into a fresh directory. It does not download, install, execute or activate any program. The result is a three-file sandbox diagnostic candidate, not a complete Codex distribution or a working sandbox.
 
 ## Inputs and integrity
 
-The manifest fixes the main repository-pinned executable and the raw x64 setup and runner assets from the same official release. Published asset digests are not archive digests. The release API is the source of helper sizes and hashes; matching them is not an Authenticode or Sigstore verification. Missing files, incorrect lengths, changed bytes and directory or link inputs are refused before destination allocation. Hashes are checked again while copying and during complete output verification.
+The current manifest fixes the raw x64 main, setup and runner assets from the same official release. An installed package executable may be used only after its bytes match that raw-asset pin; a shared version string is insufficient. Published asset digests are not archive digests. The release API is the source of helper sizes and hashes; matching them is not an Authenticode or Sigstore verification. Missing files, incorrect lengths, changed bytes and directory or link inputs are refused before destination allocation. Hashes are checked again while copying and during complete output verification.
 
 Sources and the existing staging parent must remain protected from hostile replacement. The preparer performs bounded chunk reads and never starts a source file. It creates independent copies under a random allocation, with native adjacent names, no hard links, no global configuration and no automatic PATH fallback. It refuses staging inside node_modules or Codex's named home/sandbox directories. Modes and identity checks are not a Windows ACL or adversarial filesystem guarantee.
 
@@ -14,7 +14,7 @@ The returned `verify()` checks all three files and the exact manifest, including
 
 ## Local preparation
 
-After acquiring the two exact public release assets without credentials, invoke the CLI with explicit absolute local paths. It always loads the adjacent checked-in manifest; there is no command-line manifest override. Reuse the repository-pinned main executable rather than copying a global or older runner. Read only the paths given below; placeholders must be replaced with actual paths.
+After acquiring the two exact public release assets without credentials, invoke the CLI with explicit absolute local paths. It defaults to the checked-in 0.154.0 manifest. An optional `--version` accepts only an exact stable version with an existing adjacent checked-in manifest; a missing manifest is refused, without a fallback. There is no arbitrary manifest-path option. The retained 0.149.1 manifest permits historical reproduction, not automatic use of its evidence for a new program. Reuse the repository-pinned main executable rather than copying a global or older runner. Read only the paths given below; placeholders must be replaced with actual paths.
 
 ```powershell
 node scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.mjs --parent '<existing-staging-parent>' --codex '<pinned-codex.exe>' --setup '<downloaded-setup.exe>' --runner '<downloaded-runner.exe>'

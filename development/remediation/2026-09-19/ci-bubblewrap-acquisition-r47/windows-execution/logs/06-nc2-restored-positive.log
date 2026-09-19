@@ -1,0 +1,25 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts (13 tests) 7501ms
+   ✓ prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) (11)
+     ✓ succeeds from the verified snapshot source with the pinned identity, in order, once 1579ms
+     ✓ still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success 1474ms
+     ✓ stops at the 404 download with the script exit code and never hashes, extracts, escalates, or probes 374ms
+     ✓ stops at a connection failure with the downloader exit code and never advances a phase 493ms
+     ✓ rejects a digest mismatch on the pinned identity and never unpacks or publishes a path 744ms
+     ✓ stops at a failed extraction before any privilege or probe step 850ms
+     ✓ keeps a functional-probe failure fatal and prints no success line 1257ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  11:47:11
+   Duration  8.36s (tests 92%, transform 6%, import 1%, setup 1%)
+
+vitest_exit=0

@@ -1,0 +1,31 @@
+{
+  "artifactScope": "gate failure evidence",
+  "generatedAt": "2026-09-14T02:39:51.512Z",
+  "files": [
+    {
+      "path": "logs/coverage-exempt-heavy.log",
+      "bytes": 69236,
+      "sha256": "282c29ce154b855576ce037ca2454ae566dfe30c788f908ea1bf2aaaf9f5efc2"
+    },
+    {
+      "path": "identity.json",
+      "bytes": 636,
+      "sha256": "bb41115fab5b9cdaef64e362bf10d8503d4885a3c5499b2b78e4d7aec97958e7"
+    },
+    {
+      "path": "gate-results.json",
+      "bytes": 2531,
+      "sha256": "12b0ee77d2ceefc1043ae24c6a581788b5deb2cde1e76f70c06e2270d3eb651b"
+    },
+    {
+      "path": "aggregate-stdout.log",
+      "bytes": 471765,
+      "sha256": "59625f56d32daf428394d7fe87afa42dbf56d471521fc6b71d285efd7808e054"
+    },
+    {
+      "path": "aggregate-stderr.log",
+      "bytes": 29979,
+      "sha256": "00f9f3d11738645dcef9fa3a4749e7cfe4ff189367ed5e0516df58226d3b5576"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "round": "r30-local-implementation",
+  "executor": "ZCode built-in execution subagent (relay identity recorded verbatim)",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pickupAccepted": {
+    "fetchHead": "ed2776d9580bbbec0550d6e2be50a258a7dcc5eb",
+    "fastForwardFrom": "1baf323167e9d4bde171249f322ab4ebec7f3567",
+    "taskBlobVerified": "229371ee1eeaaafe5bb28714b75bead396646430",
+    "handoffContent": "documentation only; no source patch to apply",
+    "workingTreeBefore": "clean"
+  },
+  "implementationBase": "ed2776d9580bbbec0550d6e2be50a258a7dcc5eb",
+  "changedFiles": [
+    "scripts/gate-evidence.ts (new owner module)",
+    "scripts/gate-evidence.spec.ts (new spec)",
+    "scripts/run-gates.ts (opt-in export wiring in main only; scheduler, GateResult, commands, stdout/stderr ownership untouched)",
+    "scripts/ci-workflow.spec.ts (one new test pinning the three lanes' wiring)",
+    ".github/workflows/ci.yml (evidence env on three red gate steps + failure-scoped upload steps; no needs/runner/timeout/partition/budget/continue-on-error/test-selection change)",
+    ".agents/notes/implemented/process/2026-09-14-gate-failure-evidence-artifacts.md (+ .zh.md + .i18n.yaml)"
+  ],
+  "toolchain": { "node": "26.8.2", "pnpm": "12.4.1", "path": "C:\\dsh-r24-upgrade-20260912-01 (explicit PATH)" },
+  "verification": {
+    "specsAffected": {
+      "command": "pnpm exec vitest run scripts/gate-evidence.spec.ts scripts/run-gates.spec.ts scripts/ci-workflow.spec.ts",
+      "finalRun": "295 passed | 1 failed | 12 skipped (308); exit 1",
+      "gate-evidence.spec": "all tests passed in every run",
+      "ci-workflow.spec": "all tests passed in every run",
+      "runGatesFlakeEvidence": {
+        "test": "scripts/run-gates.spec.ts > fail-fast scheduling > kills the child when the abort signal fires",
+        "timeline": [
+          "passed in the 08:48 run alongside the new spec (296 passed, 0 failed)",
+          "failed with a 5000ms timeout in the 09:19 full trio run (thread-safe project)",
+          "failed again in an isolated scripts/run-gates.spec.ts rerun",
+          "failed at the stashed clean baseline ed2776d958 (without the r30 diff), single-test invocation",
+          "passed in both projects after 20s idle (recovery run, logs/02-specs-abort-recovery.log)"
+        ],
+        "classification": "host-environment WMI/PowerShell enumeration latency under sustained load; pre-existing on this machine, not introduced by the r30 diff",
+        "firstFailurePreserved": true,
+        "noTestModified": true
+      }
+    },
+    "typecheck": { "command": "pnpm run typecheck", "exitCode": 0 },
+    "lint": { "command": "pnpm run lint", "exitCode": 0, "result": "0 warnings, 0 errors" },
+    "duplication": { "command": "pnpm run duplication", "exitCode": 0, "result": "0 clones" },
+    "docQuick": { "command": "pnpm run test:docs", "exitCode": 0, "result": "16 passed, 0 failed, 0 skipped (covers the new bilingual Agent Note and its pairing record)" },
+    "cliGreenSmoke": {
+      "command": "DSH_GATE_EVIDENCE_DIR=<temp> pnpm run test:docs (with identity env fixture)",
+      "exitCode": 0,
+      "result": "16 gates passed; evidence directory written with 5 files (identity.json, gate-results.json, aggregate-stdout/stderr.log, manifest.json); no per-gate log because no gate failed",
+      "log": "logs/03-cli-green-smoke-doc-quick.log"
+    },
+    "cliRedSmoke": {
+      "setup": "temporary untracked fixture note with a banned heading (deleted immediately after the run); DSH_GATE_FAIL_FAST=1",
+      "command": "DSH_GATE_EVIDENCE_DIR=<temp> pnpm run test:docs",
+      "exitCode": 1,
+      "result": "agent-note-classification failed (exitCode 1 recorded verbatim); 10 gates skipped with 'aborted by fail-fast' preserved; evidence written with 6 files including logs/agent-note-classification.log; aggregate exit code unchanged at 1",
+      "log": "logs/04-cli-red-smoke-doc-quick.log",
+      "sampleExport": "sample-red-evidence/ (sanitized by construction by the exporter itself)"
+    }
+  },
+  "requiredBehaviorsCoverage": {
+    "switchUnsetNoFiles": "spec 'evidence switch' + green/red smokes ran with the variable only when set",
+    "statusFidelity": "spec asserts passed/failed/skipped/aborted copied verbatim, fail-fast aborted stays failed, never-ran stays skipped",
+    "exitAndSignalNotSwallowed": "spec records exitCode 3 and (POSIX lanes, skipped on Windows) signalCode SIGTERM; real CLI red smoke preserved exit 1",
+    "exportFailureDoesNotMask": "exportGateEvidence throws are caught in run-gates main and printed to stderr without touching the exit code; spec asserts the throw",
+    "stdoutStderrDistinction": "per-gate logs carry <<<stdout>>>/<<<stderr>>> section markers; gate-results carries displayCommand",
+    "runAttemptJobNaming": "identity fields recorded from environment; spec asserts distinct job/attempt values; artifact name pinned in ci-workflow.spec",
+    "checkoutVersusPrHead": "identity keeps prHead, checkout.githubSha, and real git head as separate fields; spec asserts all three differ",
+    "manifestHashConsistency": "exporter re-reads written bytes and re-hashes; spec independently recomputes SHA-256 over the files and compares",
+    "unmatchedPaths": "spec: missing e2e path recorded with reason; untracked working-tree file recorded as not in the HEAD tree; consumer-style absent paths surface in gate-results.unmatchedPaths",
+    "sanitizeReverseAssertions": "spec: fake sk- token, bearer credential, cookie, secret assignments, personal user paths absent from sanitized output; end-to-end over gate logs, error strings, and aggregate streams; runner account paths kept readable",
+    "truncationVisible": "spec: capture drop notice with exact counts; truncate notice with omitted/original/retained bytes; file <= 1 MiB ceiling; manifest carries truncation facts; head keeps the first-failure region and tail keeps the end",
+    "traversalAndSymlink": "spec: gate-id filename sanitization keeps every file inside logs/; non-empty directory (planted file, planted directory, POSIX symlink) refused; final recursive listing must equal the written set",
+    "windowsNative": "all spec runs and both CLI smokes executed on this Windows host; POSIX-only signal cases skipped per repo convention; Windows symlink refusal proven via planted directory (file-symlink creation privilege remains an explicitly unproven item)"
+  },
+  "goldenClassificationCrossCheck": {
+    "localArchivedLog": "development/remediation/2026-09-13/ci-gates-r29/windows-execution/logs/10-headless-full-file.log",
+    "localBlobAtRef": "391675b7328adc4ebe7d31c2c013bed29153da42 (at 1baf323167)",
+    "remoteClaimedBlob": "f7287f58a78d09d597df57b765ebe46b56716c52c (verification.json archivedLogInspected.returnedBlob)",
+    "localCounts": { "testFiles": 1, "tests": 13, "failed": 6, "passed": 7 },
+    "remoteClaimedCounts": { "tests": 33, "passed": 27, "failed": 6 },
+    "confirmedDifferenceClasses": ["bash versus pwsh", "printf versus Write-Output", "LF versus CRLF (1 line)", "native cwd spelling (C:/Albert/project/dsh861 in RUN header)"],
+    "classesNotPresentLocally": ["escaped cwd inside JSON strings", "cwd in startup-error text"],
+    "conclusion": "The classification correction (shell/command/newline differences exist beyond path differences) is confirmed against the local archive. The remote-claimed blob SHA, test counts, and two difference classes do not match the local archived file, consistent with the remote having read a different file; recorded as a discrepancy, not followed blindly. No golden refreshed, no normalizer changed, no known-failure rerun.",
+    "allSixFailuresAreDeepEqualAssertionFailures": "in apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts"
+  },
+  "phaseStatusHonesty": {
+    "implementationVerifiedLocally": true,
+    "realCiGeneratedArtifact": false,
+    "artifactDownloadedAndVerified": false,
+    "note": "CI-side generation and download verification belong to the remote connector after push; no unperformed phase is marked passing."
+  },
+  "notExecuted": [
+    "full coverage aggregates (per task: minimal fake-gate and existing entries only)",
+    "Gateway212, Loader122, exe/wheel matrix, whole upgrade round reruns (r29 scope, preserved)",
+    "snapshot golden refresh, normalizer changes, known-failure reruns",
+    "push (gated on the independent r30 source review per task ordering)"
+  ],
+  "independentReview": {
+    "status": "pending",
+    "note": "Per the task ordering (affected checks, bilingual note/pairing and independent review, then commit via normal hooks and non-force push), the r30 source review is requested from the coordinator's independent reviewer before push; the r29 PASS is not reused as r30 review evidence."
+  },
+  "archive": {
+    "file": "logs.tar.xz",
+    "tarHeaders": "owner 0 / group 0 / numeric (zeroed) and all member mtimes set to the epoch (1970-01-01T00:00:00Z), matching the r29 archive convention",
+    "sha256": "b81f5496f521208dca192add3f0ecb999d0ce848b8ef7a141fcba7ebf20abffe",
+    "accountNameScan": "byte-level scan for the local account name in logs.tar.xz: 0 occurrences",
+    "logNormalization": "archived log files had per-line trailing whitespace stripped and exactly one trailing newline applied, matching the r29 evidence convention and the commit whitespace gate; commands, outputs, exit codes, and conclusions are unaltered"
+  },
+  "reviewObservations": {
+    "specCaseCounting": "gate-evidence.spec.ts defines 21 file-level test cases; the two vitest projects (thread-safe, process-bound) execute each once, yielding 42 execution instances per full run",
+    "sampleRedEvidenceScope": "sample-red-evidence/ is a partial sample of the red smoke export: identity.json, gate-results.json, manifest.json, and the one failed gate log; the aggregate-stdout.log and aggregate-stderr.log members of that export are not included in the sample"
+  }
+}

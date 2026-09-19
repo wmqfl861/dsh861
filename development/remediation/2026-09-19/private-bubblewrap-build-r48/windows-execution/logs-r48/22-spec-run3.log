@@ -1,0 +1,97 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts [2m([22m[2m36 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[33m 95538[2mms[22m[39m
+   [32m✓[39m prepare-ci-bubblewrap.sh pinned identities (source-level) [2m(4)[22m
+     [32m✓[39m keeps the three pinned inputs with publisher-recorded digests and sources[32m 2[2mms[22m[39m
+     [32m✓[39m verifies each digest before its archive is unpacked or executed[32m 1[2mms[22m[39m
+     [32m✓[39m publishes only after the functional probe passes[32m 1[2mms[22m[39m
+     [32m✓[39m adds no package transaction, no global library path, and no sandbox weakening[32m 1[2mms[22m[39m
+   [31m❯[39m prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) [2m(32)[22m
+     [33m[2m✓[22m[39m builds, verifies, and publishes from the three pinned inputs, in order, once[33m 5123[2mms[22m[39m
+     [33m[2m✓[22m[39m still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success[33m 5531[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a global 404 with the downloader exit code and never hashes, unpacks, or probes[33m 999[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a connection failure with the downloader exit code[33m 913[2mms[22m[39m
+     [33m[2m✓[22m[39m stops when only the meson download fails, after the bubblewrap input was already verified[33m 1752[2mms[22m[39m
+     [33m[2m✓[22m[39m stops when only the libcap download fails, after both tarballs were already extracted[33m 2542[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a bubblewrap digest mismatch and never unpacks anything[33m 1167[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a meson digest mismatch after the bubblewrap extraction but before the meson unpack[33m 1804[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap digest mismatch before any deb handling[33m 2613[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a traversal member name in the bubblewrap listing before extraction[33m 1243[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects an absolute member path in the deb listing before extraction[33m 2857[2mms[22m[39m
+[31m     [31m×[31m rejects a symlink that escapes the extraction root in the meson metadata listing[39m[33m 2159[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a device member in the deb metadata listing before extraction[33m 3131[2mms[22m[39m
+     [33m[2m✓[22m[39m fails loud when a build tool is missing, before any download[33m 384[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap-dev control identity that does not match the pin[33m 5168[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap-dev payload without the static library[33m 2615[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a deb extraction failure before dependency resolution[33m 4951[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a private libcap that pkg-config resolves to the wrong version[33m 3052[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a meson configure failure before any compile[33m 6189[2mms[22m[39m
+[31m     [31m×[31m stops at a compile failure with no artifact, hash record, probe, or publication[39m[33m 2529[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a link command with no private libcap directory reference[33m 5951[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a link command that fell back to the host libcap directory[33m 5150[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary that is not an x86-64 ELF[33m 3706[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary with a dynamic libcap dependency[33m 4712[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary whose ldd resolves libcap[33m 5339[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary with the wrong version identity before any probe[33m 6134[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps a functional-probe failure fatal and publishes nothing[33m 5503[2mms[22m[39m
+     [32m✓[39m refuses a non-Linux host before any download[32m 136[2mms[22m[39m
+     [32m✓[39m refuses a non-x86_64 host before any download[32m 184[2mms[22m[39m
+     [32m✓[39m fails loud when RUNNER_TEMP is missing, before any download[32m 67[2mms[22m[39m
+     [32m✓[39m fails loud when GITHUB_PATH is missing, before any download[32m 186[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a tarball extraction failure before the next input downloads[33m 1347[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a symlink that escapes the extraction root in the meson metadata listing
+[31m[1mAssertionError[22m: expected 5 to be 4 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 4[39m
+[31m+ 5[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m700:39[22m[39m
+    [90m698|[39m     expect(result.status).toBe(1)
+    [90m699|[39m     expect(result.stderr).toContain('link escapes the extraction root')
+    [90m700|[39m     expect(countCalls(result, 'tar')).toBe(4)
+    [90m   |[39m                                       [31m^[39m
+    [90m701|[39m     expect(result.mesonToolsDirExists).toBe(false)
+    [90m702|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops at a compile failure with no artifact, hash record, probe, or publication
+[31m[1mAssertionError[22m: expected 'toolchain: Python 3.12.3; cc (stub) 1…' to contain 'controlled compile failure'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- controlled compile failure[39m
+[31m+ toolchain: Python 3.12.3; cc (stub) 13.3.0; ninja 1.11.1; pkg-config 0.29.2[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m766:27[22m[39m
+    [90m764|[39m     // The compile stub's failure text is merged into the build log by…
+    [90m765|[39m     // script's `2>&1 | tee`, so it surfaces on stdout, not stderr.
+    [90m766|[39m     expect(result.stdout).toContain('controlled compile failure')
+    [90m   |[39m                           [31m^[39m
+    [90m767|[39m     expect(result.builtBwrapExists).toBe(false)
+    [90m768|[39m     expect(result.stdout).not.toContain('built artifact sha256')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m34 passed[39m[22m[90m (36)[39m
+[2m   Start at [22m 16:46:23
+[2m   Duration [22m 96.20s[2m (tests 100%)[22m
+
+VITEST_EXIT=1

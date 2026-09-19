@@ -1,0 +1,12 @@
+version: 1
+scenario: subagent-teardown
+profile: sdk
+composition: subagent-teardown
+recording: authored
+header:
+  class: subagent-teardown
+  pin: true
+  systemPromptSource: session/text-turn
+  toolSchemasSource: session/text-turn
+  childSystemPrompts: [1]
+  childToolSchemas: [1]

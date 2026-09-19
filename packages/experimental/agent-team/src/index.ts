@@ -1,8 +1,10 @@
 /** Agent Teams service façade over roster, mailbox, task, and runtime lifecycle owners. */
 
-import { Context } from '@deepseek-ai/cordis'
+import { Context, FiberState } from '@deepseek-ai/cordis'
+import type { Fiber } from '@deepseek-ai/cordis'
 import z from '@deepseek-ai/schemastery'
 import type { Agent } from '@deepseek-ai/dsh-agent'
+import type { SessionId } from '@deepseek-ai/dsh-session'
 import type {} from '@deepseek-ai/dsh-session-persistence'
 import { Remote, TypertRemoteService } from '@deepseek-ai/dsh-typert-protocol'
 import { TeamActivity } from './activity.ts'
@@ -113,16 +115,30 @@ export class TeamService extends TypertRemoteService {
       const membership = this.roster.tryMembership(agent)
       if (membership !== undefined) this.activity.notify(membership.id)
     })
-    ctx.effect(() => {
-      const disposeProjection = ctx.root.sessionProjections.register(teamProjectionDefinition)
-      return async () => {
-        try {
-          await this.disposeRuntime()
-        } finally {
-          disposeProjection()
-        }
-      }
-    }, 'agentTeams.runtimeLifecycle()')
+    // The projection lives in a dedicated child fiber of this service; the
+    // composite lifecycle effect below collects that fiber's exact structural
+    // disposer, so the registration can never be revoked by an independent
+    // root effect racing the runtime drain. Teardown runs the runtime close
+    // FIRST and releases the projection owner only afterwards.
+    const projectionOwner = ctx.plugin(Object.assign(
+      function agentTeamProjectionOwner() {},
+      { inject: ['sessionProjections'] },
+    ))
+    projectionOwner.ctx.sessionProjections.register(teamProjectionDefinition)
+    ctx.effect(function* (this: TeamService) {
+      yield projectionOwner.dispose
+      yield () => this.closeThenReleaseScope(projectionOwner)
+    }.bind(this), 'agentTeams.runtimeLifecycle()')
+    // A provider unload can retire the exact live Lead before this service's
+    // own effect teardown runs; when this service or any of its ancestors
+    // begins unloading, the one close transaction starts synchronously while
+    // authorization sampling is still legal. Its completion is still awaited
+    // (and its failures reported) by the lifecycle effect above.
+    ctx.on('internal/status', (fiber) => {
+      if (fiber.state !== FiberState.UNLOADING) return
+      if (!this.hasLifecycleAncestor(fiber)) return
+      void this.closeRuntime().catch(() => undefined)
+    })
     for (const agent of ctx.agents.list()) this.scheduleRecovery(agent)
   }
 
@@ -302,22 +318,125 @@ export class TeamService extends TypertRemoteService {
     await this.mailbox.recoverFor(agent, this.lifecycle.signal)
   }
 
-  /** Stop Team-owned live branches and release every waiter before service disposal completes. */
+  /** The one joinable Team runtime close transaction, started at most once. */
+  private runtimeClosure: Promise<void> | undefined
+
+  /** Whether one unloading fiber owns this service's lifecycle. */
+  private hasLifecycleAncestor(candidate: Fiber): boolean {
+    let fiber: Fiber = this.ctx.fiber
+    while (true) {
+      if (fiber === candidate) return true
+      const parent = fiber.parent.fiber
+      if (parent === fiber) return false
+      fiber = parent
+    }
+  }
+
+  /**
+   * Close Team admission and start (or join) the one runtime close
+   * transaction. Re-entrant callers — the lifecycle effect teardown and the
+   * ancestor-unload listener — always await the same completion.
+   * @returns the shared close transaction.
+   */
+  private closeRuntime(): Promise<void> {
+    this.lifecycle.close()
+    this.activity.close()
+    this.runtimeClosure ??= this.disposeRuntime()
+    return this.runtimeClosure
+  }
+
+  /**
+   * Stop Team-owned live branches and release every waiter, keeping a real
+   * hold on every started operation: the configured timeout observes the
+   * deadline and is reported as an error, but completion always waits for the
+   * actual operations, and the projection owner is released only after they
+   * settle. A never-settling operation therefore never becomes a successful
+   * unload.
+   */
   private async disposeRuntime(): Promise<void> {
     this.lifecycle.close()
     this.activity.close()
-
     const failures: unknown[] = []
-    await this.lifecycle.settle(this.roster.pendingCreations(), failures)
-    await this.lifecycle.settle(this.mailbox.pendingDispatches(), failures)
-    for (const [root, childIds] of this.roster.liveChildrenByRoot()) {
+    const admitted = [...this.roster.pendingCreations(), ...this.mailbox.pendingDispatches()]
+    if (admitted.length > 0) {
+      const settled = Promise.allSettled(admitted)
       try {
-        await this.roster.stopTeammates(root, childIds)
+        await this.lifecycle.withTimeout(settled)
       } catch (error: unknown) {
         failures.push(error)
       }
+      const outcomes = await settled
+      for (const outcome of outcomes) {
+        if (outcome.status === 'rejected' && !this.isRuntimeCancellation(outcome.reason)) {
+          failures.push(outcome.reason)
+        }
+      }
     }
+    // Save each selected-child drain's real promise: the timeout bounds
+    // observation only, the saved promises keep their holds until the end.
+    const heldDrains: Promise<unknown>[] = []
+    const closed = new Set<SessionId>()
+    while (true) {
+      const teams = this.roster.liveChildrenByRoot()
+      const fresh: Array<[root: Agent, childIds: SessionId[]]> = []
+      for (const [root, childIds] of teams) {
+        const pending = childIds.filter(childId => !closed.has(childId))
+        if (pending.length === 0) continue
+        for (const childId of pending) closed.add(childId)
+        fresh.push([root, pending])
+      }
+      if (fresh.length === 0) break
+      for (const [root, pending] of fresh) {
+        const drain = this.ctx.subagents.drainContinuableChildren(root, pending)
+        heldDrains.push(drain)
+        try {
+          await this.lifecycle.withTimeout(drain)
+        } catch (error: unknown) {
+          failures.push(error)
+        }
+      }
+    }
+    await Promise.all(heldDrains.map(drain => drain.then(() => undefined, () => undefined)))
     if (failures.length > 0) throw new AggregateError(failures, 'Agent Teams runtime disposal failed')
+  }
+
+  /**
+   * Close the runtime, then structurally release the projection owner,
+   * reporting both failures together. The explicit transaction exists because
+   * the effect chain skips a disposer after a rejected one; a runtime-drain
+   * rejection must not skip the projection release.
+   */
+  private async closeThenReleaseScope(owner: { dispose(): Promise<void> | void }): Promise<void> {
+    const failures: unknown[] = []
+    try {
+      await this.closeRuntime()
+    } catch (error: unknown) {
+      failures.push(error)
+    }
+    try {
+      await owner.dispose()
+    } catch (error: unknown) {
+      failures.push(error)
+    }
+    if (failures.length === 1) throw failures[0]
+    if (failures.length > 1) throw new AggregateError(failures, 'Agent Teams runtime disposal failed')
+  }
+
+  /** Whether a rejection is this runtime's own cancellation, directly or through a cause chain. */
+  private isRuntimeCancellation(reason: unknown): boolean {
+    // Before admission closes there is no runtime cancellation to match; the
+    // controller's untriggered reason would otherwise match any ended cause chain.
+    if (!this.lifecycle.disposed) return false
+    const controllerReason: unknown = this.lifecycle.reason
+    const seen = new Set<unknown>()
+    for (let current: unknown = reason; !seen.has(current);) {
+      if (current === controllerReason) return true
+      if (current instanceof TeamError && current.code === 'TEAM_DISPOSED') return true
+      if (!(current instanceof Error)) return false
+      seen.add(current)
+      current = current.cause
+    }
+    return false
   }
 }
 

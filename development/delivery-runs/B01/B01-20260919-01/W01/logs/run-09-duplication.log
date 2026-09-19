@@ -1,0 +1,5 @@
+command: pnpm run duplication (pnpm-12.4.1 + node-v26.8.2 PATH prefixes; jscpd --config .jscpd.json packages scripts)
+date: 2026-09-19T13:52:54Z
+exit_code: 0
+result: Found 0 clones (typescript 1561 files, 0 duplicated; the W02 clone [1171:60-1180:6]/[1185:50-1194:6] is gone and the rework-2 additions introduce none)
+raw: C:/dsh-b01-w01/raw/run-09-duplication.stdout.txt

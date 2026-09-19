@@ -8,7 +8,8 @@ import { fileURLToPath } from 'node:url'
 import vm from 'node:vm'
 
 const require = createRequire(import.meta.url)
-const ts = require(process.env.DSH_TEST_TYPESCRIPT_PATH || 'typescript')
+// TypeScript 7 ships no classic compiler API; the compatibility package transpiles this fixture.
+const ts = require(process.env.DSH_TEST_TYPESCRIPT_PATH || '@typescript/typescript6')
 const sourcePath = process.env.DSH_TEST_CODEX_INDEX
   || fileURLToPath(new URL('../src/index.ts', import.meta.url))
 const source = readFileSync(sourcePath, 'utf8')

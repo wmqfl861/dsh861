@@ -1,0 +1,81 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/subagent/subagent-claude-code/tests/subagent-claude-code.spec.ts (42 tests | 1 failed | 41 skipped) 13ms
+   ❯ task admission and package contracts (9)
+     × ships one independently installable provider-only Bundle patch 12ms
+     ↓ preserves text sequences and rejects empty, blank, and non-text tasks
+     ↓ registers the default descriptor, validates config, and unregisters on HMR
+     ↓ keeps named instances, runs, and HMR ownership isolated
+     ↓ rejects duplicate provider names without replacing the first instance
+     ↓ accepts an optional non-empty model and the five fixed permission modes
+     ↓ resolves the safe permission default when apply is called directly
+     ↓ starts through the registered provider with its resolved config and diagnostics
+     ↓ keeps the Loader namespace shape
+   ↓ official spawn projection (5)
+     ↓ forwards command, arguments, cwd, environment, and signal exactly
+     ↓ forwards the SDK-selected Windows native executable without a batch shim
+     ↓ projects streams, exit facts, listeners, and idempotent tree termination
+     ↓ emits spawn errors
+     ↓ exposes a settled direct-child exit code
+   ↓ query options and result mapping (9)
+     ↓ builds the fixed unattended options over the scrubbed environment
+     ↓ maps the dontAsk mode and only confirms the dangerous bypass
+     ↓ maps the acceptEdits mode and only confirms the dangerous bypass
+     ↓ maps the auto mode and only confirms the dangerous bypass
+     ↓ maps the plan mode and only confirms the dangerous bypass
+     ↓ maps the bypassPermissions mode and only confirms the dangerous bypass
+     ↓ disallows ExitPlanMode before native plan-mode allow rules
+     ↓ accepts only a non-error success with a non-blank final result
+     ↓ consumes the complete stream and keeps the latest strict success
+   ↓ run publication, cancellation, and settlement (14)
+     ↓ publishes only after Query and managed child exist, then disposes once
+     ↓ groups SDK errors by parent-action category without changing stop reasons
+     ↓ attaches a safe diagnostic when a permission denial precedes failure
+     ↓ omits captured diagnostics on success and isolates concurrent runs
+     ↓ fails closed when iteration rejects after a result
+     ↓ maps invalid success and missing result to fixed query-run facts
+     ↓ reports an early process exit with independent code and signal facts
+     ↓ gives local cancellation precedence and isolates overlapping controllers
+     ↓ keeps local cancellation authoritative when the SDK iterator ends normally
+     ↓ rejects pre-abort and incomplete Query or child acquisition
+     ↓ publishes before the first SDK message and settles a delayed provider rejection through result
+     ↓ keeps local cancellation authoritative when it arrives with the first SDK message
+     ↓ settles an SDK stream that ends before its first message through result
+     ↓ settles a first-read SDK failure through the published result
+   ↓ query and process disposal (5)
+     ↓ closes the query, terminates the tree, and waits for direct-child outcome
+     ↓ reports a published teardown failure to the Host diagnostic sink
+     ↓ does not finish disposal before the managed range is empty
+     ↓ reports close and range-wait failures without skipping cleanup
+     ↓ reports a range-wait failure without waiting for a pending direct outcome
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/subagent/subagent-claude-code/tests/subagent-claude-code.spec.ts > task admission and package contracts > ships one independently installable provider-only Bundle patch
+AssertionError: expected { …(6) } to have property "zod" with value '^4.4.3'
+
+Expected: "^4.4.3"
+Received: "^4.6.2"
+
+ ❯ packages/subagent/subagent-claude-code/tests/subagent-claude-code.spec.ts:359:35
+    357|       '^1.30.0',
+    358|     )
+    359|     expect(manifest.dependencies).toHaveProperty('zod', '^4.4.3')
+       |                                   ^
+    360|     expect(manifest.dependencies).not.toHaveProperty('@deepseek-ai/dsh…
+    361|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 41 skipped (42)
+   Start at  12:25:05
+   Duration  2.40s (transform 76%, import 21%, setup 2%, tests 1%)

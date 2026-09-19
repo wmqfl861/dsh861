@@ -13,8 +13,10 @@
 
 import { clearedProxyEnv } from '@deepseek-ai/dsh-http-proxy'
 import { mkdtemp, rm } from 'node:fs/promises'
+import { createRequire } from 'node:module'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import { execa } from 'execa'
 
 export {
@@ -115,14 +117,20 @@ export function resolveExampleLaunch(options: ExampleLaunchOptions): ExampleLaun
   // send a fixture-server request to a proxy that cannot resolve the fixture host. `undefined`
   // removes the name from the child rather than setting it empty.
   const env: NodeJS.ProcessEnv = { ...clearedProxyEnv(), ...options.env }
+  // A Vitest worker's `NODE_PATH` points into its own nested dependencies; the child simulates an
+  // installed consumer and must resolve only through its real layout. `undefined` removes the name.
+  env.NODE_PATH = undefined
 
   if (mode === 'src') {
     if (options.tsconfigPath === undefined) {
       throw new Error("resolveExampleLaunch: 'src' mode needs tsconfigPath for the workspace paths map.")
     }
+    // The Vitest module runner does not implement import.meta.resolve; resolve tsx through Node.
+    // `--import` needs a URL: on Windows a bare absolute path parses as a drive-letter scheme.
+    const require = createRequire(import.meta.url)
     const tsxLoader = options.sourceImport === 'tsx/esm'
-      ? import.meta.resolve('tsx/esm')
-      : import.meta.resolve('tsx')
+      ? pathToFileURL(require.resolve('tsx/esm')).href
+      : pathToFileURL(require.resolve('tsx')).href
     env.TSX_TSCONFIG_PATH = options.tsconfigPath
     return { command: process.execPath, args: ['--import', tsxLoader, options.srcBin, ...configArgs], env }
   }
@@ -202,7 +210,7 @@ export async function runLoaderSmoke(options: LoaderSmokeOptions): Promise<Loade
     // `input: ''` writes nothing and closes stdin — the fixture-visible
     // stdin-close contract. `reject: false` folds spawn errors, the SIGKILL
     // deadline, and nonzero exits into independent result fields, so the
-    // diagnostics below embed both streams on every failure.
+    // diagnostics below embed both streams on every outcome.
     const result = await execa(launch.command, launch.args, {
       cwd,
       env: launch.env,

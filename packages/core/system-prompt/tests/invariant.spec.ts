@@ -22,7 +22,7 @@ async function assemble(ctx: Context, result: PromptAssembly): Promise<PromptAss
   return ctx.waterfall(
     ctx as never, 'system-prompt/assemble', valid(), {},
     () => Promise.resolve(result),
-  )
+  ) as Promise<PromptAssembly>
 }
 
 describe('system-prompt invariants', () => {

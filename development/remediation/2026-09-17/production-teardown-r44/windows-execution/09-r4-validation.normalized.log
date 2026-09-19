@@ -1,0 +1,25 @@
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/experimental/agent-team/tests/invariant.spec.ts (2 tests) 30ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/projection-events.spec.ts (12 tests) 29ms
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (10 tests) 302ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/persistence.spec.ts (5 tests) 1341ms
+   ✓ JSONL Agent Teams recovery (5)
+     ✓ reconciles a persisted child to active and a missing child to durable failed 483ms
+ ✓  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests) 2309ms
+   ✓ dsh-tool-team (12)
+     ✓ returns actionable no-progress output and renders structured wait cancellation 350ms
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests) 2529ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/team.spec.ts (48 tests) 5778ms
+   ✓ Team mailbox and waiting (23)
+     ✓ cold-resumes an inactive sibling with sender attribution 327ms
+
+ Test Files  7 passed (7)
+      Tests  107 passed (107)
+   Start at  15:21:09
+   Duration  8.94s (tests 45%, transform 42%, import 11%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 11.67s · 42% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

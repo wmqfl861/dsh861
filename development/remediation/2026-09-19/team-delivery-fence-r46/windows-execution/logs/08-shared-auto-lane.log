@@ -1,0 +1,52 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯ snapshots/sdk/sdk.snapshot.ts (20 tests | 1 failed | 19 skipped) 3203ms
+   ❯ TypeScript SDK snapshots over the jsonrpc runtime (20)
+     × replays agent-team-teardown through dsh --profile sdk 3201ms
+     ↓ replays bash-tool through dsh --profile sdk
+     ↓ replays inline-image-prompt through dsh --profile sdk
+     ↓ replays max-tokens-continue through dsh --profile sdk
+     ↓ replays multi-turn through dsh --profile sdk
+     ↓ replays persistent-tools through dsh --profile sdk
+     ↓ replays ptc-turn through dsh --profile sdk
+     ↓ replays session-title-after-turn through dsh --profile sdk
+     ↓ replays subagent-continuable through dsh --profile sdk
+     ↓ replays subagent-continuable-inheritance through dsh --profile sdk
+     ↓ replays subagent-dsh-sdk-diagnostic through dsh --profile sdk
+     ↓ replays subagent-dsh-sdk-dynamic-route through dsh --profile sdk
+     ↓ replays subagent-fork-in-process through dsh --profile sdk
+     ↓ replays subagent-list-agents through dsh --profile sdk
+     ↓ replays subagent-mixed through dsh --profile sdk
+     ↓ replays subagent-send-message through dsh --profile sdk
+     ↓ replays subagent-spawn-in-process through dsh --profile sdk
+     ↓ replays subagent-teardown through dsh --profile sdk
+     ↓ replays system-prompt-in-history through dsh --profile sdk
+     ↓ replays text-turn through dsh --profile sdk
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  snapshots/sdk/sdk.snapshot.ts > TypeScript SDK snapshots over the jsonrpc runtime > replays agent-team-teardown through dsh --profile sdk
+JsonRpcResponseError: cannot create effect on inactive context
+ ❯ JsonRpcLineTransport.handleIncomingResponse packages/sdk/protocol/src/transport.ts:246:22
+    244|     if (frame.error && typeof frame.error === 'object') {
+    245|       const error = frame.error as Record<string, unknown>
+    246|       pending.reject(new JsonRpcResponseError(
+       |                      ^
+    247|         typeof error.code === 'number' ? error.code : undefined,
+    248|         typeof error.message === 'string' ? error.message : 'JSON-RPC …
+ ❯ JsonRpcLineTransport.handleLine packages/sdk/protocol/src/transport.ts:218:12
+ ❯ JsonRpcLineTransport.drainLines packages/sdk/protocol/src/transport.ts:187:17
+ ❯ Socket.onData packages/sdk/protocol/src/transport.ts:177:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 19 skipped (20)
+   Start at  08:58:55
+   Duration  5.20s (tests 65%, transform 24%, import 10%, setup 1%)
+
+EXIT:1

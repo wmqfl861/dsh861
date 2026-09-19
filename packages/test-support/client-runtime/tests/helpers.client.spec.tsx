@@ -5,6 +5,8 @@ import { createSnapshotStore } from '@deepseek-ai/dsh-client-store'
 import { EMPTY_CHAT_SNAPSHOT } from '@deepseek-ai/dsh-client-ui-chat/client'
 import { EMPTY_CONVERSATION_SNAPSHOT } from '@deepseek-ai/dsh-client-ui-conversation/client'
 import type { SessionId } from '@deepseek-ai/dsh-session/types'
+import type { MainPanelId, PanelInfo } from '@deepseek-ai/dsh-client-ui-layout/client'
+import type { PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import { afterAll, afterEach, describe, expect, it, vi } from 'vitest'
 import {
   bindSnapshotSelector,
@@ -16,6 +18,12 @@ import {
 
 const originalLanguages = [...navigator.languages]
 const originalLanguage = navigator.language
+
+declare module '@deepseek-ai/dsh-client-ui-slots' {
+  interface SlotMap {
+    'trt.panel-info': { kind: 'keyed'; scope: 'root'; owner: { label: string } }
+  }
+}
 
 usePinnedBrowserLanguages('zh-CN', 'en-US')
 afterEach(cleanup)
@@ -33,11 +41,96 @@ function entry(seq: number): SessionLiveEventEntry {
       time: seq,
       data: { seq },
       ignorable: true,
-    } as SessionLiveEventEntry['event'],
+    } as unknown as SessionLiveEventEntry['event'],
   }
 }
 
 describe('fixture helpers', () => {
+  it.each([false, true])('retracts default root sources without removing replacements (release first: %s)', async (releaseFirst) => {
+    const runtime = await SlotTestRuntime.create()
+    const hooks = { workspaces: runtime.workspaces.list, panelInfo: runtime.panelInfo }
+    let releaseReplacement: (() => void) | undefined
+    try {
+      if (releaseFirst) {
+        runtime.releaseWorkspaceSource()
+        runtime.releasePanelInfoSource()
+      } else {
+        await runtime.dispose()
+      }
+      releaseReplacement = runtime.slots.provideRoot({ hooks })
+      await runtime.dispose()
+      await runtime.dispose()
+      for (const key of ['workspaces', 'panelInfo'] as const) {
+        expect(() => runtime.slots.provideRoot({ hooks: { [key]: hooks[key] } }))
+          .toThrow(`duplicate root standard hook '${key}'`)
+      }
+    } finally {
+      try {
+        releaseReplacement?.()
+        runtime.releaseWorkspaceSource()
+        runtime.releasePanelInfoSource()
+      } finally {
+        await runtime.dispose()
+      }
+    }
+  })
+
+  it('drives panel hooks, retains keyed selection on owner updates, and releases the default source', async () => {
+    const runtime = await SlotTestRuntime.create()
+    const entryErrors: unknown[] = []
+    const stopEntryErrors = runtime.slots.onEntryError((key, _entry, error) => {
+      if (key === 'trt.panel-info') entryErrors.push(error)
+    })
+    try {
+      await runtime.declare({ 'trt.panel-info': { kind: 'keyed', scope: 'root' } })
+      runtime.slots.register({ name: 'trt.panel-info', key: 'probe' },
+        ({ usePanelInfo, label }: PropsRuntime<'trt.panel-info'>) => (
+          <span>{label}:{usePanelInfo(info => info.activePanelId) ?? 'conversation'}</span>
+        ))
+      const view = runtime.renderSlot('trt.panel-info', { label: 'first' }, { entryKey: 'probe' })
+      expect(view.container.textContent).toBe('first:conversation')
+      act(() => { runtime.panelInfo.set({ activePanelId: 'custom' as MainPanelId }) })
+      expect(view.container.textContent).toBe('first:custom')
+      view.update({ label: 'next' })
+      expect(view.container.textContent).toBe('next:custom')
+      const span = view.container.querySelector('span')
+      expect(span).toBeInstanceOf(HTMLSpanElement)
+      const replacement = createSnapshotStore<PanelInfo>({ activePanelId: null })
+      // Releasing the default source and providing the replacement must run in
+      // one synchronous apply callback: an await between them lets React flush
+      // a source-less root binding and crash the already-mounted entry.
+      await runtime.mount({
+        inject: ['slots'],
+        apply(ctx) {
+          runtime.releasePanelInfoSource()
+          ctx.slots.provideRoot({ hooks: { panelInfo: replacement } })
+        },
+      })
+      expect(view.container.textContent).toBe('next:conversation')
+      expect(entryErrors).toEqual([])
+      expect(view.container.querySelector('[data-slot-error]')).toBeNull()
+      expect(view.container.querySelector('span')).toBe(span)
+      expect(span?.isConnected).toBe(true)
+      act(() => { replacement.set({ activePanelId: 'custom' as MainPanelId }) })
+      expect(view.container.textContent).toBe('next:custom')
+      act(() => { runtime.panelInfo.set({ activePanelId: 'legacy' as MainPanelId }) })
+      expect(view.container.textContent).toBe('next:custom')
+      act(() => { replacement.set({ activePanelId: null }) })
+      expect(view.container.textContent).toBe('next:conversation')
+      view.update({ label: 'final' })
+      expect(view.container.textContent).toBe('final:conversation')
+      runtime.releasePanelInfoSource()
+      expect(view.container.textContent).toBe('final:conversation')
+      act(() => { replacement.set({ activePanelId: 'custom' as MainPanelId }) })
+      expect(view.container.textContent).toBe('final:custom')
+      await runtime.dispose()
+      expect(entryErrors).toEqual([])
+    } finally {
+      stopEntryErrors()
+      await runtime.dispose()
+    }
+  })
+
   it('rejects an upload until a suite replaces the default stub', async () => {
     const runtime = await SlotTestRuntime.create()
     expect(runtime.fileUpload.available).toBe(false)

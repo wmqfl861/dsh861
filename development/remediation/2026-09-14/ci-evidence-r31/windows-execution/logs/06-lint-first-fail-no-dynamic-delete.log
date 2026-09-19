@@ -1,0 +1,13 @@
+
+  x typescript(no-dynamic-delete): Do not delete dynamically computed property keys.
+     ,-[scripts/gate-evidence.ts:127:30]
+ 126 |   const request = gateEvidenceRequest(mode, environment)
+ 127 |   if (request !== undefined) delete environment[GATE_EVIDENCE_DIR_ENV]
+     :                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 128 |   return request
+     `----
+  help: Use a static property key, or use a Map/Set for dynamic keys.
+  note: Frequent property deletions can move objects to slower dictionary-mode properties and hurt inline-cache optimizations. See: https://v8.dev/blog/fast-properties.
+
+Found 0 warnings and 1 error.
+Finished in 55.4s on 3594 files with 90 rules using 20 threads.

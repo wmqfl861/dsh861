@@ -1,0 +1,95 @@
+=== command: C:/dsh-r24-upgrade-20260912-01/pnpm-12.4.1/pnpm.exe exec vitest run --project thread-safe packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts packages/experimental/tool-agent-team/tests/tool-team.spec.ts packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts
+=== exit code: 1
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (5 tests | 1 failed) 145ms
+   ❯ owned test contexts (5)
+     ✓ closes a materialized write handle and releases its lock before deleting the root 97ms
+     × keeps the root until a held disposer settles 15ms
+     ✓ cleans a fixture whose setup failed after its resources existed 10ms
+     ✓ still cleans healthy fixtures when one observation vetoes a deletion 18ms
+     ✓ owns a rootless context and tolerates a repeated cleanup 4ms
+ ✓  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests) 2090ms
+   ✓ dsh-tool-team (12)
+     ✓ adapts roster, mailbox, wait, and task CAS operations to canonical JSON 322ms
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests | 1 failed) 2280ms
+   ❯ dsh-tool-subagent-control (12)
+     ✓ registers send_message once, globally, with the two required parameters 36ms
+     ✓ keeps the send_message definition and ordering byte-identical in a fork child 192ms
+     ✓ JSON-encodes a caller-supplied parent id in the initial return instruction 103ms
+     ✓ lets a continuable child steer its direct parent with send_message 168ms
+     ✓ cold-resumes a settled child and reports delivery 218ms
+     ✓ steers the nearest step of an open turn 246ms
+     ✓ reports a delivery failure as an errored, not-delivered result 39ms
+     ✓ rejects a caller that is not the child's durable direct parent 138ms
+     ✓ fails loud when invoked without a calling agent 32ms
+     ✓ unregisters with its plugin fiber (HMR safety) 20ms
+     × ends a held model gate and releases write ownership through suite teardown 164ms
+     ✓ has the namespace-plugin export shape (no stray default) 0ms
+   ✓ dsh-tool-subagent-control interrupt_agent (6)
+     ✓ registers interrupt_agent with the single agent_id parameter and current-turn wording 28ms
+     ✓ interrupts a running direct child with the parent cause, parking its queue 192ms
+     ✓ lets a deep live ancestor interrupt a descendant it did not directly create 274ms
+     ✓ rejects self, sibling, and unrelated callers without touching the target 270ms
+     ✓ accepts an absent target as a no-op without cold-resuming it 125ms
+     ✓ fails loud when invoked without a calling agent 28ms
+
+ Test Files  2 failed | 1 passed (3)
+      Tests  2 failed | 33 passed (35)
+   Start at  21:32:19
+   Duration  4.67s (transform 47%, tests 43%, import 8%, setup 1%)
+
+  Transform   thread-safe  transforming modules took 4.92s · 47% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > keeps the root until a held disposer settles
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:103:28
+    101|     await drainMacrotasks()
+    102|     // While the disposer is held, cleanup cannot settle and the root …
+    103|     expect(cleanupSettled).toBe(false)
+       |                            ^
+    104|     expect(existsSync(root)).toBe(true)
+    105|     gate.resolve(undefined)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts > dsh-tool-subagent-control > ends a held model gate and releases write ownership through suite teardown
+AssertionError: promise rejected "SessionAlreadyOwnedError: session "7a6122… { sessionId: '…' }" instead of resolving
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:36
+    385|       // real afterEach cleanup must cancel it, release the write owne…
+    386|       // and delete the storage root without the manual release.
+    387|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+    388|       expect(existsSync(root)).toBe(false)
+    389|     } finally {
+
+Caused by: SessionAlreadyOwnedError: session "7a6122ea-4c40-46d6-aaf0-180f6540338c" is already owned by an active write handle
+ ❯ SessionWriteLease.acquire packages/session/session-persistence-jsonl/src/lease.ts:82:78
+ ❯ Proxy.open packages/session/session-persistence-jsonl/src/index.ts:370:15
+ ❯ Object.fixture.afterDispose packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:381:26
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:84:9
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { sessionId: '7a6122ea-4c40-46d6-aaf0-180f6540338c' }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯

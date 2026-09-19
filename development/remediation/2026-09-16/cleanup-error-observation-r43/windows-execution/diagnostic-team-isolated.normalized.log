@@ -1,0 +1,71 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests | 1 failed | 11 skipped) 283ms
+   ❯ dsh-tool-team (12)
+     ↓ installs the complete scoped schema and shared-checkout policy for roots and teammates
+     ↓ returns actionable no-progress output and renders structured wait cancellation
+     ↓ adapts roster, mailbox, wait, and task CAS operations to canonical JSON
+     ↓ adapts optional task filters, mutations, pagination, and default waiting
+     ↓ removes and reinstalls every scoped registration across plugin HMR without stopping the child
+     ↓ shadows legacy global control names only inside Team member scopes
+     ↓ rolls back partial scoped installation after a same-scope collision
+     ↓ resolves direct-apply defaults without Loader schema normalization
+     ↓ reinstalls Team scope before a cold-resumed teammate request
+     ↓ fails safely without a calling Agent and has the function-plugin export shape
+     ↓ uses configured fresh and fork provider names
+     × owns every setup runtime and storage through suite teardown 281ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts > dsh-tool-team > owns every setup runtime and storage through suite teardown
+AssertionError: promise rejected "AggregateError: dispose of owned fixture … { errors: [ …(2) ] }" instead of resolving
+ ❯ packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:36
+    493|       // One test created two setups: the suite's real cleanup must cl…
+    494|       // runtimes — including the hanging teammate — before either dir…
+    495|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+    496|       expect(existsSync(settled.storageRoot)).toBe(false)
+    497|       expect(existsSync(active.storageRoot)).toBe(false)
+
+Caused by: AggregateError: dispose of owned fixture C:\Users\JOYCEG~1\AppData\Local\Temp\dsh-tool-team-N9Q928 logged 2 error(s): child fiber, child fiber
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:167:23
+ ❯ packages/experimental/tool-agent-team/tests/tool-team.spec.ts:495:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errors: [ { stack: 'Error: Agent Teams projection is not registered
+    at TeamJournal.state (C:/Albert/project/dsh861/packages/experimental/agent-team/src/journal.ts:31:41)
+    at TeamRoster.liveChildrenByRoot (C:/Albert/project/dsh861/packages/experimental/agent-team/src/roster.ts:228:26)
+    at TeamService.disposeRuntime (C:/Albert/project/dsh861/packages/experimental/agent-team/src/index.ts:313:48)
+    at C:/Albert/project/dsh861/packages/experimental/agent-team/src/index.ts:120:11
+    at Proxy.__vite_ssr_import_1__.RegistryService.plugin (C:/Albert/project/dsh861/scripts/test-invariants.ts:82:32)
+    at setup (C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:67:13)
+    at C:/Albert/project/dsh861/packages/experimental/tool-agent-team/tests/tool-team.spec.ts:469:20
+    at file:///C:/Albert/project/dsh861/node_modules/.pnpm/vitest@5.0.0_@opentelemetry_0a4bad894e8486b2953adf924e4b79ce/node_modules/vitest/dist/chunks/run.CQOUYP-x.js:2783:20', message: 'Agent Teams projection is not registered', constructor: 'Function<Error>', name: 'Error', toString: 'Function<toString>' }, { stack: 'SubagentError: continuable subagent teardown failed for 1 activation(s): agent "6ed590db-4cbc-4c77-8502-e716536a6d8c" cannot read inbox state: its projection registration is not active
+    at ContinuableActivationRegistry.disposeRoots (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:530:13)
+    at ContinuableActivationRegistry.drain (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:335:5)
+    at Proxy.__vite_ssr_import_1__.RegistryService.plugin (C:/Albert/project/dsh861/scripts/test-invariants.ts:76:27)
+    at Proxy.inject (C:/Albert/project/dsh861/vendor/cordis/src/registry.ts:301:17)
+    at new SubagentRuntime (C:/Albert/project/dsh861/packages/subagent/subagent/src/index.ts:201:9)
+    at Fiber.execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:254:30)
+    at C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:367:45
+    at composeError (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:279:25)
+    at Fiber._execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:359:12)
+    at Fiber._reload (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:670:20)', message: 'continuable subagent teardown failed for 1 activation(s): agent "6ed590db-4cbc-4c77-8502-e716536a6d8c" cannot read inbox state: its projection registration is not active', code: 'ACTIVATION_TEARDOWN_FAILED', name: 'SubagentError', constructor: 'Function<SubagentError>', toString: 'Function<toString>' } ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 11 skipped (12)
+   Start at  23:27:17
+   Duration  3.78s (transform 76%, import 13%, tests 8%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 2.63s · 76% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

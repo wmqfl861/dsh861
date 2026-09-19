@@ -1,0 +1,88 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  scripts/tests/agent-team-teardown-trigger.spec.ts (10 tests | 3 failed) 1569ms
+   ❯ agent-team-teardown trigger send-confirmation barrier (10)
+     ✓ drove the actual repository trigger module, not a transcribed copy 3ms
+     × exited 0 with every scenario passing 7ms
+     ✓ s1-inbox-before-ack: pins its causal ordering checks 0ms
+     ✓ s2-ack-before-conditions: pins its causal ordering checks 0ms
+     × s3-queued: pins its causal ordering checks 1ms
+     × s4-reject: pins its causal ordering checks 1ms
+     ✓ s5-invalid-identity: pins its causal ordering checks 0ms
+     ✓ s6-manual-early-trigger: pins its causal ordering checks 0ms
+     ✓ s7-abort-and-close-error: pins its causal ordering checks 0ms
+     ✓ sent exactly one team message per scenario through the Lead 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  scripts/tests/agent-team-teardown-trigger.spec.ts > agent-team-teardown trigger send-confirmation barrier > exited 0 with every scenario passing
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ scripts/tests/agent-team-teardown-trigger.spec.ts:105:22
+    103|
+    104|   it('exited 0 with every scenario passing', () => {
+    105|     expect(exitCode).toBe(0)
+       |                      ^
+    106|     const fixed = result as DriverResult
+    107|     expect(fixed.ok).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL   thread-safe  scripts/tests/agent-team-teardown-trigger.spec.ts > agent-team-teardown trigger send-confirmation barrier > s3-queued: pins its causal ordering checks
+AssertionError: s3-queued/no-close-on-queued: drain calls: 1, ready: true: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ scripts/tests/agent-team-teardown-trigger.spec.ts:122:129
+    120|         const check = ran.checks.find(entry => entry.name === checkNam…
+    121|         expect(check, `${scenarioName} recorded ${checkName}`).toBeDef…
+    122|         expect((check as DriverCheck).pass, `${scenarioName}/${(check …
+       |                                                                                                                                 ^
+    123|       }
+    124|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL   thread-safe  scripts/tests/agent-team-teardown-trigger.spec.ts > agent-team-teardown trigger send-confirmation barrier > s4-reject: pins its causal ordering checks
+AssertionError: s4-reject/no-close-on-reject: drain calls: 1, ready: true: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ scripts/tests/agent-team-teardown-trigger.spec.ts:122:129
+    120|         const check = ran.checks.find(entry => entry.name === checkNam…
+    121|         expect(check, `${scenarioName} recorded ${checkName}`).toBeDef…
+    122|         expect((check as DriverCheck).pass, `${scenarioName}/${(check …
+       |                                                                                                                                 ^
+    123|       }
+    124|     })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 7 passed (10)
+   Start at  08:54:35
+   Duration  2.20s (tests 84%, transform 13%, setup 2%)
+
+EXIT:1

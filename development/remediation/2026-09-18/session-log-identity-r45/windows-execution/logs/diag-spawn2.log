@@ -1,0 +1,9 @@
+[diag] tsx resolved at file:///C:/Albert/project/dsh861/node_modules/.pnpm/tsx@4.23.13/node_modules/tsx/dist/loader.mjs
+[diag +0.0s] spawned pid 65112 node v26.8.2
+headless-test-driver: plugin tree failed to load: failed to apply loader entry resumed-agent (file:///C:/Albert/project/dsh861/apps/cli/tests/profiles/headless/tests/fixtures/subagent-diagnostic-agent.ts): session "subagent-diagnostic-parent" not found
+SessionPersistenceNotFoundError: session "subagent-diagnostic-parent" not found
+    at Proxy.open (C:\Albert\project\dsh861\packages\session\session-persistence-jsonl\src\index.ts:369:41)
+    at async raceAbort (C:\Albert\project\dsh861\packages\core\agent-loop\src\index.ts:177:12)
+    at async raceAbortCall (C:\Albert\project\dsh861\packages\core\agent-loop\src\index.ts:197:12)
+    at async <anonymous> (C:\Albert\project\dsh861\packages\core\agent-loop\src\index.ts:1009:20)
+[diag +8.9s] exit code 1 signal null stdout bytes 0 stderr bytes 733

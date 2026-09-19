@@ -1,0 +1,14 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m apps/web/tests/sidebar-scrollbar.e2e.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 14537[2mms[22m[39m
+   [32m✓[39m web e2e: sidebar session list scrollbar (reserved gutter / themed thumb) [2m(7)[22m
+     [33m[2m✓[22m[39m draws no thumb until the pointer is over the column, and lingers on the way out[33m 2596[2mms[22m[39m
+     [33m[2m✓[22m[39m matches the committed scrollbar geometry golden in both palettes[33m 4178[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 21:58:25
+[2m   Duration [22m 16.46s[2m (tests 89%, transform 6%, import 4%)[22m

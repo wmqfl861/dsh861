@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url'
 import test from 'node:test'
 import { prepareCodexSandboxQualification } from './codex-sandbox-qualification.mjs'
 import { createProcessJobOwner } from './windows-job-owner.ts'
+import { resolveProjectCodexTools } from './codex-installed-tools.mjs'
 
 const directory = fileURLToPath(new URL('.', import.meta.url))
 const repository = fileURLToPath(new URL('../../../', import.meta.url))
@@ -19,11 +20,8 @@ const sanitizedExcerpt = (text, limit = 4096) => {
   return Buffer.byteLength(printable) <= limit ? printable
     : printable.slice(0, limit) + `…[truncated ${Buffer.byteLength(printable) - limit} bytes]`
 }
-// Existing repository-pinned program, not a globally discovered or downloaded replacement.
-const codexPath = join(repository, 'node_modules/.pnpm/@openai+codex@0.149.1-win32-x64/node_modules/@openai/codex/vendor/x86_64-pc-windows-msvc/bin/codex.exe')
-const codexHash = 'a395030b56b126f608f2403036dddb654a9c063213e9c2b5f85d954cf490ebe6'
 
-async function runOwned(probe, temporary, diagnostic, lifecycle) {
+async function runOwned(probe, temporary, diagnostic, lifecycle, codexPath) {
   lifecycle.cleanupObserved = false
   const powershell = join(process.env.SystemRoot, 'System32/WindowsPowerShell/v1.0/powershell.exe')
   const owner = await createProcessJobOwner({ powershellExecutable: powershell, directory,
@@ -82,6 +80,12 @@ async function runOwned(probe, temporary, diagnostic, lifecycle) {
 
 test('pinned Codex native sandbox denies outside reads and writes for a real child after a positive control',
   { skip: process.platform !== 'win32', timeout: 120000 }, async t => {
+    const owner = JSON.parse(readFileSync(join(repository, 'packages/subagent/subagent-codex/package.json'), 'utf8'))
+    const version = owner.dependencies['@openai/codex']
+    assert.match(version, /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/)
+    const manifest = JSON.parse(readFileSync(join(directory, `sandbox-tool-bundle.${version}.json`), 'utf8'))
+    const tools = await resolveProjectCodexTools(repository, manifest)
+    const codexHash = manifest.artifacts.find(pin => pin.role === 'codex').sha256
     const temporary = mkdtempSync(join(tmpdir(), 'dsh-codex-scope-'))
     let probe
     const lifecycle = { cleanupObserved: true }
@@ -90,17 +94,16 @@ test('pinned Codex native sandbox denies outside reads and writes for a real chi
       if (probe) await probe.dispose()
       rmSync(temporary, { recursive: true, force: true })
     })
-    assert.equal(fileHash(codexPath), codexHash, 'CODEX_PIN_MISMATCH_NO_AUTO_UPDATE')
     probe = await prepareCodexSandboxQualification({ parent: temporary, nodeExecutable: process.execPath,
       nodeSha256: fileHash(process.execPath), systemRoot: process.env.SystemRoot })
     const baseline = spawnSync(probe.command[0], probe.command.slice(1), { cwd: probe.workspace, env: probe.environment,
       encoding: 'utf8', timeout: 15000, maxBuffer: 32768, windowsHide: true, shell: false })
     await probe.verifyBaseline({ exitCode: baseline.status, signal: baseline.signal,
       error: baseline.error, stdout: baseline.stdout })
-    const result = await runOwned(probe, temporary, value => { t.diagnostic(JSON.stringify(value)) }, lifecycle)
+    const result = await runOwned(probe, temporary, value => { t.diagnostic(JSON.stringify(value)) }, lifecycle, tools.sources.codex)
     // Unsupported setup/profile is a qualification blocker, not evidence that reads were denied.
     const receipt = await probe.verifyRestricted(result)
     assert.equal(receipt.status, 'SANDBOX_SCOPE_OBSERVED')
     assert.equal(receipt.productionIsolationAccepted, false)
-    t.diagnostic(JSON.stringify({ ...receipt, codexSha256: codexHash }))
+    t.diagnostic(JSON.stringify({ ...receipt, codexSha256: codexHash, codexVersion: tools.version }))
   })

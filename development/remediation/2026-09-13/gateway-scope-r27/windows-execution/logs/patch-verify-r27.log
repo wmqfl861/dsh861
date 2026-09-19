@@ -1,0 +1,10 @@
+$ git rev-parse HEAD
+cfbb9d64a5d64e51ce567beeb274e1d9f2f03ffe
+$ sha256sum development/remediation/2026-09-13/gateway-scope-r27/changes.patch
+5e84f43c88779bf0f2c6f20db9dd99fd4be965a653a5ea2fdc9769c6d9cf01c9 *development/remediation/2026-09-13/gateway-scope-r27/changes.patch
+$ git rev-parse HEAD:packages/api/gateway/tests/gateway.client.spec.ts
+7fb0ec8bdc3403bf18f8c70ea6082a911d2676e7
+$ git apply --reverse --check development/remediation/2026-09-13/gateway-scope-r27/changes.patch
+reverse-check-exit=0
+$ git status --porcelain=v1
+ M packages/api/gateway/tests/gateway.client.spec.ts

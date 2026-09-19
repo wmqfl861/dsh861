@@ -1,0 +1,86 @@
+TAP version 13
+# Subtest: marked caller retains its identity through a service shadow
+ok 1 - marked caller retains its identity through a service shadow
+  ---
+  duration_ms: 0.711494
+  type: 'test'
+  ...
+# Subtest: child caller inherits the marked identity
+ok 2 - child caller inherits the marked identity
+  ---
+  duration_ms: 0.165305
+  type: 'test'
+  ...
+# Subtest: own metadata overrides the inherited identity
+ok 3 - own metadata overrides the inherited identity
+  ---
+  duration_ms: 0.154129
+  type: 'test'
+  ...
+# Subtest: unmarked service-shadow caller returns no fixture identity
+not ok 4 - unmarked service-shadow caller returns no fixture identity
+  ---
+  duration_ms: 0.351852
+  type: 'test'
+  location: '/mnt/data/dsh861_r27/scope-probe.mjs:111:1'
+  failureType: 'testCodeFailure'
+  error: 'cannot get property "fixtureId" without inject'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    Object.get (eval at <anonymous> (file:///mnt/data/dsh861_r27/scope-probe.mjs:76:17), <anonymous>:11:21)
+    identity (file:///mnt/data/dsh861_r27/scope-probe.mjs:96:48)
+    TestContext.<anonymous> (file:///mnt/data/dsh861_r27/scope-probe.mjs:113:16)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: unmarked sibling does not inherit another scope identity
+not ok 5 - unmarked sibling does not inherit another scope identity
+  ---
+  duration_ms: 0.138646
+  type: 'test'
+  location: '/mnt/data/dsh861_r27/scope-probe.mjs:115:1'
+  failureType: 'testCodeFailure'
+  error: 'cannot get property "fixtureId" without inject'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    Object.get (eval at <anonymous> (file:///mnt/data/dsh861_r27/scope-probe.mjs:76:17), <anonymous>:11:21)
+    identity (file:///mnt/data/dsh861_r27/scope-probe.mjs:96:48)
+    TestContext.<anonymous> (file:///mnt/data/dsh861_r27/scope-probe.mjs:119:16)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: unshadowed unmarked root has no identity
+ok 6 - unshadowed unmarked root has no identity
+  ---
+  duration_ms: 0.132427
+  type: 'test'
+  ...
+# Subtest: identity lookup does not default an empty identity
+ok 7 - identity lookup does not default an empty identity
+  ---
+  duration_ms: 0.178695
+  type: 'test'
+  ...
+# Subtest: unrelated undeclared service reads remain rejected
+ok 8 - unrelated undeclared service reads remain rejected
+  ---
+  duration_ms: 0.320414
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 6
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12.379729

@@ -1,0 +1,18 @@
+{
+  "kind": "isolated local Git depth-one fixture",
+  "gitVersion": "git version 2.47.3",
+  "shallow": true,
+  "oldPercentP": "",
+  "storedHeaderParents": [
+    "50f51d4bd82b798cce8e53436e3fd34c7990ab95",
+    "0d255d4b363bea0d76f3e80d2d2b4b46ff6c0b46"
+  ],
+  "expectedParents": [
+    "50f51d4bd82b798cce8e53436e3fd34c7990ab95",
+    "0d255d4b363bea0d76f3e80d2d2b4b46ff6c0b46"
+  ],
+  "bothParentsRecovered": true,
+  "messageParentNotParsed": true,
+  "networkUsed": false,
+  "repositoryTestsRun": false
+}

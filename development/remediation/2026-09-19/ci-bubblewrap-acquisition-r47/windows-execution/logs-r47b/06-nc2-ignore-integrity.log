@@ -1,0 +1,66 @@
+# argv: node C:dsh-r47b-impl-tmp
+c-driver.mjs nc2-ignore-integrity <repo>/mutations/nc-ignore-integrity-mutant.sh fc8571e6... <this-log> 1 12  (driver runs vitest as recorded inside)
+[nc2-ignore-integrity] pre-state: fixed candidate verified sha256=37a96d504e589ec40f66b657d8af347898013c5e5ee0cca4df0ef6df10bf371a bytes=1795
+[nc2-ignore-integrity] mutant applied: sha256=fc8571e6a2ff4e0857bbe326e7aaf7807700ce43998145b9ab93a05b89901046 bytes=1803 identical-to-saved-mutant=true
+[nc2-ignore-integrity] vitest argv: node node_modules/vitest/vitest.mjs run --project thread-safe scripts/prepare-ci-bubblewrap.spec.ts (cwd C:/Albert/project/dsh861, TMP/TEMP=C:\dsh-r47b-impl-tmp\tmp)
+[nc2-ignore-integrity] vitest status=1 signal=null
+[nc2-ignore-integrity] --- vitest output start ---
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts (13 tests | 1 failed) 4441ms
+   ✓ prepare-ci-bubblewrap.sh pinned identity (source-level) (2)
+     ✓ keeps the pinned version, pinned SHA-256, and the verified snapshot URL literal 2ms
+     ✓ checks the digest before extraction 0ms
+   ❯ prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) (11)
+     ✓ succeeds from the verified snapshot source with the pinned identity, in order, once 701ms
+     ✓ still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success 728ms
+     ✓ stops at the 404 download with the script exit code and never hashes, extracts, escalates, or probes 208ms
+     ✓ stops at a connection failure with the downloader exit code and never advances a phase 310ms
+     × rejects a digest mismatch on the pinned identity and never unpacks or publishes a path 769ms
+     ✓ stops at a failed extraction before any privilege or probe step 433ms
+     ✓ keeps a functional-probe failure fatal and prints no success line 835ms
+     ✓ refuses a non-Linux host before any download 124ms
+     ✓ refuses a non-x86_64 host before any download 167ms
+     ✓ fails loud when RUNNER_TEMP is missing, before any download 54ms
+     ✓ fails loud when GITHUB_PATH is missing, before any download 59ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  12:09:23
+   Duration  5.01s (tests 92%, transform 6%, import 1%, setup 1%)
+
+
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > rejects a digest mismatch on the pinned identity and never unpacks or publishes a path
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:295:27
+    293|   it('rejects a digest mismatch on the pinned identity and never unpac…
+    294|     const result = runScenario({ curl: 'ok', hashMatches: false })
+    295|     expect(result.status).toBe(1)
+       |                           ^
+    296|     expect(wasCalled(result, 'sha256sum')).toBe(true)
+    297|     expect(wasCalled(result, 'dpkg-deb')).toBe(false)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+[nc2-ignore-integrity] --- vitest output end ---
+[nc2-ignore-integrity] parsed summary: failed=1 passed=12 total=13
+[nc2-ignore-integrity] expectation failed=1 passed=12 exit=1 -> met=true
+[nc2-ignore-integrity] restore: sha256=37a96d504e589ec40f66b657d8af347898013c5e5ee0cca4df0ef6df10bf371a bytes=1795 byte-identical-to-pre-state=true VERIFIED=true

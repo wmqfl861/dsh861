@@ -1,0 +1,70 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests | 1 failed | 17 skipped) 215ms
+   ❯ dsh-tool-subagent-control (12)
+     ↓ registers send_message once, globally, with the two required parameters
+     ↓ keeps the send_message definition and ordering byte-identical in a fork child
+     ↓ JSON-encodes a caller-supplied parent id in the initial return instruction
+     ↓ lets a continuable child steer its direct parent with send_message
+     ↓ cold-resumes a settled child and reports delivery
+     ↓ steers the nearest step of an open turn
+     ↓ reports a delivery failure as an errored, not-delivered result
+     ↓ rejects a caller that is not the child's durable direct parent
+     ↓ fails loud when invoked without a calling agent
+     ↓ unregisters with its plugin fiber (HMR safety)
+     × ends a held model gate and releases write ownership through suite teardown 213ms
+     ↓ has the namespace-plugin export shape (no stray default)
+   ↓ dsh-tool-subagent-control interrupt_agent (6)
+     ↓ registers interrupt_agent with the single agent_id parameter and current-turn wording
+     ↓ interrupts a running direct child with the parent cause, parking its queue
+     ↓ lets a deep live ancestor interrupt a descendant it did not directly create
+     ↓ rejects self, sibling, and unrelated callers without touching the target
+     ↓ accepts an absent target as a no-op without cold-resuming it
+     ↓ fails loud when invoked without a calling agent
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts > dsh-tool-subagent-control > ends a held model gate and releases write ownership through suite teardown
+AssertionError: promise rejected "AggregateError: dispose of owned fixture … { errors: [ SubagentError: … { code: '…' } ] }" instead of resolving
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:36
+    385|       // real afterEach cleanup must cancel it, release the write owne…
+    386|       // and delete the storage root without the manual release.
+    387|       await expect(owned.cleanup()).resolves.toBeUndefined()
+       |                                    ^
+    388|       expect(existsSync(root)).toBe(false)
+    389|     } finally {
+
+Caused by: AggregateError: dispose of owned fixture C:\Users\JOYCEG~1\AppData\Local\Temp\dsh-tool-subagent-control-e8Pjv1 logged 1 error(s): child fiber
+ ❯ OwnedTestContexts.cleanup packages/subagent/tool-subagent-control/tests/owned-contexts.ts:167:23
+ ❯ packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts:387:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errors: [ { stack: 'SubagentError: continuable subagent teardown failed for 1 activation(s): agent "7371605d-f70c-4788-a333-eb803ad52d61" cannot read inbox state: its projection registration is not active
+    at ContinuableActivationRegistry.disposeRoots (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:530:13)
+    at ContinuableActivationRegistry.drain (C:/Albert/project/dsh861/packages/subagent/subagent/src/continuation-activation.ts:335:5)
+    at Proxy.__vite_ssr_import_1__.RegistryService.plugin (C:/Albert/project/dsh861/scripts/test-invariants.ts:76:27)
+    at Proxy.inject (C:/Albert/project/dsh861/vendor/cordis/src/registry.ts:301:17)
+    at new SubagentRuntime (C:/Albert/project/dsh861/packages/subagent/subagent/src/index.ts:201:9)
+    at Fiber.execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:254:30)
+    at C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:367:45
+    at composeError (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:279:25)
+    at Fiber._execute (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:359:12)
+    at Fiber._reload (C:/Albert/project/dsh861/vendor/cordis/src/fiber.ts:670:20)', message: 'continuable subagent teardown failed for 1 activation(s): agent "7371605d-f70c-4788-a333-eb803ad52d61" cannot read inbox state: its projection registration is not active', code: 'ACTIVATION_TEARDOWN_FAILED', name: 'SubagentError', constructor: 'Function<SubagentError>', toString: 'Function<toString>' } ] }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 17 skipped (18)
+   Start at  23:25:15
+   Duration  3.61s (transform 77%, import 14%, tests 7%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 2.50s · 77% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

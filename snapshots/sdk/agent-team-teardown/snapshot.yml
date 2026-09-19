@@ -1,0 +1,14 @@
+version: 1
+scenario: agent-team-teardown
+profile: sdk
+composition: agent-team-teardown
+recording: authored
+replay:
+  override: true
+header:
+  class: agent-team-teardown
+  pin: true
+  systemPromptSource: session/text-turn
+  toolSchemasSource: session/text-turn
+  childSystemPrompts: [1]
+  childToolSchemas: [1]

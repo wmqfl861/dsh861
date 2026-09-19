@@ -1,0 +1,4 @@
+AR members: debian-binary (4 bytes), control.tar.zst (1466 bytes), data.tar.zst (593976 bytes)
+debian-binary: 2.0
+wrote C:/dsh-r48-tqt3s7/extract/libcap/control.tar.zst
+wrote C:/dsh-r48-tqt3s7/extract/libcap/data.tar.zst

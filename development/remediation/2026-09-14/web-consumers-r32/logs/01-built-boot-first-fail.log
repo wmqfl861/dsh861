@@ -1,0 +1,112 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots the built plugin graph and renders a fixture session end to end
+[22m[39mWarning: Please use the `legacy` build in Node.js environments.
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots the built plugin graph and renders a fixture session end to end
+[22m[39m[cordis-client-runner] syncing inspect providers failed: Error: gateway/internal: client api: dynamicCordisRunner/syncInspectManifest failed: fixture connection RPC endpoint "dynamicCordisRunner/syncInspectManifest" is unavailable
+    at Object.sync (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:31779:30)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:104:5)[39m
+    at eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:27747:7)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots the built plugin graph and renders a fixture session end to end
+[22m[39m[ui-cordis] reading the Cordis inventory failed: Error: gateway/internal: client api: dynamicCordisRunner/inventory failed: fixture connection RPC endpoint "dynamicCordisRunner/inventory" is unavailable
+    at Object.inventory (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:105564:30)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:104:5)[39m
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots the built plugin graph and renders a fixture session end to end
+[22m[39m[ui-cordis] reading the Cordis inventory failed: Error: gateway/internal: client api: dynamicCordisRunner/inventory failed: fixture connection RPC endpoint "dynamicCordisRunner/inventory" is unavailable
+    at Object.inventory (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:105564:30)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:104:5)[39m
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots the built plugin graph and renders a fixture session end to end
+[22m[39m[cordis-client-runner] syncing inspect providers failed: Error: gateway/internal: client api: dynamicCordisRunner/syncInspectManifest failed: fixture connection RPC endpoint "dynamicCordisRunner/syncInspectManifest" is unavailable
+    at Object.sync (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:31779:30)
+[90m    at processTicksAndRejections (node:internal/process/task_queues:104:5)[39m
+    at eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:27747:7)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots the built plugin graph and renders a fixture session end to end
+[22m[39m[ui-cordis] reading the Cordis inventory failed: Error: gateway/internal: client api: dynamicCordisRunner/inventory failed: fixture connection RPC endpoint "dynamicCordisRunner/inventory" is unavailable
+    at Object.inventory (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:105564:30)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots the built plugin graph and renders a fixture session end to end
+[22m[39m[cordis-client-runner] syncing inspect providers failed: Error: client api: dynamicCordisRunner/syncInspectManifest has no active Connection
+    at Proxy.invoke (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3383:38)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.invokeSelected (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3376:17)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.invokeMethod (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3370:40)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3338:94)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3491:21)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39mWarning: Please use the `legacy` build in Node.js environments.
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39m[cordis-client-runner] syncing inspect providers failed: Error: gateway/internal: client api: dynamicCordisRunner/syncInspectManifest failed: fixture connection RPC endpoint "dynamicCordisRunner/syncInspectManifest" is unavailable
+    at Object.sync (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:31779:30)
+    at eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:27747:7)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39m[ui-cordis] reading the Cordis inventory failed: Error: gateway/internal: client api: dynamicCordisRunner/inventory failed: fixture connection RPC endpoint "dynamicCordisRunner/inventory" is unavailable
+    at Object.inventory (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:97169:30)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39m[ui-cordis] reading the Cordis inventory failed: Error: gateway/internal: client api: dynamicCordisRunner/inventory failed: fixture connection RPC endpoint "dynamicCordisRunner/inventory" is unavailable
+    at Object.inventory (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:97169:30)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39m[cordis-client-runner] syncing inspect providers failed: Error: gateway/internal: client api: dynamicCordisRunner/syncInspectManifest failed: fixture connection RPC endpoint "dynamicCordisRunner/syncInspectManifest" is unavailable
+    at Object.sync (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:31779:30)
+    at eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:27747:7)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39m[ui-cordis] reading the Cordis inventory failed: Error: gateway/internal: client api: dynamicCordisRunner/inventory failed: fixture connection RPC endpoint "dynamicCordisRunner/inventory" is unavailable
+    at Object.inventory (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:97169:30)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39m[ui-cordis] reading the Cordis inventory failed: Error: gateway/internal: client api: dynamicCordisRunner/inventory failed: fixture connection RPC endpoint "dynamicCordisRunner/inventory" is unavailable
+    at Object.inventory (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:97169:30)
+
+[90mstderr[2m | apps/web/tests/built-boot.expected.e2e.ts[2m > [22m[2mboots without ui-chat and does not select another conversation view implicitly
+[22m[39m[cordis-client-runner] syncing inspect providers failed: Error: client api: dynamicCordisRunner/syncInspectManifest has no active Connection
+    at Proxy.invoke (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3383:38)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.invokeSelected (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3376:17)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.invokeMethod (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3370:40)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3338:94)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+    at Proxy.eval (eval at loadBundle (C:/Albert/project/dsh861/apps/web/tests/assembled-boot.ts:278:18), <anonymous>:3491:21)
+    at Object.apply (C:/Albert/project/dsh861/vendor/cordis/src/utils.ts:162:40)
+
+ [31m❯[39m apps/web/tests/built-boot.expected.e2e.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 2144[2mms[22m[39m
+[31m   [31m×[31m boots the built plugin graph and renders a fixture session end to end[39m[33m 1284[2mms[22m[39m
+   [33m[2m✓[22m[39m boots without ui-chat and does not select another conversation view implicitly[33m 858[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/web/tests/built-boot.expected.e2e.ts[2m > [22mboots the built plugin graph and renders a fixture session end to end
+[31m[1mAssertionError[22m: expected null not to be null[39m
+[36m [2m❯[22m apps/web/tests/built-boot.expected.e2e.ts:[2m65:70[22m[39m
+    [90m 63|[39m   const tree = await screen.findByRole('tree', { name: 'Sessions' }, {…
+    [90m 64|[39m   if (clientBuildValue('DSH_CLIENT_BUILD_PROFILE') === 'official') {
+    [90m 65|[39m     expect(document.querySelector('svg[viewBox="26 0 156 24"]')).not.t…
+    [90m   |[39m                                                                      [31m^[39m
+    [90m 66|[39m     expect(screen.queryByText('DSH Local Build')).toBeNull()
+    [90m 67|[39m   } else {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 18:33:52
+[2m   Duration [22m 7.30s[2m (tests 30%, environment 28%, transform 24%, import 18%)[22m

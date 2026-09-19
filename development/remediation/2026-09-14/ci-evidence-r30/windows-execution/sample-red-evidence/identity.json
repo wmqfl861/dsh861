@@ -1,0 +1,25 @@
+{
+  "repository": "wmqfl861/dsh861",
+  "pr": null,
+  "runId": "34790000100",
+  "runAttempt": "1",
+  "job": "smoke-red",
+  "aggregate": "doc-quick",
+  "prHead": null,
+  "prBase": null,
+  "checkout": {
+    "githubSha": null,
+    "githubRef": null
+  },
+  "git": {
+    "head": "ed2776d9580bbbec0550d6e2be50a258a7dcc5eb",
+    "headParent": "1baf323167e9d4bde171249f322ab4ebec7f3567"
+  },
+  "runtime": {
+    "node": "26.8.2",
+    "pnpm": "12.4.1",
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "exportedAt": "2026-09-14T00:57:31.557Z"
+}

@@ -1,0 +1,174 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/test-support/session-snapshot/tests/manifest.spec.ts (41 tests | 1 failed) 29ms
+   ❯ snapshot manifest (41)
+     ✓ parses an owning scenario 5ms
+     ✓ parses an explicitly retained Session generation and its migration coverage 1ms
+     ✓ keeps explicitly retained generations read-only while current fixtures track writer output 1ms
+     ✓ parses a read-only session reference 1ms
+     ✓ parses composition, recording, header, and exceptional replay metadata 1ms
+     ✓ parses independently optional header and input fields 1ms
+     × rejects invalid metadata 8ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 0ms
+     ✓ rejects invalid metadata 2ms
+ ❯  thread-safe  packages/subagent/subagent-claude-code/tests/subagent-claude-code.spec.ts (42 tests | 1 failed) 156ms
+   ❯ task admission and package contracts (9)
+     × ships one independently installable provider-only Bundle patch 12ms
+     ✓ preserves text sequences and rejects empty, blank, and non-text tasks 2ms
+     ✓ registers the default descriptor, validates config, and unregisters on HMR 21ms
+     ✓ keeps named instances, runs, and HMR ownership isolated 16ms
+     ✓ rejects duplicate provider names without replacing the first instance 8ms
+     ✓ accepts an optional non-empty model and the five fixed permission modes 2ms
+     ✓ resolves the safe permission default when apply is called directly 7ms
+     ✓ starts through the registered provider with its resolved config and diagnostics 10ms
+     ✓ keeps the Loader namespace shape 0ms
+   ✓ official spawn projection (5)
+     ✓ forwards command, arguments, cwd, environment, and signal exactly 2ms
+     ✓ forwards the SDK-selected Windows native executable without a batch shim 1ms
+     ✓ projects streams, exit facts, listeners, and idempotent tree termination 1ms
+     ✓ emits spawn errors 1ms
+     ✓ exposes a settled direct-child exit code 0ms
+   ✓ query options and result mapping (9)
+     ✓ builds the fixed unattended options over the scrubbed environment 2ms
+     ✓ maps the dontAsk mode and only confirms the dangerous bypass 1ms
+     ✓ maps the acceptEdits mode and only confirms the dangerous bypass 1ms
+     ✓ maps the auto mode and only confirms the dangerous bypass 1ms
+     ✓ maps the plan mode and only confirms the dangerous bypass 0ms
+     ✓ maps the bypassPermissions mode and only confirms the dangerous bypass 1ms
+     ✓ disallows ExitPlanMode before native plan-mode allow rules 1ms
+     ✓ accepts only a non-error success with a non-blank final result 1ms
+     ✓ consumes the complete stream and keeps the latest strict success 1ms
+   ✓ run publication, cancellation, and settlement (14)
+     ✓ publishes only after Query and managed child exist, then disposes once 3ms
+     ✓ groups SDK errors by parent-action category without changing stop reasons 8ms
+     ✓ attaches a safe diagnostic when a permission denial precedes failure 1ms
+     ✓ omits captured diagnostics on success and isolates concurrent runs 2ms
+     ✓ fails closed when iteration rejects after a result 2ms
+     ✓ maps invalid success and missing result to fixed query-run facts 3ms
+     ✓ reports an early process exit with independent code and signal facts 5ms
+     ✓ gives local cancellation precedence and isolates overlapping controllers 3ms
+     ✓ keeps local cancellation authoritative when the SDK iterator ends normally 2ms
+     ✓ rejects pre-abort and incomplete Query or child acquisition 15ms
+     ✓ publishes before the first SDK message and settles a delayed provider rejection through result 3ms
+     ✓ keeps local cancellation authoritative when it arrives with the first SDK message 2ms
+     ✓ settles an SDK stream that ends before its first message through result 2ms
+     ✓ settles a first-read SDK failure through the published result 2ms
+   ✓ query and process disposal (5)
+     ✓ closes the query, terminates the tree, and waits for direct-child outcome 1ms
+     ✓ reports a published teardown failure to the Host diagnostic sink 3ms
+     ✓ does not finish disposal before the managed range is empty 1ms
+     ✓ reports close and range-wait failures without skipping cleanup 1ms
+     ✓ reports a range-wait failure without waiting for a pending direct outcome 1ms
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"claude-safe-model","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"claude-bypass-model","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+[claude-code:unrecognized_model] {"model":"dsh-settings-inheritance-marker","query_source":"sdk"}
+ ❯  thread-safe  packages/subagent/subagent-claude-code/tests/real-product.spec.ts (8 tests | 1 failed) 26039ms
+   ❯ real Claude Agent SDK 0.3.263 and its distributed Claude Code 2.1.263 fixture (8)
+     × inherits host settings and sends the exact task and fake key to local Messages 70ms
+     ✓ maps a real SDK max-turns result to safe query-run facts 1549ms
+     ✓ runs two named instances concurrently and unloads one without revoking its run 8732ms
+     ✓ maps a real CLI process failure to its exit outcome 1360ms
+     ✓ overrides interactive settings, denies a write, and returns a safe diagnostic 1538ms
+     ✓ runs an explicitly selected bypass write in the isolated workspace 1752ms
+     ✓ returns the completed plan without approving execution 1702ms
+     ✓ settles cancellation and leaves the real SDK-spawned CLI tree quiescent 9330ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/test-support/session-snapshot/tests/manifest.spec.ts > snapshot manifest > rejects invalid metadata
+AssertionError: expected [Function] to throw error including 'manifest must be a mapping' but got 'session-snapshot: case/snapshot.yml: …'
+
+Expected: "manifest must be a mapping"
+Received: "session-snapshot: case/snapshot.yml: invalid YAML: YAMLException: expected a document, but the input is empty"
+
+ ❯ packages/test-support/session-snapshot/tests/manifest.spec.ts:198:70
+    196|     ['version: 1\nprofile: !!js acp\n', 'invalid YAML'],
+    197|   ])('rejects invalid metadata', (source, message) => {
+    198|     expect(() => parseSnapshotManifest(source, 'case/snapshot.yml')).t…
+       |                                                                      ^
+    199|   })
+    200| })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL   thread-safe  packages/subagent/subagent-claude-code/tests/real-product.spec.ts > real Claude Agent SDK 0.3.263 and its distributed Claude Code 2.1.263 fixture > inherits host settings and sends the exact task and fake key to local Messages
+AssertionError: expected '0.3.269' to be '0.3.263' // Object.is equality
+
+Expected: "0.3.263"
+Received: "0.3.269"
+
+ ❯ packages/subagent/subagent-claude-code/tests/real-product.spec.ts:299:32
+    297|       text: sentinel,
+    298|     })
+    299|     expect(sdkPackage.version).toBe('0.3.263')
+       |                                ^
+    300|     expect(sdkPackage.claudeCodeVersion).toBe('2.1.263')
+    301|     expect(sdkPackage.optionalDependencies[platformPackage]).toBe('0.3…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL   thread-safe  packages/subagent/subagent-claude-code/tests/subagent-claude-code.spec.ts > task admission and package contracts > ships one independently installable provider-only Bundle patch
+AssertionError: expected { …(6) } to have property "@anthropic-ai/claude-agent-sdk" with value '0.3.263'
+
+Expected: "0.3.263"
+Received: "0.3.269"
+
+ ❯ packages/subagent/subagent-claude-code/tests/subagent-claude-code.spec.ts:351:35
+    349|     expect(manifest.dsh?.bundle?.patch).toBe('./cordis.patch.yml')
+    350|     expect(manifest.files).toContain('cordis.patch.yml')
+    351|     expect(manifest.dependencies).toHaveProperty(
+       |                                   ^
+    352|       '@anthropic-ai/claude-agent-sdk',
+    353|       CLAUDE_AGENT_SDK_VERSION,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  3 failed (3)
+      Tests  3 failed | 88 passed (91)
+   Start at  12:20:17
+   Duration  28.99s (tests 81%, transform 14%, import 4%, setup 1%)

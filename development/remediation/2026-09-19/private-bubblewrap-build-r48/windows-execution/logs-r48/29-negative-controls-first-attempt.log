@@ -1,0 +1,17 @@
+original sha256: 28d31aa9fd7db6f848796feca43725bcd547bca268b56384d6f9ed89068d53a3
+nc-bypass-hash: mutation applied, bash -n exit 0
+nc-bypass-hash: mutant targeted-run exit 1 (expected nonzero = caught)
+nc-bypass-hash: [2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m | [2m      Tests [22m [2mno tests[22m
+nc-bypass-hash: restored byte-identical=true sha256=28d31aa9fd7db6f848796feca43725bcd547bca268b56384d6f9ed89068d53a3
+nc-bypass-hash: restored targeted-run exit 1
+nc-bypass-hash: VERDICT caught=true restored=true green=false
+nc-fail-as-success: mutation applied, bash -n exit 0
+nc-fail-as-success: mutant targeted-run exit 1 (expected nonzero = caught)
+nc-fail-as-success: [2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m | [2m      Tests [22m [2mno tests[22m
+nc-fail-as-success: restored byte-identical=true sha256=28d31aa9fd7db6f848796feca43725bcd547bca268b56384d6f9ed89068d53a3
+nc-fail-as-success: restored targeted-run exit 1
+nc-fail-as-success: VERDICT caught=true restored=true green=false
+full-suite-after-all-restores exit 1
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m | [2m      Tests [22m [2mno tests[22m
+HARNESS_RESULT=FAILED
+NC_HARNESS_EXIT=1

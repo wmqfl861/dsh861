@@ -1,0 +1,30 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (17 tests) 3109ms
+   ✓ dsh-tool-subagent-control (11)
+     ✓ keeps the send_message definition and ordering byte-identical in a fork child 398ms
+     ✓ cold-resumes a settled child and reports delivery 383ms
+     ✓ steers the nearest step of an open turn 410ms
+ ✓  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (11 tests) 3066ms
+   ✓ dsh-tool-team (11)
+     ✓ installs the complete scoped schema and shared-checkout policy for roots and teammates 569ms
+     ✓ returns actionable no-progress output and renders structured wait cancellation 647ms
+     ✓ adapts roster, mailbox, wait, and task CAS operations to canonical JSON 550ms
+     ✓ adapts optional task filters, mutations, pagination, and default waiting 311ms
+     ✓ reinstalls Team scope before a cold-resumed teammate request 310ms
+
+ Test Files  2 passed (2)
+      Tests  28 passed (28)
+   Start at  21:05:09
+   Duration  8.44s (transform 54%, tests 39%, import 7%, setup 1%)
+
+  Transform   thread-safe  transforming modules took 8.66s · 54% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

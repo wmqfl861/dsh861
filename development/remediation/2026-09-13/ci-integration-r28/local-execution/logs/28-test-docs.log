@@ -1,0 +1,37 @@
+$ tsx scripts/run-gates.ts doc-quick
+run-gates: doc-quick running 16 gate(s) with 4 worker(s) from 20 available CPU(s), doc-quick cap 4.
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: PASS type equivalence (15.16s)
+run-gates: start public repository links
+run-gates: PASS markdown wrap (15.52s)
+run-gates: start doc refs
+run-gates: PASS doc refs (3.83s)
+run-gates: start package README Summaries
+run-gates: PASS package README Summaries (0.62s)
+run-gates: start package README model experience
+run-gates: PASS public repository links (8.55s)
+run-gates: start agent note classification
+run-gates: PASS agent note classification (0.65s)
+run-gates: start agent note format
+run-gates: PASS agent note format (0.67s)
+run-gates: start archived agent notes
+run-gates: PASS archived agent notes (1.03s)
+run-gates: start skill invocation metadata
+run-gates: PASS skill invocation metadata (0.63s)
+run-gates: start translation prompt
+run-gates: PASS translation prompt (0.59s)
+run-gates: start doc budgets
+run-gates: PASS doc budgets (0.57s)
+run-gates: start documentation standard tests
+run-gates: PASS package README model experience (9.71s)
+run-gates: start package README limitations
+run-gates: PASS translation pairing (30.02s)
+run-gates: PASS markdown links (30.36s)
+run-gates: PASS documentation standard tests (4.53s)
+run-gates: PASS package README limitations (7.61s)
+
+run-gates: 16 passed, 0 failed, 0 skipped in 37.31s.
+EXIT: 0

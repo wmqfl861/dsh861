@@ -4,21 +4,25 @@
  */
 
 import * as yaml from 'js-yaml'
+import { defineScalarTag, NOT_RESOLVED } from 'js-yaml'
 
 /** A Loader `!!js` expression preserved as data instead of executed. */
 export interface JsExpr {
   __jsExpr: string
 }
 
-const jsExprType = new yaml.Type('tag:yaml.org,2002:js', {
-  kind: 'scalar',
-  resolve: data => typeof data === 'string',
-  construct: (data: unknown): JsExpr => {
+// js-yaml 5 custom scalar: `resolve` both gates and constructs, `identify` replaces the v4 predicate.
+const jsExprType = defineScalarTag('tag:yaml.org,2002:js', {
+  resolve: (data: string): JsExpr | typeof NOT_RESOLVED => {
     if (typeof data !== 'string') throw new TypeError('!!js requires a scalar string')
+    if (data === '') return NOT_RESOLVED
     return { __jsExpr: data }
   },
+  identify: (data: unknown): data is JsExpr =>
+    typeof data === 'object' && data !== null && '__jsExpr' in data && typeof (data as JsExpr).__jsExpr === 'string',
+  represent: (data: JsExpr): string => data['__jsExpr'],
 })
-const schema = yaml.JSON_SCHEMA.extend(jsExprType)
+const schema = yaml.JSON_SCHEMA.withTags(jsExprType)
 
 /**
  * Parse a Cordis config while preserving Loader `!!js` expressions as data.

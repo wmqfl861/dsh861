@@ -1,15 +1,15 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { mkdtempSync, rmSync } from 'node:fs'
+import { existsSync, mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@deepseek-ai/cordis'
 import type { Agent } from '@deepseek-ai/dsh-agent'
 import AgentLoop from '@deepseek-ai/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
-import { ToolCallId } from '@deepseek-ai/dsh-llm'
+import { createUserMessage, ToolCallId } from '@deepseek-ai/dsh-llm'
 import { scopeOf } from '@deepseek-ai/dsh-scope'
 import { SessionId } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
+import { SessionAlreadyOwnedError } from '@deepseek-ai/dsh-session-persistence'
 import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
 import SessionQueryEngine from '@deepseek-ai/dsh-session-query'
 import SubagentService from '@deepseek-ai/dsh-subagent'
@@ -19,6 +19,7 @@ import { renderPrompt } from '@deepseek-ai/dsh-system-prompt'
 import * as ToolSubagentControl from '@deepseek-ai/dsh-tool-subagent-control'
 import { defineContentToolFixture } from '@deepseek-ai/dsh-tools'
 import { MockAdapter, textResponse } from '../../../core/agent-loop/tests/mock-adapter.ts'
+import { OwnedTestContexts, mountWriteOwnershipProbe, type OwnedContextFixture } from '../../../subagent/tool-subagent-control/tests/owned-contexts.ts'
 import TeamService from '../../agent-team/src/index.ts'
 import * as toolTeam from '../src/index.ts'
 
@@ -35,7 +36,7 @@ const TOOL_NAMES = [
   'team_task_update',
 ].sort()
 
-const roots: string[] = []
+const owned = new OwnedTestContexts()
 let callNumber = 0
 
 /** Session query implementation whose search faces are outside these tests. */
@@ -49,16 +50,13 @@ class TestSessionQuery extends SessionQueryEngine {
   }
 }
 
-afterEach(() => {
-  for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true })
-})
+afterEach(() => owned.cleanup())
 
 async function setup(script: ConstructorParameters<typeof MockAdapter>[0], legacyControl = false) {
   const ctx = new Context()
+  const fixture: OwnedContextFixture = owned.own(ctx)
   await mountAgentLoopTestDependencies(ctx)
-  await ctx.plugin(SessionProjectionRegistry)
-  const storageRoot = mkdtempSync(join(tmpdir(), 'dsh-tool-team-'))
-  roots.push(storageRoot)
+  const storageRoot = owned.ownRoot(fixture, mkdtempSync(join(tmpdir(), 'dsh-tool-team-')))
   await ctx.plugin(JsonlSessionPersistence, { root: storageRoot })
   await ctx.plugin(TestSessionQuery)
   await ctx.plugin(AgentLoop, { agents: [] })
@@ -71,7 +69,7 @@ async function setup(script: ConstructorParameters<typeof MockAdapter>[0], legac
   const adapter = new MockAdapter(script)
   ctx.llm.registerAdapter(['mock'], adapter)
   const lead = await ctx.agentLoop.create(SessionId('tool-team-lead'), { provider: 'mock', model: 'mock' })
-  return { ctx, lead, fiber }
+  return { ctx, lead, fiber, storageRoot, fixture }
 }
 
 function execute(
@@ -456,5 +454,50 @@ describe('dsh-tool-team', () => {
     const childId = spawnedChildId(result)
     await vi.waitFor(() => { expect(ctx.agents.get(childId)).toBeUndefined() }, { timeout: 5_000 })
     expect(ctx.agentTeams.listMembers(lead)[1]).toMatchObject({ provider: 'team-fresh' })
+  })
+
+  it('owns every setup runtime and storage through suite teardown', async () => {
+    const settled = await setup([textResponse('lead turn done')])
+    settled.lead.followup(createUserMessage({
+      content: [{ type: 'text', text: 'settle the lead session' }],
+      source: { kind: 'user' },
+    }))
+    await settled.lead.whenIdle()
+    // Publish the turn's buffered events so the lead session is materialized
+    // on disk before the probes below observe its write ownership.
+    await settled.ctx.sessionPersistence.flush()
+    const active = await setup(['hang'])
+    const spawned = await execute(active.ctx, active.lead, 'spawn_teammate', {
+      name: 'held-worker', description: 'stay active', prompt: 'wait',
+    })
+    const heldId = spawnedChildId(spawned)
+    await waitRunning(active.ctx, heldId)
+    expect(owned.snapshot()).toHaveLength(2)
+
+    const settledProbe = await mountWriteOwnershipProbe(settled.storageRoot)
+    const activeProbe = await mountWriteOwnershipProbe(active.storageRoot)
+    try {
+      // Both live runtimes really own their sessions' kernel write locks.
+      await expect(settledProbe.claim(settled.lead.id)).rejects.toBeInstanceOf(SessionAlreadyOwnedError)
+      await expect(activeProbe.claim(heldId)).rejects.toBeInstanceOf(SessionAlreadyOwnedError)
+      // Each independent probe must take over the SAME directory's write
+      // ownership after its fixture settled, before that directory is deleted.
+      settled.fixture.afterDispose = async () => {
+        const takeover = await settledProbe.claim(settled.lead.id)
+        await takeover.close()
+      }
+      active.fixture.afterDispose = async () => {
+        const takeover = await activeProbe.claim(heldId)
+        await takeover.close()
+      }
+      // One test created two setups: the suite's real cleanup must close both
+      // runtimes — including the hanging teammate — before either directory goes.
+      await expect(owned.cleanup()).resolves.toBeUndefined()
+      expect(existsSync(settled.storageRoot)).toBe(false)
+      expect(existsSync(active.storageRoot)).toBe(false)
+    } finally {
+      await settledProbe.dispose()
+      await activeProbe.dispose()
+    }
   })
 })

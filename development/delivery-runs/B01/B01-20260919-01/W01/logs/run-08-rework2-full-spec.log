@@ -1,0 +1,9 @@
+command: node node_modules/vitest/vitest.mjs run --project thread-safe scripts/prepare-ci-bubblewrap.spec.ts (rework-2 candidate)
+env: node-v26.8.2 + pnpm-12.4.1 PATH prefixes; TMP=TEMP=C:/dsh-b01-w01/tmp
+date: 2026-09-19T13:56:24Z
+exit_code: 0
+result: Test Files 1 passed (1); Tests 63 passed | 1 skipped (64); Duration 166.73s
+  64 = W02-era 61 (2 deduped into it.each keep both order cases) + 3 new link regressions.
+  The single skip is W02's describe.skipIf(!execBitEnforced) non-executable-stub group (Windows Git Bash lacks exec-bit enforcement; POSIX CI runs it) — pre-existing platform condition, not a rework weakening.
+  New link tests all green: form a (-L+-lcap), form b (CI absolute libcap.a, run 35445600344), host libcap.a operand rejected.
+raw: run-08-rework2-full-spec.stdout.txt/.stderr.txt/.exit.txt

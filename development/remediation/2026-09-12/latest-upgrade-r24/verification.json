@@ -1,0 +1,117 @@
+{
+  "round": "r24",
+  "kind": "latest-stable-upgrade-first-batch",
+  "recordedAt": "2026-09-12T10:28:29.013788+00:00",
+  "baseCommit": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+  "status": "MANIFESTS_AND_BUNDLE_UPDATED_FULL_UPGRADE_NOT_COMPLETE",
+  "actor": "ChatGPT source/dependency-target changes with local synthetic tests; not designated Codex planner or OpenCode hard reviewer",
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "fullRepositoryDependencies": false,
+    "nodeBelowRepositoryMinimum": true,
+    "networkForPackageManager": "DNS resolution unavailable"
+  },
+  "checks": {
+    "before": {
+      "command": "node --test scripts/p0-b/windows-credentials/sandbox-tool-upgrade.test.mjs",
+      "implementation": "unchanged r23 preparer, restored only for a failing control",
+      "passed": 1,
+      "failed": 11,
+      "skipped": 0,
+      "exitCode": 1,
+      "log": "before-upgrade.tap"
+    },
+    "after": {
+      "command": "node --test scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.test.mjs scripts/p0-b/windows-credentials/sandbox-tool-upgrade.test.mjs",
+      "passed": 35,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "log": "after-upgrade.tap",
+      "scope": "Real local file/hash/copy/CLI operations using explicitly synthetic program bytes; relocated CLI test manifest is a test fixture, not a runtime manifest override"
+    },
+    "static": "JSON, two mjs syntax checks, two bilingual heading/fence structure checks and whitespace checks PASS; sidecar generator NOT_RUN"
+  },
+  "manifestEditing": "Four baseline manifest/YAML files were reconstructed from fetched contents and their original Git blob SHA verified before targeted edits.",
+  "newDeclarations": [
+    "@openai/codex 0.154.0",
+    "@anthropic-ai/claude-code 2.1.269",
+    "@anthropic-ai/claude-agent-sdk 0.3.269",
+    "@anthropic-ai/sdk 0.125.0",
+    "opencode-ai 1.18.30",
+    "@xai-official/grok 1.0.25",
+    "pnpm 12.4.1"
+  ],
+  "remaining": "Full inventory/registry resolution, Node upgrade, package-manager lock regeneration and install, compiler migration, source/vendor/Python/native/CI/image updates and platform verification require the full local checkout/toolchain. This receipt is not an all-dependencies-updated claim.",
+  "compiler": "TypeScript 7.0.2 is a verified target, not installed or changed in the root dependency yet. Publisher-supported compatibility package may serve legacy API tools while native tsc7 handles builds; actual migration and lock validation remain required.",
+  "pinProvenance": {
+    "repository": "openai/codex",
+    "releaseId": 385887902,
+    "tag": "rust-v0.154.0",
+    "mainAsset": 553706480,
+    "setupAsset": 553706488,
+    "runnerAsset": 553706450,
+    "verification": "Official API sizes/SHA256 only; no executable bytes downloaded or executed here"
+  },
+  "lockStatus": "pnpm-lock.yaml deliberately untouched in this intermediate draft; frozen installation is not expected to pass until real package-manager regeneration.",
+  "notRun": [
+    "new dependency installation or registry resolution in the container",
+    "full workspace latest-version enumeration",
+    "Node26.8.2/pnpm12.4.1/TypeScript7 execution",
+    "Windows or new native CLI compatibility",
+    "host/client typecheck, lint, test:docs/doc-sync",
+    "publisher signature verification",
+    "model calls or system sandbox initialization"
+  ],
+  "protectedFilesUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "historical records and sandbox-tool-bundle.0.149.1.json"
+  ],
+  "productAccepted": false,
+  "systemChangesAuthorized": false,
+  "executionAuthorized": false,
+  "nextNodeAllowed": false,
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 2788,
+    "sha256": "152ed45c4da2860754aeba728544ec62b8d73a0808700e7283af283f3428ed59",
+    "metadata": "uid/gid/mtime=0; uname/gname empty",
+    "members": {
+      "after-upgrade.tap": {
+        "bytes": 7511,
+        "sha256": "f48b7c29d274bb70e7ab2d98be5c6857004bad472085c282848170e18e6a8787"
+      },
+      "before-upgrade.tap": {
+        "bytes": 10889,
+        "sha256": "2639df33b67f3bf6f8d95f2ddf2e2d243b1dbb77388e17f2590b2e87ad4132c2"
+      },
+      "static-checks.json": {
+        "bytes": 421,
+        "sha256": "b2b1f98d773c66bbd9e2561a05270d98e835d47a6b19e7317072822a6dbc1f99"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": "scripts/p0-b/windows-credentials/prepare-sandbox-tool-bundle.mjs",
+      "bytes": 10004,
+      "sha256": "64a715d04310b2dae0c504b317b5ce3438f2fa415d84d105c12ca0a17ccf20a3",
+      "gitBlob": "8732246aa79dd8a58eca4fc4db875811addfff71"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-tool-bundle.0.154.0.json",
+      "bytes": 2416,
+      "sha256": "d33f3d5bd95a00c2d824fe3e727f2985568ed88ab61466af7628a8472e9d8f5e",
+      "gitBlob": "cc08b9109808c9fd59322fd949ccb05ecfd1199f"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-tool-upgrade.test.mjs",
+      "bytes": 5970,
+      "sha256": "754a5b51283f2c4cf776d472b9f051c8ec05ce59a46409dce6cffbb5ab0e48d7",
+      "gitBlob": "d1f56ba2ef2816a7fb0f04d2818f6326b279cc4f"
+    }
+  ]
+}

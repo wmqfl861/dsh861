@@ -1,0 +1,118 @@
+{
+  "round": "r29-remote-candidate",
+  "sourceBaseSha": "ccc5aa51d50fb4e51c3a89658db8d769811221d4",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pr": 13,
+  "productAccepted": false,
+  "p0bAccepted": false,
+  "independentReviewCompleted": false,
+  "localGitHooksExecuted": false,
+  "scope": "Two local test-fixture corrections plus an index-mode regression; no production runtime, dependency, workflow, protected model configuration, P0-B state or historical evidence changes.",
+  "baselineCi": {
+    "runId": 34765078459,
+    "runNumber": 14,
+    "runAttempt": 1,
+    "headSha": "ccc5aa51d50fb4e51c3a89658db8d769811221d4",
+    "checkoutSha": "f6fba58137ba112eb17d8225b9e72250f7708df3",
+    "mergeBaseSha": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+    "primaryNode": "26.8.2",
+    "pnpm": "12.4.1",
+    "evidenceMethod": "Read GitHub run jobs and decoded job logs through the authorized connector. The following are selected observations/excerpts, NOT complete raw log archives.",
+    "static": {
+      "jobId": 103744493889,
+      "command": "pnpm run check:ci:static",
+      "firstFailedGate": "Cordis config",
+      "error": "ENOENT: no such file or directory, open '/home/runner/work/dsh861/dsh861/apps/cli/tests/profiles/acp/cordis.yml'",
+      "sourceLocation": "scripts/verify-cordis-config.ts:64:37",
+      "counts": { "passed": 5, "failed": 1, "skipped": 41 },
+      "remainingGatesStatus": "not established because fail-fast aborted remaining gates"
+    },
+    "windowsObservational": {
+      "jobId": 103744493838,
+      "command": "pnpm run check:ci:windows-observational",
+      "counts": { "passed": 52, "failed": 2, "skipped": 0 },
+      "failedGates": ["Cordis config: same ACP ENOENT", "built-bin smoke"],
+      "builtFailureFile": "packages/api/remotes/tests/built-lib.e2e.ts",
+      "builtFailureTest": "runs root and Agent-scoped calls through generated bundles and real HTTP",
+      "builtFailureError": "cannot get property \"builtAgentId\" without inject",
+      "builtFailureLocation": "packages/api/remotes/tests/built-lib.e2e.ts:216:58",
+      "builtTests": { "passed": 38, "failed": 1, "skipped": 2 },
+      "nodeNextTypes": "passed"
+    },
+    "consumers": {
+      "jobId": 103744493702,
+      "command": "pnpm run check:ci:consumers",
+      "firstFailedGate": "test:expected",
+      "file": "apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts",
+      "line": 471,
+      "test": "keeps provider comments alive and sends DeepSeek defaults through the one-shot app",
+      "error": "expected requests to have a length of 2 but got 3",
+      "expectedTests": { "passed": 30, "failed": 1 },
+      "gateCounts": { "passed": 5, "failed": 1, "skipped": 5 },
+      "status": "not fixed; inspect mock request identities and retry cause instead of relaxing the count"
+    },
+    "coverage": {
+      "linuxJobId": 103744493809,
+      "windowsJobId": 103744493830,
+      "status": "both failed; not fixed or accepted by this candidate"
+    },
+    "verifiedSuccessJobs": {
+      "runtimeLinux": 103744562575,
+      "runtimeWindows": 103744562574,
+      "windowsBuild": 103744493752,
+      "windowsNative": 103744493745,
+      "benchmarks": 103744493762,
+      "pythonKeyless": 103744493747
+    },
+    "successBoundary": "Runtime job steps show single-exe build, clean wheel install and keyless checks passed on both platforms; Linux GLIBC/manylinux passed. This is baseline evidence, not new-candidate validation. Real API tests were skipped.",
+    "otherFailedWorkflowsUntriaged": ["Issue policy", "Issue lifecycle", "Build PR preview"]
+  },
+  "sourceChanges": [
+    {
+      "path": "apps/cli/tests/profiles/acp/cordis.yml",
+      "oldMode": "120000",
+      "newMode": "100644",
+      "oldBlob": "336d59ae50cfc6b95c3ece43e3fd30e2c13e32ea",
+      "newBlob": "2a4483236bc2e2d05b4f6fc5f7192eeddf010cf9",
+      "oldByteLength": 67,
+      "newByteLength": 68,
+      "change": "Keep the YAML include text, add final LF, correct Git file mode; do not replace target config or suppress ENOENT.",
+      "unchangedIncludeTargetBlob": "85fca868231dde35ff52660e43fe9d069b6ce6bd"
+    },
+    {
+      "path": "packages/api/remotes/tests/built-lib.e2e.ts",
+      "oldBlob": "62a740558bb10cd95902d6db3b429959006c0830",
+      "newBlob": "c44e5339057d61c7fe9fb1d6476dec9c323016e5",
+      "oldByteLength": 10629,
+      "newByteLength": 10684,
+      "diff": "+3/-2",
+      "change": "Declare one script-local Symbol and use it for both scoped identity reading and Context extension.",
+      "preserved": "All original test names, calls, arguments, HTTP/auth flow, generated-artifact loading, error text, teardown, result parsing, assertions, timeouts and pre-existing artifact-skip guard. Full E2E still needs execution with artifacts present."
+    },
+    {
+      "path": "scripts/cordis-config-files.spec.ts",
+      "oldBlob": "a2cf084cf11d9748ad3ad8064e216289499c11e2",
+      "newBlob": "ea6350ce943f94296903ac3f0f4b539e2f9e3450",
+      "change": "Add a repository index mode/content regression so core.symlinks=false cannot mask 120000 YAML. Existing glob regression unchanged."
+    }
+  ],
+  "remoteExecuted": {
+    "gitModeProof": "Four actual isolated Git checkouts with old/new content and core.symlinks=true/false; results in git-mode-proof.json; source in probe-git-mode.py.",
+    "gitVersion": "2.47.3",
+    "builtScriptSyntaxCheck": { "node": "22.16.0", "command": "node --check on extracted candidate ESM script with only the template URL map substituted by {}", "exitCode": 0 },
+    "baselineBlobHashChecks": "Old ACP, built-lib and config-files spec bytes independently rehashed to their GitHub blob SHA before modification.",
+    "assertionPreservation": "Byte comparison confirms built-lib suffix from scopedResult through final helper is unchanged, and prefix before the inserted Symbol is unchanged; diff contains only one declaration and two metadata-key replacements.",
+    "fullVitestRun": false,
+    "fullTypecheckLintDocsRun": false,
+    "limitation": "Remote container has no current full workspace/dependencies or pnpm and cannot resolve github.com; GitHub connector reads/writes work. Reduced Git and syntax proofs are not real built-lib/static CI passes."
+  },
+  "localExecutionRequired": [
+    "Fast-forward receive containing commit; confirm source blobs and Git index mode.",
+    "Run scripts/cordis-config-files.spec.ts and verify-cordis-config with project Node26.8.2/pnpm12.4.1.",
+    "Use actual generated artifacts to run Remotes built-lib E2E; no artifact skip counts as success.",
+    "Run appropriate typecheck/lint/test:docs and independent review; append evidence rather than overwrite r25-r28.",
+    "Resolve remaining coverage/consumers from real failures; do not weaken assertions or mark fail-fast skipped checks green.",
+    "Verify r28 review F1/F4 original log names and archive the real corrected 47/47 log if available; do not reconstruct it."
+  ]
+}

@@ -1,0 +1,65 @@
+2026-09-18T16:58:06Z no-pnpm diag start
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯ apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts (1 test | 1 failed) 7812ms
+   ❯ descriptor-less cold child diagnostic snapshot (1)
+     × surfaces the unreadable child as a corrupt diagnostic through the assembled headless app 7811ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts > descriptor-less cold child diagnostic snapshot > surfaces the unreadable child as a corrupt diagnostic through the assembled headless app
+AssertionError: expected [ Array(1) ] to deeply equal [ Array(1) ]
+
+- Expected
++ Received
+
+@@ -187,11 +187,11 @@
+        "data": {
+          "content": [
+            {
+              "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.
+
+- Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.
++ Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\Users\\\\Joyce Gu\\\\AppData\\\\Local\\\\Temp\\\\dsh-subagent-diag-S15mxc\". Some platform temporary areas may also be writable.
+
+  Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",
+              "type": "text",
+            },
+          ],
+@@ -202,11 +202,11 @@
+            "kind": "plugin",
+            "plugin": "@deepseek-ai/dsh-system-prompt",
+            "sections": [
+              {
+                "name": "sandbox:policy",
+-               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.",
++               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\Users\\\\Joyce Gu\\\\AppData\\\\Local\\\\Temp\\\\dsh-subagent-diag-S15mxc\". Some platform temporary areas may also be writable.",
+              },
+              {
+                "name": "approval:policy",
+                "text": "Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",
+              },
+
+ ❯ expectSession apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts:41:6
+     39|     .map(line => JSON.parse(line) as Record<string, unknown>)
+     40|   expect(normalizeSessionSnapshots([actual], fixtureContext(actual)).m…
+     41|     .toEqual(normalizeSessionSnapshots([expected], fixtureContext(expe…
+       |      ^
+     42| }
+     43|
+ ❯ Object.inspect apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts:133:9
+ ❯ runLoaderSmoke packages/test-support/loader-smoke/src/index.ts:230:5
+ ❯ apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts:101:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  00:58:07
+   Duration  10.02s (tests 80%, transform 16%, import 4%, setup 1%)
+
+EXIT:1

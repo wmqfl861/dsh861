@@ -1,0 +1,84 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (10 tests | 4 failed) 284ms
+   ❯ owned test contexts (10)
+     ✓ closes a materialized write handle and releases its lock before deleting the root 139ms
+     ✓ keeps the root until a held disposer settles 11ms
+     ✓ releases the held gate and awaits cleanup when its assertions fail early 11ms
+     ✓ cleans a fixture whose setup failed after its resources existed 11ms
+     ✓ still cleans healthy fixtures when one observation vetoes a deletion 20ms
+     ✓ owns a rootless context and tolerates a repeated cleanup 5ms
+     ❯ disposal failures reported only to the logger (4)
+       × vetoes the deletion when a root effect disposer throws 20ms
+       × vetoes the deletion when a child plugin disposer rejects 21ms
+       × still vetoes when the child disposer fails only after a deferred release 13ms
+       × keeps both faulty fixtures and their sentinels while a healthy fixture still cleans 32ms
+ ✓  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests) 1535ms
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests) 1972ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > disposal failures reported only to the logger > vetoes the deletion when a root effect disposer throws
+AssertionError: expected undefined to be an instance of AggregateError
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:237:25
+    235|       try {
+    236|         const failure = await owned.cleanup().then(() => undefined, er…
+    237|         expect(failure).toBeInstanceOf(AggregateError)
+       |                         ^
+    238|         expect((failure as AggregateError).errors).toContain(sentinel)
+    239|         expect(existsSync(root)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > disposal failures reported only to the logger > vetoes the deletion when a child plugin disposer rejects
+AssertionError: expected undefined to be an instance of AggregateError
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:258:25
+    256|       try {
+    257|         const failure = await owned.cleanup().then(() => undefined, er…
+    258|         expect(failure).toBeInstanceOf(AggregateError)
+       |                         ^
+    259|         expect((failure as AggregateError).errors).toContain(sentinel)
+    260|         expect(existsSync(root)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > disposal failures reported only to the logger > still vetoes when the child disposer fails only after a deferred release
+AssertionError: expected undefined to be an instance of AggregateError
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:293:25
+    291|       try {
+    292|         const failure = await cleanupDone.then(() => undefined, error …
+    293|         expect(failure).toBeInstanceOf(AggregateError)
+       |                         ^
+    294|         expect((failure as AggregateError).errors).toContain(sentinel)
+    295|         expect(existsSync(root)).toBe(true)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL   thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts > owned test contexts > disposal failures reported only to the logger > keeps both faulty fixtures and their sentinels while a healthy fixture still cleans
+AssertionError: expected undefined to be an instance of AggregateError
+ ❯ packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts:316:25
+    314|       try {
+    315|         const failure = await owned.cleanup().then(() => undefined, er…
+    316|         expect(failure).toBeInstanceOf(AggregateError)
+       |                         ^
+    317|         const perFixture = (failure as AggregateError).errors as unkno…
+    318|         expect(perFixture).toHaveLength(2)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  4 failed | 36 passed (40)
+   Start at  23:16:03
+   Duration  4.48s (transform 49%, tests 37%, import 12%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 5.01s · 49% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

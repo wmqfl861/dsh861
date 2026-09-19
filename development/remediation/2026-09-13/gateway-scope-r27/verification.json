@@ -1,0 +1,164 @@
+{
+  "round": "r27",
+  "recordedOn": "2026-09-13",
+  "kind": "gateway-test-fixture-candidate-and-repository-handoff",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pullRequest": 13,
+  "baseCommit": "571550ebc6695a668fddc2894cda3c9da822f1f4",
+  "actor": "ChatGPT author; not designated Codex planner or OpenCode reviewer",
+  "sourcePatchApplied": false,
+  "independentReviewCompleted": false,
+  "target": {
+    "path": "packages/api/gateway/tests/gateway.client.spec.ts",
+    "beforeGitBlob": "7fb0ec8bdc3403bf18f8c70ea6082a911d2676e7",
+    "additions": 8,
+    "deletions": 6,
+    "scope": "three metadata writer/reader pairs plus two RPC-count assertions; no old assertion removed; no runtime changes"
+  },
+  "sources": {
+    "reflectGet": "vendor/cordis/src/reflect.ts@141a2d2f7a421d0020f61704c7e74032a1f3ec49",
+    "traceability": "vendor/cordis/src/utils.ts@07f52e6477b2ecd7cc402c3025468c959cad7271",
+    "context": "vendor/cordis/src/context.ts@b7dcf44ff6003f5443fa6e117ebdc623ae13f8ec",
+    "gateway": "packages/api/gateway/src/client/index.ts@edb58d3d25bbfd4400685d2d53e2d7a598a3cb9f"
+  },
+  "diagnosis": "The test identity adapter reads missing string metadata fixtureId through a service-shadow Context. ReflectService routes that read to the definition-site injection check. It throws before invokeMethod can choose direct fallback or prepareInvocation can report missing scoped identity. Existing Symbol metadata permits undefined without relaxing ordinary service checks.",
+  "authorEnvironment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "typescript": "5.8.3",
+    "fullRepositoryDependencies": false,
+    "registryAccess": "container DNS unavailable; no installation attempted"
+  },
+  "checks": {
+    "reflectionProbe": {
+      "commands": [
+        "node scope-probe.mjs legacy",
+        "node scope-probe.mjs symbol"
+      ],
+      "legacy": {
+        "pass": 6,
+        "fail": 2,
+        "skipped": 0,
+        "exitCode": 1,
+        "log": "legacy.tap"
+      },
+      "symbol": {
+        "pass": 8,
+        "fail": 0,
+        "skipped": 0,
+        "exitCode": 0,
+        "log": "symbol.tap"
+      },
+      "limits": "Exact get-trap excerpt with three TypeScript annotations removed; Context/Fiber, getTraceable, event dispatch and stack-splicing are explicit fixtures. This does not load real Cordis Context, gateway or Vitest."
+    },
+    "probeSyntax": {
+      "command": "node --check scope-probe.mjs",
+      "exitCode": 0
+    },
+    "patchCheck": {
+      "scope": "fetched affected source slice, padded to source line 808; not the full repository file",
+      "forwardCheckExit": 0,
+      "applyExit": 0,
+      "reverseCheckExit": 0,
+      "expectedSliceComparisonExit": 0
+    },
+    "typescriptParse": {
+      "scope": "affected candidate slice with its trailing test callback closed",
+      "version": "5.8.3",
+      "parseDiagnostics": 0,
+      "strictTypecheck": false
+    },
+    "assertionPreservation": {
+      "oldAssertionsRetained": true,
+      "testNamesRetained": true,
+      "newRpcCountAssertions": 2
+    }
+  },
+  "notRun": [
+    "full target-file patch application",
+    "real gateway.client.spec.ts in either Vitest project",
+    "Windows execution",
+    "project TS7 typecheck",
+    "repository lint and test:docs",
+    "independent reviewer"
+  ],
+  "r26Reception": {
+    "receipt": "development/remediation/2026-09-13/loader-entry-r26/windows-execution/verification.json",
+    "compareBase": "91715660dbbaf743becd0ccdcbb9b2df82a9bf12",
+    "changedFiles": 21,
+    "readCommitAndReceipt": true,
+    "reranWindowsCommands": false,
+    "independentlyRescannedArchive": false,
+    "gatewayRecordedBaseline": "208 passed / 4 failed (two cases x two projects)"
+  },
+  "ciAtReceivedCommit": {
+    "ci": {
+      "runId": 34751797589,
+      "status": "queued"
+    },
+    "issueLifecycle": {
+      "runId": 34751797447,
+      "conclusion": "failure"
+    },
+    "issuePolicy": {
+      "runId": 34751797446,
+      "conclusion": "failure"
+    },
+    "preview": {
+      "runId": 34751797487,
+      "conclusion": "failure"
+    },
+    "realApi": {
+      "runId": 34751797469,
+      "conclusion": "skipped"
+    },
+    "note": "snapshot at base commit, not a new candidate result; failure causes not re-diagnosed"
+  },
+  "blockedScopesUnchanged": [
+    "Windows CSPRNG child-process scope",
+    "present-open.host file symlink",
+    "three unresolved vendor sources",
+    "P0-B named planning/review and product acceptance"
+  ],
+  "protectedUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "pnpm-lock.yaml",
+    "patches/@yao-pkg__pkg@6.22.0.patch",
+    "all r25/r26 and other historical evidence",
+    "all runtime source"
+  ],
+  "delivery": "GitHub fixed commit with patch, probe, raw TAP logs and local instructions; no chat attachments; actual spec remains unchanged until local review/application",
+  "files": {
+    "changes.patch": {
+      "sha256": "5e84f43c88779bf0f2c6f20db9dd99fd4be965a653a5ea2fdc9769c6d9cf01c9",
+      "gitBlob": "c53b7143e6f71da0001ea40b4c73e4d456833c07",
+      "bytes": 3016
+    },
+    "scope-probe.mjs": {
+      "sha256": "ce719d5c181815cfe5b9ddbb4b5c30e9158faacb1b0c945e4d894d489b21b542",
+      "gitBlob": "5a0d2008f07c34e5c79f6cd264f8891a61c86728",
+      "bytes": 5603
+    },
+    "legacy.tap": {
+      "sha256": "3727e9ed53263e3bb68375082d274c94c05ba0bf91b923428e4a4e155f259d56",
+      "gitBlob": "4c065054a0fee354baaaaa4831bddb6eb6fe36af",
+      "bytes": 3106
+    },
+    "symbol.tap": {
+      "sha256": "05f2e798f223d2d75f3a05467cee9666cdb9ce549f76bb1204304f8631da134e",
+      "gitBlob": "6936c486e0be92b29f4735171d37c54a791d5071",
+      "bytes": 1483
+    },
+    "LOCAL_AGENT_PROMPT.md": {
+      "sha256": "29461254b2e498ab6b915ae5a6a26c0dd7aea426d61619a900e14b060f248619",
+      "gitBlob": "4de3b04bcd2c8e90c7fb65e7b4fbd0846ec7ac17",
+      "bytes": 5841
+    }
+  },
+  "productAccepted": false,
+  "modelExecutionAuthorized": false,
+  "nextNodeAllowed": false
+}

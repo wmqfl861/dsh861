@@ -1,0 +1,12 @@
+command: bash /c/dsh-b01-w01/nc-d.sh (vitest not used; gate = pnpm run duplication)
+mutation: NC-D — the deduped it.each block (817 bytes) reverts to the two original duplicated W02 tests (1075 bytes at offset 57185)
+date: 2026-09-19T14:00:25Z
+pre_mutation_working_blob: 1ab9fed914ee4f76ed72d55f6ce08c46de0805d3 (spec, deduped)
+backup_sha256: 5373ca53e6b89dc8f1a3cb5b2db29d05a290d31701135c65c1f4d2f3c3f5b415
+mutant_blob: 451af07a285765e7804ed25c941b074531fc04f2
+mutant_sha256: 2836786338b27c16c2d636bcebe9cea3ce42e1d8463289b0140f6095e3ffac49
+run-12 (mutated) duplication exit_code: 1 — clone re-detected in prepare-ci-bubblewrap.spec.ts (the reintroduced pair)
+run-13 (post-restore) duplication exit_code: 0 — Found 0 clones
+post_restore_blob: 1ab9fed914ee4f76ed72d55f6ce08c46de0805d3 (byte-exact; sha256 matches backup)
+raw: run-12-nc-d-duplication.stdout.txt, run-13-nc-d-restore-positive-duplication.stdout.txt, nc-d-driver.log
+mutant copy: mutations/nc-d-reintroduced-clone.spec.ts

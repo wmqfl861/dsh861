@@ -1,0 +1,25 @@
+{
+  "repository": "wmqfl861/dsh861",
+  "pr": "13",
+  "runId": "34799140559",
+  "runAttempt": "1",
+  "job": "node-24-coverage",
+  "aggregate": "ci-coverage",
+  "prHead": "201206cb4c83581b3d44620831434fbf2e337df9",
+  "prBase": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+  "checkout": {
+    "githubSha": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+    "githubRef": "refs/pull/13/merge"
+  },
+  "git": {
+    "head": "d1ee13a76acd0cbee2f135fd546dab336e77ab72",
+    "headParent": null
+  },
+  "runtime": {
+    "node": "26.8.2",
+    "pnpm": "12.4.1",
+    "platform": "linux",
+    "arch": "x64"
+  },
+  "exportedAt": "2026-09-14T02:32:16.539Z"
+}

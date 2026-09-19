@@ -1,0 +1,30 @@
+
+### P5d BOTH keys, PATH(posix stub-first) FIRST then Path(win)
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe2-82yc44/bin/uname
+stub-uname -s
+PATH=/c/dsh-b01-w02/tmp/w02-probe2-82yc44/bin:/c/Program Files/Git/usr/bin
+
+
+### P5e BOTH keys windows-form: Path(parent) FIRST then PATH(stub-first)
+status=0 error=null
+stdout:
+/c/dsh-b01-w02/tmp/w02-probe2-82yc44/bin/uname
+stub-uname -s
+PATH=/c/dsh-b01-w02/tmp/w02-probe2-82yc44/bin:/c/Windows:/c/Windows/System32:/usr/bin:/c/Windows/System32/Wbem:/bin
+
+
+### P7 Path-only (no stub bin) — real uname end-state
+status=0 error=null
+stdout:
+/usr/bin/uname
+MSYS_NT-10.0-26200
+
+
+### P6 parent path-var casing when node launched by cmd.exe
+status=0 error=null
+PATH
+
+### P6 current parent (Git Bash) stored path-var keys:
+PATH

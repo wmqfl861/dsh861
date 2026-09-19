@@ -1,0 +1,19 @@
+# r39 log normalization (commit-stage, follows r34-r38 precedent)
+# Transformation: CRLF->LF, ANSI OSC/CSI/ESC sequences stripped, per-line trailing whitespace stripped,
+# trailing blank lines collapsed to a single final newline. Diagnostic content unchanged.
+# Raw bytes preserved outside the repository in the executor scratch directory (Git Bash /tmp/r39-raw-logs).
+# The raw hashes below equal the pre-normalization state recorded by the review-verified manifest generation.
+
+10-baseline-first-failures.txt  raw=99da09f11b36be0e69caad93405db79bc1cf3030e8dd1a8927986679c6b0cf89  rawbytes=15339  normalized=3ac14bf59d2f87572949f1f782e1ea7d52ef9d994dcda4644b846c88368f85d4  normalizedbytes=11180
+11-fixed-full-rerun.txt  raw=4ea00bff89e589872eb7a56e162257c0d18ade316fe60fa9f6a9850d25be2f36  rawbytes=4101  normalized=17b0a3bc063dfa0b56f8e16c6c9ad4225b45bfa2884cefd361db2d74430f5198  normalizedbytes=3283
+12-post-restore-final-positive.txt  raw=8f758d82054a77c7ba03417a45650ebba01ef3c81812e3c12061fa98025005a7  rawbytes=4101  normalized=f74c13d1e641cd0b4be9a794d1cddf93c466fef321a32c17112dfec0f5f2f349  normalizedbytes=3283
+20-negative-control-1-sdk-old.txt  raw=d6a69fe612d244f96f105465a439d4544785879b20216d42ed5dbf61f6d1b6ed  rawbytes=7389  normalized=52074538f13b2da7cbd7ab4112d328af4e146e5eb8a7ab0a7ebfd414befda26a  normalizedbytes=5770
+21-negative-control-2-mcp-old.txt  raw=f9bb670326a63380ee0b796b7018f76cadda5cecf17037f85c1f3e96d2a421e3  rawbytes=7278  normalized=c2d1f61fa63d228581018715f97402719ce738bef6ae16ccada6b519035d2919  normalizedbytes=5659
+22-negative-control-3-zod-old.txt  raw=ab4ba751bb83b38aac24d2670dbe5e01ddc1e209c053a290ea694ef14ce16c56  rawbytes=7276  normalized=d5c398a98b402b9d37549878995cc18c9946f6badaa762c3bd3fec7d3f475f78  normalizedbytes=5657
+23-negative-control-4-empty-mapping-old.txt  raw=dbef5a7cf45b4bbe6c9e53a4eaa295468c0927ba1fb488a71fee5fd258ad2c52  rawbytes=6294  normalized=c9d9ded8334369b2159fd781afcc7ce5e50a5c3b0b272259f58a06c3018f6e47  normalizedbytes=4369
+30-typecheck.txt  raw=2400bb7feb0cae724f3453e61d27918c9fcadc9ae037e33bc1cd84ab1d4dceae  rawbytes=191911  normalized=ac41d283cb9723083a8245de0829c675c6da5d104066c53cfc5b5333aeadfbd7  normalizedbytes=190055
+31-duplication.txt  raw=49b08116c5971986f7cab952beb160788205bbc6537864cf81467b1fb26d4649  rawbytes=2318  normalized=49b08116c5971986f7cab952beb160788205bbc6537864cf81467b1fb26d4649  normalizedbytes=2318
+32-lint.txt  raw=8be388a8e23bd1eb9380ec0cd671a864ef4c13e61a7655f1b97fdd5f0fbe474c  rawbytes=170572  normalized=9657a73b807ee0cb54368c0ba90b7acde6440ec0890252411fcf40a89b5bef37  normalizedbytes=169149
+33-translation-pairing.txt  raw=9ee0515e3c4c22d7ead4b84fa5d87a1a42dc4451b054434e379d5fdaabaa78a8  rawbytes=336  normalized=9ee0515e3c4c22d7ead4b84fa5d87a1a42dc4451b054434e379d5fdaabaa78a8  normalizedbytes=336
+34-test-docs.txt  raw=97c84b1f851a08212564585a695cbbceb667156ae56498b4dff621e9cd14fc36  rawbytes=2272  normalized=97c84b1f851a08212564585a695cbbceb667156ae56498b4dff621e9cd14fc36  normalizedbytes=2272
+35-test-docs-rerun.txt  raw=210a1db4cda2edd442c6281bcf68c3d9ec93e19a1f7c169f2504f7009fe942e9  rawbytes=1520  normalized=210a1db4cda2edd442c6281bcf68c3d9ec93e19a1f7c169f2504f7009fe942e9  normalizedbytes=1520

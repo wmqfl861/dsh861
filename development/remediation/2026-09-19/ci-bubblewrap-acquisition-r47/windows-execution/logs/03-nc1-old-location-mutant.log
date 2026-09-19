@@ -1,0 +1,184 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts (13 tests | 6 failed) 3638ms
+   ❯ prepare-ci-bubblewrap.sh pinned identity (source-level) (2)
+     × keeps the pinned version, pinned SHA-256, and the verified snapshot URL literal 16ms
+     ✓ checks the digest before extraction 1ms
+   ❯ prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) (11)
+     × succeeds from the verified snapshot source with the pinned identity, in order, once 504ms
+     × still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success 335ms
+     ✓ stops at the 404 download with the script exit code and never hashes, extracts, escalates, or probes 461ms
+     ✓ stops at a connection failure with the downloader exit code and never advances a phase 333ms
+     × rejects a digest mismatch on the pinned identity and never unpacks or publishes a path 457ms
+     × stops at a failed extraction before any privilege or probe step 339ms
+     × keeps a functional-probe failure fatal and prints no success line 483ms
+     ✓ refuses a non-Linux host before any download 163ms
+     ✓ refuses a non-x86_64 host before any download 251ms
+     ✓ fails loud when RUNNER_TEMP is missing, before any download 166ms
+     ✓ fails loud when GITHUB_PATH is missing, before any download 72ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh pinned identity (source-level) > keeps the pinned version, pinned SHA-256, and the verified snapshot URL literal
+AssertionError: expected '#!/usr/bin/env bash\nset -euo pipefai…' to contain 'readonly BUBBLEWRAP_URL="https://snap…'
+
+- Expected
++ Received
+
+- readonly BUBBLEWRAP_URL="https://snapshot.ubuntu.com/ubuntu/20260901T000000Z/pool/main/b/bubblewrap/bubblewrap_${BUBBLEWRAP_VERSION}_amd64.deb"
++ #!/usr/bin/env bash
++ set -euo pipefail
++
++ # Ubuntu's package transaction scans the hosted image's full dpkg database and
++ # runs post-install hooks. CI needs only the signed-archive payload, so pin and
++ # verify that payload before extracting it into the ephemeral runner directory.
++ readonly BUBBLEWRAP_VERSION='0.9.0-1ubuntu0.1'
++ readonly BUBBLEWRAP_SHA256='1b506492bd9c7fd0cdb4f02ac822f1d3e336b0aead5113c1239baf8db5db562a'
++ # The rolling archive.ubuntu.com pool dropped this version; Ubuntu's snapshot
++ # service serves the same official archive at the pinned UTC timestamp below.
++ # Payload identity stays bound by the SHA-256 above, not by the source host.
++ readonly BUBBLEWRAP_URL="https://archive.ubuntu.com/ubuntu/pool/main/b/bubblewrap/bubblewrap_${BUBBLEWRAP_VERSION}_amd64.deb"
++
++ : "${RUNNER_TEMP:?prepare-ci-bubblewrap requires RUNNER_TEMP}"
++ : "${GITHUB_PATH:?prepare-ci-bubblewrap requires GITHUB_PATH}"
++
++ if [[ "$(uname -s)" != 'Linux' || "$(uname -m)" != 'x86_64' ]]; then
++   echo 'prepare-ci-bubblewrap supports only Linux x86_64 hosted runners' >&2
++   exit 1
++ fi
++
++ archive="${RUNNER_TEMP}/bubblewrap_${BUBBLEWRAP_VERSION}_amd64.deb"
++ root="${RUNNER_TEMP}/dsh-bubblewrap"
++
++ curl --fail --silent --show-error --location --retry 3 --retry-all-errors --output "$archive" "$BUBBLEWRAP_URL"
++ printf '%s  %s\n' "$BUBBLEWRAP_SHA256" "$archive" | sha256sum --check --status
++ mkdir -p "$root"
++ dpkg-deb --extract "$archive" "$root"
++ printf '%s\n' "$root/usr/bin" >> "$GITHUB_PATH"
++
++ sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 \
++   || echo 'apparmor userns knob absent — the functional probe decides'
++ "$root/usr/bin/bwrap" --version
++ "$root/usr/bin/bwrap" --ro-bind / / --dev /dev --unshare-pid --proc /proc --die-with-parent -- true
++ echo 'bubblewrap functional probe passed'
++
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:223:20
+    221|     expect(source).toContain(`readonly BUBBLEWRAP_SHA256='${PINNED_SHA…
+    222|     const pinnedUrlLine = 'readonly BUBBLEWRAP_URL="https://snapshot.u…
+    223|     expect(source).toContain(pinnedUrlLine)
+       |                    ^
+    224|   })
+    225|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > succeeds from the verified snapshot source with the pinned identity, in order, once
+AssertionError: expected 22 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 22
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:242:27
+    240|   it('succeeds from the verified snapshot source with the pinned ident…
+    241|     const result = runScenario({ curl: 'ok' })
+    242|     expect(result.status).toBe(0)
+       |                           ^
+    243|     expect(result.stdout.match(/bubblewrap functional probe passed/g))…
+    244|     expect(result.stdout).toContain('0.9.0')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success
+AssertionError: expected 22 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 22
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:265:27
+    263|   it('still succeeds when the sysctl knob is absent; the tolerated kno…
+    264|     const result = runScenario({ curl: 'ok', sudoSucceeds: false })
+    265|     expect(result.status).toBe(0)
+       |                           ^
+    266|     expect(result.stdout).toContain('apparmor userns knob absent')
+    267|     expect(result.stdout.match(/bubblewrap functional probe passed/g))…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > rejects a digest mismatch on the pinned identity and never unpacks or publishes a path
+AssertionError: expected 22 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 22
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:295:27
+    293|   it('rejects a digest mismatch on the pinned identity and never unpac…
+    294|     const result = runScenario({ curl: 'ok', hashMatches: false })
+    295|     expect(result.status).toBe(1)
+       |                           ^
+    296|     expect(wasCalled(result, 'sha256sum')).toBe(true)
+    297|     expect(wasCalled(result, 'dpkg-deb')).toBe(false)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > stops at a failed extraction before any privilege or probe step
+AssertionError: expected 22 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 22
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:306:27
+    304|   it('stops at a failed extraction before any privilege or probe step'…
+    305|     const result = runScenario({ curl: 'ok', extractSucceeds: false })
+    306|     expect(result.status).toBe(2)
+       |                           ^
+    307|     expect(wasCalled(result, 'dpkg-deb')).toBe(true)
+    308|     expect(wasCalled(result, 'sudo')).toBe(false)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > keeps a functional-probe failure fatal and prints no success line
+AssertionError: expected 22 to be 17 // Object.is equality
+
+- Expected
++ Received
+
+- 17
++ 22
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:316:27
+    314|   it('keeps a functional-probe failure fatal and prints no success lin…
+    315|     const result = runScenario({ curl: 'ok', probeSucceeds: false })
+    316|     expect(result.status).toBe(17)
+       |                           ^
+    317|     expect(result.stdout).not.toContain('bubblewrap functional probe p…
+    318|     expect(result.stubCalls.filter((line) => line.startsWith('bwrap ')…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 7 passed (13)
+   Start at  11:45:35
+   Duration  4.36s (tests 88%, transform 9%, import 2%, setup 1%)
+
+vitest_exit=1
