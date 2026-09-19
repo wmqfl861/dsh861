@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "phase": "B02",
+  "template_only": true,
+  "status": "product_plan_ready_not_implemented",
+  "source_baseline": "59579599fa34b6fff47b1c4d525459d2148eb1f8",
+  "formal_plan": null,
+  "formal_node_mapping": null,
+  "candidate_manifest_sha256": null,
+  "designated_review": null,
+  "tasks": {
+    "C00":"planned","C01":"planned","C02":"planned","C03":"planned",
+    "C04":"planned","C05":"planned","C06":"planned","C07":"planned",
+    "C08":"planned","C09":"planned","C10":"planned","C11":"planned",
+    "C12":"planned","C13":"planned"
+  },
+  "acceptance": {
+    "A01":"not_run","A02":"not_run","A03":"not_run","A04":"not_run",
+    "A05":"not_run","A06":"not_run","A07":"not_run","A08":"not_run",
+    "A09":"not_run","A10":"not_run","A11":"not_run","A12":"not_run",
+    "A13":"not_run","A14":"not_run","A15":"not_run","A16":"not_run",
+    "A17":"not_run","A18":"not_run","A19":"not_run","A20":"not_run",
+    "A21":"not_run","A22":"not_run","A23":"not_run","A24":"not_run"
+  },
+  "journeys":{"J1":"not_run","J2":"not_run","J3":"not_run"},
+  "provider_readiness":{"codex":"unverified_for_this_product_candidate","claude-code":"unverified_for_this_product_candidate","opencode":"unverified_for_this_product_candidate","grok":"unverified_for_this_product_candidate"},
+  "inherited_unclosed":["B01 safety-test subitem","B01 native-dialog human verification","NSIS installer availability","sandbox.yml separate migration","P0-B product prerequisites"],
+  "resume": "Copy this seed into delivery-runs/B02/run-id. Record actual owner, candidate, open processes and last confirmed external actions. Never overwrite prior evidence.",
+  "artifacts": [],
+  "owner_requests": []
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "phase": "B02",
+  "source_baseline": "59579599fa34b6fff47b1c4d525459d2148eb1f8",
+  "purpose": "Desktop team, agent, workflow and bounded-loop product development. This is not formal node approval.",
+  "resources": {
+    "initial_implementation_slots": 2,
+    "maximum_implementation_slots": 3,
+    "independent_review_slots": 1,
+    "heavy_build_slots": 1,
+    "git_writers": 1
+  },
+  "semantics": {
+    "start_after": "A usable, frozen local interface or implementation handoff is required; final product acceptance may remain pending.",
+    "accept_after": "Required integration evidence must be available before accepting the task.",
+    "blocked_dependency": "Pause affected edges only. Do not claim missing evidence passed or start a formally unauthorized successor node.",
+    "report_gate": "Known blocked conclusions permit a partial report, not FEATURE_ACCEPTED."
+  },
+  "tasks": [
+    {"id":"C00","wave":0,"owner":"coordinator","start_after":[],"accept_after":[],"resources":["formal-plan","file-ownership"]},
+    {"id":"C01","wave":0,"owner":"contracts","start_after":["C00"],"accept_after":[],"resources":["shared-types","remote-schema"]},
+    {"id":"C02","wave":1,"owner":"persistence","start_after":["C01"],"accept_after":[],"resources":["definition-store","run-journal"]},
+    {"id":"C03","wave":1,"owner":"host-control","start_after":["C01"],"accept_after":["C02"],"resources":["host-commands","capabilities"]},
+    {"id":"C04","wave":1,"owner":"ui-a","start_after":["C01"],"accept_after":["C02","C03"],"resources":["ui-teams","ui-agents"]},
+    {"id":"C05","wave":1,"owner":"ui-b","start_after":["C01"],"accept_after":["C02"],"resources":["workflow-editor"]},
+    {"id":"C06","wave":2,"owner":"scheduler","start_after":["C01"],"accept_after":["C02","C03"],"resources":["scheduler-core"]},
+    {"id":"C07","wave":2,"owner":"scheduler","start_after":["C06"],"accept_after":[],"resources":["scheduler-core","limits"]},
+    {"id":"C08","wave":2,"owner":"schedule-recovery","start_after":["C07"],"accept_after":["C02"],"resources":["scheduler-core","intervals","recovery"]},
+    {"id":"C09","wave":2,"owner":"ui-a","start_after":["C04"],"accept_after":["C06","C07","C08"],"resources":["ui-runs"]},
+    {"id":"C10","wave":2,"owner":"harness-verification","start_after":["C03"],"accept_after":[],"resources":["authorized-product-lanes"]},
+    {"id":"C11","wave":2,"owner":"independent-tests","start_after":["C01"],"accept_after":["C02","C03","C06","C07","C08"],"resources":["boundary-tests"]},
+    {"id":"C12","wave":3,"owner":"integration","start_after":["C04","C05","C09","C11"],"accept_after":["C10"],"resources":["heavy-build","desktop-product","git"]},
+    {"id":"C13","wave":3,"owner":"designated-review-and-coordinator","start_after":["C12"],"accept_after":[],"resources":["candidate-freeze","git"]}
+  ],
+  "vertical_slices": {
+    "V1":["C00","C01","C02","C03","C04"],
+    "V2":["C05","C06","C07","C09"],
+    "V3":["C08","C10","C11","C12","C13"]
+  },
+  "invariants": [
+    "A frontend fixture supports parallel development but never satisfies final Host or product acceptance.",
+    "C06, C07 and C08 serialize edits to scheduler-core.",
+    "Shared package exports, routes, locales, manifests and generated files are integrated by the coordinator.",
+    "No new paid product call or credential access is authorized by this scheduling file.",
+    "An accepted UI-only task does not count as a completed team or workflow product feature.",
+    "Final candidate review freezes all implementation writers.",
+    "B01 unresolved safety and P0 prerequisites are not silently marked complete."
+  ]
+}
