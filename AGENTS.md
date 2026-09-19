@@ -6,6 +6,9 @@ DeepSeek Harness is an all-plugin Cordis agent harness. Read [docs/architecture.
 
 Follow [node development rules](NODE_DEVELOPMENT_RULES.md): real Codex (`gpt-6-astra`, reasoning `max`) plans the current node; ZCode implements it with parallel tasks where independent; real OpenCode (`glm-5.3`, variant `max`) hard-reviews the fixed candidate. Repair and re-review until `PASS`; only then plan the next node. The user explicitly authorized this assignment and ZCode implementation. Never substitute models or use an internal subagent as the named planner or reviewer. Preserve exact plan, test, candidate, and review evidence.
 
+## Parallel sub-agent execution (owner directive 2026-09-19)
+
+Maximize concurrency: whenever tasks are mutually independent, dispatch them to sub-agents in parallel instead of serially, reclaim each sub-agent the moment its task finishes, and immediately dispatch the next ready task — do not wait for batch boundaries. This is bounded only by real interference: file ownership stays single-writer, shared generators/builds/Git stay with the single integrator, dependency-ordered tasks stay ordered, and provider rate limits are respected. Stream counts in delivery plans are defaults, not ceilings; raise parallelism when independence holds.
 
 ## Pre-stable APIs and released Session data
 
