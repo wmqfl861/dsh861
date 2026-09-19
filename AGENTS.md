@@ -8,7 +8,7 @@ Follow [node development rules](NODE_DEVELOPMENT_RULES.md): real Codex (`gpt-6-a
 
 ## Parallel sub-agent execution (owner directive 2026-09-19)
 
-Maximize concurrency: whenever tasks are mutually independent, dispatch them to sub-agents in parallel instead of serially, reclaim each sub-agent the moment its task finishes, and immediately dispatch the next ready task — do not wait for batch boundaries. This is bounded only by real interference: file ownership stays single-writer, shared generators/builds/Git stay with the single integrator, dependency-ordered tasks stay ordered, and provider rate limits are respected. Stream counts in delivery plans are defaults, not ceilings; raise parallelism when independence holds.
+Dispatch independent tasks to sub-agents in parallel; reclaim each agent the moment it finishes and dispatch the next ready task without waiting for batch boundaries. Bounded by single-writer file ownership, the single integrator for shared generators/builds/Git, task ordering, and provider limits. Plan stream counts are defaults, not ceilings.
 
 ## Pre-stable APIs and released Session data
 
