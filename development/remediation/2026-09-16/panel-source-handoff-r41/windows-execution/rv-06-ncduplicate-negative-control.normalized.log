@@ -1,0 +1,84 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/test-support/client-runtime/tests/helpers.client.spec.tsx (10 tests | 1 failed | 9 skipped) 72ms
+   ❯ fixture helpers (7)
+     ↓ retracts default root sources without removing replacements (release first: false)
+     ↓ retracts default root sources without removing replacements (release first: true)
+     × drives panel hooks, retains keyed selection on owner updates, and releases the default source 69ms
+     ↓ rejects an upload until a suite replaces the default stub
+     ↓ builds independent Conversation and Chat snapshots with optional overrides
+     ↓ binds an observable snapshot through the production selector hook
+     ↓ pins both browser language fields for the calling suite
+   ↓ Session fixture lifecycle (3)
+     ↓ initializes and drives complete event windows through replace, prepend, and append
+     ↓ requires an explicit create stub and records successful create and refresh calls
+     ↓ disposes a scope without materializing a binding
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/test-support/client-runtime/tests/helpers.client.spec.tsx > fixture helpers > drives panel hooks, retains keyed selection on owner updates, and releases the default source
+Error: duplicate root standard hook 'panelInfo' at prop 'usePanelInfo'
+ ❯ copyUnique packages/client/ui-renderer/src/client/registry.ts:595:13
+    593|     const propName = propNameOf(name)
+    594|     if (finalProps.has(propName)) {
+    595|       throw new Error(`duplicate root standard ${kind} '${name}' at pr…
+       |             ^
+    596|     }
+    597|     finalProps.add(propName)
+ ❯ Proxy.rebuildRootBinding packages/client/ui-renderer/src/client/registry.ts:500:7
+ ❯ Object.apply vendor/cordis/src/utils.ts:162:40
+ ❯ Fiber.<anonymous> packages/client/ui-renderer/src/client/registry.ts:279:14
+ ❯ vendor/cordis/src/fiber.ts:367:45
+ ❯ Proxy.provideRoot packages/client/ui-renderer/src/client/registry.ts:276:30
+ ❯ Object.apply vendor/cordis/src/utils.ts:162:40
+ ❯ Object.apply [as callback] packages/test-support/client-runtime/tests/helpers.client.spec.tsx:105:21
+ ❯ Fiber.execute vendor/cordis/src/fiber.ts:260:28
+ ❯ vendor/cordis/src/fiber.ts:367:45
+ ❯ Proxy.RegistryService.plugin scripts/test-invariants.ts:82:32
+ ❯ SlotTestRuntime.mount packages/test-support/client-runtime/src/index.ts:295:28
+ ❯ packages/test-support/client-runtime/tests/helpers.client.spec.tsx:102:21
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+Error: duplicate root standard hook 'panelInfo' at prop 'usePanelInfo'
+ ❯ copyUnique packages/client/ui-renderer/src/client/registry.ts:595:13
+ ❯ Proxy.rebuildRootBinding packages/client/ui-renderer/src/client/registry.ts:500:7
+ ❯ Object.apply vendor/cordis/src/utils.ts:162:40
+ ❯ Fiber.<anonymous> packages/client/ui-renderer/src/client/registry.ts:279:14
+ ❯ vendor/cordis/src/fiber.ts:367:45
+ ❯ Proxy.provideRoot packages/client/ui-renderer/src/client/registry.ts:276:30
+ ❯ Object.apply vendor/cordis/src/utils.ts:162:40
+ ❯ Object.apply [as callback] packages/test-support/client-runtime/tests/helpers.client.spec.tsx:105:21
+ ❯ Fiber.execute vendor/cordis/src/fiber.ts:260:28
+ ❯ vendor/cordis/src/fiber.ts:367:45
+ ❯ Proxy.RegistryService.plugin scripts/test-invariants.ts:82:32
+ ❯ SlotTestRuntime.mount packages/test-support/client-runtime/src/index.ts:295:28
+ ❯ packages/test-support/client-runtime/tests/helpers.client.spec.tsx:102:21
+ ❯ node_modules/.pnpm/vitest@5.0.0_@opentelemetry_0a4bad894e8486b2953adf924e4b79ce/node_modules/vitest/dist/chunks/run.CQOUYP-x.js:2783:20
+
+This error originated in "packages/test-support/client-runtime/tests/helpers.client.spec.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 9 skipped (10)
+     Errors  1 error
+   Start at  18:20:17
+   Duration  5.51s (transform 54%, environment 23%, import 21%, tests 1%, setup 1%)
+
+  Transform   thread-safe  transforming modules took 2.84s · 54% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

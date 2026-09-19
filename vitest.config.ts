@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { resolvePwshPath } from './packages/shell/pwsh-local/src/resolve.ts'
 import { defineConfig } from 'vitest/config'
-import { standardDecoratorPlugin, vitestExecArgv } from './vitest.shared.ts'
+import { standardDecoratorPlugin, vitestExecArgv, vitestEsbuild } from './vitest.shared.ts'
 import { COVERAGE_EXEMPT_ENV, coverageExemptHeavySuites } from './scripts/coverage-exempt.ts'
 import { COVERAGE_PARTITION_MODE_ENV } from './scripts/coverage-partitions.ts'
 
@@ -155,10 +155,21 @@ const processBoundTests = [
   'packages/workflow/workflow-worker-thread/tests/session.spec.ts',
 ]
 
+// Setup scripts shared by the root test config and both inline projects.
+// Vitest 5 merges an inline project's options over this file's resolved Vite
+// config (Vite's mergeConfig concatenates arrays), so a project that extends
+// the file inherits the root test.include next to its own and registers the
+// root plugins beside the project's own copies — every plain file then matches
+// both projects and runs twice. Each project below sets top-level
+// `extends: false` and must therefore declare these scripts itself: without
+// inheritance the root test.setupFiles no longer reaches it.
+const testSetupFiles = ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts']
+
 export default defineConfig({
+  esbuild: vitestEsbuild,
   plugins: [pathsPlugin(), standardDecoratorPlugin()],
   test: {
-    setupFiles: ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts'],
+    setupFiles: testSetupFiles,
     // .tsx: client component specs (jsdom via per-file @vitest-environment pragma).
     include: testIncludes,
     exclude: platformUnsupportedTests,
@@ -166,15 +177,17 @@ export default defineConfig({
     // Node stability; process-bound suites stay separate for inventory control.
     projects: [
       {
+        extends: false,
+        esbuild: vitestEsbuild,
         plugins: [pathsPlugin(), standardDecoratorPlugin()],
         test: {
           name: 'thread-safe',
+          setupFiles: testSetupFiles,
           execArgv: vitestExecArgv,
           // Node 24 has aborted in its CJS lexer (v8::ToLocalChecked Empty
           // MaybeLocal in cjs_lexer::Parse) from worker threads on macOS,
           // Linux, and Windows. Forked workers avoid that shared thread path.
           pool: 'forks',
-          setupFiles: ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts'],
           include: testIncludes,
           exclude: [
             ...platformUnsupportedTests,
@@ -184,12 +197,14 @@ export default defineConfig({
         },
       },
       {
+        extends: false,
+        esbuild: vitestEsbuild,
         plugins: [pathsPlugin(), standardDecoratorPlugin()],
         test: {
           name: 'process-bound',
+          setupFiles: testSetupFiles,
           execArgv: vitestExecArgv,
           pool: 'forks',
-          setupFiles: ['./scripts/test-proxy-environment.ts', './scripts/test-invariants.ts'],
           include: processBoundTests,
           exclude: [
             ...platformUnsupportedTests,
@@ -330,11 +345,9 @@ export default defineConfig({
         'packages/client/ui-settings-models/src/client/welcome-store.ts',
         'packages/extensions/*/src/**/*.ts',
         'packages/extensions/*/src/**/*.tsx',
-        // Typert generator: correctness is pinned by its fixture suites and
-        // the byte-for-byte catalog reproduction test; per-file coverage
-        // would put whole-workspace compiler analysis under v8
-        // instrumentation — the coverage lane's longest tail.
-        'packages/typert/generator/src/*.ts',
+        // Typert correctness is checked by its uninstrumented suites,
+        // including compiler fixtures and byte-for-byte catalog reproduction.
+        'packages/typert/*/src/**/*.{ts,tsx}',
         // Experimental webworker-runtime is outside the coverage requirement
         // by decision: its correctness signal is its uninstrumented suite and
         // the packer's end-to-end image spec.

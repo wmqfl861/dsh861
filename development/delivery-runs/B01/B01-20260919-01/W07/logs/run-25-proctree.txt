@@ -1,0 +1,68 @@
+
+
+ProcessId       : 67616
+ParentProcessId : 12860
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-startup/sess_sub
+                  agent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b3.sh'
+                  cd \"
+
+ProcessId       : 98884
+ParentProcessId : 67616
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b
+
+ProcessId       : 62252
+ParentProcessId : 98884
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b
+
+ProcessId       : 3032
+ParentProcessId : 84076
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\dsh-b01-w07\product\win-unpacked\DeepSeek Harness.exe" --remote-debugging-port=9222
+
+ProcessId       : 99880
+ParentProcessId : 3032
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\dsh-b01-w07\product\win-unpacked\DeepSeek Harness.exe" --type=gpu-process --user-data-dir="C:\Use
+                  rs\Joyce Gu\AppData\Roaming\@deepseek-ai/dsh-desktop" --gpu-preferences=WAAAAAAAAADgAAAEAAAAAAAAAAA
+
+ProcessId       : 47888
+ParentProcessId : 3032
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\dsh-b01-w07\product\win-unpacked\DeepSeek Harness.exe" --type=utility --utility-sub-type=network.
+                  mojom.NetworkService --lang=zh-CN --service-sandbox-type=none --user-data-dir="C:\Users\Joyce Gu\Ap
+
+ProcessId       : 19116
+ParentProcessId : 3032
+Name            : node.exe
+Cmd             : C:\dsh-b01-w07\product\win-unpacked\resources\runtime\node\node.exe C:\dsh-b01-w07\product\win-unpack
+                  ed\resources\dsh\node_modules\@deepseek-ai\dsh-desktop-host\lib\index.js C:\dsh-b01-w07\product\win
+
+ProcessId       : 58312
+ParentProcessId : 12860
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-startup/sess_sub
+                  agent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b3.sh'
+                  sleep
+
+ProcessId       : 29972
+ParentProcessId : 58312
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b
+
+ProcessId       : 91832
+ParentProcessId : 3032
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\dsh-b01-w07\product\win-unpacked\DeepSeek Harness.exe" --type=renderer --user-data-dir="C:\Users\
+                  Joyce Gu\AppData\Roaming\@deepseek-ai/dsh-desktop" --standard-schemes=dsh-app --secure-schemes=dsh-
+
+ProcessId       : 31520
+ParentProcessId : 29972
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b

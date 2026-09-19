@@ -1,0 +1,20 @@
+### A1 linux dual-key env PATH = /c/dsh-b01-w02/tmp/w02-rework-UDwd4a/bin:/usr/bin:/bin
+A1 path-named keys: PATH
+
+### A2 absolute bash, poisoned dual-key env, command -v uname
+status=0 error=null
+stdout: /c/dsh-b01-w02/tmp/w02-rework-UDwd4a/bin/uname
+
+### A2 control: BARE bash name, same env (the run-35447649954 failure shape)
+status=null error=ENOENT
+
+### A3 append: decoy ninja reachable through the tail
+status=0 error=null
+stdout: /c/dsh-b01-w02/tmp/w02-rework-UDwd4a/realtool/ninja
+
+### A3 omit: decoy ninja unreachable (stub-only PATH)
+status=0 error=null
+stdout: exit=1
+
+### A4 pipeline log order (20 iterations): allUpstreamFirst=true
+cleanup: probe tree removed

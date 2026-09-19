@@ -8,7 +8,6 @@ import AgentLoop from '@deepseek-ai/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
 import { createUserMessage } from '@deepseek-ai/dsh-llm'
 import { SessionLogOffset, SessionId, type Session, type SessionEvent } from '@deepseek-ai/dsh-session'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
 import SubagentService from '@deepseek-ai/dsh-subagent'
 import { deliverSubagentPrompt, type HostPromptDeliverer } from '@deepseek-ai/dsh-subagent/internal'
@@ -50,7 +49,7 @@ function durable(agent: Agent): {
 async function storedEvents(ctx: Context, id: SessionId): Promise<readonly SessionEvent[]> {
   const handle = await ctx.sessionPersistence.open(id, 'read')
   try {
-    return await handle.read()
+    return (await handle.read()).events
   } finally {
     await handle.close()
   }
@@ -62,7 +61,6 @@ async function setup(
 ) {
   const ctx = new Context()
   await mountAgentLoopTestDependencies(ctx)
-  await ctx.plugin(SessionProjectionRegistry)
   const storageRoot = mkdtempSync(join(tmpdir(), 'dsh-team-'))
   roots.push(storageRoot)
   await ctx.plugin(JsonlSessionPersistence, { root: storageRoot })
@@ -98,6 +96,7 @@ interface TeamServiceInternals {
     state(root: Agent): unknown
   }
   disposeRuntime(): Promise<void>
+  closeRuntime(): Promise<void>
   recoverFor(agent: Agent): Promise<void>
   scheduleRecovery(agent: Agent): void
 }
@@ -170,7 +169,6 @@ describe('Team identity and provisioning', () => {
   it('supports direct-constructor defaults and recovers roots that already exist', async () => {
     const ctx = new Context()
     await mountAgentLoopTestDependencies(ctx)
-    await ctx.plugin(SessionProjectionRegistry)
     const storageRoot = mkdtempSync(join(tmpdir(), 'dsh-team-direct-'))
     roots.push(storageRoot)
     await ctx.plugin(JsonlSessionPersistence, { root: storageRoot })
@@ -203,7 +201,7 @@ describe('Team identity and provisioning', () => {
       diagnostics: [],
     }))
     expect(service.listMembers(lead)[1]).not.toHaveProperty('model')
-    await Promise.resolve()
+    await Promise.resolve(undefined)
   })
 
   it('creates fresh and fork teammates with immutable names and bounded roster size', async () => {
@@ -260,7 +258,7 @@ describe('Team identity and provisioning', () => {
     if (liveSession === undefined) throw new Error('checkpoint fixture did not create its Session')
     const initial = createUserMessage({ content: content('checkpoint me'), source: { kind: 'user' } })
     const checkpoint = internal.checkpointInitialPrompt(liveSession.id, initial.id, SIGNAL)
-    await Promise.resolve()
+    await Promise.resolve(undefined)
     lead.inject(createUserMessage({ content: content('unrelated progress'), source: { kind: 'user' } }))
     const unrelatedFiber = await ctx.plugin(Object.assign(function unrelatedCheckpointFixture(childCtx: Context) {
       childCtx.sessions.create(SessionId('unrelated-checkpoint-child'))
@@ -289,7 +287,7 @@ describe('Team identity and provisioning', () => {
     if (disposedSession === undefined) throw new Error('disposed checkpoint fixture did not create its Session')
     const disposed = internal.checkpointInitialPrompt(disposedSession.id, missing.id, SIGNAL)
     const disposedResult = expect(disposed).rejects.toThrow('not found')
-    await Promise.resolve()
+    await Promise.resolve(undefined)
     await disposedFiber.dispose()
     await disposedResult
 
@@ -300,14 +298,14 @@ describe('Team identity and provisioning', () => {
     if (abortedSession === undefined) throw new Error('aborted checkpoint fixture did not create its Session')
     const controller = new AbortController()
     const aborted = internal.checkpointInitialPrompt(abortedSession.id, missing.id, controller.signal)
-    await Promise.resolve()
+    await Promise.resolve(undefined)
     controller.abort({ kind: 'test' })
     await expect(aborted).rejects.toMatchObject({ code: 'TEAM_DISPOSED' })
 
     const errorController = new AbortController()
     const errorAborted = internal.checkpointInitialPrompt(abortedSession.id, missing.id, errorController.signal)
     const errorResult = expect(errorAborted).rejects.toThrow('checkpoint stopped')
-    await Promise.resolve()
+    await Promise.resolve(undefined)
     errorController.abort(new Error('checkpoint stopped'))
     await errorResult
     await abortedFiber.dispose()
@@ -1411,7 +1409,6 @@ describe('Team mailbox and waiting', () => {
   it('waits for one change, supports cancellation, times out, and releases waiters on HMR disposal', async () => {
     const ctx = new Context()
     await mountAgentLoopTestDependencies(ctx)
-    await ctx.plugin(SessionProjectionRegistry)
     const storageRoot = mkdtempSync(join(tmpdir(), 'dsh-team-wait-'))
     roots.push(storageRoot)
     await ctx.plugin(JsonlSessionPersistence, { root: storageRoot })
@@ -1514,7 +1511,7 @@ describe('Team mailbox and waiting', () => {
     await entered.promise
 
     const disposal = teamFiber.dispose()
-    await Promise.resolve()
+    await Promise.resolve(undefined)
     await expect(service.waitForChange(lead, 3_600_000, SIGNAL)).resolves.toEqual({ timedOut: false })
     await expect(service.spawnTeammate(lead, {
       name: 'late-worker',
@@ -1637,7 +1634,7 @@ describe('Team mailbox and waiting', () => {
     let disposed = false
     const disposal = internal.disposeRuntime().then(() => { disposed = true })
     await aborted.promise
-    await Promise.resolve()
+    await Promise.resolve(undefined)
     expect(disposed).toBe(false)
     release.resolve(undefined)
 
@@ -1690,7 +1687,7 @@ describe('Team mailbox and waiting', () => {
     let disposed = false
     const disposal = internal.disposeRuntime().then(() => { disposed = true })
     await entered.promise
-    await Promise.resolve()
+    await Promise.resolve(undefined)
     const disposedBeforeRelease = disposed
     release.resolve(undefined)
     await disposal
@@ -1701,28 +1698,61 @@ describe('Team mailbox and waiting', () => {
     flushSpy.mockRestore()
   })
 
-  it('bounds Team runtime disposal when a continuation drain never settles', async () => {
+  it('bounds Team runtime disposal when a continuation drain never settles', { timeout: 30_000 }, async () => {
     const { ctx, lead, teamFiber } = await setup(['hang'], { disposalTimeoutMs: 25 })
     const started = await spawn(ctx, lead, 'stuck-worker')
     await waitRunning(ctx, started.member.id)
+    // The drain's real hold is a deferred the test releases in `finally`: a
+    // timeout must surface as an error, never as a completed unload.
+    const releaseDrain = Promise.withResolvers<undefined>()
     const drain = vi.spyOn(ctx.subagents, 'drainContinuableChildren')
-      .mockImplementation(() => new Promise(() => {}))
+      .mockImplementation(() => releaseDrain.promise.then(() => undefined))
+    const internal = teamInternals(ctx)
+    const closure = internal.closeRuntime()
 
-    const outcome = await Promise.race([
-      teamFiber.dispose().then(() => 'disposed'),
-      new Promise<'hung'>((resolve) => { setTimeout(() => { resolve('hung') }, 1_000) }),
-    ])
-    expect(outcome).toBe('disposed')
+    await vi.waitFor(() => {
+      // Past the deadline the close is still unfinished and the projection is
+      // still retained: the stuck member keeps its holds.
+      expect(ctx.sessionProjections.stateOf(lead.session, 'agentTeam')).toBeDefined()
+    })
+    let settled = false
+    void closure.then(() => { settled = true }, () => { settled = true })
+    await new Promise((resolve) => { setTimeout(resolve, 100) })
+    expect(settled).toBe(false)
     expect(drain).toHaveBeenCalledWith(lead, [started.member.id])
+
+    releaseDrain.resolve(undefined)
+    const failure = await closure.then(
+      () => { throw new Error('expected the timeout to reject the close') },
+      (error: unknown) => error,
+    )
+    expect(failure).toBeInstanceOf(AggregateError)
+    expect((failure as AggregateError).errors.some((reason) => {
+      return reason instanceof TeamError && reason.code === 'TEAM_DISPOSAL_TIMEOUT'
+    })).toBe(true)
+    await teamFiber.dispose()
     expect(ctx.get('agentTeams')).toBeUndefined()
   })
 
-  it('bounds disposal while an admitted creation ignores cancellation', async () => {
+  it('bounds disposal while an admitted creation ignores cancellation', { timeout: 30_000 }, async () => {
     const { ctx, lead } = await setup([], { disposalTimeoutMs: 25 })
     const internal = teamInternals(ctx)
-    internal.roster.inFlightCreations.add(new Promise(() => {}))
+    // The admitted creation's real hold is a deferred: the deadline reports a
+    // timeout error while the close keeps waiting for the real settlement.
+    const releaseCreation = Promise.withResolvers<undefined>()
+    internal.roster.inFlightCreations.add(releaseCreation.promise.then(() => undefined))
 
-    await expect(internal.disposeRuntime()).rejects.toBeInstanceOf(AggregateError)
+    const closure = internal.closeRuntime()
+    await vi.waitFor(() => {
+      expect(ctx.sessionProjections.stateOf(lead.session, 'agentTeam')).toBeDefined()
+    })
+    let settled = false
+    void closure.then(() => { settled = true }, () => { settled = true })
+    await new Promise((resolve) => { setTimeout(resolve, 100) })
+    expect(settled).toBe(false)
+
+    releaseCreation.resolve(undefined)
+    await expect(closure).rejects.toBeInstanceOf(AggregateError)
     await expect(ctx.agentTeams.spawnTeammate(lead, {
       name: 'after-timeout',
       description: 'admission remains closed',
@@ -1750,8 +1780,8 @@ describe('Team mailbox and waiting', () => {
     const internal = teamInternals(ctx)
     internal.recoverFor = async () => { throw new Error('forced recovery failure') }
     internal.scheduleRecovery(lead)
-    await Promise.resolve()
-    await Promise.resolve()
+    await Promise.resolve(undefined)
+    await Promise.resolve(undefined)
     expect(warnings.some(warning => warning.includes('forced recovery failure'))).toBe(true)
 
     lead.session.append('user/message', createUserMessage({
@@ -1764,7 +1794,7 @@ describe('Team mailbox and waiting', () => {
         senderName: 'absent',
       },
     }), { surfaceOp: 'append' })
-    await Promise.resolve()
+    await Promise.resolve(undefined)
 
     const entered = Promise.withResolvers<undefined>()
     const release = Promise.withResolvers<undefined>()
@@ -1777,10 +1807,10 @@ describe('Team mailbox and waiting', () => {
     await entered.promise
     await teamFiber.dispose()
     release.resolve(undefined)
-    await Promise.resolve()
-    await Promise.resolve()
+    await Promise.resolve(undefined)
+    await Promise.resolve(undefined)
     internal.scheduleRecovery(lead)
-    await Promise.resolve()
+    await Promise.resolve(undefined)
   })
 
   it('reports contained teardown failures without retaining the Team service', async () => {

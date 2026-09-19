@@ -1,0 +1,8 @@
+[WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+Packages are copied from the content-addressable store to the virtual store.
+  Content-addressable store is at: C:\Users\Joyce Gu\AppData\Local\pnpm\store\v11
+  Virtual store is at:             target/node_modules/.pnpm
+Packages: +4
+++++
+Progress: resolved 4, reused 0, downloaded 0, added 4, done
+Done in 104ms using pnpm v12.4.1

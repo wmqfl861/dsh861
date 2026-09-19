@@ -1,0 +1,72 @@
+Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/typert/generator/tests/type-model.spec.ts > WorkspaceAnalyzer > builds independent face models with an explicit cross-face type graph
+Error: Snapshot `WorkspaceAnalyzer > builds independent face models with an explicit cross-face type graph 1` mismatched
+
+- Expected
++ Received
+
+@@ -6118,11 +6118,11 @@
+                  "ReexportedZodType",
+                  "ZodType",
+                ],
+                "name": "ReexportedZodType",
+                "subpath": ".",
+-               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/classic/schemas.d.cts#ZodType",
++               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.6.2/node_modules/zod/v4/classic/schemas.d.cts#ZodType",
+              },
+            ],
+            "invocations": [],
+            "name": "@fixture/client",
+            "objects": [],
+
+ ❯ packages/typert/generator/tests/type-model.spec.ts:195:19
+    193|       text: "'demo/ready'(agent: Agent<{ ready: true }>, payload: Box<…
+    194|     })
+    195|     expect(model).toMatchSnapshot()
+       |                   ^
+    196|   })
+    197|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL   process-bound  packages/typert/generator/tests/type-model.spec.ts > WorkspaceAnalyzer > builds independent face models with an explicit cross-face type graph
+Error: Snapshot `WorkspaceAnalyzer > builds independent face models with an explicit cross-face type graph 1` mismatched
+
+- Expected
++ Received
+
+@@ -6118,11 +6118,11 @@
+                  "ReexportedZodType",
+                  "ZodType",
+                ],
+                "name": "ReexportedZodType",
+                "subpath": ".",
+-               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.4.3/node_modules/zod/v4/classic/schemas.d.cts#ZodType",
++               "symbol": "<external>:../../../../../../node_modules/.pnpm/zod@4.6.2/node_modules/zod/v4/classic/schemas.d.cts#ZodType",
+              },
+            ],
+            "invocations": [],
+            "name": "@fixture/client",
+            "objects": [],
+
+ ❯ packages/typert/generator/tests/type-model.spec.ts:195:19
+    193|       text: "'demo/ready'(agent: Agent<{ ready: true }>, payload: Box<…
+    194|     })
+    195|     expect(model).toMatchSnapshot()
+       |                   ^
+    196|   })
+    197|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+<<<stdout>>>
+
+  Snapshots  2 failed
+ Test Files  2 failed | 86 passed | 2 skipped (90)
+      Tests  2 failed | 1642 passed | 96 skipped (1740)
+   Start at  02:26:47
+   Duration  778.51s (tests 97%, transform 1%, import 1%, environment 1%)
+
+    Isolate  90 workers spawned · ~621ms startup each (spawn + environment, per file)
+             at least ~18.00s faster with isolate: false — reuses workers across files instead of one per file

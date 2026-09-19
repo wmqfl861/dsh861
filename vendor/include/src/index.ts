@@ -5,12 +5,14 @@ import { access, constants, readFile, rename, writeFile } from 'node:fs/promises
 import { setTimeout as delay } from 'node:timers/promises'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import * as yaml from 'js-yaml'
+import { defineScalarTag, NOT_RESOLVED } from 'js-yaml'
 
-const JsExpr = new yaml.Type('tag:yaml.org,2002:js', {
-  kind: 'scalar',
-  resolve: (data) => typeof data === 'string',
-  construct: (data) => ({ __jsExpr: data }),
-  predicate: isJsExpr,
+// js-yaml 5 custom scalar: `resolve` both gates and constructs (v4's
+// resolve+construct pair collapsed), `identify` replaces the v4 predicate.
+const JsExpr = defineScalarTag('tag:yaml.org,2002:js', {
+  // An empty body is not an expression; js-yaml 5 hands it to us as '' (v4 saw null).
+  resolve: (source) => (typeof source === 'string' && source !== '' ? { __jsExpr: source } : NOT_RESOLVED),
+  identify: isJsExpr,
   represent: (data) => data['__jsExpr'],
 })
 
@@ -20,7 +22,7 @@ const JsExpr = new yaml.Type('tag:yaml.org,2002:js', {
  * (`dsh --dump-config`) parses and prints exactly the dialect this include
  * mounts.
  */
-export const entryListSchema = yaml.JSON_SCHEMA.extend(JsExpr)
+export const entryListSchema = yaml.JSON_SCHEMA.withTags(JsExpr)
 
 const schema = entryListSchema
 
@@ -256,7 +258,14 @@ export class Include extends EntryTree {
         data = module.default || module
       }
     } catch (error) {
-      throw new ConfigFileError('parse', this.filename, error)
+      // js-yaml 5 throws on an empty document (v4 answered null); an empty
+      // file is a validation failure — the same shape a JSON null would be —
+      // not a parse failure.
+      if (this.type === 'application/yaml' && content.trim() === '') {
+        data = undefined
+      } else {
+        throw new ConfigFileError('parse', this.filename, error)
+      }
     }
     if (!Array.isArray(data)) {
       throw new ConfigFileError('validate', this.filename, new TypeError('config file must be a top-level array'))
@@ -368,7 +377,7 @@ export class Include extends EntryTree {
   }
 
   /** Schedule a write of the current root entry data. */
-  write() {
+  commit() {
     this.context.emit('loader/config-update')
     return this.writeFile(this.root.data)
   }

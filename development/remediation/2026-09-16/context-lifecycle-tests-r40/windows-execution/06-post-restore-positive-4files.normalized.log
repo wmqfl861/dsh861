@@ -1,0 +1,22 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/api/gateway/tests/gateway.host.spec.ts (44 tests) 297ms
+ ✓  thread-safe  packages/goal/goal/tests/goal.spec.ts (36 tests) 208ms
+ ✓  thread-safe  packages/api/session-controller/tests/session-fork.host.spec.ts (8 tests) 144ms
+ ✓  thread-safe  packages/context/session-reference/tests/session-reference.spec.ts (47 tests) 562ms
+
+ Test Files  4 passed (4)
+      Tests  135 passed (135)
+   Start at  14:43:18
+   Duration  2.45s (transform 68%, tests 16%, import 12%, setup 3%)
+
+  Transform   thread-safe  transforming modules took 5.02s · 68% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

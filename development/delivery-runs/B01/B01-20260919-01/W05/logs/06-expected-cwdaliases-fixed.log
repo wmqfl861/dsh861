@@ -1,0 +1,18 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m apps/cli/tests/profiles/headless/tests/subagent-diagnostic.expected.e2e.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5507[2mms[22m[39m
+   [32m✓[39m descriptor-less cold child diagnostic snapshot [2m(1)[22m
+     [33m[2m✓[22m[39m surfaces the unreadable child as a corrupt diagnostic through the assembled headless app[33m 5506[2mms[22m[39m
+ [32m✓[39m apps/cli/tests/profiles/headless/tests/subagent-inheritance.expected.e2e.ts [2m([22m[2m1 test[22m[2m)[22m[33m 5614[2mms[22m[39m
+   [32m✓[39m parent-only override inheritance snapshot [2m(1)[22m
+     [33m[2m✓[22m[39m confines a delegated child through the assembled headless app[33m 5613[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 20:55:25
+[2m   Duration [22m 7.73s[2m (tests 76%, transform 17%, import 6%, setup 1%)[22m
+
+EXIT=0

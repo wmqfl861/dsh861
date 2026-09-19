@@ -1,0 +1,6 @@
+agent-team-teardown----C-Users-JOYCEG~007E1-AppData-Local-Temp-sdk-teardown-agent-team-teardown-8S6e6V---de3128a2-e349-48fb-82c4-daaa7a82b265-session.v3.jsonl role=child headers=1 pwsh=true bash=false tools=31
+agent-team-teardown----C-Users-JOYCEG~007E1-AppData-Local-Temp-sdk-teardown-agent-team-teardown-8S6e6V---fixture-root-session-session.v3.jsonl role=parent headers=1 pwsh=true bash=false tools=31
+subagent-teardown----C-Users-JOYCEG~007E1-AppData-Local-Temp-sdk-teardown-subagent-teardown-rWJzyE---96e382b3-6f68-485e-b274-46107c3a7786-session.v3.jsonl role=child headers=1 pwsh=true bash=false tools=25
+subagent-teardown----C-Users-JOYCEG~007E1-AppData-Local-Temp-sdk-teardown-subagent-teardown-rWJzyE---fixture-root-session-session.v3.jsonl role=parent headers=1 pwsh=true bash=false tools=25
+OK: 4 sidecars derived; every set contains pwsh and none contains bash
+EXIT=0

@@ -1,0 +1,57 @@
+Git 状态与申报一致。开始按序读取必读输入。
+增量层已核对（CP-A5 实际 14 文件而非申报 16——稍后评估；冻结层 18 文件与申报一致）。现在核验保护面与指纹。
+保护面全部核验通过（vendor/.github/packages 零命中；12 指纹全对；P0-B state.json 实测 `…a14e83fe4…` 证实 §3.2 勘误属实且文件字节未动）。继续核对候选全量路径面与状态/证据文件。
+CP-A4 面结构核实：非 development/ 面实为 33 文件（表列 33 与 338 总数自洽；manifest §2 标题"48"系计数标注误差——33+15 计划包=48，稍后写入结论）。16 M 与 §1 申报一致。继续读状态与组合核验。
+CP-A5 修复面核实：恰 4 处 `?? ''` 移除（encoding utf8 下 stdout 为非空类型），行为保持。检查 lint 双变体日志。
+W01/W02 链条与 git 实测完全自洽。继续读 W03、W04。
+发现一个未登记的证据文档转写缺陷（platform-contract.md 第 23 行 blob 两字符错误，稍后评估严重度）。继续读 W06/W07/W08。
+W08 闭环（终态 blob 与候选一致）。现在做负控链与关键源码事实的只读抽查。
+三组 Note 与 FINDINGS 事实一致。快速扫剩余证据面（W06 A5 表、W07、W10、notes-plan）。
+**PASS**
+
+（B01 W13 指定硬审第一轮，冻结候选 `9fec63de90`；参数合规调用在案：本次运行 argv 实际携带 `--model zhipuai-coding-plan/glm-5.3 --variant max --title b01-w13-hard-review-round1`。本裁决针对候选与证据链质量；阶段形态维持 W12 自评的 **PARTIAL_WITH_BLOCKERS**，不将 U1—U3、A5 人验子路径或 CP-A5 推送后的 CI 再验证转为已关闭。）
+
+## 逐项结论
+
+**1. 候选范围与保护面 — 通过**
+- 全量 `git diff --name-status 7f63d035..9fec63de90` = 363 文件（实测一致）。增量链实测：CP-A4=338（322A/16M，与 manifest §1 一致）；CP-A5（89dce53b80→e1e31b080b）= **14 文件**（仅 1 源码修复 + W02/W03 证据与簿记；申报"16"为 W13 簿记/提示词层笔误，不在冻结候选内）；冻结层 = 18 文件（9 Note + 8 W12 产物 + STATUS），纯证据/文档面，零产品源码——与申报相符。
+- 保护面实测零命中：`vendor/`、`.github/`、`packages/` 在 363 文件中 grep 零匹配；formal-plan §6 全部 12 指纹对 `9fec63de90` 逐 blob 复验一致；`NODE_DEVELOPMENT_RULES.md`、r44 六文件、r43 observer（packages/ 全域零 diff）不变。
+- §3.2 勘误属实：`P0-B/state.json` 实测 `4fa1dd1ab8f34e620a14e83fe4c9c7beea12665f`，formal-plan §3.6 表第 24 位 `b` 系转写笔误；基线=候选三读一致，保护属性成立。
+- 无密钥面：名称扫描仅 `SCOPE_AND_AUTHORITY.md`（计划包）与 `W05/logs/00-probe-fixture-tokens.log`（`{{cwd}}` 占位符探针，非凭据）。
+- 非预登记面的扩围均有总控在案登记：prompt sidecars（W04 F4.1→CP1→W05 F2）、default sidecars（round-2 派发）、W11-F 两文件（W11 F4 明示"需总控登记”后派发）、W07 F4/F5 面（STATUS "Controller ruling" 记录），manifest §2.1 全量归属。
+
+**2. 复核与返工闭环 — 通过，未发现弱化**
+- W01 rework-2：两形态链接证据（CI 逐字节 + 两形态析取 + 3 项新回归 + NC-C/NC-D）在案；run 41/42/43 四连过为 CI 级收口。
+- W02 Linux 返工 4 处：rework-linux §1—§4 逐项根因+修复，deep-equal 断言字节未动（竞态以 EOF 排空定序，未加顺序容忍）；NC-A/B 重演 blob 链自洽。
+- W06 INCIDENT-1：三硬条件逐条落实（零裸包导入/测试独占装配+防呆断言/备份恢复清理）+ 惰性守卫；两次用户可见影响如实入档；CP1（CR-1/CR-2+N1-3）落地后 accepted。
+- W08 TS18048：单处 fail-loud 守卫（无 非空断言），终态 `a168c30a` 与候选一致；W08 五处中文行号我已对源码逐一复验（82/144/150/161/170 全部命中声明行）。
+- W03 C1—C3/G5：FINDINGS 内联修正（A2-2 降准、A2-7 撤销重述、F4 补指针、G5 告警式）在案。
+- W04 轮二 + blob 标签更正：round-2.md §2 六 blob 表我逐一对 `9fec63de90` 实测一致（81ceebfa/b3c8e3db/d62814db×2/a5bdc9ab/d2eefffd）——更正后的提交版正确。
+- W11 N1—N4、W11-F C1/O1：均已折入 FINDINGS 终版。
+- CP-A5：diff 实测恰 4 处 `?? ''` 移除（encoding utf8 下 stdout 非空类型），行为保持；双 lint 变体 0/0（`W02/logs/mf-run-01/02` exit=0，3615 文件）+ spec 64 passed|1 skip 不变。
+- 唯一残余：`W04/platform-contract.md` L23 的 `.1.win32` blob 残留 2 字符转写错误（`…b2697761…` vs 实际 `…b0967761…`；同行 SHA-256 `22edc948` 正确，mutations.md/git 各处一致）——未入 open-items，属 B2 同类文档勘误，非候选缺陷。
+
+**3. 负控链 — 有效，抽查可重放**
+W01 NC-A/NC-B 突变体 SHA-256 与 FINDINGS 记录精确一致（28d31aa9…/dfeb6b11…85cc8f81，逐字节重算匹配）；W02 返工 NC-A/B（7e0038c2/ed44c3e6）一致；W04 冻结输入现值 = presave/恢复值（session.v3.jsonl 196e2c05、win32 sidecar 22edc948）——恢复闭环在候选字节上成立；W08 control A/B、W11-F 守卫 NC（5ms 确定性失败）均有记录。失败签名与恢复后正向自洽。
+
+**4. A1—A9 判定与证据相符 — 通过**
+acceptance-status 表与各包 FINDINGS/STATUS 交叉一致；A3 安全分项 NOT_RUN、sandbox NOT_CLOSED、A5 6/7（原生子路径留人验）、A6 安装器缺件均如实为部分而非掩盖；`product_accepted=0` 在 W09 矩阵实测确认（32 行 = 8/8/8/8 + 1 附注行）且明示为结论。STATUS `mandatory_acceptance` A1/A2/A7 滞后值为已申报簿记项（open-items B1）。
+
+**5. W12 组合核验充分 — 通过**
+run-01…05 真实退出码在案（25/25、lib 模式 2/2、共享 lane 2|18 skip、adapter 2/2）。src 模式超时归因成立：`loader-smoke/src/index.ts:28` `DEFAULT_PROCESS_TIMEOUT_MS=30_000` 实证；候选 diff 零 `packages/`、零 `apps/cli/src`；同字节 lib 模式同负载通过。lib 前置构建记录（CP-A4 integration typecheck exit 0 + bin.js 新于全部 src 输入）符合 formal-plan §5.1 的复用条款。
+
+**6. CI 身份与结论 — 支撑成立**
+run `35460812553`（run 43，head `89dce53b80`，merge `9ddc0cfe` 全树 diff 为空——匿名 fetch 逐字节比对，最强级身份链）gate 表为权威：`test:expected` PASSED 92.05s、`test:snapshot` PASSED 142.24s（五项清单）、prepare 第四连过；唯一失败 lint:contracts-ready → CP-A5 处置完备。G 群隔离成立（W11 F1 基线：该系列 run 上 B01 diff 仅 scripts/；G6 经 artifact 10585476793 关闭为单注解无隐藏失败）。CP-A5 推送后 CI 再验证为声明中的未决观察项，未被标绿。
+
+**7. 未运行项清单 — 完整、归因精确，无降级**
+U1—U6 + G 群 + B1—B4 均无被降为“已完成”项。两处可改进（非阻断）：① CP-A5 推送后的 CI 再验证仅在 STATUS/提示词声明，未列入 U 台账；② U5 的实体已被 run 43 gate 表关闭（台账早于终验结论编译，方向保守、STATUS 现值正确）——建议阶段报告携带。
+
+**8. 三组 Agent Note 忠实 — 通过**
+抽查事实全部与 FINDINGS 吻合（36→64+1 测试计数、run 42/43、20000ms/10s 守卫（fixture 与 :570 守卫源码实测在案）、12 sidecar 矩阵=4+2+6、980MB/11,747 文件、241/241 junction、NSIS 缺件、INCIDENT-1 三条件）；三份 i18n.yaml 配对 blob 与提交 blob 逐一实测一致（853 pairs all consistent 的记录可信）。
+
+## 非阻断备注（供阶段报告/CP-F 吸收）
+1. `W12/candidate-manifest.md` §2 标题"48 文件"应为 33（=表列实数；33+15 计划包=48 系算术混入），表列与总数 338 自洽。
+2. `W04/platform-contract.md:23` blob 两字符转写错误（§2 结论 2 处已列）。
+3. `W13/00-start.md`（未跟踪簿记）"CP-A5 16 文件"实为 14 文件。
+
+本轮未请求任何权限、未写任何文件、未读仓库外路径与凭据；全部校验为只读 git/node 内联完成。调用身份证据（argv 含 `--variant max`、双流哈希、exit 码）请总控按惯例归档于 `W13/review/`。

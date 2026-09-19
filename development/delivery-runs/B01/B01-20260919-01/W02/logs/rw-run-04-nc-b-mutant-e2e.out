@@ -1,0 +1,677 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts [2m([22m[2m65 tests[22m[2m | [22m[31m30 failed[39m[2m | [22m[33m30 skipped[39m[2m)[22m[33m 6571[2mms[22m[39m
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh pinned identities (source-level) [2m(4)[22m
+     [2m[90m↓[39m[22m keeps the three pinned inputs with publisher-recorded digests and sources
+     [2m[90m↓[39m[22m verifies each digest before its archive is unpacked or executed
+     [2m[90m↓[39m[22m publishes only after the functional probe passes
+     [2m[90m↓[39m[22m adds no package transaction, no global library path, and no sandbox weakening
+   [31m❯[39m prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) [2m(35)[22m
+[31m     [31m×[31m builds, verifies, and publishes from the three pinned inputs, in order, once[39m[32m 159[2mms[22m[39m
+[31m     [31m×[31m still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success[39m[32m 159[2mms[22m[39m
+[31m     [31m×[31m stops at a global 404 with the downloader exit code and never hashes, unpacks, or probes[39m[32m 244[2mms[22m[39m
+[31m     [31m×[31m stops at a connection failure with the downloader exit code[39m[32m 152[2mms[22m[39m
+[31m     [31m×[31m stops when only the meson download fails, after the bubblewrap input was already verified[39m[32m 147[2mms[22m[39m
+[31m     [31m×[31m stops when only the libcap download fails, after both tarballs were already extracted[39m[32m 149[2mms[22m[39m
+[31m     [31m×[31m rejects a bubblewrap digest mismatch and never unpacks anything[39m[32m 220[2mms[22m[39m
+[31m     [31m×[31m rejects a meson digest mismatch after the bubblewrap extraction but before the meson unpack[39m[32m 156[2mms[22m[39m
+     [32m✓[39m rejects a libcap digest mismatch before any deb handling[32m 155[2mms[22m[39m
+[31m     [31m×[31m rejects a traversal member name in the bubblewrap listing before extraction[39m[32m 234[2mms[22m[39m
+[31m     [31m×[31m rejects an absolute member path in the deb listing before extraction[39m[32m 144[2mms[22m[39m
+[31m     [31m×[31m rejects a symlink that escapes the extraction root in the meson metadata listing[39m[32m 150[2mms[22m[39m
+[31m     [31m×[31m rejects a device member in the deb metadata listing before extraction[39m[32m 269[2mms[22m[39m
+[31m     [31m×[31m fails loud when a build tool is missing, before any download[39m[32m 146[2mms[22m[39m
+[31m     [31m×[31m rejects a libcap-dev control identity that does not match the pin[39m[32m 154[2mms[22m[39m
+[31m     [31m×[31m rejects a libcap-dev payload without the static library[39m[32m 142[2mms[22m[39m
+[31m     [31m×[31m stops at a deb extraction failure before dependency resolution[39m[32m 232[2mms[22m[39m
+[31m     [31m×[31m rejects a private libcap that pkg-config resolves to the wrong version[39m[32m 171[2mms[22m[39m
+[31m     [31m×[31m stops at a meson configure failure before any compile[39m[32m 270[2mms[22m[39m
+[31m     [31m×[31m stops at a compile failure with no artifact, hash record, probe, or publication[39m[32m 153[2mms[22m[39m
+[31m     [31m×[31m rejects a link command with no private libcap directory reference[39m[32m 282[2mms[22m[39m
+[31m     [31m×[31m rejects a link command that fell back to the host libcap directory[39m[32m 149[2mms[22m[39m
+[31m     [31m×[31m accepts the -L plus -lcap private search-path link form (form a)[39m[32m 146[2mms[22m[39m
+[31m     [31m×[31m accepts the CI-observed absolute private libcap.a operand link form (run 35445600344, form b)[39m[32m 296[2mms[22m[39m
+[31m     [31m×[31m rejects a link command that names the host libcap.a operand[39m[32m 160[2mms[22m[39m
+[31m     [31m×[31m rejects a built binary that is not an x86-64 ELF[39m[32m 156[2mms[22m[39m
+[31m     [31m×[31m rejects a built binary with a dynamic libcap dependency[39m[32m 246[2mms[22m[39m
+[31m     [31m×[31m rejects a built binary whose ldd resolves libcap[39m[32m 149[2mms[22m[39m
+[31m     [31m×[31m rejects a built binary with the wrong version identity before any probe[39m[32m 149[2mms[22m[39m
+[31m     [31m×[31m keeps a functional-probe failure fatal and publishes nothing[39m[32m 271[2mms[22m[39m
+     [32m✓[39m refuses a non-Linux host before any download[32m 166[2mms[22m[39m
+     [32m✓[39m refuses a non-x86_64 host before any download[32m 159[2mms[22m[39m
+     [32m✓[39m fails loud when RUNNER_TEMP is missing, before any download[32m 176[2mms[22m[39m
+     [32m✓[39m fails loud when GITHUB_PATH is missing, before any download[32m 92[2mms[22m[39m
+[31m     [31m×[31m stops at a tarball extraction failure before the next input downloads[39m[32m 140[2mms[22m[39m
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh deb control-field protocol (per-field argv contract) [2m(12)[22m
+     [2m[90m↓[39m[22m reads each control field through its own single-field dpkg-deb call and accepts the pinned identities
+     [2m[90m↓[39m[22m accepts a legal single-line value whose output ends without a newline
+     [2m[90m↓[39m[22m rejects labeled single-field output (the CI run 35436610274 first-failure shape)
+     [2m[90m↓[39m[22m rejects the labeled multi-field control block when a per-field read receives it
+     [2m[90m↓[39m[22m rejects the labeled control block in non-argv order identically
+     [2m[90m↓[39m[22m rejects a field read that exits nonzero even though its stdout is the correct value
+     [2m[90m↓[39m[22m rejects a missing Package control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a missing Version control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a missing Architecture control field that returns an empty value with exit 0
+     [2m[90m↓[39m[22m rejects a duplicate control record line
+     [2m[90m↓[39m[22m rejects a wrong Package identity
+     [2m[90m↓[39m[22m rejects a wrong Architecture identity
+   [2m[90m↓[39m[22m scenario child environment construction (path-variable uniqueness) [2m(6)[22m
+     [2m[90m↓[39m[22m win32: emits exactly one PATH key, stub first, and never inherits parent path content
+     [2m[90m↓[39m[22m win32: a parent carrying both PATH and Path (Path first) yields the identical single stub-first PATH
+     [2m[90m↓[39m[22m win32: a parent carrying both PATH and Path (PATH first) yields the identical single stub-first PATH
+     [2m[90m↓[39m[22m posix: appends the exact parent PATH after the explicit entries and ignores differently-cased variables
+     [2m[90m↓[39m[22m posix omit: builds a stub-only PATH so a deleted tool stays genuinely absent
+     [2m[90m↓[39m[22m rejects test vars that occupy a path-named key (misconfiguration fails loud)
+   [2m[90m↓[39m[22m prepare-ci-bubblewrap.sh stub-source identity and launch environment (W02) [2m(8)[22m
+     [2m[90m↓[39m[22m executes through the resolved absolute Bash with a stub-first PATH and records the source evidence
+     [2m[90m↓[39m[22m runs unchanged when the parent environment carries both Path and PATH variants (Path first)
+     [2m[90m↓[39m[22m runs unchanged when the parent environment carries both PATH and Path variants (PATH first)
+     [2m[90m↓[39m[22m runs unchanged inside a temporary path containing spaces and non-ASCII characters
+     [2m[90m↓[39m[22m host tool directory preceding the stub bin [2m(1)[22m
+       [2m[90m↓[39m[22m resolves the real host uname and stops at the platform gate before any stub runs
+     [2m[90m↓[39m[22m refuses to run when the uname stub is missing: the source check rejects the host fallback first
+     [2m[90m↓[39m[22m non-executable stub (platform enforces the exec bit) [2m(1)[22m
+       [2m[90m↓[39m[22m refuses to run when the uname stub is present but not executable
+     [2m[90m↓[39m[22m explains the empty-stdout branch: a stub-driven platform refusal yields empty stdout, not a failed launch
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 30 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mbuilds, verifies, and publishes from the three pinned inputs, in order, once
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m793:27[22m[39m
+    [90m791|[39m   it('builds, verifies, and publishes from the three pinned inputs, in…
+    [90m792|[39m     const result = runScenario()
+    [90m793|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m794|[39m     expect(result.stdout.match(/bubblewrap functional probe passed/g))…
+    [90m795|[39m     expect(result.stdout).toContain(`bubblewrap ${PINNED_BUBBLEWRAP_VE…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstill succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m821:27[22m[39m
+    [90m819|[39m   it('still succeeds when the sysctl knob is absent; the tolerated kno…
+    [90m820|[39m     const result = runScenario({ sudoSucceeds: false })
+    [90m821|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m822|[39m     expect(result.stdout).toContain('apparmor userns knob absent')
+    [90m823|[39m     expect(result.stdout.match(/bubblewrap functional probe passed/g))…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops at a global 404 with the downloader exit code and never hashes, unpacks, or probes
+[31m[1mAssertionError[22m: expected 1 to be 22 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 22[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m829:27[22m[39m
+    [90m827|[39m   it('stops at a global 404 with the downloader exit code and never ha…
+    [90m828|[39m     const result = runScenario({ curl: 'http404' })
+    [90m829|[39m     expect(result.status).toBe(22)
+    [90m   |[39m                           [31m^[39m
+    [90m830|[39m     expect(result.stderr).toContain('404')
+    [90m831|[39m     expect(wasCalled(result, 'sha256sum')).toBe(false)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops at a connection failure with the downloader exit code
+[31m[1mAssertionError[22m: expected 1 to be 7 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 7[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m841:27[22m[39m
+    [90m839|[39m   it('stops at a connection failure with the downloader exit code', ()…
+    [90m840|[39m     const result = runScenario({ curl: 'connfail' })
+    [90m841|[39m     expect(result.status).toBe(7)
+    [90m   |[39m                           [31m^[39m
+    [90m842|[39m     expect(wasCalled(result, 'sha256sum')).toBe(false)
+    [90m843|[39m     expect(wasCalled(result, 'tar')).toBe(false)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops when only the meson download fails, after the bubblewrap input was already verified
+[31m[1mAssertionError[22m: expected 1 to be 22 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 22[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m849:27[22m[39m
+    [90m847|[39m   it('stops when only the meson download fails, after the bubblewrap i…
+    [90m848|[39m     const result = runScenario({ curlFailInput: 'meson' })
+    [90m849|[39m     expect(result.status).toBe(22)
+    [90m   |[39m                           [31m^[39m
+    [90m850|[39m     expect(countCalls(result, 'curl')).toBe(2)
+    [90m851|[39m     expect(countCalls(result, 'tar')).toBe(3)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops when only the libcap download fails, after both tarballs were already extracted
+[31m[1mAssertionError[22m: expected 1 to be 22 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 22[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m859:27[22m[39m
+    [90m857|[39m   it('stops when only the libcap download fails, after both tarballs w…
+    [90m858|[39m     const result = runScenario({ curlFailInput: 'libcap' })
+    [90m859|[39m     expect(result.status).toBe(22)
+    [90m   |[39m                           [31m^[39m
+    [90m860|[39m     expect(countCalls(result, 'curl')).toBe(3)
+    [90m861|[39m     expect(countCalls(result, 'tar')).toBe(6)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a bubblewrap digest mismatch and never unpacks anything
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'pinned SHA-256'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- p[7minned SHA-256[27m[39m
+[31m+ p[7mrepare-ci-bubblewrap supports only Linux x86_64 hosted runners[27m[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m869:27[22m[39m
+    [90m867|[39m     const result = runScenario({ hashFailInput: 'bubblewrap' })
+    [90m868|[39m     expect(result.status).toBe(1)
+    [90m869|[39m     expect(result.stderr).toContain('pinned SHA-256')
+    [90m   |[39m                           [31m^[39m
+    [90m870|[39m     expect(wasCalled(result, 'tar')).toBe(false)
+    [90m871|[39m     expect(wasCalled(result, 'dpkg-deb')).toBe(false)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a meson digest mismatch after the bubblewrap extraction but before the meson unpack
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'pinned SHA-256'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- p[7minned SHA-256[27m[39m
+[31m+ p[7mrepare-ci-bubblewrap supports only Linux x86_64 hosted runners[27m[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m879:27[22m[39m
+    [90m877|[39m     const result = runScenario({ hashFailInput: 'meson' })
+    [90m878|[39m     expect(result.status).toBe(1)
+    [90m879|[39m     expect(result.stderr).toContain('pinned SHA-256')
+    [90m   |[39m                           [31m^[39m
+    [90m880|[39m     expect(countCalls(result, 'tar')).toBe(3)
+    [90m881|[39m     expect(result.mesonToolsDirExists).toBe(false)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a traversal member name in the bubblewrap listing before extraction
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'escapes the extraction root'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- escapes the extraction root[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m896:27[22m[39m
+    [90m894|[39m     const result = runScenario({ unsafeMembers: 'traversal-name', unsa…
+    [90m895|[39m     expect(result.status).toBe(1)
+    [90m896|[39m     expect(result.stderr).toContain('escapes the extraction root')
+    [90m   |[39m                           [31m^[39m
+    [90m897|[39m     expect(anyCallIncludes(result, 'tar -xf')).toBe(false)
+    [90m898|[39m     expect(countCalls(result, 'curl')).toBe(1)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects an absolute member path in the deb listing before extraction
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'absolute path'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- absolute path[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m905:27[22m[39m
+    [90m903|[39m     const result = runScenario({ unsafeMembers: 'absolute-name', unsaf…
+    [90m904|[39m     expect(result.status).toBe(1)
+    [90m905|[39m     expect(result.stderr).toContain('absolute path')
+    [90m   |[39m                           [31m^[39m
+    [90m906|[39m     expect(anyCallIncludes(result, '--extract')).toBe(false)
+    [90m907|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a symlink that escapes the extraction root in the meson metadata listing
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'link escapes the extraction root'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- link escapes the extraction root[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m913:27[22m[39m
+    [90m911|[39m     const result = runScenario({ unsafeMembers: 'symlink-escape', unsa…
+    [90m912|[39m     expect(result.status).toBe(1)
+    [90m913|[39m     expect(result.stderr).toContain('link escapes the extraction root')
+    [90m   |[39m                           [31m^[39m
+    [90m914|[39m     expect(countCalls(result, 'tar')).toBe(5)
+    [90m915|[39m     expect(result.mesonToolsDirExists).toBe(false)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a device member in the deb metadata listing before extraction
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'device member'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- device member[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m922:27[22m[39m
+    [90m920|[39m     const result = runScenario({ unsafeMembers: 'device-member', unsaf…
+    [90m921|[39m     expect(result.status).toBe(1)
+    [90m922|[39m     expect(result.stderr).toContain('device member')
+    [90m   |[39m                           [31m^[39m
+    [90m923|[39m     expect(anyCallIncludes(result, '--extract')).toBe(false)
+    [90m924|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mfails loud when a build tool is missing, before any download
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'requires on PATH: ninja'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- requires on PATH: ninja[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m935:27[22m[39m
+    [90m933|[39m     const result = runScenario({ omitTool: 'ninja', omitPosixParentPat…
+    [90m934|[39m     expect(result.status).toBe(1)
+    [90m935|[39m     expect(result.stderr).toContain('requires on PATH: ninja')
+    [90m   |[39m                           [31m^[39m
+    [90m936|[39m     expect(wasCalled(result, 'curl')).toBe(false)
+    [90m937|[39m   })
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a libcap-dev control identity that does not match the pin
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'control Version is \'1:2.66-5ubuntu9\…'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- control Version is '1:2.66-5ubuntu9', expected '1:2.66-5ubuntu2.4'[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m942:27[22m[39m
+    [90m940|[39m     const result = runScenario({ debVersion: '1:2.66-5ubuntu9' })
+    [90m941|[39m     expect(result.status).toBe(1)
+    [90m942|[39m     expect(result.stderr).toContain(`control Version is '1:2.66-5ubunt…
+    [90m   |[39m                           [31m^[39m
+    [90m943|[39m     expect(anyCallIncludes(result, '--extract')).toBe(false)
+    [90m944|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a libcap-dev payload without the static library
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'lacks the static library libcap.a'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- lacks the static library libcap.a[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m950:27[22m[39m
+    [90m948|[39m     const result = runScenario({ debOmitStaticLib: true })
+    [90m949|[39m     expect(result.status).toBe(1)
+    [90m950|[39m     expect(result.stderr).toContain('lacks the static library libcap.a…
+    [90m   |[39m                           [31m^[39m
+    [90m951|[39m     expect(anyCallIncludes(result, 'pkg-config --modversion')).toBe(fa…
+    [90m952|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops at a deb extraction failure before dependency resolution
+[31m[1mAssertionError[22m: expected 1 to be 2 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 2[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m957:27[22m[39m
+    [90m955|[39m   it('stops at a deb extraction failure before dependency resolution',…
+    [90m956|[39m     const result = runScenario({ debExtractFails: true })
+    [90m957|[39m     expect(result.status).toBe(2)
+    [90m   |[39m                           [31m^[39m
+    [90m958|[39m     expect(anyCallIncludes(result, 'pkg-config --modversion')).toBe(fa…
+    [90m959|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a private libcap that pkg-config resolves to the wrong version
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'resolved version \'9.9\''[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- resolved version '9.9'[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m965:27[22m[39m
+    [90m963|[39m     const result = runScenario({ pkgConfigVersion: '9.9' })
+    [90m964|[39m     expect(result.status).toBe(1)
+    [90m965|[39m     expect(result.stderr).toContain("resolved version '9.9'")
+    [90m   |[39m                           [31m^[39m
+    [90m966|[39m     expect(countCalls(result, 'python3')).toBe(1)
+    [90m967|[39m     expect(wasCalled(result, 'bwrap')).toBe(false)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops at a meson configure failure before any compile
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'controlled configure failure'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- controlled configure failure[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m974:27[22m[39m
+    [90m972|[39m     const result = runScenario({ mesonSetupFails: true })
+    [90m973|[39m     expect(result.status).toBe(1)
+    [90m974|[39m     expect(result.stderr).toContain('controlled configure failure')
+    [90m   |[39m                           [31m^[39m
+    [90m975|[39m     expect(countCalls(result, 'python3')).toBe(2)
+    [90m976|[39m     expect(wasCalled(result, 'bwrap')).toBe(false)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops at a compile failure with no artifact, hash record, probe, or publication
+[31m[1mAssertionError[22m: expected '' to contain 'controlled compile failure'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- controlled compile failure[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m985:27[22m[39m
+    [90m983|[39m     // The compile stub's failure text is merged into the build log by…
+    [90m984|[39m     // script's `2>&1 | tee`, so it surfaces on stdout, not stderr.
+    [90m985|[39m     expect(result.stdout).toContain('controlled compile failure')
+    [90m   |[39m                           [31m^[39m
+    [90m986|[39m     expect(result.builtBwrapExists).toBe(false)
+    [90m987|[39m     expect(result.stdout).not.toContain('built artifact sha256')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a link command with no private libcap directory reference
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'does not reference the private libcap…'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- does not reference the private libcap directory[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m995:27[22m[39m
+    [90m993|[39m     const result = runScenario({ linkMode: 'no-private' })
+    [90m994|[39m     expect(result.status).toBe(1)
+    [90m995|[39m     expect(result.stderr).toContain('does not reference the private li…
+    [90m   |[39m                           [31m^[39m
+    [90m996|[39m     expect(wasCalled(result, 'objdump')).toBe(false)
+    [90m997|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a link command that fell back to the host libcap directory
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'does not reference the private libcap…'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- does not reference the private libcap directory[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1003:27[22m[39m
+    [90m1001|[39m     const result = runScenario({ linkMode: 'host' })
+    [90m1002|[39m     expect(result.status).toBe(1)
+    [90m1003|[39m     expect(result.stderr).toContain('does not reference the private li…
+    [90m   |[39m                           [31m^[39m
+    [90m1004|[39m     expect(result.githubPathContent).toBe('')
+    [90m1005|[39m   })
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22maccepts the -L plus -lcap private search-path link form (form a)
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1009:27[22m[39m
+    [90m1007|[39m   it('accepts the -L plus -lcap private search-path link form (form a)…
+    [90m1008|[39m     const result = runScenario({ linkMode: 'private' })
+    [90m1009|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m1010|[39m     expect(result.stdout).toContain('bwrap link command: cc -o bwrap')
+    [90m1011|[39m     expect(result.stdout).toContain('-lcap')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22maccepts the CI-observed absolute private libcap.a operand link form (run 35445600344, form b)
+[31m[1mAssertionError[22m: expected 1 to be +0 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 0[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1018:27[22m[39m
+    [90m1016|[39m   it('accepts the CI-observed absolute private libcap.a operand link f…
+    [90m1017|[39m     const result = runScenario({ linkMode: 'private-absolute-a' })
+    [90m1018|[39m     expect(result.status).toBe(0)
+    [90m   |[39m                           [31m^[39m
+    [90m1019|[39m     expect(result.stdout).toContain('bwrap link command: [7/7] cc')
+    [90m1020|[39m     expect(result.stdout).toContain('-Wl,--as-needed -Wl,--no-undefine…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a link command that names the host libcap.a operand
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'does not reference the private libcap…'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- does not reference the private libcap directory[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1031:27[22m[39m
+    [90m1029|[39m     const result = runScenario({ linkMode: 'host-absolute-a' })
+    [90m1030|[39m     expect(result.status).toBe(1)
+    [90m1031|[39m     expect(result.stderr).toContain('does not reference the private li…
+    [90m   |[39m                           [31m^[39m
+    [90m1032|[39m     expect(wasCalled(result, 'objdump')).toBe(false)
+    [90m1033|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a built binary that is not an x86-64 ELF
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'elf64-x86-64'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- [7melf64-[27mx86[7m-[27m64[39m
+[31m+ [7mprepare-ci-bubblewrap supports only Linux [27mx86[7m_[27m64[7m hosted runners[27m[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1039:27[22m[39m
+    [90m1037|[39m     const result = runScenario({ objdumpArchBad: true })
+    [90m1038|[39m     expect(result.status).toBe(1)
+    [90m1039|[39m     expect(result.stderr).toContain('elf64-x86-64')
+    [90m   |[39m                           [31m^[39m
+    [90m1040|[39m     expect(wasCalled(result, 'ldd')).toBe(false)
+    [90m1041|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a built binary with a dynamic libcap dependency
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'dynamic libcap dependency'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- dynamic libcap dependency[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1047:27[22m[39m
+    [90m1045|[39m     const result = runScenario({ objdumpNeededLibcap: true })
+    [90m1046|[39m     expect(result.status).toBe(1)
+    [90m1047|[39m     expect(result.stderr).toContain('dynamic libcap dependency')
+    [90m   |[39m                           [31m^[39m
+    [90m1048|[39m     expect(wasCalled(result, 'ldd')).toBe(false)
+    [90m1049|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a built binary whose ldd resolves libcap
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'ldd resolves libcap'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- ldd resolves libcap[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1055:27[22m[39m
+    [90m1053|[39m     const result = runScenario({ lddLibcap: true })
+    [90m1054|[39m     expect(result.status).toBe(1)
+    [90m1055|[39m     expect(result.stderr).toContain('ldd resolves libcap')
+    [90m   |[39m                           [31m^[39m
+    [90m1056|[39m     expect(wasCalled(result, 'sudo')).toBe(false)
+    [90m1057|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mrejects a built binary with the wrong version identity before any probe
+[31m[1mAssertionError[22m: expected 'prepare-ci-bubblewrap supports only L…' to contain 'expected \'bubblewrap 0.12.0\''[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- expected 'bubblewrap 0.12.0'[39m
+[31m+ prepare-ci-bubblewrap supports only Linux x86_64 hosted runners[39m
+[31m+[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1063:27[22m[39m
+    [90m1061|[39m     const result = runScenario({ bwrapVersionOutput: 'bubblewrap 0.11.…
+    [90m1062|[39m     expect(result.status).toBe(1)
+    [90m1063|[39m     expect(result.stderr).toContain(`expected 'bubblewrap ${PINNED_BUB…
+    [90m   |[39m                           [31m^[39m
+    [90m1064|[39m     expect(wasCalled(result, 'sudo')).toBe(false)
+    [90m1065|[39m     expect(result.githubPathContent).toBe('')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mkeeps a functional-probe failure fatal and publishes nothing
+[31m[1mAssertionError[22m: expected 1 to be 17 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 17[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1070:27[22m[39m
+    [90m1068|[39m   it('keeps a functional-probe failure fatal and publishes nothing', (…
+    [90m1069|[39m     const result = runScenario({ probeSucceeds: false })
+    [90m1070|[39m     expect(result.status).toBe(17)
+    [90m   |[39m                           [31m^[39m
+    [90m1071|[39m     expect(result.stdout).not.toContain('bubblewrap functional probe p…
+    [90m1072|[39m     expect(result.stdout).not.toContain('published private-build')
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/30]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts[2m > [22mprepare-ci-bubblewrap.sh end to end (real script, stubbed external effects)[2m > [22mstops at a tarball extraction failure before the next input downloads
+[31m[1mAssertionError[22m: expected 1 to be 2 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 2[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m scripts/prepare-ci-bubblewrap.spec.ts:[2m1107:27[22m[39m
+    [90m1105|[39m   it('stops at a tarball extraction failure before the next input down…
+    [90m1106|[39m     const result = runScenario({ tarExtractFails: true })
+    [90m1107|[39m     expect(result.status).toBe(2)
+    [90m   |[39m                           [31m^[39m
+    [90m1108|[39m     expect(result.stderr).toContain('controlled extraction failure')
+    [90m1109|[39m     expect(countCalls(result, 'curl')).toBe(1)
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/30]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m30 failed[39m[22m[2m | [22m[1m[32m5 passed[39m[22m[2m | [22m[33m30 skipped[39m[90m (65)[39m
+[2m   Start at [22m 22:45:35
+[2m   Duration [22m 7.36s[2m (tests 91%, import 4%, transform 4%, setup 1%)[22m

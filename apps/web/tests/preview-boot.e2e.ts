@@ -21,7 +21,7 @@ import { readFile } from 'node:fs/promises'
 import { createServer } from 'node:http'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { tmpdir } from 'node:os'
-import { dirname, extname, join, normalize } from 'node:path'
+import { dirname, extname, join, normalize, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { chromium } from 'playwright'
 import type { Browser } from 'playwright'
@@ -34,7 +34,10 @@ import {
   IMAGE_FILE_NAME, PREVIEW_FIXTURE_MANIFEST_FILE, PREVIEW_FIXTURE_MANIFEST_VERSION,
   type PreviewFixtureManifest,
 } from '@deepseek-ai/dsh-experimental-webworker-runtime'
-import { buildVfsExampleFiles } from '../../../packages/experimental/webworker-runtime/tests/vfs-example-fixture.ts'
+import {
+  VFS_EXAMPLE_SESSION_IDS,
+  buildVfsExampleFiles,
+} from '../../../packages/experimental/webworker-runtime/tests/vfs-example-fixture.ts'
 import { captureStableAria, compareOrRefreshGolden, webSnapshotMode } from './scaffold.ts'
 import { newEnglishPage, REPO_ROOT, saveFailureShot } from './support.ts'
 
@@ -187,9 +190,17 @@ async function respond(
   overrides: ReadonlyMap<string, string>,
 ): Promise<void> {
   const path = new URL(request.url ?? '/', 'http://127.0.0.1').pathname
-  const relative = normalize(decodeURIComponent(path)).replace(/^\/+/, '')
+  // URL paths are forward-slash static-host paths; the override keys use the
+  // same form. `path.normalize` is Windows-separator-aware and must never
+  // touch the lookup key (it would break every override into backslashes);
+  // it only canonicalizes the disk path, whose traversal is contained below.
+  const relative = decodeURIComponent(path).replace(/^\/+/, '')
+  const diskPath = normalize(join(DIST_ROOT, relative))
   try {
-    const body = await readFile(overrides.get(relative) ?? join(DIST_ROOT, relative))
+    if (diskPath !== DIST_ROOT && !diskPath.startsWith(`${DIST_ROOT}${sep}`)) {
+      throw new Error(`path escapes dist: ${relative}`)
+    }
+    const body = await readFile(overrides.get(relative) ?? diskPath)
     response.writeHead(200, { 'content-type': MIME[extname(relative)] ?? 'application/octet-stream' })
     response.end(body)
   } catch {
@@ -314,10 +325,10 @@ async function bootPreview(origin: string, browser: Browser): Promise<void> {
     const configureLater = page.getByRole('button', { name: 'Configure later' })
     await configureLater.waitFor({ timeout: 30_000 })
     await configureLater.click()
-    await page.locator('[data-composer-input][data-placeholder="Describe what you want to build... / commands, @ files or sessions"]')
+    await page.locator('[data-composer-input][data-placeholder="Describe what you want to build, / commands, @ files or sessions"]')
       .waitFor({ timeout: 30_000 })
 
-    const exercised = await page.evaluate(async () => {
+    const exercised = await page.evaluate(async ({ seededSessionId, seededSessionTitle }) => {
       type Result<T> = { result: { ok: true; value: T } | { ok: false; error: { code: string; message: string } } }
       interface PreviewTransport {
         fetch(input: string, init: RequestInit): Promise<Response>
@@ -352,6 +363,14 @@ async function bootPreview(origin: string, browser: Browser): Promise<void> {
         if (!body.result.ok) throw new Error(`${endpoint} failed: ${body.result.error.message}`)
         return body.result.value
       }
+      // Keep the fixture title stable for later UI assertions; increasing seqs
+      // prove that the cold Session acquired its write lease and appended.
+      const firstRename = await remote<{ title: string; seq: number }>('session/rename', {
+        request: { sessionId: seededSessionId, title: seededSessionTitle },
+      })
+      const secondRename = await remote<{ title: string; seq: number }>('session/rename', {
+        request: { sessionId: seededSessionId, title: seededSessionTitle },
+      })
       const skills = await remote<{ skills: Array<{ name: string }> }>(
         'skills/list', { request: { sessionId } },
       )
@@ -384,10 +403,17 @@ async function bootPreview(origin: string, browser: Browser): Promise<void> {
       await remote('credentials/unset', { ref: 'PREVIEW_TEST_SECRET' })
       await new Promise((resolve) => { setTimeout(resolve, 250) })
       return {
+        renamedTitle: secondRename.title,
+        renameAdvanced: secondRename.seq > firstRename.seq,
         skillCount: skills.skills.length,
         credentialConfigured: credentials.PREVIEW_TEST_SECRET?.configured,
       }
+    }, {
+      seededSessionId: VFS_EXAMPLE_SESSION_IDS.main,
+      seededSessionTitle: SHOWCASE_TITLE,
     })
+    expect(exercised.renamedTitle).toBe(SHOWCASE_TITLE)
+    expect(exercised.renameAdvanced).toBe(true)
     expect(exercised.skillCount).toBeGreaterThan(0)
     expect(exercised.credentialConfigured).toBe(true)
 
@@ -398,8 +424,8 @@ async function bootPreview(origin: string, browser: Browser): Promise<void> {
     await page.getByText(SHOWCASE_TAIL, { exact: true }).waitFor({ timeout: 30_000 })
 
     expect(await page.getByText(SHOWCASE_OLDEST, { exact: true }).count()).toBe(0)
-    await page.getByText('PREVIEW.md', { exact: true }).waitFor()
-    await page.getByText('src/preview.ts', { exact: true }).waitFor()
+    await page.getByRole('button', { name: 'PREVIEW.md', exact: true }).waitFor()
+    await page.getByRole('button', { name: 'src/preview.ts', exact: true }).waitFor()
     await page.getByText('Update to-do list', { exact: true }).waitFor()
     await page.getByText('Error: ENOENT: no such file, open missing.txt', { exact: true }).waitFor()
 
@@ -415,7 +441,7 @@ async function bootPreview(origin: string, browser: Browser): Promise<void> {
     await page.getByText(SHOWCASE_OLDEST, { exact: true }).waitFor({ timeout: 15_000 })
     expect(pageErrors.map(error => error.message)).toEqual([])
     expect(consoleErrors.filter(line =>
-      /watchFile|failed to watch|node-addon-landlock-run\.probe|sandbox backend is usable|SANDBOX_UNAVAILABLE/i.test(line))).toEqual([])
+      /watchFile|failed to watch|node-addon-system\.probe|sandbox backend is usable|SANDBOX_UNAVAILABLE/i.test(line))).toEqual([])
   } catch (error) {
     await saveFailureShot(page, 'preview-boot')
     throw pageErrors.length === 0
@@ -473,7 +499,11 @@ async function bootEmptyPreview(origin: string, browser: Browser): Promise<void>
     })
     expect(sessionCount).toBe(0)
     expect(pageErrors.map(error => error.message)).toEqual([])
-    expect(failedResponses).toEqual(['/plugins/events'])
+    // Two accepted static-host 404s, sorted (the boot fetches race): the HMR
+    // event stream has no server here, and the open-in-app availability read
+    // has no host routes — the controller publishes an empty list and the
+    // header renders no button, which is that surface's designed degradation.
+    expect([...failedResponses].sort()).toEqual(['/open-in-app/apps', '/plugins/events'])
     expect(consoleErrors.filter(line => !line.includes('Failed to load resource: the server responded with a status of 404')))
       .toEqual([])
   } catch (error) {

@@ -1,0 +1,54 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts (13 tests | 1 failed) 7654ms
+   ✓ prepare-ci-bubblewrap.sh pinned identity (source-level) (2)
+     ✓ keeps the pinned version, pinned SHA-256, and the verified snapshot URL literal 2ms
+     ✓ checks the digest before extraction 0ms
+   ❯ prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) (11)
+     ✓ succeeds from the verified snapshot source with the pinned identity, in order, once 1559ms
+     ✓ still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success 1149ms
+     ✓ stops at the 404 download with the script exit code and never hashes, extracts, escalates, or probes 323ms
+     ✓ stops at a connection failure with the downloader exit code and never advances a phase 435ms
+     × rejects a digest mismatch on the pinned identity and never unpacks or publishes a path 1482ms
+     ✓ stops at a failed extraction before any privilege or probe step 808ms
+     ✓ keeps a functional-probe failure fatal and prints no success line 1164ms
+     ✓ refuses a non-Linux host before any download 168ms
+     ✓ refuses a non-x86_64 host before any download 353ms
+     ✓ fails loud when RUNNER_TEMP is missing, before any download 68ms
+     ✓ fails loud when GITHUB_PATH is missing, before any download 66ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > rejects a digest mismatch on the pinned identity and never unpacks or publishes a path
+AssertionError: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ scripts/prepare-ci-bubblewrap.spec.ts:295:27
+    293|   it('rejects a digest mismatch on the pinned identity and never unpac…
+    294|     const result = runScenario({ curl: 'ok', hashMatches: false })
+    295|     expect(result.status).toBe(1)
+       |                           ^
+    296|     expect(wasCalled(result, 'sha256sum')).toBe(true)
+    297|     expect(wasCalled(result, 'dpkg-deb')).toBe(false)
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 12 passed (13)
+   Start at  11:46:30
+   Duration  8.37s (tests 94%, transform 4%, import 1%, setup 1%)
+
+vitest_exit=1

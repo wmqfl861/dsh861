@@ -1,0 +1,93 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ❯  thread-safe  packages/context/session-reference/tests/session-reference.spec.ts (47 tests | 1 failed) 518ms
+   ✓ session reference URI and inline mentions (2)
+     ✓ round-trips arbitrary session ids and replaces mentions with readable labels 3ms
+     ✓ rejects malformed explicit references and base64url-shaped bare candidates 1ms
+   ✓ session reference spill outcomes (11)
+     ✓ leaves intact references unchanged without saving 25ms
+     ✓ saves the full captured transcript for huge single message 16ms
+     ✓ saves the full captured transcript for whole dropped messages 7ms
+     ✓ saves the full captured transcript for tiny preview 8ms
+     ✓ saves the full captured transcript for escaped controls 7ms
+     ✓ keeps per-reference locators distinct and durable beside an intact reference 8ms
+     ✓ spills only the captured projection even when the source changes during saving 11ms
+     ✓ reports unavailable when optional storage is missing 6ms
+     ✓ reports unavailable when optional storage is failure 6ms
+     ✓ never publishes context when cancellation arrives during-save 8ms
+     ✓ never publishes context when cancellation arrives after-save 7ms
+   ❯ model-relative reference budgets (15)
+     ✓ bounds each source with config {} and capacity 200001 31ms
+     ✓ bounds each source with config {} and capacity 8000 14ms
+     ✓ bounds each source with config {"referenceContextFraction":0.1} and capacity 200001 14ms
+     ✓ bounds each source with config {"referenceContextFraction":0} and capacity 200001 16ms
+     ✓ bounds each source with config {"maxReferenceBytes":360} and capacity 200001 7ms
+     ✓ uses the assembled selection, not the header, seed, or next selected model 30ms
+     ✓ uses the floor for absent metadata, service, or assembled route and ignores diagnostic assemblies 38ms
+     ✓ uses the floor when the real LLM runtime has no adapter for the route 14ms
+     ✓ does not swallow other LLM errors or cancellation coincident with an absent adapter 7ms
+     ✓ propagates lookup errors and cancels an unresolved lookup without reading sources 7ms
+     × removes both listeners when the resolver fiber is disposed 33ms
+     ✓ rejects invalid fraction -0.1 for direct construction 2ms
+     ✓ rejects invalid fraction 1.1 for direct construction 1ms
+     ✓ rejects invalid fraction NaN for direct construction 1ms
+     ✓ rejects invalid fraction Infinity for direct construction 1ms
+   ✓ session reference discovery and preparation (19)
+     ✓ matches candidate metadata and titles before ranking by cwd 10ms
+     ✓ reads an attached session's current title, ahead of any checkpoint 15ms
+     ✓ labels a cold session from its checkpoint and reads no log 4ms
+     ✓ labels a session no projection answers for by its id, still without a log read 4ms
+     ✓ labels every session by id when no projection face is composed 3ms
+     ✓ serves the Remote face with the configured limit and canonical mentions 4ms
+     ✓ prepares direct mentions at pre-step and keeps ordinary and plugin messages unchanged 5ms
+     ✓ does not prepare a rejected pre-step and rejects malformed direct mentions 7ms
+     ✓ still matches an unlabeled session on its own metadata 8ms
+     ✓ projects only the current user/assistant surface and records snapshot metadata 9ms
+     ✓ records the current source format generation without rebasing its frozen sequence 6ms
+     ✓ excludes injected context when projecting a referenced session 4ms
+     ✓ keeps source text inside tag-safe JSON framing without changing its value 5ms
+     ✓ deduplicates before enforcing the cap and rejects self, excess, read failure, and cancellation 68ms
+     ✓ retains compact checkpoints and latest messages within an exact per-reference UTF-8 budget 7ms
+     ✓ applies the full byte limit independently to each of three references 6ms
+     ✓ fails without producing a partial context when fixed prompt data cannot fit 4ms
+     ✓ keeps target replay independent after source mutation, compaction, and deletion 6ms
+     ✓ rejects direct invalid configuration before service publication 9ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   thread-safe  packages/context/session-reference/tests/session-reference.spec.ts > model-relative reference budgets > removes both listeners when the resolver fiber is disposed
+SessionReferenceError: failed to read referenced session: cannot get required service "sessionQuery" in inactive context
+ ❯ SessionReferenceResolver.prepare packages/context/session-reference/src/index.ts:321:13
+    319|     } catch (error: unknown) {
+    320|       if (signal?.aborted === true) throw cancelled(signal)
+    321|       throw new SessionReferenceError(
+       |             ^
+    322|         `failed to read referenced session: ${error instanceof Error ?…
+    323|         'SESSION_REFERENCE_READ_FAILED',
+ ❯ packages/context/session-reference/src/index.ts:168:24
+ ❯ SessionReferenceResolver.prepareDirectMessages packages/context/session-reference/src/index.ts:158:22
+ ❯ Object.SessionReferenceResolver.ctx.root.on.prepend packages/context/session-reference/src/index.ts:140:19
+ ❯ packages/context/session-reference/tests/session-reference.spec.ts:659:25
+
+Caused by: Error: cannot get required service "sessionQuery" in inactive context
+ ❯ packages/context/session-reference/src/index.ts:315:36
+ ❯ SessionReferenceResolver.prepare packages/context/session-reference/src/index.ts:313:28
+ ❯ packages/context/session-reference/src/index.ts:168:24
+ ❯ SessionReferenceResolver.prepareDirectMessages packages/context/session-reference/src/index.ts:158:22
+ ❯ Object.SessionReferenceResolver.ctx.root.on.prepend packages/context/session-reference/src/index.ts:140:19
+ ❯ packages/context/session-reference/tests/session-reference.spec.ts:659:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 46 passed (47)
+   Start at  14:43:14
+   Duration  1.95s (transform 57%, tests 29%, import 11%, setup 3%)

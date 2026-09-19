@@ -604,6 +604,54 @@ describe('Client Remote transport readiness', () => {
     })
   })
 
+  it.each([false, true])('replaces a stalled carrier and restores events (socket opened: %s)', async (autoOpen) => {
+    await withFakeWebSocket('https://harness.example', async () => {
+      vi.useFakeTimers()
+      vi.stubGlobal('__DSH_CONNECTION_RECOVERY__', {
+        backoffBaseMs: 10, backoffMaxMs: 10, generationReadyTimeoutMs: 100,
+      })
+      Object.assign(globalThis.location, { hostname: 'harness.example', search: '' })
+      const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
+      FakeWebSocket.autoOpen = autoOpen
+      const ctx = new Context()
+      const reset = vi.fn()
+      ctx.on('connection/reset', reset)
+      try {
+        await ctx.plugin(TypertRegistry)
+        await ctx.plugin({ inject: [], apply: applyConnection })
+        await ctx.plugin({ inject, apply })
+        await vi.advanceTimersByTimeAsync(0)
+        const connection = ctx.get('connection') as ConnectionHandle
+        expect(FakeWebSocket.sockets).toHaveLength(1)
+        expect(connection.generation.getSnapshot()).toBeUndefined()
+        await vi.advanceTimersByTimeAsync(110)
+        expect(FakeWebSocket.sockets).toHaveLength(2)
+        expect(FakeWebSocket.sockets[0]?.readyState).toBe(FakeWebSocket.CLOSED)
+        expect(FakeWebSocket.sockets[0]?.closedWith).toHaveLength(1)
+        expect(reset).not.toHaveBeenCalled()
+        const replacement = FakeWebSocket.sockets[1]!
+        replacement.open()
+        await vi.advanceTimersByTimeAsync(0)
+        const opening = JSON.parse(replacement.sent[0]!) as { streamId: string }
+        replacement.receive({
+          type: 'item', streamId: opening.streamId,
+          value: { type: 'ready', clientId: 'recovered-client', host: { home: '/recovered' } },
+        })
+        await vi.advanceTimersByTimeAsync(0)
+        expect(connection.state.getSnapshot()).toBe('connected')
+        expect(connection.generation.getSnapshot()?.host.home).toBe('/recovered')
+        expect(reset).toHaveBeenCalledOnce()
+        expect(vi.getTimerCount()).toBe(0)
+      } finally {
+        await ctx.fiber.dispose()
+        await vi.advanceTimersByTimeAsync(0)
+        warnSpy.mockRestore()
+        vi.unstubAllGlobals()
+        vi.useRealTimers()
+      }
+    })
+  })
+
   it('does not replace an in-process carrier when Connection retries', async () => {
     const { client, start } = await benchFiber(
       vi.fn<ConnectionHandle['rpc']['call']>(),
@@ -761,9 +809,9 @@ describe('Client Typert API', () => {
     const call = vi.fn<ConnectionHandle['rpc']['call']>()
       .mockResolvedValue({ ok: true, value: { ref: 'goal-2' } })
     const ctx = await bench(call)
-    const agentCtx = ctx.extend({ fixtureId: 'agent-2' }) as FixtureContext
+    const agentCtx = ctx.extend({ [fixtureContextTag]: 'agent-2' }) as FixtureContext
     ctx.typert.contexts.registerClient('fixture', {
-      identity: candidate => (candidate as Context & { fixtureId?: string }).fixtureId,
+      identity: candidate => (candidate as Context & { [fixtureContextTag]?: string })[fixtureContextTag],
       resolve: id => id === 'agent-2' ? agentCtx : undefined,
     })
     const assembly = ctx.plugin(Object.assign(
@@ -782,6 +830,7 @@ describe('Client Typert API', () => {
     )
     await expect((ctx as FixtureContext).remote.probe.create({ objective: 'wrong scope' }))
       .rejects.toThrow('expected 2 business argument(s)')
+    expect(call).toHaveBeenCalledTimes(1)
 
     await assembly.dispose()
     expect((ctx.remote as unknown as Record<string, unknown>).probe).toBeUndefined()
@@ -792,9 +841,9 @@ describe('Client Typert API', () => {
     const call = vi.fn<ConnectionHandle['rpc']['call']>()
       .mockResolvedValue({ ok: true, value: { renamed: true } })
     const ctx = await bench(call)
-    const agentCtx = ctx.extend({ fixtureId: 'agent-2' }) as FixtureContext
+    const agentCtx = ctx.extend({ [fixtureContextTag]: 'agent-2' }) as FixtureContext
     ctx.typert.contexts.registerClient('fixture', {
-      identity: candidate => (candidate as Context & { fixtureId?: string }).fixtureId,
+      identity: candidate => (candidate as Context & { [fixtureContextTag]?: string })[fixtureContextTag],
       resolve: id => id === 'agent-2' ? agentCtx : undefined,
     })
     const assembly = ctx.plugin(Object.assign(
@@ -813,6 +862,7 @@ describe('Client Typert API', () => {
     )
     await expect((ctx as FixtureContext).remote.probe.rename({ objective: 'land' }))
       .rejects.toThrow('requires a "fixture" Context')
+    expect(call).toHaveBeenCalledTimes(1)
 
     await assembly.dispose()
     expect(ctx.get('remote.probe')).toBeUndefined()
@@ -838,9 +888,9 @@ describe('Client Typert API', () => {
     const call = vi.fn<ConnectionHandle['rpc']['call']>()
       .mockResolvedValue({ ok: true, value: { renamed: true } })
     const ctx = await bench(call)
-    const agentCtx = ctx.extend({ fixtureId: 'agent-remounted' }) as FixtureContext
+    const agentCtx = ctx.extend({ [fixtureContextTag]: 'agent-remounted' }) as FixtureContext
     ctx.typert.contexts.registerClient('fixture', {
-      identity: candidate => (candidate as Context & { fixtureId?: string }).fixtureId,
+      identity: candidate => (candidate as Context & { [fixtureContextTag]?: string })[fixtureContextTag],
       resolve: id => id === 'agent-remounted' ? agentCtx : undefined,
     })
     const direct = directDescriptor()

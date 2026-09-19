@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "C:\Albert\project\dsh861\scripts\smoke-python-runtime.py", line 2433, in <module>
+    main()
+  File "C:\Albert\project\dsh861\scripts\smoke-python-runtime.py", line 807, in main
+    smoke_sdk_profile_plugin(model.url)
+  File "C:\Albert\project\dsh861\scripts\smoke-python-runtime.py", line 1249, in smoke_sdk_profile_plugin
+    raise AssertionError(
+AssertionError: Python-installed dsh could not add the external profile plugin: returncode=1 (0x00000001) stdout='\u2009WARN\u2009 Installing a dependency from a non-existent directory: C:\\Users\\Joyce Gu\\AppData\\Local\\Temp\\dsh-sdk-profile-plugin-7bbovgr3\\home\\profiles\\sdk\\Gu\\AppData\\Local\\Temp\\dsh-sdk-profile-plugin-7bbovgr3\\plugin\n\u2009ERR_PNPM_NOT_PACKAGE_DIRECTORY\u2009 Could not install from "C:/Users/Joyce" as it is not a directory.\n\nThis error happened while installing a direct dependency of C:\\Users\\Joyce Gu\\AppData\\Local\\Temp\\dsh-sdk-profile-plugin-7bbovgr3\\home\\profiles\\sdk\n' stderr='dsh: initialized profile sdk at C:\\Users\\Joyce Gu\\AppData\\Local\\Temp\\dsh-sdk-profile-plugin-7bbovgr3\\home\\profiles\\sdk\ndsh: pnpm failed in profile directory C:\\Users\\Joyce Gu\\AppData\\Local\\Temp\\dsh-sdk-profile-plugin-7bbovgr3\\home\\profiles\\sdk\n'
+EXIT: 1

@@ -1,5 +1,6 @@
-import { Context, FiberState, Inject, Service, type Fiber } from '@deepseek-ai/cordis'
-import { defineProperty, isNullable, type Dict } from '@deepseek-ai/cosmokit'
+import { Context, FiberState, Inject, Service } from '@deepseek-ai/cordis'
+import type { Fiber } from '@deepseek-ai/cordis'
+import { defineProperty, isNullable, type Awaitable, type Dict } from '@deepseek-ai/cosmokit'
 import { ModuleLoader } from './internal.ts'
 import { Entry, type EntryOptions } from './config/entry.ts'
 import { EntryGroup } from './config/group.ts'
@@ -26,7 +27,7 @@ declare module '@deepseek-ai/cordis' {
     'loader/config-update'(): void
     'loader/entry-init'(entry: Entry): void
     'loader/partial-dispose'(entry: Entry, legacy: Partial<EntryOptions>, active: boolean): void
-    'loader/patch-context'(entry: Entry, next: () => void | Promise<void>): void | Promise<void>
+    'loader/patch-context'(entry: Entry, next: () => Awaitable<void>): Awaitable<void>
   }
 
   interface Context {
@@ -102,10 +103,15 @@ export class Loader extends EntryTree {
 
     ctx.on('internal/update', async function (config, noSave, next) {
       if (!this.entry || noSave || this.parent.fiber?.entry === this.entry) return next()
-      await next()
+      // Propagate the restart outcome: Fiber.update's veto check treats an
+      // undefined waterfall result as a listener veto.
+      const result = await next()
       const unparse = this.runtime?.Config?.['simplify']
-      this.entry.options.config = unparse ? unparse(config) : config
-      this.entry.parent.tree.write()
+      const { entry } = this
+      const legacy = { ...entry.options }
+      entry.options.config = unparse ? unparse(config) : config
+      entry.parent.tree.commit({ id: entry.options.id, group: entry.parent, options: entry.options, legacy })
+      return result
     }, { global: true, prepend: true })
 
     ctx.on('internal/update', function (config, _, next) {
@@ -146,21 +152,27 @@ export class Loader extends EntryTree {
       // case 6: Loader is replacing or removing this exact fiber
       if (fiber.entry._disposing) return
 
-      this.showLog(fiber.entry, 'unload')
+      const { entry } = fiber
+      this.showLog(entry, 'unload')
+
+      // case 6: the entry is being removed by the loader (`EntryGroup.remove`
+      // unregisters it before disposing the fiber)
+      if (entry.parent.tree.store[entry.options.id] !== entry) return
 
       // case 7: fiber is disposed by loader behavior
       // such as inject checker, config file update, ancestor group disable
-      if (fiber.entry.disabled) return
+      if (entry.disabled) return
 
-      fiber.entry.options.disabled = true
-      fiber.entry.parent.tree.write()
+      const legacy = { ...entry.options }
+      entry.options.disabled = true
+      entry.parent.tree.commit({ id: entry.options.id, group: entry.parent, options: entry.options, legacy })
     })
 
     ctx.plugin(isolate)
   }
 
-  write() {
-    // Loader's root tree is in-memory; writes are no-ops.
+  commit() {
+    // the root tree lives in memory only; there is nothing to persist to
   }
 
   [Service.check]() {

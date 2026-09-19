@@ -1,0 +1,5 @@
+[diag2] execa loaded, tsx = file:///C:/Albert/project/dsh861/node_modules/.pnpm/tsx@4.23.13/node_modules/tsx/dist/loader.mjs
+[diag2] + 8037 ms; timedOut = false ; exitCode = 1
+[diag2] stdout bytes = 0  stderr bytes = 733
+[diag2] stderr first 300: headless-test-driver: plugin tree failed to load: failed to apply loader entry resumed-agent (file:///C:/Albert/project/dsh861/apps/cli/tests/profiles/headless/tests/fixtures/subagent-diagnostic-agent.ts): session "subagent-diagnostic-parent" not found
+SessionPersistenceNotFoundError: session "subag

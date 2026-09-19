@@ -1,0 +1,101 @@
+{
+  "round": "r29-windows-execution",
+  "recordedOn": "2026-09-14",
+  "kind": "receive-fixed-candidate-and-close-local-gates",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pullRequest": 13,
+  "pullRequestRemainsDraft": true,
+  "actor": "ZCode builtin execution subagent; not the designated Codex planner or OpenCode reviewer",
+  "intake": {
+    "rollbackCheck": {
+      "worktreeBeforeFetch": "clean at ccc5aa51d50fb4e51c3a89658db8d769811221d4 (r28 final); no repository rollback needed",
+      "externalDirCleanup": "C:\\dsh-pr17-2026-09-14-01 (previous session's credential-less GitHub read-only downloads only, verified file-by-file) deleted; no other-origin files present"
+    },
+    "fetch": "git fetch origin chore/latest-stable-upgrade-20260912 -> FETCH_HEAD d77aa9bf56ec7f05ba94c37e532802308eeed6ed; stale tracking ref 6d6250bc8b fast-forwarded via explicit refspec",
+    "merge": "git merge --ff-only origin/chore/latest-stable-upgrade-20260912: ccc5aa51d5 -> d77aa9bf56, 2 commits received (321172e13c source fix + d77aa9bf56 handoff/evidence); no reset, no force, no stash, no re-clone, no patch applied (gateway-scope-r27/changes.patch untouched)",
+    "taskFileBlob": "git rev-parse d77aa9bf56:development/remediation/2026-09-13/ci-gates-r29/LOCAL_AGENT_TASK.md = 4256b16d689c4f3f20a6c3d66d6c469d22e1553d (matches handoff)"
+  },
+  "integrityChecks": {
+    "ancestor321": "git merge-base --is-ancestor 321172e13c0962fdb3c745f2e3317015fc5802fb HEAD -> exit 0",
+    "acpCordisYml": "git ls-files --stage -> 100644 2a4483236bc2e2d05b4f6fc5f7192eeddf010cf9 0 (mode and blob match)",
+    "builtLibE2eBlob": "c44e5339057d61c7fe9fb1d6476dec9c323016e5 (matches)",
+    "configFilesSpecBlob": "ea6350ce943f94296903ac3f0f4b539e2f9e3450 (matches)",
+    "headlessTestBlob": "48ea951be09b747f888b0545f8e7af10d628212a (matches ci-followup consumersSourceCrossCheck)"
+  },
+  "environment": {
+    "host": "Windows 10.0.26200 (win-x64), Git Bash",
+    "node": "26.8.2 (C:\\dsh-r24-upgrade-20260912-01\\node-v26.8.2-win-x64, explicit PATH)",
+    "pnpm": "12.4.1 (C:\\dsh-r24-upgrade-20260912-01\\pnpm-12.4.1)",
+    "dependencies": "existing workspace install; no global tool changes"
+  },
+  "testRuns": [
+    { "gate": "cordis-config-files spec", "command": "pnpm exec vitest run scripts/cordis-config-files.spec.ts", "exitCode": 0, "result": "4 passed / 0 failed / 0 skipped (2 projects x 2 tests: new ACP index-mode regression + original Loader YAML glob case)", "log": "logs/01-config-files-spec.log" },
+    { "gate": "Cordis config", "command": "pnpm run verify-cordis-config", "exitCode": 0, "result": "153 config files passed (baseline run-14 Linux ENOENT lane passes locally)", "log": "logs/02-verify-cordis-config.log" },
+    { "gate": "workspace build", "command": "pnpm run build", "exitCode": 0, "result": "244 client artifacts recorded; all 12 built-lib requiredArtifacts freshly generated", "log": "logs/03-build.log" },
+    { "gate": "Remotes built-lib E2E", "command": "pnpm exec vitest run --config vitest.e2e.config.ts packages/api/remotes/tests/built-lib.e2e.ts", "exitCode": 0, "result": "1 passed / 0 skipped - describe.skipIf did not trigger; plain Node loaded generated Host/Client bundles over loopback HTTP; run-14 'cannot get property builtAgentId without inject' cleared by the script-local Symbol fix", "log": "logs/04-built-lib-e2e.log" },
+    { "gate": "headless third-request repro", "command": "pnpm exec vitest run --config vitest.expected.config.ts apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts -t 'keeps provider comments alive'", "exitCode": 1, "result": "first failure preserved: expected [ {…(9)}, {…(7)}, {…(9)} ] to have length 2 but got 3, at headless.expected.e2e.ts:471 - same test and symptom as CI run-14 job 103744493702", "log": "logs/05-headless-repro-1.log" },
+    { "gate": "headless diagnosis capture", "command": "scratch diag spec (copy: logs/diag-third-request.expected.e2e.ts.txt) over the same loopback mock and fake key", "exitCode": 0, "result": "clean run: [main max_tokens=256000 (9 fields), title max_tokens=64 (7 fields)]; deviant run (loop iteration 2): [main, title, main] with session seq 15 llm/retry {turn:1, step:1, failure:'DeepSeek stream idle timeout after 150ms', code:'TIMEOUT', retry:1/5} after title dispatch (seq 13) - the third request is a main-request retry", "logs": ["logs/06-diag-run.log", "logs/06-third-request-diagnosis.json", "logs/07-diag-run-loop.log", "logs/07-third-request-diagnosis-loop.json"] },
+    { "gate": "negative regression proof", "command": "fixture temporarily reverted to 150, same vitest entry", "exitCode": 1, "result": "deterministic failure at the new assertion: 'expected 150 to be greater than or equal to 240' in 7 ms; fixture then restored to 1000", "log": "logs/08-negative-regression-check.log" },
+    { "gate": "post-fix stability loop", "command": "6 consecutive runs of the fixed scenario", "exitCode": 0, "result": "6/6 exit 0 (pre-fix deviance observed 2 of 4 runs)", "log": "logs/09-postfix-loop.log" },
+    { "gate": "full headless expected file", "command": "pnpm exec vitest run --config vitest.expected.config.ts apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts", "exitCode": 1, "result": "7 passed / 6 failed; the fixed scenario and every test touched by the change pass; the 6 failures are pre-existing {{cwd}} golden path diffs (see abComparison)", "log": "logs/10-headless-full-file.log" },
+    { "gate": "A/B pre-existence control", "command": "git checkout d77aa9bf56 -- (fixture + test), rerun full file, restore fixed files", "exitCode": 1, "result": "baseline files produce the IDENTICAL per-test outcome set (6 failed / 7 passed, empty diff) - the 6 failures pre-exist and are unrelated to this fix", "log": "logs/11-ab-baseline-full-file.log" },
+    { "gate": "typecheck", "command": "pnpm run typecheck", "exitCode": 0, "result": "build:lib:host + tsc -b tsconfig.client.json clean", "log": "logs/12-typecheck.log" },
+    { "gate": "lint", "command": "pnpm run lint", "exitCode": 0, "result": "oxlint 3592 files, 0 warnings, 0 errors", "log": "logs/13-lint.log" },
+    { "gate": "test:docs", "command": "pnpm run test:docs (doc-quick aggregate)", "exitCode": 0, "result": "recorded after evidence dir creation; first run failed only on the not-yet-existing windows-execution/verification.json cross-link from the new Agent Note, both resolved together", "log": "logs/14-test-docs.log" }
+  ],
+  "headlessFix": {
+    "rootCause": "fixture streamIdleTimeoutMs 150 (commit 244de7c18a) over the mock's 60 ms keep-alive cadence left a 2.5x margin; SSE comments do count as transport activity (parseSse onComment), but Windows scheduler jitter under the concurrent title stream and tsx source-mode transform intermittently exceeded 150 ms between keep-alives, aborting the main stream (STREAM_IDLE_TIMEOUT) and re-dispatching it per the deployed retry policy (TIMEOUT retryable, maxRetries 5)",
+    "productVerdict": "retry policy, idle watchdog, and title scheduling unchanged and correct; watchdog and retry have their own unit/scenario tests (packages/llm/llm-deepseek/tests/adapter.spec.ts, provider-retry scenario)",
+    "change": "apps/cli/tests/profiles/headless/tests/fixtures/deepseek-defaults.patch.yml streamIdleTimeoutMs 150 -> 1000 (pi-ai sibling parity, 16.7x margin); headless.expected.e2e.ts names KEEP_ALIVE_INTERVAL_MS=60 (replacing both mock literals) and asserts the fixture idle budget >= 4 keep-alive intervals",
+    "contractPreserved": "expect(2) unchanged; one main + one title request; no sleeps, no retry suppression, no golden refresh, no title disable",
+    "preExistingLocalFailures": "six {{cwd}} golden path-normalization failures on this host (8.3 short-name temp paths); identical under baseline files per A/B; fixtures replay on macOS/Linux per repository testing policy; CI run-14 Linux test:expected was 30 passed / 1 failed (only the third-request case), so these are host-local, not branch regressions; not widened in scope this round",
+    "agentNote": ".agents/notes/implemented/testing/2026-09-14-headless-deepseek-defaults-idle-budget.md (+.zh.md, .i18n.yaml)"
+  },
+  "r28ReviewFollowups": {
+    "F1F2-stale-log-names": {
+      "finding": "sealed development/remediation/2026-09-13/ci-integration-r28/verification.json references three log names that do not exist on disk",
+      "errata": [
+        { "referenced": "local-execution/logs/18-build-exe-newdeploy2.log", "actual": "local-execution/logs/18-build-exe-node26-full-pass.log", "verified": "EXIT 0; exe + -rg.exe sidecar synced (5534 lines)" },
+        { "referenced": "local-execution/logs/19-build-exe-node24.log", "actual": "local-execution/logs/19-build-exe-node24-full-pass.log", "verified": "EXIT 0; exe + sidecar synced (5401 lines)" },
+        { "referenced": "local-execution/logs/25-blackbox-keyless-spacefree.log", "actual": "local-execution/logs/25-blackbox-keyless-pass.log", "verified": "'smoke-python-runtime: all passed', EXIT 0" }
+      ],
+      "action": "sealed record left byte-identical; results are real, only names were stale; this errata is the correction of record"
+    },
+    "F3-static-red-green-split": "confirmed already recorded by the remote: run-14 static red (5/1/41 fail-fast) in ci-gates-r29/verification.json and run-15 static green (47/0/0, job 103754182530) in ci-gates-r29/ci-followup.json; no action needed this round",
+    "F4-local-47-47-archive": {
+      "status": "missing",
+      "evidence": "the only local r28 static run, ci-integration-r28/local-execution/logs/31-check-ci-static.log, ended '46 passed, 1 failed, 0 skipped' with FAILED cordis catalog, EXIT 1",
+      "boundary": "the 47/47 result belongs to CI run-15 Linux static job 103754182530 only and must not be presented as a local r28 log"
+    }
+  },
+  "notExecuted": [
+    { "item": "run-15 consumers job 103754182474 first-failure cross-check", "reason": "gh CLI absent on this host (PATH and common locations checked); no token installed or requested per task rules; local reproduction of the same test/symptom used instead" },
+    { "item": "run-15 coverage jobs 103754182349 (Linux) / 103754182491 (Windows) status read", "reason": "same gh unavailability; baseline path-mismatched coverage responses remain excluded from modification basis per ci-followup.json; no coverage fix was attempted without source-matched logs" },
+    { "item": "local full check:ci:static", "reason": "CI owns the exhaustive static lane (run-15 static green 47/0/0); local affected subset ran (verify-cordis-config 153, config-files spec 4/4); no local 47/47 claim is made" },
+    { "item": "real-API e2e", "reason": "no production key read; keyless scope per task" },
+    { "item": "independent hard review", "reason": "reserved for the main session's independent review subagent; this executor does not self-certify (candidate previously lacked review; still pending after this commit)" }
+  ],
+  "notRerun": [
+    "r27 Gateway 212/212 (gateway-scope-r27) - no gateway source touched",
+    "r26 Loader/Fiber 122/122 (loader-entry-r26) - no loader source touched",
+    "dual-platform exe/wheel packaging matrix (run-14/15 runtime jobs) - no packaging input touched",
+    "full upgrade investigation rounds - not in r29 scope"
+  ],
+  "boundariesHeld": {
+    "modelConfigFilesUnchanged": ["config/agents/models.v1.json", "config/agents/models.v1.lock.json"],
+    "p0BStateUnchanged": true,
+    "pkgPatchUnchanged": "patches untouched",
+    "noProductionKeyRead": true,
+    "noRealModelCalls": true,
+    "noSystemSecurityChanges": true,
+    "noMergeNoBaseChange": "PR #13 remains draft; no merge, no base change, no P0-C",
+    "hooks": "normal git hooks active at commit; none disabled"
+  },
+  "evidence": {
+    "dir": "development/remediation/2026-09-13/ci-gates-r29/windows-execution/",
+    "sanitization": "plaintext logs: account-name strings (<user>/<USER~1> substitutions in 3 files), trailing whitespace stripped, exactly one trailing newline; account-name scan over the committed set negative",
+    "archive": { "file": "logs.tar.xz", "headerPolicy": "uid=0, gid=0, mtime=epoch 0, uname/gname empty (verified by octal dump of header bytes)", "binaryAccountScan": "negative" },
+    "noSealedRecordOverwritten": "r25-r28 receipts and ci-gates-r29 remote records untouched; this directory is append-only"
+  }
+}

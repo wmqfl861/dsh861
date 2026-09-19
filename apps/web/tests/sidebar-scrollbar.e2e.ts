@@ -15,7 +15,7 @@ import {
 } from './scaffold.ts'
 import { newEnglishPage, saveFailureShot } from './support.ts'
 
-const SEED = fileURLToPath(new URL('../../../snapshots/web/seeded-history/session.v2.jsonl', import.meta.url))
+const SEED = fileURLToPath(new URL('../../../snapshots/web/seeded-history/session.v3.jsonl', import.meta.url))
 const SNAPSHOT_DIR = fileURLToPath(new URL('../../../snapshots/web/sidebar-scrollbar', import.meta.url))
 /** Geometry and resolved style are absent from ARIA snapshots, so this scenario records them directly. */
 const GEOMETRY_EXPECTED = join(SNAPSHOT_DIR, 'geometry.expected.md')
@@ -83,7 +83,7 @@ function measureList(page: Page): Promise<ListMetrics> {
       })
       .filter((rule): rule is CSSStyleRule => rule instanceof CSSStyleRule)
       .filter(rule => rule.selectorText === '::-webkit-scrollbar-thumb:hover')
-      .map(rule => rule.style.getPropertyValue('background'))
+      .map(rule => rule.style.getPropertyValue('background-color'))
     const style = getComputedStyle(list)
     const pseudoWidth = getComputedStyle(list, '::-webkit-scrollbar').width
     const barWidth = pseudoWidth === 'auto' ? 15 : Number.parseFloat(pseudoWidth)
@@ -226,6 +226,20 @@ function resolveThumb(page: Page): Promise<string> {
 const NO_THUMB = 'rgba(0, 0, 0, 0)'
 
 /**
+ * Establish the revealed thumb from real pointer movement within the case
+ * that reads it. A pointer parked by an earlier case is not evidence: the
+ * column's linger can expire between cases on a loaded runner, and a thumb
+ * reading taken then resolves the quiet transparent token instead.
+ * @param page - the page under test, left with the pointer over the list.
+ */
+async function revealThumb(page: Page): Promise<void> {
+  await pointAt(page, 'away')
+  await expect.poll(async () => resolveThumb(page), { timeout: 10_000 }).toBe(NO_THUMB)
+  await pointAt(page, 'list')
+  await expect.poll(async () => resolveThumb(page), { timeout: 10_000 }).not.toBe(NO_THUMB)
+}
+
+/**
  * Park the pointer over the session list or outside the sidebar entirely. The
  * column reveals its scrollbars from real pointer movement, so a scenario that
  * never moves the mouse measures the quiet state whatever it intended to.
@@ -326,6 +340,9 @@ describe('web e2e: sidebar session list scrollbar (reserved gutter / themed thum
 
   it('draws no thumb until the pointer is over the column, and lingers on the way out', async () => {
     onTestFailed(() => saveFailureShot(page, 'web-e2e-sidebar-scrollbar-pointer'))
+    // The revealed colour is this case's subject, so the case establishes it
+    // itself; inheriting a parked pointer would measure the linger's state.
+    await revealThumb(page)
     const revealed = await resolveThumb(page)
     expect(revealed).not.toBe(NO_THUMB)
     await pointAt(page, 'away')
@@ -368,6 +385,9 @@ describe('web e2e: sidebar session list scrollbar (reserved gutter / themed thum
 
   it('renders the themed thumb through the WebKit path in both palettes', async () => {
     onTestFailed(() => saveFailureShot(page, 'web-e2e-sidebar-scrollbar-theme'))
+    // The token pair resolves transparent while the column is quiet, so both
+    // palette readings need a freshly revealed thumb behind them.
+    await revealThumb(page)
     const light = await measureList(page)
     // The gate's signature on this engine, and the reason it exists: chromium
     // implements `::-webkit-scrollbar`, so the standard properties stay at
@@ -412,7 +432,7 @@ describe('web e2e: sidebar session list scrollbar (reserved gutter / themed thum
   }, 60_000)
 
   it('commits exactly the fixtures it reads', async () => {
-    // The scenario borrows seeded-history's session.v2.jsonl rather than committing a
+    // The scenario borrows seeded-history's session.v3.jsonl rather than committing a
     // second copy, so this directory holds the golden alone.
     await assertFixtureInventory(SNAPSHOT_DIR, ['geometry.expected.md'])
   })

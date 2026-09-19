@@ -168,4 +168,43 @@ describe('verifyRuntimeClosure', () => {
     expect(result.workspacePackageCount).toBe(1)
     expect(result.failures).toEqual(['runtime -> @scope/root -> @scope/required'])
   })
+
+  it('accepts a peer supplied by any closure member and rejects one only devDependencies carry', async () => {
+    const root = fixture({
+      'python/sdk-runtime/package.json': { name: 'runtime', dependencies: { '@scope/app': 'workspace:^' } },
+      'python/sdk-runtime/platforms.json': platforms,
+      'packages/preset/agent-presets/presets/minimal/agent.cordis.yml': '[]\n',
+    })
+    // The app package lives under apps/ — the closure walk must reach it even
+    // though it sits outside packages/*/*/ and vendor/.
+    const appPath = join(root, 'apps/cli/package.json')
+    mkdirSync(dirname(appPath), { recursive: true })
+    writeFileSync(appPath, `${JSON.stringify({
+      name: '@scope/app',
+      dependencies: {
+        '@scope/bundle': 'workspace:^',
+        '@scope/supplied': 'workspace:^',
+      },
+    }, null, 2)}\n`)
+    workspace(root, '@scope/bundle', {
+      dependencies: { '@scope/plugin': 'workspace:^' },
+    })
+    workspace(root, '@scope/plugin', {
+      peerDependencies: { '@scope/supplied': 'workspace:^', '@scope/dev-only': 'workspace:^' },
+    })
+    workspace(root, '@scope/supplied', {})
+    // devDependencies are stripped by `pnpm deploy --prod`, so this declaration
+    // does not satisfy the plugin's peer inside the shipped closure.
+    const devCarrierPath = join(root, 'packages/core/dev-carrier/package.json')
+    mkdirSync(dirname(devCarrierPath), { recursive: true })
+    writeFileSync(devCarrierPath, `${JSON.stringify({
+      name: '@scope/dev-carrier',
+      devDependencies: { '@scope/dev-only': 'workspace:^' },
+    }, null, 2)}\n`)
+    workspace(root, '@scope/dev-only', {})
+
+    const result = await verifyRuntimeClosure(root)
+
+    expect(result.failures).toEqual(['runtime -> @scope/app -> @scope/bundle -> @scope/plugin -> @scope/dev-only'])
+  })
 })

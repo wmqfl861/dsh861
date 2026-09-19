@@ -1,0 +1,104 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m apps/web/tests/lifecycle-chrome.e2e.ts [2m([22m[2m13 tests[22m[2m | [22m[31m4 failed[39m[2m)[22m[33m 30822[2mms[22m[39m
+   [31m❯[39m web e2e: lifecycle & chrome (workspace flow / reload / dark mode) [2m(13)[22m
+     [33m[2m✓[22m[39m opens the shared slash menu from plus with only Command candidates[33m 371[2mms[22m[39m
+     [33m[2m✓[22m[39m localizes slash-command descriptions from the browser language[33m 1038[2mms[22m[39m
+[31m     [31m×[31m keeps /goal claimed across separator edits and hides hints during IME composition[39m[33m 2266[2mms[22m[39m
+[31m     [31m×[31m keeps /plan claimed across separator edits and hides hints during IME composition[39m[33m 2195[2mms[22m[39m
+[31m     [31m×[31m keeps /目标 claimed across separator edits and hides hints during IME composition[39m[33m 2276[2mms[22m[39m
+[31m     [31m×[31m keeps /计划 claimed across separator edits and hides hints during IME composition[39m[33m 2249[2mms[22m[39m
+     [33m[2m✓[22m[39m shows active Plan as the warn-state status action[33m 4114[2mms[22m[39m
+     [33m[2m✓[22m[39m sends the first prompt from the empty-state hero (all modes)[33m 3532[2mms[22m[39m
+     [32m✓[39m materialized a real Workspace and Session over the wire[32m 87[2mms[22m[39m
+     [33m[2m✓[22m[39m recovers the whole surface across a reload from the log alone[33m 764[2mms[22m[39m
+     [32m✓[39m cascades the dark theme from the body attribute to painted surfaces[32m 15[2mms[22m[39m
+     [33m[2m✓[22m[39m shows automatic and user-requested connection recovery beside Settings[33m 1743[2mms[22m[39m
+     [32m✓[39m keeps the fixture inventory closed[32m 11[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 4 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/web/tests/lifecycle-chrome.e2e.ts[2m > [22mweb e2e: lifecycle & chrome (workspace flow / reload / dark mode)[2m > [22mkeeps /goal claimed across separator edits and hides hints during IME composition
+[31m[1mAssertionError[22m: expected '/goal 这​' to be '/goal 这' // Object.is equality[39m
+
+Expected: [32m"/goal 这"[39m
+Received: [31m"/goal 这[7m​[27m"[39m
+
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:52[22m[39m
+    [90m170|[39m       await expect.poll(shownHint).toBe('none')
+    [90m171|[39m       await cdp.send('Input.insertText', { text: '这' })
+    [90m172|[39m       await expect.poll(() => input.textContent()).toBe(`${token} 这`)
+    [90m   |[39m                                                    [31m^[39m
+    [90m173|[39m       await expect.poll(shownHint).toBe('none')
+    [90m174|[39m       await input.press('Backspace')
+
+[31m[1mCaused by: Error[22m: Matcher did not succeed in time.[39m
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/web/tests/lifecycle-chrome.e2e.ts[2m > [22mweb e2e: lifecycle & chrome (workspace flow / reload / dark mode)[2m > [22mkeeps /plan claimed across separator edits and hides hints during IME composition
+[31m[1mAssertionError[22m: expected '/plan 这​' to be '/plan 这' // Object.is equality[39m
+
+Expected: [32m"/plan 这"[39m
+Received: [31m"/plan 这[7m​[27m"[39m
+
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:52[22m[39m
+    [90m170|[39m       await expect.poll(shownHint).toBe('none')
+    [90m171|[39m       await cdp.send('Input.insertText', { text: '这' })
+    [90m172|[39m       await expect.poll(() => input.textContent()).toBe(`${token} 这`)
+    [90m   |[39m                                                    [31m^[39m
+    [90m173|[39m       await expect.poll(shownHint).toBe('none')
+    [90m174|[39m       await input.press('Backspace')
+
+[31m[1mCaused by: Error[22m: Matcher did not succeed in time.[39m
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/web/tests/lifecycle-chrome.e2e.ts[2m > [22mweb e2e: lifecycle & chrome (workspace flow / reload / dark mode)[2m > [22mkeeps /目标 claimed across separator edits and hides hints during IME composition
+[31m[1mAssertionError[22m: expected '/目标 这​' to be '/目标 这' // Object.is equality[39m
+
+Expected: [32m"/目标 这"[39m
+Received: [31m"/目标 这[7m​[27m"[39m
+
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:52[22m[39m
+    [90m170|[39m       await expect.poll(shownHint).toBe('none')
+    [90m171|[39m       await cdp.send('Input.insertText', { text: '这' })
+    [90m172|[39m       await expect.poll(() => input.textContent()).toBe(`${token} 这`)
+    [90m   |[39m                                                    [31m^[39m
+    [90m173|[39m       await expect.poll(shownHint).toBe('none')
+    [90m174|[39m       await input.press('Backspace')
+
+[31m[1mCaused by: Error[22m: Matcher did not succeed in time.[39m
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/web/tests/lifecycle-chrome.e2e.ts[2m > [22mweb e2e: lifecycle & chrome (workspace flow / reload / dark mode)[2m > [22mkeeps /计划 claimed across separator edits and hides hints during IME composition
+[31m[1mAssertionError[22m: expected '/计划 这​' to be '/计划 这' // Object.is equality[39m
+
+Expected: [32m"/计划 这"[39m
+Received: [31m"/计划 这[7m​[27m"[39m
+
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:52[22m[39m
+    [90m170|[39m       await expect.poll(shownHint).toBe('none')
+    [90m171|[39m       await cdp.send('Input.insertText', { text: '这' })
+    [90m172|[39m       await expect.poll(() => input.textContent()).toBe(`${token} 这`)
+    [90m   |[39m                                                    [31m^[39m
+    [90m173|[39m       await expect.poll(shownHint).toBe('none')
+    [90m174|[39m       await input.press('Backspace')
+
+[31m[1mCaused by: Error[22m: Matcher did not succeed in time.[39m
+[36m [2m❯[22m apps/web/tests/lifecycle-chrome.e2e.ts:[2m172:7[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m9 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 19:59:41
+[2m   Duration [22m 32.92s[2m (tests 94%, transform 3%, import 3%)[22m

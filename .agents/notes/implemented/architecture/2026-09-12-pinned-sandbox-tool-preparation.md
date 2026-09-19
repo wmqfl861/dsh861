@@ -10,7 +10,7 @@ A usable main Codex executable does not establish that its separate setup and co
 
 ## Decision
 
-The [local bundle preparer](../../../../scripts/p0-b/windows-credentials/sandbox-tool-bundle.md) copies only three explicitly selected files after checking reviewed sizes and SHA-256 pins. It uses same-release raw setup and runner assets with the repository-pinned main executable, never a global runner or an automatic version upgrade. A fresh staging allocation preserves source files and existing installations. Preparation never executes a program, enrolls trust, touches accounts or requests elevation.
+The [local bundle preparer](../../../../scripts/p0-b/windows-credentials/sandbox-tool-bundle.md) copies only three explicitly selected files after checking reviewed sizes and SHA-256 pins. It uses same-release raw main, setup and runner pins, never a global runner or a floating version. The CLI selects an existing checked-in exact-version manifest and defaults to the reviewed current release; historical manifests remain unchanged. A fresh staging allocation preserves source files and existing installations. Preparation never executes a program, enrolls trust, touches accounts or requests elevation.
 
 ## Alternatives considered
 

@@ -1,0 +1,19 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m scripts/session-snapshot-corpus.corpus.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 4289[2mms[22m[39m
+   [33m[2m✓[22m[39m reserves the snapshot test suffix for recorded-session adapters[33m 1743[2mms[22m[39m
+   [33m[2m✓[22m[39m keeps every recorded session owned, pinned, redacted, and header-scrubbed[33m 2291[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 20:34:55
+[2m   Duration [22m 11.37s[2m (tests 40%, transform 38%, import 20%, setup 2%)[22m
+
+[2m  Transform [22m [33mtransforming modules took 4.03s[39m[2m · 38% of tracked time, re-done on every run[22m
+[2m            [22m [2mpersist transforms across runs with [22m[33mfsModuleCache: true[39m
+[2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#caching-between-reruns[22m
+
+EXIT=0

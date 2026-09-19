@@ -1,0 +1,38 @@
+[probe] starting harness…
+[probe] initialize OK
+[probe] notification: session.event
+[probe] notification: session.status
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: subagent.started
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.status
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.event
+[probe] notification: session.status
+[probe] run settled: {"sessionId":"fixture-root-session","finalResponse":"DONE"}
+[probe] closed
+EXIT=0

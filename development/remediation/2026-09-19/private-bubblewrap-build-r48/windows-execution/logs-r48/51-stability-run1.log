@@ -1,0 +1,43 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m [30m[45m thread-safe [49m[39m scripts/prepare-ci-bubblewrap.spec.ts [2m([22m[2m36 tests[22m[2m)[22m[33m 75034[2mms[22m[39m
+   [32m✓[39m prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) [2m(32)[22m
+     [33m[2m✓[22m[39m builds, verifies, and publishes from the three pinned inputs, in order, once[33m 6457[2mms[22m[39m
+     [33m[2m✓[22m[39m still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success[33m 3324[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a global 404 with the downloader exit code and never hashes, unpacks, or probes[33m 655[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a connection failure with the downloader exit code[33m 650[2mms[22m[39m
+     [33m[2m✓[22m[39m stops when only the meson download fails, after the bubblewrap input was already verified[33m 1038[2mms[22m[39m
+     [33m[2m✓[22m[39m stops when only the libcap download fails, after both tarballs were already extracted[33m 1563[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a bubblewrap digest mismatch and never unpacks anything[33m 824[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a meson digest mismatch after the bubblewrap extraction but before the meson unpack[33m 1262[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap digest mismatch before any deb handling[33m 1671[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a traversal member name in the bubblewrap listing before extraction[33m 870[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects an absolute member path in the deb listing before extraction[33m 1993[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a symlink that escapes the extraction root in the meson metadata listing[33m 1403[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a device member in the deb metadata listing before extraction[33m 1956[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap-dev control identity that does not match the pin[33m 1819[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a libcap-dev payload without the static library[33m 2264[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a deb extraction failure before dependency resolution[33m 2139[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a private libcap that pkg-config resolves to the wrong version[33m 2448[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a meson configure failure before any compile[33m 4012[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a compile failure with no artifact, hash record, probe, or publication[33m 2685[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a link command with no private libcap directory reference[33m 4770[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a link command that fell back to the host libcap directory[33m 4301[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary that is not an x86-64 ELF[33m 3242[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary with a dynamic libcap dependency[33m 4173[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary whose ldd resolves libcap[33m 5019[2mms[22m[39m
+     [33m[2m✓[22m[39m rejects a built binary with the wrong version identity before any probe[33m 6218[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps a functional-probe failure fatal and publishes nothing[33m 5732[2mms[22m[39m
+     [33m[2m✓[22m[39m stops at a tarball extraction failure before the next input downloads[33m 1299[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m36 passed[39m[22m[90m (36)[39m
+[2m   Start at [22m 17:42:04
+[2m   Duration [22m 75.76s[2m (tests 99%)[22m

@@ -1,0 +1,4 @@
+# argv: node scripts/run-oxlint.ts --config .oxlintrc.staged.json scripts/prepare-ci-bubblewrap.spec.ts  (cwd C:Albertprojectdsh861)
+Found 0 warnings and 0 errors.
+Finished in 1.5s on 1 file with 49 rules using 20 threads.
+oxlint_exit=0

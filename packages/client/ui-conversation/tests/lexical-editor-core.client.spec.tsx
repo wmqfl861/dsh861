@@ -429,9 +429,9 @@ describe('claim precedence over text-ref entities', () => {
   const TOKEN_STYLE = 'color: var(--dsw-alias-state-warn-label)'
   const LEXICON: ReadonlyMap<'/' | '@', readonly string[]> = new Map([['/', ['plan']]])
 
-  it('keeps a claimed lexicon-listed token plain and warn-styled until release', () => {
+  it.each(['/plan', '/plan '])('keeps the lexicon-listed %j claim plain and warn-styled until release', (token) => {
     const editor = makeEditor()
-    let claim: string | null = '/plan'
+    let claim: string | null = token
     registerClaimDecoration(editor, () => claim)
     registerTextRefDecoration(editor, () => LEXICON, () => claim)
     editor.update(() => {
@@ -449,7 +449,7 @@ describe('claim precedence over text-ref entities', () => {
         }
       })
     // Claimed: the entity transform yields the seat, the claim transform styles it.
-    expect(leaf()).toEqual({ type: 'text', style: TOKEN_STYLE, text: '/plan' })
+    expect(leaf()).toEqual({ type: 'text', style: TOKEN_STYLE, text: token })
     // Released (the shell's refresh nudges the seat dirty): the entity captures it.
     claim = null
     editor.update(() => {
@@ -458,11 +458,46 @@ describe('claim precedence over text-ref entities', () => {
     }, { discrete: true })
     expect(leaf()).toEqual({ type: 'composer-text-ref', style: '', text: '/plan' })
     // Re-claimed: the entity reverts to plain text and the warn style returns.
-    claim = '/plan'
+    claim = token
     editor.update(() => {
       const first = ($getRoot().getFirstChild() as ParagraphNode).getFirstChild()
       if ($isTextNode(first)) first.markDirty()
     }, { discrete: true })
-    expect(leaf()).toEqual({ type: 'text', style: TOKEN_STYLE, text: '/plan' })
+    expect(leaf()).toEqual({ type: 'text', style: TOKEN_STYLE, text: token })
+  })
+})
+
+describe('claim token split under incremental typing', () => {
+  const TOKEN_STYLE = 'color: var(--dsw-alias-state-warn-label)'
+
+  // Typing one character into the already-styled token node rewrites the
+  // first leaf whole (that is what an input event does). The split must keep
+  // the overflow unstyled: splitText copies the style to every part, and two
+  // adjacent equally-styled text nodes merge back into one, re-split, and
+  // end in Lexical error #14 (reported when typing after a claim, most often
+  // through IME composition).
+  it.each(['x', '这'])('keeps the %j overflow unstyled instead of looping', (extra) => {
+    const editor = makeEditor()
+    registerClaimDecoration(editor, () => '/plan')
+    editor.update(() => {
+      const paragraph = $createParagraphNode()
+      paragraph.append($createTextNode('/plan'))
+      $getRoot().clear().append(paragraph)
+    }, { discrete: true })
+    editor.update(() => {
+      const first = ($getRoot().getFirstChild() as ParagraphNode).getFirstChild()
+      if ($isTextNode(first)) first.setTextContent(`/plan${extra}`)
+    }, { discrete: true })
+    const leaves = editor.getEditorState().read(() => {
+      const block = $getRoot().getFirstChild() as ParagraphNode
+      return block.getChildren().map(child => ({
+        text: child.getTextContent(),
+        style: $isTextNode(child) ? child.getStyle() : 'atomic',
+      }))
+    })
+    expect(leaves).toEqual([
+      { text: '/plan', style: TOKEN_STYLE },
+      { text: extra, style: '' },
+    ])
   })
 })

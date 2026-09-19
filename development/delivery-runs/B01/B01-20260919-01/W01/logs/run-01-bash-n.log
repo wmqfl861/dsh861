@@ -1,0 +1,4 @@
+command: bash -n scripts/prepare-ci-bubblewrap.sh
+date: 2026-09-19T11:44:26Z
+exit_code: 0
+stdout_stderr: (none on success)

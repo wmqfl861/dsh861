@@ -1,0 +1,7 @@
+{
+  "sourceArchive": "dsh861-r30-linux-coverage-run34799140559-attempt1.zip",
+  "sourceMember": "logs/coverage-exempt-heavy.log",
+  "sourceSha256": "4cae19715c084d9040bbd560b0083ba2171d7e78d53e26cefb476b063dfdcd5c",
+  "transformation": "ANSI SGR removed; contiguous Failed Tests section retained until GitHub annotation lines; excerpt, not complete original",
+  "excerptSha256": "1b99c73c019a3461464d156c039df5417155d169bed4b7dd681d142c8d7a5631"
+}

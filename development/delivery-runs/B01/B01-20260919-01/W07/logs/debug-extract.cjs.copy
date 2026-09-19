@@ -1,0 +1,37 @@
+// W07 diagnosis: instrument FdSlicer refcount with the compat createReadStream.
+'use strict'
+const fs = require('node:fs')
+const fd_slicer = require('C:/Albert/project/dsh861/node_modules/.pnpm/fd-slicer@1.1.0/node_modules/fd-slicer')
+const Fd = fd_slicer.FdSlicer
+const origRef = Fd.prototype.ref
+const origUnref = Fd.prototype.unref
+Fd.prototype.ref = function () { origRef.call(this); console.log('REF ->', this.refCount) }
+Fd.prototype.unref = function () { console.log('UNREF from', this.refCount); if (this.refCount - 1 === 0) console.log('ZERO STACK:', new Error('trace').stack); origUnref.call(this); console.log('  -> now', this.refCount) }
+Fd.prototype.createReadStream = function (options) {
+  const opts = options === undefined ? {} : options
+  const start = opts.start === undefined ? 0 : opts.start
+  const readOpts = { fd: this.fd, start, autoClose: false }
+  if (opts.end !== undefined && opts.end !== null) readOpts.end = Math.max(start, opts.end - 1)
+  const stream = fs.createReadStream('', readOpts)
+  this.ref()
+  stream.once('close', () => { console.log('STREAM_CLOSE fd-stream'); this.unref() })
+  stream.once('end', () => console.log('STREAM_END'))
+  stream.once('error', e => console.log('STREAM_ERR', String(e), e.stack))
+  return stream
+}
+const origRead = Fd.prototype.read
+Fd.prototype.read = function (buffer, offset, length, position, callback) {
+  origRead.call(this, buffer, offset, length, position, (err, bytesRead, buf) => {
+    if (err) console.log('FD_READ_ERR', String(err), 'pos=' + String(position), 'len=' + String(length))
+    callback(err, bytesRead, buf)
+  })
+}
+const extract = require('C:/Albert/project/dsh861/node_modules/.pnpm/extract-zip@2.0.1_supports-color@9.4.0/node_modules/extract-zip')
+const dir = 'C:/dsh-b01-w07/tmp/ziptest/out6'
+fs.rmSync(dir, { recursive: true, force: true })
+fs.mkdirSync(dir, { recursive: true })
+extract('C:/dsh-b01-w07/tmp/ziptest/test.zip', { dir }).then(
+  () => { console.log('EXTRACT_OK'); process.exit(0) },
+  e => { console.log('EXTRACT_ERR', String(e)); process.exit(1) },
+)
+setTimeout(() => { console.log('TIMEOUT'); process.exit(3) }, 30000)

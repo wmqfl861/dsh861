@@ -1,0 +1,12 @@
++ cd C:/dsh-r48-tqt3s7/downloads
++ curl -L --fail --silent --show-error --retry 3 --retry-all-errors -o libcap-dev_2.66-5ubuntu2.4_amd64.deb.archive -w 'archive http_code=%{http_code} size=%{size_download} url=%{url_effective}\n' https://archive.ubuntu.com/ubuntu/pool/main/libc/libcap2/libcap-dev_2.66-5ubuntu2.4_amd64.deb
+archive http_code=200 size=595634 url=https://archive.ubuntu.com/ubuntu/pool/main/libc/libcap2/libcap-dev_2.66-5ubuntu2.4_amd64.deb
++ echo EXIT_archive=0
+EXIT_archive=0
++ curl -L --fail --silent --show-error --retry 3 --retry-all-errors -o libcap-dev_2.66-5ubuntu2.4_amd64.deb.snapshot -w 'snapshot http_code=%{http_code} size=%{size_download} url=%{url_effective}\n' https://snapshot.ubuntu.com/ubuntu/20260919T000000Z/pool/main/libc/libcap2/libcap-dev_2.66-5ubuntu2.4_amd64.deb
+snapshot http_code=200 size=595634 url=https://snapshot.ubuntu.com/ubuntu/20260919T000000Z/pool/main/libc/libcap2/libcap-dev_2.66-5ubuntu2.4_amd64.deb
++ echo EXIT_snapshot=0
+EXIT_snapshot=0
++ sha256sum libcap-dev_2.66-5ubuntu2.4_amd64.deb.archive libcap-dev_2.66-5ubuntu2.4_amd64.deb.snapshot
+07f2462867569a2119a2ad0f1593232663f2d1612b791c230d22a8d73a15abee *libcap-dev_2.66-5ubuntu2.4_amd64.deb.archive
+07f2462867569a2119a2ad0f1593232663f2d1612b791c230d22a8d73a15abee *libcap-dev_2.66-5ubuntu2.4_amd64.deb.snapshot

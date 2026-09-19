@@ -1,0 +1,63 @@
+
+
+ProcessId       : 5060
+ParentProcessId : 12860
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-startup/sess_sub
+                  agent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b3.sh'
+                  mkdir
+
+ProcessId       : 42372
+ParentProcessId : 5060
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b
+
+ProcessId       : 80564
+ParentProcessId : 42372
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b
+
+ProcessId       : 29544
+ParentProcessId : 87864
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\Albert\project\dsh861\apps\desktop\.desktop-build\targets\win-x64\unsigned-artifacts\win-unpacked
+                  \DeepSeek Harness.exe" --remote-debugging-port=9222
+
+ProcessId       : 66616
+ParentProcessId : 29544
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\Albert\project\dsh861\apps\desktop\.desktop-build\targets\win-x64\unsigned-artifacts\win-unpacked
+                  \DeepSeek Harness.exe" --type=gpu-process --user-data-dir="C:\Users\Joyce Gu\AppData\Roaming\@deeps
+
+ProcessId       : 93848
+ParentProcessId : 29544
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\Albert\project\dsh861\apps\desktop\.desktop-build\targets\win-x64\unsigned-artifacts\win-unpacked
+                  \DeepSeek Harness.exe" --type=utility --utility-sub-type=network.mojom.NetworkService --lang=zh-CN
+
+ProcessId       : 64580
+ParentProcessId : 29544
+Name            : DeepSeek Harness.exe
+Cmd             : "C:\Albert\project\dsh861\apps\desktop\.desktop-build\targets\win-x64\unsigned-artifacts\win-unpacked
+                  \DeepSeek Harness.exe" --type=renderer --user-data-dir="C:\Users\Joyce Gu\AppData\Roaming\@deepseek
+
+ProcessId       : 75792
+ParentProcessId : 12860
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-startup/sess_sub
+                  agent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b3.sh'
+                  cd \"
+
+ProcessId       : 79288
+ParentProcessId : 75792
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b
+
+ProcessId       : 68332
+ParentProcessId : 79288
+Name            : bash.exe
+Cmd             : "C:\Program Files\Git\bin\..\usr\bin\bash.exe" -c -l ". '/c/Users/Joyce Gu/.zcode/cli/exec/bash-start
+                  up/sess_subagent_agent_1a97b3d8-3b64-4a80-b0f9-f31ee12ca626/embedded-search-startup-d58d1a41126f27b

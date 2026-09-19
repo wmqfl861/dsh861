@@ -1,0 +1,11 @@
+--- B sample (receiver semantics) ---
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});const __dsh$def=(t,k,get)=>Object.defineProperty(t,k,{enumerable:true,configurable:true,get});const __dsh$m1=require("p");__dsh$def(exports,"direct",()=>direct);__dsh$def(exports,"optional",()=>optional);__dsh$def(exports,"tagged",()=>tagged);__dsh$def(exports,"value",()=>value);
+const direct = () => (0,__dsh$m1["probe"])()
+const optional = () => (0,__dsh$m1["probe"])?.(1)
+const tagged = () => (0,__dsh$m1["probe"])`x`
+const value = () => __dsh$m1["probe"]
+
+--- C sample (switch discriminant) ---
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});const __dsh$def=(t,k,get)=>Object.defineProperty(t,k,{enumerable:true,configurable:true,get});const __dsh$m1=require("p");__dsh$def(exports,"result",()=>result);
+let result = 0
+switch (__dsh$m1["selected"]) { case 1: const selected = 2; result = selected; break; }

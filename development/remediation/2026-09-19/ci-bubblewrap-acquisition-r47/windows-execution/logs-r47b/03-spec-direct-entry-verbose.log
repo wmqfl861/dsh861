@@ -1,0 +1,30 @@
+# argv: node node_modules/vitest/vitest.mjs run --project thread-safe scripts/prepare-ci-bubblewrap.spec.ts --reporter=verbose  (cwd C:Albertprojectdsh861, node v26.4.0, TMP/TEMP=C:dsh-r47b-impl-tmp	mp)
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh pinned identity (source-level) > keeps the pinned version, pinned SHA-256, and the verified snapshot URL literal 2ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh pinned identity (source-level) > checks the digest before extraction 1ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > succeeds from the verified snapshot source with the pinned identity, in order, once 733ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > still succeeds when the sysctl knob is absent; the tolerated knob failure is not probe success 751ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > stops at the 404 download with the script exit code and never hashes, extracts, escalates, or probes 230ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > stops at a connection failure with the downloader exit code and never advances a phase 210ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > rejects a digest mismatch on the pinned identity and never unpacks or publishes a path 447ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > stops at a failed extraction before any privilege or probe step 415ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > keeps a functional-probe failure fatal and prints no success line 730ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > refuses a non-Linux host before any download 195ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > refuses a non-x86_64 host before any download 164ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > fails loud when RUNNER_TEMP is missing, before any download 56ms
+ ✓  thread-safe  scripts/prepare-ci-bubblewrap.spec.ts > prepare-ci-bubblewrap.sh end to end (real script, stubbed external effects) > fails loud when GITHUB_PATH is missing, before any download 56ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  12:07:46
+   Duration  4.66s (tests 91%, transform 6%, import 2%, setup 1%)
+
+vitest_exit=0

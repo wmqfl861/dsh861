@@ -1,0 +1,25 @@
+=== command: C:/dsh-r24-upgrade-20260912-01/pnpm-12.4.1/pnpm.exe exec vitest run --project thread-safe packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts packages/experimental/tool-agent-team/tests/tool-team.spec.ts packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts
+=== exit code: 0
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/owned-contexts.spec.ts (5 tests) 152ms
+ ✓  thread-safe  packages/experimental/tool-agent-team/tests/tool-team.spec.ts (12 tests) 1811ms
+ ✓  thread-safe  packages/subagent/tool-subagent-control/tests/tool-subagent-control.spec.ts (18 tests) 2217ms
+
+ Test Files  3 passed (3)
+      Tests  35 passed (35)
+   Start at  21:42:58
+   Duration  4.39s (transform 46%, tests 43%, import 10%, setup 1%)
+
+  Transform   thread-safe  transforming modules took 4.49s · 46% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns
+
+
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`

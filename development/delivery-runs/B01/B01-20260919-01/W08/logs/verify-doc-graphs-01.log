@@ -1,0 +1,3 @@
+$ tsx scripts/gen-doc-graphs.ts --check
+gen-doc-graphs: 6 graph doc(s) are up to date.
+EXIT=0

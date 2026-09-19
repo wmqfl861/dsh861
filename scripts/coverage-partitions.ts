@@ -124,33 +124,55 @@ const FILE_TIMES_NAME = '.coverage-times.json'
  */
 export interface InstrumentedInventory {
   files: string[]
-  /** Project name per file; the pool prefix of the `vitest list` line. */
+  /** Owning project per file (the `[project]` prefix); one project per file, enforced by {@link parseListOutput}. */
   projectOf: Map<string, string>
 }
 
 /**
  * Parse `vitest list --filesOnly` output into the instrumented inventory:
- * one `[pool] path` line per file, deduplicated, minus the exempt heavy
- * suites that `vitest list` itself does not exclude.
+ * one `[project] path` line per file, minus the exempt heavy suites that
+ * `vitest list` itself does not exclude.
+ *
+ * Backslashes in a line's path are normalized to forward slashes (the
+ * inventory and Vitest include patterns both use forward slashes), and a
+ * file repeated under its own project yields one entry. A file claimed by
+ * two different projects throws naming the file and both projects: the
+ * projects are mutually exclusive, so the split ownership would make one
+ * project's partition config silently drop the other project's run of the
+ * file. Exempt files are expanded before parsing, so they neither enter
+ * the inventory nor fail the single-ownership check.
+ *
+ * @param output - stdout of `vitest list --filesOnly`.
+ * @param root - repository root the exempt-selector globs resolve against.
+ * @returns the deduplicated file list (sorted) and the owning project per file.
+ * @throws when one non-exempt file is claimed by two different projects.
  */
 export function parseListOutput(output: string, root: string): InstrumentedInventory {
-  const files = new Set<string>()
-  const projectOf = new Map<string, string>()
-  for (const line of output.split(/\r?\n/)) {
-    const match = /^\[([^\]]+)\]\s+(\S+\.spec\.(?:ts|tsx))$/.exec(line)
-    if (match !== null && match[1] !== undefined && match[2] !== undefined) {
-      files.add(match[2])
-      projectOf.set(match[2], match[1])
-    }
-  }
+  const exemptFiles = new Set<string>()
   for (const suite of coverageExemptHeavySuites) {
     for (const file of globSync(suite.exclude, { cwd: root })) {
       // globSync returns platform separators on Windows; the parsed inventory
       // and Vitest include patterns both use forward slashes.
-      const normalized = file.split('\\').join('/')
-      files.delete(normalized)
-      projectOf.delete(normalized)
+      exemptFiles.add(file.split('\\').join('/'))
     }
+  }
+  const files = new Set<string>()
+  const projectOf = new Map<string, string>()
+  for (const line of output.split(/\r?\n/)) {
+    const match = /^\[([^\]]+)\]\s+(\S+\.spec\.(?:ts|tsx))$/.exec(line)
+    if (match === null || match[1] === undefined || match[2] === undefined) continue
+    const project = match[1]
+    const file = match[2].split('\\').join('/')
+    if (exemptFiles.has(file)) continue
+    const owner = projectOf.get(file)
+    if (owner !== undefined && owner !== project) {
+      throw new Error(
+        `coverage inventory: ${JSON.stringify(file)} is claimed by projects `
+        + `${JSON.stringify(owner)} and ${JSON.stringify(project)}; every file must belong to exactly one Vitest project.`,
+      )
+    }
+    files.add(file)
+    projectOf.set(file, project)
   }
   return { files: [...files].sort(), projectOf }
 }

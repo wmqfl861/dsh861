@@ -1,0 +1,245 @@
+{
+  "round": "r25",
+  "kind": "upgrade-consumer-repair-and-unfinished-upgrade-reception",
+  "recordedAt": "2026-09-12T15:08:16.887669+00:00",
+  "baseCommit": "c9b8fa4e6d2a55c4d9b90e3bc53e013f26618480",
+  "pullRequest": 13,
+  "actor": "ChatGPT source review and limited local execution; not designated Codex planner or OpenCode hard reviewer",
+  "reception": {
+    "r24Preserved": true,
+    "fullRepositoryUpgradeComplete": false,
+    "reason": "r24 explicitly retained deferred major migrations and vendor sync; the snapshot/byte tests do not certify provider/UI behavior after the upstream merge",
+    "windowsReportNotIndependentlyReexecuted": true
+  },
+  "changes": [
+    {
+      "path": "vitest.shared.ts",
+      "beforeBlob": "7c6ca2bee8de227e110cc58d245dfb1a3d99dfae",
+      "finding": "Root test configuration still imported the removed classic API from typescript after the TS7 package upgrade. Existing @typescript/typescript6 now supplies it; build compiler is unchanged."
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs",
+      "beforeBlob": "de8f714ca187853c7e555ef0d30ff0e8f205cea0",
+      "finding": "Active test still used 0.149.1 hardcoded pnpm path and digest. Resolve provider dependency and platform package, require matching release metadata and hashes for all three files. No CLI execution or sandbox policy change in this session."
+    }
+  ],
+  "environment": {
+    "os": "Linux",
+    "node": "22.16.0",
+    "authoringCompilerAPI": "5.8.3 globally preinstalled",
+    "actualTypeScript6PackageAvailable": false,
+    "actualVitestAvailable": false,
+    "fullRepositoryDependencies": false,
+    "containerNetwork": "DNS unavailable for registry/raw GitHub; not used to resolve new dependency versions"
+  },
+  "checks": {
+    "packageResolution": {
+      "command": "node --test scripts/p0-b/windows-credentials/codex-installed-tools.test.mjs",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Real createRequire, files, links and streamed hashes against synthetic non-executable package files. Linux run, not Windows installed-package verification."
+    },
+    "digestNegativeControl": {
+      "mutation": "Omit helper digest comparison",
+      "command": "node --test --test-name-pattern='verifies helper bytes' scripts/p0-b/windows-credentials/codex-installed-tools.test.mjs",
+      "exitCode": 1,
+      "expectedFailure": true,
+      "originalRestored": true
+    },
+    "sharedConfigBefore": {
+      "command": "node --experimental-vm-modules run-shared-controls.mjs --before",
+      "exitCode": 1,
+      "scope": "The source-linked loader rejects the obsolete typescript import. This is not an actual TypeScript 7 import execution."
+    },
+    "sharedConfigAfter": {
+      "command": "node --experimental-vm-modules run-shared-controls.mjs",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "scope": "Actual edited plugin and test bodies with preinstalled TypeScript 5.8.3 API and Node test registration replacing Vitest; verifies authoring transformations, NOT installed TS6 or actual Vitest configuration startup."
+    },
+    "static": {
+      "javascriptSyntaxFiles": 3,
+      "bilingualPairs": 2,
+      "utf8WhitespaceAndFenceChecks": "PASS",
+      "actualRepositoryGenerators": "NOT_RUN"
+    }
+  },
+  "upstreamEvidence": [
+    {
+      "repository": "openai/codex",
+      "ref": "rust-v0.154.0",
+      "path": "codex-cli/bin/codex.js",
+      "gitBlob": "934600714b97f340cb5468e20e5fe560d751cbed",
+      "observation": "Official launcher resolves the platform package from its package context and uses vendor/<target>/bin."
+    },
+    {
+      "url": "https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/",
+      "observation": "TS7 does not ship the classic API; the documented TypeScript 6 compatibility package serves these consumers."
+    }
+  ],
+  "ciAtReceivedHead": {
+    "head": "c9b8fa4e6d2a55c4d9b90e3bc53e013f26618480",
+    "runs": 8,
+    "mainCI": {
+      "runId": 34697217210,
+      "observedStatus": "queued"
+    },
+    "issueLifecycle": {
+      "runId": 34697217108,
+      "jobId": 103562653865,
+      "result": "failure",
+      "failedStep": "Create project token",
+      "observedError": "Missing client-id/app-id input; workflow targets upstream deepseek-harness organization, checks out trusted default branch."
+    },
+    "issuePolicy": {
+      "runId": 34697217127,
+      "jobId": 103562654040,
+      "result": "failure",
+      "failedStep": "Create Project read token"
+    },
+    "preview": {
+      "runId": 34697217130,
+      "jobId": 103562654100,
+      "buildAndPack": "success",
+      "uploadToCloudflarePages": "failure",
+      "failureCauseBeyondStep": "NOT_READ"
+    },
+    "realAPI": "skipped",
+    "scope": "Connector read of actual run/job states; queued, optional deployment and source checks remain distinct. No workflow permissions or credentials changed."
+  },
+  "vendorRead": {
+    "deepseek-harness/cosmokit": "404 via current GitHub connector",
+    "deepseek-harness/schemastery": "404 via current GitHub connector",
+    "deepseek-harness/cordis": "404 via current GitHub connector",
+    "interpretation": "Unavailable to this connection; not proof that repositories are deleted. Other publicly resolvable migrations can continue."
+  },
+  "remainingWork": [
+    "Execute actual TS6/Vitest configuration and affected provider/Loader tests in the complete upgraded Windows checkout; inspect root config and third-party classic API consumers.",
+    "Resolve the installed current Codex payload using the new helper. No need to rerun old CLI version or known-blocked sandbox solely for this file-resolution check.",
+    "Migrate deferred direct major versions and owning consumers; semver-range limits and upstream harness not having adopted them are not permission blockers.",
+    "Replay the publicly reachable Cordis changes with documented local modifications and lifecycle tests; inaccessible forks remain separately blocked.",
+    "Complete affected dependency-lock, build/type/lint, UI/provider behavior and doc-sync verification; classify CI infrastructure separately."
+  ],
+  "notRun": [
+    "Actual TypeScript 6 API/Vitest installation and native TS7 execution",
+    "Full workspace behavior, typecheck, lint, documentation generators/doc-sync",
+    "Windows Codex resolution or native sandbox execution",
+    "Remaining major-version installations and vendor merges",
+    "Publisher signature verification, model requests or system sandbox setup"
+  ],
+  "protectedUnchanged": [
+    "config/agents/models.v1.json",
+    "config/agents/models.v1.lock.json",
+    "development/nodes/P0-B/state.json",
+    "pnpm-lock.yaml in this repair commit",
+    "all historical receipts/manifests/plans"
+  ],
+  "projectUpgradeExecutionAuthorized": true,
+  "modelExecutionAuthorized": false,
+  "systemChangesAuthorized": false,
+  "productionIsolationAccepted": false,
+  "productAccepted": false,
+  "nextNodeAllowed": false,
+  "archive": {
+    "file": "logs.tar.xz",
+    "bytes": 2716,
+    "sha256": "8d9086101fe4cf8868627f57e4484f42a21fa6d8d81762eb7d6dc4ac7e017419",
+    "metadata": "regular files only; uid/gid/mtime=0; uname/gname empty",
+    "members": {
+      "codex-resolution.tap": {
+        "bytes": 1914,
+        "sha256": "8f02eb8b2461855b01cedae3ed49860d738cca403bcfd8f673f6ba9f7be2bb21"
+      },
+      "digest-negative.tap": {
+        "bytes": 893,
+        "sha256": "a3e37e893964bc5626bf65a1555a3ad87f350692b4350c812dacf6e3e018e54b"
+      },
+      "digest-negative.exit": {
+        "bytes": 2,
+        "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+      },
+      "shared-before.log": {
+        "bytes": 901,
+        "sha256": "07e119d49d53f9ebf20836e3154ac46ac3f6507df504b42f9819fdc7eb93948f"
+      },
+      "shared-after.tap": {
+        "bytes": 1283,
+        "sha256": "b88089158efa6a9c6a4cbcff5b5930b9e7029ef18b4f78e4faba5c5182e105dd"
+      },
+      "run-shared-controls.mjs": {
+        "bytes": 1855,
+        "sha256": "db0878d2bafe19f9fc5d54d07be9d53bf9485d0933e3905d797f2ae740c702c5"
+      },
+      "static-checks.json": {
+        "bytes": 187,
+        "sha256": "fd262c2e79a59a38ea6f1a15939d7b38f1cf87216e06653dcaf3035aab08bb27"
+      }
+    }
+  },
+  "files": [
+    {
+      "path": ".agents/notes/implemented/testing/2026-09-12-upgrade-consumer-resolution.md",
+      "bytes": 2020,
+      "gitBlob": "20d866a3b481001c0c94a38eef65ef13be81d1b5",
+      "sha256": "e5515eec2763372472caf3369e7b8b4e46084f0cd072713bf1e451654b8677b1"
+    },
+    {
+      "path": ".agents/notes/implemented/testing/2026-09-12-upgrade-consumer-resolution.zh.md",
+      "bytes": 1717,
+      "gitBlob": "46a54e8c3670acd97d5db291deddd0e4a689e5d8",
+      "sha256": "1132f9a50533c7d621a112461703ccf60ee2bbe90188f0692e5b823df147b68e"
+    },
+    {
+      "path": "development/handoffs/WINDOWS_KEYLESS_INTEGRATION.2026-09-10.md",
+      "bytes": 6230,
+      "gitBlob": "838f6a9a45437b2fcd1dc1a0d557549c0d53fa80",
+      "sha256": "1646b650cd893b6054273442e02fd6c02cc632fe42ae4940f9f2a79b2e36d2f2"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-installed-tools.mjs",
+      "bytes": 3542,
+      "gitBlob": "d6c2a1a31c1ed643b1890abf853cb3c24fe7452b",
+      "sha256": "bd0c66f88386746f4c88250ed122b8cdeca22550c9b89d71fbb3202efa542628"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-installed-tools.test.mjs",
+      "bytes": 5025,
+      "gitBlob": "6dac01dba5754de7a24c4056a38a73b69293c5bc",
+      "sha256": "f3c80b6eb4247bfc9c80f264de29c1951e76ca9a4a3e3806a864f6c15f5a8c9d"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/codex-sandbox-qualification-native.test.mjs",
+      "bytes": 6515,
+      "gitBlob": "117b01da3f82d96b4155371b2d20d02369e9356f",
+      "sha256": "d512238f498208caf80eed8d0ca458558bc54f1e945107f76d6d3e82ef96f9bd"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-qualification.md",
+      "bytes": 4947,
+      "gitBlob": "3be05f99c4526c77c85bc610b945cbe6b7b0220c",
+      "sha256": "95f2421b85677a2d29c40bd899b5e1a352ed88037fbc34459f6315947dc5acc3"
+    },
+    {
+      "path": "scripts/p0-b/windows-credentials/sandbox-qualification.zh.md",
+      "bytes": 4162,
+      "gitBlob": "1814924fa19c77eca3bf76b8c798bfca9597a1c9",
+      "sha256": "449d2b6c28adb04a2afae54e09478a1519094ab8258a9e62bc5c24c8deaccc16"
+    },
+    {
+      "path": "scripts/vitest-shared.spec.ts",
+      "bytes": 2217,
+      "gitBlob": "84e8d8b5b64e60be1e9b1ae5518d508218a55e93",
+      "sha256": "f92af9096531a043a8c9656fed8c820b6b4a8641680a1ad9b8f6ba4f69d3546f"
+    },
+    {
+      "path": "vitest.shared.ts",
+      "bytes": 1495,
+      "gitBlob": "80bf44299de2d6afe4d0a8d962fca67060ef8171",
+      "sha256": "fbe397ff1a91020127b2beadf9adff71e03e5c7c048716464c595dd5d6615c33"
+    }
+  ]
+}

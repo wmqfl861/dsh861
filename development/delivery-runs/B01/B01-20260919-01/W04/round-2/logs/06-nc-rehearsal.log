@@ -1,0 +1,6 @@
+NC-R2a subagent child .default schema: positive round-trip OK; description mutation rejected; input-schema mutation rejected
+NC-R2b agent-team parent .default schema: positive round-trip OK; description mutation rejected; input-schema mutation rejected
+NC-R2c agent-team child .default schema (derived = parent received): positive round-trip OK; description mutation rejected; input-schema mutation rejected
+NC-R2d subagent child .default prompt: byte-equal to the text-turn reference; one-word mutation rejected
+NC-R2e agent-team parent .default prompt: exact-equality control is non-vacuous (one-word mutation changes the compared bytes)
+EXIT=0

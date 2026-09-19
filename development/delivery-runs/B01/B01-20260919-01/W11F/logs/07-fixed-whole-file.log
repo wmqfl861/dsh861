@@ -1,0 +1,348 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [31m❯[39m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts [2m([22m[2m13 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[33m 149104[2mms[22m[39m
+   [31m❯[39m headless stream-json snapshots [2m(13)[22m
+[31m     [31m×[31m runs one task through the product headless profile command[39m[33m 9932[2mms[22m[39m
+     [33m[2m✓[22m[39m prints a terminal model failure through the product headless profile command[33m 22382[2mms[22m[39m
+     [33m[2m✓[22m[39m prints the original Loader activation error through the assembled one-shot app[33m 12428[2mms[22m[39m
+[31m     [31m×[31m retries a transient provider failure through the one-shot app[39m[33m 12454[2mms[22m[39m
+[31m     [31m×[31m logs actionable missing-credential guidance through the one-shot app[39m[33m 11807[2mms[22m[39m
+[31m     [31m×[31m logs actionable invalid-credential guidance through the one-shot app[39m[33m 13012[2mms[22m[39m
+     [33m[2m✓[22m[39m logs the model default and a dynamic next-step reasoning effort[33m 13630[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps provider comments alive and sends DeepSeek defaults through the one-shot app[33m 8392[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps the compatibility stream open until the title request arrives[33m 549[2mms[22m[39m
+     [33m[2m✓[22m[39m sends pi-ai DeepSeek compatibility through the one-shot app[33m 12469[2mms[22m[39m
+     [33m[2m✓[22m[39m runs a keyless Agent Team with peer mail, dependent tasks, waiting, and Lead aggregation[33m 8204[2mms[22m[39m
+[31m     [31m×[31m replays persisted goal tools through the one-shot app[39m[33m 11955[2mms[22m[39m
+[31m     [31m×[31m delivers a continuable child result without parent polling[39m[33m 11887[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 6 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts[2m > [22mheadless stream-json snapshots[2m > [22mruns one task through the product headless profile command
+[31m[1mAssertionError[22m: expected [ { type: 'session', …(5) }, …(23) ] to deeply equal [ { type: 'session', …(5) }, …(23) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -219,13 +219,13 @@[39m
+[2m            {[22m
+[2m              "text": "Inspecting the task before the tool call.",[22m
+[2m              "type": "reasoning",[22m
+[2m            },[22m
+[2m            {[22m
+[32m-             "arguments": "{\"command\":\"printf CLI_TOOL_ROUND_TRIP\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[31m+             "arguments": "{\"command\":\"Write-Output 'CLI_TOOL_ROUND_TRIP'\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[2m              "id": "cli-smoke-call",[22m
+[32m-             "name": "bash",[39m
+[31m+             "name": "pwsh",[39m
+[2m              "type": "tool-call",[22m
+[2m            },[22m
+[2m          ],[22m
+[2m          "id": "{{session:1}}",[22m
+[2m          "role": "assistant",[22m
+[33m@@ -276,25 +276,25 @@[39m
+[2m            "time": 0,[22m
+[2m            "type": "chunk",[22m
+[2m          },[22m
+[2m          {[22m
+[2m            "args": [[22m
+[32m-             "{\"command\":\"printf CLI_TOOL_ROUND_TRIP\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[31m+             "{\"command\":\"Write-Output 'CLI_TOOL_ROUND_TRIP'\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[2m            ],[22m
+[2m            "dt": [],[22m
+[2m            "id": "cli-smoke-call",[22m
+[2m            "index": 1,[22m
+[32m-           "name": "bash",[39m
+[31m+           "name": "pwsh",[39m
+[2m            "time0": 0,[22m
+[2m            "type": "tool-call-chunks",[22m
+[2m          },[22m
+[2m          {[22m
+[2m            "chunk": {[22m
+[2m              "block": {[22m
+[32m-               "arguments": "{\"command\":\"printf CLI_TOOL_ROUND_TRIP\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[31m+               "arguments": "{\"command\":\"Write-Output 'CLI_TOOL_ROUND_TRIP'\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[2m                "id": "cli-smoke-call",[22m
+[32m-               "name": "bash",[39m
+[31m+               "name": "pwsh",[39m
+[2m                "type": "tool-call",[22m
+[2m              },[22m
+[2m              "index": 1,[22m
+[2m              "type": "block-end",[22m
+[2m            },[22m
+[33m@@ -334,13 +334,13 @@[39m
+[2m      "surfaceOp": "append",[22m
+[2m      "type": "assistant/message",[22m
+[2m    },[22m
+[2m    {[22m
+[2m      "data": {[22m
+[32m-       "arguments": "{\"command\":\"printf CLI_TOOL_ROUND_TRIP\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[31m+       "arguments": "{\"command\":\"Write-Output 'CLI_TOOL_ROUND_TRIP'\",\"description\":\"Prove the CLI tool round trip.\"}",[39m
+[2m        "callId": "cli-smoke-call",[22m
+[32m-       "name": "bash",[39m
+[31m+       "name": "pwsh",[39m
+[2m        "step": 1,[22m
+[2m        "turn": 1,[22m
+[2m      },[22m
+[2m      "type": "tool/call",[22m
+[2m    },[22m
+[33m@@ -349,11 +349,12 @@[39m
+[2m        "message": {[22m
+[2m          "content": [[22m
+[2m            {[22m
+[2m              "content": [[22m
+[2m                {[22m
+[32m-                 "text": "CLI_TOOL_ROUND_TRIP",[39m
+[31m+                 "text": "CLI_TOOL_ROUND_TRIP[39m
+[31m+ ",[39m
+[2m                  "type": "text",[22m
+[2m                },[22m
+[2m              ],[22m
+[2m              "isError": false,[22m
+[2m              "toolCallId": "cli-smoke-call",[22m
+
+[36m [2m❯[22m expectSessionSnapshot apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m87:46[22m[39m
+    [90m 85|[39m   const expected = await readFile(expectedPath, 'utf8')
+    [90m 86|[39m   const [normalizedExpected] = normalizeSessionSnapshots([expected], c…
+    [90m 87|[39m   expect(parseJsonl(normalizedActual ?? '')).toEqual(parseJsonl(normal…
+    [90m   |[39m                                              [31m^[39m
+    [90m 88|[39m }
+    [90m 89|[39m
+[90m [2m❯[22m Object.inspect apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m256:9[22m[39m
+[90m [2m❯[22m runLoaderSmoke packages/test-support/loader-smoke/src/index.ts:[2m230:5[22m[39m
+[90m [2m❯[22m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m236:20[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts[2m > [22mheadless stream-json snapshots[2m > [22mretries a transient provider failure through the one-shot app
+[31m[1mAssertionError[22m: expected [ …(18) ] to deeply equal [ …(18) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -123,11 +123,11 @@[39m
+[2m        "data": {[22m
+[2m          "content": [[22m
+[2m            {[22m
+[2m              "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.[22m
+
+[32m- Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.[39m
+[31m+ Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-provider-retry-S0FIKe\". Some platform temporary areas may also be writable.[39m
+
+[2m  Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              "type": "text",[22m
+[2m            },[22m
+[2m          ],[22m
+[33m@@ -138,11 +138,11 @@[39m
+[2m            "kind": "plugin",[22m
+[2m            "plugin": "@deepseek-ai/dsh-system-prompt",[22m
+[2m            "sections": [[22m
+[2m              {[22m
+[2m                "name": "sandbox:policy",[22m
+[32m-               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.",[39m
+[31m+               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-provider-retry-S0FIKe\". Some platform temporary areas may also be writable.",[39m
+[2m              },[22m
+[2m              {[22m
+[2m                "name": "approval:policy",[22m
+[2m                "text": "Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              },[22m
+
+[36m [2m❯[22m expectHeadlessStream apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m93:34[22m[39m
+    [90m 91|[39m async function expectHeadlessStream(normalized: string, expectedPath: …
+    [90m 92|[39m   const expected = await readFile(expectedPath, 'utf8')
+    [90m 93|[39m   expect(parseJsonl(normalized)).toEqual(parseJsonl(expected))
+    [90m   |[39m                                  [31m^[39m
+    [90m 94|[39m }
+    [90m 95|[39m
+[90m [2m❯[22m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m341:5[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts[2m > [22mheadless stream-json snapshots[2m > [22mlogs actionable missing-credential guidance through the one-shot app
+[31m[1mAssertionError[22m: expected [ …(15) ] to deeply equal [ …(15) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -123,11 +123,11 @@[39m
+[2m        "data": {[22m
+[2m          "content": [[22m
+[2m            {[22m
+[2m              "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.[22m
+
+[32m- Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.[39m
+[31m+ Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-missing-credential-nOsKZz\". Some platform temporary areas may also be writable.[39m
+
+[2m  Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              "type": "text",[22m
+[2m            },[22m
+[2m          ],[22m
+[33m@@ -138,11 +138,11 @@[39m
+[2m            "kind": "plugin",[22m
+[2m            "plugin": "@deepseek-ai/dsh-system-prompt",[22m
+[2m            "sections": [[22m
+[2m              {[22m
+[2m                "name": "sandbox:policy",[22m
+[32m-               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.",[39m
+[31m+               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-missing-credential-nOsKZz\". Some platform temporary areas may also be writable.",[39m
+[2m              },[22m
+[2m              {[22m
+[2m                "name": "approval:policy",[22m
+[2m                "text": "Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              },[22m
+
+[36m [2m❯[22m expectHeadlessStream apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m93:34[22m[39m
+    [90m 91|[39m async function expectHeadlessStream(normalized: string, expectedPath: …
+    [90m 92|[39m   const expected = await readFile(expectedPath, 'utf8')
+    [90m 93|[39m   expect(parseJsonl(normalized)).toEqual(parseJsonl(expected))
+    [90m   |[39m                                  [31m^[39m
+    [90m 94|[39m }
+    [90m 95|[39m
+[90m [2m❯[22m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m370:5[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts[2m > [22mheadless stream-json snapshots[2m > [22mlogs actionable invalid-credential guidance through the one-shot app
+[31m[1mAssertionError[22m: expected [ …(15) ] to deeply equal [ …(15) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -123,11 +123,11 @@[39m
+[2m        "data": {[22m
+[2m          "content": [[22m
+[2m            {[22m
+[2m              "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.[22m
+
+[32m- Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.[39m
+[31m+ Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-invalid-credential-JhRrb9\". Some platform temporary areas may also be writable.[39m
+
+[2m  Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              "type": "text",[22m
+[2m            },[22m
+[2m          ],[22m
+[33m@@ -138,11 +138,11 @@[39m
+[2m            "kind": "plugin",[22m
+[2m            "plugin": "@deepseek-ai/dsh-system-prompt",[22m
+[2m            "sections": [[22m
+[2m              {[22m
+[2m                "name": "sandbox:policy",[22m
+[32m-               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.",[39m
+[31m+               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-invalid-credential-JhRrb9\". Some platform temporary areas may also be writable.",[39m
+[2m              },[22m
+[2m              {[22m
+[2m                "name": "approval:policy",[22m
+[2m                "text": "Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              },[22m
+
+[36m [2m❯[22m expectHeadlessStream apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m93:34[22m[39m
+    [90m 91|[39m async function expectHeadlessStream(normalized: string, expectedPath: …
+    [90m 92|[39m   const expected = await readFile(expectedPath, 'utf8')
+    [90m 93|[39m   expect(parseJsonl(normalized)).toEqual(parseJsonl(expected))
+    [90m   |[39m                                  [31m^[39m
+    [90m 94|[39m }
+    [90m 95|[39m
+[90m [2m❯[22m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m407:5[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts[2m > [22mheadless stream-json snapshots[2m > [22mreplays persisted goal tools through the one-shot app
+[31m[1mAssertionError[22m: expected [ …(32) ] to deeply equal [ …(32) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -123,11 +123,11 @@[39m
+[2m        "data": {[22m
+[2m          "content": [[22m
+[2m            {[22m
+[2m              "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.[22m
+
+[32m- Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.[39m
+[31m+ Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-goal-tools-8Fhntj\". Some platform temporary areas may also be writable.[39m
+
+[2m  Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              "type": "text",[22m
+[2m            },[22m
+[2m          ],[22m
+[33m@@ -138,11 +138,11 @@[39m
+[2m            "kind": "plugin",[22m
+[2m            "plugin": "@deepseek-ai/dsh-system-prompt",[22m
+[2m            "sections": [[22m
+[2m              {[22m
+[2m                "name": "sandbox:policy",[22m
+[32m-               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.",[39m
+[31m+               "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-goal-tools-8Fhntj\". Some platform temporary areas may also be writable.",[39m
+[2m              },[22m
+[2m              {[22m
+[2m                "name": "approval:policy",[22m
+[2m                "text": "Approval policy: ask. Operations that require approval may ask through the configured answerers; without an available answerer, the request fails closed.",[22m
+[2m              },[22m
+
+[36m [2m❯[22m expectHeadlessStream apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m93:34[22m[39m
+    [90m 91|[39m async function expectHeadlessStream(normalized: string, expectedPath: …
+    [90m 92|[39m   const expected = await readFile(expectedPath, 'utf8')
+    [90m 93|[39m   expect(parseJsonl(normalized)).toEqual(parseJsonl(expected))
+    [90m   |[39m                                  [31m^[39m
+    [90m 94|[39m }
+    [90m 95|[39m
+[90m [2m❯[22m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m811:5[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts[2m > [22mheadless stream-json snapshots[2m > [22mdelivers a continuable child result without parent polling
+[31m[1mAssertionError[22m: expected [ { type: 'session', …(7) }, …(16) ] to deeply equal [ { type: 'session', …(7) }, …(16) ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -129,11 +129,11 @@[39m
+[2m      "data": {[22m
+[2m        "content": [[22m
+[2m          {[22m
+[2m            "text": "Current runtime context. This snapshot supersedes earlier runtime-context snapshots.[22m
+
+[32m- Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.[39m
+[31m+ Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-subagent-settlement-Q7pED9\". Some platform temporary areas may also be writable.[39m
+
+[2m  Approval prompts are disabled in this session: actions that require approval are rejected automatically — do not request sandbox escalation (do not set `sandbox_permissions`).[22m
+
+[2m  You are a delegated subagent: your permission scope was fixed when you were started and cannot be widened from inside this session — operations that require approval are rejected automatically. When the task needs access beyond that scope, do not retry the denied operation; state the limitation in your reply so the delegating agent can handle it.",[22m
+[2m            "type": "text",[22m
+[33m@@ -146,11 +146,11 @@[39m
+[2m          "kind": "plugin",[22m
+[2m          "plugin": "@deepseek-ai/dsh-system-prompt",[22m
+[2m          "sections": [[22m
+[2m            {[22m
+[2m              "name": "sandbox:policy",[22m
+[32m-             "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"{{cwd}}\". Some platform temporary areas may also be writable.",[39m
+[31m+             "text": "Current DSH file policy: workspace-write. Any available operation enforced by the DSH file sandbox may modify files under the session workspace: \"C:\\\\dsh-b01-w11f\\\\tmp\\\\headless-snapshot-subagent-settlement-Q7pED9\". Some platform temporary areas may also be writable.",[39m
+[2m            },[22m
+[2m            {[22m
+[2m              "name": "approval:policy",[22m
+[2m              "text": "Approval prompts are disabled in this session: actions that require approval are rejected automatically — do not request sandbox escalation (do not set `sandbox_permissions`).",[22m
+[2m            },[22m
+
+[36m [2m❯[22m expectSessionSnapshot apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m87:46[22m[39m
+    [90m 85|[39m   const expected = await readFile(expectedPath, 'utf8')
+    [90m 86|[39m   const [normalizedExpected] = normalizeSessionSnapshots([expected], c…
+    [90m 87|[39m   expect(parseJsonl(normalizedActual ?? '')).toEqual(parseJsonl(normal…
+    [90m   |[39m                                              [31m^[39m
+    [90m 88|[39m }
+    [90m 89|[39m
+[90m [2m❯[22m Object.inspect apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m868:9[22m[39m
+[90m [2m❯[22m runLoaderSmoke packages/test-support/loader-smoke/src/index.ts:[2m230:5[22m[39m
+[90m [2m❯[22m apps/cli/tests/profiles/headless/tests/headless.expected.e2e.ts:[2m822:20[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m6 failed[39m[22m[2m | [22m[1m[32m7 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 23:30:15
+[2m   Duration [22m 150.98s[2m (tests 99%, transform 1%)[22m
+
+EXIT=1

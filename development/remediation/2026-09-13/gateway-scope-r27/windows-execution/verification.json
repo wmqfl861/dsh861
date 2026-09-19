@@ -1,0 +1,119 @@
+{
+  "round": "r27-windows-execution",
+  "kind": "gateway-scope-fixture-candidate-application-and-real-dual-pool-verification",
+  "recordedAt": "2026-09-13T19:35:00+08:00",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pullRequest": 13,
+  "pullRequestRemainsDraft": true,
+  "actor": "ZCode built-in execution subagent; not the designated Codex planner or OpenCode hard reviewer",
+  "delivery": {
+    "fixedCommit": "cfbb9d64a5d64e51ce567beeb274e1d9f2f03ffe",
+    "sourceBaseline": "571550ebc6695a668fddc2894cda3c9da822f1f4",
+    "fetchExit": 0,
+    "fixedCommitInFetchedBranchHistory": true,
+    "mergeStrategy": "fast-forward only (571550eb is an ancestor of cfbb9d6; 1 commit ahead, 0 behind, no overlapping work to integrate)",
+    "workingTreeCleanBeforeApply": true
+  },
+  "candidate": {
+    "patchPath": "development/remediation/2026-09-13/gateway-scope-r27/changes.patch",
+    "patchSha256": "5e84f43c88779bf0f2c6f20db9dd99fd4be965a653a5ea2fdc9769c6d9cf01c9",
+    "patchSha256Verified": true,
+    "targetPath": "packages/api/gateway/tests/gateway.client.spec.ts",
+    "targetGitBlobBefore": "7fb0ec8bdc3403bf18f8c70ea6082a911d2676e7",
+    "targetGitBlobVerified": true,
+    "targetHadNoUncommittedChanges": true,
+    "applyCheckExit": 0,
+    "applyExit": 0,
+    "reverseCheckExitAfterApply": 0,
+    "changedFiles": 1,
+    "additions": 8,
+    "deletions": 6,
+    "changeSummary": "three fixtureId metadata writer/reader pairs switched to the pre-existing fixtureContextTag Symbol (declared at line 31 of the same file); one RPC call-count assertion appended after each of the two scoped negative assertions; test names, business arguments, expected error strings, and disposal/service-removal assertions all retained verbatim",
+    "treeDiffEqualsCandidatePatch": "semantic equality verified; the only differences are diff-formatting decorations (index line, hunk function-context suffixes, blank-context-line leading space in git diff output)",
+    "beyondCandidate": "none; no repair was required after the candidate patch",
+    "runtimeSourceTouched": false
+  },
+  "environment": {
+    "os": "Windows 10.0.26200 x64 (Git Bash)",
+    "node": "26.8.2 (C:/dsh-r24-upgrade-20260912-01/node-v26.8.2-win-x64)",
+    "pnpm": "12.4.1 (C:/dsh-r24-upgrade-20260912-01/pnpm-12.4.1)",
+    "vitest": "5.0.0 via normal repository configuration (process-bound + thread-safe projects)",
+    "toolchainReinstalled": false,
+    "dependencyLocksChanged": false,
+    "pkgPatchTouched": false,
+    "modelConfigurationTouched": false
+  },
+  "testRuns": {
+    "gatewayClientSpec": {
+      "command": "pnpm exec vitest run packages/api/gateway/tests/gateway.client.spec.ts",
+      "projects": ["process-bound (106 tests)", "thread-safe (106 tests)"],
+      "tests": "212/212 passed",
+      "failed": 0,
+      "unhandledErrors": 0,
+      "exitCode": 0,
+      "log": "logs/gateway-client-r27.log",
+      "verboseRerun": {
+        "command": "pnpm exec vitest run packages/api/gateway/tests/gateway.client.spec.ts --reporter=verbose",
+        "exitCode": 0,
+        "log": "logs/gateway-client-r27-verbose.log"
+      },
+      "formerBaselineFailuresNowPassing": [
+        "process-bound > Client Typert API > projects one direct lookup descriptor onto an Agent-scoped alias",
+        "process-bound > Client Typert API > uses the caller Context identity for scoped namespace methods",
+        "thread-safe > Client Typert API > projects one direct lookup descriptor onto an Agent-scoped alias",
+        "thread-safe > Client Typert API > uses the caller Context identity for scoped namespace methods"
+      ],
+      "baselineReference": "r26 sealed log (development/remediation/2026-09-13/loader-entry-r26/windows-execution/logs.tar.xz :: logs/gateway-client.log): 208 passed / 4 failed, error 'cannot get property \"fixtureId\" without inject' raised from vendor/cordis/src/utils.ts:134 through the identity reader; baseline not rerun this round",
+      "diagnosisConfirmed": "the string metadata read for a missing fixtureId key routed through the service-shadow Context into the definition-site inject check; Symbol-keyed fixtureContextTag metadata is read without that inject enforcement, so the fixture identity adapter returns undefined for untagged callers and the gateway falls back to the scoped-identity error path as designed"
+    },
+    "typecheck": { "command": "pnpm run typecheck", "exitCode": 0, "log": "logs/typecheck-r27.log" },
+    "lint": { "command": "pnpm run lint", "exitCode": 0, "summary": "0 warnings, 0 errors on 3592 files", "log": "logs/lint-r27.log" },
+    "testDocs": { "command": "pnpm run test:docs", "exitCode": 0, "summary": "16 passed, 0 failed, 0 skipped", "log": "logs/test-docs-r27.log" }
+  },
+  "patchVerificationTranscript": "logs/patch-verify-r27.log (fresh capture: HEAD sha, patch sha256, target blob, reverse --check exit 0)",
+  "evidence": {
+    "dir": "development/remediation/2026-09-13/gateway-scope-r27/windows-execution/",
+    "sanitization": "plaintext logs stripped of line-trailing whitespace and of trailing blank lines at EOF (281 trailing-space lines each in typecheck/lint progress output; three logs ended with a blank line); every file ends with exactly one trailing newline; no other content altered; account-name scan over all logs negative both before and after sanitization",
+    "archive": {
+      "file": "logs.tar.xz",
+      "headerPolicy": "uid=0, gid=0, mtime=epoch 0, uname/gname empty (verified by octal dump of header bytes 265-328)",
+      "binaryAccountScan": "negative (no account or user names in the uncompressed archive bytes)"
+    },
+    "authorRecordsUntouched": true,
+    "historicalEvidenceUntouched": true
+  },
+  "review": {
+    "independentReviewExecutedLocally": false,
+    "note": "no external reviewer (Codex/OpenCode/other agents) was invoked from this session; LAW 6 authorization absent per the dispatch. The author scope-probe and this same-context execution record are not an independent review. The fixed candidate plus this evidence is handed to the main session's separate audit subagent before results are relayed; the designated P0-B planner/hard-reviewer roles remain unsubstituted.",
+    "unauthorizedModelCalls": 0,
+    "credentialsRead": false
+  },
+  "notRerun": [
+    "r26 loader 122-item matrix",
+    "web 102-file suite",
+    "full upgrade and dependency-lock generation",
+    "CLI version checks",
+    "original CSPRNG forensics matrix"
+  ],
+  "boundariesHeld": {
+    "modelConfigTwoFilesUnchanged": true,
+    "providerEndpointThinkingCredentialRefUnchanged": true,
+    "p0bStateUnchanged": true,
+    "dependencyLockUnchanged": true,
+    "pkgPatchUnchanged": true,
+    "noMasterMerge": true,
+    "p0cNotEntered": true,
+    "windowsCsprngChildProcessScope": "remains unproven; not substituted by this gateway pass",
+    "presentOpenHostFileSymlink": "remains unproven; not substituted by this gateway pass",
+    "gatewayOrCordisRuntimeChanged": false,
+    "identityExceptionsSwallowed": false,
+    "injectChecksRelaxed": false,
+    "negativeAssertionsDeleted": false,
+    "expectedErrorsChangedToAcceptMissingInject": false,
+    "consumerExceptionsConvertedToUndefined": false
+  },
+  "productAccepted": false,
+  "modelExecutionAuthorized": false,
+  "nextNodeAllowed": false
+}

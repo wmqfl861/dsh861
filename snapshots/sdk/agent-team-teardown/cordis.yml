@@ -1,0 +1,9 @@
+# Live-recording patch for the agent-team-teardown composition: mount the
+# experimental Team packages and the scenario gate/trigger plugin.
+- insert:
+    - id: agent-team
+      name: './agent-team-entry.mjs'
+    - id: tool-agent-team
+      name: './tool-agent-team-entry.mjs'
+    - id: agent-team-teardown-trigger
+      name: './teardown-trigger.mjs'

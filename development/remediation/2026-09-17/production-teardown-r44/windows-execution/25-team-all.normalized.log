@@ -1,0 +1,25 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓  thread-safe  packages/experimental/agent-team/tests/invariant.spec.ts (2 tests) 25ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/projection-events.spec.ts (12 tests) 25ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/persistence.spec.ts (5 tests) 1068ms
+   ✓ JSONL Agent Teams recovery (5)
+     ✓ reconciles a persisted child to active and a missing child to durable failed 399ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/teardown.spec.ts (8 tests) 1159ms
+ ✓  thread-safe  packages/experimental/agent-team/tests/team.spec.ts (48 tests) 4425ms
+
+ Test Files  5 passed (5)
+      Tests  75 passed (75)
+   Start at  15:57:32
+   Duration  6.96s (transform 45%, tests 43%, import 10%, setup 2%)
+
+  Transform   thread-safe  transforming modules took 7.07s · 45% of tracked time, re-done on every run
+             persist transforms across runs with fsModuleCache: true
+             learn more: https://vitest.dev/guide/improving-performance#caching-between-reruns

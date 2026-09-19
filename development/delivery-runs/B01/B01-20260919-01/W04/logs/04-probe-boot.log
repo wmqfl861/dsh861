@@ -1,0 +1,12 @@
+[2048ms] SEND: initialize
+[7031ms] STDERR: file:///C:/Albert/project/dsh861/packages/util/atomic-write/lib/index.js:136
+		if (Date.now() >= deadline) throw new Error(`atomic-write: timed out waiting for the writer lock at ${lockPath}`);
+		                                  ^
+
+Error: atomic-write: timed out waiting for the writer lock at C:\Users\Joyce Gu\.dsh\profiles\node_modules.lock
+    at withFileLock (file:///C:/Albert/project/dsh
+[7032ms] STDERR:
+Node.js v26.8.2
+
+[7060ms] EXIT: code=1 signal=null
+EXIT=0

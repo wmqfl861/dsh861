@@ -1,0 +1,30 @@
+=== noble: 1 stanza(s) ===
+{
+  "Package": "libcap-dev",
+  "Version": "1:2.66-5ubuntu2",
+  "Architecture": "amd64",
+  "Filename": "pool/main/libc/libcap2/libcap-dev_2.66-5ubuntu2_amd64.deb",
+  "Size": "595906",
+  "SHA256": "f1b40ba16418d447018c86199ac1f34bd14bb6a0be269d1849e969b290eb85da",
+  "Depends": "libcap2 (= 1:2.66-5ubuntu2), libc6 (>= 2.34)"
+}
+=== noble-updates: 1 stanza(s) ===
+{
+  "Package": "libcap-dev",
+  "Version": "1:2.66-5ubuntu2.4",
+  "Architecture": "amd64",
+  "Filename": "pool/main/libc/libcap2/libcap-dev_2.66-5ubuntu2.4_amd64.deb",
+  "Size": "595634",
+  "SHA256": "07f2462867569a2119a2ad0f1593232663f2d1612b791c230d22a8d73a15abee",
+  "Depends": "libcap2 (= 1:2.66-5ubuntu2.4), libc6 (>= 2.34)"
+}
+=== noble-security: 1 stanza(s) ===
+{
+  "Package": "libcap-dev",
+  "Version": "1:2.66-5ubuntu2.4",
+  "Architecture": "amd64",
+  "Filename": "pool/main/libc/libcap2/libcap-dev_2.66-5ubuntu2.4_amd64.deb",
+  "Size": "595634",
+  "SHA256": "07f2462867569a2119a2ad0f1593232663f2d1612b791c230d22a8d73a15abee",
+  "Depends": "libcap2 (= 1:2.66-5ubuntu2.4), libc6 (>= 2.34)"
+}

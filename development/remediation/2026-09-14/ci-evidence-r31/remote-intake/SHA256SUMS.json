@@ -1,0 +1,171 @@
+{
+  "algorithm": "SHA-256",
+  "scope": "Every regular bundle member except SHA256SUMS.json itself; original nested ZIPs retain their exact bytes.",
+  "files": [
+    {
+      "path": "LOCAL_AGENT_TASK.md",
+      "bytes": 6397,
+      "sha256": "7e55cd6cc73c174f60870dba558619e29d98804f7b555dab9d74e0058a07adfa"
+    },
+    {
+      "path": "PR_BODY.md",
+      "bytes": 2819,
+      "sha256": "99aae95598c8bcc5e724f37514302783b936ac4a0a2ca0c11bce96dc1a8f6e58"
+    },
+    {
+      "path": "READOUT.md",
+      "bytes": 8370,
+      "sha256": "d6057e58effca0a06776b2f3a3bb35b0cac6fd8bce7938082c594b6446c27ec8"
+    },
+    {
+      "path": "artifact-audit.json",
+      "bytes": 3490,
+      "sha256": "34e3787db144eb4584a16777814b9428f53012e78112630483a9eb45e54faa76"
+    },
+    {
+      "path": "artifacts/dsh861-r30-consumers-run34799140559-attempt1.zip",
+      "bytes": 2212,
+      "sha256": "43222cb85855721199bd79470a5d839f23b3ccbcacbbc4ee5fee96d8f01b854c"
+    },
+    {
+      "path": "artifacts/dsh861-r30-linux-coverage-run34799140559-attempt1.zip",
+      "bytes": 34532,
+      "sha256": "8cd1b360b0daf4c2be629e56b059984a817c5154183644002aa8eaf8395d6a90"
+    },
+    {
+      "path": "artifacts/dsh861-r30-windows-coverage-run34799140559-attempt1.zip",
+      "bytes": 68384,
+      "sha256": "e1e8b8e538bf6dcea5c26337793861da172c98e5c933daf2a1e5f064104a7094"
+    },
+    {
+      "path": "candidate-replacements.json",
+      "bytes": 10540,
+      "sha256": "7e636b95f5ab6dec5b71d6dc74096cc96fee4555e6de1959e55e834e27c5a62a"
+    },
+    {
+      "path": "evidence/artifact-pattern-scan.json",
+      "bytes": 724,
+      "sha256": "5eb088b736f9223cc054804c5b75d4430d91e790f59a90e99d1a7f34048060ab"
+    },
+    {
+      "path": "evidence/candidate-generator-proof.json",
+      "bytes": 430,
+      "sha256": "6d73696bf57977dd8ce179c7804a54e722738931f7a5370fcc0afd781159bb4b"
+    },
+    {
+      "path": "evidence/consumers-aggregate-stdout.log",
+      "bytes": 388,
+      "sha256": "0382a184c6bb34f4bd93b06f0943cf97d2a29e42e5dcc71582af693c601b53d9"
+    },
+    {
+      "path": "evidence/consumers-gate-results.json",
+      "bytes": 2648,
+      "sha256": "a508f847795917e1b35d7429a7790bb4f6d76b192d0a76d16521da6a375db829"
+    },
+    {
+      "path": "evidence/consumers-identity.json",
+      "bytes": 637,
+      "sha256": "4ce2b30a1107c4f7fb6a3e7026ce5d923b02f6a64e040a4fb713d95ecf421e4b"
+    },
+    {
+      "path": "evidence/consumers-manifest.json",
+      "bytes": 714,
+      "sha256": "5b13d362c18ffebe31018ce92df7ce3cfed42a237c08b89cebb25984a8955ec0"
+    },
+    {
+      "path": "evidence/linux-coverage-excerpt-origin.json",
+      "bytes": 448,
+      "sha256": "b2f3b552060f7559eb592f26a36face78d7e6903f332af32c53f481472bc4a54"
+    },
+    {
+      "path": "evidence/linux-coverage-failure-excerpt.log",
+      "bytes": 2776,
+      "sha256": "1b99c73c019a3461464d156c039df5417155d169bed4b7dd681d142c8d7a5631"
+    },
+    {
+      "path": "evidence/linux-coverage-gate-results.json",
+      "bytes": 2536,
+      "sha256": "3b2f5de530b5ad2c92cd226a18ba48fc15c3eedcd1ccf2822a4a3888d29fa9da"
+    },
+    {
+      "path": "evidence/linux-coverage-identity.json",
+      "bytes": 636,
+      "sha256": "92e78259eede7a9f7d64f6972d4099b9bea6dcab507b988aed251d38039e6334"
+    },
+    {
+      "path": "evidence/linux-coverage-manifest.json",
+      "bytes": 887,
+      "sha256": "2e5c39ce2d542cfdc7d2d0110350c47a53c9f1005b4e40fdfaff34705b1cc565"
+    },
+    {
+      "path": "evidence/nested-owner-proof.json",
+      "bytes": 1135,
+      "sha256": "70f30fc8281b38622b61bfbbc68135c7ace55f324fbf0eb3647a1790975c5e5b"
+    },
+    {
+      "path": "evidence/nested-owner-proof.stderr.log",
+      "bytes": 181,
+      "sha256": "05f8880ef14da7310c571e583c68bad19346e9d6fa6025e70b382f109c7a517e"
+    },
+    {
+      "path": "evidence/portable-artifact-verification.json",
+      "bytes": 823,
+      "sha256": "812804155a658352995b709bcb72156700d83c31ef6411b6a2c1275df83145c4"
+    },
+    {
+      "path": "evidence/shallow-parent-proof.json",
+      "bytes": 502,
+      "sha256": "adaf5bec8bfba15668d3f841d91a41338e68292d7ab2d55b07f57c48391cd992"
+    },
+    {
+      "path": "evidence/windows-coverage-excerpt-origin.json",
+      "bytes": 450,
+      "sha256": "b865456e556d12ee37c2c83892f16d9487b9f7076db620d22da2b7574b4ab02e"
+    },
+    {
+      "path": "evidence/windows-coverage-failure-excerpt.log",
+      "bytes": 2966,
+      "sha256": "929f9d35cc2e68351eba52c16d8427e854a88b3d095af63e5034e41b83cbfb03"
+    },
+    {
+      "path": "evidence/windows-coverage-gate-results.json",
+      "bytes": 2531,
+      "sha256": "12b0ee77d2ceefc1043ae24c6a581788b5deb2cde1e76f70c06e2270d3eb651b"
+    },
+    {
+      "path": "evidence/windows-coverage-identity.json",
+      "bytes": 636,
+      "sha256": "bb41115fab5b9cdaef64e362bf10d8503d4885a3c5499b2b78e4d7aec97958e7"
+    },
+    {
+      "path": "evidence/windows-coverage-manifest.json",
+      "bytes": 887,
+      "sha256": "fdc830cc78e0f6ccd709424729fc22d0f3f1dca1651cab6ddc3154695433bdb3"
+    },
+    {
+      "path": "prepare_candidate.py",
+      "bytes": 3791,
+      "sha256": "45a609ae0a27a5b62f2885c62dc8a3a55a8bcd07b02680cd854f44d77bf5dd46"
+    },
+    {
+      "path": "probe_nested_owner.mjs",
+      "bytes": 4249,
+      "sha256": "9b52a972f8819da5177ab0e5904b860723dd1785cd9da5913b32c100c694a86e"
+    },
+    {
+      "path": "probe_shallow_parents.py",
+      "bytes": 2038,
+      "sha256": "348e80cf19cef55ed17b8835fbd9b0e40a867fd6575c84abf90bce5fb93e5b4a"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 3528,
+      "sha256": "4e2f618a178ca3163a0bcd915788c08905a2c3467a1c15466dea3750d153133f"
+    },
+    {
+      "path": "verify_artifacts.py",
+      "bytes": 3886,
+      "sha256": "4ec4a4902e481cbaba6423458fc80a506324b40f64964cc2c08cbd95d5147238"
+    }
+  ]
+}

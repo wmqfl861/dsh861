@@ -1,0 +1,12 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m apps/web/tests/preview-boot.e2e.ts [2m([22m[2m1 test[22m[2m)[22m[33m 30447[2mms[22m[39m
+   [33m[2m✓[22m[39m boots the packed worker deployment to an interactive page[33m 30444[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 00:43:14
+[2m   Duration [22m 36.02s[2m (tests 85%, transform 10%, import 5%)[22m

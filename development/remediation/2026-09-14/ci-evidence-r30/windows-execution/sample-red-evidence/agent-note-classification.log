@@ -1,0 +1,5 @@
+<<<stderr>>>
+$ tsx scripts/verify-agent-note-classification.ts
+verify-agent-note-classification: violations found:
+  structure: implemented/2026-09-14-zzz-temp-red-fixture.md — expected {lifecycle}/{class}/file.md (got depth 2)
+[ELIFECYCLE] Command failed with exit code 1.

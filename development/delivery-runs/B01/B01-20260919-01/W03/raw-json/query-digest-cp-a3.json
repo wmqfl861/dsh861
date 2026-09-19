@@ -1,0 +1,341 @@
+{
+  "round": "CP-A3 close-out",
+  "generated_at": "2026-09-19T15:13:43.369Z",
+  "source_dir": "C:/dsh-b01-w03/raw",
+  "queries": [
+    {
+      "ts": "20260919T145824Z",
+      "endpoint": "GET /actions/runs?head_sha=1d412762eb...",
+      "file": "runs-headsha-a3-20260919T145824Z.json",
+      "total_count": 8,
+      "runs": [
+        {
+          "id": 35450138380,
+          "run_number": 78,
+          "name": "Issue policy",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 35450138500,
+          "run_number": 42,
+          "name": "E2E (real DeepSeek API)",
+          "status": "completed",
+          "conclusion": "skipped"
+        },
+        {
+          "id": 35450138445,
+          "run_number": 42,
+          "name": "CI",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 35450138244,
+          "run_number": 78,
+          "name": "Issue lifecycle",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 35450138277,
+          "run_number": 42,
+          "name": "Release (vendor)",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 35450138260,
+          "run_number": 42,
+          "name": "Node Addon System",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 35450138282,
+          "run_number": 42,
+          "name": "Build PR preview",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 35450138266,
+          "run_number": 42,
+          "name": "Release (dsh)",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T151217Z",
+      "endpoint": "GET /actions/runs/35450138445/jobs (final)",
+      "file": "jobs-a3-20260919T151217Z.json",
+      "jobs": [
+        {
+          "id": 105915743876,
+          "name": "node 24 / benchmarks",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915743960,
+          "name": "windows node 24 / observational",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915743974,
+          "name": "node 26",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915743984,
+          "name": "windows node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 105915743996,
+          "name": "windows node 24 / native tests",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915744012,
+          "name": "node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 105915744015,
+          "name": "node 24.9",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915744016,
+          "name": "node 24 / snapshots and artifacts",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 105915744017,
+          "name": "windows node 24 / build",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915744021,
+          "name": "node 24 / static",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915744030,
+          "name": "node 22.19",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915744049,
+          "name": "python 3.10 / keyless SDK",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915744090,
+          "name": "python runtime / release-shaped matrix / plan targets",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915766907,
+          "name": "python runtime / release-shaped matrix / deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915791077,
+          "name": "python runtime / release-shaped matrix / node24-win-x64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105915791145,
+          "name": "python runtime / release-shaped matrix / node24-linux-x64",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 105917649280,
+          "name": "all checks passed",
+          "status": "completed",
+          "conclusion": "failure"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T151217Z",
+      "endpoint": "GET /actions/runs/35450138445 (final)",
+      "file": "run-a3-final-20260919T151217Z.json",
+      "run": {
+        "id": 35450138445,
+        "run_number": 42,
+        "status": "completed",
+        "conclusion": "failure",
+        "run_attempt": 1,
+        "head_sha": "1d412762eb4fe0845cc72dd4b5a1e27fad02b49e",
+        "updated_at": "2026-09-19T15:10:41Z"
+      }
+    },
+    {
+      "ts": "20260919T145839Z",
+      "endpoint": "GET /pulls/13",
+      "file": "pr13-a3-20260919T145839Z.json",
+      "pr": {
+        "head": "1d412762eb4fe0845cc72dd4b5a1e27fad02b49e",
+        "merge_commit_sha": "1ae5a5577f15cba0dbac9f60a81714cf83f375fb",
+        "draft": true
+      }
+    },
+    {
+      "ts": "20260919T151217Z",
+      "endpoint": "GET /actions/runs/35450138445/artifacts (final)",
+      "file": "artifacts-a3-20260919T151217Z.json",
+      "artifacts": [
+        {
+          "id": 10587360084,
+          "name": "gate-evidence-node-24-coverage-run35450138445-attempt1",
+          "size": 168072
+        },
+        {
+          "id": 10586684279,
+          "name": "gate-evidence-windows-coverage-run35450138445-attempt1",
+          "size": 171261
+        },
+        {
+          "id": 10586657968,
+          "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-manylinux_2_28_x86_64.whl",
+          "size": 80578245
+        },
+        {
+          "id": 10586013037,
+          "name": "deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl",
+          "size": 13047
+        },
+        {
+          "id": 10585798398,
+          "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-win_amd64.whl",
+          "size": 72125224
+        },
+        {
+          "id": 10585733512,
+          "name": "gate-evidence-node-24-consumers-run35450138445-attempt1",
+          "size": 30910
+        }
+      ]
+    },
+    {
+      "ts": "20260919T145929Z",
+      "endpoint": "GET /check-runs/105915744016/annotations",
+      "file": "annot-a3-consumers.json",
+      "saved_raw": true,
+      "annotations": [
+        {
+          "level": "warning",
+          "line": 2,
+          "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache/restore@v4. For more inform"
+        },
+        {
+          "level": "failure",
+          "line": 824,
+          "message": "Process completed with exit code 1."
+        },
+        {
+          "level": "failure",
+          "line": 773,
+          "message": "AssertionError: subagent-teardown: session 1 header 1: expected { config: { …(2) }, …(1) } to deeply equal { config: { …(2) }, …(1) }\n\n- Expected\n+ Re"
+        },
+        {
+          "level": "failure",
+          "line": 773,
+          "message": "AssertionError: agent-team-teardown: session 0 header 1: expected { config: { …(2) }, …(1) } to deeply equal { config: { …(2) }, …(1) }\n\n- Expected\n+ "
+        }
+      ]
+    },
+    {
+      "ts": "20260919T151018Z",
+      "endpoint": "GET /check-runs/105915744012/annotations",
+      "file": "annot-a3-coverage-20260919T151018Z.json",
+      "saved_raw": true,
+      "annotations": [
+        {
+          "level": "warning",
+          "line": 2,
+          "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache/restore@v4. For more inform"
+        },
+        {
+          "level": "failure",
+          "line": 11639,
+          "message": "Process completed with exit code 1."
+        },
+        {
+          "level": "failure",
+          "line": 62,
+          "message": "Error: CDP call timed out: Runtime.evaluate\n ❯ Timeout._onTimeout packages/experimental/inspector/tests/cordis-tree.host.spec.ts:62:47\n\n"
+        },
+        {
+          "level": "failure",
+          "line": 5158,
+          "message": "AssertionError: expected { kind: 'timeout', …(1) } to be undefined\n\n- Expected:\nundefined\n\n+ Received:\n{\n  \"kind\": \"timeout\",\n  \"message\": \"wall-clock"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T151234Z",
+      "endpoint": "GET /check-runs/105915743984/annotations",
+      "file": "annot-a3-wincoverage-20260919T151234Z.json",
+      "saved_raw": true,
+      "annotations": [
+        {
+          "level": "warning",
+          "line": 2,
+          "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache/restore@v4, actions/cache/s"
+        },
+        {
+          "level": "failure",
+          "line": 11861,
+          "message": "Process completed with exit code 1."
+        },
+        {
+          "level": "failure",
+          "line": 200,
+          "message": "Error: Test timed out in 30000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T14xxZ",
+      "endpoint": "GET /contents/{4 files}?ref=1ae5a557 (merge blob check)",
+      "files": [
+        "a3-merge-prepare-ci-bubblewrap.sh-*",
+        "a3-merge-prepare-ci-bubblewrap.spec.ts-*",
+        "a3-merge-prepare-ci-bubblewrap-test-support.ts-*",
+        "a3-merge-ci.yml-*"
+      ],
+      "result": "all four blobs match local HEAD (cf6f7a13/7c5dfc42/4558bf48/c6b939a7)"
+    }
+  ],
+  "notes": {
+    "hygiene": "This round saved all annotation fetches as raw files; no placeholder-only entries. ls-remote used for merge ref (no credential use)."
+  },
+  "evidence_hygiene_gaps": {
+    "added": "2026-09-19 controller CR-1 completion (W03 CP1 increment)",
+    "gaps": [
+      "Placeholder timestamp: query entry ts 20260919T14xxZ is a coarse marker, not an exact query time.",
+      "source_dir contains artifact-consumers-gate-evidence-20260919T141610Z.zip which is actually a 401 JSON body with a misleading .zip filename (cross-referenced in cp-a2 gaps)."
+    ]
+  }
+}

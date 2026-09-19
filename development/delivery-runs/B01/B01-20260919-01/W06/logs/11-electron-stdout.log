@@ -1,0 +1,9 @@
+B01 preview launch: electron=C:\Albert\project\dsh861\node_modules\.pnpm\electron@44.3.0_supports-color@9.4.0\node_modules\electron\dist\electron.exe
+B01 preview launch: node=C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64\node.exe (26.8.2)
+B01 preview launch: DSH_HOME=C:\dsh-b01-w06\home-error
+B01 preview launch: app=C:\dsh-b01-w06\app (project=C:\dsh-b01-w06\app\.desktop-build\development\project)
+B01 preview launch: test profile assembled at C:\dsh-b01-w06\app\.desktop-build\development\project\cordis.patch.yml (fixture copy: C:\dsh-b01-w06\app\.desktop-build\development\project\b01-preview-model.mjs)
+B01 preview launch: inspectors main=9229, renderer=9222, host=9230
+
+B01 preview launch: electron exited code=0
+EXIT=0

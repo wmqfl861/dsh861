@@ -1,7 +1,7 @@
 import { availableParallelism } from 'node:os'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
-import { standardDecoratorPlugin, vitestExecArgv } from './vitest.shared.ts'
+import { standardDecoratorPlugin, vitestExecArgv, vitestEsbuild } from './vitest.shared.ts'
 
 const DEFAULT_SNAPSHOT_MAX_CONCURRENCY = 5
 
@@ -37,6 +37,7 @@ if (process.env.DSH_SNAPSHOT === 'record') {
 }
 
 export default defineConfig({
+  esbuild: vitestEsbuild,
   // Same resolution note as vitest.config.ts: bare workspace names resolve
   // through the tsconfig.base.json paths facade; the native option cannot do
   // this (the root tsconfig is a solution file with no paths).

@@ -1,0 +1,30 @@
+DSH 本地构建
+0.1.5-rc.2-e8d1858-dirty
+新会话
+工作区
+b01-temp-project
+B01 测试会话
+刚刚
+B01 seed task: prove the
+1分钟
+设置
+B01 测试会话
+标准模式
+对话
+轨迹
+系统提示词
+B01-PREVIEW 测试任务：请流式输出并给出最终标记。
+21:17
+已思考
+
+B01 测试模式（keyless mock）正在流式输出。本回答不来自真实模型，也不读取任何凭据。最终标记：B01-PREVIEW-FINAL-1789823843078
+
+用时 1秒
+21:17
+
+B01-SLOW 保持运行的任务，等待取消。
+
+工作区内修改
+b01-preview/b01-preview-model
+1 轮 1 步·53 tok/s
+78 tok·缓存命中 0%

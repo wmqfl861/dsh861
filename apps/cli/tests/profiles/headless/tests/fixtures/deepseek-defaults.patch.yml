@@ -10,7 +10,10 @@
     baseURL: !!js process.env.DSH_SNAPSHOT_BASE_URL
     thinking: enabled
     reasoningEffort: low
-    streamIdleTimeoutMs: 150
+    # Keep-alives arrive every KEEP_ALIVE_INTERVAL_MS; the idle budget must stay
+    # a clear multiple of that cadence or scheduler jitter retries the main
+    # request and breaks the two-request contract.
+    streamIdleTimeoutMs: 1000
 
 - id: agent-loop
   config:

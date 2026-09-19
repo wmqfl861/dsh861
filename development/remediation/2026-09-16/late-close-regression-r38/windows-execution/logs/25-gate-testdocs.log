@@ -1,0 +1,47 @@
+$ tsx scripts/run-gates.ts doc-quick
+run-gates: doc-quick running 16 gate(s) with 4 worker(s) from 20 available CPU(s), doc-quick cap 4.
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: PASS type equivalence (19.49s)
+run-gates: start public repository links
+run-gates: PASS markdown wrap (21.79s)
+run-gates: start doc refs
+run-gates: PASS doc refs (9.64s)
+run-gates: start package README Summaries
+run-gates: PASS package README Summaries (1.21s)
+run-gates: start package README model experience
+run-gates: PASS public repository links (17.89s)
+run-gates: start agent note classification
+run-gates: PASS agent note classification (1.17s)
+run-gates: start agent note format
+
+== FAILED translation pairing (39.32s) ==
+command: pnpm run verify-translation-pairing
+outcome: exit 1
+$ tsx scripts/verify-translation-pairing.ts
+verify-translation-pairing: bilingual pairing rules violated (see docs/i18n/README.md):
+  .agents/notes/implemented/testing/2026-09-16-late-close-parse-count-regression-r38.zh.md:9: link target "../bug-fix/2026-09-15-gate-descendants-traversal-r37.md" uses the wrong locale; expected "../bug-fix/2026-09-15-gate-descendants-traversal-r37.zh.md"
+[ELIFECYCLE] Command failed with exit code 1.
+run-gates: start archived agent notes
+run-gates: PASS agent note format (1.31s)
+run-gates: start skill invocation metadata
+run-gates: PASS skill invocation metadata (0.93s)
+run-gates: start translation prompt
+run-gates: PASS archived agent notes (1.92s)
+run-gates: start doc budgets
+run-gates: PASS translation prompt (0.87s)
+run-gates: start documentation standard tests
+run-gates: PASS doc budgets (1.02s)
+run-gates: start package README limitations
+run-gates: PASS markdown links (45.04s)
+run-gates: PASS package README model experience (12.88s)
+run-gates: PASS documentation standard tests (5.58s)
+run-gates: PASS package README limitations (14.04s)
+
+run-gates: 15 passed, 1 failed, 0 skipped in 56.43s.
+run-gates: unsuccessful gates:
+  - FAILED translation pairing (39.32s, exit 1)
+    pnpm run verify-translation-pairing
+[ELIFECYCLE] Command failed with exit code 1.

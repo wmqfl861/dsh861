@@ -1,0 +1,311 @@
+{
+  "round": "CP-A2",
+  "generated_at": "2026-09-19T14:22:33.748Z",
+  "source_dir": "C:/dsh-b01-w03/raw",
+  "queries": [
+    {
+      "ts": "20260919T140745Z",
+      "endpoint": "GET /actions/runs?head_sha=1863a0ddfd...",
+      "file": "runs-headsha-a2-20260919T140745Z.json",
+      "total_count": 8,
+      "runs": [
+        {
+          "id": 35447649737,
+          "run_number": 41,
+          "name": "E2E (real DeepSeek API)",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "skipped"
+        },
+        {
+          "id": 35447649849,
+          "run_number": 77,
+          "name": "Issue policy",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 35447649772,
+          "run_number": 77,
+          "name": "Issue lifecycle",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 35447649775,
+          "run_number": 41,
+          "name": "Node Addon System",
+          "event": "pull_request",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 35447649954,
+          "run_number": 41,
+          "name": "CI",
+          "event": "pull_request",
+          "status": "in_progress",
+          "conclusion": null
+        },
+        {
+          "id": 35447649736,
+          "run_number": 41,
+          "name": "Release (vendor)",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 35447649819,
+          "run_number": 41,
+          "name": "Build PR preview",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure"
+        },
+        {
+          "id": 35447649764,
+          "run_number": 41,
+          "name": "Release (dsh)",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T142010Z",
+      "endpoint": "GET /actions/runs/35447649954/jobs (final)",
+      "file": "jobs-a2-20260919T142010Z.json",
+      "jobs": [
+        {
+          "id": 105909256654,
+          "name": "node 24 / snapshots and artifacts",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:08:14Z"
+        },
+        {
+          "id": 105909256728,
+          "name": "node 24 / benchmarks",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:00Z",
+          "completed_at": "2026-09-19T14:08:12Z"
+        },
+        {
+          "id": 105909256756,
+          "name": "node 26",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:00Z",
+          "completed_at": "2026-09-19T14:05:49Z"
+        },
+        {
+          "id": 105909256786,
+          "name": "node 24 / static",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:08:18Z"
+        },
+        {
+          "id": 105909256793,
+          "name": "node 22.19",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:06:54Z"
+        },
+        {
+          "id": 105909256794,
+          "name": "windows node 24 / native tests",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:06:33Z"
+        },
+        {
+          "id": 105909256799,
+          "name": "windows node 24 / observational",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:11:38Z"
+        },
+        {
+          "id": 105909256807,
+          "name": "node 24.9",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:05:50Z"
+        },
+        {
+          "id": 105909256819,
+          "name": "node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:19:16Z"
+        },
+        {
+          "id": 105909256821,
+          "name": "python runtime / release-shaped matrix / plan targets",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:05:44Z"
+        },
+        {
+          "id": 105909256848,
+          "name": "windows node 24 / build",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:07:49Z"
+        },
+        {
+          "id": 105909256858,
+          "name": "windows node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:13:00Z"
+        },
+        {
+          "id": 105909256990,
+          "name": "python 3.10 / keyless SDK",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:01Z",
+          "completed_at": "2026-09-19T14:05:19Z"
+        },
+        {
+          "id": 105909358248,
+          "name": "python runtime / release-shaped matrix / deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:05:46Z",
+          "completed_at": "2026-09-19T14:05:59Z"
+        },
+        {
+          "id": 105909389581,
+          "name": "python runtime / release-shaped matrix / node24-win-x64",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:06:02Z",
+          "completed_at": "2026-09-19T14:13:39Z"
+        },
+        {
+          "id": 105909389623,
+          "name": "python runtime / release-shaped matrix / node24-linux-x64",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-09-19T14:06:02Z",
+          "completed_at": "2026-09-19T14:10:00Z"
+        },
+        {
+          "id": 105911152531,
+          "name": "all checks passed",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-09-19T14:19:18Z",
+          "completed_at": "2026-09-19T14:19:21Z"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T142010Z",
+      "endpoint": "GET /actions/runs/35447649954 (final)",
+      "file": "run-a2-final-20260919T142010Z.json",
+      "run": {
+        "id": 35447649954,
+        "run_number": 41,
+        "status": "completed",
+        "conclusion": "failure",
+        "run_attempt": 1,
+        "head_sha": "1863a0ddfdefdfdaa4f3b6d6314b042a22f01b62",
+        "run_started_at": "2026-09-19T14:04:58Z",
+        "updated_at": "2026-09-19T14:19:21Z"
+      }
+    },
+    {
+      "ts": "20260919T141310Z",
+      "endpoint": "GET /pulls/13",
+      "file": "pr13-a2-20260919T141310Z.json",
+      "pr": {
+        "head": "1863a0ddfdefdfdaa4f3b6d6314b042a22f01b62",
+        "base": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+        "merge_commit_sha": "158a9cdbdcdf6aebf8b78b071b96c7a72b80f323",
+        "draft": true
+      }
+    },
+    {
+      "ts": "20260919T142025Z",
+      "endpoint": "GET /actions/runs/35447649954/artifacts (final)",
+      "file": "artifacts-a2-final-20260919T142025Z.json",
+      "artifacts": [
+        {
+          "id": 10586561821,
+          "name": "gate-evidence-node-24-coverage-run35447649954-attempt1",
+          "size": 194205
+        },
+        {
+          "id": 10586480789,
+          "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-win_amd64.whl",
+          "size": 72125417
+        },
+        {
+          "id": 10586416150,
+          "name": "gate-evidence-node-24-consumers-run35447649954-attempt1",
+          "size": 9145
+        },
+        {
+          "id": 10586190638,
+          "name": "deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl",
+          "size": 13047
+        },
+        {
+          "id": 10585811826,
+          "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-manylinux_2_28_x86_64.whl",
+          "size": 80578412
+        },
+        {
+          "id": 10585476793,
+          "name": "gate-evidence-windows-coverage-run35447649954-attempt1",
+          "size": 42464
+        }
+      ]
+    },
+    {
+      "ts": "20260919T1410-1418Z",
+      "endpoint": "GET /check-runs/{105909256654|105909256819|105909256858}/annotations",
+      "key_findings": [
+        "consumers: headless.expected.e2e.ts:572 expect(server.requests).toHaveLength(2) got 5 (pi-ai one-shot)",
+        "coverage: prepare-ci-bubblewrap.spec.ts stub-source check failed x2 (command -v uname resolved to empty, probe status null, run dirs EdSAjV/VLsLYQ)",
+        "coverage: prepare-ci-bubblewrap.spec.ts:907 expected +0 to be 1",
+        "coverage: prepare-ci-bubblewrap.spec.ts:787 command-sequence deep-equal diff at dpkg-deb entries",
+        "coverage: terminal-bash local.spec.ts:333 expected empty to contain dsh> prompt",
+        "coverage: code-runtime-python runtime.spec.ts 60s wall-clock timeout",
+        "windows coverage: typert generator tools-catalog Test timed out in 30000ms"
+      ]
+    },
+    {
+      "ts": "20260919T141xZ",
+      "endpoint": "GET /actions/artifacts/10586416150/zip (anonymous)",
+      "result": "401 Requires authentication"
+    }
+  ],
+  "evidence_hygiene_gaps": {
+    "added": "2026-09-19 CP-A3 close-out round (C3, from interim CP1)",
+    "gaps": [
+      "Placeholder timestamps: the annotations entry ts 20260919T1410-1418Z and the 401-probe entry ts 20260919T141xZ are coarse markers, not exact query times.",
+      "Entries without raw-file correspondence: all three annotation fetches (check-runs 105909256654 / 105909256819 / 105909256858) were piped live to stdout and never saved as raw JSON files; their content lives only in this digest.",
+      "Misleading filename: raw/artifact-consumers-gate-evidence-20260919T141610Z.zip (120 bytes) is actually a 401 JSON body saved with a .zip name; retained as-is, noted for hygiene (CR-1 third entry)."
+    ]
+  }
+}

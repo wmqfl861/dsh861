@@ -1,0 +1,22 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+ [32m✓[39m apps/web/tests/lifecycle-chrome.e2e.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 34264[2mms[22m[39m
+   [32m✓[39m web e2e: lifecycle & chrome (workspace flow / reload / dark mode) [2m(13)[22m
+     [33m[2m✓[22m[39m opens the shared slash menu from plus with only Command candidates[33m 471[2mms[22m[39m
+     [33m[2m✓[22m[39m localizes slash-command descriptions from the browser language[33m 1216[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps /goal claimed across separator edits and hides hints during IME composition[33m 1555[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps /plan claimed across separator edits and hides hints during IME composition[33m 1529[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps /目标 claimed across separator edits and hides hints during IME composition[33m 1511[2mms[22m[39m
+     [33m[2m✓[22m[39m keeps /计划 claimed across separator edits and hides hints during IME composition[33m 1533[2mms[22m[39m
+     [33m[2m✓[22m[39m shows active Plan as the warn-state status action[33m 5419[2mms[22m[39m
+     [33m[2m✓[22m[39m sends the first prompt from the empty-state hero (all modes)[33m 3936[2mms[22m[39m
+     [33m[2m✓[22m[39m recovers the whole surface across a reload from the log alone[33m 1118[2mms[22m[39m
+     [33m[2m✓[22m[39m shows automatic and user-requested connection recovery beside Settings[33m 2099[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 20:26:43
+[2m   Duration [22m 36.51s[2m (tests 94%, transform 3%, import 2%)[22m

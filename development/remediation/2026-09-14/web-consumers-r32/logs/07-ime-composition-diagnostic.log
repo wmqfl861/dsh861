@@ -1,0 +1,100 @@
+[33mThe plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the [1mresolve.tsconfigPaths[22m option. You can remove the plugin and set [1mresolve.tsconfigPaths: true[22m in your Vite config instead.[39m
+[33mBoth esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored.[39m The following esbuild options were set: `{ jsx: 'automatic' }`
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] --- composition begins ---
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] pre-composition text: "/goal " U+002f U+0067 U+006f U+0061 U+006c U+0020
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] after ime z: "/goal z​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+007a U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] after ime zh: "/goal zh​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+007a U+0068 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] --- committed via Input.insertText ---
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] +0ms text="/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] +500ms text="/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] +1000ms text="/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] +1500ms text="/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] +2000ms text="/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] +2500ms text="/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] data-phase: claimed
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] after End key: "/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] after Backspace: "/goal 这​" U+002f U+0067 U+006f U+0061 U+006c U+0020 U+8fd9 U+200b
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] events: [
+ "2724ms compositionstart isComposing=undefined data=\"\"",
+ "2724ms compositionupdate isComposing=undefined data=\"z\"",
+ "2725ms beforeinput isComposing=true data=\"z\"",
+ "2728ms input isComposing=true data=\"z\"",
+ "2949ms compositionupdate isComposing=undefined data=\"zh\"",
+ "2949ms beforeinput isComposing=true data=\"zh\"",
+ "2955ms input isComposing=true data=\"zh\"",
+ "3181ms compositionupdate isComposing=undefined data=\"这\"",
+ "3181ms beforeinput isComposing=true data=\"这\"",
+ "3187ms input isComposing=true data=\"这\"",
+ "3220ms compositionend isComposing=undefined data=\"这\""
+]
+
+[90mstdout[2m | apps/web/tests/zz-debug-ime.e2e.ts[2m > [22m[2mprobes IME composition suffix lifecycle
+[22m[39m[zz] page2 probe failed: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole('textbox', { name: 'Choose workspace' })[22m
+
+    at connectFreshWorkspace (C:/Albert/project/dsh861/apps/web/tests/support.ts:106:65)
+    at C:/Albert/project/dsh861/apps/web/tests/zz-debug-ime.e2e.ts:105:13
+    at [90mC:\Albert\project\dsh861\[39mnode_modules\[4m.pnpm[24m\vitest@5.0.0_@opentelemetry_0a4bad894e8486b2953adf924e4b79ce\node_modules\[4mvitest[24m\dist\chunks\run.CQOUYP-x.js:2783:20 {
+  log: [
+    [32m"  - waiting for getByRole('textbox', { name: 'Choose workspace' })"[39m
+  ],
+  name: [32m'TimeoutError'[39m
+}
+
+ [31m❯[39m apps/web/tests/zz-debug-ime.e2e.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 47524[2mms[22m[39m
+[31m   [31m×[31m probes IME composition suffix lifecycle[39m[33m 47523[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m apps/web/tests/zz-debug-ime.e2e.ts[2m > [22mprobes IME composition suffix lifecycle
+[31m[1mError[22m: llm-replay: fixture not fully consumed — 1 recorded script(s) never bound to a live session; the scenario drove fewer model calls than recorded[39m
+[36m [2m❯[22m Object.assertConsumed packages/test-support/llm-replay/src/index.ts:[2m1113:15[22m[39m
+    [90m1111|[39m       }
+    [90m1112|[39m       if (problems.length > 0) {
+    [90m1113|[39m         throw new Error(`llm-replay: fixture not fully consumed — ${pr…
+    [90m   |[39m               [31m^[39m
+    [90m1114|[39m       }
+    [90m1115|[39m     },
+[90m [2m❯[22m Object.close apps/web/tests/scaffold.ts:[2m862:25[22m[39m
+[90m [2m❯[22m apps/web/tests/zz-debug-ime.e2e.ts:[2m131:20[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m   Start at [22m 19:49:41
+[2m   Duration [22m 49.57s[2m (tests 96%, transform 2%, import 1%)[22m

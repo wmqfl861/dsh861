@@ -1,0 +1,7 @@
+agent-team parent: Linux vs win32 differ ONLY in bash<->pwsh; 30 shared tools structurally identical
+agent-team child default schema = parent default schema (identity basis: win32 parent/child byte-identity re-verified)
+subagent child prompt (win32 child sidecar base): section swapped -> subagent-teardown.system-prompt.1.default.candidate.md
+agent-team parent prompt (win32 parent sidecar base): section swapped -> agent-team-teardown.system-prompt.default.candidate.md
+agent-team child prompt (win32 child sidecar base): section swapped -> agent-team-teardown.system-prompt.1.default.candidate.md
+subagent derived child prompt == text-turn shared prompt (byte-for-byte): true
+EXIT=0

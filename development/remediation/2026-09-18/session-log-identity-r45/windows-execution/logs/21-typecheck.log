@@ -1,0 +1,17 @@
+2026-09-18T17:12:20Z typecheck start
+$ npm run build:lib:host && npm run typecheck:contracts-ready
+
+> @deepseek-ai/dsh-root@0.1.5-rc.2 build:lib:host
+> tsc -b tsconfig.host.json && tsdown --env.DSH_BUILD_FACE host
+
+apps/cli/tests/profiles/headless/tests/session-log-identity.spec.ts(44,57): error TS2322: Type 'T | undefined' is not assignable to type 'T'.
+  'T' could be instantiated with an arbitrary type which could be unrelated to 'T | undefined'.
+apps/cli/tests/profiles/headless/tests/session-log-identity.ts(62,25): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+apps/cli/tests/profiles/headless/tests/session-log-identity.ts(109,15): error TS2532: Object is possibly 'undefined'.
+apps/cli/tests/profiles/headless/tests/session-log-identity.ts(109,39): error TS2532: Object is possibly 'undefined'.
+apps/cli/tests/profiles/headless/tests/session-log-identity.ts(152,15): error TS2532: Object is possibly 'undefined'.
+apps/cli/tests/profiles/headless/tests/session-log-identity.ts(152,39): error TS2532: Object is possibly 'undefined'.
+[ELIFECYCLE] Command failed with exit code 1.
+TYPECHECK_EXIT:1
+2026-09-18T17:12:36Z typecheck end

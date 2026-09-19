@@ -1,0 +1,20 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.0 [39m[90mC:/Albert/project/dsh861[39m
+
+[90mstdout[2m | scripts/vitest-project-inheritance.spec.ts[2m > [22m[2mvitest inline project inheritance[2m > [22m[2mnarrows a generated partition config without re-inheriting the root include
+[22m[39mcoverage-partitions: start partition 1/2
+coverage-partitions: start partition 2/2
+
+[90mstdout[2m | scripts/vitest-project-inheritance.spec.ts[2m > [22m[2mvitest inline project inheritance[2m > [22m[2mnarrows a generated partition config without re-inheriting the root include
+[22m[39mcoverage-partitions: start merged coverage report
+
+ [32m✓[39m [30m[45m thread-safe [49m[39m scripts/vitest-project-inheritance.spec.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 4028[2mms[22m[39m
+   [32m✓[39m vitest inline project inheritance [2m(3)[22m
+     [33m[2m✓[22m[39m resolves each project with the shared setup scripts and one copy of each target plugin[33m 1403[2mms[22m[39m
+     [33m[2m✓[22m[39m lists this spec under exactly one project[33m 1331[2mms[22m[39m
+     [33m[2m✓[22m[39m narrows a generated partition config without re-inheriting the root include[33m 1292[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m3 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 21:06:48
+[2m   Duration [22m 4.67s[2m (tests 91%, transform 8%, setup 1%)[22m

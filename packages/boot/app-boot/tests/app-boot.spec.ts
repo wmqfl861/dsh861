@@ -620,7 +620,8 @@ describe('loadOverlayPatches', () => {
     expect(loadOverlayPatches(NAME, valid)).toEqual([{ id: 'target', config: { value: { __jsExpr: 'process.env.VALUE' } } }])
     expect(() => loadOverlayPatches(NAME, join(dir, 'missing.yml'))).toThrow(`${NAME}: failed to read overlay`)
     const malformed = join(dir, 'malformed.yml')
-    writeFileSync(malformed, ': bad')
+    // js-yaml 5 accepts `: bad` as an empty-key mapping; an unclosed flow sequence is the parse error.
+    writeFileSync(malformed, '[a, b')
     expect(() => loadOverlayPatches(NAME, malformed)).toThrow(`${NAME}: failed to parse overlay`)
     const mapping = join(dir, 'mapping.yml')
     writeFileSync(mapping, 'id: target\n')
@@ -894,10 +895,13 @@ describe('addHarnessSourceSection', () => {
   const SOURCE_ROOT = `${sep}opt${sep}harness-src`
   const EXPECTED = `The DeepSeek Harness implementation checkout is at ${SOURCE_ROOT}. The checkout location and current working directory are separate values and may differ; never infer the working directory from this path. Use pwd to determine the current working directory. Use this checkout only to inspect or extend DSH itself.`
 
-  it('distinguishes the source path from the current workdir between identity and persona', async () => {
+  it('distinguishes the source path from the current workdir after reusable instructions', async () => {
     const ctx = new Context()
     try {
-      await ctx.plugin(SystemPrompt, { persona: 'You are a coding agent.' })
+      await ctx.plugin(SystemPrompt, { personaPrefix: 'You are a coding agent.' })
+      ctx.systemPrompt.section({
+        name: 'tools:sdk', order: ctx.systemPrompt.getSectionOrder('TOOLS_SDK'), text: 'Reusable tool SDK.',
+      })
       const dispose = addHarnessSourceSection(ctx, SOURCE_ROOT)
       expect(dispose).toBeTypeOf('function')
       const systemPrompt = ctx.get('systemPrompt')!
@@ -910,8 +914,10 @@ describe('addHarnessSourceSection', () => {
       const personaAt = rendered.indexOf('You are a coding agent.')
       expect(identityAt).toBeGreaterThanOrEqual(0)
       expect(personaAt).toBeGreaterThanOrEqual(0)
-      expect(identityAt).toBeLessThan(sourceAt)
-      expect(sourceAt).toBeLessThan(personaAt)
+      const sdkAt = rendered.indexOf('Reusable tool SDK.')
+      expect(personaAt).toBeGreaterThan(identityAt)
+      expect(sdkAt).toBeGreaterThan(personaAt)
+      expect(sdkAt).toBeLessThan(sourceAt)
     } finally {
       await ctx.fiber.dispose()
     }

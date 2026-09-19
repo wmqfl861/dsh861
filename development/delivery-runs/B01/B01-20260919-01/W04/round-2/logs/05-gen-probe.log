@@ -1,0 +1,6 @@
+existence audit: 16 sidecars present
+GEN_EXIT=0
+selection probe [win32]: 12 path checks passed
+WIN32_EXIT=0
+selection probe [linux]: 12 path checks passed
+LINUX_EXIT=0

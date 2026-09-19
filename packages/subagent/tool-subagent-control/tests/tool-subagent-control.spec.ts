@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { mkdtempSync, rmSync } from 'node:fs'
+import { existsSync, mkdtempSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { Context } from '@deepseek-ai/cordis'
@@ -8,8 +8,8 @@ import { ToolCallId, createUserMessage } from '@deepseek-ai/dsh-llm'
 import AgentLoop from '@deepseek-ai/dsh-agent-loop'
 import { mountAgentLoopTestDependencies } from '@deepseek-ai/dsh-agent-loop-testkit'
 import { SessionId } from '@deepseek-ai/dsh-session'
+import { SessionAlreadyOwnedError } from '@deepseek-ai/dsh-session-persistence'
 import JsonlSessionPersistence from '@deepseek-ai/dsh-session-persistence-jsonl'
-import SessionProjectionRegistry from '@deepseek-ai/dsh-session-projection'
 import SubagentRuntime from '@deepseek-ai/dsh-subagent'
 import * as SubagentFork from '@deepseek-ai/dsh-subagent-fork-in-process'
 import * as SubagentSpawn from '@deepseek-ai/dsh-subagent-spawn-in-process'
@@ -20,11 +20,29 @@ import * as tool from '../src/index.ts'
 import { parkParent } from './park-parent.ts'
 import { TestSessionQuery } from './test-session-query.ts'
 import { loadStoredSession } from '../../subagent/tests/persistence-helpers.ts'
+import { OwnedTestContexts, mountWriteOwnershipProbe, type OwnedContextFixture } from './owned-contexts.ts'
 
 /** One scripted response that may wait on a caller-released gate before streaming. */
 interface GatedEntry {
   chunks: StreamChunk[]
   gate?: Promise<undefined>
+}
+
+/** Wait for a manual gate, ending early when the call is cancelled so teardown never hangs on a held gate. */
+async function gateOrAbort(gate: Promise<undefined>, signal: AbortSignal | undefined): Promise<void> {
+  if (signal?.aborted) throw new Error('aborted')
+  await new Promise<void>((resolve, reject) => {
+    const onAbort = (): void => { reject(new Error('aborted')) }
+    signal?.addEventListener('abort', onAbort, { once: true })
+    void gate.then(
+      () => { signal?.removeEventListener('abort', onAbort); resolve() },
+      (error: unknown) => {
+        signal?.removeEventListener('abort', onAbort)
+        reject(error instanceof Error ? error : new Error('gated entry rejected', { cause: error }))
+      },
+    )
+  })
+  if (signal?.aborted) throw new Error('aborted')
 }
 
 /** Adapter whose entries can hold a model call open until the test releases it. */
@@ -39,7 +57,7 @@ class GatedAdapter extends LlmAdapter {
     this.requests.push(options)
     const entry = this.script.shift()
     if (!entry) throw new Error('GatedAdapter: script exhausted')
-    if (entry.gate) await entry.gate
+    if (entry.gate) await gateOrAbort(entry.gate, options.signal)
     for (const chunk of entry.chunks) {
       if (options.signal?.aborted) throw new Error('aborted')
       yield chunk
@@ -49,20 +67,17 @@ class GatedAdapter extends LlmAdapter {
 
 const testToolSignal = new AbortController().signal
 
-const roots: string[] = []
-afterEach(() => {
-  for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 })
-})
+const owned = new OwnedTestContexts()
+afterEach(() => owned.cleanup())
 
 async function setupWith(adapter: MockAdapter | GatedAdapter, park = true) {
   const ctx = new Context()
+  const fixture: OwnedContextFixture = owned.own(ctx)
   await mountAgentLoopTestDependencies(ctx)
-  const root = mkdtempSync(join(tmpdir(), 'dsh-tool-subagent-control-'))
-  roots.push(root)
+  const root = owned.ownRoot(fixture, mkdtempSync(join(tmpdir(), 'dsh-tool-subagent-control-')))
   await ctx.plugin(JsonlSessionPersistence, { root })
   await ctx.plugin(TestSessionQuery)
   await ctx.plugin(AgentLoop, { agents: [] })
-  await ctx.plugin(SessionProjectionRegistry)
   await ctx.plugin(SubagentRuntime)
   await ctx.plugin(SubagentSpawn, { providerName: 'spawn' })
   await ctx.plugin(SubagentFork, { providerName: 'fork' })
@@ -70,7 +85,7 @@ async function setupWith(adapter: MockAdapter | GatedAdapter, park = true) {
   ctx.llm.registerAdapter(['mock'], adapter)
   const parent = await ctx.agentLoop.create(SessionId('parent'), { provider: 'mock', model: 'mock' })
   if (park) parkParent(ctx, parent)
-  return { ctx, parent, adapter }
+  return { ctx, parent, adapter, root, fixture }
 }
 
 async function setup(script: ConstructorParameters<typeof MockAdapter>[0]) {
@@ -221,7 +236,7 @@ describe('dsh-tool-subagent-control', () => {
       senderSessionId: started.childId,
     })
     expect(delivered[0]?.message.content).toEqual([
-      { type: 'text', text: `Agent ${started.childId} sent a message:` },
+      { type: 'text', text: `Agent ${started.childId} sent a message: ` },
       { type: 'text', text: 'CHILD_FINDING' },
     ])
 
@@ -257,7 +272,7 @@ describe('dsh-tool-subagent-control', () => {
       senderSessionId: parent.id,
     })
     expect(followUp?.type === 'user/message' && followUp.data.content).toEqual([
-      { type: 'text', text: `Agent ${parent.id} sent a message:` },
+      { type: 'text', text: `Agent ${parent.id} sent a message: ` },
       { type: 'text', text: 'and then?' },
     ])
   })
@@ -288,7 +303,7 @@ describe('dsh-tool-subagent-control', () => {
       : [])
     expect(prompts).toEqual([
       'long work',
-      `Agent ${parent.id} sent a message:`,
+      `Agent ${parent.id} sent a message: `,
       'also consider Y',
     ])
   })
@@ -331,9 +346,9 @@ describe('dsh-tool-subagent-control', () => {
 
   it('unregisters with its plugin fiber (HMR safety)', async () => {
     const ctx = new Context()
+    owned.own(ctx)
     await mountAgentLoopTestDependencies(ctx)
     await ctx.plugin(AgentLoop, { agents: [] })
-    await ctx.plugin(SessionProjectionRegistry)
     await ctx.plugin(SubagentRuntime)
     const fiber = await ctx.plugin(tool)
     expect(ctx.tools.schemas().some(schema => schema.name === 'send_message')).toBe(true)
@@ -341,6 +356,39 @@ describe('dsh-tool-subagent-control', () => {
     await fiber.dispose()
     expect(ctx.tools.schemas().some(schema => schema.name === 'send_message')).toBe(false)
     expect(ctx.tools.schemas().some(schema => schema.name === 'interrupt_agent')).toBe(false)
+  })
+
+  it('ends a held model gate and releases write ownership through suite teardown', async () => {
+    const release = Promise.withResolvers<undefined>()
+    const { ctx, parent, adapter, root, fixture } = await setupWith(new GatedAdapter([
+      { chunks: textResponse('never finished'), gate: release.promise },
+    ]))
+    const started = await ctx.subagents.startContinuable({
+      provider: 'spawn',
+      label: 'held child',
+      request: { prompt: [{ type: 'text', text: 'held work' }], parent },
+      signal: testToolSignal,
+    })
+    await vi.waitFor(() => { expect(adapter.requests).toHaveLength(1) })
+    expect(existsSync(root)).toBe(true)
+    const probe = await mountWriteOwnershipProbe(root)
+    try {
+      // The held child's live runtime really owns the session's kernel write lock.
+      await expect(probe.claim(started.childId)).rejects.toBeInstanceOf(SessionAlreadyOwnedError)
+      // The independent probe must take over the SAME directory's write
+      // ownership after teardown, before that directory is deleted.
+      fixture.afterDispose = async () => {
+        const takeover = await probe.claim(started.childId)
+        await takeover.close()
+      }
+      // The child's model call is still held at the manual gate: the suite's
+      // real afterEach cleanup must cancel it, release the write ownership,
+      // and delete the storage root without the manual release.
+      await expect(owned.cleanup()).resolves.toBeUndefined()
+      expect(existsSync(root)).toBe(false)
+    } finally {
+      await probe.dispose()
+    }
   })
 
   it('has the namespace-plugin export shape (no stray default)', () => {
@@ -411,9 +459,9 @@ describe('dsh-tool-subagent-control interrupt_agent', () => {
       : [])
     expect(prompts).toEqual([
       'long work',
-      `Agent ${parent.id} sent a message:`,
+      `Agent ${parent.id} sent a message: `,
       'parked follow-up',
-      `Agent ${parent.id} sent a message:`,
+      `Agent ${parent.id} sent a message: `,
       'wake up',
     ])
   })

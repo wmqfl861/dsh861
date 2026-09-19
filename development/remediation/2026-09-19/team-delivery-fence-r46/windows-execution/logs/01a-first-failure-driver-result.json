@@ -1,0 +1,529 @@
+{
+  "ok": false,
+  "module": {
+    "path": "C:\\Albert\\project\\dsh861\\snapshots\\sdk\\agent-team-teardown\\teardown-trigger.mjs",
+    "sha256": "511a9daf0a509d4233b7ff6729af6e16a637f2f3e025328f28590d48ac57eda9",
+    "blob": "c2e3c48601463a897871da2e0c80a3408f289dd7",
+    "name": "agent-team-teardown-trigger"
+  },
+  "scenarios": [
+    {
+      "name": "s1-inbox-before-ack",
+      "ok": false,
+      "error": "",
+      "checks": [
+        {
+          "name": "held-before-settle",
+          "pass": true,
+          "detail": "{\"held\":true,\"heldCall\":2}"
+        },
+        {
+          "name": "send-still-pending-before-settle",
+          "pass": false,
+          "detail": "{\"sends\":1}"
+        },
+        {
+          "name": "no-close-while-send-pending",
+          "pass": false,
+          "detail": "drain calls while pending: 1"
+        },
+        {
+          "name": "close-exactly-once-after-acceptance",
+          "pass": true,
+          "detail": "drain calls after acceptance: 1"
+        },
+        {
+          "name": "accepted-identity-recorded",
+          "pass": false,
+          "detail": "{}"
+        },
+        {
+          "name": "drain-targets-exact-teammate",
+          "pass": true,
+          "detail": "[{\"agentId\":\"r46-lead-session-0001\",\"ids\":[\"r46-mate-session-0002\"]}]"
+        }
+      ],
+      "timeline": [
+        {
+          "step": "pending",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 1,
+          "leadIdle": true
+        },
+        {
+          "step": "accepted",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 1,
+          "leadIdle": true
+        }
+      ],
+      "drainCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "ids": [
+            "r46-mate-session-0002"
+          ]
+        }
+      ],
+      "sendCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "target": "worker"
+        }
+      ],
+      "stateFinal": {
+        "sessionEvents": 1,
+        "preSteps": 1,
+        "inboxInserted": 2,
+        "llmCalls": [
+          "ion-0002#1",
+          "ion-0002#2"
+        ],
+        "held": true,
+        "heldCall": 2,
+        "pendingQueued": true,
+        "pendingInbox": 1,
+        "leadIdle": true,
+        "ready": true,
+        "triggered": true,
+        "trigger": "subagents.drainContinuableChildren(lead, [r46-mate-session-0002])",
+        "cancelled": false,
+        "closed": false,
+        "closeError": ""
+      }
+    },
+    {
+      "name": "s2-ack-before-conditions",
+      "ok": false,
+      "error": "",
+      "checks": [
+        {
+          "name": "no-close-on-acceptance-alone",
+          "pass": true,
+          "detail": "drain calls: 0, ready: false"
+        },
+        {
+          "name": "no-close-without-lead-idle",
+          "pass": true,
+          "detail": "drain calls after inbox: 0"
+        },
+        {
+          "name": "close-exactly-once-after-conditions",
+          "pass": true,
+          "detail": "drain calls after lead idle: 1"
+        },
+        {
+          "name": "accepted-reaches-ready",
+          "pass": false,
+          "detail": "{\"ready\":true}"
+        }
+      ],
+      "timeline": [
+        {
+          "step": "accepted-no-inbox",
+          "drain": 0,
+          "ready": false,
+          "pendingInbox": 0,
+          "leadIdle": false
+        },
+        {
+          "step": "inbox",
+          "drain": 0,
+          "ready": false,
+          "pendingInbox": 1,
+          "leadIdle": false
+        },
+        {
+          "step": "closed",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 1,
+          "leadIdle": true
+        }
+      ],
+      "drainCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "ids": [
+            "r46-mate-session-0002"
+          ]
+        }
+      ],
+      "sendCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "target": "worker"
+        }
+      ],
+      "stateFinal": {
+        "sessionEvents": 1,
+        "preSteps": 1,
+        "inboxInserted": 2,
+        "llmCalls": [
+          "ion-0002#1",
+          "ion-0002#2"
+        ],
+        "held": true,
+        "heldCall": 2,
+        "pendingQueued": true,
+        "pendingInbox": 1,
+        "leadIdle": true,
+        "ready": true,
+        "triggered": true,
+        "trigger": "subagents.drainContinuableChildren(lead, [r46-mate-session-0002])",
+        "cancelled": false,
+        "closed": false,
+        "closeError": ""
+      }
+    },
+    {
+      "name": "s3-queued",
+      "ok": false,
+      "error": "",
+      "checks": [
+        {
+          "name": "no-close-while-send-pending",
+          "pass": false,
+          "detail": "drain calls while pending: 1"
+        },
+        {
+          "name": "no-close-on-queued",
+          "pass": false,
+          "detail": "drain calls: 1, ready: true"
+        },
+        {
+          "name": "queued-reported-as-not-accepted",
+          "pass": false,
+          "detail": "{}"
+        }
+      ],
+      "timeline": [
+        {
+          "step": "queued",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 1,
+          "leadIdle": true
+        }
+      ],
+      "drainCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "ids": [
+            "r46-mate-session-0002"
+          ]
+        }
+      ],
+      "sendCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "target": "worker"
+        }
+      ],
+      "stateFinal": {
+        "sessionEvents": 1,
+        "preSteps": 1,
+        "inboxInserted": 2,
+        "llmCalls": [
+          "ion-0002#1",
+          "ion-0002#2"
+        ],
+        "held": true,
+        "heldCall": 2,
+        "pendingQueued": true,
+        "pendingInbox": 1,
+        "leadIdle": true,
+        "ready": true,
+        "triggered": true,
+        "trigger": "subagents.drainContinuableChildren(lead, [r46-mate-session-0002])",
+        "cancelled": false,
+        "closed": false,
+        "closeError": ""
+      }
+    },
+    {
+      "name": "s4-reject",
+      "ok": false,
+      "error": "",
+      "checks": [
+        {
+          "name": "no-close-while-send-pending",
+          "pass": false,
+          "detail": "drain calls while pending: 1"
+        },
+        {
+          "name": "no-close-on-reject",
+          "pass": false,
+          "detail": "drain calls: 1, ready: true"
+        },
+        {
+          "name": "reject-reason-preserved",
+          "pass": false,
+          "detail": "{}"
+        }
+      ],
+      "timeline": [
+        {
+          "step": "rejected",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 1,
+          "leadIdle": true
+        }
+      ],
+      "drainCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "ids": [
+            "r46-mate-session-0002"
+          ]
+        }
+      ],
+      "sendCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "target": "worker"
+        }
+      ],
+      "stateFinal": {
+        "sessionEvents": 1,
+        "preSteps": 1,
+        "inboxInserted": 2,
+        "llmCalls": [
+          "ion-0002#1",
+          "ion-0002#2"
+        ],
+        "held": true,
+        "heldCall": 2,
+        "pendingQueued": true,
+        "pendingInbox": 1,
+        "leadIdle": true,
+        "ready": true,
+        "triggered": true,
+        "trigger": "subagents.drainContinuableChildren(lead, [r46-mate-session-0002])",
+        "cancelled": false,
+        "closed": false,
+        "closeError": ""
+      }
+    },
+    {
+      "name": "s5-invalid-identity",
+      "ok": false,
+      "error": "",
+      "checks": [
+        {
+          "name": "no-close-while-send-pending",
+          "pass": false,
+          "detail": "drain calls while pending: 1"
+        },
+        {
+          "name": "no-close-on-invalid-identity",
+          "pass": false,
+          "detail": "drain calls: 1, ready: true"
+        },
+        {
+          "name": "invalid-identity-reported",
+          "pass": false,
+          "detail": "{}"
+        }
+      ],
+      "timeline": [
+        {
+          "step": "invalid",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 1,
+          "leadIdle": true
+        }
+      ],
+      "drainCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "ids": [
+            "r46-mate-session-0002"
+          ]
+        }
+      ],
+      "sendCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "target": "worker"
+        }
+      ],
+      "stateFinal": {
+        "sessionEvents": 1,
+        "preSteps": 1,
+        "inboxInserted": 2,
+        "llmCalls": [
+          "ion-0002#1",
+          "ion-0002#2"
+        ],
+        "held": true,
+        "heldCall": 2,
+        "pendingQueued": true,
+        "pendingInbox": 1,
+        "leadIdle": true,
+        "ready": true,
+        "triggered": true,
+        "trigger": "subagents.drainContinuableChildren(lead, [r46-mate-session-0002])",
+        "cancelled": false,
+        "closed": false,
+        "closeError": ""
+      }
+    },
+    {
+      "name": "s6-manual-early-trigger",
+      "ok": false,
+      "error": "",
+      "checks": [
+        {
+          "name": "unrelated-child-not-counted",
+          "pass": false,
+          "detail": "pendingInbox after unrelated child insert: 1"
+        },
+        {
+          "name": "teammate-inserts-counted",
+          "pass": false,
+          "detail": "pendingInbox after duplicate teammate inserts: 3"
+        },
+        {
+          "name": "no-close-before-ack-despite-trigger-file",
+          "pass": false,
+          "detail": "drain calls before ack with trigger file present: 1"
+        },
+        {
+          "name": "manual-close-exactly-once-after-ack",
+          "pass": true,
+          "detail": "drain calls after ack: 1"
+        },
+        {
+          "name": "drain-targets-exact-teammate",
+          "pass": true,
+          "detail": "[{\"agentId\":\"r46-lead-session-0001\",\"ids\":[\"r46-mate-session-0002\"]}]"
+        },
+        {
+          "name": "duplicate-polls-do-not-double-close",
+          "pass": true,
+          "detail": "drain calls after duplicate poll window: 1"
+        }
+      ],
+      "timeline": [
+        {
+          "step": "pre-ack",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 3,
+          "leadIdle": true
+        },
+        {
+          "step": "closed",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 3,
+          "leadIdle": true
+        }
+      ],
+      "drainCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "ids": [
+            "r46-mate-session-0002"
+          ]
+        }
+      ],
+      "sendCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "target": "worker"
+        }
+      ],
+      "stateFinal": {
+        "sessionEvents": 1,
+        "preSteps": 1,
+        "inboxInserted": 4,
+        "llmCalls": [
+          "ion-0002#1",
+          "ion-0002#2"
+        ],
+        "held": true,
+        "heldCall": 2,
+        "pendingQueued": true,
+        "pendingInbox": 3,
+        "leadIdle": true,
+        "ready": true,
+        "triggered": true,
+        "trigger": "subagents.drainContinuableChildren(lead, [r46-mate-session-0002])",
+        "cancelled": false,
+        "closed": false,
+        "closeError": ""
+      }
+    },
+    {
+      "name": "s7-abort-and-close-error",
+      "ok": true,
+      "error": "",
+      "checks": [
+        {
+          "name": "close-exactly-once-after-acceptance",
+          "pass": true,
+          "detail": "drain calls after acceptance: 1"
+        },
+        {
+          "name": "abort-handshake-preserved",
+          "pass": true,
+          "detail": "cancelled after abort: true"
+        },
+        {
+          "name": "close-error-preserved",
+          "pass": true,
+          "detail": "{\"closed\":true,\"closeError\":\"Error: close failed s7\"}"
+        }
+      ],
+      "timeline": [
+        {
+          "step": "close-error",
+          "drain": 1,
+          "ready": true,
+          "pendingInbox": 1,
+          "leadIdle": true
+        }
+      ],
+      "drainCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "ids": [
+            "r46-mate-session-0002"
+          ]
+        }
+      ],
+      "sendCalls": [
+        {
+          "agentId": "r46-lead-session-0001",
+          "target": "worker"
+        }
+      ],
+      "stateFinal": {
+        "sessionEvents": 1,
+        "preSteps": 1,
+        "inboxInserted": 2,
+        "llmCalls": [
+          "ion-0002#1",
+          "ion-0002#2"
+        ],
+        "held": true,
+        "heldCall": 2,
+        "pendingQueued": true,
+        "pendingInbox": 1,
+        "leadIdle": true,
+        "ready": true,
+        "triggered": true,
+        "trigger": "subagents.drainContinuableChildren(lead, [r46-mate-session-0002])",
+        "cancelled": true,
+        "closed": true,
+        "closeError": "Error: close failed s7"
+      }
+    }
+  ]
+}

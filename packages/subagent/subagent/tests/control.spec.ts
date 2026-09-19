@@ -43,12 +43,13 @@ function childRow(id: SessionId, activity: 'running' | 'inactive'): SubagentList
   return { kind: 'child', id, mode: 'continuable', label: 'worker', activity, hasChildren: false }
 }
 
-function promptRequest(clientTimeZone?: string) {
+function promptRequest(clientTimeZone?: string, delivery: 'queue' | 'steer' = 'queue') {
   return {
     requestId: REQUEST_ID,
     parentSessionId: PARENT,
     childSessionId: CHILD,
     mode: 'continuable' as const,
+    delivery,
     content: [{ type: 'text' as const, text: 'continue' }],
     ...clientTimeZone === undefined ? {} : { clientTimeZone },
   }
@@ -137,7 +138,7 @@ describe('subagent catalog Remote', () => {
     )
     await expect(subagents.remoteExportList(PARENT, signal)).rejects.toMatchObject({
       code: 'subagent/projections-unavailable',
-      message: expect.stringContaining('sessionProjections') as unknown as string,
+      message: expect.stringContaining('sessionProjections') as unknown,
     })
 
     listChildren.mockRejectedValue(new Error('disk gone'))
@@ -162,6 +163,15 @@ describe('subagent prompt Remote', () => {
       await expect(subagents.prompt(request, signal))
         .rejects.toMatchObject(emptyIdFailure('subagent.prompt', field))
     }
+    expect(delivery).not.toHaveBeenCalled()
+  })
+
+  it('rejects an unknown delivery before admission', async () => {
+    const { subagents } = await bench({ [PARENT]: { status: 'idle' } })
+    const delivery = promptDelivery(subagents)
+
+    await expect(subagents.prompt({ ...promptRequest(), delivery: 'later' as 'queue' }, signal))
+      .rejects.toMatchObject({ code: 'gateway/bad-request' })
     expect(delivery).not.toHaveBeenCalled()
   })
 
@@ -256,6 +266,15 @@ describe('subagent prompt Remote', () => {
       signal,
       'queue',
     )
+  })
+
+  it('passes steer delivery through the same admission operation', async () => {
+    const { subagents } = await bench({ [PARENT]: { status: 'running' } })
+    const delivery = promptDelivery(subagents).mockResolvedValue('m-steer' as MessageId)
+
+    await expect(subagents.prompt(promptRequest(undefined, 'steer'), signal))
+      .resolves.toEqual({ messageId: 'm-steer' })
+    expect(delivery.mock.calls[0]?.[5]).toBe('steer')
   })
 
   it('omits the zone from the durable source when the browser reported none', async () => {

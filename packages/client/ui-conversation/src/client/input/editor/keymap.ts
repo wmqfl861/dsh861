@@ -11,11 +11,14 @@
  * keydown AFTER compositionend, so a root-element composition watch holds the
  * guard for 10ms more (the old textarea's proven window); keyCode
  * 229 is the legacy signal engines emit without isComposing.
+ * The root's composition attribute suppresses placeholders until both the
+ * native composition and the editor's final text reconciliation finish.
  */
 import type { LexicalEditor } from 'lexical'
 import {
-  COMMAND_PRIORITY_CRITICAL, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ENTER_COMMAND,
-  KEY_ESCAPE_COMMAND, KEY_SPACE_COMMAND, KEY_TAB_COMMAND, PASTE_COMMAND,
+  $getNearestNodeFromDOMNode, $isTextNode, COMMAND_PRIORITY_CRITICAL, KEY_ARROW_DOWN_COMMAND,
+  KEY_ARROW_UP_COMMAND, KEY_ENTER_COMMAND, KEY_ESCAPE_COMMAND, KEY_SPACE_COMMAND,
+  KEY_TAB_COMMAND, PASTE_COMMAND,
 } from 'lexical'
 import { mergeRegister } from '@lexical/utils'
 import type { ArbitrateKey, ArbitrateOutcome } from '../../contract/input.ts'
@@ -46,6 +49,42 @@ function isComposingEvent(event: KeyboardEvent, recentlyComposing: () => boolean
 }
 
 /**
+ * Rewriting a composed TextNode's DOM stops at a commit whose DOM text minus
+ * the composition padding already equals the model text: Lexical 0.50 then
+ * leaves the padding character in the DOM, where it silently swallows the
+ * next Backspace. Chromium commits (an insertText input event during
+ * composition) land exactly there. Mark such nodes dirty so the DOM is
+ * rewritten from the model. The model-equality check keeps engines whose
+ * compositionend precedes the committed input (Firefox, Safari) untouched:
+ * their DOM is ahead by real content, not by padding.
+ * @param editor - the shell-owned editor.
+ * @param root - the editor's live root element, if attached.
+ */
+function stripStaleCompositionPadding(editor: LexicalEditor, root: HTMLElement | null): void {
+  if (root === null) return
+  const document = root.ownerDocument
+  const padded: Text[] = []
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+  for (let domText = walker.nextNode(); domText !== null; domText = walker.nextNode()) {
+    const value = domText.nodeValue
+    const last = value?.at(-1)
+    // The padding character is U+200B on Chromium/Firefox, U+00A0 on Apple engines.
+    if (last !== '​' && last !== ' ') continue
+    padded.push(domText as Text)
+  }
+  if (padded.length === 0) return
+  editor.update(() => {
+    for (const domText of padded) {
+      const value = domText.nodeValue
+      const node = $getNearestNodeFromDOMNode(domText)
+      if (value === null || node === null || !$isTextNode(node)) continue
+      if (value.slice(0, -1) !== node.getTextContent()) continue
+      node.markDirty()
+    }
+  })
+}
+
+/**
  * Register the composer keymap on one editor.
  * @param editor - the shell-owned editor.
  * @param handlers - bar-supplied behavior.
@@ -57,12 +96,21 @@ export function registerComposerKeymap(editor: LexicalEditor, handlers: Composer
   // root element and re-arms on root swaps.
   let composing = false
   let composingUntil = 0
+  let rootElement: HTMLElement | null = null
+  const syncComposition = (): void => {
+    rootElement?.toggleAttribute('data-composer-composing', composing || editor.isComposing())
+  }
   const onCompositionStart = (): void => {
     composing = true
+    syncComposition()
   }
   const onCompositionEnd = (): void => {
     composing = false
     composingUntil = Date.now() + 10
+    stripStaleCompositionPadding(editor, rootElement)
+    // The native event can precede the committed draft, including an empty
+    // cancellation. The callback also runs when no document text changed.
+    editor.update(() => {}, { onUpdate: syncComposition })
   }
   const recentlyComposing = (): boolean => composing || Date.now() < composingUntil
 
@@ -79,9 +127,15 @@ export function registerComposerKeymap(editor: LexicalEditor, handlers: Composer
     editor.registerRootListener((root, prevRoot) => {
       prevRoot?.removeEventListener('compositionstart', onCompositionStart)
       prevRoot?.removeEventListener('compositionend', onCompositionEnd)
+      prevRoot?.removeAttribute('data-composer-composing')
+      composing = false
+      composingUntil = 0
+      rootElement = root
       root?.addEventListener('compositionstart', onCompositionStart)
       root?.addEventListener('compositionend', onCompositionEnd)
+      syncComposition()
     }),
+    editor.registerUpdateListener(syncComposition),
     editor.registerCommand(KEY_ARROW_UP_COMMAND, arrow('up'), COMMAND_PRIORITY_CRITICAL),
     editor.registerCommand(KEY_ARROW_DOWN_COMMAND, arrow('down'), COMMAND_PRIORITY_CRITICAL),
     // Tab acts only when the trigger menu has a highlighted completion;

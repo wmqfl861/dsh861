@@ -1,0 +1,14 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+ ✓ scripts/session-snapshot-corpus.corpus.ts (3 tests) 813ms
+   ✓ keeps every recorded session owned, pinned, redacted, and header-scrubbed 485ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  09:17:29
+   Duration  3.01s (transform 49%, tests 29%, import 20%, setup 2%)
+
+EXIT:0

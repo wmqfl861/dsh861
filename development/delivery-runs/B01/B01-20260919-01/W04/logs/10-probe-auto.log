@@ -1,0 +1,122 @@
+[2026ms] SEND: initialize
+[13186ms] STDOUT: {"jsonrpc":"2.0","id":1,"result":{"serverInfo":{"name":"deepseek-harness-sdk-runtime","version":"0.0.1"}}}
+
+[25030ms] SEND: session/prompt
+[25041ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"permission/preset","seq":0,"time":1789820330527,"data":{"preset":"danger-full-access"}}}}
+
+[25042ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"sandbox/mode","seq":1,"time":1789820330529,"data":{"mode":"danger-full-access"}}}}
+
+[25044ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"approval/policy","seq":2,"time":1789820330530,"data":{"policy":"never"}}}}
+
+[25045ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"agent/inbox/spliced","seq":3,"time":1789820330533,"data":{"target":"next-turn","start":0,"inserted":[{"content":[{"type":"text","text":"Follow these steps exactly, then stop. 1. Call the subagent tool once with run_in_background set to true, description 'Reply with CHILD_OK', and the prompt 'Reply with exactly the word CHILD_OK and nothing else.' 2. Send that agent the message: Now reply with exactly SECOND_OK. 3. Send that agent the message: Now reply with exactly THIRD_OK. 4. Reply with ex
+[25046ms] STDOUT: {"jsonrpc":"2.0","method":"session.status","params":{"sessionId":"fixture-root-session","status":"running"}}
+
+[25047ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"turn/start","seq":4,"time":1789820330534,"data":{"turn":1}}}}
+
+[25048ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"agent/inbox/spliced","seq":5,"time":1789820330535,"data":{"target":"next-turn","start":0,"removedCount":1,"inserted":[]}}}}
+
+[25052ms] STDOUT: {"jsonrpc":"2.0","id":2,"result":{"messageId":"4feaa184-4129-4929-bd33-56e481007016"}}
+
+[25135ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/start","seq":6,"time":1789820330622,"data":{"turn":1,"step":1}}}}
+
+[25138ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"system/message","seq":7,"time":1789820330625,"data":{"turn":1,"step":1,"message":{"role":"system","content":[{"type":"text","text":"You are an AI agent powered by DeepSeek Harness.\n\nYou are a coding assistant powered by the deepseek-v4-flash model. Your working directory is C:\\dsh-b01-w04\\tmp\\w04-auto-jTwBcH. Your bash tool runs under a file sandbox — a `[sandbox: file access denied …]` result is policy, not a command bug.\n\nVerify your work by running the code or tests. Keep answers b
+[25139ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"user/message","seq":8,"time":1789820330626,"data":{"content":[{"type":"text","text":"Follow these steps exactly, then stop. 1. Call the subagent tool once with run_in_background set to true, description 'Reply with CHILD_OK', and the prompt 'Reply with exactly the word CHILD_OK and nothing else.' 2. Send that agent the message: Now reply with exactly SECOND_OK. 3. Send that agent the message: Now reply with exactly THIRD_OK. 4. Reply with exactly DONE and nothing else."}],"source":{"kind":"u
+[25141ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"user/message","seq":9,"time":1789820330628,"data":{"content":[{"type":"text","text":"Current runtime context. This snapshot supersedes earlier runtime-context snapshots.\n\nCurrent DSH file policy: danger-full-access. The DSH file sandbox does not restrict file modifications by available operations.\n\nApproval prompts are disabled in this session: actions that require approval are rejected automatically — do not request sandbox escalation (do not set `sandbox_permissions`)."}],"source":{"ki
+[25143ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"request/header","seq":10,"time":1789820330630,"data":{"header":{"config":{"provider":"deepseek-official","model":"deepseek-v4-flash"},"tools":[{"name":"create_goal","description":"Create one persisted same-session completion goal when the current direct human request is a long-running objective that should continue across autonomous goal rounds. You may infer that intent without requiring the user to say \"create a goal\". Do not use this for trivial single-turn work. Execution rejects non-h
+[25144ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"request/context","seq":11,"time":1789820330631,"data":{"provider":"deepseek-official","model":"deepseek-v4-flash"}}}}
+
+[25148ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"session/title","seq":12,"time":1789820330635,"data":{"title":"Follow these steps exactly, then","messageSeqs":[8],"source":{"kind":"fallback"}}}}}
+
+[25519ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"assistant/message","seq":13,"time":1789820331006,"data":{"turn":1,"step":1,"message":{"role":"assistant","content":[{"type":"tool-call","id":"call_bg_start","name":"subagent","arguments":"{\"description\": \"Reply with CHILD_OK\", \"prompt\": \"Reply with exactly the word CHILD_OK and nothing else.\", \"run_in_background\": true}"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"b82935e7-4812-4351-a53f-1701c198377d"},"usage":{"inputTokens":10,"outp
+[25522ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"tool/call","seq":14,"time":1789820331009,"data":{"turn":1,"step":1,"callId":"call_bg_start","name":"subagent","arguments":"{\"description\": \"Reply with CHILD_OK\", \"prompt\": \"Reply with exactly the word CHILD_OK and nothing else.\", \"run_in_background\": true}"}}}}
+
+[25549ms] STDOUT: {"jsonrpc":"2.0","method":"subagent.started","params":{"parentSessionId":"fixture-root-session","childSessionId":"4c786422-f042-4988-8608-a1d5cf972dd3"}}
+
+[25549ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"permission/preset","seq":3,"time":1789820331037,"data":{"preset":"danger-full-access"}}}}
+
+[25552ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"agent/inbox/spliced","seq":4,"time":1789820331039,"data":{"target":"next-turn","start":0,"inserted":[{"content":[{"type":"text","text":"Reply with exactly the word CHILD_OK and nothing else."},{"type":"text","text":"Your parent agent id is \"fixture-root-session\". Before you finish, send your result to that agent with send_message({ agent_id: \"fixture-root-session\", message: \"<self-contained result>\" }). The parent shares your workspace but does not automatically receive
+[25552ms] STDOUT: {"jsonrpc":"2.0","method":"session.status","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","status":"running"}}
+
+[25553ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"turn/start","seq":5,"time":1789820331040,"data":{"turn":1}}}}
+
+[25553ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"agent/inbox/spliced","seq":6,"time":1789820331041,"data":{"target":"next-turn","start":0,"removedCount":1,"inserted":[]}}}}
+
+[25559ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"subagent/catalog","seq":15,"time":1789820331043,"data":{"version":0,"childId":"4c786422-f042-4988-8608-a1d5cf972dd3","childCreatedAt":1789820331018,"mode":"continuable","label":"Reply with CHILD_OK"}}}}
+
+[25562ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"tool/result","seq":16,"time":1789820331049,"data":{"turn":1,"step":1,"message":{"source":{"kind":"tool","callId":"call_bg_start"},"content":[{"type":"tool-result","toolCallId":"call_bg_start","content":[{"type":"text","text":"started subagent 4c786422-f042-4988-8608-a1d5cf972dd3"}],"isError":false}],"role":"user","id":"748559ed-d2de-44e1-b765-4e427f0286ba"}},"sourceEventSeqs":[14],"surfaceOp":"append"}}}
+
+[25562ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/end","seq":17,"time":1789820331050,"data":{"turn":1,"step":1}}}}
+
+[25593ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/start","seq":18,"time":1789820331080,"data":{"turn":1,"step":2}}}}
+
+[25600ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"assistant/message","seq":19,"time":1789820331087,"data":{"turn":1,"step":2,"message":{"role":"assistant","content":[{"type":"tool-call","id":"call_followup_1","name":"send_message","arguments":"{\"agent_id\": \"4c786422-f042-4988-8608-a1d5cf972dd3\", \"message\": \"Now reply with exactly SECOND_OK.\"}"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"3554cb99-186b-46b1-a204-fa3c192cd99b"},"usage":{"inputTokens":10,"outputTokens":5},"stream":[{"type
+[25601ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"tool/call","seq":20,"time":1789820331088,"data":{"turn":1,"step":2,"callId":"call_followup_1","name":"send_message","arguments":"{\"agent_id\": \"4c786422-f042-4988-8608-a1d5cf972dd3\", \"message\": \"Now reply with exactly SECOND_OK.\"}"}}}}
+
+[25609ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"agent/inbox/spliced","seq":7,"time":1789820331096,"data":{"target":"next-step","start":0,"inserted":[{"content":[{"type":"text","text":"Agent fixture-root-session sent a message: "},{"type":"text","text":"Now reply with exactly SECOND_OK."}],"source":{"kind":"agent-message","form":"relay","senderSessionId":"fixture-root-session"},"role":"user","id":"eee27892-74d1-4a42-8464-14636550803a"}]}}}}
+
+[25610ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"tool/result","seq":21,"time":1789820331097,"data":{"turn":1,"step":2,"message":{"source":{"kind":"tool","callId":"call_followup_1"},"content":[{"type":"tool-result","toolCallId":"call_followup_1","content":[{"type":"text","text":"message delivered to agent 4c786422-f042-4988-8608-a1d5cf972dd3"}],"isError":false}],"role":"user","id":"b36eeed9-6342-4fe7-903f-58ebbbc5b5f2"}},"sourceEventSeqs":[20],"surfaceOp":"append"}}}
+
+[25610ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/end","seq":22,"time":1789820331097,"data":{"turn":1,"step":2}}}}
+
+[25640ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/start","seq":23,"time":1789820331127,"data":{"turn":1,"step":3}}}}
+
+[25649ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"assistant/message","seq":24,"time":1789820331136,"data":{"turn":1,"step":3,"message":{"role":"assistant","content":[{"type":"text","text":"DONE"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"9af2f300-76f9-4765-bbdb-67f95cbdcc9e"},"usage":{"inputTokens":10,"outputTokens":5},"stream":[{"type":"chunk","time":1789820331136,"chunk":{"type":"block-start","index":0,"blockType":"text"}},{"type":"text-chunks","time0":1789820331136,"index":0,"dt":[],"text
+[25649ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/end","seq":25,"time":1789820331137,"data":{"turn":1,"step":3}}}}
+
+[25650ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"turn/end","seq":26,"time":1789820331138,"data":{"turn":1,"reason":{"kind":"completed"}}}}}
+
+[25651ms] STDOUT: {"jsonrpc":"2.0","method":"session.status","params":{"sessionId":"fixture-root-session","status":"idle"}}
+
+[25669ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"step/start","seq":8,"time":1789820331156,"data":{"turn":1,"step":1}}}}
+
+[25669ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"system/message","seq":9,"time":1789820331157,"data":{"turn":1,"step":1,"message":{"role":"system","content":[{"type":"text","text":"You are an AI agent powered by DeepSeek Harness.\n\nYou are a coding assistant powered by the deepseek-v4-flash model. Your working directory is C:\\dsh-b01-w04\\tmp\\w04-auto-jTwBcH. Your bash tool runs under a file sandbox — a `[sandbox: file access denied …]` result is policy, not a command bug.\n\nVerify your work by running the code or tests
+[25669ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"user/message","seq":10,"time":1789820331157,"data":{"content":[{"type":"text","text":"Reply with exactly the word CHILD_OK and nothing else."},{"type":"text","text":"Your parent agent id is \"fixture-root-session\". Before you finish, send your result to that agent with send_message({ agent_id: \"fixture-root-session\", message: \"<self-contained result>\" }). The parent shares your workspace but does not automatically receive your transcript, tool output, or reasoning. Send
+[25670ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"user/message","seq":11,"time":1789820331157,"data":{"content":[{"type":"text","text":"Current runtime context. This snapshot supersedes earlier runtime-context snapshots.\n\nCurrent DSH file policy: danger-full-access. The DSH file sandbox does not restrict file modifications by available operations.\n\nApproval prompts are disabled in this session: actions that require approval are rejected automatically — do not request sandbox escalation (do not set `sandbox_permissions`).
+[25671ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"request/header","seq":12,"time":1789820331158,"data":{"header":{"config":{"provider":"deepseek-official","model":"deepseek-v4-flash"},"tools":[{"name":"create_goal","description":"Create one persisted same-session completion goal when the current direct human request is a long-running objective that should continue across autonomous goal rounds. You may infer that intent without requiring the user to say \"create a goal\". Do not use this for trivial single-turn work. Executi
+[25671ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"request/context","seq":13,"time":1789820331159,"data":{"provider":"deepseek-official","model":"deepseek-v4-flash"}}}}
+
+[25673ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"session/title","seq":14,"time":1789820331160,"data":{"title":"Reply with exactly the word","messageSeqs":[10],"source":{"kind":"fallback"}}}}}
+
+[25681ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"assistant/message","seq":15,"time":1789820331168,"data":{"turn":1,"step":1,"message":{"role":"assistant","content":[{"type":"text","text":"CHILD_OK"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"e5de02f7-2f4c-4744-a52b-1591fc419b59"},"usage":{"inputTokens":10,"outputTokens":5},"stream":[{"type":"chunk","time":1789820331167,"chunk":{"type":"block-start","index":0,"blockType":"text"}},{"type":"text-chunks","time0":1789820331167,"in
+[25681ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"step/end","seq":16,"time":1789820331168,"data":{"turn":1,"step":1}}}}
+
+[25682ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"agent/inbox/spliced","seq":17,"time":1789820331169,"data":{"target":"next-step","start":0,"removedCount":1,"inserted":[]}}}}
+
+[25706ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"step/start","seq":18,"time":1789820331193,"data":{"turn":1,"step":2}}}}
+
+[25707ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"user/message","seq":19,"time":1789820331194,"data":{"content":[{"type":"text","text":"Agent fixture-root-session sent a message: "},{"type":"text","text":"Now reply with exactly SECOND_OK."}],"source":{"kind":"agent-message","form":"relay","senderSessionId":"fixture-root-session"},"role":"user","id":"eee27892-74d1-4a42-8464-14636550803a"},"surfaceOp":"append"}}}
+
+[25716ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"agent/inbox/spliced","seq":20,"time":1789820331203,"data":{"target":"next-step","start":0,"inserted":[{"content":[{"type":"text","text":"Hold this thought until asked again."}],"source":{"kind":"user","rpcId":"subagent-teardown-steer"},"role":"user","id":"751037dd-22a0-4fa9-b61c-354f045cfefb"}]}}}}
+
+[25720ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"agent/inbox/spliced","seq":21,"time":1789820331208,"data":{"target":"next-step","start":0,"removedCount":1,"inserted":[],"outcome":"canceled"}}}}
+
+[25722ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"assistant/attempt","seq":22,"time":1789820331210,"data":{"turn":1,"step":2,"stream":[]}}}}
+
+[25723ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"step/end","seq":23,"time":1789820331210,"data":{"turn":1,"step":2}}}}
+
+[25723ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","event":{"type":"turn/end","seq":24,"time":1789820331210,"data":{"turn":1,"reason":{"kind":"aborted","reason":{"kind":"parent"}}}}}}
+
+[25724ms] STDOUT: {"jsonrpc":"2.0","method":"session.status","params":{"sessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","status":"idle"}}
+
+[25735ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"agent/inbox/spliced","seq":27,"time":1789820331222,"data":{"target":"next-turn","start":0,"inserted":[{"content":[{"type":"text","text":"Background subagent 4c786422-f042-4988-8608-a1d5cf972dd3 was stopped before it finished."},{"type":"text","text":"Its closing message:"},{"type":"text","text":"CHILD_OK"}],"source":{"kind":"subagent-settled","form":"notice","summary":"Background subagent 4c786422-f042-4988-8608-a1d5cf972dd3 was stopped before it finished.","senderSessionId":"4c786422-f042-4
+[25735ms] STDOUT: {"jsonrpc":"2.0","method":"session.status","params":{"sessionId":"fixture-root-session","status":"running"}}
+
+[25735ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"turn/start","seq":28,"time":1789820331223,"data":{"turn":2}}}}
+
+[25736ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"agent/inbox/spliced","seq":29,"time":1789820331223,"data":{"target":"next-turn","start":0,"removedCount":1,"inserted":[]}}}}
+
+[25738ms] STDOUT: {"jsonrpc":"2.0","method":"subagent.finished","params":{"provider":"spawn","agentId":"4c786422-f042-4988-8608-a1d5cf972dd3","parentSessionId":"fixture-root-session","childSessionId":"4c786422-f042-4988-8608-a1d5cf972dd3","status":"error","stopReason":"aborted","lastAssistantMessage":[{"type":"text","text":"CHILD_OK"}]}}
+
+[25760ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/start","seq":30,"time":1789820331248,"data":{"turn":2,"step":1}}}}
+
+[25761ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"user/message","seq":31,"time":1789820331249,"data":{"content":[{"type":"text","text":"Background subagent 4c786422-f042-4988-8608-a1d5cf972dd3 was stopped before it finished."},{"type":"text","text":"Its closing message:"},{"type":"text","text":"CHILD_OK"}],"source":{"kind":"subagent-settled","form":"notice","summary":"Background subagent 4c786422-f042-4988-8608-a1d5cf972dd3 was stopped before it finished.","senderSessionId":"4c786422-f042-4988-8608-a1d5cf972dd3"},"role":"user","id":"3ed40b2
+[25767ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"assistant/message","seq":32,"time":1789820331254,"data":{"turn":2,"step":1,"message":{"role":"assistant","content":[{"type":"text","text":"SUBAGENT_SETTLED_NOTED"}],"source":{"kind":"model","provider":"deepseek-official","model":"deepseek-v4-flash"},"id":"66cfcb44-b40d-4b33-b768-d914c28d665e"},"usage":{"inputTokens":10,"outputTokens":5},"stream":[{"type":"chunk","time":1789820331254,"chunk":{"type":"block-start","index":0,"blockType":"text"}},{"type":"text-chunks","time0":1789820331254,"inde
+[25767ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"step/end","seq":33,"time":1789820331255,"data":{"turn":2,"step":1}}}}
+
+[25767ms] STDOUT: {"jsonrpc":"2.0","method":"session.event","params":{"sessionId":"fixture-root-session","event":{"type":"turn/end","seq":34,"time":1789820331255,"data":{"turn":2,"reason":{"kind":"completed"}}}}}
+
+[25769ms] STDOUT: {"jsonrpc":"2.0","method":"session.status","params":{"sessionId":"fixture-root-session","status":"idle"}}
+
+[90035ms] KILL: probe deadline 90s
+[90054ms] EXIT: code=null signal=SIGKILL
+EXIT=0

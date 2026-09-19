@@ -1,0 +1,162 @@
+{
+  "round": "CP-A4 final verification (W03/W04/W11-F three-line)",
+  "generated_at": "2026-09-19T18:45:00Z",
+  "source_dir": "C:/dsh-b01-w03/raw",
+  "polling_discipline": "6 REST status polls 18:23:02Z-18:37:54Z, each curl --max-time 55, sleep 105-120s between; one transient schannel TLS handshake failure at 18:29Z retried clean after 15s; run wall time 18:19:16Z-18:36:30Z (17m14s).",
+  "queries": [
+    {
+      "ts": "20260919T182302Z",
+      "endpoint": "GET /actions/runs?head_sha=89dce53b80...",
+      "file": "a4-runs-headsha-20260919T182302Z.json",
+      "total_count": 8,
+      "runs": [
+        { "id": 35460812553, "run_number": 43, "name": "CI", "status": "in_progress", "conclusion": null },
+        { "id": 35460811995, "run_number": 43, "name": "E2E (real DeepSeek API)", "status": "completed", "conclusion": "skipped" },
+        { "id": 35460812029, "run_number": 43, "name": "Release (dsh)", "status": "completed", "conclusion": "success" },
+        { "id": 35460812042, "run_number": 43, "name": "Release (vendor)", "status": "completed", "conclusion": "success" },
+        { "id": 35460812163, "run_number": 43, "name": "Node Addon System", "status": "completed", "conclusion": "success" },
+        { "id": 35460812057, "run_number": 79, "name": "Issue lifecycle", "status": "completed", "conclusion": "failure" },
+        { "id": 35460812135, "run_number": 79, "name": "Issue policy", "status": "completed", "conclusion": "failure" },
+        { "id": 35460812126, "run_number": 43, "name": "Build PR preview", "status": "completed", "conclusion": "failure" }
+      ]
+    },
+    {
+      "ts": "20260919T182315Z",
+      "endpoint": "GET /pulls/13",
+      "file": "a4-pr13-20260919T182315Z.json",
+      "pr": {
+        "head": "89dce53b805241d9ec38f8c8ea7bde1109dac4b4",
+        "base": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+        "merge_commit_sha": "9ddc0cfe6fe44b287779550b274d3c2b9f53d060",
+        "draft": true
+      }
+    },
+    {
+      "ts": "20260919T1824xxZ",
+      "endpoint": "git fetch origin 9ddc0cfe (merge tree identity; no REST quota, unauthenticated smart HTTP)",
+      "method": "local git: git fetch origin <merge_sha>; git rev-parse FETCH_HEAD; git cat-file -p; git ls-tree; git diff --stat FETCH_HEAD HEAD",
+      "result": "FETCH_HEAD=9ddc0cfe6fe44b287779550b274d3c2b9f53d060; commit parents = 5434305c (base) + 89dce53b80 (head); git diff --stat FETCH_HEAD HEAD EMPTY = merge tree byte-identical to local HEAD across the whole tree (stronger than CP-A3's four-file blob check). Spot blobs: ci.yml c6b939a7 (unchanged vs A3), pi-ai-defaults.patch.yml cf0ac282, headless.expected.e2e.ts 653c14f7, subagent-diagnostic.expected.e2e.ts 0e1e6ffa, sdk.snapshot.ts 1463e72a, teardown.snapshot.ts 911fc5fc, agent-team tool-schemas.default d62814db / system-prompt.default a5bdc9ab / tool-schemas.1.default d62814db / system-prompt.1.default d2eefffd, subagent tool-schemas.1.default 81ceebfa / system-prompt.1.default b3c8e3db — all equal local HEAD and all equal the W04 round-2 section-2 creation inventory.",
+      "note": "first multi-path ls-tree invocation dropped one path line (system-prompt.default.expected.md) due to a mangled pathspec; full-directory ls-tree re-ran clean and the full-tree diff being empty supersedes the per-file check"
+    },
+    {
+      "ts": "20260919T182631Z..20260919T183754Z",
+      "endpoint": "GET /actions/runs/35460812553 (x6 status polls)",
+      "files": ["a4-run-20260919T182631Z.json", "a4-headers-20260919T182631Z.txt", "a4-run-20260919T182906Z.json", "a4-run-20260919T183114Z.json", "a4-run-20260919T183335Z.json", "a4-run-20260919T183538Z.json", "a4-run-20260919T183754Z.json"],
+      "run": {
+        "id": 35460812553,
+        "run_number": 43,
+        "run_attempt": 1,
+        "event": "pull_request",
+        "head_sha": "89dce53b805241d9ec38f8c8ea7bde1109dac4b4",
+        "status": "completed",
+        "conclusion": "failure",
+        "run_started_at": "2026-09-19T18:19:16Z",
+        "updated_at": "2026-09-19T18:36:30Z"
+      },
+      "rate_limit_at_182631Z": { "limit": 60, "remaining": 57, "used": 3, "reset": 1789845783 }
+    },
+    {
+      "ts": "20260919T183754Z",
+      "endpoint": "GET /actions/runs/35460812553/jobs?per_page=50 (final)",
+      "file": "a4-jobs-20260919T183754Z.json",
+      "jobs": [
+        { "id": 105944222541, "name": "node 24 / snapshots and artifacts", "conclusion": "failure" },
+        { "id": 105944222661, "name": "python 3.10 / keyless SDK", "conclusion": "success" },
+        { "id": 105944222666, "name": "node 24 / benchmarks", "conclusion": "success" },
+        { "id": 105944222710, "name": "node 24 / static", "conclusion": "success" },
+        { "id": 105944222724, "name": "python runtime / release-shaped matrix / plan targets", "conclusion": "success" },
+        { "id": 105944222731, "name": "node 22.19", "conclusion": "success" },
+        { "id": 105944222735, "name": "windows node 24 / build", "conclusion": "success" },
+        { "id": 105944222738, "name": "node 24 / coverage", "conclusion": "failure" },
+        { "id": 105944222741, "name": "node 24.9", "conclusion": "success" },
+        { "id": 105944222744, "name": "windows node 24 / observational", "conclusion": "success" },
+        { "id": 105944222759, "name": "windows node 24 / native tests", "conclusion": "success" },
+        { "id": 105944222769, "name": "windows node 24 / coverage", "conclusion": "failure" },
+        { "id": 105944222800, "name": "node 26", "conclusion": "success" },
+        { "id": 105944248243, "name": "python runtime / release-shaped matrix / deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl", "conclusion": "success" },
+        { "id": 105944310388, "name": "python runtime / release-shaped matrix / node24-linux-x64", "conclusion": "success" },
+        { "id": 105944310467, "name": "python runtime / release-shaped matrix / node24-win-x64", "conclusion": "success" },
+        { "id": 105946190990, "name": "all checks passed", "conclusion": "failure" }
+      ],
+      "key_steps": {
+        "consumers_105944222541": {
+          "Install dependencies and prepare bubblewrap": "success 18:19:37->18:19:53 (16s)",
+          "Run compatibility, snapshot, and artifact gates": "failure 18:20:15->18:24:21 (4m06s; A3 was 3m21s)",
+          "Upload gate failure evidence": "success 18:24:21->18:24:22"
+        },
+        "coverage_105944222738": {
+          "Install dependencies and prepare bubblewrap": "success 18:19:40->18:19:55 (15s)",
+          "Run exhaustive coverage": "failure 18:19:55->18:32:50",
+          "Upload gate failure evidence": "success"
+        }
+      }
+    },
+    {
+      "ts": "20260919T183828Z",
+      "endpoint": "GET /check-runs/105944222541/annotations",
+      "file": "annot-a4-consumers-20260919T183828Z.json",
+      "saved_raw": true,
+      "annotations": [
+        { "level": "warning", "line": 2, "message": "Node.js 20 is deprecated...actions/cache/restore@v4..." },
+        { "level": "failure", "line": 125, "message": "Process completed with exit code 1." }
+      ],
+      "verdict": "ZERO test-level failure annotations on the consumers job: no pi-ai count assertion, no subagent/agent-team teardown AssertionError, no timeout error. Runs 40/41 surfaced the pi-ai '2 vs 5' assertion and run 42 surfaced both teardown AssertionErrors through this exact channel, so channel fidelity for those failure classes is established."
+    },
+    {
+      "ts": "20260919T183921Z",
+      "endpoint": "GET /check-runs/105944222738/annotations",
+      "file": "annot-a4-coverage-20260919T183921Z.json",
+      "saved_raw": true,
+      "annotations": [
+        { "level": "warning", "line": 2, "message": "Node.js 20 deprecation..." },
+        { "level": "failure", "line": 12213, "message": "Process completed with exit code 1." },
+        { "level": "failure", "line": 62, "message": "Error: CDP call timed out: Runtime.evaluate | packages/experimental/inspector/tests/cordis-tree.host.spec.ts:62:47" },
+        { "level": "failure", "line": 45, "message": "Error: CDP call timed out: Runtime.evaluate | packages/experimental/inspector/tests/integration.host.spec.ts:45:16" },
+        { "level": "failure", "line": 5158, "message": "AssertionError: expected { kind: 'timeout' ... 'wall-clock ceiling reached (60000ms)' } | packages/experimental/code-runtime-python/runtime.spec" }
+      ],
+      "verdict": "prepare-ci-bubblewrap.spec.ts failures absent for the third consecutive round (prepare-spec stays green); residuals are the known W11 families (inspector CDP x2, code-runtime-python 60s)."
+    },
+    {
+      "ts": "20260919T183921Z",
+      "endpoint": "GET /check-runs/105944222769/annotations",
+      "file": "annot-a4-wincoverage-20260919T183921Z.json",
+      "saved_raw": true,
+      "annotations": [
+        { "level": "warning", "line": 2, "message": "Node.js 20 deprecation..." },
+        { "level": "failure", "line": 11944, "message": "Process completed with exit code 1." },
+        { "level": "failure", "line": 200, "message": "Error: Test timed out in 30000ms. | scripts/gen-client-catalog.spec.ts:200:3" }
+      ],
+      "verdict": "same signature as CP-A3 round (gen-client-catalog.spec.ts:200 30s), G6 timeout family; the typert tools-catalog variant did not surface this round."
+    },
+    {
+      "ts": "20260919T183921Z",
+      "endpoint": "GET /actions/runs/35460812553/artifacts",
+      "file": "a4-artifacts-20260919T183921Z.json",
+      "artifacts": [
+        { "id": 10590080207, "name": "gate-evidence-node-24-coverage-run35460812553-attempt1", "size": 176884 },
+        { "id": 10589694221, "name": "gate-evidence-node-24-consumers-run35460812553-attempt1", "size": 5851 },
+        { "id": 10588904564, "name": "gate-evidence-windows-coverage-run35460812553-attempt1", "size": 172645 },
+        { "id": 10589865244, "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-manylinux_2_28_x86_64.whl", "size": 80577852 },
+        { "id": 10589709156, "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-win_amd64.whl", "size": 72125383 },
+        { "id": 10588873682, "name": "deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl", "size": 13047 }
+      ],
+      "size_calibration": "consumers gate-evidence 5,851 bytes vs 30,910 (run 42, snapshot failed with two deep-equal diffs) and 9,145 (run 40, expected-output failed with pi-ai/terminal-bash/python payloads): no assertion-diff payload this round, consistent with expected-output and snapshot both passing."
+    },
+    {
+      "ts": "20260919T184000Z",
+      "endpoint": "GET /commits/89dce53b80.../check-runs?per_page=100",
+      "file": "a4-checkruns-20260919T184000Z.json",
+      "result": "29 check-runs; consumers/coverage/win-coverage check outputs carry empty title/summary — no gate name recoverable from this surface."
+    }
+  ],
+  "notes": {
+    "hygiene": "All REST responses saved as raw files under a4-*/annot-a4-* prefixes; no placeholder-only entries; one coarse git-fetch timestamp (1824xxZ). Merge-tree identity used unauthenticated git smart HTTP (no REST quota, no credentials). No log or artifact downloads attempted (anonymous 401 established in CP-A2 round; master-control channel owns those)."
+  },
+  "evidence_hygiene_gaps": {
+    "gaps": [
+      "git fetch query timestamp recorded coarsely as 20260919T1824xxZ (operation ran between the 18:23:02Z runs query and the 18:26:31Z poll; exact second not captured).",
+      "One transient schannel TLS handshake failure at ~18:29Z (curl exit 35) was retried after 15s; the failed attempt produced no response body to save — only the retry result is on disk.",
+      "poll a4-run-20260919T183538Z.json was fetched while jobs had advanced (run updated_at 18:32:56Z) but run record still in_progress; no gap in coverage."
+    ]
+  }
+}

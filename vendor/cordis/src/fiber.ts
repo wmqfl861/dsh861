@@ -206,6 +206,7 @@ export class Fiber {
   protected context: Context
 
   private _error: any
+  private _failedEpoch: string | undefined
   private _runner: EffectRunner<string>
   private _store: Dict<Impl> = Object.create(null)
 
@@ -624,6 +625,19 @@ export class Fiber {
 
   private _setEpoch(epoch: string) {
     const oldEpoch = this._runner.epoch
+    // Failure cleanup also uses INACTIVE; it is not evidence that a required
+    // service disappeared. Keep that failed activation latched while the
+    // same dependencies remain ready, including notifications during cleanup.
+    if (this._error) {
+      if (this.uid === null) return
+      if (epoch === INACTIVE) {
+        this._failedEpoch = undefined
+      } else {
+        if (epoch === this._failedEpoch) return
+        this._error = undefined
+        this._failedEpoch = undefined
+      }
+    }
     if (epoch === oldEpoch) return
     this._runner.epoch = epoch
     if (this.inertia) return
@@ -660,6 +674,8 @@ export class Fiber {
       // impl guarantees that the error is non-null (?)
       this.ctx.logger.error(reason)
       this._error = reason
+      // A dependency may already have gone away while startup was awaiting.
+      this._failedEpoch = this._runner.epoch === INACTIVE ? undefined : oldEpoch
       this._runner.epoch = INACTIVE
     }
     this._updateState(() => {
@@ -716,6 +732,9 @@ export class Fiber {
    * @throws {CordisError} `INACTIVE_EFFECT` when the fiber is already disposed.
    */
   async restart() {
+    // Act on `this`: callers invoke fiber.update()/restart() directly (Loader
+    // entries, tests), and this.ctx.fiber may name a different instance of the
+    // same runtime.
     this.assertActive()
     this._setEpoch(INACTIVE)
     this._refresh()
@@ -726,14 +745,15 @@ export class Fiber {
    * Validate and apply new config, then restart the plugin.
    *
    * Runs the `internal/update` waterfall first, so update hooks (and HMR)
-   * can veto or replace the restart.
+   * can veto or replace the restart. Config resolution stays lazy (see
+   * `_resolveConfig`): a fiber that cannot yet activate keeps the raw config.
    *
    * @param config — the new raw config; validated before anything restarts.
    * @param noSave — hint for persistence hooks not to write the change back.
    * @returns the update waterfall result; the default restart returns a promise.
    * @throws when validation, an update listener, or the restarted plugin fails.
    */
-  update(config: any, noSave = false) {
+  update(config: any, noSave = false): Awaitable<void> {
     this.assertActive()
     this._config = config
     if (this.state !== FiberState.ACTIVE) {
@@ -745,10 +765,18 @@ export class Fiber {
       return
     }
     config = this._resolveConfig(config)
-    return this.context.waterfall(this, 'internal/update', config, noSave, () => {
+    const result = this.context.waterfall(this, 'internal/update', config, noSave, () => {
       this.config = config
       this._error = undefined
       return this.restart()
     })
+    // a listener may veto the restart, in which case there is nothing to await
+    if (result === undefined) return
+    const task = Promise.resolve(result)
+    // the failure is already reported by the fiber, so mark it handled here:
+    // a caller that drops the result cannot turn it into an unhandled
+    // rejection, while `await update()` still observes it
+    task.catch(() => {})
+    return task
   }
 }

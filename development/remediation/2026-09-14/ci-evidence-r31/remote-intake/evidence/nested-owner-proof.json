@@ -1,0 +1,52 @@
+{
+  "kind": "isolated environment/child-process mechanism proof",
+  "node": "22.16.0",
+  "platform": "linux",
+  "cases": [
+    {
+      "mode": "node-compat",
+      "fixed": false,
+      "childEnabled": true,
+      "outerExported": false,
+      "expected": true
+    },
+    {
+      "mode": "node-compat",
+      "fixed": true,
+      "childEnabled": false,
+      "outerExported": true,
+      "expected": true
+    },
+    {
+      "mode": "ci-lint-contracts-ready",
+      "fixed": false,
+      "childEnabled": true,
+      "outerExported": false,
+      "expected": true
+    },
+    {
+      "mode": "ci-lint-contracts-ready",
+      "fixed": true,
+      "childEnabled": false,
+      "outerExported": true,
+      "expected": true
+    },
+    {
+      "mode": "ci-consumers",
+      "fixed": false,
+      "childEnabled": true,
+      "outerExported": false,
+      "expected": true
+    },
+    {
+      "mode": "ci-consumers",
+      "fixed": true,
+      "childEnabled": false,
+      "outerExported": true,
+      "expected": true
+    }
+  ],
+  "disabledAndEmptyUnchanged": true,
+  "unrelatedEnvironmentNotEnumerated": true,
+  "fullRepositoryTests": false
+}

@@ -15,6 +15,8 @@ export const inject = ['invariants']
 /** Install the scoped-dispatch contribution into its child registration fiber. */
 const install: InvariantInstaller = (ctx, fail) => {
   ctx.on('internal/dispatch', (_mode, eventName, args, thisArg) => {
+    // Symbol-named events (cordis internals) are never scope-filtered string events.
+    if (typeof eventName !== 'string') return
     const subjectOf = scopedSubjectResolverFor(eventName)
     if (subjectOf === undefined) return
     if (!isScopeCarrier(thisArg)) {

@@ -1,0 +1,3 @@
+$ tsx scripts/run-oxlint.ts .
+Found 0 warnings and 0 errors.
+Finished in 123.0s on 3615 files with 90 rules using 20 threads.

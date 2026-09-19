@@ -1,0 +1,16 @@
+original: 70048 bytes, sha256=496f79f5d97731f0e9464187e8208806bcac6bb897e6bd1472927de753a4b6ae, git-blob=664e1a0ef88f86b524dee39f684cd34e3cbba4a6
+mutated: 70024 bytes, sha256=2578b210e329c55589997e63b16580fe5af7e0cc7ef6ab267c26045dd78a22a0, git-blob=a22be13fcea0c172c7552f3f142b416a7b133835
+focused run under mutation: status=1 error=none
+vitest summary: Tests  5 failed | 6 passed | 105 skipped (116)
+FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > parses only on the first close when close is delivered twice
+AssertionError: expected 2 to be 1 // Object.is equality
+FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives after cancel
+AssertionError: expected 1 to be +0 // Object.is equality
+FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives twice after cancel
+AssertionError: expected 2 to be +0 // Object.is equality
+FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives after error
+AssertionError: expected 1 to be +0 // Object.is equality
+FAIL   thread-safe  scripts/run-gates.spec.ts > asynchronous enumeration wiring > does not parse again when close arrives twice after error
+AssertionError: expected 2 to be +0 // Object.is equality
+restored: 70048 bytes, byte-equal=true, sha256=496f79f5d97731f0e9464187e8208806bcac6bb897e6bd1472927de753a4b6ae, git-blob=664e1a0ef88f86b524dee39f684cd34e3cbba4a6
+driver verdict: rejected-mutation: 5 failed assertion(s), 6 passed, nonzero exit 1

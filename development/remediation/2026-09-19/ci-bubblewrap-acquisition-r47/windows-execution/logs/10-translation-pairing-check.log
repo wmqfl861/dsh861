@@ -1,0 +1,7 @@
+$ tsx scripts/verify-translation-pairing.ts
+verify-translation-pairing: bilingual pairing rules violated (see docs/i18n/README.md):
+  .agents/notes/implemented/bug-fix/2026-09-19-ci-bubblewrap-acquisition-r47.zh.md:5: link target "2026-09-19-ci-bubblewrap-acquisition-r47.md" uses the wrong locale; expected "2026-09-19-ci-bubblewrap-acquisition-r47.zh.md"
+  .agents/notes/implemented/bug-fix/2026-09-19-ci-bubblewrap-acquisition-r47.zh.md: missing language switcher — no link to 2026-09-19-ci-bubblewrap-acquisition-r47.md
+  .agents/notes/implemented/bug-fix/2026-09-19-ci-bubblewrap-acquisition-r47.md ↔ .agents/notes/implemented/bug-fix/2026-09-19-ci-bubblewrap-acquisition-r47.zh.md: link target #1 diverges between the pair: "../../../../development/remediation/2026-09-19/ci-bubblewrap-acquisitio… vs "dsh-translation-target:.agents/notes/implemented/bug-fix/2026-09-19-ci-…
+[ELIFECYCLE] Command failed with exit code 1.
+pairing_check_exit=1

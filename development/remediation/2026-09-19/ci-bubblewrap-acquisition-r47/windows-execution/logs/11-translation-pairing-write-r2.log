@@ -1,0 +1,4 @@
+$ tsx scripts/verify-translation-pairing.ts "--write" ".agents/notes/implemented/bug-fix/2026-09-19-ci-bubblewrap-acquisition-r47.md"
+verify-translation-pairing: recorded .agents/notes/implemented/bug-fix/2026-09-19-ci-bubblewrap-acquisition-r47.i18n.yaml
+verify-translation-pairing: 1 record(s) written; run the check to validate the pairs.
+write_exit=0

@@ -1,6 +1,6 @@
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { defineConfig } from 'vitest/config'
-import { standardDecoratorPlugin, vitestExecArgv } from './vitest.shared.ts'
+import { standardDecoratorPlugin, vitestExecArgv, vitestEsbuild } from './vitest.shared.ts'
 
 // Real-API suite, separate because it spends tokens. Each test self-skips without
 // its provider credential for keyless CI; credentialed workflows preflight the
@@ -29,6 +29,7 @@ function positiveIntFromEnv(name: string, fallback: number): number {
 const e2eMaxWorkers = positiveIntFromEnv('DSH_E2E_MAX_WORKERS', DEFAULT_E2E_MAX_WORKERS)
 
 export default defineConfig({
+  esbuild: vitestEsbuild,
   // Same resolution note as vitest.config.ts: bare workspace names resolve
   // through the tsconfig.base.json paths facade (no include = match-all, so
   // client-package sources get mapping too — dropping /client subpath imports

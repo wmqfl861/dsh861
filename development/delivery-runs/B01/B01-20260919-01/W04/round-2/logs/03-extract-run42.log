@@ -1,0 +1,3 @@
+agent-team parent: 31 tools; team tools present: true
+subagent child: 25 tools; structurally equal to text-turn shared set: true
+EXIT=0

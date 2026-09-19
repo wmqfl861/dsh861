@@ -1,0 +1,572 @@
+{
+  "generated_at": "2026-09-19T13:42:13.416Z",
+  "source_dir": "C:/dsh-b01-w03/raw",
+  "queries": [
+    {
+      "ts": "20260919T132602Z",
+      "endpoint": "GET /repos/wmqfl861/dsh861/actions/runs?head_sha=8d0dc41139...",
+      "file": "runs-headsha-20260919T132602Z.json",
+      "total_count": 8,
+      "runs": [
+        {
+          "id": 35445600038,
+          "run_number": 40,
+          "name": "E2E (real DeepSeek API)",
+          "path": ".github/workflows/e2e.yml",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "skipped",
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        },
+        {
+          "id": 35445600087,
+          "run_number": 76,
+          "name": "Issue lifecycle",
+          "path": ".github/workflows/issue-lifecycle.yml",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure",
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        },
+        {
+          "id": 35445600085,
+          "run_number": 76,
+          "name": "Issue policy",
+          "path": ".github/workflows/issue-policy.yml",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure",
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        },
+        {
+          "id": 35445600344,
+          "run_number": 40,
+          "name": "CI",
+          "path": ".github/workflows/ci.yml",
+          "event": "pull_request",
+          "status": "in_progress",
+          "conclusion": null,
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        },
+        {
+          "id": 35445600157,
+          "run_number": 40,
+          "name": "Release (vendor)",
+          "path": ".github/workflows/release-vendor.yml",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        },
+        {
+          "id": 35445600122,
+          "run_number": 40,
+          "name": "Build PR preview",
+          "path": ".github/workflows/build-preview-cloudflare.yml",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "failure",
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        },
+        {
+          "id": 35445600074,
+          "run_number": 40,
+          "name": "Node Addon System",
+          "path": ".github/workflows/node-addon-system.yml",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        },
+        {
+          "id": 35445600121,
+          "run_number": 40,
+          "name": "Release (dsh)",
+          "path": ".github/workflows/release.yml",
+          "event": "pull_request",
+          "status": "completed",
+          "conclusion": "success",
+          "attempt": 1,
+          "created_at": "2026-09-19T13:23:04Z"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T133845Z",
+      "endpoint": "GET /repos/wmqfl861/dsh861/actions/runs/35445600344/jobs",
+      "file": "jobs-final-20260919T133845Z.json",
+      "jobs": [
+        {
+          "id": 105903866688,
+          "name": "node 24 / snapshots and artifacts",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001803",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:44Z"
+        },
+        {
+          "id": 105903866775,
+          "name": "python runtime / release-shaped matrix / plan targets",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001813",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:15Z"
+        },
+        {
+          "id": 105903866776,
+          "name": "node 24 / benchmarks",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001808",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:25:16Z"
+        },
+        {
+          "id": 105903866778,
+          "name": "node 24 / static",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001804",
+          "started_at": "2026-09-19T13:23:06Z",
+          "completed_at": "2026-09-19T13:25:07Z"
+        },
+        {
+          "id": 105903866791,
+          "name": "node 24.9",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001807",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:58Z"
+        },
+        {
+          "id": 105903866799,
+          "name": "windows node 24 / native tests",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001814",
+          "started_at": "2026-09-19T13:23:06Z",
+          "completed_at": "2026-09-19T13:24:24Z"
+        },
+        {
+          "id": 105903866806,
+          "name": "node 22.19",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001810",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:24:54Z"
+        },
+        {
+          "id": 105903866809,
+          "name": "python 3.10 / keyless SDK",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001811",
+          "started_at": "2026-09-19T13:23:08Z",
+          "completed_at": "2026-09-19T13:23:24Z"
+        },
+        {
+          "id": 105903866817,
+          "name": "windows node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001815",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:37:02Z"
+        },
+        {
+          "id": 105903866831,
+          "name": "node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001809",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:43Z"
+        },
+        {
+          "id": 105903866879,
+          "name": "node 26",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001812",
+          "started_at": "2026-09-19T13:23:08Z",
+          "completed_at": "2026-09-19T13:24:04Z"
+        },
+        {
+          "id": 105903866896,
+          "name": "windows node 24 / build",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001817",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:26:10Z"
+        },
+        {
+          "id": 105903866970,
+          "name": "windows node 24 / observational",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001816",
+          "started_at": "2026-09-19T13:23:06Z",
+          "completed_at": "2026-09-19T13:29:48Z"
+        },
+        {
+          "id": 105903889701,
+          "name": "python runtime / release-shaped matrix / deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001818",
+          "started_at": "2026-09-19T13:23:17Z",
+          "completed_at": "2026-09-19T13:23:29Z"
+        },
+        {
+          "id": 105903916188,
+          "name": "python runtime / release-shaped matrix / node24-win-x64",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001824",
+          "started_at": "2026-09-19T13:23:45Z",
+          "completed_at": "2026-09-19T13:30:07Z"
+        },
+        {
+          "id": 105903916210,
+          "name": "python runtime / release-shaped matrix / node24-linux-x64",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001823",
+          "started_at": "2026-09-19T13:23:43Z",
+          "completed_at": "2026-09-19T13:27:57Z"
+        },
+        {
+          "id": 105904769858,
+          "name": "all checks passed",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001826",
+          "started_at": "2026-09-19T13:30:10Z",
+          "completed_at": "2026-09-19T13:30:13Z"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T133845Z",
+      "endpoint": "GET /repos/wmqfl861/dsh861/actions/runs/35445600344/jobs",
+      "file": "jobs-final-20260919T133845Z.json",
+      "jobs": [
+        {
+          "id": 105903866688,
+          "name": "node 24 / snapshots and artifacts",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001803",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:44Z"
+        },
+        {
+          "id": 105903866775,
+          "name": "python runtime / release-shaped matrix / plan targets",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001813",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:15Z"
+        },
+        {
+          "id": 105903866776,
+          "name": "node 24 / benchmarks",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001808",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:25:16Z"
+        },
+        {
+          "id": 105903866778,
+          "name": "node 24 / static",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001804",
+          "started_at": "2026-09-19T13:23:06Z",
+          "completed_at": "2026-09-19T13:25:07Z"
+        },
+        {
+          "id": 105903866791,
+          "name": "node 24.9",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001807",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:58Z"
+        },
+        {
+          "id": 105903866799,
+          "name": "windows node 24 / native tests",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001814",
+          "started_at": "2026-09-19T13:23:06Z",
+          "completed_at": "2026-09-19T13:24:24Z"
+        },
+        {
+          "id": 105903866806,
+          "name": "node 22.19",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001810",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:24:54Z"
+        },
+        {
+          "id": 105903866809,
+          "name": "python 3.10 / keyless SDK",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001811",
+          "started_at": "2026-09-19T13:23:08Z",
+          "completed_at": "2026-09-19T13:23:24Z"
+        },
+        {
+          "id": 105903866817,
+          "name": "windows node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001815",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:37:02Z"
+        },
+        {
+          "id": 105903866831,
+          "name": "node 24 / coverage",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001809",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:23:43Z"
+        },
+        {
+          "id": 105903866879,
+          "name": "node 26",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001812",
+          "started_at": "2026-09-19T13:23:08Z",
+          "completed_at": "2026-09-19T13:24:04Z"
+        },
+        {
+          "id": 105903866896,
+          "name": "windows node 24 / build",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001817",
+          "started_at": "2026-09-19T13:23:07Z",
+          "completed_at": "2026-09-19T13:26:10Z"
+        },
+        {
+          "id": 105903866970,
+          "name": "windows node 24 / observational",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001816",
+          "started_at": "2026-09-19T13:23:06Z",
+          "completed_at": "2026-09-19T13:29:48Z"
+        },
+        {
+          "id": 105903889701,
+          "name": "python runtime / release-shaped matrix / deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001818",
+          "started_at": "2026-09-19T13:23:17Z",
+          "completed_at": "2026-09-19T13:23:29Z"
+        },
+        {
+          "id": 105903916188,
+          "name": "python runtime / release-shaped matrix / node24-win-x64",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001824",
+          "started_at": "2026-09-19T13:23:45Z",
+          "completed_at": "2026-09-19T13:30:07Z"
+        },
+        {
+          "id": 105903916210,
+          "name": "python runtime / release-shaped matrix / node24-linux-x64",
+          "status": "completed",
+          "conclusion": "success",
+          "runner": "GitHub Actions 1000001823",
+          "started_at": "2026-09-19T13:23:43Z",
+          "completed_at": "2026-09-19T13:27:57Z"
+        },
+        {
+          "id": 105904769858,
+          "name": "all checks passed",
+          "status": "completed",
+          "conclusion": "failure",
+          "runner": "GitHub Actions 1000001826",
+          "started_at": "2026-09-19T13:30:10Z",
+          "completed_at": "2026-09-19T13:30:13Z"
+        }
+      ]
+    },
+    {
+      "ts": "20260919T133845Z",
+      "endpoint": "GET /repos/wmqfl861/dsh861/actions/runs/35445600344",
+      "file": "run-final-20260919T133845Z.json",
+      "run": {
+        "id": 35445600344,
+        "run_number": 40,
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "failure",
+        "run_attempt": 1,
+        "head_sha": "8d0dc41139827f0dd1e3c4a82178dc6ad8bb3b7e",
+        "head_branch": "chore/latest-stable-upgrade-20260912",
+        "run_started_at": "2026-09-19T13:23:04Z",
+        "updated_at": "2026-09-19T13:37:02Z",
+        "html_url": "https://github.com/wmqfl861/dsh861/actions/runs/35445600344"
+      }
+    },
+    {
+      "ts": "20260919T132754Z",
+      "endpoint": "GET /repos/wmqfl861/dsh861/check-runs/105903866831/annotations",
+      "file": "annot-coverage-20260919T132754Z.json",
+      "annotations": [
+        {
+          "level": "warning",
+          "line": 2,
+          "message": "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cac"
+        },
+        {
+          "level": "failure",
+          "line": 206,
+          "message": "Process completed with exit code 1."
+        }
+      ]
+    },
+    {
+      "ts": "20260919T133xZ",
+      "endpoint": "GET /repos/wmqfl861/dsh861/check-runs/105880239998/annotations (old run39 coverage)",
+      "annotations": [
+        {
+          "level": "warning",
+          "line": 2,
+          "message": "Node.js 20 deprecation (cache/restore@v4)"
+        },
+        {
+          "level": "failure",
+          "line": 137,
+          "message": "Process completed with exit code 1."
+        }
+      ]
+    },
+    {
+      "ts": "20260919T133xZ",
+      "endpoint": "GET /repos/wmqfl861/dsh861/check-runs/105880240119/annotations (old run39 consumers)",
+      "annotations": [
+        {
+          "level": "warning",
+          "line": 2,
+          "message": "Node.js 20 deprecation (cache/restore@v4)"
+        },
+        {
+          "level": "failure",
+          "line": 141,
+          "message": "Process completed with exit code 1."
+        }
+      ]
+    },
+    {
+      "ts": "20260919T134008Z",
+      "endpoint": "GET /repos/wmqfl861/dsh861/pulls/13",
+      "file": "pr13-20260919T134008Z.json",
+      "pr": {
+        "number": 13,
+        "state": "open",
+        "draft": true,
+        "head": "8d0dc41139827f0dd1e3c4a82178dc6ad8bb3b7e",
+        "head_ref": "chore/latest-stable-upgrade-20260912",
+        "base": "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+        "base_ref": "feat/multi-agent-company-nodes",
+        "merge_commit_sha": "1d286a592b26b84dfad6a70d66b771e56f777b13"
+      }
+    },
+    {
+      "ts": "20260919T133917Z",
+      "endpoint": "GET /repos/wmqfl861/dsh861/actions/runs/35445600344/artifacts",
+      "file": "artifacts-final-20260919T133917Z.json",
+      "artifacts": [
+        {
+          "id": 10585462431,
+          "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-win_amd64.whl",
+          "size": 72125074,
+          "expired": false
+        },
+        {
+          "id": 10585188589,
+          "name": "deepseek_harness_runtime_bin-0.1.5rc2-py3-none-manylinux_2_28_x86_64.whl",
+          "size": 80578495,
+          "expired": false
+        },
+        {
+          "id": 10584943474,
+          "name": "deepseek_harness_sdk-0.1.5rc2-py3-none-any.whl",
+          "size": 13047,
+          "expired": false
+        },
+        {
+          "id": 10584629291,
+          "name": "gate-evidence-windows-coverage-run35445600344-attempt1",
+          "size": 152490,
+          "expired": false
+        }
+      ]
+    },
+    {
+      "ts": "20260919T134xZ",
+      "endpoint": "GET /repos/wmqfl861/dsh861/contents/{file}?ref=1d286a59... (7 files)",
+      "merge_tree_blobs": {
+        "prepare-ci-bubblewrap.sh": "4c03966fd769a3075a086a6a7daa1cbdfba413a3",
+        "prepare-ci-bubblewrap.spec.ts": "d0f3e6a640be3bba4a1bdccd9d328290998098c1",
+        "prepare-ci-bubblewrap-test-support.ts": "04fbb27dea525c19cf5bcb4d8e05e892b6f03b03",
+        "ci.yml": "c6b939a7b65be4df7287a28b31b045481d864dc8",
+        "sandbox.yml": "cdcb229ab0faf1e9bc0e6dceb88edf692b6d14ad",
+        "e2e.yml": "ecc2e77d37f9f26bf3b237e243efceb89f832119",
+        "ci-master.yml": "5d7f420024ea423a67eb51d1c86b26ab5850ace5"
+      }
+    },
+    {
+      "ts": "20260919T133213Z",
+      "endpoint": "curl three pinned inputs + sha256sum (verifier vantage)",
+      "file": "inputs-check-20260919T133213Z.log",
+      "results": "all three SHA-256 exact matches (bubblewrap 9760d007.., meson 88afe0c2.., libcap 07f24628..)"
+    },
+    {
+      "ts": "20260919T132x-133xZ",
+      "endpoint": "log access probes",
+      "results": [
+        "api jobs/{id}/logs -> 403",
+        "site checks logs/{n} (+cookie/CSRF/UA/json variants) -> 404",
+        "site run/job logs -> 404",
+        "rendered page -> Sign in to view logs"
+      ]
+    }
+  ],
+  "evidence_hygiene_gaps": {
+    "added": "2026-09-19 CP-A3 close-out round (C3, from interim CP1)",
+    "gaps": [
+      "Placeholder timestamps: entries with ts values 20260919T133xZ / 20260919T134xZ / 20260919T132x-133xZ are coarse markers, not exact query times.",
+      "Entries without raw-file correspondence: the old-run annotations entries (check-runs 105880239998 / 105880240119) were piped live to stdout and never saved as raw files; their content lives only in this digest.",
+      "Misleading filename: raw/artifact-consumers-gate-evidence-*.zip from this round is actually a JSON 401 body (anonymous artifact download attempt), not a zip archive."
+    ]
+  }
+}

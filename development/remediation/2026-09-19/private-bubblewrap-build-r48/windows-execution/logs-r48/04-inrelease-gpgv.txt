@@ -1,0 +1,10 @@
+=== noble-updates ===
+gpgv: Signature made Sat Sep 19 14:34:23 2026
+gpgv:                using RSA key F6ECB3762474EDA9D21B7022871920D1991BC93C
+gpgv: Good signature from "Ubuntu Archive Automatic Signing Key (2018) <ftpmaster@ubuntu.com>"
+GPGV_EXIT_noble-updates=0
+=== noble-security ===
+gpgv: Signature made Sat Sep 19 08:47:09 2026
+gpgv:                using RSA key F6ECB3762474EDA9D21B7022871920D1991BC93C
+gpgv: Good signature from "Ubuntu Archive Automatic Signing Key (2018) <ftpmaster@ubuntu.com>"
+GPGV_EXIT_noble-security=0

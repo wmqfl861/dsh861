@@ -1,0 +1,114 @@
+{
+  "round": "r34-remote-candidate",
+  "sessionDate": "2026-09-15",
+  "repository": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "pr": 13,
+  "baseCommit": "b6b7c7585dfbe537653846711d36c694b524783e",
+  "baseTree": "06a94e373f9c0d467ec3aba9958f2f2ab13c8a91",
+  "status": "TEST_CANDIDATE_IMPLEMENTED_INTEGRATION_VERIFICATION_PENDING",
+  "r33Reception": {
+    "localIndependentReview": "User reports 10/10 PASS; not reperformed remotely.",
+    "preserve": "transform/3, receiver and switch fixes, duplication correction and all historical logs"
+  },
+  "ci": {
+    "runId": 34871934787,
+    "runNumber": 22,
+    "attempt": 1,
+    "head": "b6b7c7585dfbe537653846711d36c694b524783e",
+    "checkout": "2099905cc6fb93a76cde247618bc11ebda036882",
+    "checkoutParents": [
+      "5434305c5dcf7ddc3ebf939226647b7b608335e6",
+      "b6b7c7585dfbe537653846711d36c694b524783e"
+    ],
+    "headAndCheckoutTree": "06a94e373f9c0d467ec3aba9958f2f2ab13c8a91",
+    "treeVerification": "Both commit objects read through GitHub and compared; identity also matches the downloaded artifact.",
+    "consumers": {
+      "jobId": 104069700622,
+      "status": "success",
+      "gates": { "passed": 11, "failed": 0, "skipped": 0 },
+      "mainWebBatch": { "filesPassed": 100, "testsPassed": 355, "testsFailed": 0, "testsSkipped": 13 },
+      "selectedFileResults": {
+        "lifecycle-chrome": "13/13",
+        "preview-boot": "1/1",
+        "sidebar-scrollbar": "7/7",
+        "queue-actions": "3/3",
+        "agent-preset-authoring": "7/7 on Linux",
+        "built-boot": "2/2"
+      },
+      "evidence": "Read decoded full job log including checkout and final gate summary; these are selected observations, not a repository copy of the raw log.",
+      "boundary": "Confirms no recurrence in this run, not unique historical causation or future stability. Separate HMR/tool-round batches are not silently added to the main-batch count."
+    },
+    "windowsObservational": "success in the received-head job listing",
+    "windowsCoverage": {
+      "status": "failure",
+      "aggregate": "ci-coverage",
+      "gates": { "passed": 1, "failed": 1, "skipped": 1 },
+      "passedGate": "native-system",
+      "failedGate": "coverage-exempt-heavy",
+      "skippedGate": "coverage",
+      "failedPreliminarySuite": { "filesPassed": 87, "filesFailed": 1, "filesSkipped": 2, "testsPassed": 1703, "testsFailed": 1, "testsSkipped": 96 },
+      "failedProject": "thread-safe",
+      "file": "packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts",
+      "fixture": "Chokidar 5 from skill-filesystem running unchanged",
+      "test": "waits for a write burst to stabilize before publishing one add",
+      "expected": ["add"],
+      "received": ["add", "change"],
+      "location": "chokidar.spec.ts:197:20",
+      "boundary": "Main coverage was fail-fast skipped; this is not a measured coverage-threshold deficit. Individual write timestamps were not present."
+    },
+    "linuxCoverage": "No final result claimed; latest artifact-name query returned no matching failure artifact. Absence of an artifact is not proof of success."
+  },
+  "artifact": {
+    "id": 10359444500,
+    "name": "gate-evidence-windows-coverage-run34871934787-attempt1",
+    "bytes": 71274,
+    "sha256": "5fcfa723b6ecc3517ece0aa34cc27892b0593b4c108044b4764eb4f240c7134d",
+    "downloaded": true,
+    "zipCrc": "PASS",
+    "pathTypeDuplicateAndInventoryChecks": "PASS",
+    "manifestMemberChecks": "5/5 byte lengths and SHA-256 match; six files including manifest.json",
+    "memberDigests": {
+      "identity.json": "d0515092ee4e5e5e5b67026710bf0e8c6448d6d14f7ca714066b55558526e152",
+      "gate-results.json": "d183e4144ebc53dfbfeb7410c5db243a5f84d902beb14da995dc262ed864c677",
+      "logs/coverage-exempt-heavy.log": "9c700436b63dba0d845cc6770f68f51b8122876794b7aa5bb1c1598dd3a625d8",
+      "aggregate-stdout.log": "eccadbd0d44b445f3f7c1bd15da87cc8e03d43032fc30923264952bc290d1d6f",
+      "aggregate-stderr.log": "2772976155247dcd8da40238c335a3650928ec10c03e56ae6015bc25f86ec4d3"
+    },
+    "copyPolicy": "Original ZIP remains a GitHub Actions artifact; no reconstructed or normalized file is presented as original bytes."
+  },
+  "candidate": {
+    "file": "packages/experimental/webworker-runtime/tests/node/chokidar.spec.ts",
+    "beforeBlob": "82066b810abd9692849e7dd656274159f64911a3",
+    "afterBlob": "07fef9ee2ffb9fb32c8c3a2fdf760048f5a1eb69",
+    "afterBytes": 10309,
+    "afterSha256": "4d9b116955ea0be63d80b28d858c856def1e4024084cd81b4281b0605713b75d",
+    "changes": "Control Date and timeout/interval APIs for write-finish cases; keep real package/Loader/VFS; preserve 30ms/5ms; assert no early events and complete abc content; add a later-write change control; close watchers before restoring clocks.",
+    "unchanged": "Other test bodies, module/package loading, production source, dependency lock, workflow and coverage policy.",
+    "hypothesisLimit": "The old fixture permits scheduling to violate its assumed burst spacing. The model experiment proves a possible mechanism, not the exact missing CI timing trace. Full installed-package execution remains required."
+  },
+  "remoteChecks": {
+    "artifactBytes": "PASS as listed above",
+    "originalSourceHash": "Full fetched source rehashed to beforeBlob before editing",
+    "fullFilePatch": "Forward check/apply/reverse check exit 0 in isolated copies; candidate bytes match",
+    "syntax": { "node": "22.16.0", "typescript": "5.8.3", "parseDiagnostics": 0, "strictTypecheck": false },
+    "authoringSetupCorrection": "A repeat syntax command initially used an absent global compiler path; it was corrected by resolving the installed tsc path. No source change or project failure was inferred.",
+    "pollingModel": { "source": "polling-proof.mjs", "log": "polling-proof.tap", "passed": 2, "failed": 0, "skipped": 0, "scope": "Explicit size/event/stat model using node:test timers, NOT real Chokidar, VFS, Loader or Vitest." }
+  },
+  "references": [
+    "https://github.com/paulmillr/chokidar/blob/5.0.0/src/index.ts",
+    "https://vitest.dev/api/vi#vi-usefaketimers"
+  ],
+  "notRun": [
+    "Actual Chokidar 4/5 candidate through either repository Vitest project",
+    "Windows ready/close/timer-restoration integration",
+    "Project typecheck, lint, duplication and docs/translation generators",
+    "Fresh-context independent review of the candidate",
+    "Full coverage or new candidate CI"
+  ],
+  "localGitHooksExecuted": false,
+  "productAccepted": false,
+  "p0bAccepted": false,
+  "modelExecutionAuthorized": false,
+  "task": "LOCAL_AGENT_TASK.md"
+}

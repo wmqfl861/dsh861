@@ -1,0 +1,29 @@
+{
+  "run_id": "B01-20260919-01",
+  "created": "2026-09-19",
+  "controller": "main-session (sole integrator and git writer per owner instruction)",
+  "repo": "wmqfl861/dsh861",
+  "branch": "chore/latest-stable-upgrade-20260912",
+  "source_baseline": "7f63d03538759306f8363d5a912c1e99fbe015bf",
+  "plan_commit": "c210773637b5e2f2a7205cb5589c4ff311b9efdc",
+  "plan_branch": "docs/delivery-blueprint-20260919",
+  "plan_adoption_note": "Extracted development/delivery-plan/ only; README.md renamed 00-README.md in the adopted copy (bilingual README scope, r47/r48 precedent); plan branch keeps original name. All other plan bytes identical to c2107736.",
+  "toolchain": {
+    "node": "C:\dsh-r24-upgrade-20260912-01\node-v26.8.2-win-x64 (v26.8.2)",
+    "pnpm": "C:\dsh-r24-upgrade-20260912-01\pnpm-12.4.1 (12.4.1)",
+    "note": "system pnpm shim broken; all commands use dual-dir PATH prefix; vitest uses direct node entry (r45 finding A)"
+  },
+  "worktree_classification": {
+    "keep_local": [
+      "development/remediation/2026-09-17/production-teardown-r44/planning/cli-availability-probe.md",
+      "development/remediation/2026-09-17/production-teardown-r44/review/BLOCKED-opencode-hard-review.md",
+      "development/remediation/2026-09-17/production-teardown-r44/windows-execution/01-first-failure.normalized.log",
+      "development/remediation/2026-09-19/ci-bubblewrap-acquisition-r47/windows-execution/r47s/"
+    ],
+    "deliverable_modified": [
+      "development/remediation/2026-09-19/private-bubblewrap-build-r48/comment-draft.md (r48 delivery-state backfill; committed placeholder remains at 7f63d035)"
+    ]
+  },
+  "single_writer": "Only this controller integrates, runs shared generators, commits and pushes.",
+  "doc_gate_on_adoption": "test:docs 16 passed / 0 failed (after 00-README.md rename)"
+}
