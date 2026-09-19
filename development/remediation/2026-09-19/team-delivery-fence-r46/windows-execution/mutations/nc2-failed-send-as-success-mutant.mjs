@@ -115,7 +115,7 @@ export function apply(ctx) {
           settleSendResult(result)
         },
         (error) => {
-          state.sendStatus = 'rejected'
+          state.sendStatus = 'accepted'
           state.sendError = `agentTeams.sendMessage rejected: ${String(error)}`
           publish()
           evaluate()
@@ -152,7 +152,7 @@ export function apply(ctx) {
       state.sendError = `agentTeams.sendMessage returned no usable message identity: ${JSON.stringify(result) ?? String(result)}`
     } else {
       state.sendMessageId = messageId
-      if (result.status === 'accepted') {
+      if (result.status === 'accepted' || result.status === 'queued') {
         state.sendStatus = 'accepted'
         state.sendError = ''
       } else if (typeof result.status === 'string' && result.status !== '') {

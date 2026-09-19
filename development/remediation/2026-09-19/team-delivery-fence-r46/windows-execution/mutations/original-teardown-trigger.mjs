@@ -22,23 +22,16 @@ export const inject = ['llm', 'agents', 'subagents', 'agentTeams']
  *    no assistant message). `.dsh/teardown-gate/held.json` marks the hold.
  *  - once the hold is open, the plugin queues one real team message to the
  *    teammate (`agentTeams.sendMessage`, the mailbox the model tool uses) —
- *    the pending-inbox fact — which the held step can never consume. The close
- *    only arms after that exact send settles: `status: 'accepted'` with a
- *    usable message identity (the Lead log's `team/message/queued` plus
- *    `team/message/delivered` for that message are already durable then).
- *    `queued`, rejects, and identity-less results keep the close unarmed and
- *    record the exact outcome in `state.json` instead of reporting success.
- *  - once (held call + pending inbox + idle Lead + confirmed acceptance) all
- *    hold, the plugin calls
+ *    the pending-inbox fact — which the held step can never consume.
+ *  - once (held call + pending inbox + idle Lead) all hold, the plugin calls
  *    `subagents.drainContinuableChildren(lead, [teammateId])` — the real
  *    child close — either immediately (auto mode) or after the test process
- *    creates `.dsh/teardown-gate/trigger` (manual mode; a trigger file that
- *    exists early cannot cross the acceptance barrier). The Team runtime's
+ *    creates `.dsh/teardown-gate/trigger` (manual mode). The Team runtime's
  *    own close transaction still runs afterwards through the real root
  *    unload at runtime shutdown.
  *  - `.dsh/teardown-gate/state.json` records the observed facts (hold,
- *    pending inbox, idle Lead, send settlement, trigger identity, cancel
- *    handshake, close settlement) for the teardown snapshot adapter.
+ *    pending inbox, idle Lead, trigger identity, cancel handshake, close
+ *    settlement) for the teardown snapshot adapter.
  *
  * @param {import('@deepseek-ai/cordis').Context} ctx - the booted runtime context.
  */
@@ -53,9 +46,7 @@ export function apply(ctx) {
     llmCalls: [],
     held: false,
     heldCall: 0,
-    sendStatus: '',
-    sendMessageId: '',
-    sendError: '',
+    pendingQueued: false,
     pendingInbox: 0,
     leadIdle: false,
     ready: false,
@@ -95,32 +86,25 @@ export function apply(ctx) {
     if (!isTeammate || call !== 2) return next()
     state.held = true
     state.heldCall = call
-    if (teammateId === undefined) teammateId = key
     publish()
     writeFileSync(join(gateRoot, 'held.json'), `${JSON.stringify({ teammateSessionId: key, call })}\n`)
     const signal = options.signal ?? new AbortController().signal
     if (!queued && lead !== undefined) {
       // The pending-inbox fact: queue one real team message behind the held
       // step. The plugin times it, so the queued item can never merge into
-      // that step. The send's dispatch inserts into the teammate inbox and
-      // appends the Lead-log delivery edges before it can settle accepted,
-      // so the settlement below is the durable-delivery confirmation.
+      // that step.
       queued = true
       void ctx.agentTeams.sendMessage(lead, {
         target: 'worker',
         content: [{ type: 'text', text: 'Hold this thought until asked again.' }],
         signal: new AbortController().signal,
-      }).then(
-        (result) => {
-          settleSendResult(result)
-        },
-        (error) => {
-          state.sendStatus = 'rejected'
-          state.sendError = `agentTeams.sendMessage rejected: ${String(error)}`
-          publish()
-          evaluate()
-        },
-      )
+      }).then(() => {
+        state.pendingQueued = true
+        publish()
+      }, () => {
+        state.pendingQueued = true
+        publish()
+      })
     }
     return (async function* () {
       // The model-side replacement for the held call: wait for the request's
@@ -141,32 +125,6 @@ export function apply(ctx) {
     })()
   })
 
-  /** Record one settled send and re-evaluate readiness off the verified outcome. */
-  const settleSendResult = (result) => {
-    const messageId = result !== null && typeof result === 'object' && typeof result.messageId === 'string'
-      ? result.messageId
-      : ''
-    if (messageId === '') {
-      state.sendStatus = 'invalid'
-      state.sendMessageId = ''
-      state.sendError = `agentTeams.sendMessage returned no usable message identity: ${JSON.stringify(result) ?? String(result)}`
-    } else {
-      state.sendMessageId = messageId
-      if (result.status === 'accepted') {
-        state.sendStatus = 'accepted'
-        state.sendError = ''
-      } else if (typeof result.status === 'string' && result.status !== '') {
-        state.sendStatus = result.status
-        state.sendError = `agentTeams.sendMessage settled without acceptance: status ${result.status} for message ${messageId}`
-      } else {
-        state.sendStatus = 'invalid'
-        state.sendError = `agentTeams.sendMessage settled with an unusable status for message ${messageId}: ${JSON.stringify(result.status) ?? String(result.status)}`
-      }
-    }
-    publish()
-    evaluate()
-  }
-
   const fire = () => {
     if (state.triggered || lead === undefined || teammateId === undefined) return
     state.triggered = true
@@ -182,7 +140,7 @@ export function apply(ctx) {
     })
   }
   const evaluate = () => {
-    if (state.held && state.pendingInbox >= 1 && state.leadIdle && state.sendStatus === 'accepted' && !state.ready) {
+    if (state.held && state.pendingInbox >= 1 && state.leadIdle && !state.ready) {
       state.ready = true
       publish()
     }
@@ -216,9 +174,6 @@ export function apply(ctx) {
     if (agent === undefined || agent.session === undefined) return
     if (agent.session.header.parentSession === undefined) return
     if (teammateId === undefined) teammateId = agent.session.header.id
-    // Only the exact teammate's inserts are the scenario's pending-inbox fact;
-    // an unrelated child's insert must never arm the close.
-    if (agent.session.header.id !== teammateId) return
     if (state.held) {
       state.pendingInbox += 1
       publish()

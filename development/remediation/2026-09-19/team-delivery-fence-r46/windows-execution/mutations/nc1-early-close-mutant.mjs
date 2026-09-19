@@ -182,7 +182,7 @@ export function apply(ctx) {
     })
   }
   const evaluate = () => {
-    if (state.held && state.pendingInbox >= 1 && state.leadIdle && state.sendStatus === 'accepted' && !state.ready) {
+    if (state.held && state.pendingInbox >= 1 && state.leadIdle && !state.ready) {
       state.ready = true
       publish()
     }

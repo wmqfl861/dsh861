@@ -1,0 +1,50 @@
+$ tsx scripts/run-gates.ts doc-quick
+run-gates: doc-quick running 16 gate(s) with 4 worker(s) from 20 available CPU(s), doc-quick cap 4.
+run-gates: start markdown links
+run-gates: start type equivalence
+run-gates: start translation pairing
+run-gates: start markdown wrap
+run-gates: PASS markdown wrap (14.23s)
+run-gates: start public repository links
+run-gates: PASS type equivalence (14.81s)
+run-gates: start doc refs
+run-gates: PASS doc refs (3.46s)
+run-gates: start package README Summaries
+run-gates: PASS package README Summaries (0.58s)
+run-gates: start package README model experience
+run-gates: PASS public repository links (8.54s)
+run-gates: start agent note classification
+run-gates: PASS agent note classification (0.69s)
+run-gates: start agent note format
+run-gates: PASS agent note format (0.67s)
+run-gates: start archived agent notes
+run-gates: PASS archived agent notes (1.03s)
+run-gates: start skill invocation metadata
+run-gates: PASS skill invocation metadata (0.64s)
+run-gates: start translation prompt
+run-gates: PASS translation pairing (26.18s)
+run-gates: start doc budgets
+run-gates: PASS translation prompt (0.59s)
+run-gates: start documentation standard tests
+run-gates: PASS doc budgets (0.53s)
+run-gates: start package README limitations
+run-gates: PASS package README model experience (9.29s)
+
+== FAILED markdown links (28.53s) ==
+command: pnpm run verify-md-links
+outcome: exit 1
+$ tsx scripts/verify-md-links.ts
+verify-md-links: broken relative cross-links found:
+  .agents\notes\implemented\testing\2026-09-19-team-delivery-fence-r46.md:29  ../../../../development/remediation/2026-09-19/team-delivery-fence-r46/windows-execution/FINDINGS.md  (target does not exist)
+  .agents\notes\implemented\testing\2026-09-19-team-delivery-fence-r46.zh.md:29  ../../../../development/remediation/2026-09-19/team-delivery-fence-r46/windows-execution/FINDINGS.md  (target does not exist)
+[ELIFECYCLE] Command failed with exit code 1.
+run-gates: PASS documentation standard tests (2.83s)
+run-gates: PASS package README limitations (8.46s)
+
+run-gates: 15 passed, 1 failed, 0 skipped in 35.18s.
+run-gates: unsuccessful gates:
+  - FAILED markdown links (28.53s, exit 1)
+    pnpm run verify-md-links
+[ELIFECYCLE] Command failed with exit code 1.
+EXIT:1
+2026-09-19T01:15:06Z

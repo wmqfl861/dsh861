@@ -8,7 +8,10 @@
  * notification and the real post-close suffix, then takes over write
  * ownership of the original session directory after the runtime's protocol
  * shutdown. The committed goldens are verified by `sdk.snapshot.ts`; this
- * adapter pins the close-triggering evidence chain itself.
+ * adapter pins the close-triggering evidence chain itself. The Team case also
+ * pins the send-delivery fence: the close arms only behind the scenario
+ * send's confirmed acceptance, and the same message identity must be durably
+ * queued and delivered in the real Lead log before any close-produced event.
  */
 
 import { existsSync } from 'node:fs'
@@ -46,6 +49,12 @@ interface GateState {
   pendingInbox: number
   parentIdle: boolean
   leadIdle: boolean
+  /** Team case only: settlement of the scenario's own `agentTeams.sendMessage`. */
+  readonly sendStatus?: string
+  /** Team case only: message identity returned by the accepted send. */
+  readonly sendMessageId?: string
+  /** Team case only: exact reason a send settled without acceptance. */
+  readonly sendError?: string
   ready: boolean
   triggered: boolean
   trigger: string
@@ -131,12 +140,24 @@ async function readGateState(gateRoot: string): Promise<GateState> {
   return parseRecord(await readFile(join(gateRoot, 'state.json'), 'utf8')) as unknown as GateState
 }
 
-/** Poll until the deadline; throws with the last observed state on timeout. */
-async function pollGate(gateRoot: string, what: string, done: (state: GateState) => boolean): Promise<GateState> {
+/**
+ * Poll until the deadline; throws with the last observed state on timeout or
+ * as soon as `failed` names a terminal gate failure (a Team send that settled
+ * without acceptance never arms, so reporting it beats waiting out the clock).
+ */
+async function pollGate(
+  gateRoot: string,
+  what: string,
+  done: (state: GateState) => boolean,
+  failed?: (state: GateState) => boolean,
+): Promise<GateState> {
   const deadline = Date.now() + 60_000
   for (;;) {
     const state = await readGateState(gateRoot)
     if (done(state)) return state
+    if (failed !== undefined && failed(state)) {
+      throw new Error(`teardown gate: ${what} failed (state: ${JSON.stringify(state)})`)
+    }
     if (Date.now() > deadline) {
       throw new Error(`teardown gate: ${what} not reached within 60s (last state: ${JSON.stringify(state)})`)
     }
@@ -388,12 +409,24 @@ describe('production-teardown close evidence over dsh --profile sdk', () => {
         await session.run(materializeTurn(first, cwd, liveSessions))
         await tap.waitForRootTurnEnd(first.turn)
 
-        // Gate held: the plugin has the real close armed but not fired.
-        const armed = await pollGate(gateRoot, 'armed close', state => state.ready && !state.triggered)
+        // Gate held: the plugin has the real close armed but not fired. The
+        // Team case additionally proves the close armed behind a confirmed
+        // acceptance of the scenario's own send, and surfaces a send that
+        // settled without acceptance immediately instead of timing out.
+        const sendFailed = (state: GateState): boolean => state.sendError !== undefined && state.sendError !== ''
+        const armed = await pollGate(gateRoot, 'armed close',
+          state => state.ready && !state.triggered,
+          testCase.name === 'agent-team-teardown' ? sendFailed : undefined)
         expect(armed.held, `${testCase.name}: held model call before close`).toBe(true)
         expect(armed.pendingInbox, `${testCase.name}: pending inbox before close`).toBeGreaterThanOrEqual(1)
         expect(testCase.name === 'agent-team-teardown' ? armed.leadIdle : armed.parentIdle,
           `${testCase.name}: root idle before close`).toBe(true)
+        const sendMessageId = armed.sendMessageId
+        if (testCase.name === 'agent-team-teardown') {
+          expect(armed.sendStatus, `${testCase.name}: close armed behind an accepted send`).toBe('accepted')
+          expect(typeof sendMessageId === 'string' && sendMessageId !== '',
+            `${testCase.name}: accepted send carries a message identity`).toBe(true)
+        }
 
         const held = parseRecord(await readFile(join(gateRoot, 'held.json'), 'utf8'))
         const childId = testCase.name === 'agent-team-teardown'
@@ -417,6 +450,38 @@ describe('production-teardown close evidence over dsh --profile sdk', () => {
         const secondStep = preChild.events.findLast(line => parseRecord(line).type === 'step/start')
         if (secondStep === undefined) throw new Error(`${testCase.name}: child has no held step before close`)
         const heldStepSeq = seqOf(secondStep)
+
+        // Team case: the confirmed message is durably queued AND delivered in
+        // the real Lead log before the close is released; the acceptance the
+        // trigger waited for is persisted delivery, not an in-memory flag.
+        const teamMessageId = sendMessageId ?? ''
+        let deliveredPreSeq = -1
+        if (testCase.name === 'agent-team-teardown') {
+          const queuedLine = preRoot.events.find(line => {
+            const record = parseRecord(line)
+            if (record.type !== 'team/message/queued') return false
+            const message = (record.data as { message?: { id?: string } }).message
+            return message?.id === teamMessageId
+          })
+          if (queuedLine === undefined) {
+            throw new Error(`${testCase.name}: no persisted team/message/queued for message ${teamMessageId}`)
+          }
+          expect((parseRecord(queuedLine).data as { message: { targetId: string } }).message.targetId,
+            `${testCase.name}: queued message targets the teammate`).toBe(childId)
+          const deliveredLine = preRoot.events.find(line => {
+            const record = parseRecord(line)
+            if (record.type !== 'team/message/delivered') return false
+            return (record.data as { messageId?: string }).messageId === teamMessageId
+          })
+          if (deliveredLine === undefined) {
+            throw new Error(`${testCase.name}: no persisted team/message/delivered for message ${teamMessageId} before the close`)
+          }
+          expect((parseRecord(deliveredLine).data as { targetId: string }).targetId,
+            `${testCase.name}: delivered message targets the teammate`).toBe(childId)
+          deliveredPreSeq = seqOf(deliveredLine)
+          expect(deliveredPreSeq, `${testCase.name}: delivery persisted after its queue edge`)
+            .toBeGreaterThan(seqOf(queuedLine))
+        }
 
         // While the close is held the live runtime still owns every session's
         // write ownership in the original directory.
@@ -484,6 +549,19 @@ describe('production-teardown close evidence over dsh --profile sdk', () => {
           })
         expect(pendingInserts.length, `${testCase.name}: pending inbox landed behind the held call`)
           .toBeGreaterThanOrEqual(1)
+        if (testCase.name === 'agent-team-teardown') {
+          const pendingIsTheSentMessage = postChild.events
+            .filter(line => seqOf(line) > heldStepSeq)
+            .some(line => {
+              const record = parseRecord(line)
+              if (record.type !== 'agent/inbox/spliced') return false
+              const inserted = (record.data as { inserted?: { source?: { kind?: string; messageId?: string } }[] }).inserted
+              return Array.isArray(inserted) && inserted.some(item => item.source?.kind === 'team-message'
+                && item.source.messageId === teamMessageId)
+            })
+          expect(pendingIsTheSentMessage,
+            `${testCase.name}: the confirmed message itself is the pending inbox content behind the held step`).toBe(true)
+        }
         if (testCase.rootSuffix === 'empty') {
           expect(rootSuffix, `${testCase.name}: the close appends no root events`).toEqual([])
         } else {
@@ -494,6 +572,11 @@ describe('production-teardown close evidence over dsh --profile sdk', () => {
           expect((parseRecord(finalEnd).data as { turn?: number }).turn,
             `${testCase.name}: the close settled the background child on the root session`)
             .toBe(testCase.settledRootTurn)
+        }
+        if (testCase.name === 'agent-team-teardown') {
+          const firstCloseSeq = rootSuffix.length > 0 ? seqOf(rootSuffix[0] as string) : Number.POSITIVE_INFINITY
+          expect(deliveredPreSeq, `${testCase.name}: delivery precedes every close-produced root event`)
+            .toBeLessThan(firstCloseSeq)
         }
         const postReads = await Promise.all(postLogs.map(log => readFile(log.path, 'utf8')))
 
@@ -510,7 +593,7 @@ describe('production-teardown close evidence over dsh --profile sdk', () => {
         expect(takeoverReads, `${testCase.name}: takeover close appended nothing`).toEqual(postReads)
 
         // Evidence line for the repo-external run log.
-        console.info(`teardown-snapshot ${testCase.name}: child ${childId} pre-seq ${preChildSeq} -> post-seq ${childSeqs.at(-1)}, root pre-seq ${preRootSeq} -> suffix ${rootSuffix.length} events, takeover claims 2, notifications ${tap.finishedChildren.size}`)
+        console.info(`teardown-snapshot ${testCase.name}: child ${childId} pre-seq ${preChildSeq} -> post-seq ${childSeqs.at(-1)}, root pre-seq ${preRootSeq} -> suffix ${rootSuffix.length} events, takeover claims 2, notifications ${tap.finishedChildren.size}${testCase.name === 'agent-team-teardown' ? `, team message ${teamMessageId} delivered@${deliveredPreSeq} before the close suffix` : ''}`)
         await tap.drain()
       } finally {
         await harness.close()

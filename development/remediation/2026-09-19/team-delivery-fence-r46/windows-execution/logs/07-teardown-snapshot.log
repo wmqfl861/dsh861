@@ -1,0 +1,22 @@
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+Both esbuild and oxc options were set. oxc options will be used and esbuild options will be ignored. The following esbuild options were set: `{ jsx: 'automatic' }`
+
+ RUN  v5.0.0 C:/Albert/project/dsh861
+
+stdout | snapshots/sdk/teardown.snapshot.ts > production-teardown close evidence over dsh --profile sdk > holds, releases, and observes the real close for subagent-teardown
+teardown-snapshot subagent-teardown: child 48bf5b6d-4ba6-4d81-bbed-e7c70d0fe30e pre-seq 19 -> post-seq 24, root pre-seq 26 -> suffix 8 events, takeover claims 2, notifications 1
+
+stdout | snapshots/sdk/teardown.snapshot.ts > production-teardown close evidence over dsh --profile sdk > holds, releases, and observes the real close for agent-team-teardown
+teardown-snapshot agent-team-teardown: child 16b073c9-84dc-459c-9408-ace9986f579f pre-seq 20 -> post-seq 24, root pre-seq 32 -> suffix 8 events, takeover claims 2, notifications 1, team message team-message-85c57edb-6c56-45f5-9cd1-bcdb984b6539 delivered@32 before the close suffix
+
+ ✓ snapshots/sdk/teardown.snapshot.ts (2 tests) 7496ms
+   ✓ production-teardown close evidence over dsh --profile sdk (2)
+     ✓ holds, releases, and observes the real close for subagent-teardown 3686ms
+     ✓ holds, releases, and observes the real close for agent-team-teardown 3808ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  08:57:35
+   Duration  9.67s (tests 80%, transform 14%, import 5%, setup 1%)
+
+EXIT:0
