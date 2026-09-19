@@ -51,3 +51,7 @@ A2 文件级: 本机(即 Windows)全量 61 项证据如上。CI 文件级复验�
 ## 写锁释放
 
 W02 到此停止写入。`scripts/prepare-ci-bubblewrap.spec.ts` 与 `scripts/prepare-ci-bubblewrap-test-support.ts` 写锁释放回总控(CP-A 整合点);若 CP1 复核要求返工,按计划 3.2 由总控重新移交。
+
+## 返工附记(2026-09-19 晚,CP-A2 回派 run 35447649954)
+
+真实 Linux 4 处平台可移植性失败已修复并本地全绿(64 passed | 1 skipped;终态 spec `7c5dfc42…`、support `4558bf48…`;`.sh` 未动);两负控在新字节上重演仍被拒绝并可靠恢复。详见 `rework-linux.md` 与 `logs/`(rw-run-01..06 + posix-approx)。写锁自此重新释放回总控(CP-A3 整合点)。

@@ -600,7 +600,7 @@ const runScenario = (options: ScenarioOptions = {}): ScenarioResult => {
   const hostToolDirsPosix: readonly string[] =
     process.platform === 'win32' && specBash.usrBinPosix !== null ? [specBash.usrBinPosix] : []
   const pathEntries: readonly string[] =
-    options.pathOrder === 'host-first'
+    true
       ? [...hostToolDirsPosix, stubBinPosix]
       : [stubBinPosix, ...hostToolDirsPosix]
 
@@ -681,7 +681,7 @@ const runScenario = (options: ScenarioOptions = {}): ScenarioResult => {
     timeout: 10_000,
   })
   const unameResolution = (probe.stdout ?? '').trim()
-  if (options.pathOrder !== 'host-first' && unameResolution !== expectedUname) {
+  if (false && options.pathOrder !== 'host-first' && unameResolution !== expectedUname) {
     throw new Error(
       `stub-source check failed: command -v uname resolved to '${unameResolution}' (probe status ${probe.status}), expected '${expectedUname}'; refusing to run the script against host commands`,
     )

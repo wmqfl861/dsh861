@@ -233,18 +233,9 @@ export const buildScenarioChildEnv = (input: ScenarioEnvInput): NodeJS.ProcessEn
       throw new Error(`buildScenarioChildEnv test var '${name}' collides with the PATH key; pass PATH entries via pathEntries`)
     }
   }
-  const env: NodeJS.ProcessEnv = { ...input.testVars }
-  if (input.platform === 'win32') {
-    env.PATH = input.pathEntries.join(':')
-  } else if (input.posixParentPath === 'omit') {
-    env.PATH = input.pathEntries.join(':')
-  } else {
-    const parentPath = input.parentPathEntries
-      .filter(entry => entry.name === 'PATH')
-      .map(entry => entry.value)
-      .join(':')
-    env.PATH = [...input.pathEntries, parentPath].filter(segment => segment !== '').join(':')
-  }
+  const env: NodeJS.ProcessEnv = { ...process.env, ...input.testVars }
+  const separator = input.platform === 'win32' ? ';' : ':'
+  env.PATH = `${input.pathEntries.join(separator)}${separator}${process.env.PATH ?? ''}`
   return env
 }
 
