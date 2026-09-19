@@ -78,3 +78,23 @@ Windows 侧 64 passed | 1 skipped 全绿,既有断言零改动、零弱化(唯�
 - 真实 Linux 复验未执行(候选归 CP-A3 后 CI 触发);POSIX 平台分支以 §4 近似+证据论证。
 - 全量 typecheck/lint/duplication/coverage(归 CP-A3/整合);未读密钥/.env;未调用外部代理;未提交未推送。
 - `job-a2-snapshots.log` 等同 run 其他作业证据未逐行归类(总控 W11 职责)。
+
+## 9. 微修轮(run 35460812553 终验回派,lint:contracts-ready)
+
+CI consumers 聚合中 `lint:contracts-ready` 报 `scripts/prepare-ci-bubblewrap-test-support.ts` 4 处 `typescript(no-unnecessary-condition)`(`proc.stdout` 在 `encoding: 'utf8'` 下类型为非空 string,`?? ''` 多余;证据 `C:\dsh-b01-w03\gate-evidence-run43\aggregate-stdout.log` 24-60 行,位置 156:32/164:32/186:23/203:25)。本地 `lint` 与 CI `lint:contracts-ready` 为两变体(后者 `tsx scripts/run-oxlint.ts .`)。
+
+精确 diff(4 处,均在 test-support):
+- `return proc.status === 0 && (proc.stdout ?? '') === 'w02-bash-ok'` → `return proc.status === 0 && proc.stdout === 'w02-bash-ok'`(附一行注释说明类型依据)
+- `return /^(msys|cygwin)/.test(proc.stdout ?? '')` → `.test(proc.stdout)`
+- `const absolute = (resolved.stdout ?? '').trim()` → `resolved.stdout.trim()`
+- `candidates.push(...(where.stdout ?? '').split('\n')…)` → `...where.stdout.split('\n')…`
+
+运行时语义不变(带 encoding 的 spawnSync stdout 恒为 string,空输出即 `''`),stub 输出/identity/断言不受影响。spec 文件本轮零改动。
+
+| 验证(公共环境同前,均后台+轮询) | 真实退出码 | 结果 |
+|---|---|---|
+| `pnpm run lint:contracts-ready`(CI 同款) | 0 | 0 warnings 0 errors,123.0s,3615 files/90 rules |
+| `pnpm run lint`(本地全变体,含 build:lib:host) | 0 | 0 warnings 0 errors,106.6s |
+| spec 全量直连重跑 | 0 | **64 passed \| 1 skipped(65)**,148.02s |
+
+终态 blob: test-support `4558bf48…` → `115df986f3754eeabc68efce653aeeec6d3ceebd`;spec `7c5dfc42…`、`.sh` `cf6f7a13…` 未动。日志 `logs/mf-run-01..03`;原始 `C:\dsh-b01-w02\raw\`。写锁释放回总控(CP-A5 最后整合)。

@@ -153,7 +153,8 @@ const validatesAsSpecBash = (command: string): boolean => {
     encoding: 'utf8',
     timeout: 10_000,
   })
-  return proc.status === 0 && (proc.stdout ?? '') === 'w02-bash-ok'
+  // `encoding: 'utf8'` types stdout as a non-null string (empty when silent).
+  return proc.status === 0 && proc.stdout === 'w02-bash-ok'
 }
 
 const isMsysBash = (command: string): boolean => {
@@ -161,7 +162,7 @@ const isMsysBash = (command: string): boolean => {
     encoding: 'utf8',
     timeout: 10_000,
   })
-  return /^(msys|cygwin)/.test(proc.stdout ?? '')
+  return /^(msys|cygwin)/.test(proc.stdout)
 }
 
 /**
@@ -183,7 +184,7 @@ export const resolveSpecBash = (): SpecBash => {
       encoding: 'utf8',
       timeout: 10_000,
     })
-    const absolute = (resolved.stdout ?? '').trim()
+    const absolute = resolved.stdout.trim()
     if (resolved.status === 0 && /^\/.*\/bash$/.test(absolute) && validatesAsSpecBash(absolute)) {
       return { command: absolute, usrBinPosix: null, kind: 'posix-bash' }
     }
@@ -200,7 +201,7 @@ export const resolveSpecBash = (): SpecBash => {
       encoding: 'utf8',
       timeout: 10_000,
     })
-    candidates.push(...(where.stdout ?? '').split('\n').map(line => line.trim()).filter(line => line !== ''))
+    candidates.push(...where.stdout.split('\n').map(line => line.trim()).filter(line => line !== ''))
   }
   for (const candidate of candidates) {
     if (validatesAsSpecBash(candidate) && isMsysBash(candidate)) {

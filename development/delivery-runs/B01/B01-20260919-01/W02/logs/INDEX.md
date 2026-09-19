@@ -29,3 +29,11 @@
 | `rw-run-06-final-forward-full.out/.exit` | NC-B 恢复后全量正向(终态) | 0 | 64 passed \| 1 skipped(65),209.83s |
 
 返工负控突变体:NC-A `3439c880…`、NC-B `b456e71f…`(副本 `../mutations/*-rework.*.disabled`);恢复后 spec `7c5dfc42…`、support `4558bf48…` 与备份(SHA-256 `8467f84b…`/`88b89c20…`)一致。
+
+# 微修轮(run 35460812553,lint:contracts-ready 4 处 no-unnecessary-condition;详见 `../rework-linux.md` §9)
+
+| 日志 | 内容 | 真实退出码 | 结果 |
+|---|---|---|---|
+| `mf-run-01-lint-contracts.out/.exit` | `pnpm run lint:contracts-ready`(CI 同款变体) | 0 | 0 warnings 0 errors,123.0s |
+| `mf-run-02-lint-full.out/.exit` | `pnpm run lint`(本地全变体,含 build:lib:host) | 0 | 0 warnings 0 errors,106.6s |
+| `mf-run-03-spec-full.out/.exit` | spec 全量直连重跑 | 0 | 64 passed \| 1 skipped(65),148.02s |

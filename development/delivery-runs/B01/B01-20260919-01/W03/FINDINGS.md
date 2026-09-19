@@ -1,5 +1,15 @@
 # W03 FINDINGS — B01-20260919-01
 
+## CP-A4 终验轮（run 35460812553，2026-09-19T18:19–18:36Z；三线终验合一；详见 [linux-evidence-cp-a4.md](linux-evidence-cp-a4.md)）
+
+- **A4-1 身份链闭合（最强级）**：run 43 / attempt 1 / head `89dce53b80`；merge `9ddc0cfe` 的**全树 diff 与本地 HEAD 为空**（匿名 git fetch 后逐字节比对，强于 A3 轮四文件核）；六份 `.default` 侧车 blob 与 W04 round-2 §2 清单逐一相符；`ci.yml` `c6b939a7` 不变。
+- **A4-2 (c) 准备管线第四连证（确证）**：coverage 15s / consumers 16s 两路 "Install dependencies and prepare bubblewrap" success（run 40→41→42→43 四连过）。
+- **A4-3 (a) pi-ai/expected + (b) snapshot 五项：失败签名面为空（推断绿，待权威表）**：consumers gates 步骤仍 failure（4m06s，较 A3 +45s），但 annotations 零测试级失败——run 40/41 的 pi-ai "2 vs 5" 与 run 42 的两条 teardown AssertionError 均经该渠道逐字浮现过，本轮全部未出现；guard 断言（fixture ≥10000ms）亦未触发；gate-evidence artifact 仅 5,851 bytes（对比 run 42 快照失败 30,910 / run 40 expected 失败 9,145——无 diff 载荷）。
+- **A4-4 aggregate 失败点归因（开放，待总控）**：失败在 expected/snapshot 签名面之外；候选=首次真实执行的 web-snapshot（run 40–42 被 fail-fast 挡住从未执行）、built-bin-smoke（本系列未证绿）、doc-typecheck（A4 改 docs pair）、node-next-types；A4 桌面/preview 面不在 ci-consumers gate 文件面（git grep 实证）。**下载清单：artifact `10589694221`（必需）+ job `105944222541` gates 步骤日志（必需）**；可选 `10590080207`/`10588904564`。
+- **A4-5 其余作业**：static / windows observational 维持绿；Linux coverage 残留 W11 族（inspector CDP ×2——cordis-tree:62 复现 + integration.host:45 新增、code-runtime-python 60s 复现）且 **prepare-spec 零失败延续**；Windows coverage `gen-client-catalog.spec.ts:200` 30s（同 A3 签名，G6 族）；E2E skipped（无 key）；Release×2/Node Addon success；Issue×2、Build PR preview failure（沿 F11）。
+
+---
+
 ## CP-A3 收尾轮（run 35450138445，2026-09-19T14:55Z；详见 [linux-evidence-cp-a3.md](linux-evidence-cp-a3.md)）
 
 - **A3-1 W02 返工实测转绿**：coverage annotations 中 `prepare-ci-bubblewrap.spec.ts` 4 处失败零出现（CP-A2 曾浮现 stub-source×2、:907、:787）；逐文件权威表在 artifact `10587360084`。
