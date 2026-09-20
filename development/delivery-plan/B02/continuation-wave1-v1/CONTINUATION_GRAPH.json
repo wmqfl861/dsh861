@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "purpose": "Resume an existing B02 run after reported Wave 1 CP1 acceptance; do not reset local state.",
+  "status_source": "owner_forwarded_local_report_not_independent_verification",
+  "observed_remote_head": "59579599fa34b6fff47b1c4d525459d2148eb1f8",
+  "original_plan_commit": "5d00b635ab9d38bd8a3e99b6fe3cc10d0239fa69",
+  "local_resume_path": null,
+  "local_candidate_manifest": null,
+  "central_wiring_source": "Resolve the actual ten-item list from the matching local RESUME and formal plan; its contents were not supplied remotely.",
+  "reported_inherited": {
+    "C00": "cp1_accepted_reported",
+    "C01": "cp1_accepted_reported",
+    "C02": "cp1_accepted_reported",
+    "C03": "cp1_accepted_reported_with_handoff_observations",
+    "C04": "cp1_accepted_reported",
+    "C05": "cp1_accepted_reported"
+  },
+  "resources": {"initial_implementation_slots": 2, "maximum_implementation_slots": 3, "independent_review_slots": 1, "heavy_build_slots": 1, "light_test_slots": 2, "git_writers": 1},
+  "semantics": {
+    "start_after": "Required recovery or usable implementation handoff; this is not automatic product acceptance.",
+    "accept_after": "Evidence required by original B02 acceptance remains mandatory.",
+    "partial_report": "All ready work may finish with explicit dependency blockers, but missing mandatory evidence never becomes FEATURE_ACCEPTED.",
+    "formal_mapping": "Reuse the accepted local C00 mapping; do not re-open it merely due to a new session and do not override real governance conflicts."
+  },
+  "tasks": [
+    {"id":"RESUME","start_after":[],"accept_after":[],"owner":"coordinator","locks":["ownership"]},
+    {"id":"CP-A1","start_after":["RESUME"],"accept_after":[],"owner":"coordinator","locks":["central-wiring","lockfile","generators","git"]},
+    {"id":"C06","start_after":["CP-A1"],"accept_after":[],"owner":"runtime","locks":["scheduler-core"]},
+    {"id":"C07","start_after":["C06"],"accept_after":[],"owner":"runtime","locks":["scheduler-core","admission-budget"]},
+    {"id":"C08","start_after":["C07"],"accept_after":[],"owner":"runtime","locks":["scheduler-core","schedule-recovery"]},
+    {"id":"C09","start_after":["CP-A1"],"accept_after":["C06","C07","C08"],"owner":"ui","locks":["ui-runs"]},
+    {"id":"C10","start_after":["CP-A1"],"accept_after":[],"owner":"provider-verification","locks":["authorized-product-resources"]},
+    {"id":"C11","start_after":["CP-A1"],"accept_after":["C06","C07","C08"],"owner":"independent-tests","locks":["boundary-tests"]},
+    {"id":"C12","start_after":["C08","C09","C11"],"accept_after":["C10"],"owner":"integration","locks":["candidate-freeze","heavy-build","desktop-product"]},
+    {"id":"C13","start_after":["C12"],"accept_after":[],"owner":"designated-review-and-coordinator","locks":["candidate-freeze","git"]}
+  ],
+  "do_not_reset": ["local RESUME", "local STATUS", "C00 formal plan and revisions", "C01 B02-control-v1", "C00-C05 accepted evidence", "keep-local files", "B01 and historical S3 records"],
+  "rules": [
+    "The integration dimensions in RESTORE_AND_CP_A1 are not invented replacements for the local ten-item wiring list.",
+    "The reported test count is not an independently counted set of unique tests or integrated product acceptance.",
+    "C06, C07 and C08 write the scheduler serially; independent UI and verification tasks use their own files and temporary resources.",
+    "Original C00 and B02 requirements are not weakened by scheduling a checkpoint.",
+    "Only the coordinator changes shared types, generated files, refs or pushes.",
+    "A blocking provider permission does not stop unrelated authorized implementation, and a fixture never proves a real provider works.",
+    "No task reuses an old PASS for changed product bytes.",
+    "CP-A1 and intermediate commits are not the final user handoff unless an unavoidable owner-level blocker remains."
+  ]
+}
