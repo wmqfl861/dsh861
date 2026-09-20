@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "phase": "B02",
+  "kind": "continuation_after_C06_not_new_plan_or_state_reset",
+  "evidence_basis": "latest_owner_forwarded_local_report",
+  "observed_remote_head": "59579599fa34b6fff47b1c4d525459d2148eb1f8",
+  "previous_document_commit": "acd9d7edf6b975097def13bde872ddee81097db9",
+  "local_resume_path": null,
+  "local_candidate_manifest": null,
+  "cp_a1_status": "not_supplied_verify_existing_local_evidence_do_not_repeat_by_default",
+  "handoff_C06_to_C07": {
+    "reported_item_count": 4,
+    "actual_items": null,
+    "rule": "Read exact local source text and map original identifiers to files, implementation and evidence; do not infer the contents from this plan."
+  },
+  "inherited_cards_reported_accepted": ["C00", "C01", "C02", "C03", "C04", "C05", "C06", "C09", "C11"],
+  "remaining_cards": ["C07", "C08", "C10", "C12", "C13"],
+  "reported_counts": {"new_tests": "approximately 1000+ not independently deduplicated", "boundary_negative_cases": 30},
+  "resources": {"initial_implementation_slots": 2, "maximum_implementation_slots": 3, "independent_review_slots": 1, "heavy_build_slots": 1, "light_test_slots": 2, "git_writers": 1},
+  "task_graph": [
+    {"id": "RESUME", "requires": [], "role": "coordinator", "status": "read_actual_local_state"},
+    {"id": "C07", "requires": ["RESUME"], "role": "runtime", "locks": ["scheduler_core"]},
+    {"id": "C08", "requires": ["C07"], "role": "runtime", "locks": ["scheduler_core", "recovery"]},
+    {"id": "C10", "requires": ["RESUME"], "role": "product_verification", "locks": ["authorized_product_resources"]},
+    {"id": "C09_DELTA", "requires": ["RESUME"], "integration_requires": ["C07", "C08"], "role": "ui_integration", "not_a_new_card": true, "locks": ["ui_runs"]},
+    {"id": "C11_DELTA", "requires": ["RESUME"], "integration_requires": ["C07", "C08"], "role": "independent_boundary_tests", "not_a_new_card": true, "locks": ["boundary_tests"]},
+    {"id": "C12", "requires": ["C08", "C09_DELTA", "C11_DELTA"], "product_acceptance_requires": ["C10"], "role": "integration", "locks": ["heavy_build", "desktop_product"]},
+    {"id": "C13", "requires": ["C12"], "role": "designated_review_and_coordinator", "locks": ["candidate_freeze", "git"]}
+  ],
+  "semantics": {
+    "requires": "Usable verified local handoff required for dependent implementation. Real accepted local progress is reused.",
+    "integration_requires": "Delta preparation may proceed earlier; accepting final consumer behavior requires the listed implementations and evidence.",
+    "product_acceptance_requires": "A missing external condition may allow an explicitly partial engineering artifact, never a claim of real product acceptance.",
+    "inherited_acceptance": "Preserve previous CP1 and its candidate identity; verify only changed or newly integrated behavior without hiding regressions."
+  },
+  "stop_conditions": ["new_owner_authority_required", "no_safely_ready_work_remains", "execution_context_requires_checkpoint_and_handoff"],
+  "completion_states": ["FEATURE_ACCEPTED", "FEATURE_PARTIAL", "REWORK"],
+  "invariants": [
+    "No guess replaces the four actual C06 handoff items.",
+    "C07 and C08 serialize changes to scheduler_core.",
+    "C10 can start after recovery without waiting for C08.",
+    "C09 and C11 retain their accepted card records; their deltas do not increase the original 14-card count.",
+    "Only the coordinator changes shared types, generated files, refs or pushes.",
+    "Real product evidence, keyless integration, mock tests, CI and formal review are reported separately.",
+    "C07 acceptance is not a request for the user to issue another micro-task prompt.",
+    "The original A01-A24 and J1-J3 acceptance criteria remain mandatory under their existing definitions."
+  ]
+}
