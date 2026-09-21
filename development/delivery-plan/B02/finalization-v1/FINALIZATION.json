@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "phase": "B02",
+  "kind": "finalization_guidance_not_local_state_or_acceptance",
+  "document_date": "2026-09-21",
+  "source_basis": "current_owner_forwarded_report_plus_remote_read",
+  "observed_development_head": "59579599fa34b6fff47b1c4d525459d2148eb1f8",
+  "previous_document_commit": "c040fdb5a1197c75686e962f4eb43c4410789da8",
+  "local_resume_path": null,
+  "local_candidate_manifest_sha256": null,
+  "status_reconciliation": {
+    "reported_heading": "B02全部14张核心卡ACCEPTED",
+    "enumerated_cards_reported_accepted": ["C00", "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11"],
+    "reported_pending_original_gates": ["CP2", "C12", "C13"],
+    "reported_tests": "approximately 2000+; no independent unique-count verification",
+    "rule": "Preserve source wording. Read actual local mappings and evidence. Preparation and completed core code do not prove C12 or C13 accepted."
+  },
+  "c10": {
+    "reported_scope": "four products and cross-harness keyless",
+    "engineering_results": "retain_local_report_without_reimplementation",
+    "original_A22_status": "not_proven_by_this_summary_verify_existing_evidence",
+    "new_paid_or_credential_authorization": false,
+    "rule": "Distinguish fixture/protocol, real binary, managed execution, actual inference and desktop path by evidence; do not decide solely from the word keyless."
+  },
+  "checkpoint_push": {
+    "new_exemption_granted": false,
+    "allowed_when": "existing formal plan and authorization permit this engineering checkpoint and its mandatory checks/review pass",
+    "classification": "ENGINEERING_CHECKPOINT_NOT_FINAL_ACCEPTANCE",
+    "otherwise": "continue local C12 and C13 before normal final commit; do not waive governance or idle solely to wait for push"
+  },
+  "steps": [
+    {"id": "F0", "requires": [], "purpose": "recover existing RESUME, candidate, ownership and status mapping"},
+    {"id": "F1", "requires": ["F0"], "purpose": "CP2 integrated candidate checks and independent review", "locks": ["product_candidate_freeze"]},
+    {"id": "F2", "requires": ["F1"], "purpose": "conditional engineering checkpoint", "optional_action": true, "locks": ["git"]},
+    {"id": "F3", "requires": ["F1"], "purpose": "C12 new Windows artifact and J1-J3", "locks": ["heavy_build", "desktop_runtime"]},
+    {"id": "F4", "requires": ["F0"], "purpose": "C10 evidence-level reconciliation and only already-authorized missing verification"},
+    {"id": "F5", "requires": ["F3", "F4"], "purpose": "C13 designated complete-candidate hard review", "locks": ["all_product_writers_frozen"]},
+    {"id": "F6", "requires": ["F5"], "purpose": "allowed final delivery or precise partial report", "locks": ["git"]}
+  ],
+  "dependency_semantics": "A completed step means its actual outcome is known; an unresolved mandatory blocker propagates and never enables a success or unauthorized push.",
+  "report_only_path": "If no safely runnable work remains, preserve candidate and give FEATURE_PARTIAL or REWORK with missing evidence; never manufacture review PASS.",
+  "review_implementation_parallelism": false,
+  "resources": {"coordinator_git_writers": 1, "heavy_build_and_gui_slots": 1, "independent_review_slots": 1, "light_evidence_streams_max": 2},
+  "original_product_acceptance": "A01-A24 and J1-J3 unchanged",
+  "completion_states": ["FEATURE_ACCEPTED", "FEATURE_PARTIAL", "REWORK"],
+  "invariants": [
+    "Do not reset C00-C11 or reread all historic logs because the coordinator context changed.",
+    "Do not count C12-prep or C13-prep as actual product journey or formal review completion.",
+    "Keyless engineering evidence is preserved but does not by itself establish original A22.",
+    "CP2 or an intermediate commit is not the endpoint of this task.",
+    "The final executable, review and commit must map to the same validated product bytes.",
+    "Missing real-product evidence cannot be silently waived to obtain unconditional PASS.",
+    "No new credentials, budget, system installation, protected-source expansion or release permission is granted.",
+    "The active development ref and all original records are unchanged by this documentation publication."
+  ]
+}
