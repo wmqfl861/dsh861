@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "phase": "B02",
+  "kind": "non_disruptive_post_build_continuation",
+  "date": "2026-09-21",
+  "parent_document_commit": "53aab6937780e710629c3bba9a05b26efbea44fd",
+  "observed_remote_head": "59579599fa34b6fff47b1c4d525459d2148eb1f8",
+  "evidence_basis": "owner_forwarded_local_report_and_separate_remote_reads",
+  "reported_artifact": {
+    "path": "C:\\dsh-b02-c12\\product\\win-unpacked\\",
+    "file_count": 11886,
+    "size_as_reported": "983 MB",
+    "executable_sha256_abbreviated": "a4172ddc…c2ebe96",
+    "executable_sha256_full": null,
+    "source_manifest": null,
+    "artifact_manifest": null,
+    "independently_verified_by_remote_author": false
+  },
+  "reported_active": ["T6", "C12_J1_J2_J3"],
+  "new_duplicate_tasks_allowed": false,
+  "runtime_fix": {
+    "subject": "required controlStorageRoot was not wired into composition",
+    "source_diff": null,
+    "in_packaged_build": "verify_existing_build_provenance_not_assumed",
+    "requirements": ["actual composition regression", "design-scoped storage isolation", "save and reopen", "explicit persistence failure", "C13 coverage"]
+  },
+  "steps": [
+    {"id":"R","requires":[],"purpose":"reuse actual local run and active task ownership"},
+    {"id":"I","requires":["R"],"purpose":"read existing source/build/artifact mapping without blind rebuild"},
+    {"id":"S","requires":["I"],"purpose":"controlStorageRoot fix evidence at actual composition and package"},
+    {"id":"T6","requires":["R"],"purpose":"observe and complete existing gate run; do not restart"},
+    {"id":"J","requires":["I"],"purpose":"continue existing product-mode J1-J3; do not run a second GUI owner"},
+    {"id":"E","requires":["R"],"purpose":"C10/A22 evidence and substantive START_HERE before review"},
+    {"id":"JOIN","requires":["S","T6","J","E"],"purpose":"bind actual outcomes to one candidate and classify blockers"},
+    {"id":"REVIEW","requires":["JOIN"],"purpose":"designated C13 review with actual argv and complete evidence"},
+    {"id":"SHIP","requires":["REVIEW"],"purpose":"allowed final delivery or truthful partial report, not forced PASS"}
+  ],
+  "edge_semantics": "Requires denotes a verified handoff. Existing ongoing work is adopted, not respawned. A blocker remains a blocker and cannot enable PASS or unauthorized actions.",
+  "review_prerequisites": ["T6 actual outcome", "J1-J3 actual outcomes and package identity", "C10/A22 evidence classification", "storage-root fix coverage", "substantive product instructions", "no unresolved placeholder values"],
+  "checkpoint_commit": "Only under existing explicit plan and authority; otherwise review the complete worktree manifest and commit afterwards.",
+  "resources": {"git_writers":1,"heavy_build_slots":1,"gui_owners":1,"light_readonly_evidence_streams_max":2},
+  "preserve": ["active T6 and journey processes", "existing verified build", "local RESUME and accepted cards", "original A01-A24 and J1-J3", "keep-local and historical evidence"],
+  "never_infer": ["EXE digest proves all runtime bytes", "host smoke proves GUI journeys", "keyless proves or disproves real inference by itself", "local build completion proves final C13", "missing original exit code was zero"],
+  "completion_states": ["FEATURE_ACCEPTED","FEATURE_PARTIAL","REWORK"],
+  "additional_credentials_costs_system_access_or_release_authority": false
+}
